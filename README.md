@@ -28,30 +28,40 @@ implemented as a cross platform mobile app for Android and iOS.
 
 ## Project Technologies
 - Frontend: Flutter(Dart)
--- Why? We have a very good background of Flutter, we learned
+``` 
+Why? We have a very good background of Flutter, we learned
 and worked with Flutter during the summer holidays as
 preparation for this project, and a good background with mobile
 development as a whole. Flutter enables cross-platform mobile
 app development, hence it’s the best option.
+```
 
 - Backend: .NET Core version
--- Why? .NET core allows cross-platform development and it is
+``` 
+Why? .NET core allows cross-platform development and it is
 open source thus allowing for quick and efficient development.
 Stories for building web UI and web APIs will help us in making
 components that we need for the whole system.
+```
 
 - Database: Microsoft SQL Server
--- Why? It supports multiple transaction processing and the table
+``` 
+Why? It supports multiple transaction processing and the table
 is a row based table structure that connects data from different
 table to one another.
+```
 
 - API Architecture:
--- GraphQl - is an open-source data query and manipulation
+``` 
+GraphQl - is an open-source data query and manipulation
 language for APIs.
+```
 
 - Version control:
--- GitHub
--- GitLab
+``` 
+GitHub
+GitLab
+ ```
 
 ## Contributors
 - [Farai Chivunga](https://github.com/FaraiQC)
