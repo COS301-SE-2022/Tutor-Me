@@ -24,7 +24,9 @@ additional functionalities like filtering tutors by gender to enable students to
 ## Project Technologies
 - Frontend: Flutter(Dart)
 ``` 
-Why? We have a very good background of Flutter, we learned and worked with Flutter during the summer holidays as preparation for this project, and a good background with mobile development as a whole. Flutter enables cross-platform mobile app development, hence it’s the best option.
+Why? We have a very good background of Flutter.
+We learned and worked with Flutter during the summer holidays as preparation for this project, and a good background with mobile development as a whole.
+Flutter enables cross-platform mobile app development, hence it’s the best option.
 ```
 
 - Backend: .NET Core version
