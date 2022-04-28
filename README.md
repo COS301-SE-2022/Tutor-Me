@@ -26,6 +26,9 @@ someone that they are comfortable with. We would also look into implementing a
 dark mode of the app for users that prefer it over light mode. The project will be
 implemented as a cross platform mobile app for Android and iOS.
 
+## [Recorded Demo]()
+## [Funtional Requirements]()
+
 ## Project Technologies
 - Frontend: Flutter(Dart)
 ``` 
