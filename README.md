@@ -1,7 +1,7 @@
-# Turor Me
-**CapsOn** 
+# CapsOn
+**Turor Me** 
 
-## Introduction
+## Project Description
 The Tutor Me project is an idea that aims to provide a platform where
 students that need help academically can easily find a tutor that can help them with
 specific modules. This project will be useful especially now that the covid-19
