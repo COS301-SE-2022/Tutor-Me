@@ -25,7 +25,7 @@ additional functionalities like filtering tutors by gender to enable students to
 - Frontend: Flutter(Dart)
 ``` 
 Why? We have a very good background of Flutter.
-We learned and worked with Flutter during the summer holidays as preparation for this project, and a good background with mobile development as a whole.
+We learned and worked with Flutter during the summer holidays as preparation for this project, and a good background in mobile development.
 Flutter enables cross-platform mobile app development, hence it’s the best option.
 ```
 
