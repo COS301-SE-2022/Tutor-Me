@@ -65,7 +65,21 @@ GitLab
 
 ## Contributors
 - [Farai Chivunga](https://github.com/FaraiQC)
+
+ ![GitHub Stats](https://github-readme-stats.vercel.app/api?username=FaraiQC&theme=highcontrast)
+ 
 - [Kudakwashe Chivunga](https://github.com/Kuda214)
+
+ ![GitHub Stats](https://github-readme-stats.vercel.app/api?username=Kuda214&theme=radical)
+ 
 - [Simphiwe Ndlovu](https://github.com/SimphiweNdlovu)
+
+ ![GitHub Stats](https://github-readme-stats.vercel.app/api?username=SimphiweNdlovu&theme=gruvbox)
+ 
 - [Thabo Maduna](https://github.com/MadunaThabo)
+
+ ![GitHub Stats](https://github-readme-stats.vercel.app/api?username=MadunaThabo&theme=cobalt)
+ 
 - [Musa Mabasa](https://github.com/Musa-Mabasa)
+
+ ![GitHub Stats](https://github-readme-stats.vercel.app/api?username=Musa-Mabasa&theme=synthwave)
