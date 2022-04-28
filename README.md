@@ -70,21 +70,21 @@ GitLab
  ![GitHub Stats](https://github-readme-stats.vercel.app/api?username=FaraiQC&theme=highcontrast)
  
 # [Kudakwashe Chivunga](https://github.com/Kuda214)
-- LinkedIn:  <a href="https://linkedin.com/in/farai-chivunga-17a173188" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="kudakwashe-christine-chivunga-7862981b5" height="30" width="40" /></a>
+- LinkedIn:  <a href="https://linkedin.com/in/kudakwashe-christine-chivunga-7862981b5" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="kudakwashe-christine-chivunga-7862981b5" height="30" width="40" /></a>
 
  ![GitHub Stats](https://github-readme-stats.vercel.app/api?username=Kuda214&theme=radical)
  
 # [Simphiwe Ndlovu](https://github.com/SimphiweNdlovu)
-- LinkedIn:  <a href="https://linkedin.com/in/farai-chivunga-17a173188" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="simphiwe-ndlovu-819b68163" height="30" width="40" /></a>
+- LinkedIn:  <a href="https://linkedin.com/in/simphiwe-ndlovu-819b68163" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="simphiwe-ndlovu-819b68163" height="30" width="40" /></a>
 
  ![GitHub Stats](https://github-readme-stats.vercel.app/api?username=SimphiweNdlovu&theme=gruvbox)
  
 # [Thabo Maduna](https://github.com/MadunaThabo)
-- LinkedIn:  <a href="https://linkedin.com/in/farai-chivunga-17a173188" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="thabo-maduna" height="30" width="40" /></a>
+- LinkedIn:  <a href="https://linkedin.com/in/thabo-maduna" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="thabo-maduna" height="30" width="40" /></a>
 
  ![GitHub Stats](https://github-readme-stats.vercel.app/api?username=MadunaThabo&theme=cobalt)
  
 # [Musa Mabasa](https://github.com/Musa-Mabasa)
-- LinkedIn:  <a href="https://linkedin.com/in/farai-chivunga-17a173188" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="" height="30" width="40" /></a>
+- LinkedIn:  <a href="https://linkedin.com/in/" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="" height="30" width="40" /></a>
 
  ![GitHub Stats](https://github-readme-stats.vercel.app/api?username=Musa-Mabasa&theme=synthwave)
