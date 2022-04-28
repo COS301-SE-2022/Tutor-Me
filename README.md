@@ -97,7 +97,7 @@ may be considered as my shortcoming since learning a lot of things at the same t
  ![GitHub Stats](https://github-readme-stats.vercel.app/api?username=MadunaThabo&theme=cobalt)
  
 # [Musa Mabasa](https://github.com/Musa-Mabasa)
-- LinkedIn:  <a href="https://linkedin.com/in/" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="" height="30" width="40" /></a>
+- LinkedIn:  <a href="https://www.linkedin.com/in/musa-besmond-mabasa-7b4aa322a" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="musa-besmond-mabasa-7b4aa322a" height="30" width="40" /></a>
 
 I am determined and I have a drive to build and create software systems since I believe that software systems are the backbone of the economy and the general
 public. I believe I have a well balanced knowledge of backend development and front-end development, this includes designing of interfaces and server management
