@@ -16,5 +16,5 @@ jobs:
         with:
           channel: "stable"
       - run: flutter pub get
-      - run: flutter analyse
+      - run: flutter analyze
       - run: flutter test
