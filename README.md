@@ -1,5 +1,9 @@
-# CapsOn
-**Turor Me** 
+<h1 align="center"> CapsOn </h1> <br>
+<p align="center"> 
+	<img alt="Team Photo" src="https://github.com/COS301-SE-2022/Tutor-ME/blob/develop/assets/Pictures/Group%20Photo.jpg" width="300" height="400">
+	<img alt="Team Logo" src="https://github.com/COS301-SE-2022/Tutor-ME/blob/develop/assets/Pictures/CapsOn.png" width="300" height="400">
+</p>
+<h2 align="center"> Turor Me </h2>
 
 ## Project Description
 The Tutor Me project is an idea that aims to provide a platform where students that need help academically can easily find a tutor that can help them with
