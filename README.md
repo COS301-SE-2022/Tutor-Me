@@ -83,6 +83,7 @@ are still in line with what needs to be produced at the end of the project perio
 - LinkedIn:  <a href="https://linkedin.com/in/kudakwashe-christine-chivunga-7862981b5" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="kudakwashe-christine-chivunga-7862981b5" height="30" width="40" /></a>
  
 I am a self-motivated individual who has worked on multiple projects as a Business analyst(BA) as well as Project manager, both including university of Pretoria projects as well as other company projects.These roles have allowed me to lead teams into successful completion of working systems that are well documented ,easy to revisit,maintain and deliver. Alongside these roles I have worked on multiple object oriented systems, web applications and mobile applications.
+
  ![GitHub Stats](https://github-readme-stats.vercel.app/api?username=Kuda214&theme=radical)
  
 # [Farai Chivunga](https://github.com/FaraiQC)
