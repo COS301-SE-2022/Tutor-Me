@@ -79,21 +79,21 @@ are still in line with what needs to be produced at the end of the project perio
 
 
 ## Contributors
-# [Kudakwashe Chivunga](https://github.com/Kuda214) (Team Lead)
+# [Kudakwashe Chivunga](https://github.com/Kuda214) (Team Lead And API Engineer Lead)
 - LinkedIn:  <a href="https://linkedin.com/in/kudakwashe-christine-chivunga-7862981b5" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="kudakwashe-christine-chivunga-7862981b5" height="30" width="40" /></a>
  
 I am a self-motivated individual who has worked on multiple projects as a Business analyst(BA) as well as Project manager, both including university of Pretoria projects as well as other company projects.These roles have allowed me to lead teams into successful completion of working systems that are well documented ,easy to revisit,maintain and deliver. Alongside these roles I have worked on multiple object oriented systems, web applications and mobile applications.
 
  ![GitHub Stats](https://github-readme-stats.vercel.app/api?username=Kuda214&theme=radical)
  
-# [Farai Chivunga](https://github.com/FaraiQC)
+# [Farai Chivunga](https://github.com/FaraiQC) (Developer Operations Lead)
 - LinkedIn:  <a href="https://linkedin.com/in/farai-chivunga-17a173188" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="farai-chivunga-17a173188" height="30" width="40" /></a>
 
 I am a hardworker and I am able to learn new technologies quickly. I am a team player with excellent communication skills. A shortcoming of mine that I realised is that I tend to spend a lot of time trying tofigure something out, yet when I consult a friend about the problem, they might solve the problem in double quick time (maybe because they have experienced the problem before or they have a fresh perspective on the problem). In the future, I have made it a mission to put my pride aside when I am dealing with a problem and ask my colleagues. This should save me a lot of time.
 
  ![GitHub Stats](https://github-readme-stats.vercel.app/api?username=FaraiQC&theme=highcontrast)
  
-# [Simphiwe Ndlovu](https://github.com/SimphiweNdlovu)
+# [Simphiwe Ndlovu](https://github.com/SimphiweNdlovu) (Data Engineer Lead)
 - LinkedIn:  <a href="https://linkedin.com/in/simphiwe-ndlovu-819b68163" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="simphiwe-ndlovu-819b68163" height="30" width="40" /></a>
 
 Good with research, experienced tester and has great knowledge with DevOps. Experienced in design patterns, object-oriented programming; developing, testing,
@@ -102,7 +102,7 @@ settings.
 
  ![GitHub Stats](https://github-readme-stats.vercel.app/api?username=SimphiweNdlovu&theme=gruvbox)
  
-# [Thabo Maduna](https://github.com/MadunaThabo)
+# [Thabo Maduna](https://github.com/MadunaThabo) (Service Engineer Lead)
 - LinkedIn:  <a href="https://linkedin.com/in/thabo-maduna" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="thabo-maduna" height="30" width="40" /></a>
 
 I am good experience with backend programming, research on algorithms also can work on NestJS with Typescript/javascript, etc.Through my year here at the
@@ -113,7 +113,7 @@ may be considered as my shortcoming since learning a lot of things at the same t
 
  ![GitHub Stats](https://github-readme-stats.vercel.app/api?username=MadunaThabo&theme=cobalt)
  
-# [Musa Mabasa](https://github.com/Musa-Mabasa)
+# [Musa Mabasa](https://github.com/Musa-Mabasa) (UI/UX Engineer Lead)
 - LinkedIn:  <a href="https://www.linkedin.com/in/musa-besmond-mabasa-7b4aa322a" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="musa-besmond-mabasa-7b4aa322a" height="30" width="40" /></a>
 
 I am determined and I have a drive to build and create software systems since I believe that software systems are the backbone of the economy and the general
