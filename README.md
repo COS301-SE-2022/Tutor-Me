@@ -5,11 +5,11 @@
   <img alt="GitHub issues" src="https://img.shields.io/github/issues/COS301-SE-2022/Tutor-ME?style=plastic">
 </a>
 <a href = "https://github.com/COS301-SE-2022/Tutor-ME/projects/1">
-  <img alt="GitHub issues" src="https://img.shields.io/badge/Project%20Board-1-blue">
+  <img alt="GitHub issues" src="https://img.shields.io/badge/Project%20Board-1-purple">
 </a>
 <div><img alt="GitHub language count" src="https://img.shields.io/github/languages/count/COS301-SE-2022/Tutor-ME?style=plastic">
 <img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/COS301-SE-2022/Tutor-ME?style=plastic">
-<img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/COS301-SE-2022/Tutor-ME?color=orange&style=plastic"></div>
+<img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/COS301-SE-2022/Tutor-ME?color=pink&style=plastic"></div>
 
 <h1 align="center"> CapsOn </h1> <br>
 <p align="center"> 
