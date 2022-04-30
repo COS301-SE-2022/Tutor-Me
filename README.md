@@ -66,7 +66,6 @@ GraphQl - is an open-source data query and manipulation language for APIs.
 - Version control:
 ``` 
 GitHub
-GitLab
  ```
  
  ## Project development methodology
