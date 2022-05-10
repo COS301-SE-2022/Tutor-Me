@@ -36,7 +36,9 @@ additional functionalities like filtering tutors by gender to enable students to
 
 ## [Recorded Demo]()
 ## [Funtional Requirements]()
-## [GitHub Project Board](https://github.com/COS301-SE-2022/Tutor-ME/projects/1)
+## Project Boards:
+> > > ### [GitHub Project Board](https://github.com/COS301-SE-2022/Tutor-ME/projects/1)
+> > > ### [Trello Project Board](https://trello.com/b/R58mrioT/tutor-me)
 
 ## Project Technologies
 - Frontend: Flutter(Dart)
