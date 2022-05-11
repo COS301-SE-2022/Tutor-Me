@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tutor_me/src/colorPalette.dart';
+// import 'package:tutor_me/src/colorPalette.dart';
 
 class EditTuteeProfilePage extends StatefulWidget {
   @override
