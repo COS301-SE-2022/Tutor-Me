@@ -19,7 +19,7 @@ class MyAppState extends State<MyApp> {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         home: Scaffold(
-          drawer: NavigationDrawerWidget(),
+          drawer: const NavigationDrawerWidget(),
           appBar: AppBar(
             bottom: const TabBar(
               indicatorColor: Colors.white,
@@ -36,6 +36,7 @@ class MyAppState extends State<MyApp> {
           ),
           body: Column(
             children: <Widget>[
+              //ignore: unused_local_variable
               for (var i in people)
                 InkWell(
                   child: Card(
