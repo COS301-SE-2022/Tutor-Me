@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 // import 'package:tutor_me/src/colorPalette.dart';
 
 class EditTuteeProfilePage extends StatefulWidget {
+  const EditTuteeProfilePage({Key? key}) : super(key: key);
+
   @override
   _EditTuteeProfilePageState createState() => _EditTuteeProfilePageState();
 }
