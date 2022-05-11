@@ -302,6 +302,6 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
 
   void moveToEdit() {
     Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => EditModule()));
+        .push(MaterialPageRoute(builder: (context) => const EditModule()));
   }
 }
