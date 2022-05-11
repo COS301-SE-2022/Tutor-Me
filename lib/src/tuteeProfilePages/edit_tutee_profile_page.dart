@@ -18,17 +18,17 @@ class _EditTuteeProfilePageState extends State<EditTuteeProfilePage> {
             left: 0,
             child: Container(
               height: 170,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   image: DecorationImage(
                       image: AssetImage("assets/Pictures/flower.jpg"),
                       fit: BoxFit.fill)),
               child: Container(
-                padding: EdgeInsets.only(top: 60, left: 140),
+                padding: const EdgeInsets.only(top: 60, left: 140),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     RichText(
-                      text: TextSpan(
+                      text: const TextSpan(
                         // text: "Rose Tumil",
                         // style: DefaultTextStyle.of(context).style,
                         children: <TextSpan>[
@@ -56,7 +56,7 @@ class _EditTuteeProfilePageState extends State<EditTuteeProfilePage> {
                             MaterialStateProperty.all<Color>(Colors.white),
                       ),
                       onPressed: null,
-                      child: Text("Tutee"),
+                      child: const Text("Tutee"),
                     ),
                   ],
                 ),
@@ -68,14 +68,14 @@ class _EditTuteeProfilePageState extends State<EditTuteeProfilePage> {
             child: Container(
               height: 120,
               width: MediaQuery.of(context).size.width - 220,
-              margin: EdgeInsets.symmetric(
+              margin: const EdgeInsets.symmetric(
                 horizontal: 12,
               ),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(100),
-                image: DecorationImage(
+                image: const DecorationImage(
                     image: AssetImage("assets/Pictures/profilePic.jpg")),
-                boxShadow: [
+                boxShadow: const [
                   BoxShadow(
                     blurRadius: 15,
                     spreadRadius: 5,
@@ -89,13 +89,13 @@ class _EditTuteeProfilePageState extends State<EditTuteeProfilePage> {
             child: Container(
               height: 30,
               width: MediaQuery.of(context).size.width - 270,
-              margin: EdgeInsets.symmetric(
+              margin: const EdgeInsets.symmetric(
                 horizontal: 0,
               ),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(5),
-                color: Color.fromRGBO(214, 82, 7, 1),
-                boxShadow: [
+                color: const Color.fromRGBO(214, 82, 7, 1),
+                boxShadow: const [
                   BoxShadow(
                     blurRadius: 15,
                     spreadRadius: 5,
@@ -112,7 +112,7 @@ class _EditTuteeProfilePageState extends State<EditTuteeProfilePage> {
               width: 255,
               child: Column(children: [
                 RichText(
-                    text: TextSpan(
+                    text: const TextSpan(
                         text: "Editing profile details for Rose Tumil...",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
@@ -147,11 +147,11 @@ class _EditTuteeProfilePageState extends State<EditTuteeProfilePage> {
                       }
                       return null;
                     },
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                         hintText: "Enter new username",
                         labelText: "Click here to Change Username",
                         contentPadding:
-                            new EdgeInsets.fromLTRB(20.0, 10.0, 0, 10.0),
+                            EdgeInsets.fromLTRB(20.0, 10.0, 0, 10.0),
                         labelStyle: TextStyle(
                           fontSize: 18,
                           color: Colors.black,
@@ -164,11 +164,11 @@ class _EditTuteeProfilePageState extends State<EditTuteeProfilePage> {
                       }
                       return null;
                     },
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                         hintText: "Location here",
                         labelText: "Click here to Change Location",
                         contentPadding:
-                            new EdgeInsets.fromLTRB(20.0, 10.0, 0, 10.0),
+                            EdgeInsets.fromLTRB(20.0, 10.0, 0, 10.0),
                         labelStyle: TextStyle(
                           fontSize: 18,
                           color: Colors.black,
@@ -181,24 +181,24 @@ class _EditTuteeProfilePageState extends State<EditTuteeProfilePage> {
                       }
                       return null;
                     },
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                         hintText: "Bio here",
                         labelText: "Click here to Change Bio",
                         contentPadding:
-                            new EdgeInsets.fromLTRB(20.0, 10.0, 0, 10.0),
+                            EdgeInsets.fromLTRB(20.0, 10.0, 0, 10.0),
                         labelStyle: TextStyle(
                           fontSize: 18,
                           color: Colors.black,
                         )),
                   ),
                   Container(
-                    margin: new EdgeInsets.fromLTRB(20.0, 10.0, 0, 0),
+                    margin: const EdgeInsets.fromLTRB(20.0, 10.0, 0, 0),
                     width: 200,
                     height: 150,
                     decoration: BoxDecoration(
                       color: Colors.white,
                       border: Border.all(color: Colors.black54),
-                      boxShadow: [
+                      boxShadow: const [
                         BoxShadow(
                           color: Color.fromARGB(255, 54, 33, 27),
                           blurRadius: 5,
@@ -209,14 +209,14 @@ class _EditTuteeProfilePageState extends State<EditTuteeProfilePage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        const Text(
                             "Select the following according to your Tutor preferences\n"),
-                        Padding(
+                        const Padding(
                           padding: EdgeInsets.fromLTRB(40, 5, 10, 0),
                         ),
                         // Padding(padding: Padding. ),
                         DropdownButton<String>(
-                          hint: Text("Gender"),
+                          hint: const Text("Gender"),
                           items: <String>['Female', 'Male', 'Other']
                               .map((String value) {
                             return DropdownMenuItem<String>(
@@ -225,13 +225,13 @@ class _EditTuteeProfilePageState extends State<EditTuteeProfilePage> {
                             );
                           }).toList(),
                           onChanged: (_) {},
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 18,
                             color: Colors.black,
                           ),
                         ),
                         DropdownButton<String>(
-                          hint: Text("Age"),
+                          hint: const Text("Age"),
                           items: <String>[
                             '16-19',
                             '20-23',
@@ -245,7 +245,7 @@ class _EditTuteeProfilePageState extends State<EditTuteeProfilePage> {
                             );
                           }).toList(),
                           onChanged: (_) {},
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 18,
                             color: Colors.black,
                           ),
@@ -260,12 +260,12 @@ class _EditTuteeProfilePageState extends State<EditTuteeProfilePage> {
           Positioned(
             top: 600,
             left: 100,
-            child: Container(
+            child: SizedBox(
               width: 120,
               height: 30,
               child: ElevatedButton(
                 onPressed: null,
-                child: Text("Save"),
+                child: const Text("Save"),
                 style: ButtonStyle(
                   backgroundColor:
                       MaterialStateProperty.all(Colors.deepOrangeAccent),
