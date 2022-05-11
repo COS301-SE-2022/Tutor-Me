@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 // import 'package:tutor_me/src/colorPalette.dart';
 import 'package:tutor_me/src/tuteeProfilePages/edit_tutee_profile_page.dart';
+import 'edit_modules.dart';
 
 class TuteeProfilePage extends StatefulWidget {
   const TuteeProfilePage({Key? key}) : super(key: key);
@@ -287,7 +288,7 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
               top: 630,
               left: 100,
               child: ElevatedButton(
-                onPressed: null,
+                onPressed: moveToEdit,
                 child: const Text("Edit Modules list"),
                 style: ButtonStyle(
                   backgroundColor:
@@ -297,5 +298,10 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
         ],
       ),
     );
+  }
+
+  void moveToEdit() {
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => const EditModule()));
   }
 }
