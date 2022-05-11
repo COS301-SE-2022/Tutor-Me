@@ -12,7 +12,8 @@ class TuteeProfilePage extends StatefulWidget {
 class _TuteeProfilePageState extends State<TuteeProfilePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Stack(
+    return Scaffold(
+      body: Stack(
         children: [
           Positioned(
             top: 0,
@@ -117,7 +118,7 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => EditTuteeProfilePage()),
+                        builder: (context)  =>  const EditTuteeProfilePage()),
                   );
                 },
                 child: const Icon(
@@ -294,6 +295,7 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
                 ),
               ))
         ],
-      ),);
+      ),
+    );
   }
 }
