@@ -2,14 +2,16 @@ import 'package:flutter/material.dart';
 import '../tuteeProfilePages/tutee_profile.dart';
 
 class NavigationDrawerWidget extends StatelessWidget {
-  final padding = EdgeInsets.symmetric(horizontal: 20);
+  final padding = const EdgeInsets.symmetric(horizontal: 20);
+
+  const NavigationDrawerWidget({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Drawer(
       child: Material(
-          color: Color(0xFFD6521B),
+          color: const Color(0xFFD6521B),
           child: ListView(
-              padding: EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               children: <Widget>[
                 const SizedBox(height: 50),
                 buildMenu(
@@ -44,7 +46,7 @@ class NavigationDrawerWidget extends StatelessWidget {
     Navigator.of(context).pop();
     if (index == 0) {
       Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => TuteeProfilePage(),
+        builder: (context) => const TuteeProfilePage(),
       ));
     }
     // else if(index == 1) {
