@@ -1,0 +1,17 @@
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\webAPI\TutorMe\Tutors.Repo\obj\Debug\net6.0\Tutors.Repo.csproj.AssemblyReference.cache
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\webAPI\TutorMe\Tutors.Repo\obj\Debug\net6.0\Tutors.Repo.GeneratedMSBuildEditorConfig.editorconfig
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\webAPI\TutorMe\Tutors.Repo\obj\Debug\net6.0\Tutors.Repo.AssemblyInfoInputs.cache
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\webAPI\TutorMe\Tutors.Repo\obj\Debug\net6.0\Tutors.Repo.AssemblyInfo.cs
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\webAPI\TutorMe\Tutors.Repo\obj\Debug\net6.0\Tutors.Repo.csproj.CoreCompileInputs.cache
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\webAPI\TutorMe\Tutors.Repo\bin\Debug\net6.0\Tutors.Repo.deps.json
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\webAPI\TutorMe\Tutors.Repo\bin\Debug\net6.0\Tutors.Repo.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\webAPI\TutorMe\Tutors.Repo\bin\Debug\net6.0\Tutors.Repo.pdb
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\webAPI\TutorMe\Tutors.Repo\bin\Debug\net6.0\Tutor.Services.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\webAPI\TutorMe\Tutors.Repo\bin\Debug\net6.0\Tutors.Data.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\webAPI\TutorMe\Tutors.Repo\bin\Debug\net6.0\Tutors.Data.pdb
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\webAPI\TutorMe\Tutors.Repo\bin\Debug\net6.0\Tutor.Services.pdb
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\webAPI\TutorMe\Tutors.Repo\obj\Debug\net6.0\Tutors.Repo.csproj.CopyComplete
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\webAPI\TutorMe\Tutors.Repo\obj\Debug\net6.0\Tutors.Repo.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\webAPI\TutorMe\Tutors.Repo\obj\Debug\net6.0\refint\Tutors.Repo.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\webAPI\TutorMe\Tutors.Repo\obj\Debug\net6.0\Tutors.Repo.pdb
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\webAPI\TutorMe\Tutors.Repo\obj\Debug\net6.0\ref\Tutors.Repo.dll

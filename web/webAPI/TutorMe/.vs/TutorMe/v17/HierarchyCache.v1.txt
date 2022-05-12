@@ -1,0 +1,343 @@
+﻿++Solution 'TutorMe' ‎(4 of 4 projects)
+i:{00000000-0000-0000-0000-000000000000}:TutorMe.sln
+++Tutors.Repo
+i:{00000000-0000-0000-0000-000000000000}:Tutors.Repo
+i:{bce9a687-e093-46be-a368-1174edf3f4b7}:e:\school\year 3\cos301\capstone\tutor-me\web\webapi\tutorme\tutors.repo\tutors.repo.csproj
+++Dependencies
+i:{10d4d662-e703-4f7c-8c72-3341d478f8c0}:>144
+i:{437e50cf-8ebc-4bcc-8556-51b4b9824453}:>116
+i:{7457eb55-fbb2-418c-947c-792f311a60fa}:>117
+i:{bce9a687-e093-46be-a368-1174edf3f4b7}:>836
+++TutorDbContext.cs
+i:{10d4d662-e703-4f7c-8c72-3341d478f8c0}:e:\school\year 3\cos301\capstone\tutor-me\web\webapi\tutorme\tutors.repo\tutordbcontext.cs
+++TutorRepo.cs
+i:{10d4d662-e703-4f7c-8c72-3341d478f8c0}:e:\school\year 3\cos301\capstone\tutor-me\web\webapi\tutorme\tutors.repo\tutorrepo.cs
+++Analyzers
+i:{10d4d662-e703-4f7c-8c72-3341d478f8c0}:analyzers
+i:{437e50cf-8ebc-4bcc-8556-51b4b9824453}:analyzers
+i:{7457eb55-fbb2-418c-947c-792f311a60fa}:analyzers
+i:{bce9a687-e093-46be-a368-1174edf3f4b7}:analyzers
+++Frameworks
+i:{10d4d662-e703-4f7c-8c72-3341d478f8c0}:frameworks
+i:{437e50cf-8ebc-4bcc-8556-51b4b9824453}:frameworks
+i:{7457eb55-fbb2-418c-947c-792f311a60fa}:frameworks
+i:{bce9a687-e093-46be-a368-1174edf3f4b7}:frameworks
+++Packages
+i:{10d4d662-e703-4f7c-8c72-3341d478f8c0}:packages
+i:{bce9a687-e093-46be-a368-1174edf3f4b7}:packages
+i:{7457eb55-fbb2-418c-947c-792f311a60fa}:packages
+i:{437e50cf-8ebc-4bcc-8556-51b4b9824453}:packages
+++Projects
+i:{10d4d662-e703-4f7c-8c72-3341d478f8c0}:projects
+i:{7457eb55-fbb2-418c-947c-792f311a60fa}:projects
+i:{bce9a687-e093-46be-a368-1174edf3f4b7}:projects
+++Microsoft.CodeAnalysis.CSharp.NetAnalyzers
+i:{10d4d662-e703-4f7c-8c72-3341d478f8c0}:c:\program files\dotnet\sdk\6.0.202\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
+i:{437e50cf-8ebc-4bcc-8556-51b4b9824453}:c:\program files\dotnet\sdk\6.0.202\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
+i:{7457eb55-fbb2-418c-947c-792f311a60fa}:c:\program files\dotnet\sdk\6.0.202\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
+i:{bce9a687-e093-46be-a368-1174edf3f4b7}:c:\program files\dotnet\sdk\6.0.202\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.csharp.netanalyzers.dll
+++Microsoft.CodeAnalysis.NetAnalyzers
+i:{10d4d662-e703-4f7c-8c72-3341d478f8c0}:c:\program files\dotnet\sdk\6.0.202\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
+i:{437e50cf-8ebc-4bcc-8556-51b4b9824453}:c:\program files\dotnet\sdk\6.0.202\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
+i:{7457eb55-fbb2-418c-947c-792f311a60fa}:c:\program files\dotnet\sdk\6.0.202\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
+i:{bce9a687-e093-46be-a368-1174edf3f4b7}:c:\program files\dotnet\sdk\6.0.202\sdks\microsoft.net.sdk\analyzers\microsoft.codeanalysis.netanalyzers.dll
+++Microsoft.EntityFrameworkCore.Analyzers
+i:{10d4d662-e703-4f7c-8c72-3341d478f8c0}:c:\users\u19116498\.nuget\packages\microsoft.entityframeworkcore.analyzers\6.0.5\analyzers\dotnet\cs\microsoft.entityframeworkcore.analyzers.dll
+i:{7457eb55-fbb2-418c-947c-792f311a60fa}:c:\users\u19116498\.nuget\packages\microsoft.entityframeworkcore.analyzers\6.0.4\analyzers\dotnet\cs\microsoft.entityframeworkcore.analyzers.dll
+i:{437e50cf-8ebc-4bcc-8556-51b4b9824453}:c:\users\u19116498\.nuget\packages\microsoft.entityframeworkcore.analyzers\6.0.5\analyzers\dotnet\cs\microsoft.entityframeworkcore.analyzers.dll
+++Microsoft.Extensions.Logging.Generators
+i:{10d4d662-e703-4f7c-8c72-3341d478f8c0}:c:\users\u19116498\.nuget\packages\microsoft.extensions.logging.abstractions\6.0.0\analyzers\dotnet\roslyn4.0\cs\microsoft.extensions.logging.generators.dll
+i:{bce9a687-e093-46be-a368-1174edf3f4b7}:c:\program files\dotnet\packs\microsoft.aspnetcore.app.ref\6.0.4\analyzers\dotnet\roslyn4.0\cs\microsoft.extensions.logging.generators.dll
+i:{7457eb55-fbb2-418c-947c-792f311a60fa}:c:\users\u19116498\.nuget\packages\microsoft.extensions.logging.abstractions\6.0.0\analyzers\dotnet\roslyn4.0\cs\microsoft.extensions.logging.generators.dll
+i:{437e50cf-8ebc-4bcc-8556-51b4b9824453}:c:\users\u19116498\.nuget\packages\microsoft.extensions.logging.abstractions\6.0.0\analyzers\dotnet\roslyn4.0\cs\microsoft.extensions.logging.generators.dll
+++System.Text.Json.SourceGeneration
+i:{10d4d662-e703-4f7c-8c72-3341d478f8c0}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.4\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
+i:{437e50cf-8ebc-4bcc-8556-51b4b9824453}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.4\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
+i:{7457eb55-fbb2-418c-947c-792f311a60fa}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.4\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
+i:{bce9a687-e093-46be-a368-1174edf3f4b7}:c:\program files\dotnet\packs\microsoft.netcore.app.ref\6.0.4\analyzers\dotnet\cs\system.text.json.sourcegeneration.dll
+++Microsoft.NETCore.App
+i:{10d4d662-e703-4f7c-8c72-3341d478f8c0}:e:\school\year 3\cos301\capstone\tutor-me\web\webapi\tutorme\tutors.repo\microsoft.netcore.app
+i:{437e50cf-8ebc-4bcc-8556-51b4b9824453}:e:\school\year 3\cos301\capstone\tutor-me\web\webapi\tutorme\tutor.data\microsoft.netcore.app
+i:{7457eb55-fbb2-418c-947c-792f311a60fa}:e:\school\year 3\cos301\capstone\tutor-me\web\webapi\tutorme\tutor.services\microsoft.netcore.app
+i:{bce9a687-e093-46be-a368-1174edf3f4b7}:e:\school\year 3\cos301\capstone\tutor-me\web\webapi\tutorme\tutme\microsoft.netcore.app
+++Microsoft.EntityFrameworkCore (6.0.5)
+i:{10d4d662-e703-4f7c-8c72-3341d478f8c0}:>196
+i:{437e50cf-8ebc-4bcc-8556-51b4b9824453}:>939
+i:{7457eb55-fbb2-418c-947c-792f311a60fa}:>940
+++Tutor.Services
+i:{10d4d662-e703-4f7c-8c72-3341d478f8c0}:e:\school\year 3\cos301\capstone\tutor-me\web\webapi\tutorme\tutor.services\tutor.services.csproj
+i:{00000000-0000-0000-0000-000000000000}:Tutor.Services
+i:{bce9a687-e093-46be-a368-1174edf3f4b7}:e:\school\year 3\cos301\capstone\tutor-me\web\webapi\tutorme\tutor.services\tutor.services.csproj
+++Tutors.Data
+i:{10d4d662-e703-4f7c-8c72-3341d478f8c0}:e:\school\year 3\cos301\capstone\tutor-me\web\webapi\tutorme\tutor.data\tutors.data.csproj
+i:{00000000-0000-0000-0000-000000000000}:Tutors.Data
+i:{7457eb55-fbb2-418c-947c-792f311a60fa}:e:\school\year 3\cos301\capstone\tutor-me\web\webapi\tutorme\tutor.data\tutors.data.csproj
+++Tutors.cs
+i:{437e50cf-8ebc-4bcc-8556-51b4b9824453}:e:\school\year 3\cos301\capstone\tutor-me\web\webapi\tutorme\tutor.data\tutors.cs
+++ITutor.cs
+i:{7457eb55-fbb2-418c-947c-792f311a60fa}:e:\school\year 3\cos301\capstone\tutor-me\web\webapi\tutorme\tutor.services\itutor.cs
+++TutorMe
+i:{00000000-0000-0000-0000-000000000000}:TutorMe
+++Properties
+i:{bce9a687-e093-46be-a368-1174edf3f4b7}:e:\school\year 3\cos301\capstone\tutor-me\web\webapi\tutorme\tutme\properties\
+++References
+++App_Data
+++App_Start
+++Areas
+++Content
+++Controllers
+i:{bce9a687-e093-46be-a368-1174edf3f4b7}:e:\school\year 3\cos301\capstone\tutor-me\web\webapi\tutorme\tutme\controllers\
+++fonts
+++Models
+++Scripts
+++Views
+++favicon.ico
+++Global.asax
+++packages.config
+++Web.config
+++AssemblyInfo.cs
+++Antlr3.Runtime
+++Microsoft.CodeDom.Providers.DotNetCompilerPlatform
+++Microsoft.CSharp
+++Microsoft.Web.Infrastructure
+++Newtonsoft.Json
+++System
+++System.ComponentModel.DataAnnotations
+++System.Configuration
+++System.Core
+++System.Data
+++System.Data.DataSetExtensions
+++System.Drawing
+++System.Net.Http
+++System.Net.Http.Formatting
+++System.Net.Http.WebRequest
+++System.Runtime.Serialization
+++System.Web
+++System.Web.Abstractions
+++System.Web.ApplicationServices
+++System.Web.Entity
+++System.Web.Helpers
+++System.Web.Http
+++System.Web.Http.WebHost
+++System.Web.Mvc
+++System.Web.Optimization
+++System.Web.Razor
+++System.Web.Routing
+++System.Web.WebPages
+++System.Web.WebPages.Deployment
+++System.Web.WebPages.Razor
+++System.Xml
+++System.Xml.Linq
+++WebGrease
+++BundleConfig.cs
+++FilterConfig.cs
+++RouteConfig.cs
+++WebApiConfig.cs
+++HelpPage
+++bootstrap-theme.css
+++bootstrap-theme.css.map
+++bootstrap-theme.min.css
+++bootstrap-theme.min.css.map
+++bootstrap.css
+++bootstrap.css.map
+++bootstrap.min.css
+++bootstrap.min.css.map
+++Site.css
+++HomeController.cs
+++ValuesController.cs
+++glyphicons-halflings-regular.eot
+++glyphicons-halflings-regular.svg
+++glyphicons-halflings-regular.ttf
+++glyphicons-halflings-regular.woff
+++glyphicons-halflings-regular.woff2
+++bootstrap.js
+++bootstrap.min.js
+++jquery-3.4.1.intellisense.js
+++jquery-3.4.1.js
+++jquery-3.4.1.min.js
+++jquery-3.4.1.min.map
+++jquery-3.4.1.slim.js
+++jquery-3.4.1.slim.min.js
+++jquery-3.4.1.slim.min.map
+++modernizr-2.8.3.js
+++Home
+++Shared
+++_ViewStart.cshtml
+++Global.asax.cs
+++Web.Debug.config
+++Web.Release.config
+++ModelDescriptions
+++SampleGeneration
+++ApiDescriptionExtensions.cs
+++HelpPage.css
+++HelpPageAreaRegistration.cs
+++HelpPageConfigurationExtensions.cs
+++XmlDocumentationProvider.cs
+++Index.cshtml
+++_Layout.cshtml
+++Error.cshtml
+++HelpPageConfig.cs
+++HelpController.cs
+++CollectionModelDescription.cs
+++ComplexTypeModelDescription.cs
+++DictionaryModelDescription.cs
+++EnumTypeModelDescription.cs
+++EnumValueDescription.cs
+++IModelDocumentationProvider.cs
+++KeyValuePairModelDescription.cs
+++ModelDescription.cs
+++ModelDescriptionGenerator.cs
+++ModelNameAttribute.cs
+++ModelNameHelper.cs
+++ParameterAnnotation.cs
+++ParameterDescription.cs
+++SimpleTypeModelDescription.cs
+++HelpPageApiModel.cs
+++HelpPageSampleGenerator.cs
+++HelpPageSampleKey.cs
+++ImageSample.cs
+++InvalidSample.cs
+++ObjectGenerator.cs
+++SampleDirection.cs
+++TextSample.cs
+++Help
+++DisplayTemplates
+++Api.cshtml
+++ResourceModel.cshtml
+++ApiGroup.cshtml
+++CollectionModelDescription.cshtml
+++ComplexTypeModelDescription.cshtml
+++DictionaryModelDescription.cshtml
+++EnumTypeModelDescription.cshtml
+++HelpPageApiModel.cshtml
+++ImageSample.cshtml
+++InvalidSample.cshtml
+++KeyValuePairModelDescription.cshtml
+++ModelDescriptionLink.cshtml
+++Parameters.cshtml
+++Samples.cshtml
+++SimpleTypeModelDescription.cshtml
+++TextSample.cshtml
+++Solution 'TutorMe' ‎(5 of 5 projects)
+++test
+++Connected Services 
+i:{bce9a687-e093-46be-a368-1174edf3f4b7}:>834
+++wwwroot
+++Pages
+++appsettings.json
+i:{bce9a687-e093-46be-a368-1174edf3f4b7}:e:\school\year 3\cos301\capstone\tutor-me\web\webapi\tutorme\tutme\appsettings.json
+++Program.cs
+i:{bce9a687-e093-46be-a368-1174edf3f4b7}:e:\school\year 3\cos301\capstone\tutor-me\web\webapi\tutorme\tutme\program.cs
+++No service dependencies discovered
+i:{bce9a687-e093-46be-a368-1174edf3f4b7}:>835
+++launchSettings.json
+i:{bce9a687-e093-46be-a368-1174edf3f4b7}:e:\school\year 3\cos301\capstone\tutor-me\web\webapi\tutorme\tutme\properties\launchsettings.json
+++css
+++js
+++lib
+++_ViewImports.cshtml
+++Privacy.cshtml
+++appsettings.Development.json
+i:{bce9a687-e093-46be-a368-1174edf3f4b7}:e:\school\year 3\cos301\capstone\tutor-me\web\webapi\tutorme\tutme\appsettings.development.json
+++C:\Program Files\dotnet\sdk\6.0.202\Sdks\Microsoft.NET.Sdk.Web\analyzers\cs\Microsoft.AspNetCore.Analyzers.dll
+++C:\Program Files\dotnet\sdk\6.0.202\Sdks\Microsoft.NET.Sdk.Web\analyzers\cs\Microsoft.AspNetCore.Components.Analyzers.dll
+++C:\Program Files\dotnet\sdk\6.0.202\Sdks\Microsoft.NET.Sdk.Web\analyzers\cs\Microsoft.AspNetCore.Mvc.Analyzers.dll
+++C:\Program Files\dotnet\sdk\6.0.202\Sdks\Microsoft.NET.Sdk\targets\..\analyzers\Microsoft.CodeAnalysis.CSharp.NetAnalyzers.dll
+++C:\Program Files\dotnet\sdk\6.0.202\Sdks\Microsoft.NET.Sdk\targets\..\analyzers\Microsoft.CodeAnalysis.NetAnalyzers.dll
+++Microsoft.AspNetCore.App
+i:{bce9a687-e093-46be-a368-1174edf3f4b7}:e:\school\year 3\cos301\capstone\tutor-me\web\webapi\tutorme\tutme\microsoft.aspnetcore.app
+++site.css
+++site.js
+++bootstrap
+++jquery
+++jquery-validation
+++jquery-validation-unobtrusive
+++_ValidationScriptsPartial.cshtml
+++Error.cshtml.cs
+++Index.cshtml.cs
+++Privacy.cshtml.cs
+++dist
+++LICENSE
+++LICENSE.txt
+++LICENSE.md
+++jquery.validate.unobtrusive.js
+++_Layout.cshtml.css
+++jquery.js
+++additional-methods.js
+++jquery.validate.js
+++jquery.validate.unobtrusive.min.js
+++bootstrap-grid.css
+++bootstrap-reboot.css
+++bootstrap-utilities.css
+++jquery.min.js
+++additional-methods.min.js
+++jquery.validate.min.js
+++bootstrap.rtl.css
+++bootstrap-grid.css.map
+++bootstrap-grid.min.css
+++bootstrap-grid.rtl.css
+++bootstrap-reboot.css.map
+++bootstrap-reboot.min.css
+++bootstrap-reboot.rtl.css
+++bootstrap-utilities.css.map
+++bootstrap-utilities.min.css
+++bootstrap-utilities.rtl.css
+++bootstrap.bundle.js
+++bootstrap.esm.js
+++bootstrap.js.map
+++jquery.min.map
+++bootstrap.rtl.css.map
+++bootstrap.rtl.min.css
+++bootstrap-grid.min.css.map
+++bootstrap-grid.rtl.css.map
+++bootstrap-grid.rtl.min.css
+++bootstrap-reboot.min.css.map
+++bootstrap-reboot.rtl.css.map
+++bootstrap-reboot.rtl.min.css
+++bootstrap-utilities.min.css.map
+++bootstrap-utilities.rtl.css.map
+++bootstrap-utilities.rtl.min.css
+++bootstrap.bundle.js.map
+++bootstrap.bundle.min.js
+++bootstrap.esm.js.map
+++bootstrap.esm.min.js
+++bootstrap.min.js.map
+++bootstrap.rtl.min.css.map
+++bootstrap-grid.rtl.min.css.map
+++bootstrap-reboot.rtl.min.css.map
+++bootstrap-utilities.rtl.min.css.map
+++bootstrap.bundle.min.js.map
+++bootstrap.esm.min.js.map
+++Microsoft.AspNetCore.Analyzers
+i:{bce9a687-e093-46be-a368-1174edf3f4b7}:c:\program files\dotnet\sdk\6.0.202\sdks\microsoft.net.sdk.web\analyzers\cs\microsoft.aspnetcore.analyzers.dll
+++Microsoft.AspNetCore.App.Analyzers
+i:{bce9a687-e093-46be-a368-1174edf3f4b7}:c:\program files\dotnet\packs\microsoft.aspnetcore.app.ref\6.0.4\analyzers\dotnet\cs\microsoft.aspnetcore.app.analyzers.dll
+++Microsoft.AspNetCore.App.CodeFixes
+i:{bce9a687-e093-46be-a368-1174edf3f4b7}:c:\program files\dotnet\packs\microsoft.aspnetcore.app.ref\6.0.4\analyzers\dotnet\cs\microsoft.aspnetcore.app.codefixes.dll
+++Microsoft.AspNetCore.Components.Analyzers
+i:{bce9a687-e093-46be-a368-1174edf3f4b7}:c:\program files\dotnet\sdk\6.0.202\sdks\microsoft.net.sdk.web\analyzers\cs\microsoft.aspnetcore.components.analyzers.dll
+++Microsoft.AspNetCore.Mvc.Analyzers
+i:{bce9a687-e093-46be-a368-1174edf3f4b7}:c:\program files\dotnet\sdk\6.0.202\sdks\microsoft.net.sdk.web\analyzers\cs\microsoft.aspnetcore.mvc.analyzers.dll
+++Microsoft.AspNetCore.Razor.SourceGenerator.Tooling.Internal
+i:{bce9a687-e093-46be-a368-1174edf3f4b7}:c:\program files\dotnet\sdk\6.0.202\sdks\microsoft.net.sdk.razor\source-generators\microsoft.aspnetcore.razor.sourcegenerator.tooling.internal.dll
+++Microsoft.NET.Sdk.Razor.SourceGenerators
+i:{bce9a687-e093-46be-a368-1174edf3f4b7}:c:\program files\dotnet\sdk\6.0.202\sdks\microsoft.net.sdk.razor\source-generators\microsoft.net.sdk.razor.sourcegenerators.dll
+++TutMe
+++ErrorViewModel.cs
+++WeatherForecast.cs
+++WeatherForecastController.cs
+i:{bce9a687-e093-46be-a368-1174edf3f4b7}:e:\school\year 3\cos301\capstone\tutor-me\web\webapi\tutorme\tutme\controllers\weatherforecastcontroller.cs
+++Swashbuckle.AspNetCore (6.2.3)
+i:{bce9a687-e093-46be-a368-1174edf3f4b7}:>865
+++tutme
+++Startup.cs
+i:{bce9a687-e093-46be-a368-1174edf3f4b7}:e:\school\year 3\cos301\capstone\tutor-me\web\webapi\tutorme\tutme\startup.cs
+++Npgsql.EntityFrameworkCore.PostgreSQL (6.0.4)
+++Microsoft.EntityFrameworkCore.Sqlite (6.0.5)
+i:{437e50cf-8ebc-4bcc-8556-51b4b9824453}:>929
+i:{7457eb55-fbb2-418c-947c-792f311a60fa}:>930
+i:{10d4d662-e703-4f7c-8c72-3341d478f8c0}:>933
+++Npgsql.EntityFrameworkCore.PostgreSQL (6.0.0)
+i:{437e50cf-8ebc-4bcc-8556-51b4b9824453}:>934
+i:{7457eb55-fbb2-418c-947c-792f311a60fa}:>935
+i:{10d4d662-e703-4f7c-8c72-3341d478f8c0}:>936
