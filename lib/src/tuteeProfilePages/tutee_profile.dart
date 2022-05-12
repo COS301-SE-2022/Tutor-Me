@@ -1,18 +1,36 @@
 import 'package:flutter/material.dart';
 // import 'package:tutor_me/src/colorPalette.dart';
 import 'package:tutor_me/src/tuteeProfilePages/edit_tutee_profile_page.dart';
+import 'package:tutor_me/src/tuteeProfilePages/tutee_data.dart';
 import 'edit_modules.dart';
 
+// ignore: must_be_immutable
 class TuteeProfilePage extends StatefulWidget {
-  const TuteeProfilePage({Key? key}) : super(key: key);
-
+  TuteeProfilePage({
+    Key? key,
+    required this.username,
+    required this.location,
+    required this.bio,
+    required this.gender,
+  }) : super(key: key);
+  Tutee tutee = Tutee();
+  final String username;
+  final String location;
+  final String bio;
+  final String gender;
   @override
   _TuteeProfilePageState createState() => _TuteeProfilePageState();
 }
 
 class _TuteeProfilePageState extends State<TuteeProfilePage> {
+  Tutee tutee = Tutee();
+
   @override
   Widget build(BuildContext context) {
+    tutee.username = widget.username + '\n';
+    tutee.bio = widget.bio +'\n';
+    tutee.location = widget.location + '\n';
+    tutee.gender = widget.gender +'\n';
     return Scaffold(
       body: Stack(
         children: [
@@ -32,13 +50,13 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     RichText(
-                      text: const TextSpan(
+                      text: TextSpan(
                         // text: "Rose Tumil",
                         // style: DefaultTextStyle.of(context).style,
                         children: <TextSpan>[
                           TextSpan(
-                              text: 'Rose Tamil',
-                              style: TextStyle(
+                              text: tutee.username,
+                              style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 25,
                                 shadows: <Shadow>[
@@ -119,7 +137,7 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context)  =>  const EditTuteeProfilePage()),
+                        builder: (context) => const EditTuteeProfilePage()),
                   );
                 },
                 child: const Icon(
@@ -134,56 +152,54 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
           ),
           Positioned(
             top: 220,
-            left: 55,
+            left: 30,
             child: Container(
-              height: 120,
-              width: 170,
-              margin: const EdgeInsets.all(15.0),
-              // padding: const EdgeInsets.all(3.0),
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.deepOrangeAccent),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  RichText(
+              height: 30,
+              width: 255,
+              color: const Color(0xff115748),
+              child: Column(children: [
+                RichText(
                     text: const TextSpan(
-                      // text: "Rose Tumil",
-                      // style: DefaultTextStyle.of(context).style,
-                      children: <TextSpan>[
-                        TextSpan(
-                          text: '\u{2795} Evander, Secunda\n\n',
-                          style: TextStyle(
-                              fontWeight: FontWeight.normal,
-                              fontSize: 12,
-                              color: Colors.black),
-                        ),
-                        TextSpan(
-                          text: '\u{2795} female\n\n',
-                          style: TextStyle(
-                              fontWeight: FontWeight.normal,
-                              fontSize: 12,
-                              color: Colors.black),
-                        ),
-                        TextSpan(
-                          text: '\u{2795} 23 yrs old\n\n',
-                          style: TextStyle(
-                              fontWeight: FontWeight.normal,
-                              fontSize: 12,
-                              color: Colors.black),
-                        ),
-                        TextSpan(
-                          text: '\u{2795} University Of Pretoria',
-                          style: TextStyle(
-                              fontWeight: FontWeight.normal,
-                              fontSize: 12,
-                              color: Colors.black),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+                        text: "Information",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 13,
+                        )))
+              ]),
+            ),
+          ),
+          Positioned(
+            top: 260,
+            left: 10,
+            child: SizedBox(
+              height: 130,
+              width: 255,
+              // color: Colors.black38,
+              child: Column(children: [
+                RichText(
+                    text: TextSpan(
+                        children: [
+                      const WidgetSpan(child: Icon(Icons.location_pin)),
+                      TextSpan(
+                          text: tutee.location,
+                          style: const TextStyle(fontSize: 15)),
+                      const WidgetSpan(child: Icon(Icons.transgender)),
+                      TextSpan(
+                          text: tutee.gender, style: const TextStyle(fontSize: 15)),
+                      const WidgetSpan(child: Icon(Icons.calendar_month)),
+                      TextSpan(text: tutee.age, style: const TextStyle(fontSize: 15)),
+                      const WidgetSpan(
+                          child: Icon(
+                        Icons.book,
+                      )),
+                      const TextSpan(
+                          text: 'University Of Pretoria\n',
+                          style: TextStyle(fontSize: 15)),
+                    ],
+                        style: const TextStyle(
+                          color: Colors.black,
+                        )))
+              ]),
             ),
           ),
           Positioned(
@@ -192,7 +208,7 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
             child: Container(
               height: 30,
               width: 255,
-              color: Colors.black54,
+              color: const Color(0xff115748),
               child: Column(children: [
                 RichText(
                     text: const TextSpan(
@@ -228,7 +244,7 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
             child: Container(
               height: 30,
               width: 255,
-              color: Colors.black54,
+              color: const Color(0xff115748),
               child: Column(children: [
                 RichText(
                     text: const TextSpan(

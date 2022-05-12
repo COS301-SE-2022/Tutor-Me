@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../tuteeProfilePages/tutee_profile.dart';
+import '../tuteeProfilePages/tutee_data.dart';
 
 class NavigationDrawerWidget extends StatelessWidget {
   final padding = const EdgeInsets.symmetric(horizontal: 20);
@@ -43,10 +44,13 @@ class NavigationDrawerWidget extends StatelessWidget {
   }
 
   void selected(BuildContext context, int index) {
+    Tutee tutee = Tutee();
+    tutee.setAttributes("I am a hardworker,I absolutely love the field I am in.I'm constantly looking for ways to get things done",'Evander, Secunda\n','Rose Tamil\n','21 years old\n','Female\n');
+
     Navigator.of(context).pop();
     if (index == 0) {
       Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => const TuteeProfilePage(),
+        builder: (context) => TuteeProfilePage(username: tutee.username, bio: tutee.bio, location: tutee.location, gender: tutee.gender),
       ));
     }
     // else if(index == 1) {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'tutorProfilePages/tutor_profile_view.dart';
 import 'Navigation/nav_drawer.dart';
+import 'tuteeProfilePages/tutee_data.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -12,6 +13,7 @@ class MyApp extends StatefulWidget {
 }
 
 class MyAppState extends State<MyApp> {
+  Tutee tutee = Tutee();
   var people = [
     'Kuda Chivunga',
     'Thabo Maduna',
@@ -21,6 +23,7 @@ class MyAppState extends State<MyApp> {
   ];
   @override
   Widget build(BuildContext context) {
+    tutee.setAttributes("I am a hardworker,I absolutely love the field I am in.I'm constantly looking for ways to get things done",'Evander, Secunda\n','Rose Tamil\n','21 years old\n','Female\n');
     return DefaultTabController(
       length: 3,
       child: MaterialApp(
