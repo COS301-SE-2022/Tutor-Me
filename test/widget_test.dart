@@ -10,6 +10,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:tutor_me/src/app.dart';
 
 void main() {
   group('MyWidget', () {
@@ -28,4 +29,21 @@ void main() {
       expect(find.byType(Text), findsOneWidget);
     });
   });
+
+  testWidgets('Finding the Title', (WidgetTester tester) async {
+    //  MaterialApp( await tester.pumpWidget(AppBar());
+    await tester.pumpWidget(DefaultTabController(
+        length: 3,
+        child: MaterialApp(
+            home: Scaffold(
+                appBar: AppBar(
+          title: const Text(
+            'Tutor Me',
+          ),
+        )))));
+    final titleFinder = find.text('Tutor Me');
+    expect(titleFinder, findsOneWidget);
+  });
+
+
 }
