@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'tutorProfilePages/tutor_profile_view.dart';
 import 'Navigation/nav_drawer.dart';
 
 class MyApp extends StatefulWidget {
@@ -11,7 +12,13 @@ class MyApp extends StatefulWidget {
 }
 
 class MyAppState extends State<MyApp> {
-  var people = ['John doe', 'Doe John', 'John Doe', 'Doe John', 'John Doe'];
+  var people = [
+    'Kuda Chivunga',
+    'Thabo Maduna',
+    'Farai Chivunga',
+    'Simphiwe Ndlovu',
+    'Musa Mabasa'
+  ];
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -37,22 +44,25 @@ class MyAppState extends State<MyApp> {
           body: Column(
             children: <Widget>[
               //ignore: unused_local_variable
-              for (var i in people)
-                InkWell(
+              for (var person in people)
+                GestureDetector(
                   child: Card(
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
-                      children: const <Widget>[
+                      children: <Widget>[
                         ListTile(
-                          leading: Icon(Icons.account_circle),
-                          title: Text('John'),
-                          subtitle: Text('I am a Machenical engineer student'),
+                          leading: const Icon(Icons.account_circle),
+                          title: Text(person),
+                          subtitle:
+                              const Text('I am a Machenical engineer student'),
                         ),
                       ],
                     ),
                   ),
                   onTap: () {
-                    //Route to profile
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (BuildContext context) =>
+                            TutorProfilePageView(person: person)));
                   },
                 ),
             ],
@@ -61,6 +71,4 @@ class MyAppState extends State<MyApp> {
       ),
     );
   }
-
- 
 }
