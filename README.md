@@ -11,6 +11,15 @@
 <img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/COS301-SE-2022/Tutor-ME?style=plastic">
 <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/COS301-SE-2022/Tutor-ME?color=pink&style=plastic"></div>
 
+![image](https://img.shields.io/badge/Dart-02569B?style=for-the-badge&logo=dart&logoColor=white)
+![image](https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white)
+![image](https://img.shields.io/badge/dotnet-02569B?style=for-the-badge&logo=dotnet&logoColor=white)
+
+![image](https://img.shields.io/badge/Microsoft%20SQL%20Server-Database-blue)
+[![](https://github.com/COS301-SE-2022/Tutor-ME/actions/workflows/ci.yml/badge.svg)](https://github.com/COS301-SE-2022/Tutor-ME/actions/workflows/ci.yml)
+
+
+
 <h1 align="center"> CapsOn </h1> <br>
 <p align="center"> 
 	<img alt="Team Photo" src="https://github.com/COS301-SE-2022/Tutor-ME/blob/develop/assets/Pictures/Group_Photo[1].jpg" width="300" height="400">
