@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'tutorProfilePages/tutor_profile_view.dart';
 import 'Navigation/nav_drawer.dart';
+import 'tuteeProfilePages/tutee_data.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -11,9 +13,26 @@ class MyApp extends StatefulWidget {
 }
 
 class MyAppState extends State<MyApp> {
-  var people = ['John doe', 'Doe John', 'John Doe', 'Doe John', 'John Doe'];
+  Tutee tutee = Tutee();
+  getTutors(){
+
+  }
+  var people = [
+    'Kuda Chivunga',
+    'Thabo Maduna',
+    'Farai Chivunga',
+    'Simphiwe Ndlovu',
+    'Musa Mabasa'
+  ];
+
   @override
   Widget build(BuildContext context) {
+    tutee.setAttributes(
+        "I am a hardworker,I absolutely love the field I am in.I'm constantly looking for ways to get things done",
+        'Evander, Secunda\n',
+        'Rose Tamil\n',
+        '21 years old\n',
+        'Female\n');
     return DefaultTabController(
       length: 3,
       child: MaterialApp(
@@ -36,25 +55,37 @@ class MyAppState extends State<MyApp> {
           ),
           body: Column(
             children: <Widget>[
+              SizedBox(
+                height: 400,
+                child:  ListView.builder(
+                padding: const EdgeInsets.all(10),
+                itemCount: 5,
+                itemBuilder: _cardBuilder,
+              ),
+              )
+             
               //ignore: unused_local_variable
-              for (var i in people)
-                InkWell(
-                  child: Card(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: const <Widget>[
-                        ListTile(
-                          leading: Icon(Icons.account_circle),
-                          title: Text('John'),
-                          subtitle: Text('I am a Machenical engineer student'),
-                        ),
-                      ],
-                    ),
-                  ),
-                  onTap: () {
-                    //Route to profile
-                  },
-                ),
+
+              // GestureDetector(
+              //   child: Card(
+              //     child: Column(
+              //       mainAxisSize: MainAxisSize.min,
+              //       children: <Widget>[
+              //         ListTile(
+              //           leading: const Icon(Icons.account_circle),
+              //           title: Text(person),
+              //           subtitle:
+              //               const Text('I am a Machenical engineer student'),
+              //         ),
+              //       ],
+              //     ),
+              //   ),
+              //   onTap: () {
+              //     Navigator.of(context).push(MaterialPageRoute(
+              //         builder: (BuildContext context) =>
+              //             TutorProfilePageView(person: person)));
+              //   },
+              // ),
             ],
           ),
         ),
@@ -62,5 +93,25 @@ class MyAppState extends State<MyApp> {
     );
   }
 
- 
+  Widget _cardBuilder(BuildContext context, int i) {
+    return GestureDetector(
+      child: Card(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            ListTile(
+              leading: const Icon(Icons.account_circle),
+              title: Text(people[i]),
+              subtitle: const Text('I am a Machenical engineer student'),
+            ),
+          ],
+        ),
+      ),
+      onTap: () {
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (BuildContext context) =>
+                TutorProfilePageView(person: people[i])));
+      },
+    );
+  }
 }

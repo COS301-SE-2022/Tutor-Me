@@ -136,7 +136,7 @@ class EditModulesState extends State<EditModule> {
             top: 250,
             left: 40,
             height: 450,
-            width: 300,
+            width: 300 ,
             child: ListView.builder(
               padding: const EdgeInsets.all(10),
               itemCount: _itemCount,
