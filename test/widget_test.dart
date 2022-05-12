@@ -10,7 +10,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
+import 'package:tutor_me/src/app.dart';
 
 void main() {
   group('MyWidget', () {
@@ -45,5 +45,73 @@ void main() {
     expect(titleFinder, findsOneWidget);
   });
 
+  testWidgets('Chat Tab ', (WidgetTester tester) async {
+    
+    await tester.pumpWidget(const MyApp());
+    //Tabs
+    const tabChat = 'Chat';
+    await tester.pumpAndSettle();
 
+    //  Ensuring visibility before Tab
+    await tester.ensureVisible(find.text(tabChat)); 
+
+    await tester.tap(find.text(tabChat));
+    await tester.pumpAndSettle();
+
+  
+    expect(find.text(tabChat), findsOneWidget);
+  });
+
+  testWidgets('Request Tab ', (WidgetTester tester) async {
+    
+    await tester.pumpWidget(const MyApp());
+    //Tabs
+    const tabRequest = 'Request';
+    await tester.pumpAndSettle();
+
+    //  Ensuring visibility before Tab
+    await tester.ensureVisible(find.text(tabRequest)); 
+
+    await tester.tap(find.text(tabRequest));
+    await tester.pumpAndSettle();
+
+  
+    expect(find.text(tabRequest), findsOneWidget);
+  });
+
+  testWidgets('Calls Tab ', (WidgetTester tester) async {
+    
+    await tester.pumpWidget(const MyApp());
+    //Tabs
+    const tabCalls = 'Calls';
+    await tester.pumpAndSettle();
+
+    //  Ensuring visibility before Tab
+    await tester.ensureVisible(find.text(tabCalls)); 
+
+    await tester.tap(find.text(tabCalls));
+    await tester.pumpAndSettle();
+
+  
+    expect(find.text(tabCalls), findsOneWidget);
+  });
+
+  // Cards has to be fixed
+
+  // testWidgets('Card ', (WidgetTester tester) async {
+    
+  //   await tester.pumpWidget(const MyApp());
+  //   //Tabs
+  //   const cards = 'I am a Machenical engineer student';
+  //   await tester.pumpAndSettle();
+
+  //   //  Ensuring visibility before Tab
+  //   await tester.ensureVisible(find.text(cards)); 
+
+  //   await tester.tap(find.text(cards));
+  //   await tester.pumpAndSettle();
+
+  
+  //   expect(find.text(cards), findsOneWidget);
+  // });
 }
