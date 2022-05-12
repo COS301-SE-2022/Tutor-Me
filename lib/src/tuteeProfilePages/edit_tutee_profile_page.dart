@@ -1,14 +1,33 @@
 import 'package:flutter/material.dart';
+import 'tutee_data.dart';
+import 'tutee_profile.dart';
 // import 'package:tutor_me/src/colorPalette.dart';
 
 class EditTuteeProfilePage extends StatefulWidget {
   const EditTuteeProfilePage({Key? key}) : super(key: key);
-
   @override
   _EditTuteeProfilePageState createState() => _EditTuteeProfilePageState();
 }
 
 class _EditTuteeProfilePageState extends State<EditTuteeProfilePage> {
+  final unController = TextEditingController();
+  final bController = TextEditingController();
+  final lController = TextEditingController();
+  Tutee tutee = Tutee();
+  var genderItems = ['Male', 'Female', 'Other'];
+  // ignore: prefer_typing_uninitialized_variables
+  var username;
+  // ignore: prefer_typing_uninitialized_variables
+  var bio;
+  // ignore: prefer_typing_uninitialized_variables
+  var location;
+  // ignore: prefer_typing_uninitialized_variables
+  var age;
+  // ignore: prefer_typing_uninitialized_variables
+  var gender;
+
+  // ignore: prefer_typing_uninitialized_variables
+  var vGender;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,13 +49,11 @@ class _EditTuteeProfilePageState extends State<EditTuteeProfilePage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     RichText(
-                      text: const TextSpan(
-                        // text: "Rose Tumil",
-                        // style: DefaultTextStyle.of(context).style,
+                      text: TextSpan(
                         children: <TextSpan>[
                           TextSpan(
-                              text: 'Rose Tamil',
-                              style: TextStyle(
+                              text: tutee.username,
+                              style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 25,
                                 shadows: <Shadow>[
@@ -73,11 +90,11 @@ class _EditTuteeProfilePageState extends State<EditTuteeProfilePage> {
               margin: const EdgeInsets.symmetric(
                 horizontal: 12,
               ),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(100),
-                image: const DecorationImage(
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                image: DecorationImage(
                     image: AssetImage("assets/Pictures/profilePic.jpg")),
-                boxShadow: const [
+                boxShadow: [
                   BoxShadow(
                     blurRadius: 15,
                     spreadRadius: 5,
@@ -89,7 +106,7 @@ class _EditTuteeProfilePageState extends State<EditTuteeProfilePage> {
           Positioned(
             top: 50,
             child: Container(
-              height: 30,
+              height: 60,
               width: MediaQuery.of(context).size.width - 270,
               margin: const EdgeInsets.symmetric(
                 horizontal: 0,
@@ -143,12 +160,13 @@ class _EditTuteeProfilePageState extends State<EditTuteeProfilePage> {
                 children: [
                   // Padding(padding: Padding. ),
                   TextFormField(
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
+                    validator: (username) {
+                      if (username == null || username.isEmpty) {
                         return 'Please enter valid text';
                       }
                       return null;
                     },
+                    controller: unController,
                     decoration: const InputDecoration(
                         hintText: "Enter new username",
                         labelText: "Click here to Change Username",
@@ -160,12 +178,13 @@ class _EditTuteeProfilePageState extends State<EditTuteeProfilePage> {
                         )),
                   ),
                   TextFormField(
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
+                    validator: (location) {
+                      if (location == null || location.isEmpty) {
                         return 'Please enter valid text';
                       }
                       return null;
                     },
+                    controller: lController,
                     decoration: const InputDecoration(
                         hintText: "Location here",
                         labelText: "Click here to Change Location",
@@ -177,12 +196,13 @@ class _EditTuteeProfilePageState extends State<EditTuteeProfilePage> {
                         )),
                   ),
                   TextFormField(
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
+                    validator: (bio) {
+                      if (bio == null || bio.isEmpty) {
                         return 'Please enter valid text';
                       }
                       return null;
                     },
+                    controller: bController,
                     decoration: const InputDecoration(
                         hintText: "Bio here",
                         labelText: "Click here to Change Bio",
@@ -216,42 +236,16 @@ class _EditTuteeProfilePageState extends State<EditTuteeProfilePage> {
                         const Padding(
                           padding: EdgeInsets.fromLTRB(40, 5, 10, 0),
                         ),
-                        // Padding(padding: Padding. ),
                         DropdownButton<String>(
-                          hint: const Text("Gender"),
-                          items: <String>['Female', 'Male', 'Other']
-                              .map((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
-                            );
-                          }).toList(),
-                          onChanged: (_) {},
-                          style: const TextStyle(
-                            fontSize: 18,
-                            color: Colors.black,
-                          ),
-                        ),
-                        DropdownButton<String>(
-                          hint: const Text("Age"),
-                          items: <String>[
-                            '16-19',
-                            '20-23',
-                            '24-28',
-                            '29-35',
-                            '36-40'
-                          ].map((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
-                            );
-                          }).toList(),
-                          onChanged: (_) {},
-                          style: const TextStyle(
-                            fontSize: 18,
-                            color: Colors.black,
-                          ),
-                        ),
+                          hint: const Text('GenderPreference'),
+                          value: vGender,
+                          items: genderItems.map(buildItems).toList(),
+                          onChanged: (String? newGender) {
+                            setState(() {
+                              vGender = newGender;
+                            });
+                          },
+                        )
                       ],
                     ),
                   )
@@ -266,7 +260,16 @@ class _EditTuteeProfilePageState extends State<EditTuteeProfilePage> {
               width: 120,
               height: 30,
               child: ElevatedButton(
-                onPressed: null,
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => TuteeProfilePage(
+                              username: unController.text,
+                              location: lController.text,
+                              bio: bController.text,
+                              gender: vGender)));
+                },
                 child: const Text("Save"),
                 style: ButtonStyle(
                   backgroundColor:
@@ -279,4 +282,9 @@ class _EditTuteeProfilePageState extends State<EditTuteeProfilePage> {
       ),
     );
   }
+
+  DropdownMenuItem<String> buildItems(String item) => DropdownMenuItem(
+      value: item,
+      child: Text(item,
+          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 22)));
 }
