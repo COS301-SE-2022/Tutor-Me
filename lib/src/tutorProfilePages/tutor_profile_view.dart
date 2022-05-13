@@ -7,9 +7,13 @@ class TutorProfilePageView extends StatefulWidget {
   TutorProfilePageView(
       {Key? key,
       required this.person,
+      // ignore: type_init_formals
       required String this.bio,
+      // ignore: type_init_formals
       required String this.age,
+      // ignore: type_init_formals
       required String this.location,
+      // ignore: type_init_formals
       required String this.gender})
       : super(key: key);
   final String person;
@@ -314,8 +318,8 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
         child: const Text('OK'));
 
     AlertDialog requestAlert = AlertDialog(
-        title: Text("Alert"),
-        content: Text("Your request has been sent!!"),
+        title: const Text("Alert"),
+        content: const Text("Your request has been sent!!"),
         actions: [
           ok,
         ]);

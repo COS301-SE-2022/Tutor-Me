@@ -23,7 +23,6 @@ class MyAppState extends State<MyApp> {
     APIServices.fetchTutor().then((response) {
       // ignore: deprecated_member_use
       Iterable list = json.decode(response.body);
-      print(list.length);
       // ignore: deprecated_member_use
       List<Tutors> tutorsl = List<Tutors>.empty();
       tutorsl = list.map((model) => Tutors.fromObject(model)).toList();
