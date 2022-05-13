@@ -12,9 +12,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:tutor_me/src/app.dart';
 
-
 void main() {
-  group('MyWidget', () {
+  group('App dart', () {
     testWidgets('should display a string of text', (WidgetTester tester) async {
       // Define a Widget
       const myWidget = MaterialApp(
@@ -31,7 +30,7 @@ void main() {
     });
   });
 
-  testWidgets('Finding the Title', (WidgetTester tester) async {
+  testWidgets('should display a  Title string', (WidgetTester tester) async {
     //  MaterialApp( await tester.pumpWidget(AppBar());
     await tester.pumpWidget(DefaultTabController(
         length: 3,
@@ -46,73 +45,63 @@ void main() {
     expect(titleFinder, findsOneWidget);
   });
 
-  testWidgets('Chat Tab ', (WidgetTester tester) async {
-    
+  testWidgets('should display a  Chat Tab ', (WidgetTester tester) async {
     await tester.pumpWidget(const MyApp());
     //Tabs
     const tabChat = 'Chat';
     await tester.pumpAndSettle();
 
     //  Ensuring visibility before Tab
-    await tester.ensureVisible(find.text(tabChat)); 
+    await tester.ensureVisible(find.text(tabChat));
 
     await tester.tap(find.text(tabChat));
     await tester.pumpAndSettle();
 
-  
     expect(find.text(tabChat), findsOneWidget);
   });
 
-  testWidgets('Request Tab ', (WidgetTester tester) async {
-    
+  testWidgets('should display a  Request Tab ', (WidgetTester tester) async {
     await tester.pumpWidget(const MyApp());
     //Tabs
     const tabRequest = 'Request';
     await tester.pumpAndSettle();
 
     //  Ensuring visibility before Tab
-    await tester.ensureVisible(find.text(tabRequest)); 
+    await tester.ensureVisible(find.text(tabRequest));
 
     await tester.tap(find.text(tabRequest));
     await tester.pumpAndSettle();
 
-  
     expect(find.text(tabRequest), findsOneWidget);
   });
 
-  testWidgets('Calls Tab ', (WidgetTester tester) async {
-    
+  testWidgets('should display a  Calls Tab ', (WidgetTester tester) async {
     await tester.pumpWidget(const MyApp());
     //Tabs
     const tabCalls = 'Calls';
     await tester.pumpAndSettle();
 
     //  Ensuring visibility before Tab
-    await tester.ensureVisible(find.text(tabCalls)); 
+    await tester.ensureVisible(find.text(tabCalls));
 
     await tester.tap(find.text(tabCalls));
     await tester.pumpAndSettle();
 
-  
     expect(find.text(tabCalls), findsOneWidget);
   });
 
-  // Cards has to be fixed
 
-  // testWidgets('Card ', (WidgetTester tester) async {
-    
-  //   await tester.pumpWidget(const MyApp());
-  //   //Tabs
-  //   const cards = 'I am a Machenical engineer student';
-  //   await tester.pumpAndSettle();
 
-  //   //  Ensuring visibility before Tab
-  //   await tester.ensureVisible(find.text(cards)); 
+  testWidgets(
+    'should display users widget',
+    (WidgetTester tester) async {
+      // Write your test here
+      await tester.pumpWidget(const MyApp()); //_cardBuilder());
 
-  //   await tester.tap(find.text(cards));
-  //   await tester.pumpAndSettle();
-
-  
-  //   expect(find.text(cards), findsOneWidget);
-  // });
+      expect(find.text('Kuda Chivunga'), findsOneWidget);
+       expect(find.text('Farai Chivunga'), findsOneWidget);
+        expect(find.text('Simphiwe Ndlovu'), findsOneWidget);
+         expect(find.text('Musa Mabasa'), findsOneWidget);
+    },
+  );
 }
