@@ -1,8 +1,6 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:tutor_me/modules/api.services.dart';
-import 'package:tutor_me/modules/tutors.dart';
+// import 'package:tutor_me/modules/api.services.dart';
+// import 'package:tutor_me/modules/tutors.dart';
 import 'tutorProfilePages/tutor_profile_view.dart';
 import 'Navigation/nav_drawer.dart';
 import 'tuteeProfilePages/tutee_data.dart';
@@ -18,19 +16,19 @@ class MyApp extends StatefulWidget {
 
 class MyAppState extends State<MyApp> {
   Tutee tutee = Tutee();
-  List<Tutors> tutorList = List<Tutors>.empty();
-  getTutors() {
-    APIServices.fetchTutor().then((response) {
-      // ignore: deprecated_member_use
-      Iterable list = json.decode(response.body);
-      // ignore: deprecated_member_use
-      List<Tutors> tutorsl = List<Tutors>.empty();
-      tutorsl = list.map((model) => Tutors.fromObject(model)).toList();
-      setState(() {
-        tutorList = tutorsl;
-      });
-    });
-  }
+  // List<Tutors> tutorList = List<Tutors>.empty();
+  // getTutors() {
+  //   APIServices.fetchTutor().then((response) {
+  //     // ignore: deprecated_member_use
+  //     Iterable list = json.decode(response.body);
+  //     // ignore: deprecated_member_use
+  //     List<Tutors> tutorsl = List<Tutors>.empty();
+  //     tutorsl = list.map((model) => Tutors.fromObject(model)).toList();
+  //     setState(() {
+  //       tutorList = tutorsl;
+  //     });
+  //   });
+  // }
 
   var tutors = [
     'Kuda Chivunga',
@@ -68,7 +66,7 @@ class MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    getTutors();
+    // getTutors();
     tutee.setAttributes(
         "I am a hardworker,I absolutely love the field I am in.I'm constantly looking for ways to get things done",
         'Evander, Secunda\n',
