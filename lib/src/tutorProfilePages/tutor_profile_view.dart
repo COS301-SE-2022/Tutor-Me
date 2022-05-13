@@ -3,9 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:tutor_me/src/tuteeProfilePages/edit_tutee_profile_page.dart';
 
 class TutorProfilePageView extends StatefulWidget {
-  const TutorProfilePageView({Key? key, required this.person})
+  // ignore: prefer_const_constructors_in_immutables
+  TutorProfilePageView(
+      {Key? key,
+      required this.person,
+      required String this.bio,
+      required String this.age,
+      required String this.location,
+      required String this.gender})
       : super(key: key);
   final String person;
+  final String bio;
+  final String age;
+  final String location;
+  final String gender;
 
   static const String route = '/tutor_profile_view';
 
@@ -151,41 +162,31 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   RichText(
-                    text: const TextSpan(
-                      // text: "Rose Tumil",
-                      // style: DefaultTextStyle.of(context).style,
-                      children: <TextSpan>[
+                      text: TextSpan(
+                          children: [
+                        const WidgetSpan(child: Icon(Icons.location_pin)),
                         TextSpan(
-                          text: '\u{2795} Evander, Secunda\n\n',
-                          style: TextStyle(
-                              fontWeight: FontWeight.normal,
-                              fontSize: 12,
-                              color: Colors.black),
-                        ),
+                            text: widget.location,
+                            style: const TextStyle(fontSize: 15)),
+                        const WidgetSpan(child: Icon(Icons.transgender)),
                         TextSpan(
-                          text: '\u{2795} female\n\n',
-                          style: TextStyle(
-                              fontWeight: FontWeight.normal,
-                              fontSize: 12,
-                              color: Colors.black),
-                        ),
+                            text: widget.gender,
+                            style: const TextStyle(fontSize: 15)),
+                        const WidgetSpan(child: Icon(Icons.calendar_month)),
                         TextSpan(
-                          text: '\u{2795} 23 yrs old\n\n',
-                          style: TextStyle(
-                              fontWeight: FontWeight.normal,
-                              fontSize: 12,
-                              color: Colors.black),
-                        ),
-                        TextSpan(
-                          text: '\u{2795} University Of Pretoria',
-                          style: TextStyle(
-                              fontWeight: FontWeight.normal,
-                              fontSize: 12,
-                              color: Colors.black),
-                        ),
+                            text: widget.age,
+                            style: const TextStyle(fontSize: 15)),
+                        const WidgetSpan(
+                            child: Icon(
+                          Icons.book,
+                        )),
+                        const TextSpan(
+                            text: 'University Of Pretoria\n',
+                            style: TextStyle(fontSize: 15)),
                       ],
-                    ),
-                  ),
+                          style: const TextStyle(
+                            color: Colors.black,
+                          ))),
                 ],
               ),
             ),
@@ -217,10 +218,9 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
               // color: Colors.black38,
               child: Column(children: [
                 RichText(
-                    text: const TextSpan(
-                        text:
-                            "I am hardworker,I absolutely love the field I am in.I'm constantly looking for ways to get things done",
-                        style: TextStyle(
+                    text: TextSpan(
+                        text: widget.bio,
+                        style: const TextStyle(
                           color: Colors.black,
                         )))
               ]),
@@ -292,7 +292,9 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
               top: 630,
               left: 100,
               child: ElevatedButton(
-                onPressed: request,
+                onPressed: () {
+                  showAlertDialog(context);
+                },
                 child: const Text("Send Request"),
                 style: ButtonStyle(
                   backgroundColor:
@@ -304,7 +306,24 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
     );
   }
 
-  void request() {
-    // request
+  showAlertDialog(BuildContext context) {
+    Widget ok = TextButton(
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
+        child: const Text('OK'));
+
+    AlertDialog requestAlert = AlertDialog(
+        title: Text("Alert"),
+        content: Text("Your request has been sent!!"),
+        actions: [
+          ok,
+        ]);
+
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return requestAlert;
+        });
   }
 }
