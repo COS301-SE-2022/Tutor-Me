@@ -1,17 +1,17 @@
 // import 'dart:html';
 
 class Tutors {
-  String _id;
-  String _lastName;
-  String _firstName;
-  String _bio;
-  String _location;
-  int _age;
-  String _institution;
-  String _moduless;
+  String _id="";
+  String _lastName="";
+  String _firstName="";
+  String _bio ="";
+  String _location="";
+  int _age=0;
+  String _institution="";
+  String _modules="";
 
   Tutors(this._id, this._age, this._firstName, this._lastName, this._bio,
-      this._location, this._institution, this._moduless);
+      this._location, this._institution, this._modules);
 
   String get getId => _id;
   String get getName => _lastName;
@@ -20,7 +20,7 @@ class Tutors {
   String get getLocation => _location;
   int get getAge => _age;
   String get getInstitution => _institution;
-  String get getModules => _moduless;
+  String get getModules => _modules;
 
   set setFirstName(String newFirstName) {
     _firstName = newFirstName;
@@ -47,7 +47,7 @@ class Tutors {
   }
 
   set setModules(String newModules) {
-    _moduless = newModules;
+    _modules = newModules;
   }
 
   Map<String, dynamic> toMap() {
@@ -58,12 +58,12 @@ class Tutors {
     map["location"] = _location;
     map["age"] = _age;
     map["institution"] = _institution;
-    map["moduless"] = _moduless;
+    map["modules"] = _modules;
     map["id"] = _id;
     return map;
   }
 
-  fromObject(dynamic o) {
+  Tutors.fromObject(dynamic o) {
     _id = o["id"];
     _firstName = o["first_name"];
     _lastName = o["last_name"];
@@ -71,6 +71,6 @@ class Tutors {
     _location = o["location"];
     _age = o["age"];
     _institution = o["institution"];
-    _moduless = o["moduless"];
+    _modules = o["modules"];
   }
 }
