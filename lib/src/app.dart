@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+// import 'package:tutor_me/modules/api.services.dart';
+// import 'package:tutor_me/modules/tutors.dart';
 import 'tutorProfilePages/tutor_profile_view.dart';
 import 'Navigation/nav_drawer.dart';
 import 'tuteeProfilePages/tutee_data.dart';
@@ -14,10 +16,21 @@ class MyApp extends StatefulWidget {
 
 class MyAppState extends State<MyApp> {
   Tutee tutee = Tutee();
-  getTutors(){
+  // List<Tutors> tutorList = List<Tutors>.empty();
+  // getTutors() {
+  //   APIServices.fetchTutor().then((response) {
+  //     // ignore: deprecated_member_use
+  //     Iterable list = json.decode(response.body);
+  //     // ignore: deprecated_member_use
+  //     List<Tutors> tutorsl = List<Tutors>.empty();
+  //     tutorsl = list.map((model) => Tutors.fromObject(model)).toList();
+  //     setState(() {
+  //       tutorList = tutorsl;
+  //     });
+  //   });
+  // }
 
-  }
-  var people = [
+  var tutors = [
     'Kuda Chivunga',
     'Thabo Maduna',
     'Farai Chivunga',
@@ -25,8 +38,35 @@ class MyAppState extends State<MyApp> {
     'Musa Mabasa'
   ];
 
+  var bios = [
+    'I am a CS student with a lot of passion',
+    'I am an IT student looking to lean more',
+    'Hi!!!',
+    'Welcome to my page',
+    'Engeering student'
+  ];
+
+  var ages = [
+    '21 years old\n',
+    '18 years old\n',
+    '20 years old\n',
+    '21 years old\n',
+    '19 years old\n'
+  ];
+
+  var location = ['Hatfield\n', 'Hatfield\n', 'Arcadia\n', 'Hatfield\n', 'Hillcrest'];
+
+  var gender = [
+    'Female\n',
+    'Female\n',
+    'Female\n',
+    'Female\n',
+    'Female\n',
+  ];
+
   @override
   Widget build(BuildContext context) {
+    // getTutors();
     tutee.setAttributes(
         "I am a hardworker,I absolutely love the field I am in.I'm constantly looking for ways to get things done",
         'Evander, Secunda\n',
@@ -57,13 +97,13 @@ class MyAppState extends State<MyApp> {
             children: <Widget>[
               SizedBox(
                 height: 400,
-                child:  ListView.builder(
-                padding: const EdgeInsets.all(10),
-                itemCount: 5,
-                itemBuilder: _cardBuilder,
-              ),
+                child: ListView.builder(
+                  padding: const EdgeInsets.all(10),
+                  itemCount: 5,
+                  itemBuilder: _cardBuilder,
+                ),
               )
-             
+
               //ignore: unused_local_variable
 
               // GestureDetector(
@@ -101,8 +141,8 @@ class MyAppState extends State<MyApp> {
           children: <Widget>[
             ListTile(
               leading: const Icon(Icons.account_circle),
-              title: Text(people[i]),
-              subtitle: const Text('I am a Machenical engineer student'),
+              title: Text(tutors[i]),
+              subtitle: Text(bios[i]),
             ),
           ],
         ),
@@ -110,7 +150,7 @@ class MyAppState extends State<MyApp> {
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
             builder: (BuildContext context) =>
-                TutorProfilePageView(person: people[i])));
+                TutorProfilePageView(person: tutors[i], bio: bios[i], age: ages[i], location: location[i], gender: gender[i])));
       },
     );
   }

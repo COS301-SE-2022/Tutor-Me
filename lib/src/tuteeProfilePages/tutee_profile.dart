@@ -200,7 +200,7 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
                   ],
                       style: const TextStyle(
                         color: Colors.black,
-                      )))
+                      ))),
             ]),
           ),
         ),
