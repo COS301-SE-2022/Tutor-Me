@@ -32,7 +32,7 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
     tutee.location = widget.location + '\n';
     tutee.gender = widget.gender + '\n';
     return Scaffold(
-            body: Stack(
+        body: Stack(
       children: <Widget>[
         Positioned(
           top: 0,
