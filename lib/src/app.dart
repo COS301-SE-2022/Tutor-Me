@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'tutorProfilePages/tutor_profile_view.dart';
 import 'Navigation/nav_drawer.dart';
 import 'tuteeProfilePages/tutee_data.dart';
+import 'theme/themes.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -66,7 +67,6 @@ class MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    // getTutors();
     tutee.setAttributes(
         "I am a hardworker,I absolutely love the field I am in.I'm constantly looking for ways to get things done",
         'Evander, Secunda\n',
@@ -76,6 +76,9 @@ class MyAppState extends State<MyApp> {
     return DefaultTabController(
       length: 3,
       child: MaterialApp(
+        themeMode: ThemeMode.system,
+        darkTheme: Themes.darkTheme,
+  
         debugShowCheckedModeBanner: false,
         home: Scaffold(
           drawer: const NavigationDrawerWidget(),
@@ -88,10 +91,12 @@ class MyAppState extends State<MyApp> {
                 Tab(icon: Icon(Icons.phone), text: 'Calls')
               ],
             ),
-            backgroundColor: const Color(0xffD6521B),
+            // backgroundColor: const Color(0xffD6521B),
             centerTitle: true,
             title: const Text('Tutor Me'),
-            actions: const <Widget>[],
+            actions: <Widget>[
+              IconButton(onPressed: () {}, icon: const Icon(Icons.search))
+            ],
           ),
           body: Column(
             children: <Widget>[
