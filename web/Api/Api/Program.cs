@@ -9,6 +9,12 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddDbContext<Api.Data.TutorMeContext>(
+    options => {
+        options.UseSqlServer(builder.Configuration.GetConnectionString("TutorMeDB"));
+    }
+);
+
 //add cors policy
 builder.Services.AddCors(options =>
 {
