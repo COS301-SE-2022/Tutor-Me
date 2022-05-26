@@ -43,6 +43,22 @@ namespace Api.Controllers
 
             return tutor;
         }
+
+        //GET: api/Tutors/email/
+        [HttpGet("email/{email}")]
+        public async Task<ActionResult<Tutor>> GetTutorByEmail( string email, Guid id = default(Guid)){
+            if (_context.Tutors == null) {
+                return NotFound();
+            }
+
+            var tutor = await _context.Tutors.FirstOrDefaultAsync(e => e.Email == email);
+
+            if (tutor == null) {
+                return NotFound();
+            }
+
+            return tutor;
+        }
         
         // PUT: api/Tutors/5
         [HttpPut("{id}")]
@@ -89,6 +105,8 @@ namespace Api.Controllers
 
             return CreatedAtAction("GetTutor", new { id = tutor.Id }, tutor);
         }
+
+        
 
         // DELETE: api/Tutors/5
         [HttpDelete("{id}")]
