@@ -15,9 +15,6 @@ class RegisterOrLogin extends StatefulWidget {
 class _RegisterOrLoginState extends State<RegisterOrLogin> {
   @override
   Widget build(BuildContext context) {
-
-    final currentWidth = MediaQuery.of(context).size.width;
-
     return Scaffold(
         body: Stack(children: <Widget>[
       Positioned(
@@ -105,7 +102,9 @@ class _RegisterOrLoginState extends State<RegisterOrLogin> {
           children: <Widget>[
             Container(
               child: ElevatedButton(
-                onPressed: () {goToRegister(context);},
+                onPressed: () {
+                  goToRegister(context);
+                },
                 child: Image.asset("assets/Pictures/student.jpg"),
                 style: ElevatedButton.styleFrom(
                     minimumSize: Size.zero,
@@ -217,8 +216,8 @@ class _RegisterOrLoginState extends State<RegisterOrLogin> {
     ]));
   }
 
-  void goToRegister(BuildContext context)
-  {
-    Navigator.of(context).push(MaterialPageRoute(builder: (context) => const Register()));
+  void goToRegister(BuildContext context) {
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => const Register()));
   }
 }

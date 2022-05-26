@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 
 class Register extends StatefulWidget {
@@ -117,11 +115,10 @@ class _RegisterState extends State<Register> {
               margin: const EdgeInsets.symmetric(
                 horizontal: 0,
               ),
-     
               child: TextButton(
                 style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all<Color>(Colors.deepOrangeAccent),
+                  backgroundColor: MaterialStateProperty.all<Color>(
+                      const Color.fromARGB(255, 213, 111, 22)),
                   foregroundColor:
                       MaterialStateProperty.all<Color>(Colors.white),
                 ),
