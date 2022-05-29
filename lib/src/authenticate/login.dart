@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 
-class Register extends StatelessWidget {
-  const Register({Key? key}) : super(key: key);
+class Login extends StatelessWidget {
+  const Login({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -53,41 +53,15 @@ class Register extends StatelessWidget {
             ),
             const TextInputField(
               icon: Icons.email_outlined,
-              hint: 'Full Name',
-              inputType: TextInputType.text,
-              inputAction: TextInputAction.next,
-            ),
-            const TextInputField(
-              icon: Icons.email_outlined,
-              hint: 'Last Name',
-              inputType: TextInputType.text,
-              inputAction: TextInputAction.next,
-            ),
-
-            const TextInputField(
-              icon: Icons.email_outlined,
-              hint: 'DOB (DD/MM/YYYY)',
-              inputType: TextInputType.datetime,
-              inputAction: TextInputAction.next,
-            ),
-
-            const TextInputField(
-              icon: Icons.email_outlined,
-              hint: 'Gender',
-              inputType: TextInputType.text,
-              inputAction: TextInputAction.next,
-            ),
-            const TextInputField(
-              icon: Icons.email_outlined,
-              hint: 'Enter Email',
-              inputType: TextInputType.text,
-              inputAction: TextInputAction.next,
+              hint: 'Email',
+              inputType: TextInputType.emailAddress,
+              inputAction: TextInputAction.done,
             ),
 
             //second input
             const PasswordInput(
-              icon: Icons.p,
-              hint: '',
+              icon: Icons.lock_clock_outlined,
+              hint: 'Password',
               inputAction: TextInputAction.done,
               inputType: TextInputType.text,
             ),
