@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 
 const Color colorWhite = Colors.white;
 const Color colorBlue = Color(0xff5663ff);
