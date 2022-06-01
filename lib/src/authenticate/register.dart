@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:tutor_me/src/authenticate/login.dart';
 import 'package:tutor_me/src/colorpallete.dart';
+import 'package:tutor_me/src/tutorProfilePages/settings_pofile_view.dart';
 
 class Register extends StatelessWidget {
   const Register({Key? key}) : super(key: key);
@@ -27,6 +29,7 @@ class Register extends StatelessWidget {
           ),
         ),
         Scaffold(
+          resizeToAvoidBottomInset: false,
           backgroundColor: Colors.transparent,
           body: Column(children: [
             const Flexible(
@@ -52,68 +55,73 @@ class Register extends StatelessWidget {
               ),
             ),
             const TextInputField(
-              icon: Icons.email_outlined,
-              hint: 'Full Name',
-              inputType: TextInputType.text,
-              inputAction: TextInputAction.next,
+              icon: Icons.person_outline,
+              hint: 'Enter Full Name',
+              inputType: TextInputType.emailAddress,
+              inputAction: TextInputAction.done,
             ),
             const TextInputField(
-              icon: Icons.email_outlined,
-              hint: 'Last Name',
-              inputType: TextInputType.text,
-              inputAction: TextInputAction.next,
+              icon: Icons.person_outline,
+              hint: 'Enter Last Name',
+              inputType: TextInputType.emailAddress,
+              inputAction: TextInputAction.done,
             ),
-
             const TextInputField(
-              icon: Icons.email_outlined,
-              hint: 'DOB (DD/MM/YYYY)',
-              inputType: TextInputType.datetime,
-              inputAction: TextInputAction.next,
+              icon: Icons.calendar_month_outlined,
+              hint: 'Enter DOB (DD/MM/YYYY)',
+              inputType: TextInputType.emailAddress,
+              inputAction: TextInputAction.done,
             ),
-
             const TextInputField(
-              icon: Icons.email_outlined,
+              icon: Icons.female_outlined,
               hint: 'Gender',
-              inputType: TextInputType.text,
-              inputAction: TextInputAction.next,
+              inputType: TextInputType.emailAddress,
+              inputAction: TextInputAction.done,
+            ),
+            const TextInputField(
+              icon: Icons.school_outlined,
+              hint: 'Enter Institution Name',
+              inputType: TextInputType.emailAddress,
+              inputAction: TextInputAction.done,
             ),
             const TextInputField(
               icon: Icons.email_outlined,
-              hint: 'Enter Email',
-              inputType: TextInputType.text,
-              inputAction: TextInputAction.next,
+              hint: 'Enter Your Email',
+              inputType: TextInputType.emailAddress,
+              inputAction: TextInputAction.done,
             ),
-
             //second input
             const PasswordInput(
-              icon: Icons.p,
-              hint: '',
+              icon: Icons.lock_outline_rounded,
+              hint: 'Password',
               inputAction: TextInputAction.done,
               inputType: TextInputType.text,
             ),
-            const SizedBox(
-              height: 25,
+
+            const PasswordInput(
+              icon: Icons.password_outlined,
+              hint: 'Confirm Password',
+              inputAction: TextInputAction.done,
+              inputType: TextInputType.text,
             ),
 
-            Container(
-              height: 40,
-              width: 100,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16),
-                color: colorOrange,
-              ),
-              child: TextButton(
-                onPressed: () {},
-                child: const Text(
-                  'Login',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.normal,
-                    color: Colors.white,
-                  ),
+            GestureDetector(
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const Register(),
                 ),
               ),
-            )
+              child: OrangeButton(
+                btnName: "Register",
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              const TutorSettingsProfileView()));
+                },
+              ),
+            ),
           ]),
         )
       ],
@@ -142,7 +150,7 @@ class PasswordInput extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10.0),
       child: Container(
-        height: size.height * 0.08,
+        height: size.height * 0.06,
         width: size.width * 0.8,
         decoration: BoxDecoration(
           color: Colors.grey[500]!.withOpacity(0.3),
@@ -202,7 +210,7 @@ class TextInputField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10.0),
       child: Container(
-        height: size.height * 0.08,
+        height: size.height * 0.06,
         width: size.width * 0.8,
         decoration: BoxDecoration(
           color: Colors.grey[500]!.withOpacity(0.3),

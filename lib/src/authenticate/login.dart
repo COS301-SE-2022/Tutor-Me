@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tutor_me/src/colorpallete.dart';
+import 'package:tutor_me/src/authenticate/register.dart';
 
 class Login extends StatelessWidget {
   const Login({Key? key}) : super(key: key);
@@ -51,46 +52,104 @@ class Login extends StatelessWidget {
                 ),
               ),
             ),
-            const TextInputField(
-              icon: Icons.email_outlined,
-              hint: 'Email',
-              inputType: TextInputType.emailAddress,
-              inputAction: TextInputAction.done,
-            ),
-
-            //second input
-            const PasswordInput(
-              icon: Icons.lock_clock_outlined,
-              hint: 'Password',
-              inputAction: TextInputAction.done,
-              inputType: TextInputType.text,
-            ),
-            const SizedBox(
-              height: 25,
-            ),
-
-            Container(
-              height: 40,
-              width: 100,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16),
-                color: colorOrange,
-              ),
-              child: TextButton(
-                onPressed: () {},
-                child: const Text(
-                  'Login',
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: const [
+                TextInputField(
+                  icon: Icons.email_outlined,
+                  hint: 'Email',
+                  inputType: TextInputType.emailAddress,
+                  inputAction: TextInputAction.done,
+                ),
+                PasswordInput(
+                  icon: Icons.lock_clock_outlined,
+                  hint: 'Password',
+                  inputAction: TextInputAction.done,
+                  inputType: TextInputType.text,
+                ),
+                Text(
+                  "Forgot Password?",
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.normal,
                     color: Colors.white,
                   ),
                 ),
+              ],
+            ),
+            const SizedBox(
+              height: 25,
+            ),
+            OrangeButton(btnName: "Login", onPressed: () {}),
+            const SizedBox(
+              height: 25,
+            ),
+            GestureDetector(
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const Register(),
+                ),
               ),
+              child: Container(
+                child: const Text(
+                  "Creat New Account",
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+                decoration: const BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(
+                      color: Colors.white,
+                      width: 2,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 25,
             )
+
+            //second input
           ]),
         )
       ],
+    );
+  }
+}
+
+class OrangeButton extends StatelessWidget {
+  const OrangeButton({
+    Key? key,
+    required this.btnName,
+    required Function() onPressed,
+  }) : super(key: key);
+  final String btnName;
+  @override
+  Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+
+    return Container(
+      height: size.height * 0.06,
+      width: size.width * 0.8,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(16),
+        color: colorOrange,
+      ),
+      child: TextButton(
+        onPressed: () {},
+        child: Text(
+          btnName,
+          style: const TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+      ),
     );
   }
 }
@@ -116,7 +175,7 @@ class PasswordInput extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10.0),
       child: Container(
-        height: size.height * 0.08,
+        height: size.height * 0.06,
         width: size.width * 0.8,
         decoration: BoxDecoration(
           color: Colors.grey[500]!.withOpacity(0.3),
@@ -176,7 +235,7 @@ class TextInputField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10.0),
       child: Container(
-        height: size.height * 0.08,
+        height: size.height * 0.06,
         width: size.width * 0.8,
         decoration: BoxDecoration(
           color: Colors.grey[500]!.withOpacity(0.3),
