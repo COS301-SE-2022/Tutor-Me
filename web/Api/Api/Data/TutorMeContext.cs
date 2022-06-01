@@ -17,16 +17,120 @@ namespace Api.Data
         {
         }
 
+        public virtual DbSet<Module> Modules { get; set; }
         public virtual DbSet<Tutee> Tutees { get; set; }
         public virtual DbSet<Tutor> Tutors { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Module>(entity =>
+            {
+                entity.HasKey(e => e.Code)
+                    .HasName("PK__Modules__357D4CF84F643888");
+
+                entity.Property(e => e.Code)
+                    .HasMaxLength(800)
+                    .IsUnicode(false)
+                    .HasColumnName("code");
+
+                entity.Property(e => e.ModuleName)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("moduleName");
+            });
+
             modelBuilder.Entity<Tutee>(entity =>
             {
+                entity.ToTable("Tutee");
+
                 entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
-                    .HasColumnName("id");
+                    .HasColumnName("id")
+                    .HasDefaultValueSql("(newid())");
+
+                entity.Property(e => e.Age)
+                    .IsRequired()
+                    .HasMaxLength(3)
+                    .IsUnicode(false)
+                    .HasColumnName("age");
+
+                entity.Property(e => e.Bio)
+                    .IsUnicode(false)
+                    .HasColumnName("bio");
+
+                entity.Property(e => e.Connections)
+                    .IsUnicode(false)
+                    .HasColumnName("connections");
+
+                entity.Property(e => e.Email)
+                    .IsRequired()
+                    .IsUnicode(false)
+                    .HasColumnName("email");
+
+                entity.Property(e => e.FirstName)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("firstName");
+
+                entity.Property(e => e.Gender)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("gender");
+
+                entity.Property(e => e.Institution)
+                    .IsRequired()
+                    .IsUnicode(false)
+                    .HasColumnName("institution");
+
+                entity.Property(e => e.LastName)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("lastName");
+
+                entity.Property(e => e.Location)
+                    .IsUnicode(false)
+                    .HasColumnName("location");
+
+                entity.Property(e => e.Modules)
+                    .IsRequired()
+                    .IsUnicode(false)
+                    .HasColumnName("modules");
+
+                entity.Property(e => e.Password)
+                    .IsRequired()
+                    .IsUnicode(false)
+                    .HasColumnName("password");
+
+                entity.Property(e => e.TutorsCode)
+                    .IsRequired()
+                    .IsUnicode(false)
+                    .HasColumnName("tutorsCode");
+            });
+
+            modelBuilder.Entity<Tutor>(entity =>
+            {
+                entity.ToTable("Tutor");
+
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .HasDefaultValueSql("(newid())");
+
+                entity.Property(e => e.Age)
+                    .IsRequired()
+                    .HasMaxLength(3)
+                    .IsUnicode(false)
+                    .HasColumnName("age");
+
+                entity.Property(e => e.Bio)
+                    .IsUnicode(false)
+                    .HasColumnName("bio");
+
+                entity.Property(e => e.Connections)
+                    .IsUnicode(false)
+                    .HasColumnName("connections");
 
                 entity.Property(e => e.Email)
                     .IsRequired()
@@ -40,64 +144,40 @@ namespace Api.Data
                     .IsUnicode(false)
                     .HasColumnName("firstName");
 
-                entity.Property(e => e.IdNumber)
+                entity.Property(e => e.Gender)
+                    .IsRequired()
+                    .HasMaxLength(5)
+                    .IsUnicode(false)
+                    .HasColumnName("gender");
+
+                entity.Property(e => e.Institution)
+                    .IsRequired()
+                    .IsUnicode(false)
+                    .HasColumnName("institution");
+
+                entity.Property(e => e.LastName)
                     .IsRequired()
                     .HasMaxLength(50)
                     .IsUnicode(false)
-                    .HasColumnName("idNumber");
+                    .HasColumnName("lastName");
 
-                entity.Property(e => e.Module)
+                entity.Property(e => e.Location)
                     .IsUnicode(false)
-                    .HasColumnName("module");
-
-                entity.Property(e => e.Surname)
-                    .IsRequired()
-                    .HasMaxLength(50)
-                    .IsUnicode(false)
-                    .HasColumnName("surname");
-
-                entity.Property(e => e.Tutors)
-                    .IsUnicode(false)
-                    .HasColumnName("tutors");
-            });
-
-            modelBuilder.Entity<Tutor>(entity =>
-            {
-                entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
-                    .HasColumnName("id");
-
-                entity.Property(e => e.Email)
-                    .IsRequired()
-                    .HasMaxLength(50)
-                    .IsUnicode(false)
-                    .HasColumnName("email");
-
-                entity.Property(e => e.IdNumber)
-                    .IsRequired()
-                    .HasMaxLength(13)
-                    .IsUnicode(false)
-                    .HasColumnName("idNumber");
+                    .HasColumnName("location");
 
                 entity.Property(e => e.Modules)
+                    .IsRequired()
                     .IsUnicode(false)
                     .HasColumnName("modules");
 
-                entity.Property(e => e.Name)
+                entity.Property(e => e.Password)
                     .IsRequired()
-                    .HasMaxLength(50)
                     .IsUnicode(false)
-                    .HasColumnName("name");
+                    .HasColumnName("password");
 
-                entity.Property(e => e.Surname)
-                    .IsRequired()
-                    .HasMaxLength(50)
+                entity.Property(e => e.TuteesCode)
                     .IsUnicode(false)
-                    .HasColumnName("surname");
-
-                entity.Property(e => e.Tutees)
-                    .IsUnicode(false)
-                    .HasColumnName("tutees");
+                    .HasColumnName("tuteesCode");
             });
 
             OnModelCreatingPartial(modelBuilder);

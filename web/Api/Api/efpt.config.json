@@ -14,11 +14,15 @@
    "SelectedToBeGenerated": 0,
    "Tables": [
       {
-         "Name": "[dbo].[Tutees]",
+         "Name": "[dbo].[Modules]",
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[Tutors]",
+         "Name": "[dbo].[Tutee]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Tutor]",
          "ObjectType": 0
       }
    ],
