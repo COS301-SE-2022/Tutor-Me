@@ -1,6 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-// import 'package:tutor_me/modules/api.services.dart';
-// import 'package:tutor_me/modules/tutors.dart';
+import 'package:tutor_me/modules/api.services.dart';
+import 'package:tutor_me/modules/tutors.dart';
 import 'tutorProfilePages/tutor_profile_view.dart';
 import 'Navigation/nav_drawer.dart';
 import 'tuteeProfilePages/tutee_data.dart';
@@ -17,56 +19,25 @@ class MyApp extends StatefulWidget {
 
 class MyAppState extends State<MyApp> {
   Tutee tutee = Tutee();
-  // List<Tutors> tutorList = List<Tutors>.empty();
-  // getTutors() {
-  //   APIServices.fetchTutor().then((response) {
-  //     // ignore: deprecated_member_use
-  //     Iterable list = json.decode(response.body);
-  //     // ignore: deprecated_member_use
-  //     List<Tutors> tutorsl = List<Tutors>.empty();
-  //     tutorsl = list.map((model) => Tutors.fromObject(model)).toList();
-  //     setState(() {
-  //       tutorList = tutorsl;
-  //     });
-  //   });
-  // }
+  List<Tutors> tutorList = List<Tutors>.empty();
 
-  var tutors = [
-    'Kuda Chivunga',
-    'Thabo Maduna',
-    'Farai Chivunga',
-    'Simphiwe Ndlovu',
-    'Musa Mabasa'
-  ];
+  getTutors() {
+    print("start get tutors");
+    APIServices.fetchTutor().then((response) {
+      print("lllllllllllllllllllll" + response.body);
+      setState(() {
+        Iterable list = json.decode(response.body);
+        print(list);
+        tutorList = list.map((model) => Tutors.fromObject(model)).toList();
+      });
+    });
+  }
 
-  var bios = [
-    'I am a CS student with a lot of passion',
-    'I am an IT student looking to lean more',
-    'Hi!!!',
-    'Welcome to my page',
-    'Engeering student'
-  ];
-
-  var ages = [
-    '21 years old\n',
-    '18 years old\n',
-    '20 years old\n',
-    '21 years old\n',
-    '19 years old\n'
-  ];
-
-  var location = ['Hatfield\n', 'Hatfield\n', 'Arcadia\n', 'Hatfield\n', 'Hillcrest'];
-
-  var gender = [
-    'Female\n',
-    'Female\n',
-    'Female\n',
-    'Female\n',
-    'Female\n',
-  ];
+  List<Tutors> tutors = List<Tutors>.empty();
 
   @override
   Widget build(BuildContext context) {
+    getTutors();
     tutee.setAttributes(
         "I am a hardworker,I absolutely love the field I am in.I'm constantly looking for ways to get things done",
         'Evander, Secunda\n',
@@ -78,7 +49,6 @@ class MyAppState extends State<MyApp> {
       child: MaterialApp(
         themeMode: ThemeMode.system,
         darkTheme: Themes.darkTheme,
-  
         debugShowCheckedModeBanner: false,
         home: Scaffold(
           drawer: const NavigationDrawerWidget(),
@@ -146,16 +116,20 @@ class MyAppState extends State<MyApp> {
           children: <Widget>[
             ListTile(
               leading: const Icon(Icons.account_circle),
-              title: Text(tutors[i]),
-              subtitle: Text(bios[i]),
+              title: Text(tutorList[i].getFirstNname),
+              subtitle: Text(tutorList[i].getLocation),
             ),
           ],
         ),
       ),
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
-            builder: (BuildContext context) =>
-                TutorProfilePageView(person: tutors[i], bio: bios[i], age: ages[i], location: location[i], gender: gender[i])));
+            builder: (BuildContext context) => TutorProfilePageView(
+                person: tutorList[i].getFirstNname,
+                bio: tutorList[i].getLocation,
+                age: tutorList[i].getAge,
+                location: tutorList[i].getLocation,
+                gender: tutorList[i].getInstitution)));
       },
     );
   }
