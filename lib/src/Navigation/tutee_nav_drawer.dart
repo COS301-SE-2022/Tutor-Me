@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import '../tuteeProfilePages/tutee_profile.dart';
 import '../tuteeProfilePages/tutee_data.dart';
 
-class NavigationDrawerWidget extends StatelessWidget {
+class TuteeNavigationDrawerWidget extends StatelessWidget {
   final padding = const EdgeInsets.symmetric(horizontal: 20);
 
-  const NavigationDrawerWidget({Key? key}) : super(key: key);
+  const TuteeNavigationDrawerWidget({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Drawer(
