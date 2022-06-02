@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'register.dart';
 // import 'package:tutor_me/src/colorPalette.dart';
+import 'login.dart';
 
 // ignore: must_be_immutable
 class RegisterOrLogin extends StatefulWidget {
@@ -163,7 +164,9 @@ class _RegisterOrLoginState extends State<RegisterOrLogin> {
           children: <Widget>[
             Container(
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  goToLogin(context);
+                },
                 child: Image.asset("assets/Pictures/tutor.jpg"),
                 style: ElevatedButton.styleFrom(
                     minimumSize: Size.zero,
@@ -219,5 +222,10 @@ class _RegisterOrLoginState extends State<RegisterOrLogin> {
   void goToRegister(BuildContext context) {
     Navigator.of(context)
         .push(MaterialPageRoute(builder: (context) => const Register()));
+  }
+
+  void goToLogin(BuildContext context) {
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => const Login()));
   }
 }
