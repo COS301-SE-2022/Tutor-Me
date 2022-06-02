@@ -3,7 +3,7 @@ import 'package:tutor_me/src/pages/chat_page.dart';
 import 'package:tutor_me/src/pages/tutees_list.dart';
 // import 'package:tutor_me/modules/api.services.dart';
 // import 'package:tutor_me/modules/tutors.dart';
-import 'Navigation/nav_drawer.dart';
+import 'Navigation/tutor_nav_drawer.dart';
 import 'tuteeProfilePages/tutee_data.dart';
 import 'theme/themes.dart';
 import 'pages/calls_page.dart';
@@ -53,9 +53,8 @@ class TutorPageState extends State<TutorPage> {
       child: MaterialApp(
         themeMode: ThemeMode.light,
         darkTheme: Themes.darkTheme,
-        debugShowCheckedModeBanner: false,
         home: Scaffold(
-            drawer: const NavigationDrawerWidget(),
+            drawer: const TutorNavigationDrawerWidget(),
             appBar: AppBar(
               toolbarHeight: 70,
               shape: const RoundedRectangleBorder(
@@ -99,9 +98,9 @@ class TutorPageState extends State<TutorPage> {
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter)),
               ),
-              actions: <Widget>[
-                IconButton(onPressed: () {}, icon: const Icon(Icons.search)),
-              ],
+              // actions: <Widget>[
+              //   IconButton(onPressed: () {}, icon: const Icon(Icons.search)),
+              // ],
             ),
             body: const TabBarView(
               children: <Widget>[
