@@ -13,7 +13,6 @@ class ImageUpload extends StatefulWidget {
 class ImageUploadState extends State<ImageUpload> {
   Future pickImage() async {
     await ImagePicker().pickImage(source: ImageSource.gallery);
-    print("In picker");
   }
 
   @override
