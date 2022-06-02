@@ -10,7 +10,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:tutor_me/src/app.dart';
+import 'package:tutor_me/src/tutee_page.dart';
 
 void main() {
   group('App dart', () {
@@ -46,7 +46,7 @@ void main() {
   });
 
   testWidgets('should display a  Chat Tab ', (WidgetTester tester) async {
-    await tester.pumpWidget(const MyApp());
+    await tester.pumpWidget(const TuteePage());
     //Tabs
     const tabChat = 'Chat';
     await tester.pumpAndSettle();
@@ -61,7 +61,7 @@ void main() {
   });
 
   testWidgets('should display a  Request Tab ', (WidgetTester tester) async {
-    await tester.pumpWidget(const MyApp());
+    await tester.pumpWidget(const TuteePage());
     //Tabs
     const tabRequest = 'Request';
     await tester.pumpAndSettle();
@@ -76,7 +76,7 @@ void main() {
   });
 
   testWidgets('should display a  Calls Tab ', (WidgetTester tester) async {
-    await tester.pumpWidget(const MyApp());
+    await tester.pumpWidget(const TuteePage());
     //Tabs
     const tabCalls = 'Calls';
     await tester.pumpAndSettle();
@@ -96,7 +96,7 @@ void main() {
     'should display users widget',
     (WidgetTester tester) async {
       // Write your test here
-      await tester.pumpWidget(const MyApp()); //_cardBuilder());
+      await tester.pumpWidget(const TuteePage()); //_cardBuilder());
 
       expect(find.text('Kuda Chivunga'), findsOneWidget);
        expect(find.text('Farai Chivunga'), findsOneWidget);

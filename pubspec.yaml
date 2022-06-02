@@ -26,6 +26,8 @@ dev_dependencies:
   
   flutter_native_splash: ^2.0.1+1
 
+  image_picker: ^0.8.5+3
+
 flutter_native_splash:
   color: "#556268" #lightish green
   image: assets/images/icons/Favicons/favicon-310x310.png
