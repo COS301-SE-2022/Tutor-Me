@@ -6,6 +6,7 @@ import 'src/settings/settings_service.dart';
 // import 'src/app.dart';
 import 'src/authenticate/register_or_login.dart';
 import 'src/ImageUpload/image_picker.dart';
+import 'src/tutorProfilePages/settings_pofile_view.dart';
 
 void main() async {
   final settingsController = SettingsController(SettingsService());
