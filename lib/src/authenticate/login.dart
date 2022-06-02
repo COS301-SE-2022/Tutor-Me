@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:tutor_me/src/authenticate/login.dart';
 import 'package:tutor_me/src/colorpallete.dart';
-import 'package:tutor_me/src/tutorProfilePages/settings_pofile_view.dart';
+import 'package:tutor_me/src/authenticate/register.dart';
 
-class Register extends StatelessWidget {
-  const Register({Key? key}) : super(key: key);
+class Login extends StatelessWidget {
+  const Login({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +28,6 @@ class Register extends StatelessWidget {
           ),
         ),
         Scaffold(
-          resizeToAvoidBottomInset: false,
           backgroundColor: Colors.transparent,
           body: Column(children: [
             const Flexible(
@@ -54,77 +52,104 @@ class Register extends StatelessWidget {
                 ),
               ),
             ),
-            const TextInputField(
-              icon: Icons.person_outline,
-              hint: 'Enter Full Name',
-              inputType: TextInputType.emailAddress,
-              inputAction: TextInputAction.done,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: const [
+                TextInputField(
+                  icon: Icons.email_outlined,
+                  hint: 'Email',
+                  inputType: TextInputType.emailAddress,
+                  inputAction: TextInputAction.done,
+                ),
+                PasswordInput(
+                  icon: Icons.lock_clock_outlined,
+                  hint: 'Password',
+                  inputAction: TextInputAction.done,
+                  inputType: TextInputType.text,
+                ),
+                Text(
+                  "Forgot Password?",
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.normal,
+                    color: Colors.white,
+                  ),
+                ),
+              ],
             ),
-            const TextInputField(
-              icon: Icons.person_outline,
-              hint: 'Enter Last Name',
-              inputType: TextInputType.emailAddress,
-              inputAction: TextInputAction.done,
+            const SizedBox(
+              height: 25,
             ),
-            const TextInputField(
-              icon: Icons.calendar_month_outlined,
-              hint: 'Enter DOB (DD/MM/YYYY)',
-              inputType: TextInputType.emailAddress,
-              inputAction: TextInputAction.done,
+            OrangeButton(btnName: "Login", onPressed: () {}),
+            const SizedBox(
+              height: 25,
             ),
-            const TextInputField(
-              icon: Icons.female_outlined,
-              hint: 'Gender',
-              inputType: TextInputType.emailAddress,
-              inputAction: TextInputAction.done,
-            ),
-            const TextInputField(
-              icon: Icons.school_outlined,
-              hint: 'Enter Institution Name',
-              inputType: TextInputType.emailAddress,
-              inputAction: TextInputAction.done,
-            ),
-            const TextInputField(
-              icon: Icons.email_outlined,
-              hint: 'Enter Your Email',
-              inputType: TextInputType.emailAddress,
-              inputAction: TextInputAction.done,
-            ),
-            //second input
-            const PasswordInput(
-              icon: Icons.lock_outline_rounded,
-              hint: 'Password',
-              inputAction: TextInputAction.done,
-              inputType: TextInputType.text,
-            ),
-
-            const PasswordInput(
-              icon: Icons.password_outlined,
-              hint: 'Confirm Password',
-              inputAction: TextInputAction.done,
-              inputType: TextInputType.text,
-            ),
-
             GestureDetector(
               onTap: () => Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) => const Register(),
                 ),
               ),
-              child: OrangeButton(
-                btnName: "Register",
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              const TutorSettingsProfileView()));
-                },
+              child: Container(
+                child: const Text(
+                  "Creat New Account",
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+                decoration: const BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(
+                      color: Colors.white,
+                      width: 2,
+                    ),
+                  ),
+                ),
               ),
             ),
+            const SizedBox(
+              height: 25,
+            )
+
+            //second input
           ]),
         )
       ],
+    );
+  }
+}
+
+class OrangeButton extends StatelessWidget {
+  const OrangeButton({
+    Key? key,
+    required this.btnName,
+    required Function() onPressed,
+  }) : super(key: key);
+  final String btnName;
+  @override
+  Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+
+    return Container(
+      height: size.height * 0.06,
+      width: size.width * 0.8,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(16),
+        color: colorOrange,
+      ),
+      child: TextButton(
+        onPressed: () {},
+        child: Text(
+          btnName,
+          style: const TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+      ),
     );
   }
 }
