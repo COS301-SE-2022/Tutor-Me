@@ -26,7 +26,7 @@
          "ObjectType": 0
       }
    ],
-   "UiHint": "DESKTOP-46VJRUR\\SQLEXPRESS.TutorMe",
+   "UiHint": "tutor-me.TutorMe",
    "UseBoolPropertiesWithoutDefaultSql": false,
    "UseDatabaseNames": false,
    "UseDbContextSplitting": false,

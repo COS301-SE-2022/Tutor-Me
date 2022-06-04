@@ -18,6 +18,7 @@ builder.Services.AddDbContext<Api.Data.TutorMeContext>(
 //add cors policy
 //make cors allow access control origin
 builder.Services.AddCors();
+//allow access origion *
 
 var app = builder.Build();
 
