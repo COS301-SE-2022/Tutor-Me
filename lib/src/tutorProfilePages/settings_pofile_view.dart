@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:tutor_me/src/authenticate/login.dart';
 import 'package:tutor_me/src/colorpallete.dart';
+import 'package:tutor_me/src/tutorProfilePages/tutor_profile_edit.dart';
 import 'package:tutor_me/src/tutorProfilePages/user_stats.dart';
 
 class TutorSettingsProfileView extends StatefulWidget {
@@ -36,6 +38,11 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
           fontWeight: FontWeight.bold,
           color: Colors.black,
         ),
+      ),
+      SmallTagButton(
+        btnName: "Tutor",
+        onPressed: () {},
+        backColor: colorTurqoise,
       ),
       SizedBox(height: screenHeightSize * 0.01),
       Text(
@@ -163,9 +170,19 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
           child: buildProfileImage(),
         ),
         Positioned(
-          top: MediaQuery.of(context).size.height * 0.27,
-          left: MediaQuery.of(context).size.height * 0.26,
-          child: buildEditImageIcon(),
+          top: MediaQuery.of(context).size.height * 0.17,
+          left: MediaQuery.of(context).size.height * 0.42,
+          child: GestureDetector(
+            onTap: (() => Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const TutorProfileEdit()))),
+            child: Icon(
+              Icons.edit,
+              color: colorOrange,
+              size: MediaQuery.of(context).size.height * 0.05,
+            ),
+          ),
         ),
       ],
     );

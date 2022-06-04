@@ -154,6 +154,42 @@ class OrangeButton extends StatelessWidget {
   }
 }
 
+class SmallTagButton extends StatelessWidget {
+  const SmallTagButton({
+    Key? key,
+    required this.btnName,
+    required this.backColor,
+    required Function() onPressed,
+  }) : super(key: key);
+  final String btnName;
+
+  final Color backColor;
+  @override
+  Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+
+    return Container(
+      height: size.height * 0.05,
+      width: size.width * 0.3,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(16),
+        color: backColor,
+      ),
+      child: TextButton(
+        onPressed: () {},
+        child: Text(
+          btnName,
+          style: const TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class PasswordInput extends StatelessWidget {
   const PasswordInput({
     Key? key,
