@@ -1,7 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:tutor_me/src/authenticate/login.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/components.dart';
+import 'package:image_picker/image_picker.dart';
 
 class TutorProfileEdit extends StatefulWidget {
   const TutorProfileEdit({Key? key}) : super(key: key);
@@ -11,6 +16,33 @@ class TutorProfileEdit extends StatefulWidget {
 }
 
 class _TutorProfileEditState extends State<TutorProfileEdit> {
+  File? image;
+
+  Future pickImage(ImageSource source) async {
+    try {
+      final image = await ImagePicker().pickImage(source: source);
+      if (image == null) {
+        return;
+      }
+
+      final imageTempPath = File(image.path);
+      setState(() => this.image = imageTempPath);
+    } on PlatformException catch (e) {
+      print(e);
+    }
+  }
+
+  ImageProvider buildImage() {
+    if (image != null) {
+      return fileImage();
+    }
+    return const AssetImage('assets/Pictures/avatar.jpeg');
+  }
+
+  FileImage fileImage() {
+    return FileImage(image!);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -85,15 +117,16 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
       alignment: Alignment.center,
       children: [
         Container(
+            height: MediaQuery.of(context).size.height * 0.25,
             margin: const EdgeInsets.only(bottom: 78),
             child: buildCoverImage()),
         Positioned(
-          top: 100,
+          top: MediaQuery.of(context).size.height * 0.18,
           child: buildProfileImage(),
         ),
         Positioned(
-          top: MediaQuery.of(context).size.height * 0.27,
-          left: MediaQuery.of(context).size.height * 0.26,
+          top: MediaQuery.of(context).size.height * 0.26,
+          left: MediaQuery.of(context).size.height * 0.23,
           child: buildEditImageIcon(),
         ),
       ],
@@ -112,17 +145,33 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
 
   Widget buildProfileImage() => CircleAvatar(
         radius: 50,
-        backgroundColor: Colors.grey.shade800,
-        backgroundImage: const AssetImage("assets/Pictures/tutorProfile.jpg"),
+        backgroundColor: Color.fromRGBO(66, 66, 66, 1),
+        backgroundImage: buildImage(),
       );
 
-  Widget buildEditImageIcon() => const CircleAvatar(
-        radius: 18,
-        backgroundColor: colorOrange,
-        child: Icon(
+  Widget buildEditImageIcon() => ElevatedButton(
+        style: ElevatedButton.styleFrom(
+            primary: colorOrange,
+            shape: const CircleBorder(),
+            padding: const EdgeInsets.all(8)),
+        child: const Icon(
           Icons.add_a_photo_outlined,
           color: Colors.white,
         ),
+        onPressed: () {
+          showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                    actions: [
+                      IconButton(
+                          onPressed: () => Navigator.pop(context), icon: const Icon(Icons.arrow_back)),
+                      TextButton(
+                          onPressed: () => pickImage(ImageSource.gallery) , child: const Text('Open Gallery')),
+                      TextButton(
+                          onPressed: () => pickImage(ImageSource.camera), child: const Text('Open Camera'))
+                    ],
+                  ));
+        },
       );
 }
 

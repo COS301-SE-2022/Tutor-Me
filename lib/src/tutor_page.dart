@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tutor_me/src/pages/chat_page.dart';
+import 'package:tutor_me/src/pages/chats_page.dart';
 import 'package:tutor_me/src/pages/tutees_list.dart';
 // import 'package:tutor_me/modules/api.services.dart';
 // import 'package:tutor_me/modules/tutors.dart';
@@ -99,7 +99,7 @@ class TutorPageState extends State<TutorPage> {
                         end: Alignment.bottomCenter)),
               ),
               // actions: <Widget>[
-              //   IconButton(onPressed: () {}, icon: const Icon(Icons.search)),
+                
               // ],
             ),
             body: const TabBarView(
