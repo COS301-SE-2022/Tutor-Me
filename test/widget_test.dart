@@ -10,7 +10,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:tutor_me/src/tutee_page.dart';
+// import 'package:tutor_me/src/tutee_page.dart';
 
 void main() {
   group('App dart', () {
