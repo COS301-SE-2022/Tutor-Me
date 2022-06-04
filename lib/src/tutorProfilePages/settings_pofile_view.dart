@@ -160,12 +160,13 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
     return Stack(
       clipBehavior: Clip.none,
       alignment: Alignment.center,
-      children: [
+      children: <Widget>[
         Container(
+            height: MediaQuery.of(context).size.height * 0.25,
             margin: const EdgeInsets.only(bottom: 78),
             child: buildCoverImage()),
         Positioned(
-          top: 100,
+          top: MediaQuery.of(context).size.height * 0.18,
           child: buildProfileImage(),
         ),
         Positioned(
