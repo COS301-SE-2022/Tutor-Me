@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:tutor_me/src/tuteeProfilePages/edit_tutee_profile_page.dart';
+//import 'package:tutor_me/src/tuteeProfilePages/edit_tutee_profile_page.dart';
 //import 'package:tutor_me/src/tuteeProfilePages/tutee_profile.dart';
 import 'package:tutor_me/src/tutee_page.dart';
 // import 'package:tutor_me/src/tutor_page.dart';
