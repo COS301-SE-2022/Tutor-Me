@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 // import 'package:tutor_me/src/colorPalette.dart';
-import 'package:tutor_me/src/tuteeProfilePages/edit_tutee_profile_page.dart';
+//import 'package:tutor_me/src/tuteeProfilePages/edit_tutee_profile_page.dart';
+
 import 'package:tutor_me/src/tuteeProfilePages/tutee_data.dart';
 import 'package:tutor_me/src/tutorProfilePages/tutor_profile_edit.dart';
 import 'package:tutor_me/src/tutorProfilePages/user_stats.dart';
