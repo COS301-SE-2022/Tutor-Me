@@ -26,7 +26,7 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
   Widget buildBody() {
     final screenWidthSize = MediaQuery.of(context).size.width;
     final screenHeightSize = MediaQuery.of(context).size.height;
-    final nameToEdit = " Carol Timith";
+    const nameToEdit = " Carol Timith";
 
     return Column(
       children: [
