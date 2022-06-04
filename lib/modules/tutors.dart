@@ -10,8 +10,7 @@ class Tutors {
   String _institution = "";
   String _modules = "";
 
-  Tutors(this._id, this._age, this._firstName, this._lastName, this._bio,
-      this._location, this._institution, this._modules);
+  Tutors(this._id, this._age, this._firstName, this._lastName, this._bio, this._location, this._institution, this._modules);
 
   String get getId => _id;
   String get getName => _lastName;
@@ -65,16 +64,12 @@ class Tutors {
 
   Tutors.fromObject(dynamic o) {
     _id = o["id"];
-    _firstName = o["name"];
-    _lastName = o["surname"];
+    _firstName = o["firstName"];
+    _lastName = o["lastName"];
     _bio = o["bio"];
-    // _bio = "will make bio soon";
-   _location = o["location"];
-    // _location = "Maplankeng";
+     _location = o["location"];
     _age = o["age"];
-    // _age = "20";
     _institution = o["institution"];
-    // _institution = "University of Cape Town";
     _modules = o["modules"];
   }
 
