@@ -25,7 +25,7 @@ class ChatState extends State<Chat> {
   List<Message> messages = [
     Message(
       text: 'Yes sure!',
-      date: DateTime.now().subtract(Duration(minutes: 1)),
+      date: DateTime.now().subtract(const Duration(minutes: 1)),
       isSentByMe: false,
       isOnline: false
     )

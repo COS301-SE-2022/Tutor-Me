@@ -1,8 +1,5 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/services.dart';
 import 'package:tutor_me/src/authenticate/login.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/components.dart';
@@ -19,7 +16,7 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
   File? image;
 
   Future pickImage(ImageSource source) async {
-    try {
+  
       final image = await ImagePicker().pickImage(source: source);
       if (image == null) {
         return;
@@ -27,9 +24,7 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
 
       final imageTempPath = File(image.path);
       setState(() => this.image = imageTempPath);
-    } on PlatformException catch (e) {
-      print(e);
-    }
+    
   }
 
   ImageProvider buildImage() {
@@ -145,7 +140,7 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
 
   Widget buildProfileImage() => CircleAvatar(
         radius: 50,
-        backgroundColor: Color.fromRGBO(66, 66, 66, 1),
+        backgroundColor: const Color.fromRGBO(66, 66, 66, 1),
         backgroundImage: buildImage(),
       );
 
