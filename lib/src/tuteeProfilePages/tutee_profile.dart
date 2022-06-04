@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:tutor_me/src/colorpallete.dart';
 // import 'package:tutor_me/src/colorPalette.dart';
 import 'package:tutor_me/src/tuteeProfilePages/edit_tutee_profile_page.dart';
 import 'package:tutor_me/src/tuteeProfilePages/tutee_data.dart';
+import 'package:tutor_me/src/tutorProfilePages/tutor_profile_edit.dart';
+import 'package:tutor_me/src/tutorProfilePages/user_stats.dart';
+import '../authenticate/login.dart';
 import 'edit_modules.dart';
 
 // ignore: must_be_immutable
@@ -32,287 +36,12 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
     tutee.location = widget.location + '\n';
     tutee.gender = widget.gender + '\n';
     return Scaffold(
-        body: Stack(
+        body: ListView(
+      padding: EdgeInsets.zero,
       children: <Widget>[
-        Positioned(
-          top: 0,
-          right: 0,
-          left: 0,
-          child: Container(
-            height: 170,
-            decoration: const BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage("assets/Pictures/flower.jpg"),
-                    fit: BoxFit.fill)),
-            child: Container(
-              padding: const EdgeInsets.only(top: 60, left: 140),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  RichText(
-                    text: TextSpan(
-                      // text: "Rose Tumil",
-                      // style: DefaultTextStyle.of(context).style,
-                      children: <TextSpan>[
-                        TextSpan(
-                            text: tutee.username,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 25,
-                              shadows: <Shadow>[
-                                Shadow(
-                                  offset: Offset(2.0, 2.0),
-                                  blurRadius: 6.0,
-                                  color: Color.fromARGB(255, 0, 0, 0),
-                                ),
-                              ],
-                            )),
-                      ],
-                    ),
-                  ),
-                  TextButton(
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all<Color>(
-                          Colors.deepOrangeAccent),
-                      foregroundColor:
-                          MaterialStateProperty.all<Color>(Colors.white),
-                    ),
-                    onPressed: null,
-                    child: const Text("Tutee"),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-        Positioned(
-          top: 95,
-          child: Container(
-            height: 120,
-            width: MediaQuery.of(context).size.width - 220,
-            margin: const EdgeInsets.symmetric(
-              horizontal: 12,
-            ),
-            decoration: const BoxDecoration(
-              shape: BoxShape.circle,
-              image: DecorationImage(
-                  image: AssetImage("assets/Pictures/profilePic.jpg")),
-              boxShadow: [
-                BoxShadow(
-                  blurRadius: 15,
-                  spreadRadius: 5,
-                )
-              ],
-            ),
-          ),
-        ),
-        Positioned(
-          top: 50,
-          child: Container(
-            height: 30,
-            width: MediaQuery.of(context).size.width - 270,
-            margin: const EdgeInsets.symmetric(
-              horizontal: 0,
-            ),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(5),
-              // ignore: prefer_const_constructors
-              color: Color.fromRGBO(214, 82, 7, 1),
-              boxShadow: const [
-                BoxShadow(
-                  blurRadius: 15,
-                  spreadRadius: 5,
-                )
-              ],
-            ),
-          ),
-        ),
-        Positioned(
-          top: 130,
-          left: 200,
-          child: SizedBox(
-            width: MediaQuery.of(context).size.width - 160,
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const EditTuteeProfilePage()),
-                );
-              },
-              child: const Icon(
-                Icons.edit_note,
-                color: Colors.white,
-              ),
-              style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(
-                      Colors.black.withOpacity(0))),
-            ),
-          ),
-        ),
-        Positioned(
-          top: 220,
-          left: 30,
-          child: Container(
-            height: 30,
-            width: 255,
-            color: const Color(0xff115748),
-            child: Column(children: [
-              RichText(
-                  text: const TextSpan(
-                      text: "Information",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 13,
-                      )))
-            ]),
-          ),
-        ),
-        Positioned(
-          top: 260,
-          left: 10,
-          child: SizedBox(
-            height: 130,
-            width: 255,
-            // color: Colors.black38,
-            child: Column(children: [
-              RichText(
-                  text: TextSpan(
-                      children: [
-                    const WidgetSpan(child: Icon(Icons.location_pin)),
-                    TextSpan(
-                        text: tutee.location,
-                        style: const TextStyle(fontSize: 15)),
-                    const WidgetSpan(child: Icon(Icons.transgender)),
-                    TextSpan(
-                        text: tutee.gender,
-                        style: const TextStyle(fontSize: 15)),
-                    const WidgetSpan(child: Icon(Icons.calendar_month)),
-                    TextSpan(
-                        text: tutee.age, style: const TextStyle(fontSize: 15)),
-                    const WidgetSpan(
-                        child: Icon(
-                      Icons.book,
-                    )),
-                    const TextSpan(
-                        text: 'University Of Pretoria\n',
-                        style: TextStyle(fontSize: 15)),
-                  ],
-                      style: const TextStyle(
-                        color: Colors.black,
-                      ))),
-            ]),
-          ),
-        ),
-        Positioned(
-          top: 380,
-          left: 30,
-          child: Container(
-            height: 30,
-            width: 255,
-            color: const Color(0xff115748),
-            child: Column(children: [
-              RichText(
-                  text: const TextSpan(
-                      text: "Bio",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 13,
-                      )))
-            ]),
-          ),
-        ),
-        Positioned(
-          top: 420,
-          left: 30,
-          child: SizedBox(
-            height: 60,
-            width: 255,
-            // color: Colors.black38,
-            child: Column(children: [
-              RichText(
-                  text: const TextSpan(
-                      text:
-                          "I am hardworker,I absolutely love the field I am in.I'm constantly looking for ways to get things done",
-                      style: TextStyle(
-                        color: Colors.black,
-                      )))
-            ]),
-          ),
-        ),
-        Positioned(
-          top: 480,
-          left: 30,
-          child: Container(
-            height: 30,
-            width: 255,
-            color: const Color(0xff115748),
-            child: Column(children: [
-              RichText(
-                  text: const TextSpan(
-                      text: "Modules I need tutoring for",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 13,
-                      )))
-            ]),
-          ),
-        ),
-        Positioned(
-          top: 520,
-          left: 30,
-          child: Container(
-            height: 200,
-            margin: const EdgeInsets.all(6),
-            // padding: const EdgeInsets.all(3.0),
-
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                RichText(
-                  text: const TextSpan(
-                    // text: "Rose Tumil",
-                    // style: DefaultTextStyle.of(context).style,
-                    children: <TextSpan>[
-                      TextSpan(
-                        text: '\u{2795} Calculus\n\n',
-                        style: TextStyle(
-                            fontWeight: FontWeight.normal,
-                            fontSize: 12,
-                            color: Colors.black),
-                      ),
-                      TextSpan(
-                        text: '\u{2795} Algebra\n\n',
-                        style: TextStyle(
-                            fontWeight: FontWeight.normal,
-                            fontSize: 12,
-                            color: Colors.black),
-                      ),
-                      TextSpan(
-                        text: '\u{2795} Mechanics\n\n',
-                        style: TextStyle(
-                            fontWeight: FontWeight.normal,
-                            fontSize: 12,
-                            color: Colors.black),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-        Positioned(
-            top: 630,
-            left: 100,
-            child: ElevatedButton(
-              onPressed: moveToEdit,
-              child: const Text("Edit Modules list"),
-              style: ButtonStyle(
-                backgroundColor:
-                    MaterialStateProperty.all(Colors.deepOrangeAccent),
-              ),
-            ))
+        topDesign(),
+        // readyToTutor(),
+        buildBody(),
       ],
     ));
   }
@@ -320,5 +49,240 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
   void moveToEdit() {
     Navigator.of(context)
         .push(MaterialPageRoute(builder: (context) => const EditModule()));
+  }
+
+  Widget topDesign() {
+    return Stack(
+      clipBehavior: Clip.none,
+      alignment: Alignment.center,
+      children: [
+        Container(
+            margin: const EdgeInsets.only(bottom: 78),
+            child: buildCoverImage()),
+        Positioned(
+          top: 100,
+          child: buildProfileImage(),
+        ),
+        Positioned(
+          top: MediaQuery.of(context).size.height * 0.17,
+          left: MediaQuery.of(context).size.height * 0.42,
+          child: GestureDetector(
+            onTap: (() => Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const TutorProfileEdit()))),
+            child: Icon(
+              Icons.edit,
+              color: colorWhite,
+              size: MediaQuery.of(context).size.height * 0.05,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget buildCoverImage() => Container(
+        color: Colors.grey,
+        child: const Image(
+          image: AssetImage('assets/Pictures/tuteeCover.jpg'),
+          width: double.infinity,
+          height: 150,
+          fit: BoxFit.cover,
+        ),
+      );
+
+  Widget buildProfileImage() => CircleAvatar(
+        radius: 50,
+        backgroundColor: Colors.grey.shade800,
+        backgroundImage: const AssetImage("assets/Pictures/tuteeProfile.jpg"),
+      );
+
+  Widget buildEditImageIcon() => const CircleAvatar(
+        radius: 18,
+        backgroundColor: colorOrange,
+        child: Icon(
+          Icons.camera_enhance,
+          color: Colors.white,
+        ),
+      );
+
+  Widget buildBody() {
+    final screenWidthSize = MediaQuery.of(context).size.width;
+    final screenHeightSize = MediaQuery.of(context).size.height;
+
+    return Column(children: [
+      Text(
+        "Carol Timith(22)",
+        style: TextStyle(
+          fontSize: screenWidthSize * 0.08,
+          fontWeight: FontWeight.bold,
+          color: Colors.black,
+        ),
+      ),
+      SmallTagButton(
+        btnName: "Tutee",
+        onPressed: () {},
+        backColor: colorOrange,
+      ),
+      SizedBox(height: screenHeightSize * 0.01),
+      Text(
+        "Computer Science | Universtiy of Pretoria",
+        style: TextStyle(
+          fontSize: screenWidthSize * 0.05,
+          fontWeight: FontWeight.normal,
+          color: colorTurqoise,
+        ),
+      ),
+      SizedBox(height: screenHeightSize * 0.02),
+      const UserStats(),
+      SizedBox(height: screenHeightSize * 0.02),
+      SizedBox(
+        width: double.infinity,
+        child: Padding(
+          padding: EdgeInsets.only(
+            left: screenWidthSize * 0.06,
+            top: screenHeightSize * 0.03,
+          ),
+          child: Text(
+            "About Me",
+            textAlign: TextAlign.left,
+            style: TextStyle(
+              fontSize: screenWidthSize * 0.065,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            ),
+          ),
+        ),
+      ),
+      Padding(
+        padding: EdgeInsets.only(
+          left: screenWidthSize * 0.06,
+          top: screenHeightSize * 0.01,
+          bottom: screenWidthSize * 0.06,
+        ),
+        child: Text(
+            "I am a self motivated individual who finds joy in exploring new technologies. I absolutely love teaching people. Fun fact: I love cooking. Always eager to help, feel free to hmu! ",
+            style: TextStyle(
+              fontSize: screenWidthSize * 0.05,
+              fontWeight: FontWeight.normal,
+              color: Colors.black,
+            )),
+      ),
+      SizedBox(
+        width: double.infinity,
+        child: Padding(
+          padding: EdgeInsets.only(
+            left: screenWidthSize * 0.06,
+          ),
+          child: Text("Gender",
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                fontSize: screenWidthSize * 0.06,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              )),
+        ),
+      ),
+      SizedBox(
+        width: double.infinity,
+        child: Padding(
+          padding: EdgeInsets.only(
+            right: screenWidthSize * 0.06,
+            left: screenWidthSize * 0.06,
+            top: screenHeightSize * 0.02,
+            bottom: screenHeightSize * 0.04,
+          ),
+          child: Text("Female",
+              style: TextStyle(
+                fontSize: screenWidthSize * 0.05,
+                fontWeight: FontWeight.normal,
+                color: Colors.black,
+              )),
+        ),
+      ),
+      SizedBox(
+        width: double.infinity,
+        child: Padding(
+          padding: EdgeInsets.only(
+            left: screenWidthSize * 0.06,
+            // top: 16,
+          ),
+          child: Text("Modules I tutor",
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                fontSize: screenWidthSize * 0.06,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              )),
+        ),
+      ),
+      SizedBox(
+        width: double.infinity,
+        child: Padding(
+          padding: EdgeInsets.only(
+            left: screenWidthSize * 0.06,
+            right: screenWidthSize * 0.06,
+            top: screenHeightSize * 0.02,
+          ),
+          child: Text(
+              "* WTW114 - Calculus \n* WTW115 - Discrete Methamatics \n* COS122 - Operating Systems",
+              style: TextStyle(
+                fontSize: screenWidthSize * 0.05,
+                fontWeight: FontWeight.normal,
+                color: Colors.black,
+              )),
+        ),
+      ),
+      SizedBox(
+        width: double.infinity,
+        child: Padding(
+            padding: EdgeInsets.only(
+              left: screenWidthSize * 0.06,
+              top: screenHeightSize * 0.03,
+            ),
+            child: SmallTagBtn(
+              btnName: "Edit Module list",
+              backColor: colorOrange,
+              onPressed: () {},
+            )),
+      ),
+    ]);
+  }
+}
+
+class SmallTagBtn extends StatelessWidget {
+  const SmallTagBtn({
+    Key? key,
+    required this.btnName,
+    required this.backColor,
+    required Function() onPressed,
+  }) : super(key: key);
+  final String btnName;
+
+  final Color backColor;
+  @override
+  Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+
+    return Container(
+      height: size.height * 0.05,
+      width: size.width * 0.1,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(16),
+        color: backColor,
+      ),
+      child: TextButton(
+        onPressed: () {},
+        child: Text(
+          btnName,
+          style: const TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+      ),
+    );
   }
 }
