@@ -22,6 +22,7 @@ class ChatsState extends State<Chats> {
     return Scaffold(
         body: ListView.builder(
       itemBuilder: _chatBuilder,
+      itemCount: 10,
     ));
   }
 
