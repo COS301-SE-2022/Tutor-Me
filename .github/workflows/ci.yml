@@ -1,7 +1,7 @@
 name: Flutter pub Get, Flutter Test and Flutter analyze
 on:
   pull_request:
-    branches: [develop]
+    branches: [develop, master]
 
 jobs:
   flutter_test:
