@@ -113,8 +113,8 @@ class TutorsListState extends State<TutorsList> {
         Navigator.of(context).push(MaterialPageRoute(
             builder: (BuildContext context) => TutorProfilePageView(
                 person: tutorList[i].getFirstName,
-                bio: tutorList[i].getLocation,
-                age: tutorList[i].getAge,
+                bio: tutorList[i].getBio,
+                age: tutorList[i].getAge.toString(),
                 location: tutorList[i].getLocation,
                 gender: tutorList[i].getInstitution)));
       },
