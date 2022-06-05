@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:tutor_me/modules/api.services.dart';
-import 'package:tutor_me/modules/tutors.dart';
+import 'package:tutor_me/services/Tutor.services.dart';
+import 'package:tutor_me/services/models/tutors.dart';
 import 'tutorProfilePages/tutor_profile_view.dart';
 import 'Navigation/tutee_nav_drawer.dart';
 import 'tuteeProfilePages/tutee_data.dart';
@@ -22,10 +22,13 @@ class TuteePageState extends State<TuteePage> {
   List<Tutors> tutorList = List<Tutors>.empty();
 
   getTutors() {
-    APIServices.fetchTutor().then((response) {
+    TutorServices.getTutors().then((response) {
       setState(() {
-        Iterable list = json.decode(response.body);
+        // print(response.body);
+        final list = json.decode(response.body);
+        print("done 1" + list.toString());
         tutorList = list.map((model) => Tutors.fromObject(model)).toList();
+        // print("done"+ tutorList.length.toString() + response.body);
       });
     });
   }
@@ -90,7 +93,7 @@ class TuteePageState extends State<TuteePage> {
           children: <Widget>[
             ListTile(
               leading: const Icon(Icons.account_circle),
-              title: Text(tutorList[i].getFirstNname),
+              title: Text(tutorList[i].getFirstName),
               subtitle: Text(tutorList[i].getLocation),
             ),
           ],
@@ -99,7 +102,7 @@ class TuteePageState extends State<TuteePage> {
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
             builder: (BuildContext context) => TutorProfilePageView(
-                person: tutorList[i].getFirstNname,
+                person: tutorList[i].getFirstName,
                 bio: tutorList[i].getLocation,
                 age: tutorList[i].getAge,
                 location: tutorList[i].getLocation,
