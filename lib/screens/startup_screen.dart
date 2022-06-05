@@ -34,7 +34,7 @@ class _StartupScreenState extends State<StartupScreen> {
   Widget build(BuildContext context) {
     final ButtonStyle _buttonStyle = TextButton.styleFrom(
       primary: Colors.white,
-      backgroundColor: Theme.of(context).primaryColor,
+      backgroundColor: Colors.red,
       textStyle: const TextStyle(
         fontWeight: FontWeight.bold,
       ),
