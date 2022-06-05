@@ -69,8 +69,8 @@ class _MeetingScreenState extends State<MeetingScreen> {
         micEnabled: widget.micEnabled,
         webcamEnabled: widget.webcamEnabled,
         notification: const NotificationInfo(
-          title: "Video SDK",
-          message: "Video SDK is sharing screen in the meeting",
+          title: "Tutor_Me",
+          message: "You are sharing sharing your screen in the meeting",
           icon: "notification_share", // drawable icon name
         ),
         builder: (_meeting) {
@@ -163,78 +163,15 @@ class _MeetingScreenState extends State<MeetingScreen> {
               // Called when more options button is pressed
               onMoreButtonPressed: () {
                 // Showing more options dialog box
-                showDialog<void>(
-                  context: navigatorKey.currentContext!,
-                  builder: (BuildContext context) => AlertDialog(
-                    title: const Text("More options"),
-                    content: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        // Chat
-                        ElevatedButton(
-                          child: const Text('Chat'),
-                          onPressed: () {
-                            Navigator.pop(context);
-                            showModalBottomSheet(
-                              context: context,
-                              constraints: BoxConstraints(
-                                  maxHeight:
-                                      MediaQuery.of(context).size.height -
-                                          statusbarHeight),
-                              isScrollControlled: true,
-                              builder: (context) =>
-                                  ChatScreen(meeting: meeting!),
-                            );
-                          },
-                        ),
-
-                        // Recording button
-                        ElevatedButton(
-                          child: Text(
-                            isRecordingOn
-                                ? 'Stop Recording'
-                                : 'Start Recording',
-                          ),
-                          onPressed: () {
-                            if (isRecordingOn) {
-                              _meeting.stopRecording();
-                            } else {
-                              _meeting.startRecording(recordingWebHookURL);
-                            }
-
-                            Navigator.pop(context);
-                          },
-                        ),
-
-                        // LiveStream button
-                        ElevatedButton(
-                          child: Text(
-                            isLiveStreamOn
-                                ? 'Stop Livestream'
-                                : 'Start Livestream',
-                          ),
-                          onPressed: () {
-                            List liveStreamOptions = [];
-
-                            if (isLiveStreamOn) {
-                              _meeting.stopLivestream();
-                            } else {
-                              if (liveStreamOptions.isNotEmpty) {
-                                _meeting.startLivestream(liveStreamOptions);
-                              } else {
-                                toastMsg(
-                                  "Failed to start livestream. Please add live stream options.",
-                                );
-                              }
-                            }
-
-                            Navigator.pop(context);
-                          },
-                        )
-                      ],
-                    ),
-                  ),
+                showModalBottomSheet(
+                  context: context,
+                  constraints: BoxConstraints(
+                      maxHeight:
+                          MediaQuery.of(context).size.height -
+                              statusbarHeight),
+                  isScrollControlled: true,
+                  builder: (context) =>
+                      ChatScreen(meeting: meeting!),
                 );
               },
             ),
