@@ -16,15 +16,13 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
   File? image;
 
   Future pickImage(ImageSource source) async {
-  
-      final image = await ImagePicker().pickImage(source: source);
-      if (image == null) {
-        return;
-      }
+    final image = await ImagePicker().pickImage(source: source);
+    if (image == null) {
+      return;
+    }
 
-      final imageTempPath = File(image.path);
-      setState(() => this.image = imageTempPath);
-    
+    final imageTempPath = File(image.path);
+    setState(() => this.image = imageTempPath);
   }
 
   ImageProvider buildImage() {
@@ -96,6 +94,8 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
           onPressed: () {},
         ),
         SizedBox(height: screenHeightSize * 0.03),
+        DowloadLinkButton(btnName: "Download Transcript", onPressed: () {}),
+        SizedBox(height: screenHeightSize * 0.03),
         UploadButton(
             btnName: "    Upload Id",
             onPressed: () {},
@@ -159,15 +159,20 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
               builder: (context) => AlertDialog(
                     actions: [
                       IconButton(
-                          onPressed: () => Navigator.pop(context), icon: const Icon(Icons.arrow_back)),
+                          onPressed: () => Navigator.pop(context),
+                          icon: const Icon(Icons.arrow_back)),
                       TextButton(
-                          onPressed: () => pickImage(ImageSource.gallery) , child: const Text('Open Gallery')),
+                          onPressed: () => pickImage(ImageSource.gallery),
+                          child: const Text('Open Gallery')),
                       TextButton(
-                          onPressed: () => pickImage(ImageSource.camera), child: const Text('Open Camera'))
+                          onPressed: () => pickImage(ImageSource.camera),
+                          child: const Text('Open Camera'))
                     ],
                   ));
         },
       );
+
+  // uploadTranscript() {}
 }
 
 class TextInputFieldEdit extends StatelessWidget {
