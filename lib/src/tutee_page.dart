@@ -1,9 +1,5 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:tutor_me/services/tutor_services.dart';
 import 'package:tutor_me/services/models/tutors.dart';
-import 'tutorProfilePages/tutor_profile_view.dart';
 import 'Navigation/tutee_nav_drawer.dart';
 import 'tuteeProfilePages/tutee_data.dart';
 import 'theme/themes.dart';

@@ -34,7 +34,6 @@ class TuteeServices {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*"
       });
-      print(response.body + response.statusCode.toString());
       if (response.statusCode == 200) {
         return response;
       } else {

@@ -27,7 +27,6 @@ class TutorsListState extends State<TutorsList> {
         String j = "";
         if (response.body[0] != "[") {
           j = "[" + response.body + "]";
-          print(j);
         } else {
           j = response.body;
         }
