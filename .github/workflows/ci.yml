@@ -1,4 +1,4 @@
-name: CI
+name: Flutter pub Get, Flutter Test and Flutter analyze
 on:
   pull_request:
     branches: [ main, develop, release/**]
