@@ -1,8 +1,5 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:tutor_me/modules/api.services.dart';
-import 'package:tutor_me/modules/tutors.dart';
+import 'package:tutor_me/services/models/tutors.dart';
 import 'Navigation/tutee_nav_drawer.dart';
 import 'tuteeProfilePages/tutee_data.dart';
 import 'theme/themes.dart';
@@ -22,21 +19,10 @@ class TuteePage extends StatefulWidget {
 class TuteePageState extends State<TuteePage> {
   Tutee tutee = Tutee();
   List<Tutors> tutorList = List<Tutors>.empty();
-
-  getTutors() {
-    APIServices.fetchTutor().then((response) {
-      setState(() {
-        Iterable list = json.decode(response.body);
-        tutorList = list.map((model) => Tutors.fromObject(model)).toList();
-      });
-    });
-  }
-
   List<Tutors> tutors = List<Tutors>.empty();
 
   @override
   Widget build(BuildContext context) {
-    getTutors();
     tutee.setAttributes(
         "I am a hardworker,I absolutely love the field I am in.I'm constantly looking for ways to get things done",
         'Evander, Secunda\n',
