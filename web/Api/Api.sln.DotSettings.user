@@ -1,0 +1,28 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=0c76485c_002Db551_002D4a08_002Db4a2_002D795d943cee08/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="GetTutorAsync_WithExistingItem_ReturnsFound #3" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::C8A4792E-3CA6-4D1D-92E5-65431D629A0D::net6.0::ApiUnitTests.UnitTest1.GetTutorAsync_WithExistingItem_ReturnsFound&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::C8A4792E-3CA6-4D1D-92E5-65431D629A0D::net6.0::ApiUnitTests.UnitTest1.GetTutorAsync_WithUnexistingItem_ReturnsNotFound&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=0c7914f9_002D057e_002D4477_002Db040_002Da0eb5a387b92/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GetTutorAsync_WithExistingItem_ReturnsFound #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::C8A4792E-3CA6-4D1D-92E5-65431D629A0D::net6.0::ApiUnitTests.UnitTest1.GetTutorAsync_WithExistingItem_ReturnsFound&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=26592243_002D05d5_002D4e2e_002D97eb_002D39579dad8c6a/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GetTutorAsync_WithExistingItem_ReturnsFound" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::C8A4792E-3CA6-4D1D-92E5-65431D629A0D::net6.0::ApiUnitTests.UnitTest1.GetTutorAsync_WithExistingItem_ReturnsFound&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=5214c613_002D50c7_002D4210_002Da45e_002Dd1b2a3142384/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GetTutorAsync_WithUnexistingItem_ReturnsNotFound" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::C8A4792E-3CA6-4D1D-92E5-65431D629A0D::net6.0::ApiUnitTests.UnitTest1.GetTutorAsync_WithUnexistingItem_ReturnsNotFound&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::C8A4792E-3CA6-4D1D-92E5-65431D629A0D::net6.0::ApiUnitTests.UnitTest1.GetTutorAsync_WithExistingItem_ReturnsNotFound&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=bc591a1b_002Da36f_002D4c08_002D947f_002De9bac4fca4e4/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GetTutorAsync_WithExistingItem_ReturnsNotFound" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::C8A4792E-3CA6-4D1D-92E5-65431D629A0D::net6.0::ApiUnitTests.UnitTest1.GetTutorAsync_WithExistingItem_ReturnsFound&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
