@@ -36,7 +36,7 @@ namespace Api.Controllers
                 return NotFound();
             }
             var tutor = await _context.Tutors.FindAsync(id);
-
+                
             if (tutor == null) {
                 return NotFound();
             }
