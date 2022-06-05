@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../tutorProfilePages/tutor_profile_view.dart';
-import 'package:tutor_me/modules/tutors.dart';
-import 'package:tutor_me/modules/api.services.dart';
+import 'package:tutor_me/services/models/tutors.dart';
+import 'package:tutor_me/services/tutor_services.dart';
 import 'dart:convert';
 // import 'package:tutor_me/modules/api.services.dart';
 // import 'package:tutor_me/modules/tutors.dart';
@@ -22,9 +22,16 @@ class TutorsListState extends State<TutorsList> {
   List<Tutors> tutorList = List<Tutors>.empty();
 
   getTutors() {
-    APIServices.fetchTutor().then((response) {
+    TutorServices.getTutors().then((response) {
       setState(() {
-        Iterable list = json.decode(response.body);
+        String j = "";
+        if (response.body[0] != "[") {
+          j = "[" + response.body + "]";
+          print(j);
+        } else {
+          j = response.body;
+        }
+        Iterable list = json.decode(j);
         tutorList = list.map((model) => Tutors.fromObject(model)).toList();
       });
     });
@@ -80,7 +87,7 @@ class TutorsListState extends State<TutorsList> {
   }
 
   Widget _cardBuilder(BuildContext context, int i) {
-    String name = tutorList[i].getFirstNname;
+    String name = tutorList[i].getFirstName;
     return GestureDetector(
       child: Card(
         elevation: 7.0,
@@ -93,7 +100,7 @@ class TutorsListState extends State<TutorsList> {
           children: <Widget>[
             ListTile(
               leading: CircleAvatar(child: Text(name[0]), backgroundColor: Colors.red),
-              title: Text(tutorList[i].getFirstNname),
+              title: Text(tutorList[i].getFirstName),
               subtitle: Text(tutorList[i].getBio),
               // trailing: ListView.builder(
               //   itemBuilder: _starBuilder,
@@ -106,7 +113,7 @@ class TutorsListState extends State<TutorsList> {
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
             builder: (BuildContext context) => TutorProfilePageView(
-                person: tutorList[i].getFirstNname,
+                person: tutorList[i].getFirstName,
                 bio: tutorList[i].getLocation,
                 age: tutorList[i].getAge,
                 location: tutorList[i].getLocation,
