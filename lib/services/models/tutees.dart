@@ -1,6 +1,6 @@
 // import 'dart:html';
 
-class Tutors {
+class Tutees {
   String _id = "";
   String _lastName = "";
   String _firstName = "";
@@ -10,11 +10,11 @@ class Tutors {
   String _institution = "";
   String _modules = "";
 
-  Tutors(this._id, this._age, this._firstName, this._lastName, this._bio, this._location, this._institution, this._modules);
+  Tutees(this._id, this._age, this._firstName, this._lastName, this._bio, this._location, this._institution, this._modules);
 
   String get getId => _id;
   String get getName => _lastName;
-  String get getFirstNname => _firstName;
+  String get getFirstName => _firstName;
   String get getBio => _bio;
   String get getLocation => _location;
   String get getAge => _age;
@@ -62,7 +62,7 @@ class Tutors {
     return map;
   }
 
-  Tutors.fromObject(dynamic o) {
+  Tutees.fromObject(dynamic o) {
     _id = o["id"];
     _firstName = o["firstName"];
     _lastName = o["lastName"];
