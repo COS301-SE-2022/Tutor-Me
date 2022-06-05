@@ -104,7 +104,7 @@ class MeetingActionBar extends StatelessWidget {
             child: MeetingActionButton(
               backgroundColor: secondaryColor.withOpacity(0.8),
               onPressed: onMoreButtonPressed,
-              icon: Icons.more_vert,
+              icon: Icons.chat_bubble_outline,
             ),
           ),
         ],
