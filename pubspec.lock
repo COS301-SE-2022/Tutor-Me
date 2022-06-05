@@ -141,7 +141,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.3.0"
-<<<<<<< HEAD
   ffi:
     dependency: transitive
     description:
@@ -156,8 +155,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "6.1.2"
-=======
->>>>>>> 57ab5891603f40070cbe4d6c96d7129707ffbaf8
   flutter:
     dependency: "direct main"
     description: flutter
@@ -374,7 +371,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.8.1"
-<<<<<<< HEAD
   path_drawing:
     dependency: transitive
     description:
@@ -438,8 +434,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0"
-=======
->>>>>>> 57ab5891603f40070cbe4d6c96d7129707ffbaf8
   petitparser:
     dependency: transitive
     description:
@@ -613,7 +607,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.4.9"
-<<<<<<< HEAD
   touch_ripple_effect:
     dependency: "direct main"
     description:
@@ -621,8 +614,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.2.3"
-=======
->>>>>>> 57ab5891603f40070cbe4d6c96d7129707ffbaf8
   typed_data:
     dependency: transitive
     description:
@@ -644,7 +635,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.2"
-<<<<<<< HEAD
   videosdk:
     dependency: "direct main"
     description:
@@ -680,8 +670,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.2.0+1"
-=======
->>>>>>> 57ab5891603f40070cbe4d6c96d7129707ffbaf8
   xml:
     dependency: transitive
     description:
@@ -697,10 +685,5 @@ packages:
     source: hosted
     version: "3.1.1"
 sdks:
-<<<<<<< HEAD
   dart: ">=2.17.0 <3.0.0"
   flutter: ">=3.0.0"
-=======
-  dart: ">=2.17.0-0 <3.0.0"
-  flutter: ">=2.8.0"
->>>>>>> 57ab5891603f40070cbe4d6c96d7129707ffbaf8
