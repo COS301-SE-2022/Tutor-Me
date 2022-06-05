@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../tutorProfilePages/tutor_profile_view.dart';
-import 'package:tutor_me/modules/tutors.dart';
-import 'package:tutor_me/modules/api.services.dart';
+import 'package:tutor_me/services/models/tutors.dart';
+import 'package:tutor_me/services/tutor_services.dart';
 import 'dart:convert';
 // import 'package:tutor_me/modules/api.services.dart';
 // import 'package:tutor_me/modules/tutors.dart';
@@ -21,10 +21,18 @@ class TutorsList extends StatefulWidget {
 class TutorsListState extends State<TutorsList> {
   List<Tutors> tutorList = List<Tutors>.empty();
 
+  String query = '';
+  final textControl = TextEditingController();
   getTutors() {
-    APIServices.fetchTutor().then((response) {
+    TutorServices.getTutors().then((response) {
       setState(() {
-        Iterable list = json.decode(response.body);
+        String j = "";
+        if (response.body[0] != "[") {
+          j = "[" + response.body + "]";
+        } else {
+          j = response.body;
+        }
+        Iterable list = json.decode(j);
         tutorList = list.map((model) => Tutors.fromObject(model)).toList();
       });
     });
@@ -33,14 +41,24 @@ class TutorsListState extends State<TutorsList> {
   List<Tutors> tutors = List<Tutors>.empty();
 
   void search(String search) {
+    final tutors = tutorList.where((tutor) {
+      final nameToLower = tutor.getFirstName.toLowerCase();
+      final query = search.toLowerCase();
+
+      return nameToLower.contains(query);
+    }).toList();
+
     setState(() {
-      // final tutors = tutorList.where()
+      tutorList = tutors;
+      query = search;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    getTutors();
+    if (query == '') {
+      getTutors();
+    }
     return Material(
         child: SingleChildScrollView(
             child: Column(children: <Widget>[
@@ -49,6 +67,7 @@ class TutorsListState extends State<TutorsList> {
         height: 50,
         child: TextField(
           onChanged: (value) => search(value),
+          controller: textControl,
           decoration: InputDecoration(
               filled: true,
               fillColor: Colors.white,
@@ -57,6 +76,17 @@ class TutorsListState extends State<TutorsList> {
                 Icons.search,
                 color: Colors.black45,
               ),
+              suffixIcon: query.isNotEmpty
+                  ? GestureDetector(
+                      child: const Icon(
+                        Icons.close,
+                        color: Colors.black45,
+                      ),
+                      onTap: () {
+                        textControl.clear();
+                      },
+                    )
+                  : null,
               border: OutlineInputBorder(
                 borderSide: const BorderSide(color: Colors.red, width: 1.0),
                 borderRadius: BorderRadius.circular(50),
@@ -80,7 +110,7 @@ class TutorsListState extends State<TutorsList> {
   }
 
   Widget _cardBuilder(BuildContext context, int i) {
-    String name = tutorList[i].getFirstNname;
+    String name = tutorList[i].getFirstName;
     return GestureDetector(
       child: Card(
         elevation: 7.0,
@@ -92,8 +122,9 @@ class TutorsListState extends State<TutorsList> {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             ListTile(
-              leading: CircleAvatar(child: Text(name[0]), backgroundColor: Colors.red),
-              title: Text(tutorList[i].getFirstNname),
+              leading: CircleAvatar(
+                  child: Text(name[0]), backgroundColor: Colors.red),
+              title: Text(tutorList[i].getFirstName),
               subtitle: Text(tutorList[i].getBio),
               // trailing: ListView.builder(
               //   itemBuilder: _starBuilder,
@@ -106,7 +137,7 @@ class TutorsListState extends State<TutorsList> {
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
             builder: (BuildContext context) => TutorProfilePageView(
-                person: tutorList[i].getFirstNname,
+                person: tutorList[i].getFirstName,
                 bio: tutorList[i].getLocation,
                 age: tutorList[i].getAge,
                 location: tutorList[i].getLocation,
