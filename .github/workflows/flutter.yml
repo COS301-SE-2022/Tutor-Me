@@ -1,4 +1,4 @@
-name: CI
+name: Flutter
 on:
   pull_request:
     branches: [develop, master]
