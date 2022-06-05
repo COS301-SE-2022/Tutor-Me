@@ -21,6 +21,8 @@ class TutorsList extends StatefulWidget {
 class TutorsListState extends State<TutorsList> {
   List<Tutors> tutorList = List<Tutors>.empty();
 
+  String query = '';
+  final textControl = TextEditingController();
   getTutors() {
     TutorServices.getTutors().then((response) {
       setState(() {
@@ -39,14 +41,24 @@ class TutorsListState extends State<TutorsList> {
   List<Tutors> tutors = List<Tutors>.empty();
 
   void search(String search) {
+    final tutors = tutorList.where((tutor) {
+      final nameToLower = tutor.getFirstName.toLowerCase();
+      final query = search.toLowerCase();
+
+      return nameToLower.contains(query);
+    }).toList();
+
     setState(() {
-      // final tutors = tutorList.where()
+      tutorList = tutors;
+      query = search;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    getTutors();
+    if (query == '') {
+      getTutors();
+    }
     return Material(
         child: SingleChildScrollView(
             child: Column(children: <Widget>[
@@ -55,6 +67,7 @@ class TutorsListState extends State<TutorsList> {
         height: 50,
         child: TextField(
           onChanged: (value) => search(value),
+          controller: textControl,
           decoration: InputDecoration(
               filled: true,
               fillColor: Colors.white,
@@ -63,6 +76,17 @@ class TutorsListState extends State<TutorsList> {
                 Icons.search,
                 color: Colors.black45,
               ),
+              suffixIcon: query.isNotEmpty
+                  ? GestureDetector(
+                      child: const Icon(
+                        Icons.close,
+                        color: Colors.black45,
+                      ),
+                      onTap: () {
+                        textControl.clear();
+                      },
+                    )
+                  : null,
               border: OutlineInputBorder(
                 borderSide: const BorderSide(color: Colors.red, width: 1.0),
                 borderRadius: BorderRadius.circular(50),
@@ -98,7 +122,8 @@ class TutorsListState extends State<TutorsList> {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             ListTile(
-              leading: CircleAvatar(child: Text(name[0]), backgroundColor: Colors.red),
+              leading: CircleAvatar(
+                  child: Text(name[0]), backgroundColor: Colors.red),
               title: Text(tutorList[i].getFirstName),
               subtitle: Text(tutorList[i].getBio),
               // trailing: ListView.builder(
