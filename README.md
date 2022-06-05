@@ -16,8 +16,8 @@
 ![image](https://img.shields.io/badge/dotnet-02569B?style=for-the-badge&logo=dotnet&logoColor=white)
 
 ![image](https://img.shields.io/badge/Microsoft%20SQL%20Server-Database-blue)
-[![](https://github.com/COS301-SE-2022/Tutor-ME/actions/workflows/ci.yml/badge.svg)](https://github.com/COS301-SE-2022/Tutor-ME/actions/workflows/ci.yml)
-
+[![Flutter CI/CD Tests](https://github.com/COS301-SE-2022/Tutor-ME/actions/workflows/flutter.yml/badge.svg)](https://github.com/COS301-SE-2022/Tutor-ME/actions/workflows/flutter.yml)
+[![.NET core CI/CD Tests](https://github.com/COS301-SE-2022/Tutor-ME/actions/workflows/dotnet.yml/badge.svg)](https://github.com/COS301-SE-2022/Tutor-ME/actions/workflows/dotnet.yml)
 
 
 <h1 align="center"> CapsOn </h1> <br>
