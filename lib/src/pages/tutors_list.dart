@@ -22,8 +22,13 @@ class TutorsListState extends State<TutorsList> {
   String query = '';
   final textControl = TextEditingController();
   List<Tutors> tutorList = List<Tutors>.empty();
+  List<Tutors> saveTutors = List<Tutors>.empty();
 
   void search(String search) {
+    if(search == '')
+    {
+      tutorList = saveTutors;
+    }
     final tutors = tutorList.where((tutor) {
       final nameToLower = tutor.getFirstName.toLowerCase();
       final query = search.toLowerCase();
@@ -41,6 +46,7 @@ class TutorsListState extends State<TutorsList> {
     final tutors = await TutorServices.getTutors();
     setState(() {
       tutorList = tutors;
+      saveTutors = tutors;
     });
   }
 
@@ -52,9 +58,7 @@ class TutorsListState extends State<TutorsList> {
 
   @override
   Widget build(BuildContext context) {
-    if (query == '') {
-      getTutors();
-    }
+    
     return Material(
         child: SingleChildScrollView(
             child: Column(children: <Widget>[
@@ -80,6 +84,10 @@ class TutorsListState extends State<TutorsList> {
                       ),
                       onTap: () {
                         textControl.clear();
+                        setState(() {
+                          tutorList = saveTutors;
+                        });
+                        
                       },
                     )
                   : null,
