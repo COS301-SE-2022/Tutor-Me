@@ -26,8 +26,7 @@ class TutorServices {
         throw Exception('Failed to load');
       }
     } catch (e) {
-      print(e);
-      throw Exception('Failed to load');
+      throw Exception(e);
     }
    
   }
