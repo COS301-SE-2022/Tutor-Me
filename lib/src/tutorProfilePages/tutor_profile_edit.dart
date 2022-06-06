@@ -16,15 +16,13 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
   File? image;
 
   Future pickImage(ImageSource source) async {
-  
-      final image = await ImagePicker().pickImage(source: source);
-      if (image == null) {
-        return;
-      }
+    final image = await ImagePicker().pickImage(source: source);
+    if (image == null) {
+      return;
+    }
 
-      final imageTempPath = File(image.path);
-      setState(() => this.image = imageTempPath);
-    
+    final imageTempPath = File(image.path);
+    setState(() => this.image = imageTempPath);
   }
 
   ImageProvider buildImage() {
@@ -54,6 +52,11 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
     final screenWidthSize = MediaQuery.of(context).size.width;
     final screenHeightSize = MediaQuery.of(context).size.height;
     const nameToEdit = " Carol Timith";
+    // FilePickerResult? filePickerResult;
+    // String? fileName;
+    // PlatformFile? file;
+    // bool isUploading = false;
+    // File? fileToUpload;
 
     return Column(
       children: [
@@ -94,7 +97,36 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
           btnIcon: Icons.upload,
           btnName: "    Upload Latest Transcript",
           onPressed: () {},
+          // onPressed: () async {
+          //   try {
+          //     setState(() {
+          //       isUploading = true;
+          //     });
+
+          //     filePickerResult = await FilePicker.platform.pickFiles(
+          //       type: FileType.any,
+          //       allowMultiple: false,
+          //       allowedExtensions: ['pdf'],
+          //     );
+
+          //     if (filePickerResult == null) {
+          //       return;
+          //     }
+          //     fileName = filePickerResult!.files.first.name;
+          //     file = filePickerResult!.files.first;
+          //     fileToUpload = File(file!.path.toString());
+
+          //     print("File name: " + fileName!);
+          //     setState(() {
+          //       isUploading = false;
+          //     });
+          //   } catch (e) {
+          //     print(e);
+          //   }
+          // },
         ),
+        SizedBox(height: screenHeightSize * 0.03),
+        DowloadLinkButton(btnName: "Download Transcript", onPressed: () {}),
         SizedBox(height: screenHeightSize * 0.03),
         UploadButton(
             btnName: "    Upload Id",
@@ -159,15 +191,20 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
               builder: (context) => AlertDialog(
                     actions: [
                       IconButton(
-                          onPressed: () => Navigator.pop(context), icon: const Icon(Icons.arrow_back)),
+                          onPressed: () => Navigator.pop(context),
+                          icon: const Icon(Icons.arrow_back)),
                       TextButton(
-                          onPressed: () => pickImage(ImageSource.gallery) , child: const Text('Open Gallery')),
+                          onPressed: () => pickImage(ImageSource.gallery),
+                          child: const Text('Open Gallery')),
                       TextButton(
-                          onPressed: () => pickImage(ImageSource.camera), child: const Text('Open Camera'))
+                          onPressed: () => pickImage(ImageSource.camera),
+                          child: const Text('Open Camera'))
                     ],
                   ));
         },
       );
+
+  // uploadTranscript() {}
 }
 
 class TextInputFieldEdit extends StatelessWidget {
