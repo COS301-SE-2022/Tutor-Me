@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:tutor_me/services/services/tutor_services.dart';
 import '../tutorProfilePages/tutor_profile_view.dart';
 import 'package:tutor_me/services/models/tutors.dart';
-import 'package:tutor_me/services/tutor_services.dart';
-import 'dart:convert';
 // import 'package:tutor_me/modules/api.services.dart';
 // import 'package:tutor_me/modules/tutors.dart';
 // import 'tutorProfilePages/tutor_profile_view.dart';
@@ -19,26 +18,10 @@ class TutorsList extends StatefulWidget {
 }
 
 class TutorsListState extends State<TutorsList> {
-  List<Tutors> tutorList = List<Tutors>.empty();
-
+  // TutorRepo tutorRepo = TutorRepo();
   String query = '';
   final textControl = TextEditingController();
-  getTutors() {
-    TutorServices.getTutors().then((response) {
-      setState(() {
-        String j = "";
-        if (response.body[0] != "[") {
-          j = "[" + response.body + "]";
-        } else {
-          j = response.body;
-        }
-        Iterable list = json.decode(j);
-        tutorList = list.map((model) => Tutors.fromObject(model)).toList();
-      });
-    });
-  }
-
-  List<Tutors> tutors = List<Tutors>.empty();
+  List<Tutors> tutorList = List<Tutors>.empty();
 
   void search(String search) {
     final tutors = tutorList.where((tutor) {
@@ -52,6 +35,19 @@ class TutorsListState extends State<TutorsList> {
       tutorList = tutors;
       query = search;
     });
+  }
+
+  getTutors() async {
+    final tutors = await TutorServices.getTutors();
+    setState(() {
+      tutorList = tutors;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getTutors();
   }
 
   @override
