@@ -15,6 +15,8 @@ dependencies:
   http: ^0.13.4
   flutter_localizations:
     sdk: flutter
+
+  file_picker: ^4.6.1
   videosdk: ^0.0.10
   flutter_dotenv: ^5.0.2
   cupertino_icons: ^1.0.4
@@ -23,9 +25,7 @@ dependencies:
   flutter_svg: ^1.0.1
   visibility_detector: ^0.2.2
   date_time_format: ^2.0.1
-  touch_ripple_effect: ^2.2.3
-
-  
+  touch_ripple_effect: ^2.2.3  
   
 dev_dependencies:
   flutter_test:
