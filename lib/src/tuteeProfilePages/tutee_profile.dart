@@ -7,6 +7,7 @@ import 'package:tutor_me/src/tuteeProfilePages/tutee_data.dart';
 import 'package:tutor_me/src/tutorProfilePages/tutor_profile_edit.dart';
 import 'package:tutor_me/src/tutorProfilePages/user_stats.dart';
 import '../authenticate/login.dart';
+import 'edit_module_list.dart';
 import 'edit_modules.dart';
 
 // ignore: must_be_immutable
@@ -245,7 +246,10 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
             child: SmallTagBtn(
               btnName: "Edit Module list",
               backColor: colorOrange,
-              onPressed: () {},
+              funct: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const EditModuleList()));
+              },
             )),
       ),
     ]);
@@ -257,11 +261,12 @@ class SmallTagBtn extends StatelessWidget {
     Key? key,
     required this.btnName,
     required this.backColor,
-    required Function() onPressed,
+    required this.funct,
   }) : super(key: key);
   final String btnName;
 
   final Color backColor;
+  final Function() funct;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -274,7 +279,7 @@ class SmallTagBtn extends StatelessWidget {
         color: backColor,
       ),
       child: TextButton(
-        onPressed: () {},
+        onPressed: funct,
         child: Text(
           btnName,
           style: const TextStyle(

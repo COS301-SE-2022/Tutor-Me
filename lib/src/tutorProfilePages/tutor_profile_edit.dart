@@ -52,6 +52,11 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
     final screenWidthSize = MediaQuery.of(context).size.width;
     final screenHeightSize = MediaQuery.of(context).size.height;
     const nameToEdit = " Carol Timith";
+    // FilePickerResult? filePickerResult;
+    // String? fileName;
+    // PlatformFile? file;
+    // bool isUploading = false;
+    // File? fileToUpload;
 
     return Column(
       children: [
@@ -92,6 +97,33 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
           btnIcon: Icons.upload,
           btnName: "    Upload Latest Transcript",
           onPressed: () {},
+          // onPressed: () async {
+          //   try {
+          //     setState(() {
+          //       isUploading = true;
+          //     });
+
+          //     filePickerResult = await FilePicker.platform.pickFiles(
+          //       type: FileType.any,
+          //       allowMultiple: false,
+          //       allowedExtensions: ['pdf'],
+          //     );
+
+          //     if (filePickerResult == null) {
+          //       return;
+          //     }
+          //     fileName = filePickerResult!.files.first.name;
+          //     file = filePickerResult!.files.first;
+          //     fileToUpload = File(file!.path.toString());
+
+          //     print("File name: " + fileName!);
+          //     setState(() {
+          //       isUploading = false;
+          //     });
+          //   } catch (e) {
+          //     print(e);
+          //   }
+          // },
         ),
         SizedBox(height: screenHeightSize * 0.03),
         DowloadLinkButton(btnName: "Download Transcript", onPressed: () {}),

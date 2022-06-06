@@ -15,6 +15,7 @@ dependencies:
   http: ^0.13.4
   flutter_localizations:
     sdk: flutter
+  file_picker: ^4.6.1
   
   
 dev_dependencies:
