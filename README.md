@@ -46,6 +46,7 @@ additional functionalities like filtering tutors by gender to enable students to
 ## [Recorded Demo](https://drive.google.com/file/d/16WFDqOZ3tqesce0W2QBPpVktkZrKXXwX/view?usp=sharing)
 ## [Funtional Requirements](https://github.com/COS301-SE-2022/Tutor-ME/blob/12a701224538648bcd7ad0ad158007bd9333bf34/SRS%20Document%20-%20Tutor%20Me.pdf)
 ## [Architectural Requirements](https://github.com/COS301-SE-2022/Tutor-ME/blob/develop/assets/Architectural%20Development.pdf)
+## [Coding Standards Document]([https://github.com/COS301-SE-2022/Tutor-ME/blob/develop/assets/Architectural%20Development.pdf](https://github.com/COS301-SE-2022/Tutor-ME/blob/develop/assets/Coding%20standards%20document.pdf))
 ## Project Boards:
 > > > ### [GitHub Project Board](https://github.com/COS301-SE-2022/Tutor-ME/projects/1)
 > > > ### [Trello Project Board](https://trello.com/b/R58mrioT/tutor-me)
