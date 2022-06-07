@@ -64,7 +64,6 @@ namespace Api.Data
                 entity.Property(e => e.Age)
                     .IsRequired()
                     .IsUnicode(false)
-                    .HasColumnType("int")
                     .HasColumnName("age");
 
                 entity.Property(e => e.Bio)
@@ -147,7 +146,6 @@ namespace Api.Data
 
             entity.Property(e => e.Age)
                 .IsRequired()
-                .HasColumnType("int")
                 .IsUnicode(false)
                 .HasColumnName("age");
 
@@ -167,7 +165,6 @@ namespace Api.Data
                 .IsRequired()
                 .HasMaxLength(1)
                 .IsUnicode(false)
-                .HasColumnType("int")
                 .HasColumnName("rating")
                 .HasDefaultValueSql("0");
 

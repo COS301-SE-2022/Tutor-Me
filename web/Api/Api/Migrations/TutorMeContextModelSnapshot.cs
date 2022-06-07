@@ -64,9 +64,10 @@ namespace Api.Migrations
                         .HasColumnName("id")
                         .HasDefaultValueSql("(newid())");
 
-                    b.Property<int>("Age")
+                    b.Property<string>("Age")
+                        .IsRequired()
                         .IsUnicode(false)
-                        .HasColumnType("int")
+                        .HasColumnType("varchar(max)")
                         .HasColumnName("age");
 
                     b.Property<string>("Bio")
@@ -166,9 +167,10 @@ namespace Api.Migrations
                         .HasColumnName("id")
                         .HasDefaultValueSql("(newid())");
 
-                    b.Property<int>("Age")
+                    b.Property<string>("Age")
+                        .IsRequired()
                         .IsUnicode(false)
-                        .HasColumnType("int")
+                        .HasColumnType("varchar(max)")
                         .HasColumnName("age");
 
                     b.Property<string>("Bio")
@@ -241,11 +243,12 @@ namespace Api.Migrations
                         .HasColumnType("varchar(max)")
                         .HasColumnName("password");
 
-                    b.Property<int>("Rating")
+                    b.Property<string>("Rating")
+                        .IsRequired()
                         .ValueGeneratedOnAdd()
                         .HasMaxLength(1)
                         .IsUnicode(false)
-                        .HasColumnType("int")
+                        .HasColumnType("varchar(1)")
                         .HasColumnName("rating")
                         .HasDefaultValueSql("0");
 

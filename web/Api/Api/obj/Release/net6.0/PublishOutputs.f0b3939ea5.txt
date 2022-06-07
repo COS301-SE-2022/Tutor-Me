@@ -5,6 +5,7 @@ E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\Api\obj\Release\net6.0\PubTmp\
 E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\Api\obj\Release\net6.0\PubTmp\Out\Api.dll
 E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\Api\obj\Release\net6.0\PubTmp\Out\Api.runtimeconfig.json
 E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\Api\obj\Release\net6.0\PubTmp\Out\Api.pdb
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\Api\obj\Release\net6.0\PubTmp\Out\Castle.Core.dll
 E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\Api\obj\Release\net6.0\PubTmp\Out\Humanizer.dll
 E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\Api\obj\Release\net6.0\PubTmp\Out\MessagePack.dll
 E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\Api\obj\Release\net6.0\PubTmp\Out\MessagePack.Annotations.dll
@@ -49,6 +50,7 @@ E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\Api\obj\Release\net6.0\PubTmp\
 E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\Api\obj\Release\net6.0\PubTmp\Out\Microsoft.VisualStudio.Web.CodeGeneration.Utils.dll
 E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\Api\obj\Release\net6.0\PubTmp\Out\Microsoft.VisualStudio.Web.CodeGenerators.Mvc.dll
 E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\Api\obj\Release\net6.0\PubTmp\Out\Microsoft.Win32.SystemEvents.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\Api\obj\Release\net6.0\PubTmp\Out\Moq.dll
 E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\Api\obj\Release\net6.0\PubTmp\Out\Newtonsoft.Json.dll
 E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\Api\obj\Release\net6.0\PubTmp\Out\NuGet.Common.dll
 E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\Api\obj\Release\net6.0\PubTmp\Out\NuGet.Configuration.dll

@@ -6,13 +6,13 @@ class Tutors {
   String _firstName = "";
   String _bio = "";
   String _location = "";
-  int _age = 0;
+  String _age = "";
   String _email = "";
   String _gender = "";
   String _institution = "";
   String _connections = "";
   String _modules = "";
-  int _rating = 0;
+  String _rating = "";
   String _course = "";
   String _status = "";
   String _faculty = "";
@@ -40,10 +40,10 @@ class Tutors {
   String get getFirstName => _firstName;
   String get getBio => _bio;
   String get getLocation => _location;
-  int get getAge => _age;
+  String get getAge => _age;
   String get getInstitution => _institution;
   String get getModules => _modules;
-  int get getRating => _rating;
+  String get getRating => _rating;
   String get getCourse => _course;
   String get getStatus => _status;
   String get getFaculty => _faculty;
@@ -71,7 +71,7 @@ class Tutors {
     _location = newLocation;
   }
 
-  set setAge(int newAge) {
+  set setAge(String newAge) {
     _age = newAge;
   }
 
@@ -83,7 +83,7 @@ class Tutors {
     _modules = newModules;
   }
 
-  set setRating(int newRating) {
+  set setRating(String newRating) {
     _rating = newRating;
   }
 
