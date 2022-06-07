@@ -4,6 +4,8 @@ import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/tutorProfilePages/tutor_profile_edit.dart';
 import 'package:tutor_me/src/tutorProfilePages/user_stats.dart';
 
+import '../components.dart';
+
 class TutorSettingsProfileView extends StatefulWidget {
   const TutorSettingsProfileView({Key? key}) : super(key: key);
 

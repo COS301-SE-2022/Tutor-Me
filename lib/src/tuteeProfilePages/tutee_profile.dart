@@ -7,6 +7,7 @@ import 'package:tutor_me/src/tuteeProfilePages/tutee_data.dart';
 import 'package:tutor_me/src/tutorProfilePages/tutor_profile_edit.dart';
 import 'package:tutor_me/src/tutorProfilePages/user_stats.dart';
 import '../authenticate/login.dart';
+import '../components.dart';
 import 'edit_module_list.dart';
 import 'edit_modules.dart';
 
