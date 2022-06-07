@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
@@ -66,11 +64,9 @@ class TutorServices {
       String email,
       String password,
       String confirmPassword) async {
-    // TODO: implement registerTutor
     List<Tutors> tutors = await getTutors();
     for (int i = 0; i < tutors.length; i++) {
       if (tutors[i].getEmail == email) {
-        print("same email");
         throw Exception("Email already exists");
       }
     }
@@ -95,7 +91,7 @@ class TutorServices {
     } else {
       age = now.year - int.parse(dateList[2]) - 1;
     }
-    // https://protocoderspoint.com/flutter-encryption-decryption-using-flutter-string-encryption/#:~:text=open%20your%20flutter%20project%20that,IDE(android%2Dstudio).&text=Then%20after%20you%20have%20added,the%20password%20the%20user%20enter.
+    //source: https://protocoderspoint.com/flutter-encryption-decryption-using-flutter-string-encryption/#:~:text=open%20your%20flutter%20project%20that,IDE(android%2Dstudio).&text=Then%20after%20you%20have%20added,the%20password%20the%20user%20enter.
 
     String data = jsonEncode({
       'firstName': name,
@@ -131,15 +127,14 @@ class TutorServices {
           j = response.body;
         }
         final List list = json.decode(j);
-        List<Tutors> tutors = list.map((json) => Tutors.fromObject(json)).toList();
+        List<Tutors> tutors =
+            list.map((json) => Tutors.fromObject(json)).toList();
         return tutors[0];
-
       } else {
         throw Exception('Failed to upload ' + response.statusCode.toString());
       }
     } catch (e) {
-      print("error: " + e.toString());
-      return false;
+      rethrow;
     }
   }
 
