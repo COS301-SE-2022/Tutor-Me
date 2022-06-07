@@ -144,19 +144,16 @@ class TutorServices {
     try {
       List tutor = await getTutor(id);
       List moduleList = tutor[0].getModules.split(',');
-      print("got to this point..........1");
       final allModules = await ModuleServices.getModules();
       List<Modules> modules = [];
-      print("got to this point..........2 " + moduleList[0] + allModules[0].getModuleName);
       for (int i = 0; i < moduleList.length; i++) {
         for (int j = 0; j < allModules.length; j++) {
           if (moduleList[i] == allModules[j].getCode) {
-            print("got to this point..........3" + allModules[j].getModuleName);
             modules.add(allModules[j]);
           }
         }
       }
-      
+
       return modules;
     } catch (e) {
       throw Exception(e);
