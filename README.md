@@ -16,8 +16,8 @@
 ![image](https://img.shields.io/badge/dotnet-02569B?style=for-the-badge&logo=dotnet&logoColor=white)
 
 ![image](https://img.shields.io/badge/Microsoft%20SQL%20Server-Database-blue)
-[![](https://github.com/COS301-SE-2022/Tutor-ME/actions/workflows/ci.yml/badge.svg)](https://github.com/COS301-SE-2022/Tutor-ME/actions/workflows/ci.yml)
-
+[![Flutter CI/CD Tests](https://github.com/COS301-SE-2022/Tutor-ME/actions/workflows/flutter.yml/badge.svg)](https://github.com/COS301-SE-2022/Tutor-ME/actions/workflows/flutter.yml)
+[![.NET core CI/CD Tests](https://github.com/COS301-SE-2022/Tutor-ME/actions/workflows/dotnet.yml/badge.svg)](https://github.com/COS301-SE-2022/Tutor-ME/actions/workflows/dotnet.yml)
 
 
 <h1 align="center"> CapsOn </h1> <br>
@@ -45,6 +45,8 @@ additional functionalities like filtering tutors by gender to enable students to
 
 ## [Recorded Demo](https://drive.google.com/file/d/16WFDqOZ3tqesce0W2QBPpVktkZrKXXwX/view?usp=sharing)
 ## [Funtional Requirements](https://github.com/COS301-SE-2022/Tutor-ME/blob/12a701224538648bcd7ad0ad158007bd9333bf34/SRS%20Document%20-%20Tutor%20Me.pdf)
+## [Architectural Requirements](https://github.com/COS301-SE-2022/Tutor-ME/blob/develop/assets/Architectural%20Development.pdf)
+## [Coding Standards Document](https://github.com/COS301-SE-2022/Tutor-ME/blob/develop/assets/Coding%20standards%20document.pdf)
 ## Project Boards:
 > > > ### [GitHub Project Board](https://github.com/COS301-SE-2022/Tutor-ME/projects/1)
 > > > ### [Trello Project Board](https://trello.com/b/R58mrioT/tutor-me)
