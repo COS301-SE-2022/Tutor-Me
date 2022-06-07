@@ -1,13 +1,7 @@
-using System.Drawing.Printing;
 using Api.Controllers;
 using Api.Data;
 using Api.Models;
-using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Routing.Constraints;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ValueGeneration;
-using Microsoft.Extensions.Options;
 
 namespace ApiUnitTests;
 
