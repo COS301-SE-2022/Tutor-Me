@@ -1,7 +1,9 @@
 import 'package:http/http.dart' as http;
+import 'package:tutor_me/services/models/modules.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:tutor_me/services/models/tutors.dart';
+import 'package:tutor_me/services/services/module_services.dart';
 // import 'package:flutter_string_encryption/flutter_string_encryption.dart';
 
 class TutorServices {
@@ -51,7 +53,7 @@ class TutorServices {
         throw Exception('Failed to load' + response.statusCode.toString());
       }
     } catch (e) {
-      return null;
+      throw Exception(e);
     }
   }
 
@@ -135,6 +137,26 @@ class TutorServices {
       }
     } catch (e) {
       rethrow;
+    }
+  }
+
+  static getTutorModules(String id) async {
+    try {
+      List tutor = await getTutor(id);
+      List moduleList = tutor[0].getModules.split(',');
+      final allModules = await ModuleServices.getModules();
+      List<Modules> modules = [];
+      for (int i = 0; i < moduleList.length; i++) {
+        for (int j = 0; j < allModules.length; j++) {
+          if (moduleList[i] == allModules[j].getCode) {
+            modules.add(allModules[j]);
+          }
+        }
+      }
+
+      return modules;
+    } catch (e) {
+      throw Exception(e);
     }
   }
 
