@@ -51,7 +51,7 @@ class TutorServices {
         throw Exception('Failed to load' + response.statusCode.toString());
       }
     } catch (e) {
-      return null;
+      throw Exception(e);
     }
   }
 
@@ -135,6 +135,16 @@ class TutorServices {
       }
     } catch (e) {
       rethrow;
+    }
+  }
+
+  static getTutorModules(String id) async {
+    try {
+      List tutor = await getTutor(id);
+      List moduleList = tutor[0].getModules.split(',');
+      return moduleList;
+    } catch (e) {
+      throw Exception(e);
     }
   }
 
