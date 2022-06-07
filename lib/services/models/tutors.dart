@@ -36,8 +36,8 @@ class Tutors {
   );
 
   String get getId => _id;
-  String get getName => _lastName;
-  String get getFirstName => _firstName;
+  String get getName => _firstName;
+  String get getLastName => _lastName;
   String get getBio => _bio;
   String get getLocation => _location;
   String get getAge => _age;
