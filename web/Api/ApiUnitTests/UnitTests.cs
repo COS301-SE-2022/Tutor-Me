@@ -3,6 +3,7 @@ using Api.Data;
 using Api.Models;
 using Microsoft.AspNetCore.Mvc;
 
+
 namespace ApiUnitTests;
 
 using FluentAssertions;
@@ -206,9 +207,41 @@ public class UnitTests
         // Assert
         Assert.IsType<NoContentResult>(result);
     }
+     private bool MOckTutorExists(Guid id)
+    {
+        return (_expectedTutors?.Any(e => e.Id == id)).GetValueOrDefault();
+    }
+    [Fact]
+    public Task TutorExists_Returns_True()
+    {
+        //Arranage
+        var existingTutor = createTutor();
+        _expectedTutors.Add(existingTutor);
+        
+        //Act
+        bool status= MOckTutorExists(existingTutor.Id);
 
-    //Mock the PutTutor method
-       public Tutor MockPutTutor(Guid id,Tutor tutor)
+        // Assert
+        Assert.True(status);
+        return Task.CompletedTask;
+    }
+
+    [Fact]
+    public void TutorExists_Returns_False()
+    {
+        //Arranage
+        var UnexistingTutor = createTutor();
+        // _expectedTutors.Add(existingTutor);
+
+        //Act
+        bool status = MOckTutorExists(UnexistingTutor.Id);
+
+        // Assert
+        Assert.False((status));
+    }
+   
+      
+    public Tutor MockPutTutor(Guid id,Tutor tutor)
     {
         
         bool status=false;
