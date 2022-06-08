@@ -84,26 +84,7 @@ class Tutors {
   }
 
   set setAge(String newAge) {
-    int age = 0;
-    int year = 0;
-    int month = 0;
-    int day = 0;
-    DateTime now = DateTime.now();
-    List<String> dateList = newAge.split("/");
-    year = int.parse(dateList[2]);
-    month = int.parse(dateList[1]);
-    day = int.parse(dateList[0]);
-
-    if (month < now.month) {
-      if (day < now.day) {
-        age = now.year - year;
-      } else {
-        age = now.year - int.parse(dateList[2]) - 1;
-      }
-    } else {
-      age = now.year - int.parse(dateList[2]) - 1;
-    }
-    _age = age.toString();
+   _age = newAge;
   }
 
   set setInstitution(String newInstitution) {
@@ -124,6 +105,26 @@ class Tutors {
 
   set setDateOfBirth(String newDateOfBirth) {
     _dateOfBirth = newDateOfBirth;
+    int age = 0;
+    int year = 0;
+    int month = 0;
+    int day = 0;
+    DateTime now = DateTime.now();
+    List<String> dateList = newDateOfBirth.split("/");
+    year = int.parse(dateList[2]);
+    month = int.parse(dateList[1]);
+    day = int.parse(dateList[0]);
+
+    if (month < now.month) {
+      if (day < now.day) {
+        age = now.year - year;
+      } else {
+        age = now.year - int.parse(dateList[2]) - 1;
+      }
+    } else {
+      age = now.year - int.parse(dateList[2]) - 1;
+    }
+    _age = age.toString();
   }
 
   set setStatus(String newStatus) {
