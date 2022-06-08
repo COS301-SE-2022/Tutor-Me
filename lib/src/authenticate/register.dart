@@ -1,13 +1,35 @@
 import 'package:flutter/material.dart';
-import 'package:tutor_me/src/authenticate/login.dart';
 import 'package:tutor_me/src/colorpallete.dart';
-import 'package:tutor_me/src/tutorProfilePages/settings_pofile_view.dart';
+import '../components.dart';
 
 class Register extends StatelessWidget {
   const Register({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final FocusNode emailFocusNode = FocusNode();
+    final FocusNode passwordFocusNode = FocusNode();
+    final FocusNode confirmPasswordFocusNode = FocusNode();
+    final FocusNode firstNameFocusNode = FocusNode();
+    final FocusNode lastNameFocusNode = FocusNode();
+    final FocusNode dobFocusNode = FocusNode();
+    final FocusNode genderFocusNode = FocusNode();
+    final FocusNode institutionFocusNode = FocusNode();
+    final FocusNode courseFocusNode = FocusNode();
+
+    // final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+    final TextEditingController emailController = TextEditingController();
+    final TextEditingController passwordController = TextEditingController();
+    final TextEditingController confirmPasswordController =
+        TextEditingController();
+    final TextEditingController firstNameController = TextEditingController();
+    final TextEditingController lastNameController = TextEditingController();
+    final TextEditingController dobController = TextEditingController();
+    final TextEditingController genderController = TextEditingController();
+    final TextEditingController institutionController = TextEditingController();
+    final TextEditingController courseController = TextEditingController();
+
     return Stack(
       children: [
         ShaderMask(
@@ -54,196 +76,103 @@ class Register extends StatelessWidget {
                 ),
               ),
             ),
-            const TextInputField(
+            TextInputField(
               icon: Icons.person_outline,
               hint: 'Enter Full Name',
               inputType: TextInputType.emailAddress,
               inputAction: TextInputAction.done,
+              inputController: firstNameController,
+              inputFocus: firstNameFocusNode,
             ),
-            const TextInputField(
+            TextInputField(
               icon: Icons.person_outline,
               hint: 'Enter Last Name',
               inputType: TextInputType.emailAddress,
               inputAction: TextInputAction.done,
+              inputController: lastNameController,
+              inputFocus: lastNameFocusNode,
             ),
-            const TextInputField(
+            TextInputField(
               icon: Icons.calendar_month_outlined,
               hint: 'Enter DOB (DD/MM/YYYY)',
               inputType: TextInputType.emailAddress,
               inputAction: TextInputAction.done,
+              inputController: dobController,
+              inputFocus: dobFocusNode,
             ),
-            const TextInputField(
+            TextInputField(
               icon: Icons.female_outlined,
               hint: 'Gender',
               inputType: TextInputType.emailAddress,
               inputAction: TextInputAction.done,
+              inputController: genderController,
+              inputFocus: genderFocusNode,
             ),
-            const TextInputField(
+            TextInputField(
+              icon: Icons.school_outlined,
+              hint: 'Course',
+              inputType: TextInputType.emailAddress,
+              inputAction: TextInputAction.done,
+              inputController: courseController,
+              inputFocus: courseFocusNode,
+            ),
+            TextInputField(
               icon: Icons.school_outlined,
               hint: 'Enter Institution Name',
               inputType: TextInputType.emailAddress,
               inputAction: TextInputAction.done,
+              inputController: institutionController,
+              inputFocus: institutionFocusNode,
             ),
-            const TextInputField(
+            TextInputField(
               icon: Icons.email_outlined,
               hint: 'Enter Your Email',
               inputType: TextInputType.emailAddress,
               inputAction: TextInputAction.done,
+              inputController: emailController,
+              inputFocus: emailFocusNode,
             ),
-            //second input
-            const PasswordInput(
+            PasswordInput(
               icon: Icons.lock_outline_rounded,
               hint: 'Password',
               inputAction: TextInputAction.done,
               inputType: TextInputType.text,
+              inputController: passwordController,
+              inputFocus: passwordFocusNode,
             ),
-
-            const PasswordInput(
+            PasswordInput(
               icon: Icons.password_outlined,
               hint: 'Confirm Password',
               inputAction: TextInputAction.done,
               inputType: TextInputType.text,
+              inputController: confirmPasswordController,
+              inputFocus: confirmPasswordFocusNode,
             ),
-
-            GestureDetector(
-              onTap: () => Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => const Register(),
-                ),
+            const SizedBox(
+              height: 25,
+            ),
+            Container(
+              height: MediaQuery.of(context).size.height * 0.06,
+              width: MediaQuery.of(context).size.width * 0.8,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(16),
+                color: colorOrange,
               ),
-              child: OrangeButton(
-                btnName: "Register",
+              child: TextButton(
                 onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              const TutorSettingsProfileView()));
+                  
                 },
+                child: const Text("Register",
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    )),
               ),
             ),
           ]),
         )
       ],
-    );
-  }
-}
-
-class PasswordInput extends StatelessWidget {
-  const PasswordInput({
-    Key? key,
-    required this.icon,
-    required this.hint,
-    required this.inputType,
-    required this.inputAction,
-  }) : super(key: key);
-
-  final IconData icon;
-  final String hint;
-  final TextInputType inputType;
-  final TextInputAction inputAction;
-
-  @override
-  Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10.0),
-      child: Container(
-        height: size.height * 0.06,
-        width: size.width * 0.8,
-        decoration: BoxDecoration(
-          color: Colors.grey[500]!.withOpacity(0.3),
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(
-            color: colorOrange,
-            width: 1,
-          ),
-        ),
-        child: Center(
-          child: TextField(
-            decoration: InputDecoration(
-              border: InputBorder.none,
-              prefixIcon: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: Icon(
-                  icon,
-                  size: 24,
-                  color: Colors.white,
-                ),
-              ),
-              hintText: hint,
-              hintStyle: const TextStyle(color: Colors.white),
-            ),
-            obscureText: true,
-            style: const TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.normal,
-              color: Colors.white,
-            ),
-            keyboardType: inputType,
-            textInputAction: inputAction,
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class TextInputField extends StatelessWidget {
-  const TextInputField({
-    Key? key,
-    required this.icon,
-    required this.hint,
-    required this.inputType,
-    required this.inputAction,
-  }) : super(key: key);
-
-  final IconData icon;
-  final String hint;
-  final TextInputType inputType;
-  final TextInputAction inputAction;
-
-  @override
-  Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10.0),
-      child: Container(
-        height: size.height * 0.06,
-        width: size.width * 0.8,
-        decoration: BoxDecoration(
-          color: Colors.grey[500]!.withOpacity(0.3),
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(
-            color: colorOrange,
-            width: 1,
-          ),
-        ),
-        child: Center(
-          child: TextField(
-            decoration: InputDecoration(
-                border: InputBorder.none,
-                prefixIcon: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                  child: Icon(
-                    icon,
-                    size: 24,
-                    color: Colors.white,
-                  ),
-                ),
-                hintText: hint,
-                hintStyle: const TextStyle(color: Colors.white)),
-            style: const TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.normal,
-              color: Colors.white,
-            ),
-            keyboardType: inputType,
-            textInputAction: inputAction,
-          ),
-        ),
-      ),
     );
   }
 }
