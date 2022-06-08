@@ -30,6 +30,31 @@ class ModuleServices {
     }
   }
 
+  static updateModule(Modules module) async {
+    String data = jsonEncode({
+      'code': module.getCode,
+      'moduleName': module.getModuleName,
+      'institution': module.getInstitution,
+      'faculty': module.getFaculty,
+    });
+    final header = <String, String>{
+      'Content-Type': 'application/json; charset=utf-8',
+    };
+    try {
+      final code = module.getCode;
+      final modulesURL =
+          Uri.parse('https://tutormeapi.azurewebsites.net/api/Modules/$code');
+      final response = await http.put(modulesURL, headers: header, body: data);
+      if (response.statusCode == 204) {
+        return module;
+      } else {
+        throw Exception('Failed to upload ' + response.statusCode.toString());
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   static Future getModule(String id) async {
     Uri tutorURL =
         Uri.https('tutormeapi.azurewebsites.net', '/api/Modules/$id');
