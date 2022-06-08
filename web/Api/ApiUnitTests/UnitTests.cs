@@ -134,6 +134,42 @@ public class UnitTests
             Assert.NotNull(tutor);
             Assert.True((status));
         }
+    [Fact]
+    public async Task PostTutor_and_returns_a_type_of_Action_Result_returns_null()
+    {
+         
+        //Arranage
+        var expectedTutor = createTutor();
+
+        var repositoryStub = new Mock<TutorMeContext>();
+        repositoryStub.Setup(repo => repo.Tutors.FindAsync(It.IsAny<Guid>())).ReturnsAsync((expectedTutor));
+        var controller = new TutorsController(repositoryStub.Object);
+        
+        //Act
+        
+        var result = await controller.PostTutor(expectedTutor);
+        // Assert
+        Assert.IsType<ActionResult<Api.Models.Tutor>>(result);
+      
+    }
+    [Fact]
+     public async Task PostTutor_and_returns_a_type_of_Action()
+    {
+         
+        //Arranage
+        var expectedTutor = createTutor();
+
+        var repositoryStub = new Mock<TutorMeContext>();
+        repositoryStub.Setup(repo => repo.Tutors.FindAsync(It.IsAny<Guid>())).ReturnsAsync((Tutor)null);
+        var controller = new TutorsController(repositoryStub.Object);
+        
+        //Act
+        
+        var result = await controller.PostTutor(expectedTutor);
+        // Assert
+       // Assert.IsType<ActionResult<Api.Models.Tutor>>(result);
+       Assert.Null(result.Value);
+    }
    
     //Mock the PutTutor method
        public Tutor MockPutTutor(Guid id,Tutor tutor)
