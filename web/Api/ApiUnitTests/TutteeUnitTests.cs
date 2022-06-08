@@ -20,7 +20,7 @@ public class TutteeUnitTests
             Id = Guid.NewGuid(),
             FirstName = Guid.NewGuid().ToString(),
             LastName = Guid.NewGuid().ToString(),
-            Age = Guid.NewGuid().ToString(),
+            DateOfBirth = Guid.NewGuid().ToString(),
             Gender = Guid.NewGuid().ToString(),
             Institution = Guid.NewGuid().ToString(),
             Modules = Guid.NewGuid().ToString(),
