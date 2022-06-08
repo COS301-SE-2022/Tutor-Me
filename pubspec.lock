@@ -147,7 +147,7 @@ packages:
       name: ffi
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0"
+    version: "1.2.1"
   file:
     dependency: transitive
     description:
@@ -155,6 +155,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "6.1.2"
+  file_picker:
+    dependency: "direct main"
+    description:
+      name: file_picker
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.6.1"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -265,7 +272,7 @@ packages:
       name: http_parser
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.0.0"
+    version: "4.0.1"
   image:
     dependency: transitive
     description:
@@ -286,7 +293,7 @@ packages:
       name: image_picker_android
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.8.4+13"
+    version: "0.8.5"
   image_picker_for_web:
     dependency: transitive
     description:
@@ -433,7 +440,7 @@ packages:
       name: path_provider_windows
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.0"
+    version: "2.0.7"
   petitparser:
     dependency: transitive
     description:
@@ -662,7 +669,7 @@ packages:
       name: win32
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.7.0"
+    version: "2.5.2"
   xdg_directories:
     dependency: transitive
     description:
@@ -685,5 +692,5 @@ packages:
     source: hosted
     version: "3.1.1"
 sdks:
-  dart: ">=2.17.0 <3.0.0"
-  flutter: ">=3.0.0"
+  dart: ">=2.17.0-0 <3.0.0"
+  flutter: ">=2.8.1"
