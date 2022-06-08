@@ -61,11 +61,10 @@ namespace Api.Data
                     .HasColumnName("id")
                     .HasDefaultValueSql("(newid())");
 
-                entity.Property(e => e.Age)
+                entity.Property(e => e.DateOfBirth)
                     .IsRequired()
                     .IsUnicode(false)
-                    .HasColumnType("int")
-                    .HasColumnName("age");
+                    .HasColumnName("dateOfBirth");
 
                 entity.Property(e => e.Bio)
                     .IsUnicode(false)
@@ -145,11 +144,10 @@ namespace Api.Data
                 .HasColumnName("id")
                 .HasDefaultValueSql("(newid())");
 
-            entity.Property(e => e.Age)
+            entity.Property(e => e.DateOfBirth)
                 .IsRequired()
-                .HasColumnType("int")
                 .IsUnicode(false)
-                .HasColumnName("age");
+                .HasColumnName("dateOfBirth");
 
             entity.Property(e => e.Bio)
                 .IsUnicode(false)
@@ -167,7 +165,6 @@ namespace Api.Data
                 .IsRequired()
                 .HasMaxLength(1)
                 .IsUnicode(false)
-                .HasColumnType("int")
                 .HasColumnName("rating")
                 .HasDefaultValueSql("0");
 

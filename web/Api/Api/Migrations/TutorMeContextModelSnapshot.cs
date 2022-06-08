@@ -64,11 +64,6 @@ namespace Api.Migrations
                         .HasColumnName("id")
                         .HasDefaultValueSql("(newid())");
 
-                    b.Property<int>("Age")
-                        .IsUnicode(false)
-                        .HasColumnType("int")
-                        .HasColumnName("age");
-
                     b.Property<string>("Bio")
                         .IsUnicode(false)
                         .HasColumnType("varchar(max)")
@@ -83,6 +78,12 @@ namespace Api.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(max)")
                         .HasColumnName("course");
+
+                    b.Property<string>("DateOfBirth")
+                        .IsRequired()
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(max)")
+                        .HasColumnName("dateOfBirth");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -166,11 +167,6 @@ namespace Api.Migrations
                         .HasColumnName("id")
                         .HasDefaultValueSql("(newid())");
 
-                    b.Property<int>("Age")
-                        .IsUnicode(false)
-                        .HasColumnType("int")
-                        .HasColumnName("age");
-
                     b.Property<string>("Bio")
                         .IsUnicode(false)
                         .HasColumnType("varchar(max)")
@@ -185,6 +181,12 @@ namespace Api.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(max)")
                         .HasColumnName("course");
+
+                    b.Property<string>("DateOfBirth")
+                        .IsRequired()
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(max)")
+                        .HasColumnName("dateOfBirth");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -241,11 +243,12 @@ namespace Api.Migrations
                         .HasColumnType("varchar(max)")
                         .HasColumnName("password");
 
-                    b.Property<int>("Rating")
+                    b.Property<string>("Rating")
+                        .IsRequired()
                         .ValueGeneratedOnAdd()
                         .HasMaxLength(1)
                         .IsUnicode(false)
-                        .HasColumnType("int")
+                        .HasColumnType("varchar(1)")
                         .HasColumnName("rating")
                         .HasDefaultValueSql("0");
 

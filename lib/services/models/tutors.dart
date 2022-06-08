@@ -6,24 +6,28 @@ class Tutors {
   String _firstName = "";
   String _bio = "";
   String _location = "";
-  int _age = 0;
+  String _tuteesCode = "";
+  String _age = "";
+  String _dateOfBirth = "";
   String _email = "";
+  String _password = "";
   String _gender = "";
   String _institution = "";
   String _connections = "";
   String _modules = "";
-  int _rating = 0;
+  String _rating = "";
   String _course = "";
   String _status = "";
   String _faculty = "";
 
   Tutors(
     this._id,
-    this._age,
+    this._dateOfBirth,
     this._firstName,
     this._lastName,
     this._bio,
     this._location,
+    this._tuteesCode,
     this._institution,
     this._modules,
     this._rating,
@@ -31,23 +35,27 @@ class Tutors {
     this._status,
     this._faculty,
     this._email,
+    this._password,
     this._gender,
     this._connections,
   );
 
   String get getId => _id;
-  String get getName => _lastName;
-  String get getFirstName => _firstName;
+  String get getName => _firstName;
+  String get getLastName => _lastName;
   String get getBio => _bio;
   String get getLocation => _location;
-  int get getAge => _age;
+  String get getTuteesCode => _tuteesCode;
+  String get getAge => _age;
+  String get getDateOfBirth => _dateOfBirth;
   String get getInstitution => _institution;
   String get getModules => _modules;
-  int get getRating => _rating;
+  String get getRating => _rating;
   String get getCourse => _course;
   String get getStatus => _status;
   String get getFaculty => _faculty;
   String get getEmail => _email;
+  String get getPassword => _password;
   String get getGender => _gender;
   String get getConnections => _connections;
 
@@ -71,8 +79,31 @@ class Tutors {
     _location = newLocation;
   }
 
-  set setAge(int newAge) {
-    _age = newAge;
+  set setTuteesCode(String newTuteesCode) {
+    _tuteesCode = newTuteesCode;
+  }
+
+  set setAge(String newAge) {
+    int age = 0;
+    int year = 0;
+    int month = 0;
+    int day = 0;
+    DateTime now = DateTime.now();
+    List<String> dateList = newAge.split("/");
+    year = int.parse(dateList[2]);
+    month = int.parse(dateList[1]);
+    day = int.parse(dateList[0]);
+
+    if (month < now.month) {
+      if (day < now.day) {
+        age = now.year - year;
+      } else {
+        age = now.year - int.parse(dateList[2]) - 1;
+      }
+    } else {
+      age = now.year - int.parse(dateList[2]) - 1;
+    }
+    _age = age.toString();
   }
 
   set setInstitution(String newInstitution) {
@@ -83,12 +114,16 @@ class Tutors {
     _modules = newModules;
   }
 
-  set setRating(int newRating) {
+  set setRating(String newRating) {
     _rating = newRating;
   }
 
   set setCourse(String newCourse) {
     _course = newCourse;
+  }
+
+  set setDateOfBirth(String newDateOfBirth) {
+    _dateOfBirth = newDateOfBirth;
   }
 
   set setStatus(String newStatus) {
@@ -101,6 +136,10 @@ class Tutors {
 
   set setEmail(String newEmail) {
     _email = newEmail;
+  }
+
+  set setPassword(String newPassword) {
+    _password = newPassword;
   }
 
   set setGender(String newGender) {
@@ -118,7 +157,8 @@ class Tutors {
     map["last_name"] = _lastName;
     map["bio"] = _bio;
     map["location"] = _location;
-    map["age"] = _age;
+    map["tuteesCode"] = _tuteesCode;
+    map["dateOfBirth"] = _dateOfBirth;
     map["institution"] = _institution;
     map["modules"] = _modules;
     map["id"] = _id;
@@ -127,6 +167,7 @@ class Tutors {
     map["status"] = _status;
     map["faculty"] = _faculty;
     map["email"] = _email;
+    map["password"] = _password;
     map["gender"] = _gender;
     map["connections"] = _connections;
     return map;
@@ -138,7 +179,8 @@ class Tutors {
     _lastName = o["lastName"];
     _bio = o["bio"];
     _location = o["location"];
-    _age = o["age"];
+    _tuteesCode = o["tuteesCode"];
+    _dateOfBirth = o["dateOfBirth"];
     _institution = o["institution"];
     _modules = o["modules"];
     _rating = o["rating"];
@@ -146,6 +188,7 @@ class Tutors {
     _status = o["status"];
     _faculty = o["faculty"];
     _email = o["email"];
+    _password = o["password"];
     _gender = o["gender"];
     _connections = o["connections"];
   }

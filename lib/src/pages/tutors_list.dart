@@ -22,10 +22,15 @@ class TutorsListState extends State<TutorsList> {
   String query = '';
   final textControl = TextEditingController();
   List<Tutors> tutorList = List<Tutors>.empty();
+  List<Tutors> saveTutors = List<Tutors>.empty();
 
   void search(String search) {
+    if(search == '')
+    {
+      tutorList = saveTutors;
+    }
     final tutors = tutorList.where((tutor) {
-      final nameToLower = tutor.getFirstName.toLowerCase();
+      final nameToLower = tutor.getName.toLowerCase();
       final query = search.toLowerCase();
 
       return nameToLower.contains(query);
@@ -41,6 +46,7 @@ class TutorsListState extends State<TutorsList> {
     final tutors = await TutorServices.getTutors();
     setState(() {
       tutorList = tutors;
+      saveTutors = tutors;
     });
   }
 
@@ -52,9 +58,7 @@ class TutorsListState extends State<TutorsList> {
 
   @override
   Widget build(BuildContext context) {
-    if (query == '') {
-      getTutors();
-    }
+    
     return Material(
         child: SingleChildScrollView(
             child: Column(children: <Widget>[
@@ -80,6 +84,10 @@ class TutorsListState extends State<TutorsList> {
                       ),
                       onTap: () {
                         textControl.clear();
+                        setState(() {
+                          tutorList = saveTutors;
+                        });
+                        
                       },
                     )
                   : null,
@@ -106,7 +114,7 @@ class TutorsListState extends State<TutorsList> {
   }
 
   Widget _cardBuilder(BuildContext context, int i) {
-    String name = tutorList[i].getFirstName;
+    String name = tutorList[i].getName;
     return GestureDetector(
       child: Card(
         elevation: 7.0,
@@ -120,7 +128,7 @@ class TutorsListState extends State<TutorsList> {
             ListTile(
               leading: CircleAvatar(
                   child: Text(name[0]), backgroundColor: Colors.red),
-              title: Text(tutorList[i].getFirstName),
+              title: Text(tutorList[i].getName),
               subtitle: Text(tutorList[i].getBio),
               // trailing: ListView.builder(
               //   itemBuilder: _starBuilder,
@@ -133,7 +141,7 @@ class TutorsListState extends State<TutorsList> {
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
             builder: (BuildContext context) => TutorProfilePageView(
-                person: tutorList[i].getFirstName,
+                person: tutorList[i].getName,
                 bio: tutorList[i].getBio,
                 age: tutorList[i].getAge.toString(),
                 location: tutorList[i].getLocation,

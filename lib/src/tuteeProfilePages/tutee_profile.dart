@@ -75,7 +75,7 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
                     builder: (context) => const TutorProfileEdit()))),
             child: Icon(
               Icons.edit,
-              color: colorWhite,
+              color: colorOrange,
               size: MediaQuery.of(context).size.height * 0.05,
             ),
           ),
@@ -240,8 +240,10 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
         width: double.infinity,
         child: Padding(
             padding: EdgeInsets.only(
-              left: screenWidthSize * 0.06,
+              left: screenWidthSize * 0.1,
+              right: screenWidthSize * 0.1,
               top: screenHeightSize * 0.03,
+              bottom: screenHeightSize * 0.03,
             ),
             child: SmallTagBtn(
               btnName: "Edit Module list",

@@ -262,3 +262,5 @@ E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\Api\obj\Release\net6.0\refint\
 E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\Api\obj\Release\net6.0\Api.pdb
 E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\Api\obj\Release\net6.0\Api.genruntimeconfig.cache
 E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\Api\obj\Release\net6.0\ref\Api.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\Api\bin\Release\net6.0\Castle.Core.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\Api\bin\Release\net6.0\Moq.dll

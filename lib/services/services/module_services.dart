@@ -1,0 +1,94 @@
+import 'package:http/http.dart' as http;
+import 'dart:async';
+import 'dart:convert';
+import 'package:tutor_me/services/models/modules.dart';
+
+class ModuleServices {
+  static getModules() async {
+    Uri modulesURL = Uri.https('tutormeapi.azurewebsites.net', '/api/Modules');
+    try {
+      final response = await http.get(modulesURL, headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*"
+      });
+
+      if (response.statusCode == 200) {
+        String j = "";
+        if (response.body[0] != "[") {
+          j = "[" + response.body + "]";
+        } else {
+          j = response.body;
+        }
+        final List list = json.decode(j);
+        return list.map((json) => Modules.fromObject(json)).toList();
+      } else {
+        throw Exception('Failed to load');
+      }
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  static updateModule(Modules module) async {
+    String data = jsonEncode({
+      'code': module.getCode,
+      'moduleName': module.getModuleName,
+      'institution': module.getInstitution,
+      'faculty': module.getFaculty,
+    });
+    final header = <String, String>{
+      'Content-Type': 'application/json; charset=utf-8',
+    };
+    try {
+      final code = module.getCode;
+      final modulesURL =
+          Uri.parse('https://tutormeapi.azurewebsites.net/api/Modules/$code');
+      final response = await http.put(modulesURL, headers: header, body: data);
+      if (response.statusCode == 204) {
+        return module;
+      } else {
+        throw Exception('Failed to upload ' + response.statusCode.toString());
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  static Future getModule(String id) async {
+    Uri tutorURL =
+        Uri.https('tutormeapi.azurewebsites.net', '/api/Modules/$id');
+    try {
+      final response = await http.get(tutorURL, headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*"
+      });
+      if (response.statusCode == 200) {
+        String j = "";
+        if (response.body[0] != "[") {
+          j = "[" + response.body + "]";
+        } else {
+          j = response.body;
+        }
+        final List list = json.decode(j);
+        return list.map((json) => Modules.fromObject(json)).toList();
+      } else {
+        throw Exception('Failed to load');
+      }
+    } catch (e) {
+      return null;
+    }
+  }
+
+  static getModulesByInstitution(String institution) async {
+    List<Modules> modules = await getModules();
+    List<Modules> modulesByInstitution = [];
+    for (int i = 0; i < modules.length; i++) {
+      if (modules[i].getInstitution == institution) {
+        modulesByInstitution.add(modules[i]);
+      }
+    }
+    return modulesByInstitution;
+  }
+}
