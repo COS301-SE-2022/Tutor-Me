@@ -232,7 +232,7 @@ class _RegisterOrLoginState extends State<RegisterOrLogin> {
 
   void goToRegister(BuildContext context) {
     Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => const Register()));
+        .push(MaterialPageRoute(builder: (context) => Register()));
   }
 
   void goToLogin(BuildContext context) {
