@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tutor_me/services/services/tutor_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import '../components.dart';
 
@@ -66,16 +67,7 @@ class Register extends StatelessWidget {
                 ),
               ),
             ),
-            const Flexible(
-              child: Text(
-                '',
-                style: TextStyle(
-                  color: colorWhite,
-                  fontSize: 30,
-                  fontWeight: FontWeight.normal,
-                ),
-              ),
-            ),
+
             TextInputField(
               icon: Icons.person_outline,
               hint: 'Enter Full Name',
@@ -148,9 +140,9 @@ class Register extends StatelessWidget {
               inputController: confirmPasswordController,
               inputFocus: confirmPasswordFocusNode,
             ),
-            const SizedBox(
-              height: 25,
-            ),
+            // const SizedBox(
+            //   height: 25,
+            // ),
             Container(
               height: MediaQuery.of(context).size.height * 0.06,
               width: MediaQuery.of(context).size.width * 0.8,
@@ -160,7 +152,17 @@ class Register extends StatelessWidget {
               ),
               child: TextButton(
                 onPressed: () {
-                  
+                  TutorServices.registerTutor(
+                    firstNameController.text,
+                    lastNameController.text,
+                    dobController.text,
+                    genderController.text,
+                    institutionController.text,
+                    emailController.text,
+                    passwordController.text,
+                    // courseController.text,
+                    confirmPasswordController.text,
+                  );
                 },
                 child: const Text("Register",
                     style: TextStyle(
