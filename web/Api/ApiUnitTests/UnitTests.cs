@@ -170,7 +170,43 @@ public class UnitTests
        // Assert.IsType<ActionResult<Api.Models.Tutor>>(result);
        Assert.Null(result.Value);
     }
-   
+    // Mock the DeleteTutor method  and return a null value 
+    [Fact]  
+    public async Task DeleteTutor_and_returns_a_type_of_NotFoundResult()
+    {
+         
+        //Arranage
+        var expectedTutor = createTutor();
+
+        var repositoryStub = new Mock<TutorMeContext>();
+        repositoryStub.Setup(repo => repo.Tutors.FindAsync(It.IsAny<Guid>())).ReturnsAsync((Tutor)null);
+        var controller = new TutorsController(repositoryStub.Object);
+        
+        //Act
+        
+        var result = await controller.DeleteTutor(expectedTutor.Id);
+        // Assert
+        Assert.IsType<NotFoundResult>(result);
+    }
+     // Mock the DeleteTutor method  and return a Value 
+    [Fact]
+    public async Task DeleteTutor_and_returns_a_type_of_NoContentResult()
+    {
+         
+        //Arranage
+        var expectedTutor = createTutor();
+
+        var repositoryStub = new Mock<TutorMeContext>();
+        repositoryStub.Setup(repo => repo.Tutors.FindAsync(It.IsAny<Guid>())).ReturnsAsync(expectedTutor);
+        var controller = new TutorsController(repositoryStub.Object);
+        
+        //Act
+        
+        var result = await controller.DeleteTutor(expectedTutor.Id);
+        // Assert
+        Assert.IsType<NoContentResult>(result);
+    }
+
     //Mock the PutTutor method
        public Tutor MockPutTutor(Guid id,Tutor tutor)
     {
