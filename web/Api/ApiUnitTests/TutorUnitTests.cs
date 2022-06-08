@@ -8,7 +8,7 @@ namespace ApiUnitTests;
 
 using FluentAssertions;
 using Moq;
-public class UnitTests
+public class TutorUnitTests
 {
      List<Tutor> _expectedTutors=new List <Tutor>{ createTutor(), createTutor(), createTutor(), createTutor() };
 
@@ -104,10 +104,10 @@ public class UnitTests
 
         }
             [Fact]
-        public async Task PutTutor_Update_with_an_Existing_Tutor_Returnns_tutorObject()
-        {   
-            //Arrange
-            Tutor Existingtutor = createTutor();
+        public Task PutTutor_Update_with_an_Existing_Tutor_Returnns_tutorObject()
+    {
+        //Arrange
+        Tutor Existingtutor = createTutor();
             Existingtutor.Id = _expectedTutors[0].Id;
             Guid ExistingtutorID = Existingtutor.Id;
 
@@ -133,8 +133,10 @@ public class UnitTests
             // Assert
             bool status = tutor.Bio == "I love testing";
             Assert.NotNull(tutor);
-            Assert.True((status));
-        }
+            Assert.True(status);
+        return Task.CompletedTask;
+    }
+
     [Fact]
     public async Task PostTutor_and_returns_a_type_of_Action_Result_returns_null()
     {
@@ -288,7 +290,7 @@ public class UnitTests
         return tutor;
     }
       
-    public Tutor MockPutTutor(Guid id,Tutor tutor)
+    public Tutor? MockPutTutor(Guid id,Tutor tutor)
     {
         
         bool status=false;
@@ -304,8 +306,6 @@ public class UnitTests
         {
             return null;// bad request
         }
-   
-        bool checkEmail = false;
         
         var tutorToUpdate = new Tutor
         {
