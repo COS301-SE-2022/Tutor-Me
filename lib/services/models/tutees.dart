@@ -78,8 +78,7 @@ class Tutees {
     _tutorsCode = newTutorsCode;
   }
 
-  String calculateAge(String date){
-  
+  String calculateAge(String date) {
     int age = 0;
     int year = 0;
     int month = 0;
@@ -99,9 +98,10 @@ class Tutees {
     } else {
       age = now.year - int.parse(dateList[2]) - 1;
     }
+    _age = age.toString();
     setAge = age.toString();
-    return age.toString();
-}
+    return _age.toString();
+  }
 
   set setAge(String newAge) {
     int age = 0;

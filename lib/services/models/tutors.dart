@@ -128,8 +128,9 @@ String calculateAge(String date){
     } else {
       age = now.year - int.parse(dateList[2]) - 1;
     }
+    _age = age.toString();
     setAge = age.toString();
-    return age.toString();
+    return _age.toString();
 }
   set setStatus(String newStatus) {
     _status = newStatus;
