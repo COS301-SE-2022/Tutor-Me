@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:tutor_me/src/authenticate/login.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/components.dart';
 import 'package:image_picker/image_picker.dart';
