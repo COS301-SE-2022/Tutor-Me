@@ -75,7 +75,7 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
                     builder: (context) => const TutorProfileEdit()))),
             child: Icon(
               Icons.edit,
-              color: colorWhite,
+              color: colorOrange,
               size: MediaQuery.of(context).size.height * 0.05,
             ),
           ),
