@@ -74,51 +74,30 @@ class TutorServices {
     }
     final modulesURL =
         Uri.https('tutormeapi.azurewebsites.net', '/api/Tutors/');
-    int age = 0;
-    int year = 0;
-    int month = 0;
-    int day = 0;
-    DateTime now = DateTime.now();
-    List<String> dateList = date.split("/");
-    year = int.parse(dateList[2]);
-    month = int.parse(dateList[1]);
-    day = int.parse(dateList[0]);
-
-    if (month < now.month) {
-      if (day < now.day) {
-        age = now.year - year;
-      } else {
-        age = now.year - int.parse(dateList[2]) - 1;
-      }
-    } else {
-      age = now.year - int.parse(dateList[2]) - 1;
-    }
     //source: https://protocoderspoint.com/flutter-encryption-decryption-using-flutter-string-encryption/#:~:text=open%20your%20flutter%20project%20that,IDE(android%2Dstudio).&text=Then%20after%20you%20have%20added,the%20password%20the%20user%20enter.
 
     String data = jsonEncode({
       'firstName': name,
       'lastName': lastName,
-      'age': age.toString(),
+      'dateOfBirth': date,
       'gender': gender,
       'status': "T",
-      'faculty': "None",
-      'course': "None",
+      'faculty': "No faculty added",
+      'course': "No course added",
       'institution': institution,
-      'modules': "",
-      'location': "None",
-      'tuteesCode': "",
+      'modules': "No modules added",
+      'location': "No Location added",
+      'tuteesCode': "No tutees",
       'email': email,
       'password': password,
-      'bio': "None",
-      'connections': "",
+      'bio': "No bio added",
+      'connections': "No connections added",
       'rating': 0.toString()
     });
 
     final header = <String, String>{
       'Content-Type': 'application/json; charset=utf-8',
     };
-    // print("record : " + record);
-    // print("data : " + data);
     try {
       final response = await http.post(modulesURL, headers: header, body: data);
       if (response.statusCode == 201) {
@@ -139,6 +118,8 @@ class TutorServices {
       rethrow;
     }
   }
+
+  
 
   static getTutorModules(String id) async {
     try {
