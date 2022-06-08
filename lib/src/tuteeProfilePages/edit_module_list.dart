@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tutor_me/services/services/module_services.dart';
-import 'package:tutor_me/src/Modules/module.dart';
+import 'package:tutor_me/services/services/tutor_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/tuteeProfilePages/tutee_profile.dart';
 
@@ -20,10 +20,7 @@ class _EditModuleListState extends State<EditModuleList> {
   String query = '';
   bool isCurrentOpen = true;
   bool isAllOpen = false;
-  var currentModules = [
-    Module("Computer Networks", "COS332"),
-    Module("Compiler", "COS341"),
-  ];
+  List<Modules> currentModules = List<Modules>.empty();
 
   void inputCurrent() {
     for (int i = 0; i < currentModules.length; i++) {
@@ -31,9 +28,9 @@ class _EditModuleListState extends State<EditModuleList> {
     }
   }
 
-  void updateModules(Module cModule) {
-    String cName = cModule.getModuleByName();
-    String cCode = cModule.getModuleByCode();
+  void updateModules(Modules cModule) {
+    String cName = cModule.getModuleName;
+    String cCode = cModule.getCode;
     final modules = moduleList.where((module) {
       final nameToLower = module.getModuleName.toLowerCase();
       final codeToLower = module.getCode.toLowerCase();
@@ -74,10 +71,19 @@ class _EditModuleListState extends State<EditModuleList> {
     });
   }
 
+  getCurrentModules() async{
+    final current = await TutorServices.getTutorModules(
+        'c79fbb77-3674-48f1-aee2-389b15490da6');
+    setState(() {
+      currentModules = current;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
     getModules();
+    getCurrentModules();
     inputCurrent();
   }
 
@@ -228,9 +234,9 @@ class _EditModuleListState extends State<EditModuleList> {
         ));
   }
 
-  void addModule(String code, String name) {
+  void addModule(Modules newModule) {
     setState(() {
-      Module newModule = Module(name, code);
+      
       currentModules.add(newModule);
     });
   }
@@ -258,8 +264,8 @@ class _EditModuleListState extends State<EditModuleList> {
               Icons.book,
               color: colorTurqoise,
             ),
-            title: Text(currentModules[i].getModuleByName()),
-            subtitle: Text(currentModules[i].getModuleByCode()),
+            title: Text(currentModules[i].getModuleName),
+            subtitle: Text(currentModules[i].getCode),
             trailing: IconButton(
               onPressed: () {
                 deleteModule(i);
@@ -293,7 +299,7 @@ class _EditModuleListState extends State<EditModuleList> {
             subtitle: Text(moduleList[i].getCode),
             trailing: IconButton(
               onPressed: () {
-                addModule(moduleList[i].getCode, name);
+                addModule(moduleList[i]);
               },
               icon: const Icon(
                 Icons.add_circle,
