@@ -152,7 +152,7 @@ class Register extends StatelessWidget {
               ),
               child: TextButton(
                 onPressed: () {
-                  final tutor = TutorServices.registerTutor(
+                  TutorServices.registerTutor(
                     firstNameController.text,
                     lastNameController.text,
                     dobController.text,
