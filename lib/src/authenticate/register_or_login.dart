@@ -237,6 +237,6 @@ class _RegisterOrLoginState extends State<RegisterOrLogin> {
 
   void goToLogin(BuildContext context) {
     Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => Login()));
+        .push(MaterialPageRoute(builder: (context) => const Login()));
   }
 }

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:tutor_me/src/colorpallete.dart';
-import 'package:tutor_me/src/authenticate/register.dart';
 import '../components.dart';
 
 class Login extends StatefulWidget {
+  const Login({Key? key}) : super(key: key);
+
   @override
   _LoginState createState() => _LoginState();
 }
@@ -80,9 +81,8 @@ class _LoginState extends State<Login> {
                     hint: 'Password',
                     inputAction: TextInputAction.done,
                     inputType: TextInputType.text,
-                    inputValue: (value) {
-                      // password = value;
-                    },
+                    inputController: emailController,
+                    inputFocus: emailFocusNode,
                   ),
                   const Text(
                     "Forgot Password?",
@@ -106,9 +106,7 @@ class _LoginState extends State<Login> {
                 ),
                 child: TextButton(
                   onPressed: () {
-                    print(emailController.text +
-                        " nmn " +
-                        passwordController.text);
+                  
                   },
                   child: const Text("Login",
                       style: TextStyle(

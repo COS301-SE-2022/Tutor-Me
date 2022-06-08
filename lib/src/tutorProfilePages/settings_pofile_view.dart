@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tutor_me/src/authenticate/login.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/tutorProfilePages/tutor_profile_edit.dart';
 import 'package:tutor_me/src/tutorProfilePages/user_stats.dart';
