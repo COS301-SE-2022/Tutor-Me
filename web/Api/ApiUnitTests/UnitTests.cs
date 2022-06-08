@@ -102,7 +102,38 @@ public class UnitTests
             Assert.Null(tutor);
 
         }
-        
+            [Fact]
+        public async Task PutTutor_Update_with_an_Existing_Tutor_Returnns_tutorObject()
+        {   
+            //Arrange
+            Tutor Existingtutor = createTutor();
+            Existingtutor.Id = _expectedTutors[0].Id;
+            Guid ExistingtutorID = Existingtutor.Id;
+
+            //Act
+            var tutorToUpdate = new Tutor
+            {
+                Id = Guid.NewGuid(),//change Bio
+                FirstName = Existingtutor.FirstName,
+                LastName = Existingtutor.LastName,
+                Age = Existingtutor.Age,
+                Gender = Existingtutor.Gender,
+                Institution = Existingtutor.Institution,
+                Modules = Existingtutor.Modules,
+                Email = Existingtutor.Email,
+                Password = Existingtutor.Password,
+                Location = Existingtutor.Location,
+                TuteesCode = Existingtutor.TuteesCode,
+                Bio = "I love testing",
+                Connections = Existingtutor.Connections
+            };
+
+            var tutor = MockPutTutor(ExistingtutorID, tutorToUpdate);
+            // Assert
+            bool status = tutor.Bio == "I love testing";
+            Assert.NotNull(tutor);
+            Assert.True((status));
+        }
    
     //Mock the PutTutor method
        public Tutor MockPutTutor(Guid id,Tutor tutor)
