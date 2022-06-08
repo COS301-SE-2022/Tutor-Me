@@ -119,7 +119,48 @@ class TutorServices {
     }
   }
 
-  
+  static updateTutor(Tutors tutor) async {
+    List<Tutors> tutors = await getTutors();
+    for (int i = 0; i < tutors.length; i++) {
+      if (tutors[i].getEmail == tutor.getEmail && tutors[i].getId != tutor.getId) {
+        throw Exception("Email already exists");
+      }
+    }
+    String data = jsonEncode({
+      'id': tutor.getId,
+      'firstName': tutor.getName,
+      'lastName': tutor.getLastName,
+      'dateOfBirth': tutor.getDateOfBirth,
+      'gender': tutor.getGender,
+      'status':tutor.getStatus,
+      'faculty': tutor.getFaculty,
+      'course': tutor.getCourse,
+      'institution': tutor.getInstitution,
+      'modules': tutor.getModules,
+      'location': tutor.getLocation,
+      'tuteesCode': tutor.getTuteesCode,
+      'email': tutor.getEmail,
+      'password': tutor.getPassword,
+      'bio': tutor.getBio,
+      'connections': tutor.getConnections,
+      'rating': tutor.getRating
+    });
+    final header = <String, String>{
+      'Content-Type': 'application/json; charset=utf-8',
+    };
+    try {
+      final id = tutor.getId;
+      final modulesURL = Uri.parse('https://tutormeapi.azurewebsites.net/api/Tutors/$id');
+      final response = await http.put(modulesURL, headers: header, body: data);
+      if (response.statusCode == 204) {
+        return tutor;
+      } else {
+        throw Exception('Failed to update' + response.statusCode.toString());
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
 
   static getTutorModules(String id) async {
     try {
