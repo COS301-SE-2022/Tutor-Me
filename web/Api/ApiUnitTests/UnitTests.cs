@@ -239,7 +239,54 @@ public class UnitTests
         // Assert
         Assert.False((status));
     }
-   
+      [Fact]
+    public Task GetTutorByEmail_returns_the_correct_tutor()
+    {
+        //Arranage
+        var emailOftutor = _expectedTutors[0].Email;
+        var expectedTutor = _expectedTutors[0];
+
+        //Act
+        var result = MoqGetTutorByEmail(emailOftutor);
+    
+        //Assert     
+        result.Should().BeEquivalentTo(expectedTutor,
+            //Verifying all the DTO variables matches the expected Tutor 
+            options => options.ComparingByMembers<Tutor>());
+        return Task.CompletedTask;
+    }
+
+    [Fact]
+    public Task GetTutorByEmail_returns_not_found ()
+    {
+        //Arranage
+        var Unexsisting_emailOftutor = "u19027372@tuks.co.za";
+        var expectedTutor = _expectedTutors[0];
+
+        //Act
+        var result = MoqGetTutorByEmail(Unexsisting_emailOftutor);
+        
+        //Assert     
+        Assert.Null(result);
+        return Task.CompletedTask;
+    }
+
+    public Tutor? MoqGetTutorByEmail( string email, Guid id = default(Guid)){
+        if (_expectedTutors== null)
+        {
+            return null;
+        }
+
+        var tutor = _expectedTutors.Find(e => e.Email == email);
+        
+        if (tutor == null)
+        {
+
+            return null;
+        }
+
+        return tutor;
+    }
       
     public Tutor MockPutTutor(Guid id,Tutor tutor)
     {
