@@ -86,7 +86,7 @@ public class TutorUnitTests
                 Id = Guid.NewGuid(),//Changed the id
                 FirstName = tutorNew.FirstName,
                 LastName = tutorNew.LastName,
-                Age = tutorNew.Age,
+                DateOfBirth = tutorNew.DateOfBirth,
                 Gender = tutorNew.Gender,
                 Institution = tutorNew.Institution,
                 Modules = tutorNew.Modules,
@@ -117,7 +117,7 @@ public class TutorUnitTests
                 Id = Guid.NewGuid(),//change Bio
                 FirstName = Existingtutor.FirstName,
                 LastName = Existingtutor.LastName,
-                Age = Existingtutor.Age,
+                DateOfBirth = Existingtutor.DateOfBirth,
                 Gender = Existingtutor.Gender,
                 Institution = Existingtutor.Institution,
                 Modules = Existingtutor.Modules,
@@ -312,7 +312,7 @@ public class TutorUnitTests
             Id = tutor.Id,
             FirstName = tutor.FirstName,
             LastName = tutor.LastName,
-            Age = tutor.Age,
+            DateOfBirth = tutor.DateOfBirth,
             Gender = tutor.Gender,
             Institution = tutor.Institution,
             Modules = tutor.Modules,

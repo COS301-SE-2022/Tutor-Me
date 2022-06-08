@@ -83,7 +83,7 @@ public class TutteeUnitTests
                 Id = Guid.NewGuid(),//Changed the id
                 FirstName = TuteeNew.FirstName,
                 LastName = TuteeNew.LastName,
-                Age = TuteeNew.Age,
+                DateOfBirth = TuteeNew.DateOfBirth,
                 Gender = TuteeNew.Gender,
                 Institution = TuteeNew.Institution,
                 Modules = TuteeNew.Modules,
@@ -114,7 +114,7 @@ public class TutteeUnitTests
                 Id = Guid.NewGuid(),//change Bio
                 FirstName = ExistingTutee.FirstName,
                 LastName = ExistingTutee.LastName,
-                Age = ExistingTutee.Age,
+                DateOfBirth = ExistingTutee.DateOfBirth,
                 Gender = ExistingTutee.Gender,
                 Institution = ExistingTutee.Institution,
                 Modules = ExistingTutee.Modules,
@@ -309,7 +309,7 @@ public class TutteeUnitTests
             Id = Tutee.Id,
             FirstName = Tutee.FirstName,
             LastName = Tutee.LastName,
-            Age = Tutee.Age,
+            DateOfBirth = Tutee.DateOfBirth,
             Gender = Tutee.Gender,
             Institution = Tutee.Institution,
             Modules = Tutee.Modules,
