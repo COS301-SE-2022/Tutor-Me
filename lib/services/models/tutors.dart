@@ -46,7 +46,7 @@ class Tutors {
   String get getBio => _bio;
   String get getLocation => _location;
   String get getTuteesCode => _tuteesCode;
-  String get getAge => _age;
+  String get getAge => calculateAge(getDateOfBirth);
   String get getDateOfBirth => _dateOfBirth;
   String get getInstitution => _institution;
   String get getModules => _modules;
@@ -84,7 +84,7 @@ class Tutors {
   }
 
   set setAge(String newAge) {
-   _age = newAge;
+    _age = newAge;
   }
 
   set setInstitution(String newInstitution) {
@@ -105,12 +105,16 @@ class Tutors {
 
   set setDateOfBirth(String newDateOfBirth) {
     _dateOfBirth = newDateOfBirth;
+  }
+
+String calculateAge(String date){
+  
     int age = 0;
     int year = 0;
     int month = 0;
     int day = 0;
     DateTime now = DateTime.now();
-    List<String> dateList = newDateOfBirth.split("/");
+    List<String> dateList = date.split("/");
     year = int.parse(dateList[2]);
     month = int.parse(dateList[1]);
     day = int.parse(dateList[0]);
@@ -124,9 +128,9 @@ class Tutors {
     } else {
       age = now.year - int.parse(dateList[2]) - 1;
     }
-    _age = age.toString();
-  }
-
+    setAge = age.toString();
+    return age.toString();
+}
   set setStatus(String newStatus) {
     _status = newStatus;
   }
