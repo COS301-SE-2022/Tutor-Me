@@ -92,10 +92,10 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
           ),
         ),
         SizedBox(height: screenHeightSize * 0.05),
-        UploadButton(
-          btnIcon: Icons.upload,
-          btnName: "    Upload Latest Transcript",
-          onPressed: () {},
+        // UploadButton(
+        //   btnIcon: Icons.upload,
+        //   btnName: "    Upload Latest Transcript",
+        //   onPressed: () {},
           // onPressed: () async {
           //   try {
           //     setState(() {
@@ -123,9 +123,9 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
           //     print(e);
           //   }
           // },
-        ),
+        // ),
         SizedBox(height: screenHeightSize * 0.03),
-        DowloadLinkButton(btnName: "Download Transcript", onPressed: () {}),
+        // DowloadLinkButton(btnName: "Download Transcript", onPressed: () {}),
         SizedBox(height: screenHeightSize * 0.03),
         UploadButton(
             btnName: "    Upload Id",
