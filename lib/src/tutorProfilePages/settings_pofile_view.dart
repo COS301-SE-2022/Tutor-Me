@@ -55,7 +55,7 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
         ),
       ),
       SizedBox(height: screenHeightSize * 0.02),
-      const UserStats(),
+      const UserStats(rating: "3",numTutees: 4,numConnections: 15,),
       SizedBox(height: screenHeightSize * 0.02),
       SizedBox(
         width: double.infinity,

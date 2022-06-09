@@ -102,11 +102,11 @@ class TutorPageState extends State<TutorPage> {
                 
               // ],
             ),
-            body: const TabBarView(
+            body: TabBarView(
               children: <Widget>[
-                Chats(),
-                TuteesList(),
-                Calls()
+                Chats(user: tutee),
+                const TuteesList(),
+                const Calls()
               ],
             )),
       ),
