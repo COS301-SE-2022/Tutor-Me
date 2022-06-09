@@ -94,7 +94,6 @@ class TuteeServices {
       'password': password,
       'bio': "No bio added",
       'connections': "No connections added",
-      'rating': 0.toString()
     });
 
     final header = <String, String>{
@@ -186,7 +185,6 @@ class TuteeServices {
   }
 
   static logInTutee(String email, String password) async {
-
     List<Tutees> tutees = await getTutees();
     late Tutees tutee;
     bool got = false;
