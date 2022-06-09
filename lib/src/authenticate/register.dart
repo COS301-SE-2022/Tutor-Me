@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:toggle_switch/toggle_switch.dart';
 import 'package:tutor_me/services/models/tutors.dart';
 import 'package:tutor_me/services/services/tutor_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/tutor_page.dart';
+import '../../services/models/tutees.dart';
+import '../../services/services/tutee_services.dart';
 import '../components.dart';
 
 class Register extends StatefulWidget {
@@ -33,45 +36,95 @@ class _RegisterState extends State<Register> {
   final TextEditingController genderController = TextEditingController();
   final TextEditingController institutionController = TextEditingController();
   final TextEditingController courseController = TextEditingController();
-
+  String toRegister = 'Tutor';
   late Tutors tutor;
+  late Tutees tutee;
+
   register() async {
-    try {
-      tutor = await TutorServices.registerTutor(
-        firstNameController.text,
-        lastNameController.text,
-        dobController.text,
-        genderController.text,
-        institutionController.text,
-        emailController.text,
-        passwordController.text,
-        // courseController.text,
-        confirmPasswordController.text,
-      );
-    } catch (e) {
-      showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: const Text("One Or More Errors Occured"),
-            content: Text(e.toString()),
-            backgroundColor: colorWhite,
-            titleTextStyle: TextStyle(
-              color: colorOrange,
-              fontSize: MediaQuery.of(context).size.height * 0.03,
-              fontWeight: FontWeight.bold,
-            ),
-            actions: <Widget>[
-              TextButton(
-                child: const Text("Retry"),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
+    if (toRegister == "Tutor") {
+      try {
+        tutor = await TutorServices.registerTutor(
+          firstNameController.text,
+          lastNameController.text,
+          dobController.text,
+          genderController.text,
+          institutionController.text,
+          emailController.text,
+          passwordController.text,
+          // courseController.text,
+          confirmPasswordController.text,
+        );
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const TutorPage()),
+        );
+      } catch (e) {
+        showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: const Text("One Or More Errors Occured"),
+              content: Text(e.toString()),
+              backgroundColor: colorWhite,
+              titleTextStyle: TextStyle(
+                color: colorOrange,
+                fontSize: MediaQuery.of(context).size.height * 0.03,
+                fontWeight: FontWeight.bold,
               ),
-            ],
-          );
-        },
-      );
+              actions: <Widget>[
+                TextButton(
+                  child: const Text("Retry"),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          },
+        );
+      }
+    } else {
+      try {
+        tutee = await TuteeServices.registerTuee(
+          firstNameController.text,
+          lastNameController.text,
+          dobController.text,
+          genderController.text,
+          institutionController.text,
+          emailController.text,
+          passwordController.text,
+          confirmPasswordController.text,
+        );
+
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const TuteePage()),
+        );
+      } catch (e) {
+        showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: const Text("One Or More Errors Occured"),
+              content: Text(e.toString()),
+              backgroundColor: colorWhite,
+              titleTextStyle: TextStyle(
+                color: colorOrange,
+                fontSize: MediaQuery.of(context).size.height * 0.03,
+                fontWeight: FontWeight.bold,
+              ),
+              actions: <Widget>[
+                TextButton(
+                  child: const Text("Retry"),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          },
+        );
+      }
     }
   }
 
@@ -114,6 +167,31 @@ class _RegisterState extends State<Register> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
+                ),
+              ),
+              Center(
+                child: ToggleSwitch(
+                  minWidth: MediaQuery.of(context).size.width * 0.3,
+                  minHeight: MediaQuery.of(context).size.height * 0.05,
+                  cornerRadius: MediaQuery.of(context).size.height * 0.07,
+                  fontSize: MediaQuery.of(context).size.height * 0.02,
+                  iconSize: MediaQuery.of(context).size.height * 0.05,
+                  activeBgColor: const [colorOrange],
+                  activeFgColor: colorWhite,
+                  inactiveBgColor: colorGrey,
+                  inactiveFgColor: colorWhite,
+                  totalSwitches: 2,
+                  labels: const ['Tutor', 'Tutee'],
+                  icons: const [Icons.edit, Icons.person_outlined],
+                  onToggle: (index) {
+                    if (index == 0) {
+                      toRegister = "Tutor";
+                      print(index);
+                    } else {
+                      toRegister = "Tutee";
+                      print(index);
+                    }
+                  },
                 ),
               ),
               TextInputField(
@@ -273,11 +351,6 @@ class _RegisterState extends State<Register> {
                       );
                     } else {
                       await register();
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const TutorPage()),
-                      );
                     }
                   },
                   child: const Text("Register",
