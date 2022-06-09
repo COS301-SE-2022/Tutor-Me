@@ -4,7 +4,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:tutor_me/services/models/tutors.dart';
 import 'package:tutor_me/services/services/module_services.dart';
-// import 'package:flutter_string_encryption/flutter_string_encryption.dart';
+import 'package:crypt/crypt.dart';
 
 class TutorServices {
   static getTutors() async {
@@ -57,7 +57,7 @@ class TutorServices {
     }
   }
 
-  static registerTutor(
+  static Future registerTutor(
       String name,
       String lastName,
       String date,
@@ -69,12 +69,14 @@ class TutorServices {
     List<Tutors> tutors = await getTutors();
     for (int i = 0; i < tutors.length; i++) {
       if (tutors[i].getEmail == email) {
-        throw Exception("Email already exists");
+        throw "Email already exists";
       }
     }
     final modulesURL =
         Uri.https('tutormeapi.azurewebsites.net', '/api/Tutors/');
     //source: https://protocoderspoint.com/flutter-encryption-decryption-using-flutter-string-encryption/#:~:text=open%20your%20flutter%20project%20that,IDE(android%2Dstudio).&text=Then%20after%20you%20have%20added,the%20password%20the%20user%20enter.
+
+    // password = hashPassword(password);
 
     String data = jsonEncode({
       'firstName': name,
@@ -122,7 +124,8 @@ class TutorServices {
   static updateTutor(Tutors tutor) async {
     List<Tutors> tutors = await getTutors();
     for (int i = 0; i < tutors.length; i++) {
-      if (tutors[i].getEmail == tutor.getEmail && tutors[i].getId != tutor.getId) {
+      if (tutors[i].getEmail == tutor.getEmail &&
+          tutors[i].getId != tutor.getId) {
         throw Exception("Email already exists");
       }
     }
@@ -132,7 +135,7 @@ class TutorServices {
       'lastName': tutor.getLastName,
       'dateOfBirth': tutor.getDateOfBirth,
       'gender': tutor.getGender,
-      'status':tutor.getStatus,
+      'status': tutor.getStatus,
       'faculty': tutor.getFaculty,
       'course': tutor.getCourse,
       'institution': tutor.getInstitution,
@@ -150,7 +153,8 @@ class TutorServices {
     };
     try {
       final id = tutor.getId;
-      final modulesURL = Uri.parse('https://tutormeapi.azurewebsites.net/api/Tutors/$id');
+      final modulesURL =
+          Uri.parse('https://tutormeapi.azurewebsites.net/api/Tutors/$id');
       final response = await http.put(modulesURL, headers: header, body: data);
       if (response.statusCode == 204) {
         return tutor;
@@ -182,7 +186,26 @@ class TutorServices {
     }
   }
 
-  static logInTutor() {
-    // TODO: implement logInTutor
+  static hashPassword(String password) {
+    String hashedPassword = Crypt.sha256(password).toString();
+    return hashedPassword;
+  }
+
+  static logInTutor(String email, String password) async {
+    List<Tutors> tutors = await getTutors();
+    late Tutors tutor;
+    bool got = false;
+    for (int i = 0; i < tutors.length; i++) {
+      if (tutors[i].getEmail == email && tutors[i].getPassword == password) {
+        got = true;
+        tutor = tutors[i];
+        break;
+      }
+    }
+    if (got == false) {
+      throw Exception("Email or password is incorrect");
+    } else {
+      return tutor;
+    }
   }
 }

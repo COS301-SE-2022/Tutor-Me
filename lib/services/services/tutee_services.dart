@@ -1,3 +1,4 @@
+import 'package:crypt/crypt.dart';
 import 'package:http/http.dart' as http;
 import 'package:tutor_me/services/models/modules.dart';
 import 'dart:async';
@@ -67,7 +68,8 @@ class TuteeServices {
     final modulesURL =
         Uri.https('tutormeapi.azurewebsites.net', '/api/Tutees/');
     //source: https://protocoderspoint.com/flutter-encryption-decryption-using-flutter-string-encryption/#:~:text=open%20your%20flutter%20project%20that,IDE(android%2Dstudio).&text=Then%20after%20you%20have%20added,the%20password%20the%20user%20enter.
-
+    password = hashPassword(password);
+    
     String data = jsonEncode({
       'firstName': name,
       'lastName': lastName,
@@ -175,5 +177,10 @@ class TuteeServices {
 
   static logInTutee() {
     // TODO: implement logInTutee
+  }
+
+  static hashPassword(String password) {
+    String hashedPassword = Crypt.sha256(password).toString();
+    return hashedPassword;
   }
 }
