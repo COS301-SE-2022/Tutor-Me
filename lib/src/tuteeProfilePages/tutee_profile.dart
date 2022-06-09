@@ -137,7 +137,7 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
         ),
       ),
       SizedBox(height: screenHeightSize * 0.02),
-      const UserStats(),
+      const UserStats(rating: "1",numTutees: 2,numConnections: 23,),
       SizedBox(height: screenHeightSize * 0.02),
       SizedBox(
         width: double.infinity,

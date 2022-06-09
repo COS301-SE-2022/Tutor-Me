@@ -2,19 +2,32 @@ import 'package:flutter/material.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 
 class UserStats extends StatelessWidget {
-  const UserStats({Key? key}) : super(key: key);
+  final String rating;
+  final int numConnections;
+  final int numTutees;
+
+  const UserStats(
+      {Key? key, required this.rating, required this.numTutees,required this.numConnections})
+      : super(key: key);
+
+  int convertRating() {
+    return int.parse(rating);
+  }
 
   @override
-  Widget build(BuildContext context) => Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          buildButton(text: 'Rating', value: 4),
-          buildDivider(),
-          buildButton(text: '  Tutees', value: 2),
-          buildDivider(),
-          buildButton(text: '  Connections', value: 39),
-        ],
-      );
+  Widget build(BuildContext context) {
+    int rating = convertRating();
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        buildButton(text: 'Rating', value: rating),
+        buildDivider(),
+        buildButton(text: '  Tutees', value: numTutees),
+        buildDivider(),
+        buildButton(text: '  Connections', value: numConnections),
+      ],
+    );
+  }
 
   Widget buildDivider() => Container(
         height: 33,
