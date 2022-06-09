@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:toggle_switch/toggle_switch.dart';
 import 'package:tutor_me/src/colorpallete.dart';
+import '../../services/models/tutees.dart';
 import '../../services/models/tutors.dart';
+import '../../services/services/tutee_services.dart';
 import '../../services/services/tutor_services.dart';
 import '../components.dart';
+import '../tutee_page.dart';
 import '../tutor_page.dart';
 
 class Login extends StatefulWidget {
@@ -19,6 +23,8 @@ class _LoginState extends State<Login> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   late Tutors tutor;
+  late Tutees tutee;
+  String toRegister = 'Tutor';
 
   @override
   Widget build(BuildContext context) {
@@ -69,6 +75,34 @@ class _LoginState extends State<Login> {
                   ),
                 ),
               ),
+              Center(
+                child: ToggleSwitch(
+                  minWidth: MediaQuery.of(context).size.width * 0.4,
+                  minHeight: MediaQuery.of(context).size.height * 0.06,
+                  cornerRadius: MediaQuery.of(context).size.height * 0.07,
+                  fontSize: MediaQuery.of(context).size.height * 0.02,
+                  iconSize: MediaQuery.of(context).size.height * 0.05,
+                  activeBgColor: const [colorOrange],
+                  activeFgColor: colorWhite,
+                  inactiveBgColor: colorGrey,
+                  inactiveFgColor: colorWhite,
+                  totalSwitches: 2,
+                  labels: const ['Tutor', 'Tutee'],
+                  icons: const [Icons.edit, Icons.person_outlined],
+                  onToggle: (index) {
+                    if (index == 0) {
+                      toRegister = "Tutor";
+                    } else {
+                      toRegister = "Tutee";
+                    }
+                  },
+                ),
+              ),
+
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.04,
+              ),
+
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
@@ -109,7 +143,7 @@ class _LoginState extends State<Login> {
                   color: colorOrange,
                 ),
                 child: TextButton(
-                  onPressed: () async{
+                  onPressed: () async {
                     String errMsg = "";
                     //TODO: login
                     if (emailController.text.isEmpty ||
@@ -117,9 +151,9 @@ class _LoginState extends State<Login> {
                       errMsg += "Please fill in all fields";
                     }
 
-                    if (passwordController.text.length < 8) {
-                      errMsg += "Password must be at least 6 characters";
-                    }
+                    // if (passwordController.text.length < 8) {
+                    //   errMsg += "Password must be at least 6 characters";
+                    // }
 
                     if (errMsg != "") {
                       showDialog(
@@ -150,43 +184,86 @@ class _LoginState extends State<Login> {
                         },
                       );
                     } else {
-                      try {
-                        // TutorServices tutor = TutorServices.Login(
-                        tutor =await TutorServices.logInTutor(
-                            emailController.text, passwordController.text);
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const TutorPage()),
-                        );
-                      } catch (e) {
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            return AlertDialog(
-                              title: const Text("One Or More Errors Occured"),
-                              content: const Text("Invalid Password or Email"),
-                              backgroundColor: colorWhite,
-                              titleTextStyle: TextStyle(
-                                color: colorOrange,
-                                fontSize:
-                                    MediaQuery.of(context).size.height * 0.03,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              actions: <Widget>[
-                                TextButton(
-                                  child: const Text(
-                                    "Retry",
-                                    style: TextStyle(color: colorWhite),
-                                  ),
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  },
+                      if (toRegister == "Tutor") {
+                        try {
+                          // TutorServices tutor = TutorServices.Login(
+                          tutor = await TutorServices.logInTutor(
+                              emailController.text, passwordController.text);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const TutorPage()),
+                          );
+                        } catch (e) {
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: const Text("One Or More Errors Occured"),
+                                content:
+                                    const Text("Invalid Password or Email"),
+                                backgroundColor: colorWhite,
+                                titleTextStyle: TextStyle(
+                                  color: colorOrange,
+                                  fontSize:
+                                      MediaQuery.of(context).size.height * 0.03,
+                                  fontWeight: FontWeight.bold,
                                 ),
-                              ],
-                            );
-                          },
-                        );
+                                actions: <Widget>[
+                                  TextButton(
+                                    child: const Text(
+                                      "Retry",
+                                      style: TextStyle(color: colorWhite),
+                                    ),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        }
+                      } else {
+                        try {
+                          // TutorServices tutor = TutorServices.Login(
+                          tutee = await TuteeServices.logInTutee(
+                              emailController.text, passwordController.text);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const TuteePage()),
+                          );
+                        } catch (e) {
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: const Text("One Or More Errors Occured"),
+                                content:
+                                    const Text("Invalid Password or Email"),
+                                backgroundColor: colorWhite,
+                                titleTextStyle: TextStyle(
+                                  color: colorOrange,
+                                  fontSize:
+                                      MediaQuery.of(context).size.height * 0.03,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                actions: <Widget>[
+                                  TextButton(
+                                    child: const Text(
+                                      "Retry",
+                                      style: TextStyle(color: colorWhite),
+                                    ),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        }
                       }
                     }
                   },

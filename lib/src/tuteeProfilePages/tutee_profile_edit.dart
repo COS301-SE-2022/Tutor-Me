@@ -1,17 +1,18 @@
 import 'dart:io';
+// import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/components.dart';
 import 'package:image_picker/image_picker.dart';
 
-class TutorProfileEdit extends StatefulWidget {
-  const TutorProfileEdit({Key? key}) : super(key: key);
+class TuteeProfileEdit extends StatefulWidget {
+  const TuteeProfileEdit({Key? key}) : super(key: key);
 
   @override
-  _TutorProfileEditState createState() => _TutorProfileEditState();
+  _TuteeProfileEditState createState() => _TuteeProfileEditState();
 }
 
-class _TutorProfileEditState extends State<TutorProfileEdit> {
+class _TuteeProfileEditState extends State<TuteeProfileEdit> {
   File? image;
 
   Future pickImage(ImageSource source) async {
@@ -92,47 +93,8 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
           ),
         ),
         SizedBox(height: screenHeightSize * 0.05),
-        UploadButton(
-          btnIcon: Icons.upload,
-          btnName: "    Upload Latest Transcript",
-          onPressed: () async {
-            // try {
-            //   setState(() {
-            //     isUploading = true;
-            //   });
-
-            //   filePickerResult = await FilePicker.platform.pickFiles(
-            //     type: FileType.any,
-            //     allowMultiple: false,
-            //     allowedExtensions: ['pdf'],
-            //   );
-
-            //   if (filePickerResult == null) {
-            //     return;
-            //   }
-            //   fileName = filePickerResult!.files.first.name;
-            //   file = filePickerResult!.files.first;
-            //   fileToUpload = File(file!.path.toString());
-
-            //   print("File name: " + fileName!);
-            //   setState(() {
-            //     isUploading = false;
-            //   });
-            // } catch (e) {
-            //   print(e);
-            // }
-          },
-        ),
         SizedBox(height: screenHeightSize * 0.03),
-        DowloadLinkButton(btnName: "Download Transcript", onPressed: () {}),
         SizedBox(height: screenHeightSize * 0.03),
-        UploadButton(
-          btnName: "    Upload Id",
-          btnIcon: Icons.upload,
-          onPressed: () {
-            pickImage(ImageSource.gallery);
-          },
-        ),
         SizedBox(height: screenHeightSize * 0.03),
         OrangeButton(btnName: "Save", onPressed: () {})
       ],
@@ -164,7 +126,7 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
   Widget buildCoverImage() => Container(
         color: Colors.grey,
         child: const Image(
-          image: AssetImage('assets/Pictures/tutorCover.jpg'),
+          image: AssetImage('assets/Pictures/tuteeCover.jpg'),
           width: double.infinity,
           height: 150,
           fit: BoxFit.cover,
@@ -204,8 +166,6 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
                   ));
         },
       );
-
-  // uploadTranscript() {}
 }
 
 class TextInputFieldEdit extends StatelessWidget {
