@@ -13,6 +13,7 @@ dependencies:
   flutter:
     sdk: flutter
   http: ^0.13.4
+  crypt: ^4.2.1
   flutter_localizations:
     sdk: flutter
 
@@ -30,7 +31,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
+    
   flutter_lints: ^1.0.0
 
   font_awesome_flutter: ^8.10.0
