@@ -7,6 +7,7 @@ import 'package:tutor_me/src/tutor_page.dart';
 import '../../services/models/tutees.dart';
 import '../../services/services/tutee_services.dart';
 import '../components.dart';
+import '../tutee_page.dart';
 
 class Register extends StatefulWidget {
   const Register({Key? key}) : super(key: key);
