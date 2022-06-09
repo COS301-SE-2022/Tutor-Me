@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tutor_me/services/models/tutors.dart';
 import 'package:tutor_me/services/services/module_services.dart';
 import 'package:tutor_me/services/services/tutor_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
@@ -7,7 +8,8 @@ import 'package:tutor_me/src/tuteeProfilePages/tutee_profile.dart';
 import '../../services/models/modules.dart';
 
 class EditModuleList extends StatefulWidget {
-  const EditModuleList({Key? key}) : super(key: key);
+  final Tutors user;
+  const EditModuleList({Key? key, required this.user}) : super(key: key);
 
   @override
   _EditModuleListState createState() => _EditModuleListState();
@@ -71,9 +73,8 @@ class _EditModuleListState extends State<EditModuleList> {
     });
   }
 
-  getCurrentModules() async{
-    final current = await TutorServices.getTutorModules(
-        'c79fbb77-3674-48f1-aee2-389b15490da6');
+  getCurrentModules() async {
+    final current = await TutorServices.getTutorModules(widget.user.getId);
     setState(() {
       currentModules = current;
     });
@@ -222,8 +223,19 @@ class _EditModuleListState extends State<EditModuleList> {
                       child: SmallTagBtn(
                           btnName: "Confirm",
                           backColor: Colors.green,
-                          funct: () {
+                          funct: () async {
+                            String modules = "";
+                            for (int i = 0; i < currentModules.length; i++) {
+                                  modules+=currentModules[i].getCode;
+                                  if(i!=currentModules.length-1)
+                                  {
+                                    modules+=',';
+                                  }
+                            }
+                            widget.user.setModules = modules;
                             Navigator.pop(context);
+                            await TutorServices.updateTutor(widget.user);
+                            
                           }),
                     ),
                   ),
@@ -236,7 +248,6 @@ class _EditModuleListState extends State<EditModuleList> {
 
   void addModule(Modules newModule) {
     setState(() {
-      
       currentModules.add(newModule);
     });
   }

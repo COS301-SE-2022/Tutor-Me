@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:tutor_me/services/models/tutors.dart';
 import '../tuteeProfilePages/tutee_data.dart';
 import '../tutorProfilePages/settings_pofile_view.dart';
 
 class TutorNavigationDrawerWidget extends StatelessWidget {
   final padding = const EdgeInsets.symmetric(horizontal: 20);
 
-  const TutorNavigationDrawerWidget({Key? key}) : super(key: key);
+  final Tutors user;
+
+  const TutorNavigationDrawerWidget({Key? key, required this.user})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -45,13 +49,19 @@ class TutorNavigationDrawerWidget extends StatelessWidget {
 
   void selected(BuildContext context, int index) {
     Tutee tutee = Tutee();
-    tutee.setAttributes("I am a hardworker,I absolutely love the field I am in.I'm constantly looking for ways to get things done",'Evander, Secunda\n','Rose Tamil\n','21 years old\n','Female\n');
-
-    Navigator.of(context).pop();
+    tutee.setAttributes(
+        "I am a hardworker,I absolutely love the field I am in.I'm constantly looking for ways to get things done",
+        'Evander, Secunda\n',
+        'Rose Tamil\n',
+        '21 years old\n',
+        'Female\n');
+    Navigator.pop(context);
     if (index == 0) {
-      Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => const TutorSettingsProfileView(),
-      ));
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => TutorSettingsProfileView(user: user),
+          ));
     }
     // else if(index == 1) {
     //   Navigator.of(context).push(MaterialPageRoute(builder: builder))

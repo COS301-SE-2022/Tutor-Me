@@ -241,24 +241,24 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
               )),
         ),
       ),
-      SizedBox(
-        width: double.infinity,
-        child: Padding(
-            padding: EdgeInsets.only(
-              left: screenWidthSize * 0.1,
-              right: screenWidthSize * 0.1,
-              top: screenHeightSize * 0.03,
-              bottom: screenHeightSize * 0.03,
-            ),
-            child: SmallTagBtn(
-              btnName: "Edit Module list",
-              backColor: colorOrange,
-              funct: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const EditModuleList()));
-              },
-            )),
-      ),
+      // SizedBox(
+      //   width: double.infinity,
+      //   child: Padding(
+      //       padding: EdgeInsets.only(
+      //         left: screenWidthSize * 0.1,
+      //         right: screenWidthSize * 0.1,
+      //         top: screenHeightSize * 0.03,
+      //         bottom: screenHeightSize * 0.03,
+      //       ),
+      //       child: SmallTagBtn(
+      //         btnName: "Edit Module list",
+      //         backColor: colorOrange,
+      //         funct: () {
+      //           Navigator.of(context).push(MaterialPageRoute(
+      //               builder: (context) => const EditModuleList()));
+      //         },
+      //       )),
+      // ),
     ]);
   }
 }

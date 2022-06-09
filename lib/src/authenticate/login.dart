@@ -192,7 +192,7 @@ class _LoginState extends State<Login> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const TutorPage()),
+                                builder: (context) => TutorPage(user: tutor)),
                           );
                         } catch (e) {
                           showDialog(
