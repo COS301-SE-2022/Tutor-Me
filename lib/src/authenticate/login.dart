@@ -3,8 +3,10 @@ import 'package:toggle_switch/toggle_switch.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import '../../services/models/tutees.dart';
 import '../../services/models/tutors.dart';
+import '../../services/services/tutee_services.dart';
 import '../../services/services/tutor_services.dart';
 import '../components.dart';
+import '../tutee_page.dart';
 import '../tutor_page.dart';
 
 class Login extends StatefulWidget {
@@ -149,9 +151,9 @@ class _LoginState extends State<Login> {
                       errMsg += "Please fill in all fields";
                     }
 
-                    if (passwordController.text.length < 8) {
-                      errMsg += "Password must be at least 6 characters";
-                    }
+                    // if (passwordController.text.length < 8) {
+                    //   errMsg += "Password must be at least 6 characters";
+                    // }
 
                     if (errMsg != "") {
                       showDialog(
@@ -225,12 +227,12 @@ class _LoginState extends State<Login> {
                       } else {
                         try {
                           // TutorServices tutor = TutorServices.Login(
-                          tutee = await TutorServices.logInTutor(
+                          tutee = await TuteeServices.logInTutee(
                               emailController.text, passwordController.text);
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const TutorPage()),
+                                builder: (context) => const TuteePage()),
                           );
                         } catch (e) {
                           showDialog(

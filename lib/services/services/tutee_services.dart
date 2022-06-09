@@ -58,7 +58,15 @@ class TuteeServices {
     }
   }
 
-  static registerTuee(String name, String lastName, String date, String gender, String institution, String email, String password, String confirmPassword) async {
+  static registerTuee(
+      String name,
+      String lastName,
+      String date,
+      String gender,
+      String institution,
+      String email,
+      String password,
+      String confirmPassword) async {
     List<Tutees> tutees = await getTutees();
     for (int i = 0; i < tutees.length; i++) {
       if (tutees[i].getEmail == email) {
@@ -68,8 +76,8 @@ class TuteeServices {
     final modulesURL =
         Uri.https('tutormeapi.azurewebsites.net', '/api/Tutees/');
     //source: https://protocoderspoint.com/flutter-encryption-decryption-using-flutter-string-encryption/#:~:text=open%20your%20flutter%20project%20that,IDE(android%2Dstudio).&text=Then%20after%20you%20have%20added,the%20password%20the%20user%20enter.
-    password = hashPassword(password);
-    
+    // password = hashPassword(password);
+
     String data = jsonEncode({
       'firstName': name,
       'lastName': lastName,
@@ -116,7 +124,8 @@ class TuteeServices {
   static updateTutee(Tutees tutee) async {
     List<Tutees> tutees = await getTutees();
     for (int i = 0; i < tutees.length; i++) {
-      if (tutees[i].getEmail == tutee.getEmail && tutees[i].getId != tutee.getId) {
+      if (tutees[i].getEmail == tutee.getEmail &&
+          tutees[i].getId != tutee.getId) {
         throw Exception("Email already exists");
       }
     }
@@ -126,7 +135,7 @@ class TuteeServices {
       'lastName': tutee.getLastName,
       'dateOfBirth': tutee.getDateOfBirth,
       'gender': tutee.getGender,
-      'status':tutee.getStatus,
+      'status': tutee.getStatus,
       'faculty': tutee.getFaculty,
       'course': tutee.getCourse,
       'institution': tutee.getInstitution,
@@ -143,7 +152,8 @@ class TuteeServices {
     };
     try {
       final id = tutee.getId;
-      final modulesURL = Uri.parse('https://tutormeapi.azurewebsites.net/api/Tutees/$id');
+      final modulesURL =
+          Uri.parse('https://tutormeapi.azurewebsites.net/api/Tutees/$id');
       final response = await http.put(modulesURL, headers: header, body: data);
       if (response.statusCode == 204) {
         return tutee;
@@ -175,8 +185,24 @@ class TuteeServices {
     }
   }
 
-  static logInTutee() {
-    // TODO: implement logInTutee
+  static logInTutee(String email, String password) async {
+    print(email + " " + password);
+
+    List<Tutees> tutees = await getTutees();
+    late Tutees tutee;
+    bool got = false;
+    for (int i = 0; i < tutees.length; i++) {
+      if (tutees[i].getEmail == email && tutees[i].getPassword == password) {
+        got = true;
+        tutee = tutees[i];
+        break;
+      }
+    }
+    if (got == false) {
+      throw Exception("Email or password is incorrect");
+    } else {
+      return tutee;
+    }
   }
 
   static hashPassword(String password) {
