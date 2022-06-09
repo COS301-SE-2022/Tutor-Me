@@ -186,7 +186,6 @@ class TuteeServices {
   }
 
   static logInTutee(String email, String password) async {
-    print(email + " " + password);
 
     List<Tutees> tutees = await getTutees();
     late Tutees tutee;
