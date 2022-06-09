@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../tutorProfilePages/tutor_profile_view.dart';
 // import 'package:tutor_me/modules/api.services.dart';
 // import 'package:tutor_me/modules/tutors.dart';
 // import 'tutorProfilePages/tutor_profile_view.dart';
@@ -130,13 +129,13 @@ class TuteesListState extends State<TuteesList> {
         ),
       ),
       onTap: () {
-        Navigator.of(context).push(MaterialPageRoute(
-            builder: (BuildContext context) => TutorProfilePageView(
-                person: tutors[i],
-                bio: bios[i],
-                age: ages[i],
-                location: location[i],
-                gender: gender[i])));
+        // Navigator.of(context).push(MaterialPageRoute(
+        //     builder: (BuildContext context) => TutorProfilePageView(
+        //         person: tutors[i],
+        //         bio: bios[i],
+        //         age: ages[i],
+        //         location: location[i],
+        //         gender: gender[i])));
       },
     );
   }

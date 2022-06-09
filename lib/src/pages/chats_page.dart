@@ -37,7 +37,6 @@ class ChatsState extends State<Chats> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     getConnections();
   }
