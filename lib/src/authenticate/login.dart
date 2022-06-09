@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tutor_me/src/colorpallete.dart';
+import '../../services/services/tutor_services.dart';
 import '../components.dart';
 
 class Login extends StatefulWidget {
@@ -74,15 +75,15 @@ class _LoginState extends State<Login> {
                     inputType: TextInputType.emailAddress,
                     inputAction: TextInputAction.next,
                     inputController: emailController,
-                    inputFocus: emailFocusNode,
+                    // inputFocus: emailFocusNode,
                   ),
                   PasswordInput(
                     icon: Icons.lock_clock_outlined,
                     hint: 'Password',
                     inputAction: TextInputAction.done,
                     inputType: TextInputType.text,
-                    inputController: emailController,
-                    inputFocus: emailFocusNode,
+                    inputController: passwordController,
+                    inputFocus: passwordFocusNode,
                   ),
                   const Text(
                     "Forgot Password?",
@@ -106,7 +107,80 @@ class _LoginState extends State<Login> {
                 ),
                 child: TextButton(
                   onPressed: () {
-                  
+                    String errMsg = "";
+                    //TODO: login
+                    if (emailController.text.isEmpty ||
+                        passwordController.text.isEmpty) {
+                      errMsg += "Please fill in all fields";
+                    }
+
+                    if (passwordController.text.length < 8) {
+                      errMsg += "Password must be at least 6 characters";
+                    }
+
+                    if (errMsg != "") {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            title: const Text("One Or More Errors Occured"),
+                            content: Text(errMsg),
+                            backgroundColor: colorWhite,
+                            titleTextStyle: TextStyle(
+                              color: colorOrange,
+                              fontSize:
+                                  MediaQuery.of(context).size.height * 0.03,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            actions: <Widget>[
+                              TextButton(
+                                child: const Text(
+                                  "Retry",
+                                  style: TextStyle(color: colorWhite),
+                                ),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    } else {
+                      try {
+                        // TutorServices tutor = TutorServices.Login(
+
+                        // );
+                      } catch (e) {
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: const Text("One Or More Errors Occured"),
+                              content: const Text("Invalid Password or Email"),
+                              backgroundColor: colorWhite,
+                              titleTextStyle: TextStyle(
+                                color: colorOrange,
+                                fontSize:
+                                    MediaQuery.of(context).size.height * 0.03,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              actions: <Widget>[
+                                TextButton(
+                                  child: const Text(
+                                    "Retry",
+                                    style: TextStyle(color: colorWhite),
+                                  ),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      }
+                    }
                   },
                   child: const Text("Login",
                       style: TextStyle(
