@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:tutor_me/src/colorpallete.dart';
+import '../../services/models/tutors.dart';
 import '../../services/services/tutor_services.dart';
 import '../components.dart';
+import '../tutor_page.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -16,6 +18,7 @@ class _LoginState extends State<Login> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  late Tutors tutor;
 
   @override
   Widget build(BuildContext context) {
@@ -106,7 +109,7 @@ class _LoginState extends State<Login> {
                   color: colorOrange,
                 ),
                 child: TextButton(
-                  onPressed: () {
+                  onPressed: () async{
                     String errMsg = "";
                     //TODO: login
                     if (emailController.text.isEmpty ||
@@ -149,8 +152,13 @@ class _LoginState extends State<Login> {
                     } else {
                       try {
                         // TutorServices tutor = TutorServices.Login(
-
-                        // );
+                        tutor =await TutorServices.logInTutor(
+                            emailController.text, passwordController.text);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const TutorPage()),
+                        );
                       } catch (e) {
                         showDialog(
                           context: context,

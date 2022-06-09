@@ -69,15 +69,15 @@ class TutorServices {
     List<Tutors> tutors = await getTutors();
     for (int i = 0; i < tutors.length; i++) {
       if (tutors[i].getEmail == email) {
-        throw Exception("Email already exists");
+        throw "Email already exists";
       }
     }
     final modulesURL =
         Uri.https('tutormeapi.azurewebsites.net', '/api/Tutors/');
     //source: https://protocoderspoint.com/flutter-encryption-decryption-using-flutter-string-encryption/#:~:text=open%20your%20flutter%20project%20that,IDE(android%2Dstudio).&text=Then%20after%20you%20have%20added,the%20password%20the%20user%20enter.
 
-    password = hashPassword(password);
-    
+    // password = hashPassword(password);
+
     String data = jsonEncode({
       'firstName': name,
       'lastName': lastName,
@@ -191,7 +191,21 @@ class TutorServices {
     return hashedPassword;
   }
 
-  static logInTutor() {
-    // TODO: implement logInTutor
+  static logInTutor(String email, String password) async {
+    List<Tutors> tutors = await getTutors();
+    late Tutors tutor;
+    bool got = false;
+    for (int i = 0; i < tutors.length; i++) {
+      if (tutors[i].getEmail == email && tutors[i].getPassword == password) {
+        got = true;
+        tutor = tutors[i];
+        break;
+      }
+    }
+    if (got == false) {
+      throw Exception("Email or password is incorrect");
+    } else {
+      return tutor;
+    }
   }
 }

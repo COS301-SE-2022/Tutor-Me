@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:tutor_me/services/models/tutors.dart';
 import 'package:tutor_me/services/services/tutor_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
+import 'package:tutor_me/src/tutor_page.dart';
 import '../components.dart';
 
 class Register extends StatefulWidget {
@@ -21,8 +23,6 @@ class _RegisterState extends State<Register> {
   final FocusNode institutionFocusNode = FocusNode();
   final FocusNode courseFocusNode = FocusNode();
 
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmPasswordController =
@@ -33,6 +33,47 @@ class _RegisterState extends State<Register> {
   final TextEditingController genderController = TextEditingController();
   final TextEditingController institutionController = TextEditingController();
   final TextEditingController courseController = TextEditingController();
+
+  late Tutors tutor;
+  register() async {
+    try {
+      tutor = await TutorServices.registerTutor(
+        firstNameController.text,
+        lastNameController.text,
+        dobController.text,
+        genderController.text,
+        institutionController.text,
+        emailController.text,
+        passwordController.text,
+        // courseController.text,
+        confirmPasswordController.text,
+      );
+    } catch (e) {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text("One Or More Errors Occured"),
+            content: Text(e.toString()),
+            backgroundColor: colorWhite,
+            titleTextStyle: TextStyle(
+              color: colorOrange,
+              fontSize: MediaQuery.of(context).size.height * 0.03,
+              fontWeight: FontWeight.bold,
+            ),
+            actions: <Widget>[
+              TextButton(
+                child: const Text("Retry"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -155,8 +196,7 @@ class _RegisterState extends State<Register> {
                   color: colorOrange,
                 ),
                 child: TextButton(
-                  onPressed: () {
-                    TutorServices tutor;
+                  onPressed: () async {
                     String errMsg = "";
 
                     if (firstNameController.text == "" ||
@@ -232,47 +272,12 @@ class _RegisterState extends State<Register> {
                         },
                       );
                     } else {
-                      try {
-                        tutor = TutorServices.registerTutor(
-                          firstNameController.text,
-                          lastNameController.text,
-                          dobController.text,
-                          genderController.text,
-                          institutionController.text,
-                          emailController.text,
-                          passwordController.text,
-                          // courseController.text,
-                          confirmPasswordController.text,
-                        ) as TutorServices;
-                        print("\nHere \n");
-                      } catch (e) {
-                        print("\nHere slop \n");
-
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            return AlertDialog(
-                              title: const Text("One Or More Errors Occured"),
-                              content: const Text("Duplicate Email"),
-                              backgroundColor: colorWhite,
-                              titleTextStyle: TextStyle(
-                                color: colorOrange,
-                                fontSize:
-                                    MediaQuery.of(context).size.height * 0.03,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              actions: <Widget>[
-                                TextButton(
-                                  child: const Text("Retry"),
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                      }
+                      await register();
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const TutorPage()),
+                      );
                     }
                   },
                   child: const Text("Register",
