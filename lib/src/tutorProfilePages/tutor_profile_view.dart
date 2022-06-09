@@ -67,9 +67,18 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
     final screenWidthSize = MediaQuery.of(context).size.width;
     final screenHeightSize = MediaQuery.of(context).size.height;
     String tutorName = widget.tutor.getName + ' ' + widget.tutor.getLastName;
+    String courseInfo =
+        widget.tutor.getCourse + ' | ' + widget.tutor.getInstitution;
+    String personalDets = tutorName + '(' + widget.tutor.getAge + ')';
+    String gender = "";
+    if (widget.tutor.getGender == "F") {
+      gender = "Female";
+    } else {
+      gender = "Male";
+    }
     return Column(children: [
       Text(
-        tutorName,
+        personalDets,
         style: TextStyle(
           fontSize: screenWidthSize * 0.08,
           fontWeight: FontWeight.bold,
@@ -83,9 +92,9 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
       ),
       SizedBox(height: screenHeightSize * 0.01),
       Text(
-        "Computer Science | Universtiy of Pretoria",
+        courseInfo,
         style: TextStyle(
-          fontSize: screenWidthSize * 0.05,
+          fontSize: screenWidthSize * 0.04,
           fontWeight: FontWeight.normal,
           color: colorOrange,
         ),
@@ -152,7 +161,7 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
             top: screenHeightSize * 0.02,
             bottom: screenHeightSize * 0.04,
           ),
-          child: Text(widget.tutor.getGender,
+          child: Text(gender,
               style: TextStyle(
                 fontSize: screenWidthSize * 0.05,
                 fontWeight: FontWeight.normal,
@@ -243,7 +252,7 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
   Widget buildProfileImage() => CircleAvatar(
         radius: 50,
         backgroundColor: Colors.grey.shade800,
-        backgroundImage: const AssetImage("assets/Pictures/"),
+        backgroundImage: const AssetImage("assets/Pictures/penguin.png"),
       );
 
   Widget buildEditImageIcon() => const CircleAvatar(

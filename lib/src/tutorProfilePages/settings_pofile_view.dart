@@ -202,7 +202,7 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
   Widget buildProfileImage() => CircleAvatar(
         radius: 50,
         backgroundColor: Colors.grey.shade800,
-        backgroundImage: const AssetImage("assets/Pictures/tutorProfile.jpg"),
+        backgroundImage: const AssetImage("assets/Pictures/penguin.png"),
       );
 
   Widget buildEditImageIcon() => const CircleAvatar(

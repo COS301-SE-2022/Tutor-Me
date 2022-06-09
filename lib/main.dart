@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tutor_me/src/authenticate/register_or_login.dart';
+// import 'package:tutor_me/src/authenticate/register_or_login.dart';
+import 'package:tutor_me/src/tutee_page.dart';
 
 //import 'package:tutor_me/src/tuteeProfilePages/edit_tutee_profile_page.dart';
 //import 'package:tutor_me/src/tuteeProfilePages/tutee_profile.dart';
@@ -15,5 +16,5 @@ void main() async {
   await dotenv.load(fileName: ".env");
 
   await settingsController.loadSettings();
-  runApp(const MaterialApp(home: RegisterOrLogin()));
+  runApp(const MaterialApp(home: TuteePage()));
 }

@@ -28,7 +28,7 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
     if (image != null) {
       return fileImage();
     }
-    return const AssetImage('assets/Pictures/avatar.jpeg');
+    return const AssetImage('assets/Pictures/penguin.png');
   }
 
   FileImage fileImage() {
