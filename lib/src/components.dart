@@ -95,7 +95,7 @@ class TextInputField extends StatelessWidget {
     required this.inputType,
     required this.inputAction,
     required this.inputController,
-    required this.inputFocus,
+    // required this.inputFocus,
     // required this.inputValue,
   }) : super(key: key);
 
@@ -103,7 +103,7 @@ class TextInputField extends StatelessWidget {
   final String hint;
   final TextInputType inputType;
   final TextInputAction inputAction;
-  final FocusNode inputFocus;
+  // final FocusNode inputFocus;
   final TextEditingController inputController;
   // final Function(String v) inputValue;
 
@@ -126,7 +126,10 @@ class TextInputField extends StatelessWidget {
         child: Center(
           child: TextField(
             // onChanged: inputValue,
-            focusNode: inputFocus,
+            // onEditingComplete: () {
+            //   FocusScope.of(context).requestFocus(inputFocus);
+            // },
+            // focusNode: inputFocus,
             controller: inputController,
             decoration: InputDecoration(
                 border: InputBorder.none,
