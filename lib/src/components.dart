@@ -113,7 +113,7 @@ class TextInputField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10.0),
       child: Container(
-        height: size.height * 0.06,
+        height: size.height * 0.07,
         width: size.width * 0.8,
         decoration: BoxDecoration(
           color: Colors.grey[500]!.withOpacity(0.3),
