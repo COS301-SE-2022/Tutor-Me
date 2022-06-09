@@ -187,10 +187,8 @@ class _RegisterState extends State<Register> {
                   onToggle: (index) {
                     if (index == 0) {
                       toRegister = "Tutor";
-                      print(index);
                     } else {
                       toRegister = "Tutee";
-                      print(index);
                     }
                   },
                 ),
