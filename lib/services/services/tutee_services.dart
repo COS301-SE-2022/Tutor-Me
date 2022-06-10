@@ -1,3 +1,6 @@
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:crypt/crypt.dart';
 import 'package:http/http.dart' as http;
 import 'package:tutor_me/services/models/modules.dart';
@@ -89,7 +92,7 @@ class TuteeServices {
       'institution': institution,
       'modules': "No modules added",
       'location': "No Location added",
-      'tuteesCode': "No tutees",
+      'tutorsCode': "No tutees",
       'email': email,
       'password': password,
       'bio': "No bio added",
@@ -140,7 +143,7 @@ class TuteeServices {
       'institution': tutee.getInstitution,
       'modules': tutee.getModules,
       'location': tutee.getLocation,
-      'tuteesCode': tutee.getTutorsCode,
+      'tutorsCode': tutee.getTutorsCode,
       'email': tutee.getEmail,
       'password': tutee.getPassword,
       'bio': tutee.getBio,
@@ -179,6 +182,57 @@ class TuteeServices {
       }
 
       return modules;
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  static uploadProfileImage(File? image, String id) async {
+    final imageByte = base64Encode(image!.readAsBytesSync());
+    String data = jsonEncode({'id': id, 'tutorImage': imageByte});
+    final header = <String, String>{
+      'Content-Type': 'application/json; charset=utf-8'
+    };
+    final url =
+        Uri.parse('https://tutormetutorfiles.azurewebsites.net/api/TuteeFiles/$id');
+    try {
+      final response = await http.put(url, headers: header, body: data);
+      if (response.statusCode == 204) {
+        return image;
+      } else {
+        throw "failed to upload";
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  static Future getTuteeProfileImage(String id) async {
+    Uri tuteeURL = Uri.https('tutormetutorfiles.azurewebsites.net', 'api/TuteeFiles/$id');
+    try {
+      final response = await http.get(tuteeURL, headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*"
+      });
+      if (response.statusCode == 200) {
+        String j = "";
+        if (response.body[0] != "[") {
+          j = "[" + response.body + "]";
+        } else {
+          j = response.body;
+        }
+        final List list = json.decode(j);
+        String byteString = list[0]['tutorImage'];
+        //covert to file from base64 bytes
+        // String image = base64Decode(byteString);
+        Uint8List image = const Base64Codec().decode(byteString);
+        return image;
+        // return Image.file(base64Decode(kk));
+        // return list.map((json) => Tutees.fromObject(json)).toList();
+      } else {
+        throw Exception('Failed to load' + response.statusCode.toString());
+      }
     } catch (e) {
       throw Exception(e);
     }
