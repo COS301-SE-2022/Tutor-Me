@@ -5,11 +5,12 @@ class UploadButton extends StatelessWidget {
   const UploadButton({
     Key? key,
     required this.btnName,
-    required Function() onPressed,
+    required this.onPressed,
     required this.btnIcon,
   }) : super(key: key);
   final String btnName;
   final IconData btnIcon;
+  final Function() onPressed;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -22,7 +23,7 @@ class UploadButton extends StatelessWidget {
         color: colorTurqoise,
       ),
       child: TextButton(
-        onPressed: () {},
+        onPressed: onPressed,
         child: Row(
           children: [
             Icon(
@@ -264,9 +265,10 @@ class OrangeButton extends StatelessWidget {
   const OrangeButton({
     Key? key,
     required this.btnName,
-    required Function() onPressed,
+    required this.onPressed,
   }) : super(key: key);
   final String btnName;
+  final Function() onPressed;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -279,7 +281,7 @@ class OrangeButton extends StatelessWidget {
         color: colorOrange,
       ),
       child: TextButton(
-        onPressed: () {},
+        onPressed: onPressed,
         child: Text(
           btnName,
           style: const TextStyle(

@@ -3,41 +3,57 @@ import 'package:tutor_me/src/colorpallete.dart';
 // import 'package:tutor_me/src/colorPalette.dart';
 //import 'package:tutor_me/src/tuteeProfilePages/edit_tutee_profile_page.dart';
 
-import 'package:tutor_me/src/tuteeProfilePages/tutee_data.dart';
 // import 'package:tutor_me/src/tutorProfilePages/tutor_profile_edit.dart';
 import 'package:tutor_me/src/tutorProfilePages/user_stats.dart';
+import '../../services/models/modules.dart';
+import '../../services/models/tutees.dart';
+import '../../services/services/tutee_services.dart';
 import '../components.dart';
 import 'edit_module_list.dart';
-import 'edit_modules.dart';
 import 'tutee_profile_edit.dart';
 
 // ignore: must_be_immutable
 class TuteeProfilePage extends StatefulWidget {
-  TuteeProfilePage({
-    Key? key,
-    required this.username,
-    required this.location,
-    required this.bio,
-    required this.gender,
-  }) : super(key: key);
-  Tutee tutee = Tutee();
-  final String username;
-  final String location;
-  final String bio;
-  final String gender;
+  final Tutees user;
+  const TuteeProfilePage({Key? key, required this.user}) : super(key: key);
+
   @override
   _TuteeProfilePageState createState() => _TuteeProfilePageState();
 }
 
 class _TuteeProfilePageState extends State<TuteeProfilePage> {
-  Tutee tutee = Tutee();
+  List<Modules> currentModules = List<Modules>.empty();
+  late int numConnections;
+  late int numTutees;
+  getCurrentModules() async {
+    final current = await TuteeServices.getTuteeModules(widget.user.getId);
+    setState(() {
+      currentModules = current;
+    });
+  }
+
+  int getNumConnections() {
+    var allConnections = widget.user.getConnections.split(',');
+
+    return allConnections.length;
+  }
+
+  int getNumTutees() {
+    var allTutees = widget.user.getTutorsCode.split(',');
+
+    return allTutees.length;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getCurrentModules();
+    numConnections = getNumConnections();
+    numTutees = getNumTutees();
+  }
 
   @override
   Widget build(BuildContext context) {
-    tutee.username = widget.username + '\n';
-    tutee.bio = widget.bio + '\n';
-    tutee.location = widget.location + '\n';
-    tutee.gender = widget.gender + '\n';
     return Scaffold(
         body: ListView(
       padding: EdgeInsets.zero,
@@ -49,10 +65,6 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
     ));
   }
 
-  void moveToEdit() {
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => const EditModule()));
-  }
 
   Widget topDesign() {
     return Stack(
@@ -73,7 +85,7 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
             onTap: (() => Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => const TuteeProfileEdit()))),
+                    builder: (context) => TuteeProfileEdit(user: widget.user,)))),
             child: Icon(
               Icons.edit,
               color: colorOrange,
@@ -98,7 +110,7 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
   Widget buildProfileImage() => CircleAvatar(
         radius: 50,
         backgroundColor: Colors.grey.shade800,
-        backgroundImage: const AssetImage("assets/Pictures/tuteeProfile.jpg"),
+        backgroundImage: const AssetImage("assets/Pictures/penguin.png"),
       );
 
   Widget buildEditImageIcon() => const CircleAvatar(
@@ -113,10 +125,19 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
   Widget buildBody() {
     final screenWidthSize = MediaQuery.of(context).size.width;
     final screenHeightSize = MediaQuery.of(context).size.height;
-
+    String name = widget.user.getName + ' ' + widget.user.getLastName;
+    String personalInfo = name + '(' + widget.user.getAge + ')';
+    String courseInfo =
+        widget.user.getCourse + ' | ' + widget.user.getInstitution;
+    String gender = "";
+    if (widget.user.getGender == "F") {
+      gender = "Female";
+    } else {
+      gender = "Male";
+    }
     return Column(children: [
       Text(
-        "Carol Timith(22)",
+        personalInfo,
         style: TextStyle(
           fontSize: screenWidthSize * 0.08,
           fontWeight: FontWeight.bold,
@@ -130,9 +151,9 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
       ),
       SizedBox(height: screenHeightSize * 0.01),
       Text(
-        "Computer Science | Universtiy of Pretoria",
+        courseInfo,
         style: TextStyle(
-          fontSize: screenWidthSize * 0.05,
+          fontSize: screenWidthSize * 0.04,
           fontWeight: FontWeight.normal,
           color: colorTurqoise,
         ),
@@ -168,8 +189,7 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
           top: screenHeightSize * 0.01,
           bottom: screenWidthSize * 0.06,
         ),
-        child: Text(
-            "I am a self motivated individual who finds joy in exploring new technologies. I absolutely love teaching people. Fun fact: I love cooking. Always eager to help, feel free to hmu! ",
+        child: Text(widget.user.getBio,
             style: TextStyle(
               fontSize: screenWidthSize * 0.05,
               fontWeight: FontWeight.normal,
@@ -200,7 +220,7 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
             top: screenHeightSize * 0.02,
             bottom: screenHeightSize * 0.04,
           ),
-          child: Text("Female",
+          child: Text(gender,
               style: TextStyle(
                 fontSize: screenWidthSize * 0.05,
                 fontWeight: FontWeight.normal,
@@ -215,7 +235,7 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
             left: screenWidthSize * 0.06,
             // top: 16,
           ),
-          child: Text("Modules I tutor",
+          child: Text("Modules I Have",
               textAlign: TextAlign.left,
               style: TextStyle(
                 fontSize: screenWidthSize * 0.06,
@@ -232,13 +252,12 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
             right: screenWidthSize * 0.06,
             top: screenHeightSize * 0.02,
           ),
-          child: Text(
-              "* WTW114 - Calculus \n* WTW115 - Discrete Methamatics \n* COS122 - Operating Systems",
-              style: TextStyle(
-                fontSize: screenWidthSize * 0.05,
-                fontWeight: FontWeight.normal,
-                color: Colors.black,
-              )),
+          child: ListView.builder(
+            scrollDirection: Axis.vertical,
+            shrinkWrap: true,
+            itemBuilder: _moduleListBuilder,
+            itemCount: currentModules.length,
+          ),
         ),
       ),
       SizedBox(
@@ -255,11 +274,32 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
               backColor: colorOrange,
               funct: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const EditModuleList()));
+                    builder: (context) => EditModuleList(user:widget.user)));
               },
             )),
       ),
     ]);
+  }
+
+  Widget _moduleListBuilder(BuildContext context, int i) {
+    String moduleDescription =
+        currentModules[i].getModuleName + '(' + currentModules[i].getCode + ')';
+    return Row(
+      children: [
+        Icon(
+          Icons.book,
+          size: MediaQuery.of(context).size.height * 0.02,
+          color: colorTurqoise,
+        ),
+        Text(
+          moduleDescription,
+          style: TextStyle(
+            fontSize: MediaQuery.of(context).size.width * 0.05,
+            color: Colors.black,
+          ),
+        ),
+      ],
+    );
   }
 }
 
