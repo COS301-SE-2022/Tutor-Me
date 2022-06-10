@@ -7,7 +7,7 @@ import 'package:tutor_me/src/authenticate/register_or_login.dart';
 //import 'package:tutor_me/src/tuteeProfilePages/edit_tutee_profile_page.dart';
 //import 'package:tutor_me/src/tuteeProfilePages/tutee_profile.dart';
 // import 'package:tutor_me/src/tutor_page.dart';
-import 'src/authenticate/login.dart';
+//import 'src/authenticate/login.dart';
 import 'src/settings/settings_controller.dart';
 import 'src/settings/settings_service.dart';
 // import 'package:flutter_dotenv/flutter_dotenv.dart';
