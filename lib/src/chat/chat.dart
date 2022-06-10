@@ -10,7 +10,7 @@ import '../chat/message.dart';
 // import 'theme/themes.dart';
 
 class Chat extends StatefulWidget {
-  final Tutors user;
+  final dynamic user;
 
   const Chat({
     Key? key,

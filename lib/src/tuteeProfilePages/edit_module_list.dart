@@ -92,13 +92,10 @@ class _EditModuleListState extends State<EditModuleList> {
   void initState() {
     super.initState();
     getModules();
-    
-    if(widget.user is Tutors)
-    {
+
+    if (widget.user is Tutors) {
       getTutorCurrentModules();
-    }
-    else
-    {
+    } else {
       getTuteeCurrentModules();
     }
     inputCurrent();
@@ -242,26 +239,20 @@ class _EditModuleListState extends State<EditModuleList> {
                           funct: () async {
                             String modules = "";
                             for (int i = 0; i < currentModules.length; i++) {
-                                  modules+=currentModules[i].getCode;
-                                  if(i!=currentModules.length-1)
-                                  {
-                                    modules+=',';
-                                  }
+                              modules += currentModules[i].getCode;
+                              if (i != currentModules.length - 1) {
+                                modules += ',';
+                              }
                             }
                             widget.user.setModules = modules;
+                            widget.user.setStatus = "F";
                             Navigator.pop(context);
 
-                            if(widget.user is Tutors)
-                            {
+                            if (widget.user is Tutors) {
                               await TutorServices.updateTutor(widget.user);
-                            }
-                            else
-                            {
+                            } else {
                               await TuteeServices.updateTutee(widget.user);
                             }
-
-                            
-                            
                           }),
                     ),
                   ),

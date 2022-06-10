@@ -188,6 +188,8 @@ class _LoginState extends State<Login> {
                           // TutorServices tutor = TutorServices.Login(
                           tutor = await TutorServices.logInTutor(
                               emailController.text, passwordController.text);
+                          tutor.setStatus = "T";
+                          await TutorServices.updateTutor(tutor);
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -228,10 +230,12 @@ class _LoginState extends State<Login> {
                           // TutorServices tutor = TutorServices.Login(
                           tutee = await TuteeServices.logInTutee(
                               emailController.text, passwordController.text);
+                          tutee.setStatus = "T";
+                          await TuteeServices.updateTutee(tutee);
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>  TuteePage(user: tutee)),
+                                builder: (context) => TuteePage(user: tutee)),
                           );
                         } catch (e) {
                           showDialog(
