@@ -297,7 +297,6 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
           moduleDescription,
           style: TextStyle(
             fontSize: MediaQuery.of(context).size.width * 0.05,
-            fontWeight: FontWeight.normal,
             color: Colors.black,
           ),
         ),

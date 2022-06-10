@@ -232,7 +232,7 @@ class _LoginState extends State<Login> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const TuteePage()),
+                                builder: (context) =>  TuteePage(user: tutee)),
                           );
                         } catch (e) {
                           showDialog(

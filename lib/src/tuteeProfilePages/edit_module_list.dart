@@ -6,9 +6,10 @@ import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/tuteeProfilePages/tutee_profile.dart';
 
 import '../../services/models/modules.dart';
+import '../../services/services/tutee_services.dart';
 
 class EditModuleList extends StatefulWidget {
-  final Tutors user;
+  final dynamic user;
   const EditModuleList({Key? key, required this.user}) : super(key: key);
 
   @override
@@ -73,8 +74,15 @@ class _EditModuleListState extends State<EditModuleList> {
     });
   }
 
-  getCurrentModules() async {
+  getTutorCurrentModules() async {
     final current = await TutorServices.getTutorModules(widget.user.getId);
+    setState(() {
+      currentModules = current;
+    });
+  }
+
+  getTuteeCurrentModules() async {
+    final current = await TuteeServices.getTuteeModules(widget.user.getId);
     setState(() {
       currentModules = current;
     });
@@ -84,7 +92,15 @@ class _EditModuleListState extends State<EditModuleList> {
   void initState() {
     super.initState();
     getModules();
-    getCurrentModules();
+    
+    if(widget.user is Tutors)
+    {
+      getTutorCurrentModules();
+    }
+    else
+    {
+      getTuteeCurrentModules();
+    }
     inputCurrent();
   }
 
@@ -234,7 +250,17 @@ class _EditModuleListState extends State<EditModuleList> {
                             }
                             widget.user.setModules = modules;
                             Navigator.pop(context);
-                            await TutorServices.updateTutor(widget.user);
+
+                            if(widget.user is Tutors)
+                            {
+                              await TutorServices.updateTutor(widget.user);
+                            }
+                            else
+                            {
+                              await TuteeServices.updateTutee(widget.user);
+                            }
+
+                            
                             
                           }),
                     ),

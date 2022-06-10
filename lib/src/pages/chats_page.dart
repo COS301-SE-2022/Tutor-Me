@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tutor_me/services/services/tutor_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
-import 'package:tutor_me/src/tuteeProfilePages/tutee_data.dart';
 import '../../services/models/tutors.dart';
 import '../../services/services/tutee_services.dart';
 import '../chat/chat.dart';
