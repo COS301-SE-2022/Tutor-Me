@@ -55,7 +55,7 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
         ),
       ),
       SizedBox(height: screenHeightSize * 0.02),
-      const UserStats(),
+      const UserStats(rating: "3",numTutees: 4,numConnections: 15,),
       SizedBox(height: screenHeightSize * 0.02),
       SizedBox(
         width: double.infinity,
@@ -202,7 +202,7 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
   Widget buildProfileImage() => CircleAvatar(
         radius: 50,
         backgroundColor: Colors.grey.shade800,
-        backgroundImage: const AssetImage("assets/Pictures/tutorProfile.jpg"),
+        backgroundImage: const AssetImage("assets/Pictures/penguin.png"),
       );
 
   Widget buildEditImageIcon() => const CircleAvatar(

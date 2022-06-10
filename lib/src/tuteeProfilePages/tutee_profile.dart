@@ -4,11 +4,12 @@ import 'package:tutor_me/src/colorpallete.dart';
 //import 'package:tutor_me/src/tuteeProfilePages/edit_tutee_profile_page.dart';
 
 import 'package:tutor_me/src/tuteeProfilePages/tutee_data.dart';
-import 'package:tutor_me/src/tutorProfilePages/tutor_profile_edit.dart';
+// import 'package:tutor_me/src/tutorProfilePages/tutor_profile_edit.dart';
 import 'package:tutor_me/src/tutorProfilePages/user_stats.dart';
 import '../components.dart';
 import 'edit_module_list.dart';
 import 'edit_modules.dart';
+import 'tutee_profile_edit.dart';
 
 // ignore: must_be_immutable
 class TuteeProfilePage extends StatefulWidget {
@@ -72,7 +73,7 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
             onTap: (() => Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => const TutorProfileEdit()))),
+                    builder: (context) => const TuteeProfileEdit()))),
             child: Icon(
               Icons.edit,
               color: colorOrange,
@@ -137,7 +138,11 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
         ),
       ),
       SizedBox(height: screenHeightSize * 0.02),
-      const UserStats(),
+      const UserStats(
+        rating: "1",
+        numTutees: 2,
+        numConnections: 23,
+      ),
       SizedBox(height: screenHeightSize * 0.02),
       SizedBox(
         width: double.infinity,

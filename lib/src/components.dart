@@ -95,7 +95,7 @@ class TextInputField extends StatelessWidget {
     required this.inputType,
     required this.inputAction,
     required this.inputController,
-    required this.inputFocus,
+    // required this.inputFocus,
     // required this.inputValue,
   }) : super(key: key);
 
@@ -103,7 +103,7 @@ class TextInputField extends StatelessWidget {
   final String hint;
   final TextInputType inputType;
   final TextInputAction inputAction;
-  final FocusNode inputFocus;
+  // final FocusNode inputFocus;
   final TextEditingController inputController;
   // final Function(String v) inputValue;
 
@@ -113,7 +113,7 @@ class TextInputField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10.0),
       child: Container(
-        height: size.height * 0.06,
+        height: size.height * 0.07,
         width: size.width * 0.8,
         decoration: BoxDecoration(
           color: Colors.grey[500]!.withOpacity(0.3),
@@ -126,7 +126,10 @@ class TextInputField extends StatelessWidget {
         child: Center(
           child: TextField(
             // onChanged: inputValue,
-            focusNode: inputFocus,
+            // onEditingComplete: () {
+            //   FocusScope.of(context).requestFocus(inputFocus);
+            // },
+            // focusNode: inputFocus,
             controller: inputController,
             decoration: InputDecoration(
                 border: InputBorder.none,
