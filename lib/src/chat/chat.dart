@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tutor_me/services/models/tutors.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import '../chat/message.dart';
 // import 'package:tutor_me/modules/api.services.dart';
