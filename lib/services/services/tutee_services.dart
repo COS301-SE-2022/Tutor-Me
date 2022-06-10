@@ -89,12 +89,11 @@ class TuteeServices {
       'institution': institution,
       'modules': "No modules added",
       'location': "No Location added",
-      'tuteesCode': "No tutees",
+      'tutorsCode': "No tutees",
       'email': email,
       'password': password,
       'bio': "No bio added",
       'connections': "No connections added",
-      'rating': 0.toString()
     });
 
     final header = <String, String>{
@@ -141,7 +140,7 @@ class TuteeServices {
       'institution': tutee.getInstitution,
       'modules': tutee.getModules,
       'location': tutee.getLocation,
-      'tuteesCode': tutee.getTutorsCode,
+      'tutorsCode': tutee.getTutorsCode,
       'email': tutee.getEmail,
       'password': tutee.getPassword,
       'bio': tutee.getBio,

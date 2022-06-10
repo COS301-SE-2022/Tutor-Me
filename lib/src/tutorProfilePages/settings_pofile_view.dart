@@ -246,7 +246,7 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
             onTap: (() => Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => const TutorProfileEdit()))),
+                    builder: (context) => TutorProfileEdit(user: widget.user)))),
             child: Icon(
               Icons.edit,
               color: colorOrange,
