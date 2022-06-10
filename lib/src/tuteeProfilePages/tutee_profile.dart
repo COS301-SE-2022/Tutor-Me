@@ -10,7 +10,6 @@ import '../../services/models/tutees.dart';
 import '../../services/services/tutee_services.dart';
 import '../components.dart';
 import 'edit_module_list.dart';
-import 'edit_modules.dart';
 import 'tutee_profile_edit.dart';
 
 // ignore: must_be_immutable

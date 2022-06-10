@@ -145,7 +145,6 @@ class _LoginState extends State<Login> {
                 child: TextButton(
                   onPressed: () async {
                     String errMsg = "";
-                    //TODO: login
                     if (emailController.text.isEmpty ||
                         passwordController.text.isEmpty) {
                       errMsg += "Please fill in all fields";
