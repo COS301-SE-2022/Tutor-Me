@@ -3,7 +3,6 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
-  flutter_webrtc
 )
 
 set(PLUGIN_BUNDLED_LIBRARIES)
