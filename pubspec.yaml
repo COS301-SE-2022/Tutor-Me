@@ -18,7 +18,15 @@ dependencies:
     sdk: flutter
 
   file_picker: ^4.6.1
+  videosdk: ^0.0.10
+  flutter_dotenv: ^5.0.2
+  cupertino_icons: ^1.0.4
+  fluttertoast: ^8.0.8
+  camera: ^0.9.4+5
+  flutter_svg: ^1.0.1
+  visibility_detector: ^0.2.2
   date_time_format: ^2.0.1
+  touch_ripple_effect: ^2.2.3  
   toggle_switch: ^2.0.1
   open_file: ^3.2.1
   
@@ -46,4 +54,4 @@ flutter:
     # Add assets from the images directory to the application.
     - assets/images/
     - assets/Pictures/
-    # - .env
+    - .env
