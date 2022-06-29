@@ -1,3 +1,6 @@
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:http/http.dart' as http;
 import 'package:tutor_me/services/models/modules.dart';
 import 'dart:async';
@@ -186,11 +189,6 @@ class TutorServices {
     }
   }
 
-  static hashPassword(String password) {
-    String hashedPassword = Crypt.sha256(password).toString();
-    return hashedPassword;
-  }
-
   static logInTutor(String email, String password) async {
     List<Tutors> tutors = await getTutors();
     late Tutors tutor;
@@ -207,5 +205,58 @@ class TutorServices {
     } else {
       return tutor;
     }
+  }
+
+  static uploadProfileImage(File? image, String id) async {
+    final imageByte = base64Encode(image!.readAsBytesSync());
+    String data = jsonEncode({'id': id, 'tutorImage': imageByte});
+    final header = <String, String>{
+      'Content-Type': 'application/json; charset=utf-8'
+    };
+    final url = Uri.parse(
+        'https://tutormetutorfiles.azurewebsites.net/api/TutorFiles/$id');
+    try {
+      final response = await http.put(url, headers: header, body: data);
+      if (response.statusCode == 204) {
+        return image;
+      } else {
+        throw "failed to upload";
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  static Future getTutorProfileImage(String id) async {
+    Uri tuteeURL =
+        Uri.https('tutormetutorfiles.azurewebsites.net', 'api/TutorFiles/$id');
+    try {
+      final response = await http.get(tuteeURL, headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*"
+      });
+      if (response.statusCode == 200) {
+        String j = "";
+        if (response.body[0] != "[") {
+          j = "[" + response.body + "]";
+        } else {
+          j = response.body;
+        }
+        final List list = json.decode(j);
+        String byteString = list[0]['tutorImage'];
+        Uint8List image = const Base64Codec().decode(byteString);
+        return image;
+      } else {
+        throw Exception('Failed to load' + response.statusCode.toString());
+      }
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  static hashPassword(String password) {
+    String hashedPassword = Crypt.sha256(password).toString();
+    return hashedPassword;
   }
 }
