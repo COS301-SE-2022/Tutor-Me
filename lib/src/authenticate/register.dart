@@ -57,7 +57,7 @@ class _RegisterState extends State<Register> {
         );
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const TutorPage()),
+          MaterialPageRoute(builder: (context) => TutorPage(user: tutor)),
         );
       } catch (e) {
         showDialog(
@@ -99,7 +99,7 @@ class _RegisterState extends State<Register> {
 
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const TuteePage()),
+          MaterialPageRoute(builder: (context) => TuteePage(user: tutee,)),
         );
       } catch (e) {
         showDialog(

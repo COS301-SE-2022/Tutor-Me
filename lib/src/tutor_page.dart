@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:tutor_me/services/models/tutors.dart';
 import 'package:tutor_me/src/pages/chats_page.dart';
 import 'package:tutor_me/src/pages/tutees_list.dart';
 // import 'package:tutor_me/modules/api.services.dart';
 // import 'package:tutor_me/modules/tutors.dart';
 import 'Navigation/tutor_nav_drawer.dart';
-import 'tuteeProfilePages/tutee_data.dart';
-import 'theme/themes.dart';
+// import 'theme/themes.dart';
 import 'pages/calls_page.dart';
 
 class TutorPage extends StatefulWidget {
-  const TutorPage({Key? key}) : super(key: key);
+  final Tutors user;
+
+  const TutorPage({Key? key, required this.user}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -18,20 +20,7 @@ class TutorPage extends StatefulWidget {
 }
 
 class TutorPageState extends State<TutorPage> {
-  Tutee tutee = Tutee();
-  // List<Tutors> tutorList = List<Tutors>.empty();
-  // getTutors() {
-  //   APIServices.fetchTutor().then((response) {
-  //     // ignore: deprecated_member_use
-  //     Iterable list = json.decode(response.body);
-  //     // ignore: deprecated_member_use
-  //     List<Tutors> tutorsl = List<Tutors>.empty();
-  //     tutorsl = list.map((model) => Tutors.fromObject(model)).toList();
-  //     setState(() {
-  //       tutorList = tutorsl;
-  //     });
-  //   });
-  // }
+  
 
   void search(String search) {
     setState(() {
@@ -42,19 +31,11 @@ class TutorPageState extends State<TutorPage> {
   // var size = tutors.length;
   @override
   Widget build(BuildContext context) {
-    tutee.setAttributes(
-        "I am a hardworker,I absolutely love the field I am in.I'm constantly looking for ways to get things done",
-        'Evander, Secunda\n',
-        'Rose Tamil\n',
-        '21 years old\n',
-        'Female\n');
+   
     return DefaultTabController(
       length: 3,
-      child: MaterialApp(
-        themeMode: ThemeMode.light,
-        darkTheme: Themes.darkTheme,
-        home: Scaffold(
-            drawer: const TutorNavigationDrawerWidget(),
+      child: Scaffold(
+            drawer: TutorNavigationDrawerWidget(user : widget.user),
             appBar: AppBar(
               toolbarHeight: 70,
               shape: const RoundedRectangleBorder(
@@ -99,17 +80,16 @@ class TutorPageState extends State<TutorPage> {
                         end: Alignment.bottomCenter)),
               ),
               // actions: <Widget>[
-                
+
               // ],
             ),
             body: TabBarView(
               children: <Widget>[
-                Chats(user: tutee),
+                Chats(user: widget.user),
                 const TuteesList(),
                 const Calls()
               ],
             )),
-      ),
     );
 
     // Widget _starBuilder(BuildContext context, int i) {

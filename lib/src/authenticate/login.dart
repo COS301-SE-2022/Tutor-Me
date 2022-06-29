@@ -145,7 +145,6 @@ class _LoginState extends State<Login> {
                 child: TextButton(
                   onPressed: () async {
                     String errMsg = "";
-                    //TODO: login
                     if (emailController.text.isEmpty ||
                         passwordController.text.isEmpty) {
                       errMsg += "Please fill in all fields";
@@ -189,10 +188,12 @@ class _LoginState extends State<Login> {
                           // TutorServices tutor = TutorServices.Login(
                           tutor = await TutorServices.logInTutor(
                               emailController.text, passwordController.text);
+                          tutor.setStatus = "T";
+                          await TutorServices.updateTutor(tutor);
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const TutorPage()),
+                                builder: (context) => TutorPage(user: tutor)),
                           );
                         } catch (e) {
                           showDialog(
@@ -229,10 +230,12 @@ class _LoginState extends State<Login> {
                           // TutorServices tutor = TutorServices.Login(
                           tutee = await TuteeServices.logInTutee(
                               emailController.text, passwordController.text);
+                          tutee.setStatus = "T";
+                          await TuteeServices.updateTutee(tutee);
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const TuteePage()),
+                                builder: (context) => TuteePage(user: tutee)),
                           );
                         } catch (e) {
                           showDialog(
