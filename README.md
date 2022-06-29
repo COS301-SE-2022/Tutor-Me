@@ -43,10 +43,17 @@ modules or subjects,
 - Video calling functionality in-app to allow students to virtually meet After implementing these core functionalities of this project, we would start looking at
 additional functionalities like filtering tutors by gender to enable students to choose someone that they are comfortable with. We would also look into implementing a dark mode of the app for users that prefer it over light mode. The project will be implemented as a cross platform mobile app for Android and iOS.
 
+# Demo 1
 ## [Recorded Demo](https://drive.google.com/file/d/16WFDqOZ3tqesce0W2QBPpVktkZrKXXwX/view?usp=sharing)
-## [Funtional Requirements](https://github.com/COS301-SE-2022/Tutor-ME/blob/12a701224538648bcd7ad0ad158007bd9333bf34/SRS%20Document%20-%20Tutor%20Me.pdf)
+## [SRS Document](https://github.com/COS301-SE-2022/Tutor-ME/blob/12a701224538648bcd7ad0ad158007bd9333bf34/SRS%20Document%20-%20Tutor%20Me.pdf)
+
+# Demo 2
+## [Recorded Demo]()
+## [SRS Document](https://github.com/COS301-SE-2022/Tutor-ME/blob/develop/assets/SRS%20Document%20-%20Tutor%20Me%20v2.pdf)
 ## [Architectural Requirements](https://github.com/COS301-SE-2022/Tutor-ME/blob/develop/assets/Architectural%20Development.pdf)
 ## [Coding Standards Document](https://github.com/COS301-SE-2022/Tutor-ME/blob/develop/assets/Coding%20standards%20document.pdf)
+## [User Manual](https://github.com/COS301-SE-2022/Tutor-ME/blob/develop/assets/User%20Manual%20TutorMe-1.pdf)
+## [Sprint Planning](https://github.com/COS301-SE-2022/Tutor-ME/blob/develop/assets/Sprint%20Planning%20And%20Burndown%20Charts%20-1.pdf)
 ## Project Boards:
 > > > ### [GitHub Project Board](https://github.com/COS301-SE-2022/Tutor-ME/projects/1)
 > > > ### [Trello Project Board](https://trello.com/b/R58mrioT/tutor-me)
