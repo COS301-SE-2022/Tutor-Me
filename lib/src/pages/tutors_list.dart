@@ -24,6 +24,17 @@ class TutorsListState extends State<TutorsList> {
   final textControl = TextEditingController();
   List<Tutors> tutorList = List<Tutors>.empty();
   List<Tutors> saveTutors = List<Tutors>.empty();
+  double filterContHeight = 0.0;
+  double filterContWidth = 0.0;
+  bool collapsed = true;
+  bool isMaleSelected = false;
+  bool isFemaleSelected = false;
+  bool isFirstSelected = false;
+  bool isSecondSelected = false;
+  bool isThirdSelected = false;
+  bool isForthSelected = false;
+  bool isFifthSelected = false;
+  Color checkedColor = colorBlack;
 
   void search(String search) {
     if (search == '') {
@@ -31,9 +42,11 @@ class TutorsListState extends State<TutorsList> {
     }
     final tutors = tutorList.where((tutor) {
       final nameToLower = tutor.getName.toLowerCase();
+      final lastNameToLower = tutor.getLastName.toLowerCase();
+      final lowerName = nameToLower + ' ' + lastNameToLower;
       final query = search.toLowerCase();
 
-      return nameToLower.contains(query);
+      return lowerName.contains(query);
     }).toList();
 
     setState(() {
@@ -67,18 +80,21 @@ class TutorsListState extends State<TutorsList> {
     if (filter == '36+') {
       final tutors = tutorList.where((tutor) {
         bool val = false;
-
-        String strAge = tutor.getAge;
-        int age = int.parse(strAge);
-        if (age >= 36) {
-          val = true;
+        if (tutor.getDateOfBirth != '') {
+          String strAge = tutor.getAge;
+          int age = int.parse(strAge);
+          if (age >= 36) {
+            val = true;
+          }
         }
+
         return val;
       }).toList();
 
       setState(() {
         tutorList = tutors;
       });
+      return;
     }
     String first = "";
     String second = "";
@@ -95,13 +111,16 @@ class TutorsListState extends State<TutorsList> {
 
     final tutors = tutorList.where((tutor) {
       bool val = false;
-      String strAge = tutor.getAge;
-      int age = int.parse(strAge);
-      for (int i = f; i < s + 1; i++) {
-        if (age == i) {
-          val = true;
+      if (tutor.getDateOfBirth != '') {
+        String strAge = tutor.getAge;
+        int age = int.parse(strAge);
+        for (int i = f; i < s + 1; i++) {
+          if (age == i) {
+            val = true;
+          }
         }
       }
+
       return val;
     }).toList();
 
@@ -126,6 +145,8 @@ class TutorsListState extends State<TutorsList> {
 
   @override
   Widget build(BuildContext context) {
+    filterContHeight = MediaQuery.of(context).size.height * 0.16;
+    filterContWidth = MediaQuery.of(context).size.width * 0.9;
     return Material(
         child: SingleChildScrollView(
             child: Column(children: <Widget>[
@@ -166,7 +187,7 @@ class TutorsListState extends State<TutorsList> {
                       : null,
                   border: OutlineInputBorder(
                     borderSide: const BorderSide(color: Colors.red, width: 1.0),
-                    borderRadius: BorderRadius.circular(50),
+                    borderRadius: BorderRadius.circular(15),
                   ),
                   hintStyle: const TextStyle(
                     fontSize: 14,
@@ -176,65 +197,375 @@ class TutorsListState extends State<TutorsList> {
           ),
           IconButton(
             icon: Icon(
-              Icons.filter_alt,
+              Icons.filter_list,
               size: MediaQuery.of(context).size.width * 0.09,
-              color: colorOrange,
+              color: colorBlack,
             ),
             onPressed: () {
-              List<String> genders = ['Male', 'Female', 'Gender(Not Selected)'];
-              List<String> ages = [
-                'Age(Not selected)',
-                '16-18',
-                '19-21',
-                '22-25',
-                '26-35',
-                '36+'
-              ];
-              String? selectedGender = 'Gender(Not Selected)';
-              String? selectedAge = 'Age(Not selected)';
-              showDialog(
-                  context: context,
-                  builder: (context) => AlertDialog(
-                        actions: <Widget>[
-                          Center(
-                            child: DropdownButton<String>(
-                                value: selectedGender,
-                                items: genders
-                                    .map((gender) => DropdownMenuItem<String>(
-                                        value: gender, child: Text(gender)))
-                                    .toList(),
-                                onChanged: (gender) {
-                                  Navigator.of(context).pop();
-                                  tutorList = saveTutors;
-                                  String newGen = gender!;
-                                  filterGender(newGen);
-                                  setState(() {
-                                    selectedGender = gender;
-                                  });
-                                }),
-                          ),
-                          Center(
-                            child: DropdownButton<String>(
-                                value: selectedAge,
-                                items: ages
-                                    .map((age) => DropdownMenuItem<String>(
-                                        value: age, child: Text(age)))
-                                    .toList(),
-                                onChanged: (age) {
-                                  Navigator.of(context).pop();
-                                  tutorList = saveTutors;
-                                  String newAge = age!;
-                                  filterAge(newAge);
-                                  setState(() {
-                                    selectedAge = age;
-                                  });
-                                }),
-                          ),
-                        ],
-                      ));
+              setState(() {
+                collapsed = !collapsed;
+              });
+              // List<String> genders = ['Male', 'Female', 'Gender(Not Selected)'];
+              // List<String> ages = [
+              //   'Age(Not selected)',
+              //   '16-18',
+              //   '19-21',
+              //   '22-25',
+              //   '26-35',
+              //   '36+'
+              // ];
+              // String? selectedGender = 'Gender(Not Selected)';
+              // String? selectedAge = 'Age(Not selected)';
+              // showDialog(
+              //     context: context,
+              //     builder: (context) => AlertDialog(
+              //           actions: <Widget>[
+              //             Center(
+              //               child: DropdownButton<String>(
+              //                   value: selectedGender,
+              //                   items: genders
+              //                       .map((gender) => DropdownMenuItem<String>(
+              //                           value: gender, child: Text(gender)))
+              //                       .toList(),
+              //                   onChanged: (gender) {
+              //                     Navigator.of(context).pop();
+              //                     tutorList = saveTutors;
+              //                     String newGen = gender!;
+              //                     filterGender(newGen);
+              //                     setState(() {
+              //                       selectedGender = gender;
+              //                     });
+              //                   }),
+              //             ),
+              //             Center(
+              //               child: DropdownButton<String>(
+              //                   value: selectedAge,
+              //                   items: ages
+              //                       .map((age) => DropdownMenuItem<String>(
+              //                           value: age, child: Text(age)))
+              //                       .toList(),
+              //                   onChanged: (age) {
+              //                     Navigator.of(context).pop();
+              //                     tutorList = saveTutors;
+              //                     String newAge = age!;
+              //                     filterAge(newAge);
+              //                     setState(() {
+              //                       selectedAge = age;
+              //                     });
+              //                   }),
+              //             ),
+              //           ],
+              //         ));
             },
           ),
         ],
+      ),
+      AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        height: collapsed ? 0 : filterContHeight,
+        width: filterContWidth,
+        curve: Curves.linear,
+        decoration: const BoxDecoration(
+          shape: BoxShape.rectangle,
+        ),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.max,
+            children: <Widget>[
+              const Text('Gender:', textAlign: TextAlign.left),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  FilterChip(
+                    label: Text(
+                      'Male',
+                      style: TextStyle(color: checkedColor),
+                    ),
+                    backgroundColor: Colors.white60,
+                    shape: StadiumBorder(side: BorderSide(color: checkedColor)),
+                    checkmarkColor: colorTurqoise,
+                    onSelected: (isSelected) {
+                      if (isFemaleSelected) {
+                        tutorList = saveTutors;
+                      }
+                      String newGen = 'Male';
+                      filterGender(newGen);
+                      setState(() {
+                        if (isSelected) {
+                          checkedColor = colorTurqoise;
+                          const snackBar = SnackBar(
+                            content: Text('Filter option applied'),
+                          );
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                          isMaleSelected = isSelected;
+                          isFemaleSelected = !isSelected;
+                        } else {
+                          checkedColor = colorBlack;
+                          isMaleSelected = isSelected;
+                          if (!isFirstSelected ||
+                              !isSecondSelected ||
+                              !isThirdSelected ||
+                              !isForthSelected ||
+                              !isFifthSelected) {
+                            tutorList = saveTutors;
+                          }
+                        }
+                      });
+                    },
+                    selected: isMaleSelected,
+                    // avatar: const Icon(Icons.male),
+                  ),
+                  SizedBox(width: MediaQuery.of(context).size.width * 0.03),
+                  FilterChip(
+                    label: Text(
+                      'Female',
+                      style: TextStyle(color: checkedColor),
+                    ),
+                    backgroundColor: Colors.white60,
+                    shape: StadiumBorder(side: BorderSide(color: checkedColor)),
+                    checkmarkColor: colorTurqoise,
+                    onSelected: (isSelected) {
+                      if (isMaleSelected) {
+                        tutorList = saveTutors;
+                      }
+                      String newGen = 'Female';
+                      filterGender(newGen);
+                      setState(() {
+                        if (isSelected) {
+                          checkedColor = colorTurqoise;
+                          const snackBar = SnackBar(
+                            content: Text('Filter option applied'),
+                          );
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                          isMaleSelected = !isSelected;
+                          isFemaleSelected = isSelected;
+                        } else {
+                          checkedColor = colorBlack;
+                          isFemaleSelected = isSelected;
+                          if (!isFirstSelected ||
+                              !isSecondSelected ||
+                              !isThirdSelected ||
+                              !isForthSelected ||
+                              !isFifthSelected) {
+                            tutorList = saveTutors;
+                          }
+                        }
+                      });
+                    },
+                    selected: isFemaleSelected,
+                    // avatar: const Icon(Icons.female),
+                  ),
+                ],
+              ),
+              const Text('Age:'),
+              Row(
+                children: <Widget>[
+                  FilterChip(
+                    label: Text(
+                      '16-18',
+                      style: TextStyle(color: checkedColor),
+                    ),
+                    backgroundColor: Colors.white60,
+                    shape: StadiumBorder(side: BorderSide(color: checkedColor)),
+                    checkmarkColor: colorTurqoise,
+                    onSelected: (isSelected) {
+                      if (isSecondSelected ||
+                          isThirdSelected ||
+                          isForthSelected ||
+                          isFifthSelected) {
+                        tutorList = saveTutors;
+                      }
+
+                      String newAge = '16-18';
+                      filterAge(newAge);
+                      setState(() {
+                        if (isSelected) {
+                          checkedColor = colorTurqoise;
+                          const snackBar = SnackBar(
+                            content: Text('Filter option applied'),
+                          );
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                          isFirstSelected = isSelected;
+                          isSecondSelected = !isSelected;
+                          isThirdSelected = !isSelected;
+                          isForthSelected = !isSelected;
+                          isFifthSelected = !isSelected;
+                        } else {
+                          checkedColor = colorBlack;
+                          isFirstSelected = isSelected;
+                          tutorList = saveTutors;
+                        }
+                      });
+                    },
+                    selected: isFirstSelected,
+                    // avatar: const Icon(Icons.male),
+                  ),
+                  SizedBox(width: MediaQuery.of(context).size.width * 0.01),
+                  FilterChip(
+                    label: Text(
+                      '19-21',
+                      style: TextStyle(color: checkedColor),
+                    ),
+                    backgroundColor: Colors.white60,
+                    shape: StadiumBorder(side: BorderSide(color: checkedColor)),
+                    checkmarkColor: colorTurqoise,
+                    onSelected: (isSelected) {
+                      if (isFirstSelected ||
+                          isThirdSelected ||
+                          isForthSelected ||
+                          isFifthSelected) {
+                        tutorList = saveTutors;
+                      }
+                      String newAge = '19-21';
+                      filterAge(newAge);
+                      setState(() {
+                        if (isSelected) {
+                          checkedColor = colorTurqoise;
+                          const snackBar = SnackBar(
+                            content: Text('Filter option applied'),
+                          );
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                          isSecondSelected = isSelected;
+                          isFirstSelected = !isSelected;
+                          isThirdSelected = !isSelected;
+                          isForthSelected = !isSelected;
+                          isFifthSelected = !isSelected;
+                        } else {
+                          checkedColor = colorBlack;
+                          isSecondSelected = isSelected;
+                          tutorList = saveTutors;
+                        }
+                      });
+                    },
+                    selected: isSecondSelected,
+                    // avatar: const Icon(Icons.male),
+                  ),
+                  SizedBox(width: MediaQuery.of(context).size.width * 0.01),
+                  FilterChip(
+                    label: Text(
+                      '22-25',
+                      style: TextStyle(color: checkedColor),
+                    ),
+                    backgroundColor: Colors.white60,
+                    shape: StadiumBorder(side: BorderSide(color: checkedColor)),
+                    checkmarkColor: colorTurqoise,
+                    onSelected: (isSelected) {
+                      if (isFirstSelected ||
+                          isSecondSelected ||
+                          isForthSelected ||
+                          isFifthSelected) {
+                        tutorList = saveTutors;
+                      }
+                      String newAge = '22-25';
+                      filterAge(newAge);
+                      setState(() {
+                        if (isSelected) {
+                          checkedColor = colorTurqoise;
+                          const snackBar = SnackBar(
+                            content: Text('Filter option applied'),
+                          );
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                          isThirdSelected = isSelected;
+                          isFirstSelected = !isSelected;
+                          isSecondSelected = !isSelected;
+                          isForthSelected = !isSelected;
+                          isFifthSelected = !isSelected;
+                        } else {
+                          checkedColor = colorBlack;
+                          isThirdSelected = isSelected;
+                          tutorList = saveTutors;
+                        }
+                      });
+                    },
+                    selected: isThirdSelected,
+                    // avatar: const Icon(Icons.male),
+                  ),
+                  SizedBox(width: MediaQuery.of(context).size.width * 0.01),
+                  FilterChip(
+                    label: Text(
+                      '26-35',
+                      style: TextStyle(color: checkedColor),
+                    ),
+                    backgroundColor: Colors.white60,
+                    shape: StadiumBorder(side: BorderSide(color: checkedColor)),
+                    checkmarkColor: colorTurqoise,
+                    onSelected: (isSelected) {
+                      if (isFirstSelected ||
+                          isSecondSelected ||
+                          isThirdSelected ||
+                          isFifthSelected) {
+                        tutorList = saveTutors;
+                      }
+                      String newAge = '26-35';
+                      filterAge(newAge);
+                      setState(() {
+                        if (isSelected) {
+                          checkedColor = colorTurqoise;
+                          const snackBar = SnackBar(
+                            content: Text('Filter option applied'),
+                          );
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                          isForthSelected = isSelected;
+                          isFirstSelected = !isSelected;
+                          isSecondSelected = !isSelected;
+                          isThirdSelected = !isSelected;
+                          isFifthSelected = !isSelected;
+                        } else {
+                          checkedColor = colorBlack;
+                          isForthSelected = isSelected;
+                          tutorList = saveTutors;
+                        }
+                      });
+                    },
+                    selected: isForthSelected,
+                    // avatar: const Icon(Icons.male),
+                  ),
+                  SizedBox(width: MediaQuery.of(context).size.width * 0.01),
+                  FilterChip(
+                    label: Text(
+                      '36+',
+                      style: TextStyle(color: checkedColor),
+                    ),
+                    backgroundColor: Colors.white60,
+                    shape: StadiumBorder(side: BorderSide(color: checkedColor)),
+                    checkmarkColor: colorTurqoise,
+                    onSelected: (isSelected) {
+                      if (isFirstSelected ||
+                          isSecondSelected ||
+                          isThirdSelected ||
+                          isForthSelected) {
+                        tutorList = saveTutors;
+                      }
+                      String newAge = '36+';
+                      filterAge(newAge);
+                      setState(() {
+                        if (isSelected) {
+                          checkedColor = colorTurqoise;
+                          const snackBar = SnackBar(
+                            content: Text('Filter option applied'),
+                          );
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                          isFifthSelected = isSelected;
+                          isFirstSelected = !isSelected;
+                          isSecondSelected = !isSelected;
+                          isThirdSelected = !isSelected;
+                          isForthSelected = !isSelected;
+                        } else {
+                          checkedColor = colorBlack;
+                          isFifthSelected = isSelected;
+                          tutorList = saveTutors;
+                        }
+                      });
+                    },
+                    selected: isFifthSelected,
+                    // avatar: const Icon(Icons.male),
+                  ),
+                ],
+              )
+            ],
+          ),
+        ),
       ),
       SizedBox(
         height: MediaQuery.of(context).size.height * 0.7,
@@ -255,17 +586,20 @@ class TutorsListState extends State<TutorsList> {
       child: Card(
         elevation: 7.0,
         shape: RoundedRectangleBorder(
-          side: const BorderSide(color: Colors.red, width: 1),
+          side: const BorderSide(color: colorTurqoise, width: 1),
           borderRadius: BorderRadius.circular(10),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             ListTile(
-                leading: CircleAvatar(
-                    child: Text(name[0]), backgroundColor: Colors.red),
+                leading: const CircleAvatar(
+                    backgroundImage: AssetImage('assets/Pictures/penguin.png')),
                 title: Text(name),
-                subtitle: Text(tutorList[i].getBio),
+                subtitle: Text(
+                  tutorList[i].getBio,
+                  overflow: TextOverflow.ellipsis,
+                ),
                 trailing: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
@@ -281,8 +615,8 @@ class TutorsListState extends State<TutorsList> {
       ),
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
-            builder: (BuildContext context) => TutorProfilePageView(
-                tutor: tutorList[i])));
+            builder: (BuildContext context) =>
+                TutorProfilePageView(tutor: tutorList[i])));
       },
     );
   }
