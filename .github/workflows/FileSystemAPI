@@ -1,0 +1,28 @@
+name: .NET FileSystemAPI
+
+on:
+  push:
+    branches: [ "develop" ]
+  pull_request:
+    branches: [ "develop" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: 6.0.x
+    - name: Restore dependencies
+      working-directory:  APIs/FileSystemAPI
+      run: dotnet restore
+    - name: Build
+      working-directory:  APIs/FileSystemAPI
+      run: dotnet build --no-restore
+    - name: Test
+      working-directory:  APIs/FileSystemAPI
+      run: dotnet test --no-build --verbosity normal
