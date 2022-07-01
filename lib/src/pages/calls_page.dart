@@ -13,7 +13,7 @@ import 'package:flutter/material.dart';
 // import '../../constants/colors.dart';
 // import '../../navigator_key.dart';
 // import '../../screens/splash_screen.dart';
-// import '../../screens/startup_screen.dart';
+import '../../screens/startup_screen.dart';
 
 void main() async {
   // Load Environment variables
@@ -35,18 +35,6 @@ class Calls extends StatefulWidget {
 class CallsState extends State<Calls> {
   @override
   Widget build(BuildContext context) {
-    // return const StartupScreen();
-    return Scaffold(
-      body: Center(
-        child: TextButton(
-          child: const Text('Call'),
-          onPressed: () {},
-          // style: const ButtonStyle(
-          //   backgroundColor: MaterialStateProperty.all(colorOrange),
-          //   foregroundColor: Colors.white,
-          // ),
-        ),
-      ),
-    );
+    return const StartupScreen();
   }
 }
