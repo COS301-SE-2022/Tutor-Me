@@ -13,7 +13,7 @@
     <WebStackScaffolding_IsViewGenerationSelected>True</WebStackScaffolding_IsViewGenerationSelected>
     <WebStackScaffolding_DbContextDialogWidth>650</WebStackScaffolding_DbContextDialogWidth>
     <ActiveDebugProfile>Api</ActiveDebugProfile>
-    <NameOfLastUsedPublishProfile>E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\Api\Properties\PublishProfiles\TutorMeAPI - Web Deploy.pubxml</NameOfLastUsedPublishProfile>
+    <NameOfLastUsedPublishProfile>C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\APIs\TutorMeApi\Api\Properties\PublishProfiles\TutorMeAPI - Web Deploy1.pubxml</NameOfLastUsedPublishProfile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DebuggerFlavor>ProjectDebugger</DebuggerFlavor>
