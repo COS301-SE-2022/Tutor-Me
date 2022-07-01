@@ -1,4 +1,4 @@
-name: .NET
+name: .NET FileSystemAPI
 
 on:
   push:
@@ -18,11 +18,11 @@ jobs:
       with:
         dotnet-version: 6.0.x
     - name: Restore dependencies
-      working-directory:  ./web/Api
+      working-directory:  APIs/FileSystemAPI
       run: dotnet restore
     - name: Build
-      working-directory:  ./web/Api
+      working-directory:  APIs/FileSystemAPI
       run: dotnet build --no-restore
     - name: Test
-      working-directory:  ./web/Api
+      working-directory:  APIs/FileSystemAPI
       run: dotnet test --no-build --verbosity normal
