@@ -8,10 +8,10 @@ class Requests {
 
   Requests(this._id, this._requesterId, this._receiverId, this._dateCreated);
 
-  String get getCode => _code;
-  String get getModuleName => _moduleName;
-  String get getInstitution => _institution;
-  String get getFaculty => _faculty;
+  String get getId => _id;
+  String get getRequesterId => _requesterId;
+  String get getReceiverId => _receiverId;
+  String get getDateCreated => _dateCreated;
 
   set setID(String newId) {
     _id = newId;
@@ -31,10 +31,10 @@ class Requests {
 
   Map<String, dynamic> toMap() {
     var map = <String, dynamic>{};
-    map["code"] = _code;
-    map["moduleName"] = _moduleName;
-    map["institution"] = _institution;
-    map["faculty"] = _faculty;
+    map["id"] = _id;
+    map["receiverId"] = _receiverId;
+    map["requesterId"] = _requesterId;
+    map["dateCreated"] = _dateCreated;
     return map;
   }
 
