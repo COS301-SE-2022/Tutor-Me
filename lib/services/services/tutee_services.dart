@@ -11,6 +11,10 @@ import 'package:tutor_me/services/services/module_services.dart';
 // import 'package:flutter_string_encryption/flutter_string_encryption.dart';
 
 class TuteeServices {
+  getRequests(String id) async {
+    final url = Uri.https('tutormeapi.azurewebsites.new', 'api/Requests/Tutee/$id');
+  }
+
   static getTutees() async {
     Uri tuteeURL = Uri.https('tutormeapi.azurewebsites.net', '/api/Tutees');
     try {
@@ -193,8 +197,8 @@ class TuteeServices {
     final header = <String, String>{
       'Content-Type': 'application/json; charset=utf-8'
     };
-    final url =
-        Uri.parse('https://tutormetutorfiles.azurewebsites.net/api/TuteeFiles/$id');
+    final url = Uri.parse(
+        'https://tutormetutorfiles.azurewebsites.net/api/TuteeFiles/$id');
     try {
       final response = await http.put(url, headers: header, body: data);
       if (response.statusCode == 204) {
@@ -208,7 +212,8 @@ class TuteeServices {
   }
 
   static Future getTuteeProfileImage(String id) async {
-    Uri tuteeURL = Uri.https('tutormetutorfiles.azurewebsites.net', 'api/TuteeFiles/$id');
+    Uri tuteeURL =
+        Uri.https('tutormetutorfiles.azurewebsites.net', 'api/TuteeFiles/$id');
     try {
       final response = await http.get(tuteeURL, headers: {
         "Accept": "application/json",
