@@ -18,11 +18,11 @@ jobs:
       with:
         dotnet-version: 6.0.x
     - name: Restore dependencies
-      working-directory:  ./APIs/TutorMeApi
+      working-directory:  APIs/TutorMeApi
       run: dotnet restore
     - name: Build
-      working-directory:  ./APIs/TutorMeApi
+      working-directory:  APIs/TutorMeApi
       run: dotnet build --no-restore
     - name: Test
-      working-directory:  ./APIs/TutorMeApi
+      working-directory:  APIs/TutorMeApi
       run: dotnet test --no-build --verbosity normal
