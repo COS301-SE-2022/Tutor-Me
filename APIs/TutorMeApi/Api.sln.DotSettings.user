@@ -20,13 +20,15 @@
     &lt;TestId&gt;xUnit::C8A4792E-3CA6-4D1D-92E5-65431D629A0D::net6.0::ApiUnitTests.UnitTest1.GetTutorAsync_WithExistingItem_ReturnsFound&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=5214c613_002D50c7_002D4210_002Da45e_002Dd1b2a3142384/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GetTutorAsync_WithUnexistingItem_ReturnsNotFound" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=5214c613_002D50c7_002D4210_002Da45e_002Dd1b2a3142384/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="GetTutorAsync_WithUnexistingItem_ReturnsNotFound" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
-    &lt;TestId&gt;xUnit::C8A4792E-3CA6-4D1D-92E5-65431D629A0D::net6.0::ApiUnitTests.UnitTests.GetTutorsAsync_WithExistingItem_ReturnsFound&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::C8A4792E-3CA6-4D1D-92E5-65431D629A0D::net6.0::ApiUnitTests.ModulesUnitTests&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::C8A4792E-3CA6-4D1D-92E5-65431D629A0D::net6.0::ApiUnitTests.TutorUnitTests&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::C8A4792E-3CA6-4D1D-92E5-65431D629A0D::net6.0::ApiUnitTests.TuteeUnitTests&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=bc591a1b_002Da36f_002D4c08_002D947f_002De9bac4fca4e4/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="GetTutorAsync_WithExistingItem_ReturnsNotFound" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=bc591a1b_002Da36f_002D4c08_002D947f_002De9bac4fca4e4/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GetTutorAsync_WithExistingItem_ReturnsNotFound" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
-    &lt;TestId&gt;xUnit::C8A4792E-3CA6-4D1D-92E5-65431D629A0D::net6.0::ApiUnitTests.UnitTests.GetTutorsAsync_WithExistingItem_ReturnsFound&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::C8A4792E-3CA6-4D1D-92E5-65431D629A0D::net6.0::ApiUnitTests.ModulesUnitTests&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
