@@ -160,18 +160,16 @@ class _MeetingScreenState extends State<MeetingScreen> {
                 }
               },
 
-              // Called when more options button is pressed
+              // Called when chat button is pressed
               onMoreButtonPressed: () {
-                // Showing more options dialog box
+                // Showing chat screen
                 showModalBottomSheet(
                   context: context,
                   constraints: BoxConstraints(
                       maxHeight:
-                          MediaQuery.of(context).size.height -
-                              statusbarHeight),
+                          MediaQuery.of(context).size.height - statusbarHeight),
                   isScrollControlled: true,
-                  builder: (context) =>
-                      ChatScreen(meeting: meeting!),
+                  builder: (context) => ChatScreen(meeting: meeting!),
                 );
               },
             ),
@@ -193,7 +191,14 @@ class _MeetingScreenState extends State<MeetingScreen> {
                 ),
               ],
             ),
-            body: Padding(
+            body: Container(
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  colorFilter:
+                      ColorFilter.mode(Colors.white, BlendMode.modulate),
+                  image: AssetImage('assets/Pictures/teacher1.png'),
+                ),
+              ),
               padding: const EdgeInsets.only(bottom: 80.0),
               child: Column(
                 children: [
