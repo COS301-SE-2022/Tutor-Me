@@ -292,7 +292,7 @@ class _LoginState extends State<Login> {
                 onTap: () {},
                 child: Container(
                   child: const Text(
-                    "Creat New Account",
+                    "Create New Account",
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
