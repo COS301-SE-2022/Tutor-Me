@@ -1,0 +1,1044 @@
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\CoverletSourceRootsMapping
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\testhost.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\Api.deps.json
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\Api.runtimeconfig.json
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\appsettings.Development.json
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\appsettings.json
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\efpt.config.json
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\Api.exe
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\testhost.exe
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\Microsoft.TestPlatform.PlatformAbstractions.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\xunit.runner.visualstudio.dotnetcore.testadapter.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\xunit.runner.reporters.netcoreapp10.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\xunit.runner.utility.netcoreapp10.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\ApiUnitTests.deps.json
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\ApiUnitTests.runtimeconfig.json
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\ApiUnitTests.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\ApiUnitTests.pdb
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\Castle.Core.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\FluentAssertions.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\Humanizer.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\MessagePack.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\MessagePack.Annotations.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\Microsoft.AspNetCore.Razor.Language.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\Microsoft.Bcl.AsyncInterfaces.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\Microsoft.Build.Locator.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\Microsoft.CodeAnalysis.AnalyzerUtilities.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\Microsoft.CodeAnalysis.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\Microsoft.CodeAnalysis.CSharp.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\Microsoft.CodeAnalysis.CSharp.Features.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\Microsoft.CodeAnalysis.Features.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\Microsoft.CodeAnalysis.Razor.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\Microsoft.CodeAnalysis.Scripting.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\Microsoft.CodeAnalysis.VisualBasic.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\Microsoft.CodeAnalysis.VisualBasic.Features.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\Microsoft.CodeAnalysis.VisualBasic.Workspaces.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\Microsoft.CodeAnalysis.Workspaces.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\Microsoft.CodeAnalysis.Workspaces.MSBuild.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\Microsoft.VisualStudio.CodeCoverage.Shim.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\Microsoft.Data.SqlClient.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\Microsoft.DiaSymReader.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\Microsoft.DotNet.Scaffolding.Shared.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\Microsoft.EntityFrameworkCore.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\Microsoft.EntityFrameworkCore.Relational.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\Microsoft.Extensions.Caching.Memory.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\Microsoft.Identity.Client.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\Microsoft.IdentityModel.Logging.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\Microsoft.IdentityModel.Protocols.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\Microsoft.IdentityModel.Tokens.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\Microsoft.OpenApi.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\Microsoft.TestPlatform.CoreUtilities.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\Microsoft.VisualStudio.TestPlatform.ObjectModel.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\Microsoft.TestPlatform.CommunicationUtilities.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\Microsoft.TestPlatform.CrossPlatEngine.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\Microsoft.TestPlatform.Utilities.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\Microsoft.VisualStudio.TestPlatform.Common.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\Microsoft.VisualStudio.Debugger.Contracts.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\Microsoft.VisualStudio.Web.CodeGeneration.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\Microsoft.VisualStudio.Web.CodeGeneration.Core.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\dotnet-aspnet-codegenerator-design.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\Microsoft.VisualStudio.Web.CodeGeneration.Templating.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\Microsoft.VisualStudio.Web.CodeGeneration.Utils.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\Microsoft.VisualStudio.Web.CodeGenerators.Mvc.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\Microsoft.Win32.SystemEvents.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\Moq.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\Newtonsoft.Json.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\NuGet.Common.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\NuGet.Configuration.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\NuGet.DependencyResolver.Core.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\NuGet.Frameworks.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\NuGet.LibraryModel.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\NuGet.Packaging.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\NuGet.ProjectModel.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\NuGet.Protocol.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\NuGet.Versioning.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\Swashbuckle.AspNetCore.Swagger.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\System.Composition.AttributedModel.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\System.Composition.Convention.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\System.Composition.Hosting.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\System.Composition.Runtime.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\System.Composition.TypedParts.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\System.Configuration.ConfigurationManager.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\System.Drawing.Common.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\System.IdentityModel.Tokens.Jwt.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\System.Runtime.Caching.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\System.Security.Cryptography.ProtectedData.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\System.Security.Permissions.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\System.Windows.Extensions.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\xunit.abstractions.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\xunit.assert.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\xunit.core.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\xunit.execution.dotnet.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\cs\Microsoft.CodeAnalysis.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\de\Microsoft.CodeAnalysis.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\es\Microsoft.CodeAnalysis.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\fr\Microsoft.CodeAnalysis.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\it\Microsoft.CodeAnalysis.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\ja\Microsoft.CodeAnalysis.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\ko\Microsoft.CodeAnalysis.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\pl\Microsoft.CodeAnalysis.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\pt-BR\Microsoft.CodeAnalysis.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\ru\Microsoft.CodeAnalysis.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\tr\Microsoft.CodeAnalysis.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\zh-Hans\Microsoft.CodeAnalysis.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\zh-Hant\Microsoft.CodeAnalysis.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\cs\Microsoft.CodeAnalysis.CSharp.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\de\Microsoft.CodeAnalysis.CSharp.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\es\Microsoft.CodeAnalysis.CSharp.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\fr\Microsoft.CodeAnalysis.CSharp.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\it\Microsoft.CodeAnalysis.CSharp.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\ja\Microsoft.CodeAnalysis.CSharp.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\ko\Microsoft.CodeAnalysis.CSharp.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\pl\Microsoft.CodeAnalysis.CSharp.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\pt-BR\Microsoft.CodeAnalysis.CSharp.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\ru\Microsoft.CodeAnalysis.CSharp.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\cs\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\de\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\es\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\fr\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\it\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\ja\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\ko\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\pl\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\ru\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\tr\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\cs\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\de\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\es\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\fr\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\it\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\ja\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\ko\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\pl\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\ru\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\tr\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\cs\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\de\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\es\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\fr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\it\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\ja\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\ko\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\pl\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\ru\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\tr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\cs\Microsoft.CodeAnalysis.Features.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\de\Microsoft.CodeAnalysis.Features.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\es\Microsoft.CodeAnalysis.Features.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\fr\Microsoft.CodeAnalysis.Features.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\it\Microsoft.CodeAnalysis.Features.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\ja\Microsoft.CodeAnalysis.Features.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\ko\Microsoft.CodeAnalysis.Features.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\pl\Microsoft.CodeAnalysis.Features.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\pt-BR\Microsoft.CodeAnalysis.Features.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\ru\Microsoft.CodeAnalysis.Features.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\tr\Microsoft.CodeAnalysis.Features.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\zh-Hans\Microsoft.CodeAnalysis.Features.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\zh-Hant\Microsoft.CodeAnalysis.Features.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\cs\Microsoft.CodeAnalysis.Scripting.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\de\Microsoft.CodeAnalysis.Scripting.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\es\Microsoft.CodeAnalysis.Scripting.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\fr\Microsoft.CodeAnalysis.Scripting.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\it\Microsoft.CodeAnalysis.Scripting.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\ja\Microsoft.CodeAnalysis.Scripting.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\ko\Microsoft.CodeAnalysis.Scripting.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\pl\Microsoft.CodeAnalysis.Scripting.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\pt-BR\Microsoft.CodeAnalysis.Scripting.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\ru\Microsoft.CodeAnalysis.Scripting.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\tr\Microsoft.CodeAnalysis.Scripting.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\zh-Hans\Microsoft.CodeAnalysis.Scripting.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\zh-Hant\Microsoft.CodeAnalysis.Scripting.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\cs\Microsoft.CodeAnalysis.VisualBasic.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\de\Microsoft.CodeAnalysis.VisualBasic.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\es\Microsoft.CodeAnalysis.VisualBasic.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\fr\Microsoft.CodeAnalysis.VisualBasic.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\it\Microsoft.CodeAnalysis.VisualBasic.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\ja\Microsoft.CodeAnalysis.VisualBasic.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\ko\Microsoft.CodeAnalysis.VisualBasic.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\pl\Microsoft.CodeAnalysis.VisualBasic.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\pt-BR\Microsoft.CodeAnalysis.VisualBasic.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\ru\Microsoft.CodeAnalysis.VisualBasic.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\tr\Microsoft.CodeAnalysis.VisualBasic.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\zh-Hans\Microsoft.CodeAnalysis.VisualBasic.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\zh-Hant\Microsoft.CodeAnalysis.VisualBasic.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\cs\Microsoft.CodeAnalysis.VisualBasic.Features.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\de\Microsoft.CodeAnalysis.VisualBasic.Features.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\es\Microsoft.CodeAnalysis.VisualBasic.Features.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\fr\Microsoft.CodeAnalysis.VisualBasic.Features.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\it\Microsoft.CodeAnalysis.VisualBasic.Features.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\ja\Microsoft.CodeAnalysis.VisualBasic.Features.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\ko\Microsoft.CodeAnalysis.VisualBasic.Features.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\pl\Microsoft.CodeAnalysis.VisualBasic.Features.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\pt-BR\Microsoft.CodeAnalysis.VisualBasic.Features.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\ru\Microsoft.CodeAnalysis.VisualBasic.Features.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\tr\Microsoft.CodeAnalysis.VisualBasic.Features.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\zh-Hans\Microsoft.CodeAnalysis.VisualBasic.Features.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\zh-Hant\Microsoft.CodeAnalysis.VisualBasic.Features.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\cs\Microsoft.CodeAnalysis.VisualBasic.Workspaces.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\de\Microsoft.CodeAnalysis.VisualBasic.Workspaces.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\es\Microsoft.CodeAnalysis.VisualBasic.Workspaces.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\fr\Microsoft.CodeAnalysis.VisualBasic.Workspaces.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\it\Microsoft.CodeAnalysis.VisualBasic.Workspaces.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\ja\Microsoft.CodeAnalysis.VisualBasic.Workspaces.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\ko\Microsoft.CodeAnalysis.VisualBasic.Workspaces.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\pl\Microsoft.CodeAnalysis.VisualBasic.Workspaces.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\pt-BR\Microsoft.CodeAnalysis.VisualBasic.Workspaces.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\ru\Microsoft.CodeAnalysis.VisualBasic.Workspaces.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\tr\Microsoft.CodeAnalysis.VisualBasic.Workspaces.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\zh-Hans\Microsoft.CodeAnalysis.VisualBasic.Workspaces.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\zh-Hant\Microsoft.CodeAnalysis.VisualBasic.Workspaces.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\cs\Microsoft.CodeAnalysis.Workspaces.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\de\Microsoft.CodeAnalysis.Workspaces.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\es\Microsoft.CodeAnalysis.Workspaces.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\fr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\it\Microsoft.CodeAnalysis.Workspaces.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\ja\Microsoft.CodeAnalysis.Workspaces.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\ko\Microsoft.CodeAnalysis.Workspaces.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\pl\Microsoft.CodeAnalysis.Workspaces.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\ru\Microsoft.CodeAnalysis.Workspaces.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\cs\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\de\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\es\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\fr\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\it\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\ja\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\ko\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\pl\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\ru\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\tr\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\cs\Microsoft.TestPlatform.CoreUtilities.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\cs\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\de\Microsoft.TestPlatform.CoreUtilities.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\de\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\es\Microsoft.TestPlatform.CoreUtilities.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\es\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\fr\Microsoft.TestPlatform.CoreUtilities.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\fr\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\it\Microsoft.TestPlatform.CoreUtilities.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\it\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\ja\Microsoft.TestPlatform.CoreUtilities.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\ja\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\ko\Microsoft.TestPlatform.CoreUtilities.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\ko\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\pl\Microsoft.TestPlatform.CoreUtilities.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\pl\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\pt-BR\Microsoft.TestPlatform.CoreUtilities.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\pt-BR\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\ru\Microsoft.TestPlatform.CoreUtilities.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\ru\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\tr\Microsoft.TestPlatform.CoreUtilities.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\tr\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\zh-Hans\Microsoft.TestPlatform.CoreUtilities.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\zh-Hans\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\zh-Hant\Microsoft.TestPlatform.CoreUtilities.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\zh-Hant\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\cs\Microsoft.TestPlatform.CommunicationUtilities.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\cs\Microsoft.TestPlatform.CrossPlatEngine.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\cs\Microsoft.VisualStudio.TestPlatform.Common.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\de\Microsoft.TestPlatform.CommunicationUtilities.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\de\Microsoft.TestPlatform.CrossPlatEngine.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\de\Microsoft.VisualStudio.TestPlatform.Common.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\es\Microsoft.TestPlatform.CommunicationUtilities.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\es\Microsoft.TestPlatform.CrossPlatEngine.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\es\Microsoft.VisualStudio.TestPlatform.Common.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\fr\Microsoft.TestPlatform.CommunicationUtilities.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\fr\Microsoft.TestPlatform.CrossPlatEngine.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\fr\Microsoft.VisualStudio.TestPlatform.Common.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\it\Microsoft.TestPlatform.CommunicationUtilities.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\it\Microsoft.TestPlatform.CrossPlatEngine.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\it\Microsoft.VisualStudio.TestPlatform.Common.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\ja\Microsoft.TestPlatform.CommunicationUtilities.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\ja\Microsoft.TestPlatform.CrossPlatEngine.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\ja\Microsoft.VisualStudio.TestPlatform.Common.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\ko\Microsoft.TestPlatform.CommunicationUtilities.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\ko\Microsoft.TestPlatform.CrossPlatEngine.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\ko\Microsoft.VisualStudio.TestPlatform.Common.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\pl\Microsoft.TestPlatform.CommunicationUtilities.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\pl\Microsoft.TestPlatform.CrossPlatEngine.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\pl\Microsoft.VisualStudio.TestPlatform.Common.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\pt-BR\Microsoft.TestPlatform.CommunicationUtilities.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\pt-BR\Microsoft.TestPlatform.CrossPlatEngine.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\pt-BR\Microsoft.VisualStudio.TestPlatform.Common.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\ru\Microsoft.TestPlatform.CommunicationUtilities.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\ru\Microsoft.TestPlatform.CrossPlatEngine.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\ru\Microsoft.VisualStudio.TestPlatform.Common.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\tr\Microsoft.TestPlatform.CommunicationUtilities.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\tr\Microsoft.TestPlatform.CrossPlatEngine.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\tr\Microsoft.VisualStudio.TestPlatform.Common.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\zh-Hans\Microsoft.TestPlatform.CommunicationUtilities.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\zh-Hans\Microsoft.TestPlatform.CrossPlatEngine.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\zh-Hans\Microsoft.VisualStudio.TestPlatform.Common.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\zh-Hant\Microsoft.TestPlatform.CommunicationUtilities.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\zh-Hant\Microsoft.TestPlatform.CrossPlatEngine.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\zh-Hant\Microsoft.VisualStudio.TestPlatform.Common.resources.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\runtimes\unix\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\runtimes\win-arm\lib\net6.0\dotnet-aspnet-codegenerator-design.exe
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\runtimes\win-arm64\lib\net6.0\dotnet-aspnet-codegenerator-design.exe
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\Api.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\bin\Release\net6.0\Api.pdb
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\obj\Release\net6.0\ApiUnitTests.csproj.AssemblyReference.cache
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\obj\Release\net6.0\ApiUnitTests.GeneratedMSBuildEditorConfig.editorconfig
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\obj\Release\net6.0\ApiUnitTests.AssemblyInfoInputs.cache
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\obj\Release\net6.0\ApiUnitTests.AssemblyInfo.cs
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\obj\Release\net6.0\ApiUnitTests.csproj.CoreCompileInputs.cache
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\obj\Release\net6.0\ApiUnitTests.csproj.CopyComplete
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\obj\Release\net6.0\ApiUnitTests.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\obj\Release\net6.0\refint\ApiUnitTests.dll
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\obj\Release\net6.0\ApiUnitTests.pdb
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\obj\Release\net6.0\ApiUnitTests.genruntimeconfig.cache
+E:\School\Year 3\COS301\Capstone\Tutor-ME\web\Api\ApiUnitTests\obj\Release\net6.0\ref\ApiUnitTests.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\CoverletSourceRootsMapping
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\appsettings.Development.json
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\efpt.config.json
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\testhost.exe
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\testhost.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\xunit.runner.visualstudio.dotnetcore.testadapter.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\xunit.runner.reporters.netcoreapp10.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\xunit.runner.utility.netcoreapp10.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\Api.deps.json
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\Api.runtimeconfig.json
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\appsettings.json
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\Api.exe
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\Microsoft.TestPlatform.PlatformAbstractions.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\ApiUnitTests.deps.json
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\ApiUnitTests.runtimeconfig.json
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\ApiUnitTests.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\ApiUnitTests.pdb
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\Castle.Core.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\FluentAssertions.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\Humanizer.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\MessagePack.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\MessagePack.Annotations.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\Microsoft.AspNetCore.Razor.Language.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\Microsoft.Build.Locator.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\Microsoft.CodeAnalysis.AnalyzerUtilities.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\Microsoft.CodeAnalysis.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\Microsoft.CodeAnalysis.CSharp.Features.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\Microsoft.CodeAnalysis.Features.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\Microsoft.CodeAnalysis.Razor.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\Microsoft.CodeAnalysis.Scripting.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\Microsoft.CodeAnalysis.VisualBasic.Features.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\Microsoft.CodeAnalysis.VisualBasic.Workspaces.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\Microsoft.CodeAnalysis.Workspaces.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\Microsoft.CodeAnalysis.Workspaces.MSBuild.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\Microsoft.VisualStudio.CodeCoverage.Shim.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\Microsoft.Data.SqlClient.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\Microsoft.DiaSymReader.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\Microsoft.DotNet.Scaffolding.Shared.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\Microsoft.EntityFrameworkCore.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\Microsoft.Extensions.Caching.Memory.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\Microsoft.Identity.Client.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\Microsoft.OpenApi.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\Microsoft.TestPlatform.CoreUtilities.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\Microsoft.VisualStudio.TestPlatform.ObjectModel.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\Microsoft.TestPlatform.CommunicationUtilities.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\Microsoft.TestPlatform.CrossPlatEngine.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\Microsoft.TestPlatform.Utilities.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\Microsoft.VisualStudio.TestPlatform.Common.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\Microsoft.VisualStudio.Debugger.Contracts.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\Microsoft.VisualStudio.Web.CodeGeneration.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\Microsoft.VisualStudio.Web.CodeGeneration.Core.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\dotnet-aspnet-codegenerator-design.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\Microsoft.VisualStudio.Web.CodeGeneration.Templating.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\Microsoft.VisualStudio.Web.CodeGeneration.Utils.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\Microsoft.VisualStudio.Web.CodeGenerators.Mvc.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\Moq.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\Newtonsoft.Json.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\NuGet.Common.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\NuGet.Configuration.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\NuGet.DependencyResolver.Core.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\NuGet.Frameworks.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\NuGet.LibraryModel.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\NuGet.Packaging.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\NuGet.ProjectModel.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\NuGet.Protocol.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\NuGet.Versioning.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\System.Composition.AttributedModel.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\System.Composition.Convention.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\System.Composition.Hosting.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\System.Composition.Runtime.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\System.Composition.TypedParts.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\System.Configuration.ConfigurationManager.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\System.Drawing.Common.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\System.Runtime.Caching.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\System.Security.Permissions.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\System.Windows.Extensions.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\xunit.abstractions.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\xunit.assert.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\xunit.core.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\xunit.execution.dotnet.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\cs\Microsoft.CodeAnalysis.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\de\Microsoft.CodeAnalysis.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\es\Microsoft.CodeAnalysis.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\fr\Microsoft.CodeAnalysis.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\it\Microsoft.CodeAnalysis.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\ja\Microsoft.CodeAnalysis.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\ko\Microsoft.CodeAnalysis.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\pl\Microsoft.CodeAnalysis.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\pt-BR\Microsoft.CodeAnalysis.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\ru\Microsoft.CodeAnalysis.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\tr\Microsoft.CodeAnalysis.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\zh-Hans\Microsoft.CodeAnalysis.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\zh-Hant\Microsoft.CodeAnalysis.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\cs\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\de\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\es\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\fr\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\it\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\ja\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\ko\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\pl\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\pt-BR\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\ru\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\cs\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\de\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\es\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\fr\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\it\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\ja\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\ko\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\pl\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\ru\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\tr\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\cs\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\de\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\es\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\fr\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\it\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\ja\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\ko\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\pl\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\ru\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\tr\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\cs\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\de\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\es\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\fr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\it\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\ja\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\ko\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\pl\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\ru\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\tr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\cs\Microsoft.CodeAnalysis.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\de\Microsoft.CodeAnalysis.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\es\Microsoft.CodeAnalysis.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\fr\Microsoft.CodeAnalysis.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\it\Microsoft.CodeAnalysis.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\ja\Microsoft.CodeAnalysis.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\ko\Microsoft.CodeAnalysis.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\pl\Microsoft.CodeAnalysis.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\pt-BR\Microsoft.CodeAnalysis.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\ru\Microsoft.CodeAnalysis.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\tr\Microsoft.CodeAnalysis.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\zh-Hans\Microsoft.CodeAnalysis.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\zh-Hant\Microsoft.CodeAnalysis.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\cs\Microsoft.CodeAnalysis.Scripting.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\de\Microsoft.CodeAnalysis.Scripting.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\es\Microsoft.CodeAnalysis.Scripting.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\fr\Microsoft.CodeAnalysis.Scripting.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\it\Microsoft.CodeAnalysis.Scripting.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\ja\Microsoft.CodeAnalysis.Scripting.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\ko\Microsoft.CodeAnalysis.Scripting.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\pl\Microsoft.CodeAnalysis.Scripting.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\pt-BR\Microsoft.CodeAnalysis.Scripting.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\ru\Microsoft.CodeAnalysis.Scripting.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\tr\Microsoft.CodeAnalysis.Scripting.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\zh-Hans\Microsoft.CodeAnalysis.Scripting.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\zh-Hant\Microsoft.CodeAnalysis.Scripting.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\cs\Microsoft.CodeAnalysis.VisualBasic.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\de\Microsoft.CodeAnalysis.VisualBasic.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\es\Microsoft.CodeAnalysis.VisualBasic.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\fr\Microsoft.CodeAnalysis.VisualBasic.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\it\Microsoft.CodeAnalysis.VisualBasic.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\ja\Microsoft.CodeAnalysis.VisualBasic.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\ko\Microsoft.CodeAnalysis.VisualBasic.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\pl\Microsoft.CodeAnalysis.VisualBasic.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\pt-BR\Microsoft.CodeAnalysis.VisualBasic.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\ru\Microsoft.CodeAnalysis.VisualBasic.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\tr\Microsoft.CodeAnalysis.VisualBasic.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\zh-Hans\Microsoft.CodeAnalysis.VisualBasic.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\zh-Hant\Microsoft.CodeAnalysis.VisualBasic.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\cs\Microsoft.CodeAnalysis.VisualBasic.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\de\Microsoft.CodeAnalysis.VisualBasic.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\es\Microsoft.CodeAnalysis.VisualBasic.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\fr\Microsoft.CodeAnalysis.VisualBasic.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\it\Microsoft.CodeAnalysis.VisualBasic.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\ja\Microsoft.CodeAnalysis.VisualBasic.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\ko\Microsoft.CodeAnalysis.VisualBasic.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\pl\Microsoft.CodeAnalysis.VisualBasic.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\pt-BR\Microsoft.CodeAnalysis.VisualBasic.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\ru\Microsoft.CodeAnalysis.VisualBasic.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\tr\Microsoft.CodeAnalysis.VisualBasic.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\zh-Hans\Microsoft.CodeAnalysis.VisualBasic.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\zh-Hant\Microsoft.CodeAnalysis.VisualBasic.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\cs\Microsoft.CodeAnalysis.VisualBasic.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\de\Microsoft.CodeAnalysis.VisualBasic.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\es\Microsoft.CodeAnalysis.VisualBasic.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\fr\Microsoft.CodeAnalysis.VisualBasic.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\it\Microsoft.CodeAnalysis.VisualBasic.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\ja\Microsoft.CodeAnalysis.VisualBasic.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\ko\Microsoft.CodeAnalysis.VisualBasic.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\pl\Microsoft.CodeAnalysis.VisualBasic.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\pt-BR\Microsoft.CodeAnalysis.VisualBasic.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\ru\Microsoft.CodeAnalysis.VisualBasic.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\tr\Microsoft.CodeAnalysis.VisualBasic.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\zh-Hans\Microsoft.CodeAnalysis.VisualBasic.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\zh-Hant\Microsoft.CodeAnalysis.VisualBasic.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\cs\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\de\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\es\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\fr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\it\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\ja\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\ko\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\pl\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\ru\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\cs\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\de\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\es\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\fr\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\it\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\ja\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\ko\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\pl\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\ru\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\tr\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\cs\Microsoft.TestPlatform.CoreUtilities.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\cs\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\de\Microsoft.TestPlatform.CoreUtilities.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\de\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\es\Microsoft.TestPlatform.CoreUtilities.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\es\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\fr\Microsoft.TestPlatform.CoreUtilities.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\fr\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\it\Microsoft.TestPlatform.CoreUtilities.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\it\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\ja\Microsoft.TestPlatform.CoreUtilities.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\ja\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\ko\Microsoft.TestPlatform.CoreUtilities.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\ko\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\pl\Microsoft.TestPlatform.CoreUtilities.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\pl\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\pt-BR\Microsoft.TestPlatform.CoreUtilities.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\pt-BR\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\ru\Microsoft.TestPlatform.CoreUtilities.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\ru\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\tr\Microsoft.TestPlatform.CoreUtilities.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\tr\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\zh-Hans\Microsoft.TestPlatform.CoreUtilities.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\zh-Hans\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\zh-Hant\Microsoft.TestPlatform.CoreUtilities.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\zh-Hant\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\cs\Microsoft.TestPlatform.CommunicationUtilities.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\cs\Microsoft.TestPlatform.CrossPlatEngine.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\cs\Microsoft.VisualStudio.TestPlatform.Common.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\de\Microsoft.TestPlatform.CommunicationUtilities.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\de\Microsoft.TestPlatform.CrossPlatEngine.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\de\Microsoft.VisualStudio.TestPlatform.Common.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\es\Microsoft.TestPlatform.CommunicationUtilities.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\es\Microsoft.TestPlatform.CrossPlatEngine.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\es\Microsoft.VisualStudio.TestPlatform.Common.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\fr\Microsoft.TestPlatform.CommunicationUtilities.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\fr\Microsoft.TestPlatform.CrossPlatEngine.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\fr\Microsoft.VisualStudio.TestPlatform.Common.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\it\Microsoft.TestPlatform.CommunicationUtilities.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\it\Microsoft.TestPlatform.CrossPlatEngine.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\it\Microsoft.VisualStudio.TestPlatform.Common.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\ja\Microsoft.TestPlatform.CommunicationUtilities.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\ja\Microsoft.TestPlatform.CrossPlatEngine.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\ja\Microsoft.VisualStudio.TestPlatform.Common.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\ko\Microsoft.TestPlatform.CommunicationUtilities.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\ko\Microsoft.TestPlatform.CrossPlatEngine.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\ko\Microsoft.VisualStudio.TestPlatform.Common.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\pl\Microsoft.TestPlatform.CommunicationUtilities.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\pl\Microsoft.TestPlatform.CrossPlatEngine.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\pl\Microsoft.VisualStudio.TestPlatform.Common.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\pt-BR\Microsoft.TestPlatform.CommunicationUtilities.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\pt-BR\Microsoft.TestPlatform.CrossPlatEngine.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\pt-BR\Microsoft.VisualStudio.TestPlatform.Common.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\ru\Microsoft.TestPlatform.CommunicationUtilities.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\ru\Microsoft.TestPlatform.CrossPlatEngine.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\ru\Microsoft.VisualStudio.TestPlatform.Common.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\tr\Microsoft.TestPlatform.CommunicationUtilities.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\tr\Microsoft.TestPlatform.CrossPlatEngine.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\tr\Microsoft.VisualStudio.TestPlatform.Common.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\zh-Hans\Microsoft.TestPlatform.CommunicationUtilities.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\zh-Hans\Microsoft.TestPlatform.CrossPlatEngine.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\zh-Hans\Microsoft.VisualStudio.TestPlatform.Common.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\zh-Hant\Microsoft.TestPlatform.CommunicationUtilities.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\zh-Hant\Microsoft.TestPlatform.CrossPlatEngine.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\zh-Hant\Microsoft.VisualStudio.TestPlatform.Common.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\runtimes\unix\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\runtimes\win-arm\lib\net6.0\dotnet-aspnet-codegenerator-design.exe
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\runtimes\win-arm64\lib\net6.0\dotnet-aspnet-codegenerator-design.exe
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\Api.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\bin\Release\net6.0\Api.pdb
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\obj\Release\net6.0\ApiUnitTests.csproj.AssemblyReference.cache
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\obj\Release\net6.0\ApiUnitTests.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\obj\Release\net6.0\ApiUnitTests.AssemblyInfoInputs.cache
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\obj\Release\net6.0\ApiUnitTests.AssemblyInfo.cs
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\obj\Release\net6.0\ApiUnitTests.csproj.CoreCompileInputs.cache
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\obj\Release\net6.0\ApiUnitTests.csproj.CopyComplete
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\obj\Release\net6.0\ApiUnitTests.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\obj\Release\net6.0\refint\ApiUnitTests.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\obj\Release\net6.0\ApiUnitTests.pdb
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\obj\Release\net6.0\ApiUnitTests.genruntimeconfig.cache
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\TutorMeApi\ApiUnitTests\obj\Release\net6.0\ref\ApiUnitTests.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\CoverletSourceRootsMapping
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\testhost.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\Api.deps.json
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\Api.runtimeconfig.json
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\appsettings.Development.json
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\appsettings.json
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\efpt.config.json
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\Api.exe
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\testhost.exe
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\Microsoft.TestPlatform.PlatformAbstractions.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\xunit.runner.visualstudio.dotnetcore.testadapter.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\xunit.runner.reporters.netcoreapp10.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\xunit.runner.utility.netcoreapp10.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\ApiUnitTests.deps.json
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\ApiUnitTests.runtimeconfig.json
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\ApiUnitTests.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\ApiUnitTests.pdb
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\Castle.Core.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\FluentAssertions.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\Humanizer.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\MessagePack.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\MessagePack.Annotations.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\Microsoft.AspNetCore.Razor.Language.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\Microsoft.Build.Locator.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\Microsoft.CodeAnalysis.AnalyzerUtilities.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\Microsoft.CodeAnalysis.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\Microsoft.CodeAnalysis.CSharp.Features.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\Microsoft.CodeAnalysis.Features.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\Microsoft.CodeAnalysis.Razor.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\Microsoft.CodeAnalysis.Scripting.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\Microsoft.CodeAnalysis.VisualBasic.Features.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\Microsoft.CodeAnalysis.VisualBasic.Workspaces.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\Microsoft.CodeAnalysis.Workspaces.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\Microsoft.CodeAnalysis.Workspaces.MSBuild.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\Microsoft.VisualStudio.CodeCoverage.Shim.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\Microsoft.Data.SqlClient.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\Microsoft.DiaSymReader.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\Microsoft.DotNet.Scaffolding.Shared.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\Microsoft.EntityFrameworkCore.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\Microsoft.Extensions.Caching.Memory.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\Microsoft.Identity.Client.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\Microsoft.OpenApi.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\Microsoft.TestPlatform.CoreUtilities.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\Microsoft.VisualStudio.TestPlatform.ObjectModel.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\Microsoft.TestPlatform.CommunicationUtilities.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\Microsoft.TestPlatform.CrossPlatEngine.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\Microsoft.TestPlatform.Utilities.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\Microsoft.VisualStudio.TestPlatform.Common.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\Microsoft.VisualStudio.Debugger.Contracts.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\Microsoft.VisualStudio.Web.CodeGeneration.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\Microsoft.VisualStudio.Web.CodeGeneration.Core.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\dotnet-aspnet-codegenerator-design.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\Microsoft.VisualStudio.Web.CodeGeneration.Templating.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\Microsoft.VisualStudio.Web.CodeGeneration.Utils.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\Microsoft.VisualStudio.Web.CodeGenerators.Mvc.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\Moq.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\Newtonsoft.Json.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\NuGet.Common.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\NuGet.Configuration.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\NuGet.DependencyResolver.Core.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\NuGet.Frameworks.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\NuGet.LibraryModel.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\NuGet.Packaging.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\NuGet.ProjectModel.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\NuGet.Protocol.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\NuGet.Versioning.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\System.Composition.AttributedModel.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\System.Composition.Convention.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\System.Composition.Hosting.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\System.Composition.Runtime.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\System.Composition.TypedParts.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\System.Configuration.ConfigurationManager.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\System.Drawing.Common.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\System.Runtime.Caching.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\System.Security.Permissions.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\System.Windows.Extensions.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\xunit.abstractions.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\xunit.assert.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\xunit.core.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\xunit.execution.dotnet.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\cs\Microsoft.CodeAnalysis.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\de\Microsoft.CodeAnalysis.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\es\Microsoft.CodeAnalysis.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\fr\Microsoft.CodeAnalysis.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\it\Microsoft.CodeAnalysis.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\ja\Microsoft.CodeAnalysis.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\ko\Microsoft.CodeAnalysis.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\pl\Microsoft.CodeAnalysis.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\pt-BR\Microsoft.CodeAnalysis.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\ru\Microsoft.CodeAnalysis.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\tr\Microsoft.CodeAnalysis.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\zh-Hans\Microsoft.CodeAnalysis.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\zh-Hant\Microsoft.CodeAnalysis.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\cs\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\de\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\es\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\fr\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\it\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\ja\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\ko\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\pl\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\pt-BR\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\ru\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\cs\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\de\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\es\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\fr\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\it\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\ja\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\ko\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\pl\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\ru\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\tr\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\cs\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\de\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\es\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\fr\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\it\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\ja\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\ko\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\pl\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\ru\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\tr\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\cs\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\de\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\es\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\fr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\it\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\ja\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\ko\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\pl\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\ru\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\tr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\cs\Microsoft.CodeAnalysis.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\de\Microsoft.CodeAnalysis.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\es\Microsoft.CodeAnalysis.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\fr\Microsoft.CodeAnalysis.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\it\Microsoft.CodeAnalysis.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\ja\Microsoft.CodeAnalysis.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\ko\Microsoft.CodeAnalysis.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\pl\Microsoft.CodeAnalysis.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\pt-BR\Microsoft.CodeAnalysis.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\ru\Microsoft.CodeAnalysis.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\tr\Microsoft.CodeAnalysis.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\zh-Hans\Microsoft.CodeAnalysis.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\zh-Hant\Microsoft.CodeAnalysis.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\cs\Microsoft.CodeAnalysis.Scripting.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\de\Microsoft.CodeAnalysis.Scripting.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\es\Microsoft.CodeAnalysis.Scripting.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\fr\Microsoft.CodeAnalysis.Scripting.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\it\Microsoft.CodeAnalysis.Scripting.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\ja\Microsoft.CodeAnalysis.Scripting.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\ko\Microsoft.CodeAnalysis.Scripting.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\pl\Microsoft.CodeAnalysis.Scripting.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\pt-BR\Microsoft.CodeAnalysis.Scripting.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\ru\Microsoft.CodeAnalysis.Scripting.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\tr\Microsoft.CodeAnalysis.Scripting.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\zh-Hans\Microsoft.CodeAnalysis.Scripting.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\zh-Hant\Microsoft.CodeAnalysis.Scripting.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\cs\Microsoft.CodeAnalysis.VisualBasic.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\de\Microsoft.CodeAnalysis.VisualBasic.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\es\Microsoft.CodeAnalysis.VisualBasic.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\fr\Microsoft.CodeAnalysis.VisualBasic.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\it\Microsoft.CodeAnalysis.VisualBasic.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\ja\Microsoft.CodeAnalysis.VisualBasic.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\ko\Microsoft.CodeAnalysis.VisualBasic.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\pl\Microsoft.CodeAnalysis.VisualBasic.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\pt-BR\Microsoft.CodeAnalysis.VisualBasic.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\ru\Microsoft.CodeAnalysis.VisualBasic.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\tr\Microsoft.CodeAnalysis.VisualBasic.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\zh-Hans\Microsoft.CodeAnalysis.VisualBasic.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\zh-Hant\Microsoft.CodeAnalysis.VisualBasic.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\cs\Microsoft.CodeAnalysis.VisualBasic.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\de\Microsoft.CodeAnalysis.VisualBasic.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\es\Microsoft.CodeAnalysis.VisualBasic.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\fr\Microsoft.CodeAnalysis.VisualBasic.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\it\Microsoft.CodeAnalysis.VisualBasic.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\ja\Microsoft.CodeAnalysis.VisualBasic.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\ko\Microsoft.CodeAnalysis.VisualBasic.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\pl\Microsoft.CodeAnalysis.VisualBasic.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\pt-BR\Microsoft.CodeAnalysis.VisualBasic.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\ru\Microsoft.CodeAnalysis.VisualBasic.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\tr\Microsoft.CodeAnalysis.VisualBasic.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\zh-Hans\Microsoft.CodeAnalysis.VisualBasic.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\zh-Hant\Microsoft.CodeAnalysis.VisualBasic.Features.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\cs\Microsoft.CodeAnalysis.VisualBasic.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\de\Microsoft.CodeAnalysis.VisualBasic.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\es\Microsoft.CodeAnalysis.VisualBasic.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\fr\Microsoft.CodeAnalysis.VisualBasic.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\it\Microsoft.CodeAnalysis.VisualBasic.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\ja\Microsoft.CodeAnalysis.VisualBasic.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\ko\Microsoft.CodeAnalysis.VisualBasic.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\pl\Microsoft.CodeAnalysis.VisualBasic.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\pt-BR\Microsoft.CodeAnalysis.VisualBasic.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\ru\Microsoft.CodeAnalysis.VisualBasic.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\tr\Microsoft.CodeAnalysis.VisualBasic.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\zh-Hans\Microsoft.CodeAnalysis.VisualBasic.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\zh-Hant\Microsoft.CodeAnalysis.VisualBasic.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\cs\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\de\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\es\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\fr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\it\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\ja\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\ko\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\pl\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\ru\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\cs\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\de\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\es\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\fr\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\it\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\ja\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\ko\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\pl\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\ru\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\tr\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.MSBuild.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\cs\Microsoft.TestPlatform.CoreUtilities.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\cs\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\de\Microsoft.TestPlatform.CoreUtilities.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\de\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\es\Microsoft.TestPlatform.CoreUtilities.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\es\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\fr\Microsoft.TestPlatform.CoreUtilities.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\fr\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\it\Microsoft.TestPlatform.CoreUtilities.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\it\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\ja\Microsoft.TestPlatform.CoreUtilities.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\ja\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\ko\Microsoft.TestPlatform.CoreUtilities.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\ko\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\pl\Microsoft.TestPlatform.CoreUtilities.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\pl\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\pt-BR\Microsoft.TestPlatform.CoreUtilities.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\pt-BR\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\ru\Microsoft.TestPlatform.CoreUtilities.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\ru\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\tr\Microsoft.TestPlatform.CoreUtilities.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\tr\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\zh-Hans\Microsoft.TestPlatform.CoreUtilities.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\zh-Hans\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\zh-Hant\Microsoft.TestPlatform.CoreUtilities.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\zh-Hant\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\cs\Microsoft.TestPlatform.CommunicationUtilities.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\cs\Microsoft.TestPlatform.CrossPlatEngine.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\cs\Microsoft.VisualStudio.TestPlatform.Common.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\de\Microsoft.TestPlatform.CommunicationUtilities.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\de\Microsoft.TestPlatform.CrossPlatEngine.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\de\Microsoft.VisualStudio.TestPlatform.Common.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\es\Microsoft.TestPlatform.CommunicationUtilities.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\es\Microsoft.TestPlatform.CrossPlatEngine.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\es\Microsoft.VisualStudio.TestPlatform.Common.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\fr\Microsoft.TestPlatform.CommunicationUtilities.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\fr\Microsoft.TestPlatform.CrossPlatEngine.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\fr\Microsoft.VisualStudio.TestPlatform.Common.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\it\Microsoft.TestPlatform.CommunicationUtilities.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\it\Microsoft.TestPlatform.CrossPlatEngine.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\it\Microsoft.VisualStudio.TestPlatform.Common.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\ja\Microsoft.TestPlatform.CommunicationUtilities.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\ja\Microsoft.TestPlatform.CrossPlatEngine.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\ja\Microsoft.VisualStudio.TestPlatform.Common.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\ko\Microsoft.TestPlatform.CommunicationUtilities.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\ko\Microsoft.TestPlatform.CrossPlatEngine.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\ko\Microsoft.VisualStudio.TestPlatform.Common.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\pl\Microsoft.TestPlatform.CommunicationUtilities.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\pl\Microsoft.TestPlatform.CrossPlatEngine.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\pl\Microsoft.VisualStudio.TestPlatform.Common.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\pt-BR\Microsoft.TestPlatform.CommunicationUtilities.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\pt-BR\Microsoft.TestPlatform.CrossPlatEngine.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\pt-BR\Microsoft.VisualStudio.TestPlatform.Common.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\ru\Microsoft.TestPlatform.CommunicationUtilities.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\ru\Microsoft.TestPlatform.CrossPlatEngine.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\ru\Microsoft.VisualStudio.TestPlatform.Common.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\tr\Microsoft.TestPlatform.CommunicationUtilities.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\tr\Microsoft.TestPlatform.CrossPlatEngine.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\tr\Microsoft.VisualStudio.TestPlatform.Common.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\zh-Hans\Microsoft.TestPlatform.CommunicationUtilities.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\zh-Hans\Microsoft.TestPlatform.CrossPlatEngine.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\zh-Hans\Microsoft.VisualStudio.TestPlatform.Common.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\zh-Hant\Microsoft.TestPlatform.CommunicationUtilities.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\zh-Hant\Microsoft.TestPlatform.CrossPlatEngine.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\zh-Hant\Microsoft.VisualStudio.TestPlatform.Common.resources.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\runtimes\unix\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\runtimes\win-arm\lib\net6.0\dotnet-aspnet-codegenerator-design.exe
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\runtimes\win-arm64\lib\net6.0\dotnet-aspnet-codegenerator-design.exe
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\runtimes\unix\lib\net6.0\System.Drawing.Common.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\Api.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\bin\Release\net6.0\Api.pdb
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\obj\Release\net6.0\ApiUnitTests.csproj.AssemblyReference.cache
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\obj\Release\net6.0\ApiUnitTests.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\obj\Release\net6.0\ApiUnitTests.AssemblyInfoInputs.cache
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\obj\Release\net6.0\ApiUnitTests.AssemblyInfo.cs
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\obj\Release\net6.0\ApiUnitTests.csproj.CoreCompileInputs.cache
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\obj\Release\net6.0\ApiUnitTests.csproj.CopyComplete
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\obj\Release\net6.0\ApiUnitTests.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\obj\Release\net6.0\refint\ApiUnitTests.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\obj\Release\net6.0\ApiUnitTests.pdb
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\obj\Release\net6.0\ApiUnitTests.genruntimeconfig.cache
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\ApiUnitTests\obj\Release\net6.0\ref\ApiUnitTests.dll
