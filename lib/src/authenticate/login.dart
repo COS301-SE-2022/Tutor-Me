@@ -275,7 +275,7 @@ class _LoginState extends State<Login> {
                     }
                   },
                   child: isLoading
-                      ? CircularProgressIndicator(color: Colors.white)
+                      ? const CircularProgressIndicator(color: Colors.white)
                       : const Text("Login",
                           style: TextStyle(
                             fontSize: 18,
