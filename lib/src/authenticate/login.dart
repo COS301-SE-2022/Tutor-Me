@@ -26,6 +26,7 @@ class _LoginState extends State<Login> {
   late Tutees tutee;
   String toRegister = 'Tutor';
 
+  bool isLoading = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -144,6 +145,9 @@ class _LoginState extends State<Login> {
                 ),
                 child: TextButton(
                   onPressed: () async {
+                    setState(() {
+                      isLoading = true;
+                    });
                     String errMsg = "";
                     if (emailController.text.isEmpty ||
                         passwordController.text.isEmpty) {
@@ -270,12 +274,14 @@ class _LoginState extends State<Login> {
                       }
                     }
                   },
-                  child: const Text("Login",
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      )),
+                  child: isLoading
+                      ? const CircularProgressIndicator(color: Colors.white)
+                      : const Text("Login",
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          )),
                 ),
               ),
 
@@ -286,7 +292,7 @@ class _LoginState extends State<Login> {
                 onTap: () {},
                 child: Container(
                   child: const Text(
-                    "Creat New Account",
+                    "Create New Account",
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
