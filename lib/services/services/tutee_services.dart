@@ -12,7 +12,8 @@ import 'package:tutor_me/services/services/module_services.dart';
 
 class TuteeServices {
   getRequests(String id) async {
-    final url = Uri.https('tutormeapi1.azurewebsites.new', 'api/Requests/Tutee/$id');
+    //TODO: final url = Uri.https('tutormeapi1.azurewebsites.new', 'api/Requests/Tutee/$id');
+    return 'will do';
   }
 
   static getTutees() async {
@@ -41,7 +42,8 @@ class TuteeServices {
   }
 
   static Future getTutee(String id) async {
-    Uri tuteeURL = Uri.https('tutormeapi1.azurewebsites.net', '/api/Tutees/$id');
+    Uri tuteeURL =
+        Uri.https('tutormeapi1.azurewebsites.net', '/api/Tutees/$id');
     try {
       final response = await http.get(tuteeURL, headers: {
         "Accept": "application/json",
@@ -197,8 +199,8 @@ class TuteeServices {
     final header = <String, String>{
       'Content-Type': 'application/json; charset=utf-8'
     };
-    final url = Uri.parse(
-        'https://tutormefiles1.azurewebsites.net/api/TuteeFiles/$id');
+    final url =
+        Uri.parse('https://tutormefiles1.azurewebsites.net/api/TuteeFiles/$id');
     try {
       final response = await http.put(url, headers: header, body: data);
       if (response.statusCode == 204) {
