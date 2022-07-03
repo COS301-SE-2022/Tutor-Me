@@ -214,7 +214,7 @@ class TutorServices {
       'Content-Type': 'application/json; charset=utf-8'
     };
     final url = Uri.parse(
-        'https://tutormetutorfiles.azurewebsites.net/api/TutorFiles/$id');
+        'https://tutormefiles1.azurewebsites.net/api/TutorFiles/$id');
     try {
       final response = await http.put(url, headers: header, body: data);
       if (response.statusCode == 204) {
@@ -229,7 +229,7 @@ class TutorServices {
 
   static Future getTutorProfileImage(String id) async {
     Uri tuteeURL =
-        Uri.https('tutormetutorfiles.azurewebsites.net', 'api/TutorFiles/$id');
+        Uri.https('tutormefiles1.azurewebsites.net', 'api/TutorFiles/$id');
     try {
       final response = await http.get(tuteeURL, headers: {
         "Accept": "application/json",

@@ -11,6 +11,6 @@
     <WebStackScaffolding_LayoutPageFile />
     <WebStackScaffolding_DbContextTypeFullName>FileSystem.Data.FilesContext</WebStackScaffolding_DbContextTypeFullName>
     <WebStackScaffolding_IsAsyncSelected>False</WebStackScaffolding_IsAsyncSelected>
-    <NameOfLastUsedPublishProfile>E:\School\Year 3\COS301\Capstone\testing\FileSystem\FileSystem\Properties\PublishProfiles\TutorMeTutorFiles - Web Deploy.pubxml</NameOfLastUsedPublishProfile>
+    <NameOfLastUsedPublishProfile>C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\APIs\FileSystemAPI\FileSystem\Properties\PublishProfiles\tutormefiles1 - Web Deploy.pubxml</NameOfLastUsedPublishProfile>
   </PropertyGroup>
 </Project>
