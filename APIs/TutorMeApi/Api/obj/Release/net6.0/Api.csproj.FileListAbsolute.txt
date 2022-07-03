@@ -798,7 +798,6 @@ C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIProt
 C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Actual API\TutorMeAPIPrototype\Api\obj\Release\net6.0\ref\Api.dll
 C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\APIs\TutorMeApi\Api\bin\Release\net6.0\appsettings.Development.json
 C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\APIs\TutorMeApi\Api\bin\Release\net6.0\efpt.config.json
-C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\APIs\TutorMeApi\Api\bin\Release\net6.0\appsettings.json
 C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\APIs\TutorMeApi\Api\bin\Release\net6.0\Api.exe
 C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\APIs\TutorMeApi\Api\bin\Release\net6.0\Api.deps.json
 C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\APIs\TutorMeApi\Api\bin\Release\net6.0\Api.runtimeconfig.json
@@ -1062,3 +1061,8 @@ C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\APIs\TutorMeApi\
 C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\APIs\TutorMeApi\Api\obj\Release\net6.0\Api.pdb
 C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\APIs\TutorMeApi\Api\obj\Release\net6.0\Api.genruntimeconfig.cache
 C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\APIs\TutorMeApi\Api\obj\Release\net6.0\ref\Api.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\APIs\TutorMeApi\Api\bin\Release\net6.0\FluentAssertions.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\APIs\TutorMeApi\Api\bin\Release\net6.0\xunit.abstractions.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\APIs\TutorMeApi\Api\bin\Release\net6.0\xunit.assert.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\APIs\TutorMeApi\Api\bin\Release\net6.0\xunit.core.dll
+C:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\APIs\TutorMeApi\Api\bin\Release\net6.0\appsettings.json

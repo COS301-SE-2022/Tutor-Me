@@ -111,7 +111,7 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
             }
 
             final file = filePick.files.first;
-            OpenFile.open(file.path);
+            OpenFile.open(file.path.toString());
           },
         ),
         SizedBox(height: screenHeightSize * 0.03),
