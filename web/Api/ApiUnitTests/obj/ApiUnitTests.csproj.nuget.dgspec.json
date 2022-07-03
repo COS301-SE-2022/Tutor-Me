@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/home/simphiwe/Desktop/updated_CapsOn/Tutor-ME/web/Api/ApiUnitTests/ApiUnitTests.csproj": {}
+    "/home/kuda/Documents/GitHub/Tutor-ME/web/Api/ApiUnitTests/ApiUnitTests.csproj": {}
   },
   "projects": {
-    "/home/simphiwe/Desktop/updated_CapsOn/Tutor-ME/web/Api/Api/Api.csproj": {
+    "/home/kuda/Documents/GitHub/Tutor-ME/web/Api/Api/Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/simphiwe/Desktop/updated_CapsOn/Tutor-ME/web/Api/Api/Api.csproj",
+        "projectUniqueName": "/home/kuda/Documents/GitHub/Tutor-ME/web/Api/Api/Api.csproj",
         "projectName": "Api",
-        "projectPath": "/home/simphiwe/Desktop/updated_CapsOn/Tutor-ME/web/Api/Api/Api.csproj",
-        "packagesPath": "/home/simphiwe/.nuget/packages/",
-        "outputPath": "/home/simphiwe/Desktop/updated_CapsOn/Tutor-ME/web/Api/Api/obj/",
+        "projectPath": "/home/kuda/Documents/GitHub/Tutor-ME/web/Api/Api/Api.csproj",
+        "packagesPath": "/home/kuda/.nuget/packages/",
+        "outputPath": "/home/kuda/Documents/GitHub/Tutor-ME/web/Api/Api/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/simphiwe/.nuget/NuGet/NuGet.Config"
+          "/home/kuda/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -89,21 +89,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/6.0.300/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/snap/dotnet-sdk/172/sdk/6.0.301/RuntimeIdentifierGraph.json"
         }
       }
     },
-    "/home/simphiwe/Desktop/updated_CapsOn/Tutor-ME/web/Api/ApiUnitTests/ApiUnitTests.csproj": {
+    "/home/kuda/Documents/GitHub/Tutor-ME/web/Api/ApiUnitTests/ApiUnitTests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/simphiwe/Desktop/updated_CapsOn/Tutor-ME/web/Api/ApiUnitTests/ApiUnitTests.csproj",
+        "projectUniqueName": "/home/kuda/Documents/GitHub/Tutor-ME/web/Api/ApiUnitTests/ApiUnitTests.csproj",
         "projectName": "ApiUnitTests",
-        "projectPath": "/home/simphiwe/Desktop/updated_CapsOn/Tutor-ME/web/Api/ApiUnitTests/ApiUnitTests.csproj",
-        "packagesPath": "/home/simphiwe/.nuget/packages/",
-        "outputPath": "/home/simphiwe/Desktop/updated_CapsOn/Tutor-ME/web/Api/ApiUnitTests/obj/",
+        "projectPath": "/home/kuda/Documents/GitHub/Tutor-ME/web/Api/ApiUnitTests/ApiUnitTests.csproj",
+        "packagesPath": "/home/kuda/.nuget/packages/",
+        "outputPath": "/home/kuda/Documents/GitHub/Tutor-ME/web/Api/ApiUnitTests/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/simphiwe/.nuget/NuGet/NuGet.Config"
+          "/home/kuda/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -115,8 +115,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "/home/simphiwe/Desktop/updated_CapsOn/Tutor-ME/web/Api/Api/Api.csproj": {
-                "projectPath": "/home/simphiwe/Desktop/updated_CapsOn/Tutor-ME/web/Api/Api/Api.csproj"
+              "/home/kuda/Documents/GitHub/Tutor-ME/web/Api/Api/Api.csproj": {
+                "projectPath": "/home/kuda/Documents/GitHub/Tutor-ME/web/Api/Api/Api.csproj"
               }
             }
           }
@@ -175,7 +175,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/6.0.300/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/snap/dotnet-sdk/172/sdk/6.0.301/RuntimeIdentifierGraph.json"
         }
       }
     }
