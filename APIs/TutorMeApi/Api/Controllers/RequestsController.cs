@@ -50,6 +50,43 @@ namespace Api.Controllers
             return request;
         }
 
+        [HttpGet("Tutor/{tutorId}")]
+        public async Task<ActionResult<Tutor>> GetTutorRequests(String tutorId)
+        {
+            if (_context.Tutors == null)
+            {
+                return NotFound();
+            }
+            var tutorRequests = await _context.Requests.Where(e => e.ReceiverId == tutorId).ToListAsync();
+
+            if (tutorRequests == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(tutorRequests);
+        }
+
+        [HttpGet("Tutee/{tuteeId}")]
+        public async Task<ActionResult<Tutor>> GetTuteeRequests(String tuteeId)
+        {
+            if (_context.Tutors == null)
+            {
+                return NotFound();
+            }
+
+            //var tutor = await _context.Tutors.FirstOrDefaultAsync(e => e.Email == email);
+            //var tutorRequests = await _context.Requests.FindAsync(e => e.RequesterId == id);
+            var tuteeRequests = await _context.Requests.Where(e => e.RequesterId == tuteeId).ToListAsync();
+
+            if (tuteeRequests == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(tuteeRequests);
+        }
+
         // PUT: api/Requests/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]

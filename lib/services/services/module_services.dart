@@ -5,7 +5,7 @@ import 'package:tutor_me/services/models/modules.dart';
 
 class ModuleServices {
   static getModules() async {
-    Uri modulesURL = Uri.https('tutormeapi.azurewebsites.net', '/api/Modules');
+    Uri modulesURL = Uri.https('tutormeapi1.azurewebsites.net', '/api/Modules');
     try {
       final response = await http.get(modulesURL, headers: {
         "Accept": "application/json",
@@ -43,7 +43,7 @@ class ModuleServices {
     try {
       final code = module.getCode;
       final modulesURL =
-          Uri.parse('https://tutormeapi.azurewebsites.net/api/Modules/$code');
+          Uri.parse('https://tutormeapi1.azurewebsites.net/api/Modules/$code');
       final response = await http.put(modulesURL, headers: header, body: data);
       if (response.statusCode == 204) {
         return module;
@@ -57,7 +57,7 @@ class ModuleServices {
 
   static Future getModule(String id) async {
     Uri tutorURL =
-        Uri.https('tutormeapi.azurewebsites.net', '/api/Modules/$id');
+        Uri.https('tutormeapi1.azurewebsites.net', '/api/Modules/$id');
     try {
       final response = await http.get(tutorURL, headers: {
         "Accept": "application/json",

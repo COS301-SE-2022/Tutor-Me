@@ -11,8 +11,13 @@ import 'package:tutor_me/services/services/module_services.dart';
 // import 'package:flutter_string_encryption/flutter_string_encryption.dart';
 
 class TuteeServices {
+  getRequests(String id) async {
+    //TODO: final url = Uri.https('tutormeapi1.azurewebsites.new', 'api/Requests/Tutee/$id');
+    return 'will do';
+  }
+
   static getTutees() async {
-    Uri tuteeURL = Uri.https('tutormeapi.azurewebsites.net', '/api/Tutees');
+    Uri tuteeURL = Uri.https('tutormeapi1.azurewebsites.net', '/api/Tutees');
     try {
       final response = await http.get(tuteeURL, headers: {
         "Accept": "application/json",
@@ -37,7 +42,8 @@ class TuteeServices {
   }
 
   static Future getTutee(String id) async {
-    Uri tuteeURL = Uri.https('tutormeapi.azurewebsites.net', '/api/Tutees/$id');
+    Uri tuteeURL =
+        Uri.https('tutormeapi1.azurewebsites.net', '/api/Tutees/$id');
     try {
       final response = await http.get(tuteeURL, headers: {
         "Accept": "application/json",
@@ -77,7 +83,7 @@ class TuteeServices {
       }
     }
     final modulesURL =
-        Uri.https('tutormeapi.azurewebsites.net', '/api/Tutees/');
+        Uri.https('tutormeapi1.azurewebsites.net', '/api/Tutees/');
     //source: https://protocoderspoint.com/flutter-encryption-decryption-using-flutter-string-encryption/#:~:text=open%20your%20flutter%20project%20that,IDE(android%2Dstudio).&text=Then%20after%20you%20have%20added,the%20password%20the%20user%20enter.
     // password = hashPassword(password);
 
@@ -155,7 +161,7 @@ class TuteeServices {
     try {
       final id = tutee.getId;
       final modulesURL =
-          Uri.parse('https://tutormeapi.azurewebsites.net/api/Tutees/$id');
+          Uri.parse('https://tutormeapi1.azurewebsites.net/api/Tutees/$id');
       final response = await http.put(modulesURL, headers: header, body: data);
       if (response.statusCode == 204) {
         return tutee;
@@ -194,7 +200,7 @@ class TuteeServices {
       'Content-Type': 'application/json; charset=utf-8'
     };
     final url =
-        Uri.parse('https://tutormetutorfiles.azurewebsites.net/api/TuteeFiles/$id');
+        Uri.parse('https://tutormefiles1.azurewebsites.net/api/TuteeFiles/$id');
     try {
       final response = await http.put(url, headers: header, body: data);
       if (response.statusCode == 204) {
@@ -208,7 +214,8 @@ class TuteeServices {
   }
 
   static Future getTuteeProfileImage(String id) async {
-    Uri tuteeURL = Uri.https('tutormetutorfiles.azurewebsites.net', 'api/TuteeFiles/$id');
+    Uri tuteeURL =
+        Uri.https('tutormefiles1.azurewebsites.net', 'api/TuteeFiles/$id');
     try {
       final response = await http.get(tuteeURL, headers: {
         "Accept": "application/json",
