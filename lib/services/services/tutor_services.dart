@@ -11,7 +11,7 @@ import 'package:crypt/crypt.dart';
 
 class TutorServices {
   static getTutors() async {
-    Uri tutorURL = Uri.https('tutormeapi.azurewebsites.net', '/api/Tutors');
+    Uri tutorURL = Uri.https('tutormeapi1.azurewebsites.net', '/api/Tutors');
     try {
       final response = await http.get(tutorURL, headers: {
         "Accept": "application/json",
@@ -36,7 +36,7 @@ class TutorServices {
   }
 
   static Future getTutor(String id) async {
-    Uri tutorURL = Uri.https('tutormeapi.azurewebsites.net', '/api/Tutors/$id');
+    Uri tutorURL = Uri.https('tutormeapi1.azurewebsites.net', '/api/Tutors/$id');
     try {
       final response = await http.get(tutorURL, headers: {
         "Accept": "application/json",
@@ -76,7 +76,7 @@ class TutorServices {
       }
     }
     final modulesURL =
-        Uri.https('tutormeapi.azurewebsites.net', '/api/Tutors/');
+        Uri.https('tutormeapi1.azurewebsites.net', '/api/Tutors/');
     //source: https://protocoderspoint.com/flutter-encryption-decryption-using-flutter-string-encryption/#:~:text=open%20your%20flutter%20project%20that,IDE(android%2Dstudio).&text=Then%20after%20you%20have%20added,the%20password%20the%20user%20enter.
 
     // password = hashPassword(password);
@@ -157,7 +157,7 @@ class TutorServices {
     try {
       final id = tutor.getId;
       final modulesURL =
-          Uri.parse('https://tutormeapi.azurewebsites.net/api/Tutors/$id');
+          Uri.parse('https://tutormeapi1.azurewebsites.net/api/Tutors/$id');
       final response = await http.put(modulesURL, headers: header, body: data);
       if (response.statusCode == 204) {
         return tutor;
