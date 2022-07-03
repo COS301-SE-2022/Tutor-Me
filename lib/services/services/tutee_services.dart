@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:crypt/crypt.dart';
 import 'package:http/http.dart' as http;
 import 'package:tutor_me/services/models/modules.dart';
+import 'package:tutor_me/services/models/requests.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:tutor_me/services/models/tutees.dart';
@@ -12,8 +13,29 @@ import 'package:tutor_me/services/services/module_services.dart';
 
 class TuteeServices {
   getRequests(String id) async {
-    //TODO: final url = Uri.https('tutormeapi1.azurewebsites.new', 'api/Requests/Tutee/$id');
-    return 'will do';
+    final url =
+        Uri.https('tutormeapi1.azurewebsites.net', 'api/Requests/Tutee/$id');
+    try {
+      final response = await http.get(url, headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*"
+      });
+      if (response.statusCode == 200) {
+        String j = "";
+        if (response.body[0] != "[") {
+          j = "[" + response.body + "]";
+        } else {
+          j = response.body;
+        }
+        final List list = json.decode(j);
+        return list.map((json) => Requests.fromObject(json)).toList();
+      } else {
+        throw Exception('Failed to load' + response.statusCode.toString());
+      }
+    } catch (e) {
+      throw Exception(e);
+    }
   }
 
   static getTutees() async {
