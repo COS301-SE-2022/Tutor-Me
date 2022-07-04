@@ -35,6 +35,7 @@ class TutorsListState extends State<TutorsList> {
   bool isForthSelected = false;
   bool isFifthSelected = false;
   Color checkedColor = colorBlack;
+  bool _isLoading = true;
 
   void search(String search) {
     if (search == '') {
@@ -141,6 +142,9 @@ class TutorsListState extends State<TutorsList> {
   void initState() {
     super.initState();
     getTutors();
+    setState(() {
+      _isLoading = false;
+    });
   }
 
   @override
@@ -149,7 +153,9 @@ class TutorsListState extends State<TutorsList> {
     filterContWidth = MediaQuery.of(context).size.width * 0.9;
     return Material(
         child: SingleChildScrollView(
-            child: Column(children: <Widget>[
+            child:
+                Column(mainAxisAlignment: MainAxisAlignment.center, children: <
+                    Widget>[
       Row(
         children: <Widget>[
           Container(
@@ -205,57 +211,6 @@ class TutorsListState extends State<TutorsList> {
               setState(() {
                 collapsed = !collapsed;
               });
-              // List<String> genders = ['Male', 'Female', 'Gender(Not Selected)'];
-              // List<String> ages = [
-              //   'Age(Not selected)',
-              //   '16-18',
-              //   '19-21',
-              //   '22-25',
-              //   '26-35',
-              //   '36+'
-              // ];
-              // String? selectedGender = 'Gender(Not Selected)';
-              // String? selectedAge = 'Age(Not selected)';
-              // showDialog(
-              //     context: context,
-              //     builder: (context) => AlertDialog(
-              //           actions: <Widget>[
-              //             Center(
-              //               child: DropdownButton<String>(
-              //                   value: selectedGender,
-              //                   items: genders
-              //                       .map((gender) => DropdownMenuItem<String>(
-              //                           value: gender, child: Text(gender)))
-              //                       .toList(),
-              //                   onChanged: (gender) {
-              //                     Navigator.of(context).pop();
-              //                     tutorList = saveTutors;
-              //                     String newGen = gender!;
-              //                     filterGender(newGen);
-              //                     setState(() {
-              //                       selectedGender = gender;
-              //                     });
-              //                   }),
-              //             ),
-              //             Center(
-              //               child: DropdownButton<String>(
-              //                   value: selectedAge,
-              //                   items: ages
-              //                       .map((age) => DropdownMenuItem<String>(
-              //                           value: age, child: Text(age)))
-              //                       .toList(),
-              //                   onChanged: (age) {
-              //                     Navigator.of(context).pop();
-              //                     tutorList = saveTutors;
-              //                     String newAge = age!;
-              //                     filterAge(newAge);
-              //                     setState(() {
-              //                       selectedAge = age;
-              //                     });
-              //                   }),
-              //             ),
-              //           ],
-              //         ));
             },
           ),
         ],
@@ -278,6 +233,7 @@ class TutorsListState extends State<TutorsList> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   FilterChip(
+                    selectedColor: colorTurqoise.withOpacity(0.5),
                     label: Text(
                       'Male',
                       style: TextStyle(color: checkedColor),
@@ -318,6 +274,7 @@ class TutorsListState extends State<TutorsList> {
                   ),
                   SizedBox(width: MediaQuery.of(context).size.width * 0.03),
                   FilterChip(
+                    selectedColor: colorTurqoise.withOpacity(0.5),
                     label: Text(
                       'Female',
                       style: TextStyle(color: checkedColor),
@@ -362,6 +319,7 @@ class TutorsListState extends State<TutorsList> {
               Row(
                 children: <Widget>[
                   FilterChip(
+                    selectedColor: colorTurqoise.withOpacity(0.5),
                     label: Text(
                       '16-18',
                       style: TextStyle(color: checkedColor),
@@ -403,6 +361,7 @@ class TutorsListState extends State<TutorsList> {
                   ),
                   SizedBox(width: MediaQuery.of(context).size.width * 0.01),
                   FilterChip(
+                    selectedColor: colorTurqoise.withOpacity(0.5),
                     label: Text(
                       '19-21',
                       style: TextStyle(color: checkedColor),
@@ -443,6 +402,7 @@ class TutorsListState extends State<TutorsList> {
                   ),
                   SizedBox(width: MediaQuery.of(context).size.width * 0.01),
                   FilterChip(
+                    selectedColor: colorTurqoise.withOpacity(0.5),
                     label: Text(
                       '22-25',
                       style: TextStyle(color: checkedColor),
@@ -483,6 +443,7 @@ class TutorsListState extends State<TutorsList> {
                   ),
                   SizedBox(width: MediaQuery.of(context).size.width * 0.01),
                   FilterChip(
+                    selectedColor: colorTurqoise.withOpacity(0.5),
                     label: Text(
                       '26-35',
                       style: TextStyle(color: checkedColor),
@@ -523,6 +484,7 @@ class TutorsListState extends State<TutorsList> {
                   ),
                   SizedBox(width: MediaQuery.of(context).size.width * 0.01),
                   FilterChip(
+                    selectedColor: colorTurqoise.withOpacity(0.5),
                     label: Text(
                       '36+',
                       style: TextStyle(color: checkedColor),
@@ -567,15 +529,22 @@ class TutorsListState extends State<TutorsList> {
           ),
         ),
       ),
-      SizedBox(
-        height: MediaQuery.of(context).size.height * 0.7,
-        width: MediaQuery.of(context).size.width,
-        child: ListView.builder(
-          // padding: const EdgeInsets.all(10),
-          itemCount: tutorList.length,
-          itemBuilder: _cardBuilder,
-        ),
-      ),
+      _isLoading
+          ? SizedBox(
+              height: MediaQuery.of(context).size.height * 0.7,
+              child: const Center(
+                child: CircularProgressIndicator.adaptive(),
+              ),
+            )
+          : SizedBox(
+              height: MediaQuery.of(context).size.height * 0.7,
+              width: MediaQuery.of(context).size.width,
+              child: ListView.builder(
+                // padding: const EdgeInsets.all(10),
+                itemCount: tutorList.length,
+                itemBuilder: _cardBuilder,
+              ),
+            ),
     ])));
   }
 

@@ -23,13 +23,12 @@ class Chats extends StatefulWidget {
 }
 
 class ChatsState extends State<Chats> {
+  bool _isLoading = true;
 
-  
   List<dynamic> tutors = List<dynamic>.empty();
 
   void getConnections() async {
-    if(widget.user is Tutors)
-    {
+    if (widget.user is Tutors) {
       int conLength = widget.user.getConnections.length;
       List<String> connections = widget.user.getConnections.split(',');
       for (int i = 0; i < conLength; i++) {
@@ -38,9 +37,7 @@ class ChatsState extends State<Chats> {
           tutors += tutor;
         });
       }
-    }
-    else
-    {
+    } else {
       int conLength = widget.user.getConnections.length;
       List<String> connections = widget.user.getConnections.split(',');
       for (int i = 0; i < conLength; i++) {
@@ -50,27 +47,32 @@ class ChatsState extends State<Chats> {
         });
       }
     }
-    
   }
 
   @override
   void initState() {
     super.initState();
     getConnections();
+    setState(() {
+      _isLoading = false;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Padding(
-      padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.01),
-      child: SizedBox(
-        child: ListView.builder(
-          itemBuilder: _chatBuilder,
-          itemCount: tutors.length,
-        ),
-      ),
-    ));
+        body: _isLoading
+            ? const Center(child: CircularProgressIndicator.adaptive())
+            : Padding(
+                padding: EdgeInsets.only(
+                    top: MediaQuery.of(context).size.height * 0.01),
+                child: SizedBox(
+                  child: ListView.builder(
+                    itemBuilder: _chatBuilder,
+                    itemCount: tutors.length,
+                  ),
+                ),
+              ));
   }
 
   Widget _chatBuilder(BuildContext context, int i) {
