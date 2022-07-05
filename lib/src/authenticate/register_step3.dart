@@ -5,7 +5,6 @@ import 'package:tutor_me/services/models/tutors.dart';
 import 'package:tutor_me/services/services/tutor_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/tutor_page.dart';
-import '../../services/models/modules.dart';
 import '../../services/models/tutees.dart';
 import '../../services/services/module_services.dart';
 import '../../services/services/tutee_services.dart';
