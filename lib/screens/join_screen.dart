@@ -61,7 +61,7 @@ class _JoinScreenState extends State<JoinScreen> {
     return Scaffold(
       appBar: AppBar(
         // Screen Title
-        title: const Text("VideoSDK RTC"),
+        title: const Text("Tutor Me"),
       ),
       backgroundColor: Theme.of(context).backgroundColor,
       body: SafeArea(
