@@ -1,5 +1,7 @@
 import 'dart:developer';
 
+import 'package:tutor_me/src/authenticate/register_or_login.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -91,8 +93,10 @@ class _MeetingScreenState extends State<MeetingScreen> {
               //terminate after 59 minutes
               Future.delayed(const Duration(minutes: 59), () {
                 ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                    content: Text('Video call sessions with a Tutor are limited to an hour')));
+                    content: Text(
+                        'Video call sessions with a Tutor are limited to an hour')));
                 _meeting.leave();
+                goToRegisterOrLogin(context);
               });
             },
           );
@@ -123,6 +127,7 @@ class _MeetingScreenState extends State<MeetingScreen> {
               // Called when Call End button is pressed
               onCallEndButtonPressed: () {
                 _meeting.leave();
+                goToRegisterOrLogin(context);
               },
               // Called when mic button is pressed
               onMicButtonPressed: () {
@@ -393,6 +398,12 @@ class _MeetingScreenState extends State<MeetingScreen> {
 
   Future<bool> _onWillPopScope() async {
     meeting?.leave();
+    goToRegisterOrLogin(context);
     return true;
+  }
+
+  void goToRegisterOrLogin(BuildContext context) {
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => const RegisterOrLogin()));
   }
 }
