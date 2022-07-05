@@ -18,6 +18,10 @@
          "ObjectType": 0
       },
       {
+         "Name": "[dbo].[Requests]",
+         "ObjectType": 0
+      },
+      {
          "Name": "[dbo].[Tutee]",
          "ObjectType": 0
       },

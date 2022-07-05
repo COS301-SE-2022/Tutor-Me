@@ -16,7 +16,7 @@ dependencies:
   crypt: ^4.2.1
   flutter_localizations:
     sdk: flutter
-
+  intl: ^0.17.0
   file_picker: ^4.6.1
   videosdk: ^0.0.10
   flutter_dotenv: ^5.0.2
