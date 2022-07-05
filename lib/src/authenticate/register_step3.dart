@@ -1,5 +1,6 @@
+// ignore_for_file: prefer_typing_uninitialized_variables
+
 import 'package:flutter/material.dart';
-import 'package:toggle_switch/toggle_switch.dart';
 import 'package:tutor_me/services/models/tutors.dart';
 import 'package:tutor_me/services/services/tutor_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
@@ -18,6 +19,7 @@ class RegisterStep3 extends StatefulWidget {
   final lastName;
   final dob;
   final gender;
+  final toRegister;
 
   const RegisterStep3(
       {Key? key,
@@ -27,7 +29,8 @@ class RegisterStep3 extends StatefulWidget {
       this.fullName,
       this.lastName,
       this.dob,
-      this.gender})
+      this.gender,
+      this.toRegister})
       : super(key: key);
 
   @override
@@ -40,12 +43,12 @@ class _RegisterStep3State extends State<RegisterStep3> {
 
   final TextEditingController institutionController = TextEditingController();
   final TextEditingController courseController = TextEditingController();
-  String toRegister = 'Tutor';
+
   late Tutors tutor;
   late Tutees tutee;
 
   register() async {
-    if (toRegister == "Tutor") {
+    if (widget.toRegister == "Tutor") {
       try {
         tutor = await TutorServices.registerTutor(
           widget.fullName,
@@ -60,7 +63,7 @@ class _RegisterStep3State extends State<RegisterStep3> {
         );
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const TutorPage()),
+          MaterialPageRoute(builder: (context) => TutorPage(user: tutor)),
         );
       } catch (e) {
         showDialog(
@@ -102,7 +105,10 @@ class _RegisterStep3State extends State<RegisterStep3> {
 
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const TuteePage()),
+          MaterialPageRoute(
+              builder: (context) => TuteePage(
+                    user: tutee,
+                  )),
         );
       } catch (e) {
         showDialog(

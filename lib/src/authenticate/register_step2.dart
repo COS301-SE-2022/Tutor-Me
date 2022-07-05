@@ -1,14 +1,11 @@
+// ignore_for_file: prefer_typing_uninitialized_variables
+
 import 'package:flutter/material.dart';
-import 'package:toggle_switch/toggle_switch.dart';
 import 'package:tutor_me/services/models/tutors.dart';
-import 'package:tutor_me/services/services/tutor_services.dart';
 import 'package:tutor_me/src/authenticate/register_step3.dart';
 import 'package:tutor_me/src/colorpallete.dart';
-import 'package:tutor_me/src/tutor_page.dart';
 import '../../services/models/tutees.dart';
-import '../../services/services/tutee_services.dart';
 import '../components.dart';
-import '../tutee_page.dart';
 
 // ignore: must_be_immutable
 class RegisterStep2 extends StatefulWidget {
@@ -18,9 +15,14 @@ class RegisterStep2 extends StatefulWidget {
   final email;
   final password;
   final confirmPassword;
+  final toRegister;
 
   const RegisterStep2(
-      {Key? key, this.email, this.password, this.confirmPassword})
+      {Key? key,
+      this.email,
+      this.password,
+      this.confirmPassword,
+      this.toRegister})
       : super(key: key);
 
   @override
@@ -276,21 +278,6 @@ class _RegisterStep2State extends State<RegisterStep2> {
                   onPressed: () async {
                     String errMsg = "";
 
-                    print(widget.password +
-                        " " +
-                        widget.email +
-                        " " +
-                        widget.password +
-                        " " +
-                        " " +
-                        firstNameController.text +
-                        " " +
-                        lastNameController.text +
-                        " " +
-                        dobController.text +
-                        " " +
-                        gender);
-
                     if (gender == "") {
                       gender = "";
                     } else {
@@ -355,14 +342,14 @@ class _RegisterStep2State extends State<RegisterStep2> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => RegisterStep3(
-                                  email: widget.email,
-                                  password: widget.password,
-                                  confirmPassword: widget.confirmPassword,
-                                  fullName: firstNameController.text,
-                                  lastName: lastNameController.text,
-                                  dob: dobController.text,
-                                  gender: gender,
-                                )),
+                                email: widget.email,
+                                password: widget.password,
+                                confirmPassword: widget.confirmPassword,
+                                fullName: firstNameController.text,
+                                lastName: lastNameController.text,
+                                dob: dobController.text,
+                                gender: gender,
+                                toRegister: widget.toRegister)),
                       );
                     }
                   },
