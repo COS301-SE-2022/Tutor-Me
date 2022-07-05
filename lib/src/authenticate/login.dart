@@ -159,6 +159,9 @@ class _LoginState extends State<Login> {
                     // }
 
                     if (errMsg != "") {
+                      setState(() {
+                        isLoading = false;
+                      });
                       showDialog(
                         context: context,
                         builder: (context) {
@@ -200,6 +203,9 @@ class _LoginState extends State<Login> {
                                 builder: (context) => TutorPage(user: tutor)),
                           );
                         } catch (e) {
+                          setState(() {
+                            isLoading = false;
+                          });
                           showDialog(
                             context: context,
                             builder: (context) {
@@ -242,6 +248,9 @@ class _LoginState extends State<Login> {
                                 builder: (context) => TuteePage(user: tutee)),
                           );
                         } catch (e) {
+                          setState(() {
+                            isLoading = false;
+                          });
                           showDialog(
                             context: context,
                             builder: (context) {
