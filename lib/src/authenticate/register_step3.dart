@@ -11,124 +11,126 @@ import '../tutee_page.dart';
 
 // ignore: must_be_immutable
 class RegisterStep3 extends StatefulWidget {
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  TextEditingController confirmPasswordController = TextEditingController();
+  final email;
+  final password;
+  final confirmPassword;
+  final fullName;
+  final lastName;
+  final dob;
+  final gender;
 
-  RegisterStep3({Key? key}) : super(key: key);
+  const RegisterStep3(
+      {Key? key,
+      this.email,
+      this.password,
+      this.confirmPassword,
+      this.fullName,
+      this.lastName,
+      this.dob,
+      this.gender})
+      : super(key: key);
 
   @override
   _RegisterStep3State createState() => _RegisterStep3State();
 }
 
 class _RegisterStep3State extends State<RegisterStep3> {
-  final FocusNode emailFocusNode = FocusNode();
-  final FocusNode passwordFocusNode = FocusNode();
-  final FocusNode confirmPasswordFocusNode = FocusNode();
-  final FocusNode firstNameFocusNode = FocusNode();
-  final FocusNode lastNameFocusNode = FocusNode();
-  final FocusNode dobFocusNode = FocusNode();
-  final FocusNode genderFocusNode = FocusNode();
   final FocusNode institutionFocusNode = FocusNode();
   final FocusNode courseFocusNode = FocusNode();
 
-  final TextEditingController firstNameController = TextEditingController();
-  final TextEditingController lastNameController = TextEditingController();
-  final TextEditingController dobController = TextEditingController();
-  final TextEditingController genderController = TextEditingController();
   final TextEditingController institutionController = TextEditingController();
   final TextEditingController courseController = TextEditingController();
   String toRegister = 'Tutor';
   late Tutors tutor;
   late Tutees tutee;
 
-  // register() async {
-  //   if (toRegister == "Tutor") {
-  //     try {
-  //       tutor = await TutorServices.registerTutor(
-  //         firstNameController.text,
-  //         lastNameController.text,
-  //         dobController.text,
-  //         genderController.text,
-  //         institutionController.text,
-  //         emailController.text,
-  //         passwordController.text,
-  //         // courseController.text,
-  //         confirmPasswordController.text,
-  //       );
-  //       Navigator.push(
-  //         context,
-  //         MaterialPageRoute(builder: (context) => const TutorPage()),
-  //       );
-  //     } catch (e) {
-  //       showDialog(
-  //         context: context,
-  //         builder: (context) {
-  //           return AlertDialog(
-  //             title: const Text("One Or More Errors Occured"),
-  //             content: Text(e.toString()),
-  //             backgroundColor: colorWhite,
-  //             titleTextStyle: TextStyle(
-  //               color: colorOrange,
-  //               fontSize: MediaQuery.of(context).size.height * 0.03,
-  //               fontWeight: FontWeight.bold,
-  //             ),
-  //             actions: <Widget>[
-  //               TextButton(
-  //                 child: const Text("Retry"),
-  //                 onPressed: () {
-  //                   Navigator.of(context).pop();
-  //                 },
-  //               ),
-  //             ],
-  //           );
-  //         },
-  //       );
-  //     }
-  //   } else {
-  //     try {
-  //       tutee = await TuteeServices.registerTuee(
-  //         firstNameController.text,
-  //         lastNameController.text,
-  //         dobController.text,
-  //         genderController.text,
-  //         institutionController.text,
-  //         emailController.text,
-  //         passwordController.text,
-  //         confirmPasswordController.text,
-  //       );
+  register() async {
+    if (toRegister == "Tutor") {
+      try {
+        tutor = await TutorServices.registerTutor(
+          widget.fullName,
+          widget.lastName,
+          widget.dob,
+          widget.gender,
+          institutionController.text,
+          widget.email,
+          widget.password,
+          // courseController.text,
+          widget.confirmPassword,
+        );
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const TutorPage()),
+        );
+      } catch (e) {
+        showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: const Text("One Or More Errors Occured"),
+              content: Text(e.toString()),
+              backgroundColor: colorWhite,
+              titleTextStyle: TextStyle(
+                color: colorOrange,
+                fontSize: MediaQuery.of(context).size.height * 0.03,
+                fontWeight: FontWeight.bold,
+              ),
+              actions: <Widget>[
+                TextButton(
+                  child: const Text("Retry"),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          },
+        );
+      }
+    } else {
+      try {
+        tutee = await TuteeServices.registerTuee(
+          widget.fullName,
+          widget.lastName,
+          widget.dob,
+          widget.gender,
+          institutionController.text,
+          widget.email,
+          widget.password,
+          widget.confirmPassword,
+        );
 
-  //       Navigator.push(
-  //         context,
-  //         MaterialPageRoute(builder: (context) => const TuteePage()),
-  //       );
-  //     } catch (e) {
-  //       showDialog(
-  //         context: context,
-  //         builder: (context) {
-  //           return AlertDialog(
-  //             title: const Text("One Or More Errors Occured"),
-  //             content: Text(e.toString()),
-  //             backgroundColor: colorWhite,
-  //             titleTextStyle: TextStyle(
-  //               color: colorOrange,
-  //               fontSize: MediaQuery.of(context).size.height * 0.03,
-  //               fontWeight: FontWeight.bold,
-  //             ),
-  //             actions: <Widget>[
-  //               TextButton(
-  //                 child: const Text("Retry"),
-  //                 onPressed: () {
-  //                   Navigator.of(context).pop();
-  //                 },
-  //               ),
-  //             ],
-  //           );
-  //         },
-  //       );
-  //     }
-  //   }
-  // }
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const TuteePage()),
+        );
+      } catch (e) {
+        showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: const Text("One Or More Errors Occured"),
+              content: Text(e.toString()),
+              backgroundColor: colorWhite,
+              titleTextStyle: TextStyle(
+                color: colorOrange,
+                fontSize: MediaQuery.of(context).size.height * 0.03,
+                fontWeight: FontWeight.bold,
+              ),
+              actions: <Widget>[
+                TextButton(
+                  child: const Text("Retry"),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          },
+        );
+      }
+    }
+  }
 
   List<String> items = [
     "University Of Pretoria",
@@ -324,14 +326,23 @@ class _RegisterStep3State extends State<RegisterStep3> {
                 child: TextButton(
                   onPressed: () async {
                     String errMsg = "";
-                    if (institution == null) {
-                      institution = "";
-                    } else {
-                      institution = institution!.substring(0, 1);
-                    }
+                    institution ??= "";
+
                     if (institution == "" || courseController.text == "") {
                       errMsg += "ERROR: One or more parametres missing\n";
                     } else {}
+                    // print(widget.fullName +
+                    //     " " +
+                    //     widget.lastName +
+                    //     " " +
+                    //     widget.password +
+                    //     " " +
+                    //     widget.email +
+                    //     " " +
+                    //     widget.password +
+                    //     " " +
+                    //     widget.gender +
+                    //     institution);
 
                     if (errMsg != "") {
                       showDialog(
@@ -362,11 +373,7 @@ class _RegisterStep3State extends State<RegisterStep3> {
                         },
                       );
                     } else {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const TuteePage()),
-                      );
+                      register();
                     }
                   },
                   child: Text("Register",

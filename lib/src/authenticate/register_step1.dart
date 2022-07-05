@@ -219,11 +219,14 @@ class _RegisterStep1State extends State<RegisterStep1> {
                       );
                     } else {
                       Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => RegisterStep2(emailController,
-                                passwordController, confirmPasswordController)),
-                      );
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => RegisterStep2(
+                                email: emailController.text,
+                                password: passwordController.text,
+                                confirmPassword:
+                                    confirmPasswordController.text),
+                          ));
                     }
                   },
                   child: const Text("Continue",

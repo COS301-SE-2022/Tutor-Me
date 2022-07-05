@@ -12,13 +12,15 @@ import '../tutee_page.dart';
 
 // ignore: must_be_immutable
 class RegisterStep2 extends StatefulWidget {
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  TextEditingController confirmPasswordController = TextEditingController();
+  // TextEditingController emailController = TextEditingController();
+  // TextEditingController passwordController = TextEditingController();
+  // TextEditingController confirmPasswordController = TextEditingController();
+  final email;
+  final password;
+  final confirmPassword;
 
-  RegisterStep2(this.emailController, this.passwordController,
-      this.confirmPasswordController,
-      {Key? key})
+  const RegisterStep2(
+      {Key? key, this.email, this.password, this.confirmPassword})
       : super(key: key);
 
   @override
@@ -26,9 +28,6 @@ class RegisterStep2 extends StatefulWidget {
 }
 
 class _RegisterStep2State extends State<RegisterStep2> {
-  final FocusNode emailFocusNode = FocusNode();
-  final FocusNode passwordFocusNode = FocusNode();
-  final FocusNode confirmPasswordFocusNode = FocusNode();
   final FocusNode firstNameFocusNode = FocusNode();
   final FocusNode lastNameFocusNode = FocusNode();
   final FocusNode dobFocusNode = FocusNode();
@@ -46,99 +45,6 @@ class _RegisterStep2State extends State<RegisterStep2> {
   late Tutors tutor;
   late Tutees tutee;
 
-  // register() async {
-  //   if (toRegister == "Tutor") {
-  //     try {
-  //       tutor = await TutorServices.registerTutor(
-  //         firstNameController.text,
-  //         lastNameController.text,
-  //         dobController.text,
-  //         genderController.text,
-  //         institutionController.text,
-  //         emailController.text,
-  //         passwordController.text,
-  //         // courseController.text,
-  //         confirmPasswordController.text,
-  //       );
-  //       Navigator.push(
-  //         context,
-  //         MaterialPageRoute(builder: (context) => const TutorPage()),
-  //       );
-  //     } catch (e) {
-  //       showDialog(
-  //         context: context,
-  //         builder: (context) {
-  //           return AlertDialog(
-  //             title: const Text("One Or More Errors Occured"),
-  //             content: Text(e.toString()),
-  //             backgroundColor: colorWhite,
-  //             titleTextStyle: TextStyle(
-  //               color: colorOrange,
-  //               fontSize: MediaQuery.of(context).size.height * 0.03,
-  //               fontWeight: FontWeight.bold,
-  //             ),
-  //             actions: <Widget>[
-  //               TextButton(
-  //                 child: const Text("Retry"),
-  //                 onPressed: () {
-  //                   Navigator.of(context).pop();
-  //                 },
-  //               ),
-  //             ],
-  //           );
-  //         },
-  //       );
-  //     }
-  //   } else {
-  //     try {
-  //       tutee = await TuteeServices.registerTuee(
-  //         firstNameController.text,
-  //         lastNameController.text,
-  //         dobController.text,
-  //         genderController.text,
-  //         institutionController.text,
-  //         emailController.text,
-  //         passwordController.text,
-  //         confirmPasswordController.text,
-  //       );
-
-  //       Navigator.push(
-  //         context,
-  //         MaterialPageRoute(builder: (context) => const TuteePage()),
-  //       );
-  //     } catch (e) {
-  //       showDialog(
-  //         context: context,
-  //         builder: (context) {
-  //           return AlertDialog(
-  //             title: const Text("One Or More Errors Occured"),
-  //             content: Text(e.toString()),
-  //             backgroundColor: colorWhite,
-  //             titleTextStyle: TextStyle(
-  //               color: colorOrange,
-  //               fontSize: MediaQuery.of(context).size.height * 0.03,
-  //               fontWeight: FontWeight.bold,
-  //             ),
-  //             actions: <Widget>[
-  //               TextButton(
-  //                 child: const Text("Retry"),
-  //                 onPressed: () {
-  //                   Navigator.of(context).pop();
-  //                 },
-  //               ),
-  //             ],
-  //           );
-  //         },
-  //       );
-  //     }
-  //   }
-  // }
-
-  // List<Step> stepsOfRegister  =[
-  //   Step(title: title, content: content)
-  // ]
-
-  // final items = ['F - Female', 'M - Male', 'O - Other'];
   List<IconData> iconsgender = [Icons.female, Icons.male, Icons.man];
 
   // List of items in our dropdown menu
@@ -369,25 +275,32 @@ class _RegisterStep2State extends State<RegisterStep2> {
                 child: TextButton(
                   onPressed: () async {
                     String errMsg = "";
-                    // gender = items[0];
-                    // genderController.text = gender!;
 
-                    // if (gender == null) {
-                    //   gender = "";
-                    //   print("gender *" + gender + "*");
-                    // } else {
-                    //   gender = gender.substring(0, 1);
-                    //   print("gender *" + gender + "*");
-                    // }
+                    print(widget.password +
+                        " " +
+                        widget.email +
+                        " " +
+                        widget.password +
+                        " " +
+                        " " +
+                        firstNameController.text +
+                        " " +
+                        lastNameController.text +
+                        " " +
+                        dobController.text +
+                        " " +
+                        gender);
+
+                    if (gender == "") {
+                      gender = "";
+                    } else {
+                      gender = gender!.substring(0, 1);
+                    }
 
                     if (firstNameController.text == "" ||
-                            lastNameController.text == "" ||
-                            dobController.text == ""
-                        // gender == ""
-                        // institutionController.text == "" ||
-                        // courseController.text == ""
-
-                        ) {
+                        lastNameController.text == "" ||
+                        dobController.text == "" ||
+                        gender == "") {
                       errMsg += "ERROR: One or more parametres missing\n";
                     } else {
                       int day = int.parse(dobController.text.split("/")[0]);
@@ -441,7 +354,15 @@ class _RegisterStep2State extends State<RegisterStep2> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => RegisterStep3()),
+                            builder: (context) => RegisterStep3(
+                                  email: widget.email,
+                                  password: widget.password,
+                                  confirmPassword: widget.confirmPassword,
+                                  fullName: firstNameController.text,
+                                  lastName: lastNameController.text,
+                                  dob: dobController.text,
+                                  gender: gender,
+                                )),
                       );
                     }
                   },
