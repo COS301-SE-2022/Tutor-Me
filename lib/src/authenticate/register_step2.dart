@@ -134,10 +134,22 @@ class _RegisterStep2State extends State<RegisterStep2> {
   //   }
   // }
 
-  int current_step = 0;
   // List<Step> stepsOfRegister  =[
   //   Step(title: title, content: content)
   // ]
+
+  // final items = ['F - Female', 'M - Male', 'O - Other'];
+  List<IconData> iconsgender = [Icons.female, Icons.male, Icons.man];
+
+  // List of items in our dropdown menu
+  List<String> items = [
+    'F - Female',
+    'M - Male',
+    'O - Other',
+  ];
+
+  String? gender;
+  int indexOfOption = 2;
 
   @override
   Widget build(BuildContext context) {
@@ -201,29 +213,6 @@ class _RegisterStep2State extends State<RegisterStep2> {
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height * 0.04,
               ),
-              Center(
-                child: ToggleSwitch(
-                  minWidth: MediaQuery.of(context).size.width * 0.4,
-                  minHeight: MediaQuery.of(context).size.height * 0.06,
-                  cornerRadius: MediaQuery.of(context).size.height * 0.07,
-                  fontSize: MediaQuery.of(context).size.height * 0.02,
-                  iconSize: MediaQuery.of(context).size.height * 0.05,
-                  activeBgColor: const [colorOrange],
-                  activeFgColor: colorWhite,
-                  inactiveBgColor: colorGrey,
-                  inactiveFgColor: colorWhite,
-                  totalSwitches: 2,
-                  labels: const ['Tutor', 'Tutee'],
-                  icons: const [Icons.edit, Icons.person_outlined],
-                  onToggle: (index) {
-                    if (index == 0) {
-                      toRegister = "Tutor";
-                    } else {
-                      toRegister = "Tutee";
-                    }
-                  },
-                ),
-              ),
 
               TextInputField(
                 icon: Icons.person_outline,
@@ -249,40 +238,95 @@ class _RegisterStep2State extends State<RegisterStep2> {
                 inputController: dobController,
                 // inputFocus: dobFocusNode,
               ),
-              TextInputField(
-                icon: Icons.female_outlined,
-                hint: 'Gender',
-                inputType: TextInputType.emailAddress,
-                inputAction: TextInputAction.next,
-                inputController: genderController,
-                // inputFocus: genderFocusNode,
+              SizedBox(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height * 0.02,
               ),
-              // TextInputField(
-              //   icon: Icons.school_outlined,
-              //   hint: 'Course',
-              //   inputType: TextInputType.emailAddress,
-              //   inputAction: TextInputAction.next,
-              //   inputController: courseController,
-              //   // inputFocus: courseFocusNode,
-              // ),
-              // TextInputField(
-              //   icon: Icons.school_outlined,
-              //   hint: 'Enter Institution Name',
-              //   inputType: TextInputType.emailAddress,
-              //   inputAction: TextInputAction.next,
-              //   inputController: institutionController,
-              //   // inputFocus: institutionFocusNode,
-              // ),
-              // Flexible(
-              //   child: Text(
-              //     '',
-              //     style: TextStyle(
-              //       color: colorWhite,
-              //       fontSize: MediaQuery.of(context).size.width * 0.03,
-              //       fontWeight: FontWeight.normal,
-              //     ),
-              //   ),
-              // ),
+
+              Container(
+                width: MediaQuery.of(context).size.width * 0.8,
+                height: MediaQuery.of(context).size.height * 0.07,
+                padding: EdgeInsets.only(
+                    left: MediaQuery.of(context).size.width * 0.06,
+                    right: MediaQuery.of(context).size.width * 0.01),
+                child: DropdownButton<String>(
+                  dropdownColor: colorOrange,
+                  icon: Icon(Icons.arrow_drop_down,
+                      color: colorWhite,
+                      size: MediaQuery.of(context).size.width * 0.08),
+                  style: TextStyle(
+                    color: colorWhite,
+                    fontSize: MediaQuery.of(context).size.width * 0.06,
+                  ),
+                  hint: gender == null
+                      ? Row(
+                          children: [
+                            const Icon(
+                              Icons.female,
+                              color: colorWhite,
+                            ),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.04,
+                            ),
+                            const Text('Select Gender',
+                                style: TextStyle(color: colorWhite)),
+                          ],
+                        )
+                      : Row(
+                          children: [
+                            const Icon(
+                              Icons.woman,
+                              color: colorWhite,
+                            ),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.04,
+                            ),
+                            Text(
+                              gender!,
+                              style: const TextStyle(color: colorWhite),
+                            ),
+                          ],
+                        ),
+                  isExpanded: true,
+                  value: gender,
+                  items: items.map(
+                    (val) {
+                      return DropdownMenuItem<String>(
+                        value: val,
+                        child: Row(
+                          children: [
+                            Icon(
+                              iconsgender[indexOfOption],
+                              color: colorWhite,
+                            ),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.04,
+                            ),
+                            Text(val),
+                          ],
+                        ),
+                      );
+                    },
+                  ).toList(),
+                  onChanged: (val) {
+                    setState(
+                      () {
+                        gender = val;
+                        indexOfOption = items.indexOf(val!);
+                      },
+                    );
+                  },
+                ),
+                decoration: BoxDecoration(
+                  color: Colors.grey[500]!.withOpacity(0.3),
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(
+                    color: colorOrange,
+                    width: 1,
+                  ),
+                ),
+              ),
+
               SizedBox(
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height * 0.03,
@@ -325,11 +369,21 @@ class _RegisterStep2State extends State<RegisterStep2> {
                 child: TextButton(
                   onPressed: () async {
                     String errMsg = "";
+                    // gender = items[0];
+                    // genderController.text = gender!;
+
+                    // if (gender == null) {
+                    //   gender = "";
+                    //   print("gender *" + gender + "*");
+                    // } else {
+                    //   gender = gender.substring(0, 1);
+                    //   print("gender *" + gender + "*");
+                    // }
 
                     if (firstNameController.text == "" ||
                             lastNameController.text == "" ||
-                            dobController.text == "" ||
-                            genderController.text == ""
+                            dobController.text == ""
+                        // gender == ""
                         // institutionController.text == "" ||
                         // courseController.text == ""
 

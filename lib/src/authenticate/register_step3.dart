@@ -130,10 +130,16 @@ class _RegisterStep3State extends State<RegisterStep3> {
   //   }
   // }
 
-  int current_step = 0;
-  // List<Step> stepsOfRegister  =[
-  //   Step(title: title, content: content)
-  // ]
+  List<String> items = [
+    "University Of Pretoria",
+    "Witswaterand University",
+    "University of Johanesburg",
+    "Northwest University",
+    "Cape Town University",
+    "Rhodes University",
+  ];
+
+  String? institution;
 
   @override
   Widget build(BuildContext context) {
@@ -196,44 +202,99 @@ class _RegisterStep3State extends State<RegisterStep3> {
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height * 0.04,
               ),
-              Center(
-                child: ToggleSwitch(
-                  minWidth: MediaQuery.of(context).size.width * 0.4,
-                  minHeight: MediaQuery.of(context).size.height * 0.06,
-                  cornerRadius: MediaQuery.of(context).size.height * 0.07,
-                  fontSize: MediaQuery.of(context).size.height * 0.02,
-                  iconSize: MediaQuery.of(context).size.height * 0.05,
-                  activeBgColor: const [colorOrange],
-                  activeFgColor: colorWhite,
-                  inactiveBgColor: colorGrey,
-                  inactiveFgColor: colorWhite,
-                  totalSwitches: 2,
-                  labels: const ['Tutor', 'Tutee'],
-                  icons: const [Icons.edit, Icons.person_outlined],
-                  onToggle: (index) {
-                    if (index == 0) {
-                      toRegister = "Tutor";
-                    } else {
-                      toRegister = "Tutee";
-                    }
-                  },
-                ),
-              ),
               TextInputField(
-                icon: Icons.school_outlined,
+                icon: Icons.school,
                 hint: 'Course',
                 inputType: TextInputType.emailAddress,
                 inputAction: TextInputAction.next,
                 inputController: courseController,
                 // inputFocus: courseFocusNode,
               ),
-              TextInputField(
-                icon: Icons.school_outlined,
-                hint: 'Enter Institution Name',
-                inputType: TextInputType.emailAddress,
-                inputAction: TextInputAction.next,
-                inputController: institutionController,
-                // inputFocus: institutionFocusNode,
+              SizedBox(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height * 0.02,
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width * 0.8,
+                height: MediaQuery.of(context).size.height * 0.07,
+                padding: EdgeInsets.only(
+                    left: MediaQuery.of(context).size.width * 0.06,
+                    right: MediaQuery.of(context).size.width * 0.01),
+                child: DropdownButton<String>(
+                  dropdownColor: colorOrange,
+                  icon: Icon(Icons.arrow_drop_down,
+                      color: colorWhite,
+                      size: MediaQuery.of(context).size.width * 0.08),
+                  style: TextStyle(
+                    color: colorWhite,
+                    fontSize: MediaQuery.of(context).size.width * 0.05,
+                  ),
+                  hint: institution == null
+                      ? Row(
+                          children: [
+                            const Icon(
+                              Icons.school,
+                              color: colorWhite,
+                            ),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.04,
+                            ),
+                            const Text('Select Institution',
+                                style: TextStyle(color: colorWhite)),
+                          ],
+                        )
+                      : Row(
+                          children: [
+                            const Icon(
+                              Icons.school,
+                              color: colorWhite,
+                            ),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.04,
+                            ),
+                            Text(
+                              institution!,
+                              style: const TextStyle(color: colorWhite),
+                            ),
+                          ],
+                        ),
+                  isExpanded: true,
+                  value: institution,
+                  items: items.map(
+                    (val) {
+                      return DropdownMenuItem<String>(
+                        value: val,
+                        child: Row(
+                          children: [
+                            const Icon(
+                              Icons.house_outlined,
+                              color: colorWhite,
+                            ),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.04,
+                            ),
+                            Text(val),
+                          ],
+                        ),
+                      );
+                    },
+                  ).toList(),
+                  onChanged: (val) {
+                    setState(
+                      () {
+                        institution = val;
+                      },
+                    );
+                  },
+                ),
+                decoration: BoxDecoration(
+                  color: Colors.grey[500]!.withOpacity(0.3),
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(
+                    color: colorOrange,
+                    width: 1,
+                  ),
+                ),
               ),
               Flexible(
                 child: Text(
@@ -263,9 +324,12 @@ class _RegisterStep3State extends State<RegisterStep3> {
                 child: TextButton(
                   onPressed: () async {
                     String errMsg = "";
-
-                    if (institutionController.text == "" ||
-                        courseController.text == "") {
+                    if (institution == null) {
+                      institution = "";
+                    } else {
+                      institution = institution!.substring(0, 1);
+                    }
+                    if (institution == "" || courseController.text == "") {
                       errMsg += "ERROR: One or more parametres missing\n";
                     } else {}
 
@@ -305,9 +369,9 @@ class _RegisterStep3State extends State<RegisterStep3> {
                       );
                     }
                   },
-                  child: const Text("Continue",
+                  child: Text("Register",
                       style: TextStyle(
-                        fontSize: 18,
+                        fontSize: MediaQuery.of(context).size.width * 0.06,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
                       )),
