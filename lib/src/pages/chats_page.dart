@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tutor_me/services/services/tutor_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
-import 'package:tutor_me/src/tuteeProfilePages/tutee_data.dart';
 import '../../services/models/tutors.dart';
+import '../../services/services/tutee_services.dart';
 import '../chat/chat.dart';
 // import 'package:tutor_me/modules/api.services.dart';
 // import 'package:tutor_me/modules/tutors.dart';
@@ -14,7 +14,7 @@ import '../chat/chat.dart';
 class Chats extends StatefulWidget {
   const Chats({Key? key, required this.user}) : super(key: key);
 
-  final Tutee user;
+  final dynamic user;
 
   @override
   State<StatefulWidget> createState() {
@@ -23,15 +23,29 @@ class Chats extends StatefulWidget {
 }
 
 class ChatsState extends State<Chats> {
-  List<Tutors> tutors = List<Tutors>.empty();
+  bool _isLoading = true;
+
+  List<dynamic> tutors = List<dynamic>.empty();
 
   void getConnections() async {
-    int conLength = widget.user.connections.length;
-    for (int i = 0; i < conLength; i++) {
-      final tutor = await TutorServices.getTutor(widget.user.connections[i]);
-      setState(() {
-        tutors += tutor;
-      });
+    if (widget.user is Tutors) {
+      int conLength = widget.user.getConnections.length;
+      List<String> connections = widget.user.getConnections.split(',');
+      for (int i = 0; i < conLength; i++) {
+        final tutor = await TuteeServices.getTutee(connections[i]);
+        setState(() {
+          tutors += tutor;
+        });
+      }
+    } else {
+      int conLength = widget.user.getConnections.length;
+      List<String> connections = widget.user.getConnections.split(',');
+      for (int i = 0; i < conLength; i++) {
+        final tutor = await TutorServices.getTutor(connections[i]);
+        setState(() {
+          tutors += tutor;
+        });
+      }
     }
   }
 
@@ -39,20 +53,26 @@ class ChatsState extends State<Chats> {
   void initState() {
     super.initState();
     getConnections();
+    setState(() {
+      _isLoading = false;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Padding(
-      padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.01),
-      child: SizedBox(
-        child: ListView.builder(
-          itemBuilder: _chatBuilder,
-          itemCount: tutors.length,
-        ),
-      ),
-    ));
+        body: _isLoading
+            ? const Center(child: CircularProgressIndicator.adaptive())
+            : Padding(
+                padding: EdgeInsets.only(
+                    top: MediaQuery.of(context).size.height * 0.01),
+                child: SizedBox(
+                  child: ListView.builder(
+                    itemBuilder: _chatBuilder,
+                    itemCount: tutors.length,
+                  ),
+                ),
+              ));
   }
 
   Widget _chatBuilder(BuildContext context, int i) {

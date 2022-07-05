@@ -5,8 +5,11 @@ import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/components.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../services/models/tutees.dart';
+
 class TuteeProfileEdit extends StatefulWidget {
-  const TuteeProfileEdit({Key? key}) : super(key: key);
+  final Tutees user;
+  const TuteeProfileEdit({Key? key,required this.user}) : super(key: key);
 
   @override
   _TuteeProfileEditState createState() => _TuteeProfileEditState();

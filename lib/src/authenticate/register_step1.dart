@@ -21,23 +21,12 @@ class _RegisterStep1State extends State<RegisterStep1> {
   final FocusNode emailFocusNode = FocusNode();
   final FocusNode passwordFocusNode = FocusNode();
   final FocusNode confirmPasswordFocusNode = FocusNode();
-  final FocusNode firstNameFocusNode = FocusNode();
-  final FocusNode lastNameFocusNode = FocusNode();
-  final FocusNode dobFocusNode = FocusNode();
-  final FocusNode genderFocusNode = FocusNode();
-  final FocusNode institutionFocusNode = FocusNode();
-  final FocusNode courseFocusNode = FocusNode();
 
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmPasswordController =
       TextEditingController();
-  final TextEditingController firstNameController = TextEditingController();
-  final TextEditingController lastNameController = TextEditingController();
-  final TextEditingController dobController = TextEditingController();
-  final TextEditingController genderController = TextEditingController();
-  final TextEditingController institutionController = TextEditingController();
-  final TextEditingController courseController = TextEditingController();
+
   String toRegister = 'Tutor';
 
   @override

@@ -1,17 +1,25 @@
 import 'dart:io';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:tutor_me/services/services/tutor_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/components.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:open_file/open_file.dart';
+
+import '../../services/models/tutors.dart';
 
 class TutorProfileEdit extends StatefulWidget {
-  const TutorProfileEdit({Key? key}) : super(key: key);
+  final Tutors user;
+  const TutorProfileEdit({Key? key, required this.user}) : super(key: key);
 
   @override
   _TutorProfileEditState createState() => _TutorProfileEditState();
 }
 
 class _TutorProfileEditState extends State<TutorProfileEdit> {
+  final nameController = TextEditingController();
+  final bioController = TextEditingController();
   File? image;
 
   Future pickImage(ImageSource source) async {
@@ -50,7 +58,7 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
   Widget buildBody() {
     final screenWidthSize = MediaQuery.of(context).size.width;
     final screenHeightSize = MediaQuery.of(context).size.height;
-    const nameToEdit = " Carol Timith";
+    String nameToEdit = widget.user.getName + ' ' + widget.user.getLastName;
     // FilePickerResult? filePickerResult;
     // String? fileName;
     // PlatformFile? file;
@@ -63,6 +71,7 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
           padding: EdgeInsets.only(
               left: screenWidthSize * 0.15, right: screenWidthSize * 0.15),
           child: TextField(
+            controller: nameController,
             decoration: InputDecoration(
               hintText: "Change to: ",
               labelText: nameToEdit,
@@ -79,10 +88,10 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
           child: TextField(
             keyboardType: TextInputType.multiline,
             maxLines: null,
+            controller: bioController,
             decoration: InputDecoration(
               hintText: "Change To:",
-              labelText:
-                  "About Me: I am a self motivated individual who finds joy in exploring new technologies. I absolutely love teaching people. Fun fact: I love cooking. Always eager to help, feel free to hmu! ",
+              labelText: widget.user.getBio,
               labelStyle: TextStyle(
                 color: colorTurqoise,
                 overflow: TextOverflow.visible,
@@ -96,31 +105,13 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
           btnIcon: Icons.upload,
           btnName: "    Upload Latest Transcript",
           onPressed: () async {
-            // try {
-            //   setState(() {
-            //     isUploading = true;
-            //   });
+            final filePick = await FilePicker.platform.pickFiles();
+            if (filePick == null) {
+              return;
+            }
 
-            //   filePickerResult = await FilePicker.platform.pickFiles(
-            //     type: FileType.any,
-            //     allowMultiple: false,
-            //     allowedExtensions: ['pdf'],
-            //   );
-
-            //   if (filePickerResult == null) {
-            //     return;
-            //   }
-            //   fileName = filePickerResult!.files.first.name;
-            //   file = filePickerResult!.files.first;
-            //   fileToUpload = File(file!.path.toString());
-
-            //   print("File name: " + fileName!);
-            //   setState(() {
-            //     isUploading = false;
-            //   });
-            // } catch (e) {
-            //   print(e);
-            // }
+            final file = filePick.files.first;
+            OpenFile.open(file.path.toString());
           },
         ),
         SizedBox(height: screenHeightSize * 0.03),
@@ -134,7 +125,19 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
           },
         ),
         SizedBox(height: screenHeightSize * 0.03),
-        OrangeButton(btnName: "Save", onPressed: () {})
+        OrangeButton(
+            btnName: "Save",
+            onPressed: () {
+              List<String> name = nameController.text.split(' ');
+              String firstName = name[0];
+              String lastName = name[1];
+              widget.user.setFirstName = firstName;
+              widget.user.setLastName = lastName;
+              widget.user.setBio = bioController.text;
+              TutorServices.updateTutor(widget.user);
+
+              Navigator.pop(context);
+            })
       ],
     );
   }

@@ -26,6 +26,7 @@ class _LoginState extends State<Login> {
   late Tutees tutee;
   String toRegister = 'Tutor';
 
+  bool isLoading = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -145,8 +146,10 @@ class _LoginState extends State<Login> {
                 ),
                 child: TextButton(
                   onPressed: () async {
+                    setState(() {
+                      isLoading = true;
+                    });
                     String errMsg = "";
-                    //TODO: login
                     if (emailController.text.isEmpty ||
                         passwordController.text.isEmpty) {
                       errMsg += "Please fill in all fields";
@@ -157,6 +160,9 @@ class _LoginState extends State<Login> {
                     // }
 
                     if (errMsg != "") {
+                      setState(() {
+                        isLoading = false;
+                      });
                       showDialog(
                         context: context,
                         builder: (context) {
@@ -190,12 +196,17 @@ class _LoginState extends State<Login> {
                           // TutorServices tutor = TutorServices.Login(
                           tutor = await TutorServices.logInTutor(
                               emailController.text, passwordController.text);
+                          tutor.setStatus = "T";
+                          await TutorServices.updateTutor(tutor);
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const TutorPage()),
+                                builder: (context) => TutorPage(user: tutor)),
                           );
                         } catch (e) {
+                          setState(() {
+                            isLoading = false;
+                          });
                           showDialog(
                             context: context,
                             builder: (context) {
@@ -230,12 +241,17 @@ class _LoginState extends State<Login> {
                           // TutorServices tutor = TutorServices.Login(
                           tutee = await TuteeServices.logInTutee(
                               emailController.text, passwordController.text);
+                          tutee.setStatus = "T";
+                          await TuteeServices.updateTutee(tutee);
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const TuteePage()),
+                                builder: (context) => TuteePage(user: tutee)),
                           );
                         } catch (e) {
+                          setState(() {
+                            isLoading = false;
+                          });
                           showDialog(
                             context: context,
                             builder: (context) {
@@ -268,12 +284,14 @@ class _LoginState extends State<Login> {
                       }
                     }
                   },
-                  child: const Text("Login",
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      )),
+                  child: isLoading
+                      ? const CircularProgressIndicator(color: Colors.white)
+                      : const Text("Login",
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          )),
                 ),
               ),
 
@@ -284,7 +302,7 @@ class _LoginState extends State<Login> {
                 onTap: () {},
                 child: Container(
                   child: const Text(
-                    "Creat New Account",
+                    "Create New Account",
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,

@@ -16,26 +16,25 @@ dependencies:
   crypt: ^4.2.1
   flutter_localizations:
     sdk: flutter
-
+  intl: ^0.17.0
   file_picker: ^4.6.1
-  # videosdk: ^0.0.10
-  # flutter_dotenv: ^5.0.2
-  # cupertino_icons: ^1.0.4
-  # fluttertoast: ^8.0.8
-  # camera: ^0.9.4+5
-  # flutter_svg: ^1.0.1
-  # visibility_detector: ^0.2.2
+  videosdk: ^0.0.10
+  flutter_dotenv: ^5.0.2
+  cupertino_icons: ^1.0.4
+  fluttertoast: ^8.0.8
+  camera: ^0.9.4+5
+  flutter_svg: ^1.0.1
+  visibility_detector: ^0.2.2
   date_time_format: ^2.0.1
-  # touch_ripple_effect: ^2.2.3  
+  touch_ripple_effect: ^2.2.3  
   toggle_switch: ^2.0.1
+  open_file: ^3.2.1
   
 dev_dependencies:
   flutter_test:
     sdk: flutter
     
   flutter_lints: ^1.0.0
-
-  font_awesome_flutter: ^8.10.0
   
   flutter_native_splash: ^2.0.1+1
 
@@ -55,4 +54,4 @@ flutter:
     # Add assets from the images directory to the application.
     - assets/images/
     - assets/Pictures/
-    # - .env
+    - .env
