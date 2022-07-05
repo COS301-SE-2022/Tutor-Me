@@ -91,4 +91,21 @@ class ModuleServices {
     }
     return modulesByInstitution;
   }
+
+  getInstitutions() async {
+      print('starting');
+
+    final modules = await getModules();
+    List institutions = [];
+    for (final item in modules) {
+      print("traversing");
+      if (!institutions.contains(item.getInstitution)) {
+        institutions.add(item.getInstitution);
+      }
+    }
+    for(final item in institutions) {
+      print(item);
+    }
+    return institutions;
+  }
 }
