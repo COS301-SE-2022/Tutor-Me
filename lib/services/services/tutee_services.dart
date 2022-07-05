@@ -1,8 +1,8 @@
 import 'dart:io';
 import 'dart:typed_data';
-
 import 'package:crypt/crypt.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import 'package:tutor_me/services/models/modules.dart';
 import 'dart:async';
 import 'dart:convert';
@@ -13,6 +13,36 @@ import '../models/requests.dart';
 // import 'package:flutter_string_encryption/flutter_string_encryption.dart';
 
 class TuteeServices {
+  //TODO: undo a request
+  sendRequest(String receiverId, String requesterId) async {
+    try {
+      final url = Uri.https('tutormeapi1.azurewebsites.net', 'api/Requests');
+      final header = {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*"
+      };
+
+      var now = DateTime.now();
+      var changeFormat = DateFormat('dd/MM/yyyy');
+      String dateCreated = changeFormat.format(now);
+      final data = jsonEncode({
+        'requesterId': requesterId,
+        'receiverId': receiverId,
+        'dateCreated': dateCreated
+      });
+      final response = await http.post(url, body: data, headers: header);
+      if (response.statusCode == 201) {
+        return true;
+      } else {
+        throw Exception(
+            'Failed to send request. Please make sure your internet connect is on and try again');
+      }
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+  
   getRequests(String id) async {
     final url =
         Uri.https('tutormeapi1.azurewebsites.net', 'api/Requests/Tutee/$id');
