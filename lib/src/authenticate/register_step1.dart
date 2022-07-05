@@ -22,6 +22,7 @@ class _RegisterStep1State extends State<RegisterStep1> {
       TextEditingController();
 
   String toRegister = 'Tutor';
+  int currentStep = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -70,20 +71,25 @@ class _RegisterStep1State extends State<RegisterStep1> {
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height * 0.04,
               ),
-              Flexible(
-                child: Text(
-                  'Step 1/3 - Login Credentials',
-                  style: TextStyle(
-                    color: colorWhite,
-                    fontSize: MediaQuery.of(context).size.width * 0.07,
-                    fontWeight: FontWeight.normal,
+              // Flexible(
+
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.95,
+                height: MediaQuery.of(context).size.height * 0.15,
+                child: Theme(
+                  data: ThemeData(
+                      primarySwatch: Colors.green,
+                      canvasColor: Colors.transparent,
+                      colorScheme: ColorScheme.fromSwatch().copyWith(
+                          secondary: colorOrange, primary: colorOrange)),
+                  child: Stepper(
+                    type: StepperType.horizontal,
+                    steps: getSteps(),
+                    currentStep: currentStep,
                   ),
                 ),
               ),
-              SizedBox(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height * 0.04,
-              ),
+
               Center(
                 child: ToggleSwitch(
                   minWidth: MediaQuery.of(context).size.width * 0.4,
@@ -227,4 +233,37 @@ class _RegisterStep1State extends State<RegisterStep1> {
       ),
     );
   }
+
+  List<Step> getSteps() => [
+        Step(
+          isActive: currentStep >= 0,
+          title: const Text(
+            'Login',
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+          content: Container(),
+        ),
+        Step(
+          isActive: currentStep >= 1,
+          title: const Text(
+            'Personal',
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+          content: Container(),
+        ),
+        Step(
+          isActive: currentStep >= 2,
+          title: const Text(
+            'Education',
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+          content: Container(),
+        ),
+      ];
 }

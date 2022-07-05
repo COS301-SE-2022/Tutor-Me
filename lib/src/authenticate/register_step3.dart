@@ -5,7 +5,9 @@ import 'package:tutor_me/services/models/tutors.dart';
 import 'package:tutor_me/services/services/tutor_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/tutor_page.dart';
+import '../../services/models/modules.dart';
 import '../../services/models/tutees.dart';
+import '../../services/services/module_services.dart';
 import '../../services/services/tutee_services.dart';
 import '../components.dart';
 import '../tutee_page.dart';
@@ -46,6 +48,7 @@ class _RegisterStep3State extends State<RegisterStep3> {
 
   late Tutors tutor;
   late Tutees tutee;
+  int currentStep = 2;
 
   register() async {
     if (widget.toRegister == "Tutor") {
@@ -59,6 +62,7 @@ class _RegisterStep3State extends State<RegisterStep3> {
           widget.email,
           widget.password,
           // courseController.text,
+          //yearLvl
           widget.confirmPassword,
         );
         Navigator.push(
@@ -100,6 +104,8 @@ class _RegisterStep3State extends State<RegisterStep3> {
           institutionController.text,
           widget.email,
           widget.password,
+          // courseController.text,
+          //yearLvl
           widget.confirmPassword,
         );
 
@@ -138,19 +144,40 @@ class _RegisterStep3State extends State<RegisterStep3> {
     }
   }
 
-  List<String> items = [
-    "University Of Pretoria",
-    "Witswaterand University",
-    "University of Johanesburg",
-    "Northwest University",
-    "Cape Town University",
-    "Rhodes University",
+  List<String> items = List<String>.empty();
+
+  getInstitutions() async {
+    final insitutions = await ModuleServices.getInstitutions();
+    setState(() {
+      // institutionList = insitutions;
+      items = insitutions;
+    });
+  }
+
+  // List<String> items = [
+  //   "University Of Pretoria",
+  //   "Witswaterand University",
+  //   "University of Johanesburg",
+  //   "Northwest University",
+  //   "Cape Town University",
+  //   "Rhodes University",
+  // ];
+
+  List<String> yearlevels = [
+    "Year - 1",
+    "Year - 2",
+    "Year - 3",
+    "Year - 4",
+    "Postgraduate",
   ];
 
   String? institution;
+  String? yearLvl;
 
   @override
   Widget build(BuildContext context) {
+    getInstitutions();
+
     return Scaffold(
       // key: _scaffoldKey,
       resizeToAvoidBottomInset: false,
@@ -196,19 +223,21 @@ class _RegisterStep3State extends State<RegisterStep3> {
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height * 0.04,
               ),
-              Flexible(
-                child: Text(
-                  'Step 3/3 - Education',
-                  style: TextStyle(
-                    color: colorWhite,
-                    fontSize: MediaQuery.of(context).size.width * 0.07,
-                    fontWeight: FontWeight.normal,
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.95,
+                height: MediaQuery.of(context).size.height * 0.15,
+                child: Theme(
+                  data: ThemeData(
+                      primarySwatch: Colors.green,
+                      canvasColor: Colors.transparent,
+                      colorScheme: ColorScheme.fromSwatch().copyWith(
+                          secondary: colorOrange, primary: colorOrange)),
+                  child: Stepper(
+                    type: StepperType.horizontal,
+                    steps: getSteps(),
+                    currentStep: currentStep,
                   ),
                 ),
-              ),
-              SizedBox(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height * 0.04,
               ),
               TextInputField(
                 icon: Icons.school,
@@ -217,6 +246,92 @@ class _RegisterStep3State extends State<RegisterStep3> {
                 inputAction: TextInputAction.next,
                 inputController: courseController,
                 // inputFocus: courseFocusNode,
+              ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height * 0.007,
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width * 0.8,
+                height: MediaQuery.of(context).size.height * 0.07,
+                padding: EdgeInsets.only(
+                    left: MediaQuery.of(context).size.width * 0.06,
+                    right: MediaQuery.of(context).size.width * 0.01),
+                child: DropdownButton<String>(
+                  dropdownColor: colorOrange,
+                  icon: Icon(Icons.arrow_drop_down,
+                      color: colorWhite,
+                      size: MediaQuery.of(context).size.width * 0.08),
+                  style: TextStyle(
+                    color: colorWhite,
+                    fontSize: MediaQuery.of(context).size.width * 0.05,
+                  ),
+                  hint: institution == null
+                      ? Row(
+                          children: [
+                            const Icon(
+                              Icons.grade_sharp,
+                              color: colorWhite,
+                            ),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.04,
+                            ),
+                            const Text('Select Year Level',
+                                style: TextStyle(color: colorWhite)),
+                          ],
+                        )
+                      : Row(
+                          children: [
+                            const Icon(
+                              Icons.school,
+                              color: colorWhite,
+                            ),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.04,
+                            ),
+                            Text(
+                              institution!,
+                              style: const TextStyle(color: colorWhite),
+                            ),
+                          ],
+                        ),
+                  isExpanded: true,
+                  value: yearLvl,
+                  items: yearlevels.map(
+                    (val) {
+                      return DropdownMenuItem<String>(
+                        value: val,
+                        child: Row(
+                          children: [
+                            const Icon(
+                              Icons.house_outlined,
+                              color: colorWhite,
+                            ),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.04,
+                            ),
+                            Text(val),
+                          ],
+                        ),
+                      );
+                    },
+                  ).toList(),
+                  onChanged: (val) {
+                    setState(
+                      () {
+                        yearLvl = val;
+                      },
+                    );
+                  },
+                ),
+                decoration: BoxDecoration(
+                  color: Colors.grey[500]!.withOpacity(0.3),
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(
+                    color: colorOrange,
+                    width: 1,
+                  ),
+                ),
               ),
               SizedBox(
                 width: MediaQuery.of(context).size.width,
@@ -396,4 +511,37 @@ class _RegisterStep3State extends State<RegisterStep3> {
       ),
     );
   }
+
+  List<Step> getSteps() => [
+        Step(
+          isActive: currentStep >= 0,
+          title: const Text(
+            'Login',
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+          content: Container(),
+        ),
+        Step(
+          isActive: currentStep >= 1,
+          title: const Text(
+            'Personal',
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+          content: Container(),
+        ),
+        Step(
+          isActive: currentStep >= 2,
+          title: const Text(
+            'Education',
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+          content: Container(),
+        ),
+      ];
 }

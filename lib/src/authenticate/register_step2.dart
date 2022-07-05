@@ -43,7 +43,7 @@ class _RegisterStep2State extends State<RegisterStep2> {
   final TextEditingController genderController = TextEditingController();
   final TextEditingController institutionController = TextEditingController();
   final TextEditingController courseController = TextEditingController();
-  String toRegister = 'Tutor';
+
   late Tutors tutor;
   late Tutees tutee;
 
@@ -58,6 +58,7 @@ class _RegisterStep2State extends State<RegisterStep2> {
 
   String? gender;
   int indexOfOption = 2;
+  int currentStep = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -102,26 +103,26 @@ class _RegisterStep2State extends State<RegisterStep2> {
                   ),
                 ),
               ),
-
               SizedBox(
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height * 0.04,
               ),
-              Flexible(
-                child: Text(
-                  'Step 2/3 - Personal Information',
-                  style: TextStyle(
-                    color: colorWhite,
-                    fontSize: MediaQuery.of(context).size.width * 0.07,
-                    fontWeight: FontWeight.normal,
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.95,
+                height: MediaQuery.of(context).size.height * 0.15,
+                child: Theme(
+                  data: ThemeData(
+                      primarySwatch: Colors.green,
+                      canvasColor: Colors.transparent,
+                      colorScheme: ColorScheme.fromSwatch().copyWith(
+                          secondary: colorOrange, primary: colorOrange)),
+                  child: Stepper(
+                    type: StepperType.horizontal,
+                    steps: getSteps(),
+                    currentStep: currentStep,
                   ),
                 ),
               ),
-              SizedBox(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height * 0.04,
-              ),
-
               TextInputField(
                 icon: Icons.person_outline,
                 hint: 'Enter Full Name',
@@ -150,7 +151,6 @@ class _RegisterStep2State extends State<RegisterStep2> {
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height * 0.02,
               ),
-
               Container(
                 width: MediaQuery.of(context).size.width * 0.8,
                 height: MediaQuery.of(context).size.height * 0.07,
@@ -234,35 +234,10 @@ class _RegisterStep2State extends State<RegisterStep2> {
                   ),
                 ),
               ),
-
               SizedBox(
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height * 0.03,
               ),
-              // TextInputField(
-              //   icon: Icons.email_outlined,
-              //   hint: 'Enter Your Email',
-              //   inputType: TextInputType.emailAddress,
-              //   inputAction: TextInputAction.next,
-              //   inputController: emailController,
-              //   // inputFocus: emailFocusNode,
-              // ),
-              // PasswordInput(
-              //   icon: Icons.lock_outline_rounded,
-              //   hint: 'Password',
-              //   inputAction: TextInputAction.next,
-              //   inputType: TextInputType.text,
-              //   inputController: passwordController,
-              //   inputFocus: passwordFocusNode,
-              // ),
-              // PasswordInput(
-              //   icon: Icons.password_outlined,
-              //   hint: 'Confirm Password',
-              //   inputAction: TextInputAction.next,
-              //   inputType: TextInputType.text,
-              //   inputController: confirmPasswordController,
-              //   inputFocus: confirmPasswordFocusNode,
-              // ),
               SizedBox(
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height * 0.03,
@@ -367,4 +342,37 @@ class _RegisterStep2State extends State<RegisterStep2> {
       ),
     );
   }
+
+  List<Step> getSteps() => [
+        Step(
+          isActive: currentStep >= 0,
+          title: const Text(
+            'Login',
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+          content: Container(),
+        ),
+        Step(
+          isActive: currentStep >= 1,
+          title: const Text(
+            'Personal',
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+          content: Container(),
+        ),
+        Step(
+          isActive: currentStep >= 2,
+          title: const Text(
+            'Education',
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+          content: Container(),
+        ),
+      ];
 }
