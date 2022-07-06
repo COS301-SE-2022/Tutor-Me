@@ -11131,11 +11131,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/simphiwe/Desktop/updated_CapsOn/Tutor-ME/APIs/TutorMeApi/IntegrationTests/IntegrationTests.csproj",
-      "projectName": "IntegrationTests",
-      "projectPath": "/home/simphiwe/Desktop/updated_CapsOn/Tutor-ME/APIs/TutorMeApi/IntegrationTests/IntegrationTests.csproj",
+      "projectUniqueName": "/home/simphiwe/Desktop/updated_CapsOn/Tutor-ME/APIs/TutorMeApi/ApiIntegrationTests/ApiIntegrationTests.csproj",
+      "projectName": "ApiIntegrationTests",
+      "projectPath": "/home/simphiwe/Desktop/updated_CapsOn/Tutor-ME/APIs/TutorMeApi/ApiIntegrationTests/ApiIntegrationTests.csproj",
       "packagesPath": "/home/simphiwe/.nuget/packages/",
-      "outputPath": "/home/simphiwe/Desktop/updated_CapsOn/Tutor-ME/APIs/TutorMeApi/IntegrationTests/obj/",
+      "outputPath": "/home/simphiwe/Desktop/updated_CapsOn/Tutor-ME/APIs/TutorMeApi/ApiIntegrationTests/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/simphiwe/.nuget/NuGet/NuGet.Config"

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "uEMzp1NGvVMc9vm1AiKYSi/Qs1BSt2kexbsWTIzX/RF6vHfQ5fp6yf41bPn5y/YtLoO1fspHU7n3/zXSR3C90A==",
+  "dgSpecHash": "wtewvQKE1ZInAL3VzzGOfjJl+frakrLz4WQ0AFJXkdDG/PSnJ98pGI6LLJG9ZDwbN2vz9J9qSwc04EMfIC4+Tg==",
   "success": true,
-  "projectFilePath": "/home/simphiwe/Desktop/updated_CapsOn/Tutor-ME/APIs/TutorMeApi/IntegrationTests/IntegrationTests.csproj",
+  "projectFilePath": "/home/simphiwe/Desktop/updated_CapsOn/Tutor-ME/APIs/TutorMeApi/ApiIntegrationTests/ApiIntegrationTests.csproj",
   "expectedPackageFiles": [
     "/home/simphiwe/.nuget/packages/castle.core/5.0.0/castle.core.5.0.0.nupkg.sha512",
     "/home/simphiwe/.nuget/packages/coverlet.collector/3.1.2/coverlet.collector.3.1.2.nupkg.sha512",
