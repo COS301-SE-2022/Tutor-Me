@@ -12,10 +12,8 @@ using FluentAssertions;
 using Moq;
 public class TuteeUnitTests
 {
-    List<Tutee> _expectedTutees = new List<Tutee> { createTutee(), createTutee(), createTutee(), createTutee() };
-
     //DTO
-    private static Tutee createTutee()
+    private static Tutee CreateTutee()
     {
         return new()
         {
@@ -39,9 +37,9 @@ public class TuteeUnitTests
         };
     }
     [Fact]
-    public async Task GetTuteeAsync_WithUnexistingTutee_ReturnsNotFound()
+    public async Task GetTuteeAsync_WithUnExistingTutee_ReturnsNotFound()
     {
-        //Arranage
+        //Arrange
 
         var repositoryStub = new Mock<TutorMeContext>();
         repositoryStub.Setup(repo => repo.Tutees.FindAsync(It.IsAny<Type>())).ReturnsAsync((Tutee)null);
@@ -56,8 +54,8 @@ public class TuteeUnitTests
     [Fact]
     public async Task GetTuteeAsync_WithUnExistingDb_ReturnsFound()
     {
-        //Arranage
-        var expectedTutee = createTutee();
+        //Arrange
+        var expectedTutee = CreateTutee();
         // id = Guid.NewGuid();
 
         var repositoryStub = new Mock<TutorMeContext>();
@@ -75,11 +73,10 @@ public class TuteeUnitTests
 
     }
     [Fact]
-    public async Task GetTuteeAsync_WithanEmpyDb()
+    public async Task GetTuteeAsync_WithAnEmptyDb()
     {
-        //Arranage
+        //Arrange
         var repositoryStub = new Mock<TutorMeContext>();
-        //setup repositorystub to null
         repositoryStub.Setup(repo => repo.Tutees).Returns((DbSet<Tutee>)null);
 
         //Act
@@ -94,13 +91,13 @@ public class TuteeUnitTests
     [Fact]
     public async Task GetTuteesAsync_WithExistingItem_ReturnsFound()
     {
-        //Arranage
+        //Arrange
         var repositoryStub = new Mock<TutorMeContext>();
         var controller = new TuteesController(repositoryStub.Object);
 
 
         //Act
-        Guid yourGuid = Guid.NewGuid();
+        Guid.NewGuid();
         var result = await controller.GetTutees();
 
         //Assert     
@@ -111,9 +108,8 @@ public class TuteeUnitTests
     [Fact]
     public async Task GetTuteesAsync_WithExistingItemReturnsFound()
     {
-        //Arranage
+        //Arrange
         var repositoryStub = new Mock<TutorMeContext>();
-        //setup repositorystub to null
         repositoryStub.Setup(repo => repo.Tutees).Returns((DbSet<Tutee>)null);
 
         //Act
@@ -124,36 +120,16 @@ public class TuteeUnitTests
         //Assert     
         Assert.IsType<NotFoundResult>(result.Result);
     }
-    // [Fact]
-    // public async Task GetTuteeByEmail_WithExistingEmailReturnsFound()
-    // {
-    //     //Arranage
-    //     var repositoryStub = new Mock<TutorMeContext>();
-    //     //setup repositorystub to null
-    //     repositoryStub.Setup(repo => repo.Tutees).Returns((DbSet<Tutee>)null);
-    //     
-    //     //Act
-    //     var controller = new TuteesController(repositoryStub.Object);
-    //    var id= Guid.NewGuid();
-    //    var email= Guid.NewGuid().ToString();
-    //     var result = await controller.GetTuteeByEmail(email,id);
-    //
-    //     //Assert     
-    //     Assert.IsType<NotFoundResult>(result.Result);
-    // }
-
-    //Test the PutTutee Method to check if id is the same as the id in the DTO
+   
     [Fact]
     public async Task PutTutee_With_differentIds_BadRequestResult()
     {
-        //Arranage
+        //Arrange
         var repositoryStub = new Mock<TutorMeContext>();
-        //setup repositorystub to null
-        var expectedTutee = createTutee();
+        var expectedTutee = CreateTutee();
         //Act
         var controller = new TuteesController(repositoryStub.Object);
         var id = Guid.NewGuid();
-        var email = Guid.NewGuid().ToString();
         var result = await controller.PutTutee(id, expectedTutee);
 
         //Assert     
@@ -163,19 +139,17 @@ public class TuteeUnitTests
     [Fact]
     public async Task PutTutee_With_same_Id_but_UnExisting_Tutor_returns_NullReferenceException()//####
     {
-        //Arranage
+        //Arrange
         var repositoryStub = new Mock<TutorMeContext>();
-        //setup repositorystub to null
-        var expectedTutee = createTutee();
+        var expectedTutee = CreateTutee();
         //repositoryStub.Setup(repo => repo.Tutees.Find(expectedTutee.Id).Equals(expectedTutee.Id)).Returns(false);
         repositoryStub.Setup(repo => repo.Tutees).Returns((DbSet<Tutee>)null);
         //Act
         var controller = new TuteesController(repositoryStub.Object);
-        var id = Guid.NewGuid();
-        var email = Guid.NewGuid().ToString();
+      
         try
         {
-            var result = await controller.PutTutee(expectedTutee.Id, expectedTutee);
+           await controller.PutTutee(expectedTutee.Id, expectedTutee);
         }
         //Assert   
         catch (Exception e)
@@ -190,11 +164,10 @@ public class TuteeUnitTests
         //Arranage
         var repositoryStub = new Mock<TutorMeContext>();
         //setup repositorystub to null
-        var expectedTutee = createTutee();
+        var expectedTutee = CreateTutee();
         //Act
         var controller = new TuteesController(repositoryStub.Object);
         var id = Guid.NewGuid();
-        var email = Guid.NewGuid().ToString();
         var result = await controller.PutTutee(id, expectedTutee);
 
         //Assert     
@@ -208,8 +181,8 @@ public class TuteeUnitTests
     public async Task PostTutee_and_returns_a_type_of_Action_Result_returns_null()
     {
 
-        //Arranage
-        var expectedTutee = createTutee();
+        //Arrange
+        var expectedTutee = CreateTutee();
 
         var repositoryStub = new Mock<TutorMeContext>();
         repositoryStub.Setup(repo => repo.Tutees.FindAsync(It.IsAny<Guid>())).ReturnsAsync((expectedTutee));
@@ -226,8 +199,8 @@ public class TuteeUnitTests
     public async Task PostTutee_and_returns_a_type_of_Action()
     {
 
-        //Arranage
-        var expectedTutee = createTutee();
+        //Arrange
+        var expectedTutee = CreateTutee();
 
         var repositoryStub = new Mock<TutorMeContext>();
         repositoryStub.Setup(repo => repo.Tutees.FindAsync(It.IsAny<Guid>())).ReturnsAsync((Tutee)null);
@@ -244,8 +217,8 @@ public class TuteeUnitTests
     public async Task PostTutee_and_returns_ObjectResult()
     {
 
-        //Arranage
-        var expectedTutee = createTutee();
+        //Arrange
+        var expectedTutee = CreateTutee();
 
         var repositoryStub = new Mock<TutorMeContext>();
         repositoryStub.Setup(repo => repo.Tutees).Returns((DbSet<Tutee>)null);
@@ -263,8 +236,8 @@ public class TuteeUnitTests
     public async Task PostTutee_and_returns_CreatedAtActionResult()
     {
 
-        //Arranage
-        var expectedTutee = createTutee();
+        //Arrange
+        var expectedTutee = CreateTutee();
 
         var repositoryStub = new Mock<TutorMeContext>();
         repositoryStub.Setup(repo => repo.Tutees.Add(expectedTutee)).Returns((Func<EntityEntry<Tutee>>)null);
@@ -282,15 +255,13 @@ public class TuteeUnitTests
     public async Task PostTutee_and_returns_TuteeExists_DbUpdateException()
     {
 
-        //Arranage
-        var expectedTutee = createTutee();
+        //Arrange
+        var expectedTutee = CreateTutee();
 
         var repositoryStub = new Mock<TutorMeContext>();
         repositoryStub.Setup(repo => repo.Tutees.Add(expectedTutee)).Throws<DbUpdateException>();
 
-        //repositoryStub.Setup(repo => repo.Tutees.Update(expectedTutee)).Throws< DbUpdateException>();
-
-        var controller = new TuteesController(repositoryStub.Object);
+         var controller = new TuteesController(repositoryStub.Object);
 
         //Act
         try
@@ -309,8 +280,8 @@ public class TuteeUnitTests
     public async Task DeleteTutee_and_returns_a_type_of_NotFoundResult()
     {
 
-        //Arranage
-        var expectedTutee = createTutee();
+        //Arrange
+        var expectedTutee = CreateTutee();
 
         var repositoryStub = new Mock<TutorMeContext>();
         repositoryStub.Setup(repo => repo.Tutees.FindAsync(It.IsAny<Guid>())).ReturnsAsync((Tutee)null);
@@ -326,8 +297,8 @@ public class TuteeUnitTests
     public async Task DeleteTutee_and_returns_a_type_of_NoContentResult()
     {
 
-        //Arranage
-        var expectedTutee = createTutee();
+        //Arrange
+        var expectedTutee = CreateTutee();
 
         var repositoryStub = new Mock<TutorMeContext>();
         repositoryStub.Setup(repo => repo.Tutees.FindAsync(It.IsAny<Guid>())).ReturnsAsync(expectedTutee);
@@ -343,8 +314,8 @@ public class TuteeUnitTests
     public async Task DeleteTutee_and_returns_a_type_of_NotFound()
     {
 
-        //Arranage
-        var expectedTutee = createTutee();
+        //Arrange
+        var expectedTutee = CreateTutee();
 
         var repositoryStub = new Mock<TutorMeContext>();
         repositoryStub.Setup(repo => repo.Tutees).Returns((DbSet<Tutee>)null);

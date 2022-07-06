@@ -13,10 +13,8 @@ using Moq;
 
 public class ModulesUnitTests
 {
-     List<Module> _expectedModules=new List <Module>{ createModule(), createModule(), createModule(), createModule() };
-
-      //DTO
-     private  static Module createModule() 
+    //DTO
+     private  static Module CreateModule() 
     {
         return new()
         { 
@@ -27,9 +25,9 @@ public class ModulesUnitTests
         };
     }
     [Fact]
-    public async Task GetModuleAsync_WithUnexistingModule_ReturnsNotFound()
+    public async Task GetModuleAsync_WithUnExistingModule_ReturnsNotFound()
     {
-        //Arranage
+        //Arrange
         
         var repositoryStub = new Mock<TutorMeContext>();
         repositoryStub.Setup(repo => repo.Modules.FindAsync(It.IsAny<string>())).ReturnsAsync((Module)null);
@@ -44,8 +42,8 @@ public class ModulesUnitTests
     [Fact]
     public async Task GetModuleAsync_WithUnExistingDb_ReturnsFound()
     {   
-        //Arranage
-        var expectedModule = createModule();
+        //Arrange
+        var expectedModule = CreateModule();
         // id = Guid.NewGuid().ToString();
         
         var repositoryStub = new Mock<TutorMeContext>();
@@ -63,11 +61,11 @@ public class ModulesUnitTests
         
     }
     [Fact]
-    public async Task GetModuleAsync_WithanEmpyDb()
+    public async Task GetModuleAsync_WithAnEmptyDb()
     {       
-        //Arranage
+        //Arrange
         var repositoryStub = new Mock<TutorMeContext>();
-        //setup repositorystub to null
+
         repositoryStub.Setup(repo => repo.Modules).Returns((DbSet<Module>)null);
         
         //Act
@@ -82,13 +80,12 @@ public class ModulesUnitTests
     [Fact]
     public async Task GetModulesAsync_WithExistingItem_ReturnsFound()
     {
-        //Arranage
+        //Arrange
         var repositoryStub = new Mock<TutorMeContext>();
         var controller = new ModulesController(repositoryStub.Object);
 
           
         //Act
-        var yourGuid = Guid.NewGuid().ToString();
         var result = await controller.GetModules();
     
         //Assert     
@@ -99,9 +96,8 @@ public class ModulesUnitTests
     [Fact]
     public async Task GetModulesAsync_WithExistingItemReturnsFound()
     {
-        //Arranage
+        //Arrange
         var repositoryStub = new Mock<TutorMeContext>();
-        //setup repositorystub to null
         repositoryStub.Setup(repo => repo.Modules).Returns((DbSet<Module>)null);
         
         //Act
@@ -117,14 +113,12 @@ public class ModulesUnitTests
     [Fact]
     public async Task PutModule_With_differentIds_BadRequestResult()
     {
-        //Arranage
+        //Arrange
         var repositoryStub = new Mock<TutorMeContext>();
-        //setup repositorystub to null
-        var expectedModule = createModule();
+        var expectedModule = CreateModule();
          //Act
         var controller = new ModulesController(repositoryStub.Object);
         var id= Guid.NewGuid().ToString();
-        var email= Guid.NewGuid().ToString();
         var result = await controller.PutModule(id,expectedModule);
 
         //Assert     
@@ -134,19 +128,16 @@ public class ModulesUnitTests
     [Fact]
     public async Task PutModule_With_same_Id_but_UnExisting_Module_returns_NullReferenceException()//####
     {
-        //Arranage
+        //Arrange
         var repositoryStub = new Mock<TutorMeContext>();
-        //setup repositorystub to null
-        var expectedModule = createModule();
-        //repositoryStub.Setup(repo => repo.Modules.Find(expectedModule.Id).Equals(expectedModule.Id)).Returns(false);
+        var expectedModule = CreateModule();
+      
        repositoryStub.Setup(repo => repo.Modules).Returns((DbSet<Module>)null);
         //Act
         var controller = new ModulesController(repositoryStub.Object);
-        var id= Guid.NewGuid().ToString();
-        var email= Guid.NewGuid().ToString();
-        try
+         try
         {
-            var result = await controller.PutModule(expectedModule.Code,expectedModule);
+          await controller.PutModule(expectedModule.Code,expectedModule);
         }
         //Assert   
         catch(Exception e)
@@ -158,14 +149,13 @@ public class ModulesUnitTests
     [Fact]
     public async Task  PutModule_WithUnExistingId_NotFound()
     {
-        //Arranage
+        //Arrange
         var repositoryStub = new Mock<TutorMeContext>();
-        //setup repositorystub to null
-        var expectedModule = createModule();
+       
+        var expectedModule = CreateModule();
         //Act
         var controller = new ModulesController(repositoryStub.Object);
         var id= Guid.NewGuid().ToString();
-        var email= Guid.NewGuid().ToString();
         var result = await controller.PutModule(id,expectedModule);
 
         //Assert     
@@ -179,8 +169,8 @@ public class ModulesUnitTests
     public async Task PostModule_and_returns_a_type_of_Action_Result_returns_null()
     {
          
-        //Arranage
-        var expectedModule = createModule();
+        //Arrange
+        var expectedModule = CreateModule();
 
         var repositoryStub = new Mock<TutorMeContext>();
         repositoryStub.Setup(repo => repo.Modules.FindAsync(It.IsAny<string>())).ReturnsAsync((expectedModule));
@@ -197,8 +187,8 @@ public class ModulesUnitTests
      public async Task PostModule_and_returns_a_type_of_Action()
     {
          
-        //Arranage
-        var expectedModule = createModule();
+        //Arrange
+        var expectedModule = CreateModule();
 
         var repositoryStub = new Mock<TutorMeContext>();
         repositoryStub.Setup(repo => repo.Modules.FindAsync(It.IsAny<string>())).ReturnsAsync((Module)null);
@@ -215,8 +205,8 @@ public class ModulesUnitTests
      public async Task PostModule_and_returns_ObjectResult()
      {
          
-         //Arranage
-         var expectedModule = createModule();
+         //Arrange
+         var expectedModule = CreateModule();
 
          var repositoryStub = new Mock<TutorMeContext>();
          repositoryStub.Setup(repo => repo.Modules).Returns((DbSet<Module>)null);
@@ -234,8 +224,8 @@ public class ModulesUnitTests
      public async Task PostModule_and_returns_CreatedAtActionResult()
      {
          
-         //Arranage
-         var expectedModule = createModule();
+         //Arrange
+         var expectedModule = CreateModule();
 
          var repositoryStub = new Mock<TutorMeContext>();
          repositoryStub.Setup(repo => repo.Modules.Add(expectedModule)).Returns((Func<EntityEntry<Module>>)null);
@@ -253,8 +243,8 @@ public class ModulesUnitTests
      public async Task PostModule_and_returns_ModuleExists_DbUpdateException()
      {
          
-         //Arranage
-         var expectedModule = createModule();
+         //Arrange
+         var expectedModule = CreateModule();
 
          var repositoryStub = new Mock<TutorMeContext>();
          repositoryStub.Setup(repo => repo.Modules.Add(expectedModule)).Throws<DbUpdateException>();
@@ -266,7 +256,7 @@ public class ModulesUnitTests
          //Act
          try
          {
-             var result = await controller.PostModule(expectedModule);
+             await controller.PostModule(expectedModule);
          }
          // Assert
          catch(Exception e)
@@ -280,8 +270,8 @@ public class ModulesUnitTests
     public async Task DeleteModule_and_returns_a_type_of_NotFoundResult()
     {
          
-        //Arranage
-        var expectedModule = createModule();
+        //Arrange
+        var expectedModule = CreateModule();
 
         var repositoryStub = new Mock<TutorMeContext>();
         repositoryStub.Setup(repo => repo.Modules.FindAsync(It.IsAny<string>())).ReturnsAsync((Module)null);
@@ -297,8 +287,8 @@ public class ModulesUnitTests
     public async Task DeleteModule_and_returns_a_type_of_NoContentResult()
     {
          
-        //Arranage
-        var expectedModule = createModule();
+        //Arrange
+        var expectedModule = CreateModule();
 
         var repositoryStub = new Mock<TutorMeContext>();
         repositoryStub.Setup(repo => repo.Modules.FindAsync(It.IsAny<string>())).ReturnsAsync(expectedModule);
@@ -314,8 +304,8 @@ public class ModulesUnitTests
     public async Task DeleteModule_and_returns_a_type_of_NotFound()
     {
          
-        //Arranage
-        var expectedModule = createModule();
+        //Arrange
+        var expectedModule = CreateModule();
 
         var repositoryStub = new Mock<TutorMeContext>();
         repositoryStub.Setup(repo => repo.Modules).Returns((DbSet<Module>)null);
