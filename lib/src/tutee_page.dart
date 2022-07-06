@@ -29,11 +29,11 @@ class TuteePageState extends State<TuteePage> {
           drawer: TuteeNavigationDrawerWidget(user: widget.user),
           appBar: AppBar(
             toolbarHeight: 70,
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.vertical(
-                bottom: Radius.circular(60),
-              ),
-            ),
+            // shape: const RoundedRectangleBorder(
+            //   borderRadius: BorderRadius.vertical(
+            //     bottom: Radius.circular(60),
+            //   ),
+            // ),
             bottom: const TabBar(
               indicatorColor: Colors.white,
               tabs: [
@@ -63,8 +63,8 @@ class TuteePageState extends State<TuteePage> {
             title: const Text('Tutor Me'),
             flexibleSpace: Container(
               decoration: const BoxDecoration(
-                  borderRadius:
-                      BorderRadius.vertical(bottom: Radius.circular(60)),
+                  // borderRadius:
+                  //     BorderRadius.vertical(bottom: Radius.circular(60)),
                   gradient: LinearGradient(
                       colors: <Color>[Colors.orange, Colors.red],
                       begin: Alignment.topCenter,

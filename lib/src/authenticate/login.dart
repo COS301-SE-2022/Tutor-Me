@@ -102,6 +102,7 @@ class _LoginState extends State<Login> {
 
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.04,
+                width: MediaQuery.of(context).size.height,
               ),
 
               Column(
@@ -159,6 +160,9 @@ class _LoginState extends State<Login> {
                     // }
 
                     if (errMsg != "") {
+                      setState(() {
+                        isLoading = false;
+                      });
                       showDialog(
                         context: context,
                         builder: (context) {
@@ -200,6 +204,9 @@ class _LoginState extends State<Login> {
                                 builder: (context) => TutorPage(user: tutor)),
                           );
                         } catch (e) {
+                          setState(() {
+                            isLoading = false;
+                          });
                           showDialog(
                             context: context,
                             builder: (context) {
@@ -242,6 +249,9 @@ class _LoginState extends State<Login> {
                                 builder: (context) => TuteePage(user: tutee)),
                           );
                         } catch (e) {
+                          setState(() {
+                            isLoading = false;
+                          });
                           showDialog(
                             context: context,
                             builder: (context) {

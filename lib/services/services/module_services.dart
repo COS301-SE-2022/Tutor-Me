@@ -91,4 +91,15 @@ class ModuleServices {
     }
     return modulesByInstitution;
   }
+
+  static getInstitutions() async {
+    final modules = await getModules();
+    List institutions = [];
+    for (final item in modules) {
+      if (!institutions.contains(item.getInstitution)) {
+        institutions.add(item.getInstitution);
+      }
+    }
+    return institutions;
+  }
 }

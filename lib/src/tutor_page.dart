@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tutor_me/services/models/tutors.dart';
+import 'package:tutor_me/src/notifications/tutor_notifications.dart';
 import 'package:tutor_me/src/pages/chats_page.dart';
 import 'package:tutor_me/src/pages/tutees_list.dart';
 // import 'package:tutor_me/modules/api.services.dart';
@@ -20,8 +21,6 @@ class TutorPage extends StatefulWidget {
 }
 
 class TutorPageState extends State<TutorPage> {
-  
-
   void search(String search) {
     setState(() {
       //  tutors = tutors.where((tu) => false)
@@ -31,65 +30,71 @@ class TutorPageState extends State<TutorPage> {
   // var size = tutors.length;
   @override
   Widget build(BuildContext context) {
-   
     return DefaultTabController(
       length: 3,
       child: Scaffold(
-            drawer: TutorNavigationDrawerWidget(user : widget.user),
-            appBar: AppBar(
-              toolbarHeight: 70,
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.vertical(
-                  bottom: Radius.circular(60),
-                ),
-              ),
-              bottom: const TabBar(
-                indicatorColor: Colors.white,
-                tabs: [
-                  Tab(
-                      icon: Icon(
-                        Icons.chat_bubble_rounded,
-                        color: Colors.white,
-                      ),
-                      text: 'Chat'),
-                  Tab(
+          drawer: TutorNavigationDrawerWidget(user: widget.user),
+          appBar: AppBar(
+            toolbarHeight: 70,
+            // shape: const RoundedRectangleBorder(
+            //   borderRadius: BorderRadius.vertical(
+            //     bottom: Radius.circular(60),
+            //   ),
+            // ),
+            bottom: const TabBar(
+              indicatorColor: Colors.white,
+              tabs: [
+                Tab(
                     icon: Icon(
-                      Icons.person,
+                      Icons.chat_bubble_rounded,
                       color: Colors.white,
                     ),
-                    text: 'Tutees',
+                    text: 'Chat'),
+                Tab(
+                  icon: Icon(
+                    Icons.person,
+                    color: Colors.white,
                   ),
-                  Tab(
-                      icon: Icon(
-                        Icons.phone,
-                        color: Colors.white,
-                      ),
-                      text: 'Calls')
-                ],
-              ),
-              // backgroundColor: const Color(0xffD6521B),
-              centerTitle: true,
-              title: const Text('Tutor Me'),
-              flexibleSpace: Container(
-                decoration: const BoxDecoration(
-                    borderRadius:
-                        BorderRadius.vertical(bottom: Radius.circular(60)),
-                    gradient: LinearGradient(
-                        colors: <Color>[Colors.orange, Colors.red],
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter)),
-              ),
-              // actions: <Widget>[
-
-              // ],
-            ),
-            body: TabBarView(
-              children: <Widget>[
-                Chats(user: widget.user),
-                const TuteesList(),
-                const Calls()
+                  text: 'Tutees',
+                ),
+                Tab(
+                    icon: Icon(
+                      Icons.phone,
+                      color: Colors.white,
+                    ),
+                    text: 'Calls')
               ],
-            )),
+            ),
+            // backgroundColor: const Color(0xffD6521B),
+            centerTitle: true,
+            title: const Text('Tutor Me'),
+            flexibleSpace: Container(
+              decoration: const BoxDecoration(
+                  // borderRadius:
+                  //     BorderRadius.vertical(bottom: Radius.circular(60)),
+                  gradient: LinearGradient(
+                      colors: <Color>[Colors.orange, Colors.red],
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter)),
+            ),
+            actions: <Widget>[
+              IconButton(
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (BuildContext context) => TutorNotifications(
+                              user: widget.user,
+                            )));
+                  },
+                  icon: const Icon(Icons.notifications))
+            ],
+          ),
+          body: TabBarView(
+            children: <Widget>[
+              Chats(user: widget.user),
+              const TuteesList(),
+              const Calls()
+            ],
+          )),
     );
 
     // Widget _starBuilder(BuildContext context, int i) {

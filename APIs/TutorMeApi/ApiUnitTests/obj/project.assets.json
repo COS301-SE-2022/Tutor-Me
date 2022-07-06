@@ -11100,11 +11100,16 @@
     ]
   },
   "packageFolders": {
+<<<<<<< HEAD
     "/home/simphiwe/.nuget/packages/": {}
+=======
+    "/home/kuda/.nuget/packages/": {}
+>>>>>>> a6ebfd844083f3d4063989674299abb7178e5fee
   },
   "project": {
     "version": "1.0.0",
     "restore": {
+<<<<<<< HEAD
       "projectUniqueName": "/home/simphiwe/Desktop/updated_CapsOn/Tutor-ME/APIs/TutorMeApi/ApiUnitTests/ApiUnitTests.csproj",
       "projectName": "ApiUnitTests",
       "projectPath": "/home/simphiwe/Desktop/updated_CapsOn/Tutor-ME/APIs/TutorMeApi/ApiUnitTests/ApiUnitTests.csproj",
@@ -11113,6 +11118,16 @@
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/simphiwe/.nuget/NuGet/NuGet.Config"
+=======
+      "projectUniqueName": "/home/kuda/Documents/GitHub/Tutor-ME/APIs/TutorMeApi/ApiUnitTests/ApiUnitTests.csproj",
+      "projectName": "ApiUnitTests",
+      "projectPath": "/home/kuda/Documents/GitHub/Tutor-ME/APIs/TutorMeApi/ApiUnitTests/ApiUnitTests.csproj",
+      "packagesPath": "/home/kuda/.nuget/packages/",
+      "outputPath": "/home/kuda/Documents/GitHub/Tutor-ME/APIs/TutorMeApi/ApiUnitTests/obj/",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "/home/kuda/.nuget/NuGet/NuGet.Config"
+>>>>>>> a6ebfd844083f3d4063989674299abb7178e5fee
       ],
       "originalTargetFrameworks": [
         "net6.0"
@@ -11124,8 +11139,13 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
+<<<<<<< HEAD
             "/home/simphiwe/Desktop/updated_CapsOn/Tutor-ME/APIs/TutorMeApi/Api/Api.csproj": {
               "projectPath": "/home/simphiwe/Desktop/updated_CapsOn/Tutor-ME/APIs/TutorMeApi/Api/Api.csproj"
+=======
+            "/home/kuda/Documents/GitHub/Tutor-ME/APIs/TutorMeApi/Api/Api.csproj": {
+              "projectPath": "/home/kuda/Documents/GitHub/Tutor-ME/APIs/TutorMeApi/Api/Api.csproj"
+>>>>>>> a6ebfd844083f3d4063989674299abb7178e5fee
             }
           }
         }
@@ -11184,7 +11204,11 @@
             "privateAssets": "all"
           }
         },
+<<<<<<< HEAD
         "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/6.0.300/RuntimeIdentifierGraph.json"
+=======
+        "runtimeIdentifierGraphPath": "/snap/dotnet-sdk/172/sdk/6.0.301/RuntimeIdentifierGraph.json"
+>>>>>>> a6ebfd844083f3d4063989674299abb7178e5fee
       }
     }
   }

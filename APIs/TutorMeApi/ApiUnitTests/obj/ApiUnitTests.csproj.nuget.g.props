@@ -4,13 +4,22 @@
     <RestoreSuccess Condition=" '$(RestoreSuccess)' == '' ">True</RestoreSuccess>
     <RestoreTool Condition=" '$(RestoreTool)' == '' ">NuGet</RestoreTool>
     <ProjectAssetsFile Condition=" '$(ProjectAssetsFile)' == '' ">$(MSBuildThisFileDirectory)project.assets.json</ProjectAssetsFile>
+<<<<<<< HEAD
     <NuGetPackageRoot Condition=" '$(NuGetPackageRoot)' == '' ">/home/simphiwe/.nuget/packages/</NuGetPackageRoot>
     <NuGetPackageFolders Condition=" '$(NuGetPackageFolders)' == '' ">/home/simphiwe/.nuget/packages/</NuGetPackageFolders>
+=======
+    <NuGetPackageRoot Condition=" '$(NuGetPackageRoot)' == '' ">/home/kuda/.nuget/packages/</NuGetPackageRoot>
+    <NuGetPackageFolders Condition=" '$(NuGetPackageFolders)' == '' ">/home/kuda/.nuget/packages/</NuGetPackageFolders>
+>>>>>>> a6ebfd844083f3d4063989674299abb7178e5fee
     <NuGetProjectStyle Condition=" '$(NuGetProjectStyle)' == '' ">PackageReference</NuGetProjectStyle>
     <NuGetToolVersion Condition=" '$(NuGetToolVersion)' == '' ">6.0.0</NuGetToolVersion>
   </PropertyGroup>
   <ItemGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+<<<<<<< HEAD
     <SourceRoot Include="/home/simphiwe/.nuget/packages/" />
+=======
+    <SourceRoot Include="/home/kuda/.nuget/packages/" />
+>>>>>>> a6ebfd844083f3d4063989674299abb7178e5fee
   </ItemGroup>
   <ImportGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
     <Import Project="$(NuGetPackageRoot)xunit.runner.visualstudio/2.4.5/build/netcoreapp3.1/xunit.runner.visualstudio.props" Condition="Exists('$(NuGetPackageRoot)xunit.runner.visualstudio/2.4.5/build/netcoreapp3.1/xunit.runner.visualstudio.props')" />
@@ -21,10 +30,18 @@
     <Import Project="$(NuGetPackageRoot)microsoft.entityframeworkcore/6.0.6/buildTransitive/net6.0/Microsoft.EntityFrameworkCore.props" Condition="Exists('$(NuGetPackageRoot)microsoft.entityframeworkcore/6.0.6/buildTransitive/net6.0/Microsoft.EntityFrameworkCore.props')" />
   </ImportGroup>
   <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+<<<<<<< HEAD
     <Pkgxunit_analyzers Condition=" '$(Pkgxunit_analyzers)' == '' ">/home/simphiwe/.nuget/packages/xunit.analyzers/0.10.0</Pkgxunit_analyzers>
     <PkgMicrosoft_Extensions_ApiDescription_Server Condition=" '$(PkgMicrosoft_Extensions_ApiDescription_Server)' == '' ">/home/simphiwe/.nuget/packages/microsoft.extensions.apidescription.server/3.0.0</PkgMicrosoft_Extensions_ApiDescription_Server>
     <PkgMessagePackAnalyzer Condition=" '$(PkgMessagePackAnalyzer)' == '' ">/home/simphiwe/.nuget/packages/messagepackanalyzer/2.1.152</PkgMessagePackAnalyzer>
     <PkgMicrosoft_CodeAnalysis_Analyzers Condition=" '$(PkgMicrosoft_CodeAnalysis_Analyzers)' == '' ">/home/simphiwe/.nuget/packages/microsoft.codeanalysis.analyzers/3.3.2</PkgMicrosoft_CodeAnalysis_Analyzers>
     <PkgMicrosoft_CodeAnalysis_AnalyzerUtilities Condition=" '$(PkgMicrosoft_CodeAnalysis_AnalyzerUtilities)' == '' ">/home/simphiwe/.nuget/packages/microsoft.codeanalysis.analyzerutilities/3.3.0</PkgMicrosoft_CodeAnalysis_AnalyzerUtilities>
+=======
+    <Pkgxunit_analyzers Condition=" '$(Pkgxunit_analyzers)' == '' ">/home/kuda/.nuget/packages/xunit.analyzers/0.10.0</Pkgxunit_analyzers>
+    <PkgMicrosoft_Extensions_ApiDescription_Server Condition=" '$(PkgMicrosoft_Extensions_ApiDescription_Server)' == '' ">/home/kuda/.nuget/packages/microsoft.extensions.apidescription.server/3.0.0</PkgMicrosoft_Extensions_ApiDescription_Server>
+    <PkgMessagePackAnalyzer Condition=" '$(PkgMessagePackAnalyzer)' == '' ">/home/kuda/.nuget/packages/messagepackanalyzer/2.1.152</PkgMessagePackAnalyzer>
+    <PkgMicrosoft_CodeAnalysis_Analyzers Condition=" '$(PkgMicrosoft_CodeAnalysis_Analyzers)' == '' ">/home/kuda/.nuget/packages/microsoft.codeanalysis.analyzers/3.3.2</PkgMicrosoft_CodeAnalysis_Analyzers>
+    <PkgMicrosoft_CodeAnalysis_AnalyzerUtilities Condition=" '$(PkgMicrosoft_CodeAnalysis_AnalyzerUtilities)' == '' ">/home/kuda/.nuget/packages/microsoft.codeanalysis.analyzerutilities/3.3.0</PkgMicrosoft_CodeAnalysis_AnalyzerUtilities>
+>>>>>>> a6ebfd844083f3d4063989674299abb7178e5fee
   </PropertyGroup>
 </Project>
