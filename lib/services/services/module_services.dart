@@ -36,6 +36,7 @@ class ModuleServices {
       'moduleName': module.getModuleName,
       'institution': module.getInstitution,
       'faculty': module.getFaculty,
+      'year': module.getYear,
     });
     final header = <String, String>{
       'Content-Type': 'application/json; charset=utf-8',
