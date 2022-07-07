@@ -167,6 +167,11 @@ namespace Api.Data
                     .IsRequired()
                     .IsUnicode(false)
                     .HasColumnName("tutorsCode");
+
+                entity.Property(e => e.Year)
+                    .IsRequired()
+                    .IsUnicode(false)
+                    .HasColumnName("year");
             });
 
             modelBuilder.Entity<Tutor>(entity =>
@@ -261,6 +266,11 @@ namespace Api.Data
                 entity.Property(e => e.TuteesCode)
                     .IsUnicode(false)
                     .HasColumnName("tuteesCode");
+
+                entity.Property(e => e.Year)
+                    .IsRequired()
+                    .IsUnicode(false)
+                    .HasColumnName("year");
             });
 
             OnModelCreatingPartial(modelBuilder);
