@@ -63,6 +63,7 @@ class _RegisterStep3State extends State<RegisterStep3> {
           // courseController.text,
           //yearLvl
           widget.confirmPassword,
+          '1' //TODO:change to actual value
         );
         Navigator.push(
           context,
@@ -106,6 +107,7 @@ class _RegisterStep3State extends State<RegisterStep3> {
           // courseController.text,
           //yearLvl
           widget.confirmPassword,
+          '1' //TODO: Change to actual value
         );
 
         Navigator.push(

@@ -23,5 +23,6 @@ namespace Api.Models
         public string TutorsCode { get; set; }
         public string Bio { get; set; }
         public string Connections { get; set; }
+        public string Year { get; set; }
     }
 }

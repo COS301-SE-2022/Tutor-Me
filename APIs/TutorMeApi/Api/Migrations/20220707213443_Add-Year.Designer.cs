@@ -12,14 +12,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Api.Migrations
 {
     [DbContext(typeof(TutorMeContext))]
-    [Migration("20220605161347_DatabaseChange")]
-    partial class DatabaseChange
+    [Migration("20220707213443_Add-Year")]
+    partial class AddYear
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.5")
+                .HasAnnotation("ProductVersion", "6.0.6")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -52,10 +52,51 @@ namespace Api.Migrations
                         .HasColumnType("varchar(50)")
                         .HasColumnName("moduleName");
 
+                    b.Property<string>("Year")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(50)")
+                        .HasColumnName("year");
+
                     b.HasKey("Code")
                         .HasName("PK__Modules__357D4CF8AD050163");
 
                     b.ToTable("Modules");
+                });
+
+            modelBuilder.Entity("Api.Models.Request", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("id")
+                        .HasDefaultValueSql("(newid())");
+
+                    b.Property<string>("DateCreated")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(10)")
+                        .HasColumnName("dateCreated");
+
+                    b.Property<string>("ReceiverId")
+                        .IsRequired()
+                        .HasMaxLength(36)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(36)")
+                        .HasColumnName("receiverId");
+
+                    b.Property<string>("RequesterId")
+                        .IsRequired()
+                        .HasMaxLength(36)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(36)")
+                        .HasColumnName("requesterId");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Requests");
                 });
 
             modelBuilder.Entity("Api.Models.Tutee", b =>
@@ -65,11 +106,6 @@ namespace Api.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("id")
                         .HasDefaultValueSql("(newid())");
-
-                    b.Property<int>("Age")
-                        .IsUnicode(false)
-                        .HasColumnType("int")
-                        .HasColumnName("age");
 
                     b.Property<string>("Bio")
                         .IsUnicode(false)
@@ -85,6 +121,12 @@ namespace Api.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(max)")
                         .HasColumnName("course");
+
+                    b.Property<string>("DateOfBirth")
+                        .IsRequired()
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(max)")
+                        .HasColumnName("dateOfBirth");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -145,15 +187,22 @@ namespace Api.Migrations
                         .IsRequired()
                         .ValueGeneratedOnAdd()
                         .HasMaxLength(1)
+                        .IsUnicode(false)
                         .HasColumnType("varchar(1)")
-                        .HasDefaultValue("0")
-                        .HasColumnName("status");
+                        .HasColumnName("status")
+                        .HasDefaultValueSql("('0')");
 
                     b.Property<string>("TutorsCode")
                         .IsRequired()
                         .IsUnicode(false)
                         .HasColumnType("varchar(max)")
                         .HasColumnName("tutorsCode");
+
+                    b.Property<string>("Year")
+                        .IsRequired()
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(max)")
+                        .HasColumnName("year");
 
                     b.HasKey("Id");
 
@@ -168,11 +217,6 @@ namespace Api.Migrations
                         .HasColumnName("id")
                         .HasDefaultValueSql("(newid())");
 
-                    b.Property<int>("Age")
-                        .IsUnicode(false)
-                        .HasColumnType("int")
-                        .HasColumnName("age");
-
                     b.Property<string>("Bio")
                         .IsUnicode(false)
                         .HasColumnType("varchar(max)")
@@ -187,6 +231,12 @@ namespace Api.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(max)")
                         .HasColumnName("course");
+
+                    b.Property<string>("DateOfBirth")
+                        .IsRequired()
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(max)")
+                        .HasColumnName("dateOfBirth");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -243,26 +293,39 @@ namespace Api.Migrations
                         .HasColumnType("varchar(max)")
                         .HasColumnName("password");
 
-                    b.Property<int>("Rating")
+                    b.Property<string>("Rating")
+                        .IsRequired()
                         .ValueGeneratedOnAdd()
                         .HasMaxLength(1)
                         .IsUnicode(false)
-                        .HasColumnType("int")
+                        .HasColumnType("varchar(1)")
                         .HasColumnName("rating")
-                        .HasDefaultValueSql("0");
+                        .HasDefaultValueSql("((0))");
+
+                    b.Property<string>("Requests")
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(max)")
+                        .HasColumnName("requests");
 
                     b.Property<string>("Status")
                         .IsRequired()
                         .ValueGeneratedOnAdd()
                         .HasMaxLength(1)
+                        .IsUnicode(false)
                         .HasColumnType("varchar(1)")
-                        .HasDefaultValue("0")
-                        .HasColumnName("status");
+                        .HasColumnName("status")
+                        .HasDefaultValueSql("('0')");
 
                     b.Property<string>("TuteesCode")
                         .IsUnicode(false)
                         .HasColumnType("varchar(max)")
                         .HasColumnName("tuteesCode");
+
+                    b.Property<string>("Year")
+                        .IsRequired()
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(max)")
+                        .HasColumnName("year");
 
                     b.HasKey("Id");
 
