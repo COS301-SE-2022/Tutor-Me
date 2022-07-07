@@ -2638,11 +2638,14 @@
       "xunit.runner.visualstudio/2.4.5": {},
       "Api/1.0.0": {
         "dependencies": {
+          "FluentAssertions": "6.7.0",
           "Microsoft.AspNetCore.Cors": "2.2.0",
           "Microsoft.EntityFrameworkCore.SqlServer": "6.0.6",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "6.0.6",
           "Moq": "4.18.1",
-          "Swashbuckle.AspNetCore": "6.3.1"
+          "Swashbuckle.AspNetCore": "6.3.1",
+          "xunit.assert": "2.4.1",
+          "xunit.extensibility.core": "2.4.1"
         },
         "runtime": {
           "Api.dll": {}

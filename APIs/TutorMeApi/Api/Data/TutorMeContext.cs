@@ -47,6 +47,12 @@ namespace Api.Data
                     .IsUnicode(false)
                     .HasColumnName("institution");
 
+                entity.Property(e => e.Year)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("year");
+
                 entity.Property(e => e.ModuleName)
                     .IsRequired()
                     .HasMaxLength(50)
