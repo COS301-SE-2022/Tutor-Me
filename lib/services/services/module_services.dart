@@ -92,7 +92,7 @@ class ModuleServices {
     return modulesByInstitution;
   }
 
-  getInstitutions() async {
+  static getInstitutions() async {
     final modules = await getModules();
     List institutions = [];
     for (final item in modules) {

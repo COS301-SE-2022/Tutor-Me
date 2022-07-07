@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'register.dart';
+import 'register_step1.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'login.dart';
 
@@ -232,7 +232,7 @@ class _RegisterOrLoginState extends State<RegisterOrLogin> {
 
   void goToRegister(BuildContext context) {
     Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => const Register()));
+        .push(MaterialPageRoute(builder: (context) => const RegisterStep1()));
   }
 
   void goToLogin(BuildContext context) {
@@ -240,3 +240,6 @@ class _RegisterOrLoginState extends State<RegisterOrLogin> {
         .push(MaterialPageRoute(builder: (context) => const Login()));
   }
 }
+
+ 
+
