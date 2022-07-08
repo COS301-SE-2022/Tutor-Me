@@ -42,7 +42,7 @@ class TuteeServices {
       throw Exception(e);
     }
   }
-  
+
   getRequests(String id) async {
     final url =
         Uri.https('tutormeapi1.azurewebsites.net', 'api/Requests/Tutee/$id');
@@ -314,6 +314,24 @@ class TuteeServices {
     }
     if (got == false) {
       throw Exception("Email or password is incorrect");
+    } else {
+      return tutee;
+    }
+  }
+
+  static getTuteeByEmail(String email) async {
+    List<Tutees> tutees = await getTutees();
+    late Tutees tutee;
+    bool got = false;
+    for (int i = 0; i < tutees.length; i++) {
+      if (tutees[i].getEmail == email) {
+        got = true;
+        tutee = tutees[i];
+        break;
+      }
+    }
+    if (got == false) {
+      throw Exception("Email is incorrect");
     } else {
       return tutee;
     }
