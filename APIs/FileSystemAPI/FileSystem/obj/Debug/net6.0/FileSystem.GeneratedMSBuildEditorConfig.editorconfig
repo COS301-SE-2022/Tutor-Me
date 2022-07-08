@@ -8,9 +8,17 @@ build_property.PlatformNeutralAssembly =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = FileSystem
 build_property.RootNamespace = FileSystem
+<<<<<<< HEAD
 build_property.ProjectDir = /home/simphiwe/Desktop/updated_CapsOn/Tutor-ME/APIs/FileSystemAPI/FileSystem/
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
 build_property.MSBuildProjectDirectory = /home/simphiwe/Desktop/updated_CapsOn/Tutor-ME/APIs/FileSystemAPI/FileSystem
+=======
+build_property.ProjectDir = c:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\APIs\FileSystemAPI\FileSystem\
+build_property.RazorLangVersion = 6.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = c:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\APIs\FileSystemAPI\FileSystem
+>>>>>>> e969ac6537c10e9cdc641ad09943b57bf3064d6e
 build_property._RazorSourceGeneratorDebug = 

@@ -50,6 +50,13 @@ namespace Api.Migrations
                         .HasColumnType("varchar(50)")
                         .HasColumnName("moduleName");
 
+                    b.Property<string>("Year")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(50)")
+                        .HasColumnName("year");
+
                     b.HasKey("Code")
                         .HasName("PK__Modules__357D4CF8AD050163");
 
@@ -189,6 +196,12 @@ namespace Api.Migrations
                         .HasColumnType("varchar(max)")
                         .HasColumnName("tutorsCode");
 
+                    b.Property<string>("Year")
+                        .IsRequired()
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(max)")
+                        .HasColumnName("year");
+
                     b.HasKey("Id");
 
                     b.ToTable("Tutee", (string)null);
@@ -305,6 +318,12 @@ namespace Api.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(max)")
                         .HasColumnName("tuteesCode");
+
+                    b.Property<string>("Year")
+                        .IsRequired()
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(max)")
+                        .HasColumnName("year");
 
                     b.HasKey("Id");
 

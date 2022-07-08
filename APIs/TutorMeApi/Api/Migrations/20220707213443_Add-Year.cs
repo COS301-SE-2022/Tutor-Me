@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Api.Migrations
 {
-    public partial class TutorMeStart : Migration
+    public partial class AddYear : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -16,7 +16,8 @@ namespace Api.Migrations
                     code = table.Column<string>(type: "varchar(800)", unicode: false, maxLength: 800, nullable: false),
                     moduleName = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false),
                     institution = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false),
-                    faculty = table.Column<string>(type: "varchar(max)", unicode: false, nullable: false)
+                    faculty = table.Column<string>(type: "varchar(max)", unicode: false, nullable: false),
+                    year = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -56,7 +57,8 @@ namespace Api.Migrations
                     location = table.Column<string>(type: "varchar(max)", unicode: false, nullable: true),
                     tutorsCode = table.Column<string>(type: "varchar(max)", unicode: false, nullable: false),
                     bio = table.Column<string>(type: "varchar(max)", unicode: false, nullable: true),
-                    connections = table.Column<string>(type: "varchar(max)", unicode: false, nullable: true)
+                    connections = table.Column<string>(type: "varchar(max)", unicode: false, nullable: true),
+                    year = table.Column<string>(type: "varchar(max)", unicode: false, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -84,7 +86,8 @@ namespace Api.Migrations
                     bio = table.Column<string>(type: "varchar(max)", unicode: false, nullable: true),
                     connections = table.Column<string>(type: "varchar(max)", unicode: false, nullable: true),
                     rating = table.Column<string>(type: "varchar(1)", unicode: false, maxLength: 1, nullable: false, defaultValueSql: "((0))"),
-                    requests = table.Column<string>(type: "varchar(max)", unicode: false, nullable: true)
+                    requests = table.Column<string>(type: "varchar(max)", unicode: false, nullable: true),
+                    year = table.Column<string>(type: "varchar(max)", unicode: false, nullable: false)
                 },
                 constraints: table =>
                 {
