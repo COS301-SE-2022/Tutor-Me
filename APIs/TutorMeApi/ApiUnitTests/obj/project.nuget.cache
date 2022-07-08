@@ -1,6 +1,5 @@
 {
   "version": 2,
-<<<<<<< HEAD
   "dgSpecHash": "I+tICXvfgcjuuWtugNcrbEDbYNNrrKMd7o9hICgLm2I3/Xmj8SlXiSKIyKk+l0O0mju6EkI3K430WDxWF9Gk2A==",
   "success": true,
   "projectFilePath": "/home/simphiwe/Desktop/updated_CapsOn/Tutor-ME/APIs/TutorMeApi/ApiUnitTests/ApiUnitTests.csproj",
@@ -204,7 +203,6 @@
     "/home/simphiwe/.nuget/packages/xunit.extensibility.core/2.4.1/xunit.extensibility.core.2.4.1.nupkg.sha512",
     "/home/simphiwe/.nuget/packages/xunit.extensibility.execution/2.4.1/xunit.extensibility.execution.2.4.1.nupkg.sha512",
     "/home/simphiwe/.nuget/packages/xunit.runner.visualstudio/2.4.5/xunit.runner.visualstudio.2.4.5.nupkg.sha512"
-=======
   "dgSpecHash": "oDE/rCiMIgK8+a9omuEcS5Dgs1bA232L980C7gwR/axl5d/a2Ubj/7qmPZ4ek2u0dH8NSn1VTI5EWjAg3wPa+A==",
   "success": true,
   "projectFilePath": "C:\\Users\\madun\\Documents\\School\\Year 3\\COS301\\Capstone\\Tutor-ME\\APIs\\TutorMeApi\\ApiUnitTests\\ApiUnitTests.csproj",
@@ -408,7 +406,6 @@
     "C:\\Users\\madun\\.nuget\\packages\\xunit.extensibility.core\\2.4.1\\xunit.extensibility.core.2.4.1.nupkg.sha512",
     "C:\\Users\\madun\\.nuget\\packages\\xunit.extensibility.execution\\2.4.1\\xunit.extensibility.execution.2.4.1.nupkg.sha512",
     "C:\\Users\\madun\\.nuget\\packages\\xunit.runner.visualstudio\\2.4.5\\xunit.runner.visualstudio.2.4.5.nupkg.sha512"
->>>>>>> e969ac6537c10e9cdc641ad09943b57bf3064d6e
   ],
   "logs": []
 }
