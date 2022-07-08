@@ -6,6 +6,7 @@ import 'package:tutor_me/src/authenticate/register_step3.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import '../../services/models/tutees.dart';
 import '../components.dart';
+import 'register_step1.dart';
 
 // ignore: must_be_immutable
 class RegisterStep2 extends StatefulWidget {
@@ -305,7 +306,12 @@ class _RegisterStep2State extends State<RegisterStep2> {
                                   style: TextStyle(color: colorWhite),
                                 ),
                                 onPressed: () {
-                                  Navigator.of(context).pop();
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const RegisterStep1()),
+                                  );
                                 },
                               ),
                             ],

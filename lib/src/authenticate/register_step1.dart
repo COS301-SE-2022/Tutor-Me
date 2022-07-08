@@ -199,7 +199,12 @@ class _RegisterStep1State extends State<RegisterStep1> {
                                   style: TextStyle(color: colorWhite),
                                 ),
                                 onPressed: () {
-                                  Navigator.of(context).pop();
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const RegisterStep1()),
+                                  );
                                 },
                               ),
                             ],
