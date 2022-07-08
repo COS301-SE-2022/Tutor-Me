@@ -30,7 +30,7 @@ class ForgotPasswordState extends State<ForgotPassword> {
         recipientMail: emailController.text, otpLength: 5);
     if (res) {
       Fluttertoast.showToast(
-          msg: "OTP sent",
+          msg: "OTP sent to your Email",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,
           timeInSecForIosWeb: 1,
@@ -43,7 +43,7 @@ class ForgotPasswordState extends State<ForgotPassword> {
 
       Navigator.of(context).push(MaterialPageRoute(
           builder: (context) =>
-              OTP(email: emailController.text, emailAuth: emailAuth)));
+              OTP(email: emailController.text, emailAuth: emailAuth, toRegister: toRegister)));
     } else {
       Fluttertoast.showToast(
           msg: "Unable to send OTP",

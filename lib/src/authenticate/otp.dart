@@ -1,17 +1,19 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
 
 import 'package:flutter/material.dart';
-import 'package:toggle_switch/toggle_switch.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import '../../services/models/tutees.dart';
 import '../../services/models/tutors.dart';
 import '../components.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'changePassword.dart';
 
 class OTP extends StatefulWidget {
   final email;
   final emailAuth;
-  const OTP({Key? key, this.email, this.emailAuth}) : super(key: key);
+  final toRegister;
+  const OTP({Key? key, this.email, this.emailAuth, this.toRegister})
+      : super(key: key);
 
   @override
   OTPState createState() => OTPState();
@@ -23,7 +25,6 @@ class OTPState extends State<OTP> {
   final TextEditingController otpcontroller = TextEditingController();
   late Tutors tutor;
   late Tutees tutee;
-  String toRegister = 'Tutor';
   bool isActive = false;
 
   void verifyOTP() async {
@@ -41,7 +42,10 @@ class OTPState extends State<OTP> {
       setState(() {
         isLoading = false;
       });
-      
+
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => ChangePassword(
+              email: widget.email, toRegister: widget.toRegister)));
     } else {
       Fluttertoast.showToast(
           msg: "invalid input",
@@ -102,29 +106,6 @@ class OTPState extends State<OTP> {
                     fontSize: 30,
                     fontWeight: FontWeight.normal,
                   ),
-                ),
-              ),
-              Center(
-                child: ToggleSwitch(
-                  minWidth: MediaQuery.of(context).size.width * 0.4,
-                  minHeight: MediaQuery.of(context).size.height * 0.06,
-                  cornerRadius: MediaQuery.of(context).size.height * 0.07,
-                  fontSize: MediaQuery.of(context).size.height * 0.02,
-                  iconSize: MediaQuery.of(context).size.height * 0.05,
-                  activeBgColor: const [colorOrange],
-                  activeFgColor: colorWhite,
-                  inactiveBgColor: colorGrey,
-                  inactiveFgColor: colorWhite,
-                  totalSwitches: 2,
-                  labels: const ['Tutor', 'Tutee'],
-                  icons: const [Icons.edit, Icons.person_outlined],
-                  onToggle: (index) {
-                    if (index == 0) {
-                      toRegister = "Tutor";
-                    } else {
-                      toRegister = "Tutee";
-                    }
-                  },
                 ),
               ),
 
