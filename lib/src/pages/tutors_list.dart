@@ -11,8 +11,8 @@ import 'package:tutor_me/services/models/tutors.dart';
 // import 'theme/themes.dart';
 
 class TutorsList extends StatefulWidget {
-  Tutees tutee;
-  TutorsList({Key? key, required this.tutee}) : super(key: key);
+  final Tutees tutee;
+  const TutorsList({Key? key, required this.tutee}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
