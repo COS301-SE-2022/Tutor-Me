@@ -8,6 +8,7 @@ import '../../services/services/tutor_services.dart';
 import '../components.dart';
 import '../tutee_page.dart';
 import '../tutor_page.dart';
+import 'forgot_password.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -124,12 +125,18 @@ class _LoginState extends State<Login> {
                     inputController: passwordController,
                     inputFocus: passwordFocusNode,
                   ),
-                  const Text(
-                    "Forgot Password?",
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.normal,
-                      color: Colors.white,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const ForgotPassword()));
+                    },
+                    child: const Text(
+                      "Forgot Password?",
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.normal,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ],
