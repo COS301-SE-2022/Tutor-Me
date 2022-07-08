@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tutor_me/services/services/tutor_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
+import '../../services/models/tutees.dart';
 import '../tutorProfilePages/tutor_profile_view.dart';
 import 'package:tutor_me/services/models/tutors.dart';
 // import 'package:tutor_me/modules/api.services.dart';
@@ -10,7 +11,8 @@ import 'package:tutor_me/services/models/tutors.dart';
 // import 'theme/themes.dart';
 
 class TutorsList extends StatefulWidget {
-  const TutorsList({Key? key}) : super(key: key);
+  Tutees tutee;
+  TutorsList({Key? key, required this.tutee}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -553,9 +555,9 @@ class TutorsListState extends State<TutorsList> {
     name += ' ' + tutorList[i].getLastName;
     return GestureDetector(
       child: Card(
-        elevation: 7.0,
+        elevation: 0,
         shape: RoundedRectangleBorder(
-          side: const BorderSide(color: colorTurqoise, width: 1),
+          side: const BorderSide(color: colorTurqoise, width: 0.5),
           borderRadius: BorderRadius.circular(10),
         ),
         child: Column(
@@ -584,8 +586,10 @@ class TutorsListState extends State<TutorsList> {
       ),
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
-            builder: (BuildContext context) =>
-                TutorProfilePageView(tutor: tutorList[i])));
+            builder: (BuildContext context) => TutorProfilePageView(
+                  tutor: tutorList[i],
+                  tutee: widget.tutee,
+                )));
       },
     );
   }
