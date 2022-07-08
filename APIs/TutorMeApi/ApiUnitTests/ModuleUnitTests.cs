@@ -17,10 +17,9 @@ public class ModulesUnitTests
      private  static Module CreateModule() 
     {
         return new()
-        { 
-            Code =Guid.NewGuid().ToString(),
+        {  Code =Guid.NewGuid().ToString(),
            ModuleName = Guid.NewGuid().ToString(),
-        Institution = Guid.NewGuid().ToString(),
+           Institution = Guid.NewGuid().ToString(),
            Faculty = Guid.NewGuid().ToString(),
         };
     }
@@ -44,8 +43,6 @@ public class ModulesUnitTests
     {   
         //Arrange
         var expectedModule = CreateModule();
-        // id = Guid.NewGuid().ToString();
-        
         var repositoryStub = new Mock<TutorMeContext>();
         repositoryStub.Setup(repo => repo.Modules.FindAsync(It.IsAny<string>())).ReturnsAsync((expectedModule));
         var controller = new ModulesController(repositoryStub.Object);
@@ -109,7 +106,7 @@ public class ModulesUnitTests
         Assert.IsType<NotFoundResult>(result.Result);
     }
   
-    //Test the PutModule Method to check if id is the same as the id in the DTO
+   
     [Fact]
     public async Task PutModule_With_differentIds_BadRequestResult()
     {
