@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:tutor_me/services/models/tutors.dart';
 import 'package:tutor_me/services/models/tutees.dart';
