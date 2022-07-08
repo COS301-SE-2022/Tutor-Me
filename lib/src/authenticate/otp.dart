@@ -6,7 +6,7 @@ import '../../services/models/tutees.dart';
 import '../../services/models/tutors.dart';
 import '../components.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'changePassword.dart';
+import 'change_password.dart';
 
 class OTP extends StatefulWidget {
   final email;
