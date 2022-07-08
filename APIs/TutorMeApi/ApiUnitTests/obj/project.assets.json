@@ -11125,13 +11125,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-<<<<<<< HEAD
             "/home/simphiwe/Desktop/updated_CapsOn/Tutor-ME/APIs/TutorMeApi/Api/Api.csproj": {
               "projectPath": "/home/simphiwe/Desktop/updated_CapsOn/Tutor-ME/APIs/TutorMeApi/Api/Api.csproj"
-=======
-            "C:\\Users\\madun\\Documents\\School\\Year 3\\COS301\\Capstone\\Tutor-ME\\APIs\\TutorMeApi\\Api\\Api.csproj": {
-              "projectPath": "C:\\Users\\madun\\Documents\\School\\Year 3\\COS301\\Capstone\\Tutor-ME\\APIs\\TutorMeApi\\Api\\Api.csproj"
->>>>>>> e969ac6537c10e9cdc641ad09943b57bf3064d6e
             }
           }
         }
