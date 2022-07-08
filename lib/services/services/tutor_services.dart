@@ -193,7 +193,8 @@ class TutorServices {
       String institution,
       String email,
       String password,
-      String confirmPassword) async {
+      String confirmPassword,
+      String year) async {
     List<Tutors> tutors = await getTutors();
     for (int i = 0; i < tutors.length; i++) {
       if (tutors[i].getEmail == email) {
@@ -222,7 +223,8 @@ class TutorServices {
       'password': password,
       'bio': "No bio added",
       'connections': "No connections added",
-      'rating': 0.toString()
+      'rating': 0.toString(),
+      'year': year
     });
 
     final header = <String, String>{
@@ -274,7 +276,8 @@ class TutorServices {
       'password': tutor.getPassword,
       'bio': tutor.getBio,
       'connections': tutor.getConnections,
-      'rating': tutor.getRating
+      'rating': tutor.getRating,
+      'year': tutor.getYear
     });
     final header = <String, String>{
       'Content-Type': 'application/json; charset=utf-8',
