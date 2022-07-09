@@ -158,6 +158,7 @@ class TuteeServices {
       'bio': "No bio added",
       'connections': "No connections added",
       'year': year,
+      'groupIds': ''
     });
 
     final header = <String, String>{
@@ -210,6 +211,7 @@ class TuteeServices {
       'bio': tutee.getBio,
       'connections': tutee.getConnections,
       'year': tutee.getYear,
+      'groupIds': tutee.getGroupIds
     });
     final header = <String, String>{
       'Content-Type': 'application/json; charset=utf-8',

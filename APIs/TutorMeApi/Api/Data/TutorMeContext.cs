@@ -60,6 +60,8 @@ namespace Api.Data
                     .HasColumnName("moduleName");
             });
 
+
+
             modelBuilder.Entity<Request>(entity =>
             {
                 entity.Property(e => e.Id)
@@ -83,6 +85,42 @@ namespace Api.Data
                     .HasMaxLength(36)
                     .IsUnicode(false)
                     .HasColumnName("requesterId");
+            });
+
+            modelBuilder.Entity<Group>(entity =>
+            {
+                entity.Property(e => e.Id)
+                    .HasColumnName("id")
+                    .HasDefaultValueSql("(newid())");
+
+                entity.Property(e => e.ModuleCode)
+                    .IsRequired()
+                    .HasMaxLength(10)
+                    .IsUnicode(false)
+                    .HasColumnName("moduleCode");
+
+                entity.Property(e => e.ModuleName)
+                    .IsRequired()
+                    .IsUnicode(false)
+                    .HasColumnName("moduleName");
+
+                entity.Property(e => e.Tutees)
+                    .IsRequired()
+                    .HasMaxLength(36)
+                    .IsUnicode(false)
+                    .HasColumnName("tutees");
+
+                entity.Property(e => e.TutorId)
+                    .IsRequired()
+                    .HasMaxLength(36)
+                    .IsUnicode(false)
+                    .HasColumnName("tutorId");
+                
+                entity.Property(e => e.Description)
+                    .IsRequired()
+                    .IsUnicode(false)
+                    .HasColumnName("description");
+
             });
 
             modelBuilder.Entity<Tutee>(entity =>
@@ -172,10 +210,14 @@ namespace Api.Data
                     .IsRequired()
                     .IsUnicode(false)
                     .HasColumnName("year");
+
+                entity.Property(e => e.GroupIds)
+                    .IsUnicode(false)
+                    .HasColumnName("groupIds");
             });
 
-            modelBuilder.Entity<Tutor>(entity =>
-            {
+            modelBuilder.Entity<Tutor>(entity =>{
+
                 entity.ToTable("Tutor");
 
                 entity.Property(e => e.Id)
@@ -271,11 +313,19 @@ namespace Api.Data
                     .IsRequired()
                     .IsUnicode(false)
                     .HasColumnName("year");
+
+                entity.Property(e => e.GroupIds)
+                    .IsUnicode(false)
+                    .HasColumnName("groupIds");
             });
 
             OnModelCreatingPartial(modelBuilder);
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
+        public DbSet<Api.Models.Group>? Group { get; set; }
+
+        //public DbSet<Api.Models.Group>? Group { get; set; }
     }
 }
