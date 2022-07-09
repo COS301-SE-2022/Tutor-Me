@@ -226,7 +226,8 @@ class TutorServices {
       'bio': "No bio added",
       'connections': "No connections added",
       'rating': 0.toString(),
-      'year': year
+      'year': year,
+      'groupIds': ""
     });
 
     final header = <String, String>{
@@ -279,7 +280,8 @@ class TutorServices {
       'bio': tutor.getBio,
       'connections': tutor.getConnections,
       'rating': tutor.getRating,
-      'year': tutor.getYear
+      'year': tutor.getYear,
+      'groupIds': tutor.getGroupIds
     });
     final header = <String, String>{
       'Content-Type': 'application/json; charset=utf-8',
