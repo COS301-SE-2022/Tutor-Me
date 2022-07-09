@@ -120,7 +120,7 @@ class TuteeServices {
     }
   }
 
-  static registerTuee(
+  static registerTutee(
       String name,
       String lastName,
       String date,
@@ -139,7 +139,7 @@ class TuteeServices {
     final modulesURL =
         Uri.https('tutormeapi1.azurewebsites.net', '/api/Tutees/');
     //source: https://protocoderspoint.com/flutter-encryption-decryption-using-flutter-string-encryption/#:~:text=open%20your%20flutter%20project%20that,IDE(android%2Dstudio).&text=Then%20after%20you%20have%20added,the%20password%20the%20user%20enter.
-    // password = hashPassword(password);
+    password = hashPassword(password);
 
     String data = jsonEncode({
       'firstName': name,
@@ -158,6 +158,7 @@ class TuteeServices {
       'bio': "No bio added",
       'connections': "No connections added",
       'year': year,
+      'groupIds': 'no groups'
     });
 
     final header = <String, String>{
@@ -210,6 +211,8 @@ class TuteeServices {
       'bio': tutee.getBio,
       'connections': tutee.getConnections,
       'year': tutee.getYear,
+      'groupIds': tutee.getGroupIds,
+      'requests': ''
     });
     final header = <String, String>{
       'Content-Type': 'application/json; charset=utf-8',
@@ -306,7 +309,7 @@ class TuteeServices {
     late Tutees tutee;
     bool got = false;
     for (int i = 0; i < tutees.length; i++) {
-      if (tutees[i].getEmail == email && tutees[i].getPassword == password) {
+      if (tutees[i].getEmail == email && tutees[i].getPassword == hashPassword(password)) {
         got = true;
         tutee = tutees[i];
         break;
@@ -353,8 +356,9 @@ class TuteeServices {
     }
   }
 
-  static hashPassword(String password) {
-    String hashedPassword = Crypt.sha256(password).toString();
+ static hashPassword(String password) {
+    String hashedPassword = Crypt.sha256(password, salt: 'Thisisagreatplatformforstudentstolearn')
+            .toString();
     return hashedPassword;
   }
 }

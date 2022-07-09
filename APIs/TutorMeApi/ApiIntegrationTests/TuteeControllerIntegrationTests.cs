@@ -31,7 +31,8 @@ public class TuteeControllerIntegrationTests
             TutorsCode = Guid.NewGuid().ToString(),
             Bio = "OnePiece fan",
             Connections = "2",
-            Year = Guid.NewGuid().ToString()
+            Year = Guid.NewGuid().ToString(),
+            GroupIds=Guid.NewGuid().ToString()
         };
     }
     [Fact]

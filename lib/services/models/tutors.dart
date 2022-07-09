@@ -20,27 +20,28 @@ class Tutors {
   String _status = "";
   String _faculty = "";
   String _year = '';
+  String _groupIds = '';
 
   Tutors(
-    this._id,
-    this._dateOfBirth,
-    this._firstName,
-    this._lastName,
-    this._bio,
-    this._location,
-    this._tuteesCode,
-    this._institution,
-    this._modules,
-    this._rating,
-    this._course,
-    this._status,
-    this._faculty,
-    this._email,
-    this._password,
-    this._gender,
-    this._connections,
-    this._year,
-  );
+      this._id,
+      this._dateOfBirth,
+      this._firstName,
+      this._lastName,
+      this._bio,
+      this._location,
+      this._tuteesCode,
+      this._institution,
+      this._modules,
+      this._rating,
+      this._course,
+      this._status,
+      this._faculty,
+      this._email,
+      this._password,
+      this._gender,
+      this._connections,
+      this._year,
+      this._groupIds);
 
   String get getId => _id;
   String get getName => _firstName;
@@ -61,6 +62,7 @@ class Tutors {
   String get getGender => _gender;
   String get getConnections => _connections;
   String get getYear => _year;
+  String get getGroupIds => _groupIds;
 
   set setId(String newId) {
     _id = newId;
@@ -162,6 +164,10 @@ class Tutors {
   set setYear(String newYear) {
     _year = newYear;
   }
+  
+  set setGroupIds(String newGroup){
+    _groupIds = newGroup;
+  }
 
   Map<String, dynamic> toMap() {
     var map = <String, dynamic>{};
@@ -184,6 +190,7 @@ class Tutors {
     map["gender"] = _gender;
     map["connections"] = _connections;
     map['year'] = _year;
+    map['groupIds'] = _groupIds;
     return map;
   }
 
@@ -206,6 +213,7 @@ class Tutors {
     _gender = o["gender"];
     _connections = o["connections"];
     _year = o['year'];
+    _groupIds = o['groupIds'];
   }
 
   static fromJson(model) {}

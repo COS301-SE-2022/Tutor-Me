@@ -26,5 +26,6 @@ namespace Api.Models
         public string Rating { get; set; }
         public string Requests { get; set; }
         public string Year { get; set; }
+        public string GroupIds { get; set; }
     }
 }
