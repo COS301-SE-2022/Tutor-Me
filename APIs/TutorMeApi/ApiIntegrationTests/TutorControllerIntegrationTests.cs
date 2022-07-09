@@ -32,6 +32,8 @@ public class TutorControllerIntegrationTests
             Bio = "OnePiece fan",
             Connections = "2",
             Rating = "4",
+            Requests =Guid.NewGuid().ToString(),
+            Year= Guid.NewGuid().ToString()
         };
     }
     [Fact]
