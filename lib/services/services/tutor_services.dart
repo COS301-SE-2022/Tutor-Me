@@ -355,6 +355,22 @@ class TutorServices {
     }
   }
 
+  static isThereTutorByEmail(String email) async {
+    List<Tutors> tutors = await getTutors();
+    bool got = false;
+    for (int i = 0; i < tutors.length; i++) {
+      if (tutors[i].getEmail == email) {
+        got = true;
+        break;
+      }
+    }
+    if (got == false) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   static uploadProfileImage(File? image, String id) async {
     final imageByte = base64Encode(image!.readAsBytesSync());
     String data = jsonEncode({'id': id, 'tutorImage': imageByte});
