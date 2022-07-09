@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tutor_me/services/models/tutees.dart';
 import '../tuteeProfilePages/tutee_profile.dart';
+import '../tuteeProfilePages/tutee_profile_edit.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/authenticate/register_or_login.dart';
 
@@ -21,9 +22,16 @@ class TuteeNavigationDrawerWidget extends StatelessWidget {
               children: <Widget>[
                 buildNavHeader(context),
                 buildMenu(
-                    text: 'My Account',
-                    icon: Icons.account_circle_outlined,
-                    onClicked: () => selected(context, 0)),
+                  text: 'My Account',
+                  icon: Icons.account_circle_outlined,
+                  onClicked: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => TuteeProfileEdit(user: user),
+                        ));
+                  },
+                ),
                 buildMenu(
                     text: 'Settings',
                     icon: Icons.settings,
