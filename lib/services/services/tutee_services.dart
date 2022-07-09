@@ -337,6 +337,22 @@ class TuteeServices {
     }
   }
 
+  static isThereTuteeByEmail(String email) async {
+    List<Tutees> tutees = await getTutees();
+    bool got = false;
+    for (int i = 0; i < tutees.length; i++) {
+      if (tutees[i].getEmail == email) {
+        got = true;
+        break;
+      }
+    }
+    if (got == false) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   static hashPassword(String password) {
     String hashedPassword = Crypt.sha256(password).toString();
     return hashedPassword;

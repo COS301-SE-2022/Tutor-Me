@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:toggle_switch/toggle_switch.dart';
+import 'package:tutor_me/src/authenticate/register_step1.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import '../../services/models/tutees.dart';
 import '../../services/models/tutors.dart';
@@ -306,7 +307,13 @@ class _LoginState extends State<Login> {
                 height: 25,
               ),
               GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const RegisterStep1()),
+                  );
+                },
                 child: Container(
                   child: const Text(
                     "Create New Account",
