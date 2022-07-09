@@ -98,7 +98,7 @@ class DeleteTutorState extends State<DeleteTutor> {
                   onPressed: () async {
                     String errMsg = "";
                     if (idcontroller.text.isEmpty) {
-                      errMsg += "Please fill in the Tutors ID";
+                      errMsg += "Please fill in the Tutors ID \n";
                     }
 
                     if (errMsg != "") {

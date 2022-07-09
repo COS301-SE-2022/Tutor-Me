@@ -98,7 +98,7 @@ class DeleteTuteeState extends State<DeleteTutee> {
                   onPressed: () async {
                     String errMsg = "";
                     if (idcontroller.text.isEmpty) {
-                      errMsg += "Please fill in the Tutee's ID";
+                      errMsg += "Please fill in the Tutee's ID \n";
                     }
 
                     if (errMsg != "") {

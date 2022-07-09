@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import './delete_tutor.dart';
 import './delete_tutee.dart';
+import './update_tutor.dart';
+import './update_tutee.dart';
 
 class Admin extends StatelessWidget {
   const Admin({Key? key}) : super(key: key);
@@ -128,7 +130,10 @@ class Admin extends StatelessWidget {
           ),
           GestureDetector(
             onTap: () {
-              print("Container clicked");
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const UpdateTutor()),
+              );
             },
             child: Container(
               decoration: BoxDecoration(
@@ -180,7 +185,10 @@ class Admin extends StatelessWidget {
           ),
           GestureDetector(
             onTap: () {
-              print("Container clicked");
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const UpdateTutee()),
+              );
             },
             child: Container(
               decoration: BoxDecoration(
