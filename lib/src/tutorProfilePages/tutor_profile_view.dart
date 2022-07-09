@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:tutor_me/services/models/tutors.dart';
 import 'package:tutor_me/services/models/tutees.dart';
 import 'package:tutor_me/services/services/tutee_services.dart';
@@ -82,7 +81,6 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
   bool checkConnection() {
     bool val = false;
     for (int i = 0; i < tutors.length; i++) {
-      print(tutors[i].getId + " " + widget.tutor.getId);
       if (tutors[i].getId == widget.tutor.getId) {
         val = true;
         break;
