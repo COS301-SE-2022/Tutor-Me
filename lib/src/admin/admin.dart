@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import './delete_tutor.dart';
+import './delete_tutee.dart';
 
 class Admin extends StatelessWidget {
   const Admin({Key? key}) : super(key: key);
@@ -72,7 +73,10 @@ class Admin extends StatelessWidget {
           ),
           GestureDetector(
             onTap: () {
-              print("Container clicked");
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const DeleteTutee()),
+              );
             },
             child: Container(
               decoration: BoxDecoration(
