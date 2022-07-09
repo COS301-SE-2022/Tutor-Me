@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tutor_me/services/models/tutors.dart';
-import 'package:tutor_me/src/notifications/tutor_notifications.dart';
+import 'package:tutor_me/src/notifications/tutorNotifications/tutor_notifications.dart';
 import 'package:tutor_me/src/pages/chats_page.dart';
 import 'package:tutor_me/src/pages/tutees_list.dart';
 // import 'package:tutor_me/modules/api.services.dart';

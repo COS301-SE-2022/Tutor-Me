@@ -3,6 +3,8 @@ import 'package:toggle_switch/toggle_switch.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import '../components.dart';
 import 'register_step2.dart';
+import '../../services/services/tutee_services.dart';
+import '../../services/services/tutor_services.dart';
 
 class RegisterStep1 extends StatefulWidget {
   const RegisterStep1({Key? key}) : super(key: key);
@@ -24,6 +26,8 @@ class _RegisterStep1State extends State<RegisterStep1> {
   String toRegister = 'Tutor';
   int currentStep = 0;
 
+  bool isLoading = false;
+  int? initialIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -104,12 +108,16 @@ class _RegisterStep1State extends State<RegisterStep1> {
                   totalSwitches: 2,
                   labels: const ['Tutor', 'Tutee'],
                   icons: const [Icons.edit, Icons.person_outlined],
+                  initialLabelIndex: initialIndex,
                   onToggle: (index) {
                     if (index == 0) {
                       toRegister = "Tutor";
                     } else {
                       toRegister = "Tutee";
                     }
+                    setState(() {
+                      initialIndex = index;
+                    });
                   },
                 ),
               ),
@@ -154,6 +162,9 @@ class _RegisterStep1State extends State<RegisterStep1> {
                 ),
                 child: TextButton(
                   onPressed: () async {
+                    setState(() {
+                      isLoading = true;
+                    });
                     String errMsg = "";
 
                     if (emailController.text == "" ||
@@ -178,7 +189,30 @@ class _RegisterStep1State extends State<RegisterStep1> {
                       }
                     }
 
+                    if (toRegister == "Tutor") {
+                      bool isThereTutorWithEmail =
+                          await TutorServices.isThereTutorByEmail(
+                              emailController.text);
+
+                      if (isThereTutorWithEmail) {
+                        errMsg +=
+                            "ERROR: A Tutor is registered with this email\n";
+                      }
+                    } else {
+                      bool isThereTuteeWithEmail =
+                          await TuteeServices.isThereTuteeByEmail(
+                              emailController.text);
+
+                      if (isThereTuteeWithEmail) {
+                        errMsg +=
+                            "ERROR: A Tutee is registered with this email\n";
+                      }
+                    }
+
                     if (errMsg != "") {
+                      setState(() {
+                        isLoading = false;
+                      });
                       showDialog(
                         context: context,
                         builder: (context) {
@@ -224,12 +258,14 @@ class _RegisterStep1State extends State<RegisterStep1> {
                           ));
                     }
                   },
-                  child: const Text("Continue",
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      )),
+                  child: isLoading
+                      ? const CircularProgressIndicator(color: Colors.white)
+                      : const Text("Continue",
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          )),
                 ),
               ),
             ]),

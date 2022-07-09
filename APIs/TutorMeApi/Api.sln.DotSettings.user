@@ -1,4 +1,5 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/Environment/Highlighting/HighlightingSourceSnapshotLocation/@EntryValue">/home/simphiwe/.cache/JetBrains/Rider2022.1/resharper-host/temp/Rider/vAny/CoverageData/_Api.-1169187591/Snapshot/snapshot.utdcvr</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=002cdceb_002D818c_002D4dd2_002D96ea_002D58b6f863ca5b/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GetTutorsAsync_WithExistingItem_ReturnsFound" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
     &lt;TestId&gt;xUnit::C8A4792E-3CA6-4D1D-92E5-65431D629A0D::net6.0::ApiUnitTests.UnitTests.GetTutorsAsync_WithExistingItem_ReturnsFound&lt;/TestId&gt;
@@ -20,15 +21,22 @@
     &lt;TestId&gt;xUnit::C8A4792E-3CA6-4D1D-92E5-65431D629A0D::net6.0::ApiUnitTests.UnitTest1.GetTutorAsync_WithExistingItem_ReturnsFound&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=5214c613_002D50c7_002D4210_002Da45e_002Dd1b2a3142384/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="GetTutorAsync_WithUnexistingItem_ReturnsNotFound" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=5214c613_002D50c7_002D4210_002Da45e_002Dd1b2a3142384/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GetTutorAsync_WithUnexistingItem_ReturnsNotFound" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
     &lt;TestId&gt;xUnit::C8A4792E-3CA6-4D1D-92E5-65431D629A0D::net6.0::ApiUnitTests.ModulesUnitTests&lt;/TestId&gt;
     &lt;TestId&gt;xUnit::C8A4792E-3CA6-4D1D-92E5-65431D629A0D::net6.0::ApiUnitTests.TutorUnitTests&lt;/TestId&gt;
     &lt;TestId&gt;xUnit::C8A4792E-3CA6-4D1D-92E5-65431D629A0D::net6.0::ApiUnitTests.TuteeUnitTests&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::3468D5F0-54D3-421A-BAD3-4765B5260E0C::net6.0::IntegrationTests.UnitTest1.TutorController&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::3468D5F0-54D3-421A-BAD3-4765B5260E0C::net6.0::IntegrationTests.UnitTest1&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::3468D5F0-54D3-421A-BAD3-4765B5260E0C::net6.0::IntegrationTests.TutorControllerIntegrationTets&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::3468D5F0-54D3-421A-BAD3-4765B5260E0C::net6.0::IntegrationTests.TutorControllerIntegrationTests&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=bc591a1b_002Da36f_002D4c08_002D947f_002De9bac4fca4e4/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GetTutorAsync_WithExistingItem_ReturnsNotFound" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=55333494_002Dda91_002D498b_002Dbfdc_002D5790d192681d/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GetsTutorFromDatabaseByEmail" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
-    &lt;TestId&gt;xUnit::C8A4792E-3CA6-4D1D-92E5-65431D629A0D::net6.0::ApiUnitTests.ModulesUnitTests&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::3468D5F0-54D3-421A-BAD3-4765B5260E0C::net6.0::IntegrationTests.TutorControllerIntegrationTests&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=bc591a1b_002Da36f_002D4c08_002D947f_002De9bac4fca4e4/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="GetTutorAsync_WithExistingItem_ReturnsNotFound" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;Solution /&gt;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
