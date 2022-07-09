@@ -289,10 +289,9 @@ namespace Api.Data
 
                 entity.Property(e => e.Rating)
                     .IsRequired()
-                    .HasMaxLength(1)
                     .IsUnicode(false)
                     .HasColumnName("rating")
-                    .HasDefaultValueSql("((0))");
+                    .HasDefaultValueSql("('0,0')");
 
                 entity.Property(e => e.Requests)
                     .IsUnicode(false)
