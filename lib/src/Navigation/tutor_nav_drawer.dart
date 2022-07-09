@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tutor_me/services/models/tutors.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import '../tutorProfilePages/settings_pofile_view.dart';
+import 'package:tutor_me/src/authenticate/register_or_login.dart';
 
 class TutorNavigationDrawerWidget extends StatelessWidget {
   final padding = const EdgeInsets.symmetric(horizontal: 20);
@@ -24,11 +25,21 @@ class TutorNavigationDrawerWidget extends StatelessWidget {
                     text: 'My Account',
                     icon: Icons.account_circle_outlined,
                     onClicked: () => selected(context, 0)),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.05),
                 buildMenu(
                     text: 'Settings',
                     icon: Icons.settings,
                     onClicked: () => selected(context, 1)),
+                buildMenu(
+                  text: 'Logout',
+                  icon: Icons.logout,
+                  onClicked: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const RegisterOrLogin()),
+                    );
+                  },
+                ),
               ])),
     );
   }
