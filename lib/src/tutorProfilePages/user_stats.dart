@@ -7,11 +7,15 @@ class UserStats extends StatelessWidget {
   final int numTutees;
 
   const UserStats(
-      {Key? key, required this.rating, required this.numTutees,required this.numConnections})
+      {Key? key,
+      required this.rating,
+      required this.numTutees,
+      required this.numConnections})
       : super(key: key);
 
   int convertRating() {
-    return int.parse(rating);
+    List<String> rat = rating.split(',');
+    return int.parse(rat[0]);
   }
 
   @override
