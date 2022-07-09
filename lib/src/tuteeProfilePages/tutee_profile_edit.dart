@@ -9,7 +9,7 @@ import '../../services/models/tutees.dart';
 
 class TuteeProfileEdit extends StatefulWidget {
   final Tutees user;
-  const TuteeProfileEdit({Key? key,required this.user}) : super(key: key);
+  const TuteeProfileEdit({Key? key, required this.user}) : super(key: key);
 
   @override
   _TuteeProfileEditState createState() => _TuteeProfileEditState();
@@ -54,7 +54,7 @@ class _TuteeProfileEditState extends State<TuteeProfileEdit> {
   Widget buildBody() {
     final screenWidthSize = MediaQuery.of(context).size.width;
     final screenHeightSize = MediaQuery.of(context).size.height;
-    const nameToEdit = " Carol Timith";
+    String nameToEdit = widget.user.getName + ' ' + widget.user.getLastName;
     // FilePickerResult? filePickerResult;
     // String? fileName;
     // PlatformFile? file;
@@ -85,8 +85,7 @@ class _TuteeProfileEditState extends State<TuteeProfileEdit> {
             maxLines: null,
             decoration: InputDecoration(
               hintText: "Change To:",
-              labelText:
-                  "About Me: I am a self motivated individual who finds joy in exploring new technologies. I absolutely love teaching people. Fun fact: I love cooking. Always eager to help, feel free to hmu! ",
+              labelText: widget.user.getBio,
               labelStyle: TextStyle(
                 color: colorTurqoise,
                 overflow: TextOverflow.visible,

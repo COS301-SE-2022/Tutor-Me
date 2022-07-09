@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:tutor_me/services/models/tutees.dart';
 import '../tuteeProfilePages/tutee_profile.dart';
+import '../tuteeProfilePages/tutee_profile_edit.dart';
 import 'package:tutor_me/src/colorpallete.dart';
+import 'package:tutor_me/src/authenticate/register_or_login.dart';
 
 class TuteeNavigationDrawerWidget extends StatelessWidget {
   final padding = const EdgeInsets.symmetric(horizontal: 20);
@@ -19,16 +21,32 @@ class TuteeNavigationDrawerWidget extends StatelessWidget {
               // padding: const EdgeInsets.symmetric(horizontal: 20),
               children: <Widget>[
                 buildNavHeader(context),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.01),
                 buildMenu(
-                    text: 'My Account',
-                    icon: Icons.account_circle_outlined,
-                    onClicked: () => selected(context, 0)),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.05),
+                  text: 'My Account',
+                  icon: Icons.account_circle_outlined,
+                  onClicked: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => TuteeProfileEdit(user: user),
+                        ));
+                  },
+                ),
                 buildMenu(
                     text: 'Settings',
                     icon: Icons.settings,
                     onClicked: () => selected(context, 1)),
+                buildMenu(
+                  text: 'Logout',
+                  icon: Icons.logout,
+                  onClicked: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const RegisterOrLogin()),
+                    );
+                  },
+                ),
               ])),
     );
   }

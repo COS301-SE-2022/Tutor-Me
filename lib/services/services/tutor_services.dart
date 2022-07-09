@@ -95,7 +95,8 @@ class TutorServices {
         if (tutee.getConnections.contains('No connections added')) {
           tutee.setConnections = request[0].getReceiverId;
         } else {
-          tutee.setConnections = tutee.getConnections + ',' + request[0].getReceiverId;
+          tutee.setConnections =
+              tutee.getConnections + ',' + request[0].getReceiverId;
         }
       }
       if (!tutor.getConnections.contains(request[0].getRequesterId)) {
@@ -155,7 +156,8 @@ class TutorServices {
   }
 
   static Future getTutor(String id) async {
-    Uri tutorURL = Uri.https('tutormeapi1.azurewebsites.net', '/api/Tutors/$id');
+    Uri tutorURL =
+        Uri.https('tutormeapi1.azurewebsites.net', '/api/Tutors/$id');
     try {
       final response = await http.get(tutorURL, headers: {
         "Accept": "application/json",
@@ -335,13 +337,48 @@ class TutorServices {
     }
   }
 
+  static getTutorByEmail(String email) async {
+    List<Tutors> tutors = await getTutors();
+    late Tutors tutor;
+    bool got = false;
+    for (int i = 0; i < tutors.length; i++) {
+      if (tutors[i].getEmail == email) {
+        got = true;
+        tutor = tutors[i];
+        break;
+      }
+    }
+    if (got == false) {
+      throw Exception("Email is incorrect");
+    } else {
+      return tutor;
+    }
+  }
+
+  static isThereTutorByEmail(String email) async {
+    List<Tutors> tutors = await getTutors();
+    bool got = false;
+    for (int i = 0; i < tutors.length; i++) {
+      if (tutors[i].getEmail == email) {
+        got = true;
+        break;
+      }
+    }
+    if (got == false) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   static uploadProfileImage(File? image, String id) async {
     final imageByte = base64Encode(image!.readAsBytesSync());
     String data = jsonEncode({'id': id, 'tutorImage': imageByte});
     final header = <String, String>{
       'Content-Type': 'application/json; charset=utf-8'
     };
-    final url = Uri.parse('https://tutormefiles1.azurewebsites.net/api/TutorFiles/$id');
+    final url =
+        Uri.parse('https://tutormefiles1.azurewebsites.net/api/TutorFiles/$id');
     try {
       final response = await http.put(url, headers: header, body: data);
       if (response.statusCode == 204) {

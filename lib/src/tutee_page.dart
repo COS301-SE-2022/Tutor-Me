@@ -77,7 +77,7 @@ class TuteePageState extends State<TuteePage> {
           body: TabBarView(
             children: <Widget>[
               Chats(user: widget.user),
-              const TutorsList(),
+              TutorsList(tutee: widget.user),
               const Calls()
             ],
           )),
