@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'admin.dart';
 
-void main() => runApp(MaterialApp(home: Admin()));
+void main() => runApp(const MaterialApp(home: Admin()));
 
 class AdminHome extends StatefulWidget {
   const AdminHome({Key? key}) : super(key: key);
@@ -64,7 +64,7 @@ class AdminHomeState extends State<AdminHome> {
           const SizedBox(
             height: 40,
           ),
-          Admin()
+          const Admin()
         ],
       ),
     );

@@ -4,6 +4,7 @@ import './delete_tutor.dart';
 import './delete_tutee.dart';
 import './update_tutor.dart';
 import './update_tutee.dart';
+import './delete_module.dart';
 
 class Admin extends StatelessWidget {
   const Admin({Key? key}) : super(key: key);
@@ -240,7 +241,10 @@ class Admin extends StatelessWidget {
           ),
           GestureDetector(
             onTap: () {
-              print("Container clicked");
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const DeleteModule()),
+              );
             },
             child: Container(
               decoration: BoxDecoration(
@@ -292,7 +296,7 @@ class Admin extends StatelessWidget {
           ),
           GestureDetector(
             onTap: () {
-              print("Container clicked");
+              //print("Container clicked");
             },
             child: Container(
               decoration: BoxDecoration(
