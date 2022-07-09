@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tutor_me/services/models/tutors.dart';
+import 'package:tutor_me/services/models/tutees.dart';
+import 'package:tutor_me/services/services/tutee_services.dart';
 // import 'package:tutor_me/src/colorPalette.dart';
 
 import '../../services/models/modules.dart';
@@ -10,8 +12,10 @@ import 'user_stats.dart';
 
 class TutorProfilePageView extends StatefulWidget {
   // ignore: prefer_const_constructors_in_immutables
-  TutorProfilePageView({Key? key, required this.tutor}) : super(key: key);
+  TutorProfilePageView({Key? key, required this.tutor, required this.tutee})
+      : super(key: key);
   final Tutors tutor;
+  final Tutees tutee;
 
   static const String route = '/tutor_profile_view';
 
@@ -23,6 +27,9 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
   List<Modules> currentModules = List<Modules>.empty();
   late int numConnections;
   late int numTutees;
+  bool isRequestLoading = false;
+  bool isRequestDone = false;
+  // late Uint8List bytes;
   getCurrentModules() async {
     final current = await TutorServices.getTutorModules(widget.tutor.getId);
     setState(() {
@@ -42,12 +49,20 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
     return allTutees.length;
   }
 
+  // getProfileImage() async {
+  //   final image = TutorServices.getTutorProfileImage(widget.tutor.getId);
+  //   setState(() {
+  //     bytes = image as Uint8List;
+  //   });
+  // }
+
   @override
   void initState() {
     super.initState();
     getCurrentModules();
     numConnections = getNumConnections();
     numTutees = getNumTutees();
+    // getProfileImage();
   }
 
   @override
@@ -241,6 +256,8 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
 
   Widget buildCoverImage() => Container(
         color: Colors.grey,
+        // decoration:
+        // BoxDecoration(image: DecorationImage(image: MemoryImage(bytes))),
         child: const Image(
           image: AssetImage('assets/Pictures/tutorCover.jpg'),
           width: double.infinity,
@@ -254,6 +271,17 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
         backgroundColor: Colors.grey.shade800,
         backgroundImage: const AssetImage("assets/Pictures/penguin.png"),
       );
+
+// ImageProvider buildImage() {
+//     if (image != null) {
+//       return DecorationImage(image: image );
+//     }
+//     return const AssetImage('assets/Pictures/penguin.png');
+//   }
+
+//   Image fileImage() {
+//     return Image.memory(image);
+//   }
 
   Widget buildEditImageIcon() => const CircleAvatar(
         radius: 18,
@@ -278,23 +306,69 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
   }
 
   showAlertDialog(BuildContext context) {
-    Widget ok = TextButton(
-        onPressed: () {
-          Navigator.of(context).pop();
-        },
-        child: const Text('OK'));
-
-    AlertDialog requestAlert = AlertDialog(
-        title: const Text("Alert"),
-        content: const Text("Your request has been sent!!"),
-        actions: [
-          ok,
-        ]);
-
+    String testMessage = "You are about to send a request to " +
+        widget.tutor.getName +
+        " " +
+        widget.tutor.getLastName;
     showDialog(
         context: context,
-        builder: (BuildContext context) {
-          return requestAlert;
+        builder: (context) {
+          return StatefulBuilder(builder: (context, setState) {
+            return AlertDialog(
+                title: const Text("Alert"),
+                content: Text(testMessage),
+                actions: [
+                  isRequestLoading
+                      ? const CircularProgressIndicator.adaptive()
+                      : isRequestDone
+                          ? Icon(
+                              Icons.done,
+                              color: colorTurqoise,
+                              size: MediaQuery.of(context).size.width * 0.1,
+                            )
+                          : OutlinedButton(
+                              style: OutlinedButton.styleFrom(
+                                  side: const BorderSide(
+                                      width: 2, color: colorTurqoise)),
+                              onPressed: () async {
+                                setState(() {
+                                  isRequestLoading = true;
+                                });
+
+                                bool val = await TuteeServices().sendRequest(
+                                    widget.tutor.getId, widget.tutee.getId);
+
+                                if (val) {
+                                  setState(() {
+                                    isRequestLoading = false;
+                                    isRequestDone = true;
+                                  });
+                                }
+
+                                Future.delayed(
+                                    const Duration(milliseconds: 2000), () {
+                                  Navigator.of(context).pop();
+                                });
+                              },
+                              child: const Text(
+                                'Confirm',
+                                style: TextStyle(color: colorTurqoise),
+                              )),
+                  !isRequestLoading && !isRequestDone
+                      ? OutlinedButton(
+                          style: OutlinedButton.styleFrom(
+                              side: const BorderSide(
+                                  width: 2, color: colorOrange)),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: const Text(
+                            'Cancel',
+                            style: TextStyle(color: colorOrange),
+                          ))
+                      : Container(),
+                ]);
+          });
         });
   }
 }

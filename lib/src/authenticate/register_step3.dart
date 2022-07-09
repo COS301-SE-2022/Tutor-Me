@@ -10,6 +10,7 @@ import '../../services/services/module_services.dart';
 import '../../services/services/tutee_services.dart';
 import '../components.dart';
 import '../tutee_page.dart';
+import 'register_step1.dart';
 
 // ignore: must_be_immutable
 class RegisterStep3 extends StatefulWidget {
@@ -145,24 +146,14 @@ class _RegisterStep3State extends State<RegisterStep3> {
     }
   }
 
-  List<String> items = List<String>.empty();
+  List items = List<String>.empty();
 
   getInstitutions() async {
     final insitutions = await ModuleServices.getInstitutions();
     setState(() {
-      // institutionList = insitutions;
       items = insitutions;
     });
   }
-
-  // List<String> items = [
-  //   "University Of Pretoria",
-  //   "Witswaterand University",
-  //   "University of Johanesburg",
-  //   "Northwest University",
-  //   "Cape Town University",
-  //   "Rhodes University",
-  // ];
 
   List<String> yearlevels = [
     "Year - 1",
@@ -453,18 +444,6 @@ class _RegisterStep3State extends State<RegisterStep3> {
                     if (institution == "" || courseController.text == "") {
                       errMsg += "ERROR: One or more parametres missing\n";
                     } else {}
-                    // print(widget.fullName +
-                    //     " " +
-                    //     widget.lastName +
-                    //     " " +
-                    //     widget.password +
-                    //     " " +
-                    //     widget.email +
-                    //     " " +
-                    //     widget.password +
-                    //     " " +
-                    //     widget.gender +
-                    //     institution);
 
                     if (errMsg != "") {
                       showDialog(
@@ -487,7 +466,12 @@ class _RegisterStep3State extends State<RegisterStep3> {
                                   style: TextStyle(color: colorWhite),
                                 ),
                                 onPressed: () {
-                                  Navigator.of(context).pop();
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const RegisterStep1()),
+                                  );
                                 },
                               ),
                             ],

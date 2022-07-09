@@ -46,3 +46,5 @@ app.*.map.json
 /android/app/release
 pubspec.lock
 APIs/**/appsettings.json
+windows/flutter/generated_plugin_registrant.cc
+windows/flutter/generated_plugins.cmake
