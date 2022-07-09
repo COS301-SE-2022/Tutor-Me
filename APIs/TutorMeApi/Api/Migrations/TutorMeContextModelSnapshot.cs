@@ -350,11 +350,10 @@ namespace Api.Migrations
                     b.Property<string>("Rating")
                         .IsRequired()
                         .ValueGeneratedOnAdd()
-                        .HasMaxLength(1)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(1)")
+                        .HasColumnType("varchar(max)")
                         .HasColumnName("rating")
-                        .HasDefaultValueSql("((0))");
+                        .HasDefaultValueSql("('0,0')");
 
                     b.Property<string>("Requests")
                         .IsUnicode(false)
