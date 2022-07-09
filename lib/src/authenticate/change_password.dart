@@ -1,5 +1,6 @@
+// ignore_for_file: prefer_typing_uninitialized_variables
+
 import 'package:flutter/material.dart';
-import 'package:toggle_switch/toggle_switch.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import '../../services/models/tutees.dart';
 import '../../services/models/tutors.dart';
@@ -8,24 +9,26 @@ import '../../services/services/tutor_services.dart';
 import '../components.dart';
 import '../tutee_page.dart';
 import '../tutor_page.dart';
-import 'forgot_password.dart';
 
-class Login extends StatefulWidget {
-  const Login({Key? key}) : super(key: key);
+class ChangePassword extends StatefulWidget {
+  final email;
+  final toRegister;
+  const ChangePassword({Key? key, this.email, this.toRegister})
+      : super(key: key);
 
   @override
-  _LoginState createState() => _LoginState();
+  ChangePasswordState createState() => ChangePasswordState();
 }
 
-class _LoginState extends State<Login> {
+class ChangePasswordState extends State<ChangePassword> {
   final FocusNode emailFocusNode = FocusNode();
   final FocusNode passwordFocusNode = FocusNode();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController newpasswordController = TextEditingController();
+  final TextEditingController newconfirmpasswordController =
+      TextEditingController();
   late Tutors tutor;
   late Tutees tutee;
-  String toRegister = 'Tutor';
 
   bool isLoading = false;
   @override
@@ -77,29 +80,6 @@ class _LoginState extends State<Login> {
                   ),
                 ),
               ),
-              Center(
-                child: ToggleSwitch(
-                  minWidth: MediaQuery.of(context).size.width * 0.4,
-                  minHeight: MediaQuery.of(context).size.height * 0.06,
-                  cornerRadius: MediaQuery.of(context).size.height * 0.07,
-                  fontSize: MediaQuery.of(context).size.height * 0.02,
-                  iconSize: MediaQuery.of(context).size.height * 0.05,
-                  activeBgColor: const [colorOrange],
-                  activeFgColor: colorWhite,
-                  inactiveBgColor: colorGrey,
-                  inactiveFgColor: colorWhite,
-                  totalSwitches: 2,
-                  labels: const ['Tutor', 'Tutee'],
-                  icons: const [Icons.edit, Icons.person_outlined],
-                  onToggle: (index) {
-                    if (index == 0) {
-                      toRegister = "Tutor";
-                    } else {
-                      toRegister = "Tutee";
-                    }
-                  },
-                ),
-              ),
 
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.04,
@@ -109,35 +89,21 @@ class _LoginState extends State<Login> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  TextInputField(
-                    icon: Icons.email_outlined,
-                    hint: 'Email',
-                    inputType: TextInputType.emailAddress,
-                    inputAction: TextInputAction.next,
-                    inputController: emailController,
-                    // inputFocus: emailFocusNode,
+                  PasswordInput(
+                    icon: Icons.lock_clock_outlined,
+                    hint: 'New Password',
+                    inputAction: TextInputAction.done,
+                    inputType: TextInputType.text,
+                    inputController: newpasswordController,
+                    inputFocus: passwordFocusNode,
                   ),
                   PasswordInput(
                     icon: Icons.lock_clock_outlined,
-                    hint: 'Password',
+                    hint: 'Confirm Password',
                     inputAction: TextInputAction.done,
                     inputType: TextInputType.text,
-                    inputController: passwordController,
+                    inputController: newconfirmpasswordController,
                     inputFocus: passwordFocusNode,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const ForgotPassword()));
-                    },
-                    child: const Text(
-                      "Forgot Password?",
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.normal,
-                        color: Colors.white,
-                      ),
-                    ),
                   ),
                 ],
               ),
@@ -157,14 +123,19 @@ class _LoginState extends State<Login> {
                       isLoading = true;
                     });
                     String errMsg = "";
-                    if (emailController.text.isEmpty ||
-                        passwordController.text.isEmpty) {
+                    if (newpasswordController.text.isEmpty ||
+                        newconfirmpasswordController.text.isEmpty) {
                       errMsg += "Please fill in all fields";
                     }
 
-                    // if (passwordController.text.length < 8) {
-                    //   errMsg += "Password must be at least 6 characters";
-                    // }
+                    if (newpasswordController.text.length < 8) {
+                      errMsg += "Password must be at least 6 characters";
+                    }
+
+                    if (newpasswordController.text !=
+                        newconfirmpasswordController.text) {
+                      errMsg += "Password must match";
+                    }
 
                     if (errMsg != "") {
                       setState(() {
@@ -198,12 +169,12 @@ class _LoginState extends State<Login> {
                         },
                       );
                     } else {
-                      if (toRegister == "Tutor") {
+                      if (widget.toRegister == "Tutor") {
                         try {
                           // TutorServices tutor = TutorServices.Login(
-                          tutor = await TutorServices.logInTutor(
-                              emailController.text, passwordController.text);
-                          tutor.setStatus = "T";
+                          tutor =
+                              await TutorServices.getTutorByEmail(widget.email);
+                          tutor.setPassword = newpasswordController.text;
                           await TutorServices.updateTutor(tutor);
                           Navigator.push(
                             context,
@@ -246,9 +217,9 @@ class _LoginState extends State<Login> {
                       } else {
                         try {
                           // TutorServices tutor = TutorServices.Login(
-                          tutee = await TuteeServices.logInTutee(
-                              emailController.text, passwordController.text);
-                          tutee.setStatus = "T";
+                          tutee =
+                              await TuteeServices.getTuteeByEmail(widget.email);
+                          tutee.setPassword = newpasswordController.text;
                           await TuteeServices.updateTutee(tutee);
                           Navigator.push(
                             context,
