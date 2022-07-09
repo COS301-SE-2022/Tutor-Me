@@ -27,6 +27,7 @@ class _RegisterStep1State extends State<RegisterStep1> {
   int currentStep = 0;
 
   bool isLoading = false;
+  int? initialIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -107,12 +108,16 @@ class _RegisterStep1State extends State<RegisterStep1> {
                   totalSwitches: 2,
                   labels: const ['Tutor', 'Tutee'],
                   icons: const [Icons.edit, Icons.person_outlined],
+                  initialLabelIndex: initialIndex,
                   onToggle: (index) {
                     if (index == 0) {
                       toRegister = "Tutor";
                     } else {
                       toRegister = "Tutee";
                     }
+                    setState(() {
+                      initialIndex = index;
+                    });
                   },
                 ),
               ),

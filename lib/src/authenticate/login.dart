@@ -29,6 +29,7 @@ class _LoginState extends State<Login> {
   String toRegister = 'Tutor';
 
   bool isLoading = false;
+  int? initialIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -92,12 +93,16 @@ class _LoginState extends State<Login> {
                   totalSwitches: 2,
                   labels: const ['Tutor', 'Tutee'],
                   icons: const [Icons.edit, Icons.person_outlined],
+                  initialLabelIndex: initialIndex,
                   onToggle: (index) {
                     if (index == 0) {
                       toRegister = "Tutor";
                     } else {
                       toRegister = "Tutee";
                     }
+                    setState(() {
+                      initialIndex = index;
+                    });
                   },
                 ),
               ),
