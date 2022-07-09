@@ -42,8 +42,10 @@ class ForgotPasswordState extends State<ForgotPassword> {
       });
 
       Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) =>
-              OTP(email: emailController.text, emailAuth: emailAuth, toRegister: toRegister)));
+          builder: (context) => OTP(
+              email: emailController.text,
+              emailAuth: emailAuth,
+              toRegister: toRegister)));
     } else {
       Fluttertoast.showToast(
           msg: "Unable to send OTP",
@@ -57,6 +59,7 @@ class ForgotPasswordState extends State<ForgotPassword> {
   }
 
   bool isLoading = false;
+  int? initialIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -120,12 +123,16 @@ class ForgotPasswordState extends State<ForgotPassword> {
                   totalSwitches: 2,
                   labels: const ['Tutor', 'Tutee'],
                   icons: const [Icons.edit, Icons.person_outlined],
+                  initialLabelIndex: initialIndex,
                   onToggle: (index) {
                     if (index == 0) {
                       toRegister = "Tutor";
                     } else {
                       toRegister = "Tutee";
                     }
+                    setState(() {
+                      initialIndex = index;
+                    });
                   },
                 ),
               ),
