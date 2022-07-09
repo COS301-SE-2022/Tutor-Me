@@ -11,5 +11,6 @@ namespace Api.Models
         public string ModuleName { get; set; }
         public string Institution { get; set; }
         public string Faculty { get; set; }
+        public string Year { get; set; }
     }
 }

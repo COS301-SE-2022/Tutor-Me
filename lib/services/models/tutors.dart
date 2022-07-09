@@ -19,6 +19,7 @@ class Tutors {
   String _course = "";
   String _status = "";
   String _faculty = "";
+  String _year = '';
 
   Tutors(
     this._id,
@@ -38,6 +39,7 @@ class Tutors {
     this._password,
     this._gender,
     this._connections,
+    this._year,
   );
 
   String get getId => _id;
@@ -58,6 +60,7 @@ class Tutors {
   String get getPassword => _password;
   String get getGender => _gender;
   String get getConnections => _connections;
+  String get getYear => _year;
 
   set setId(String newId) {
     _id = newId;
@@ -107,8 +110,7 @@ class Tutors {
     _dateOfBirth = newDateOfBirth;
   }
 
-String calculateAge(String date){
-  
+  String calculateAge(String date) {
     int age = 0;
     int year = 0;
     int month = 0;
@@ -131,7 +133,8 @@ String calculateAge(String date){
     _age = age.toString();
     setAge = age.toString();
     return _age.toString();
-}
+  }
+
   set setStatus(String newStatus) {
     _status = newStatus;
   }
@@ -156,6 +159,10 @@ String calculateAge(String date){
     _connections = newConnections;
   }
 
+  set setYear(String newYear) {
+    _year = newYear;
+  }
+
   Map<String, dynamic> toMap() {
     var map = <String, dynamic>{};
     map["id"] = _id;
@@ -176,6 +183,7 @@ String calculateAge(String date){
     map["password"] = _password;
     map["gender"] = _gender;
     map["connections"] = _connections;
+    map['year'] = _year;
     return map;
   }
 
@@ -197,6 +205,7 @@ String calculateAge(String date){
     _password = o["password"];
     _gender = o["gender"];
     _connections = o["connections"];
+    _year = o['year'];
   }
 
   static fromJson(model) {}
