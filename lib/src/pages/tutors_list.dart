@@ -172,7 +172,6 @@ class TutorsListState extends State<TutorsList> {
         }
       }
     }
-    print('len' + indecies[1].toString());
     for (int i = 0; i < indecies.length; i++) {
       tutorList.removeAt(indecies[i]);
       for (int j = 0; j < indecies.length; j++) {
