@@ -99,7 +99,7 @@ class TutorServices {
         }
       }
       if (!tutor.getConnections.contains(request[0].getRequesterId)) {
-        if (tutee.getConnections.contains('No connections added')) {
+        if (tutor.getConnections.contains('No connections added')) {
           tutor.setConnections = request[0].getRequesterId;
         } else {
           tutor.setConnections =
