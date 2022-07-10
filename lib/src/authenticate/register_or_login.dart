@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'register_step1.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'login.dart';
+import '../admin/admin_home.dart';
 
 // ignore: must_be_immutable
 class RegisterOrLogin extends StatefulWidget {
@@ -93,6 +94,20 @@ class _RegisterOrLoginState extends State<RegisterOrLogin> {
                           ],
                         )),
                   ],
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const AdminHome()));
+                },
+                child: const Text(
+                  "        Admin",
+                  style: TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.normal,
+                    color: Color.fromARGB(255, 255, 255, 255),
+                  ),
                 ),
               ),
             ],
@@ -240,6 +255,3 @@ class _RegisterOrLoginState extends State<RegisterOrLogin> {
         .push(MaterialPageRoute(builder: (context) => const Login()));
   }
 }
-
- 
-

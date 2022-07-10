@@ -29,8 +29,8 @@ class ChatsState extends State<Chats> {
 
   void getConnections() async {
     if (widget.user is Tutors) {
-      int conLength = widget.user.getConnections.length;
       List<String> connections = widget.user.getConnections.split(',');
+      int conLength = connections.length;
       for (int i = 0; i < conLength; i++) {
         final tutor = await TuteeServices.getTutee(connections[i]);
         setState(() {
@@ -38,8 +38,8 @@ class ChatsState extends State<Chats> {
         });
       }
     } else {
-      int conLength = widget.user.getConnections.length;
       List<String> connections = widget.user.getConnections.split(',');
+      int conLength = connections.length;
       for (int i = 0; i < conLength; i++) {
         final tutor = await TutorServices.getTutor(connections[i]);
         setState(() {
