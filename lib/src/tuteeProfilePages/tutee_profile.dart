@@ -65,7 +65,6 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
     ));
   }
 
-
   Widget topDesign() {
     return Stack(
       clipBehavior: Clip.none,
@@ -85,7 +84,9 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
             onTap: (() => Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => TuteeProfileEdit(user: widget.user,)))),
+                    builder: (context) => TuteeProfileEdit(
+                          user: widget.user,
+                        )))),
             child: Icon(
               Icons.edit,
               color: colorOrange,
@@ -252,7 +253,11 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
             right: screenWidthSize * 0.06,
             top: screenHeightSize * 0.02,
           ),
-          child: ListView.builder(
+          child: ListView.separated(
+            separatorBuilder: (BuildContext context, index) {
+              return SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.02);
+            },
             scrollDirection: Axis.vertical,
             shrinkWrap: true,
             itemBuilder: _moduleListBuilder,
@@ -274,7 +279,7 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
               backColor: colorOrange,
               funct: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => EditModuleList(user:widget.user)));
+                    builder: (context) => EditModuleList(user: widget.user)));
               },
             )),
       ),
@@ -291,11 +296,15 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
           size: MediaQuery.of(context).size.height * 0.02,
           color: colorTurqoise,
         ),
-        Text(
-          moduleDescription,
-          style: TextStyle(
-            fontSize: MediaQuery.of(context).size.width * 0.05,
-            color: Colors.black,
+        Expanded(
+          child: Text(
+            moduleDescription,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+              fontSize: MediaQuery.of(context).size.width * 0.05,
+              color: Colors.black,
+            ),
           ),
         ),
       ],

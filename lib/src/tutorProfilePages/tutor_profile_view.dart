@@ -175,18 +175,22 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
           ),
         ),
       ),
-      Padding(
-        padding: EdgeInsets.only(
-          left: screenWidthSize * 0.06,
-          top: screenHeightSize * 0.01,
-          bottom: screenWidthSize * 0.06,
+      SizedBox(
+        width: double.infinity,
+        child: Padding(
+          padding: EdgeInsets.only(
+            right: screenWidthSize * 0.06,
+            left: screenWidthSize * 0.06,
+            top: screenHeightSize * 0.02,
+            bottom: screenHeightSize * 0.04,
+          ),
+          child: Text(widget.tutor.getBio,
+              style: TextStyle(
+                fontSize: screenWidthSize * 0.05,
+                fontWeight: FontWeight.normal,
+                color: Colors.black,
+              )),
         ),
-        child: Text(widget.tutor.getBio,
-            style: TextStyle(
-              fontSize: screenWidthSize * 0.05,
-              fontWeight: FontWeight.normal,
-              color: Colors.black,
-            )),
       ),
       SizedBox(
         width: double.infinity,
@@ -244,7 +248,11 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
             right: screenWidthSize * 0.06,
             top: screenHeightSize * 0,
           ),
-          child: ListView.builder(
+          child: ListView.separated(
+            separatorBuilder: (BuildContext context, index) {
+              return SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.02);
+            },
             scrollDirection: Axis.vertical,
             shrinkWrap: true,
             itemBuilder: _moduleListBuilder,
@@ -430,10 +438,16 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
                     style: OutlinedButton.styleFrom(
                         side: const BorderSide(width: 2, color: colorTurqoise)),
                     onPressed: () async {
-                      int tutorRating = int.parse(widget.tutor.getRating);
-                      double updatedRating = ((tutorRating + rating) / 2);
+                      List<String> splitRating =
+                          widget.tutor.getRating.split(',');
+                      int tutorRating = int.parse(splitRating[0]);
+                      int numRatings = int.parse(splitRating[1]);
+                      numRatings++;
+                      double updatedRating =
+                          ((tutorRating + rating) / numRatings);
                       int asInt = updatedRating.round();
-                      String ratingFormat = asInt.toString() + ',2';
+                      String ratingFormat =
+                          asInt.toString() + ',' + numRatings.toString();
                       setState(() {
                         widget.tutor.setRating = ratingFormat;
                       });
@@ -499,13 +513,25 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
   Widget _moduleListBuilder(BuildContext context, int i) {
     String moduleDescription =
         currentModules[i].getModuleName + '(' + currentModules[i].getCode + ')';
-    return Text(
-      moduleDescription,
-      style: TextStyle(
-        fontSize: MediaQuery.of(context).size.width * 0.05,
-        fontWeight: FontWeight.normal,
-        color: Colors.black,
-      ),
+    return Row(
+      children: [
+        Icon(
+          Icons.book,
+          size: MediaQuery.of(context).size.height * 0.02,
+          color: colorTurqoise,
+        ),
+        Expanded(
+          child: Text(
+            moduleDescription,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+              fontSize: MediaQuery.of(context).size.width * 0.05,
+              color: Colors.black,
+            ),
+          ),
+        ),
+      ],
     );
   }
 
