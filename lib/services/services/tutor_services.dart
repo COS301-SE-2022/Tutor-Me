@@ -223,7 +223,7 @@ class TutorServices {
       'tuteesCode': "No tutees",
       'email': email,
       'password': password,
-      'bio': "No bio added",a
+      'bio': "No bio added",
       'connections': "No connections added",
       'rating': "0,0",
       'year': year,
