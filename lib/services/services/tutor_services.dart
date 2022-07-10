@@ -99,7 +99,7 @@ class TutorServices {
         }
       }
       if (!tutor.getConnections.contains(request[0].getRequesterId)) {
-        if (tutee.getConnections.contains('No connections added')) {
+        if (tutor.getConnections.contains('No connections added')) {
           tutor.setConnections = request[0].getRequesterId;
         } else {
           tutor.setConnections =
@@ -223,7 +223,7 @@ class TutorServices {
       'tuteesCode': "No tutees",
       'email': email,
       'password': password,
-      'bio': "No bio added",
+      'bio': "No bio added",a
       'connections': "No connections added",
       'rating': "0,0",
       'year': year,
