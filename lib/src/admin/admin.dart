@@ -11,11 +11,19 @@ class Admin extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double widthOfScreen = MediaQuery.of(context).size.width;
+    int crossAxis = 2;
+    if (widthOfScreen < 400.0) {
+      crossAxis = 2;
+    } else {
+      crossAxis = 3;
+    }
+
     return Flexible(
       child: GridView.count(
         childAspectRatio: 1.0,
         padding: const EdgeInsets.only(left: 16, right: 16),
-        crossAxisCount: 2,
+        crossAxisCount: crossAxis,
         crossAxisSpacing: 18,
         mainAxisSpacing: 18,
         children: <Widget>[
