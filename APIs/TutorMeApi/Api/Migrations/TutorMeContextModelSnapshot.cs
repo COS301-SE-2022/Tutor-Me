@@ -22,6 +22,52 @@ namespace Api.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("Api.Models.Group", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("id")
+                        .HasDefaultValueSql("(newid())");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(max)")
+                        .HasColumnName("description");
+
+                    b.Property<string>("ModuleCode")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(10)")
+                        .HasColumnName("moduleCode");
+
+                    b.Property<string>("ModuleName")
+                        .IsRequired()
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(max)")
+                        .HasColumnName("moduleName");
+
+                    b.Property<string>("Tutees")
+                        .IsRequired()
+                        .HasMaxLength(36)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(36)")
+                        .HasColumnName("tutees");
+
+                    b.Property<string>("TutorId")
+                        .IsRequired()
+                        .HasMaxLength(36)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(36)")
+                        .HasColumnName("tutorId");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Group");
+                });
+
             modelBuilder.Entity("Api.Models.Module", b =>
                 {
                     b.Property<string>("Code")
@@ -151,6 +197,11 @@ namespace Api.Migrations
                         .HasColumnType("varchar(1)")
                         .HasColumnName("gender");
 
+                    b.Property<string>("GroupIds")
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(max)")
+                        .HasColumnName("groupIds");
+
                     b.Property<string>("Institution")
                         .IsRequired()
                         .IsUnicode(false)
@@ -261,6 +312,11 @@ namespace Api.Migrations
                         .HasColumnType("varchar(1)")
                         .HasColumnName("gender");
 
+                    b.Property<string>("GroupIds")
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(max)")
+                        .HasColumnName("groupIds");
+
                     b.Property<string>("Institution")
                         .IsRequired()
                         .IsUnicode(false)
@@ -294,11 +350,10 @@ namespace Api.Migrations
                     b.Property<string>("Rating")
                         .IsRequired()
                         .ValueGeneratedOnAdd()
-                        .HasMaxLength(1)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(1)")
+                        .HasColumnType("varchar(max)")
                         .HasColumnName("rating")
-                        .HasDefaultValueSql("((0))");
+                        .HasDefaultValueSql("('0,0')");
 
                     b.Property<string>("Requests")
                         .IsUnicode(false)

@@ -29,6 +29,8 @@ dependencies:
   touch_ripple_effect: ^2.2.3  
   toggle_switch: ^2.0.1
   open_file: ^3.2.1
+  email_auth:
+  google_fonts: ^3.0.1
   
 dev_dependencies:
   flutter_test:

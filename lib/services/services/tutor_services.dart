@@ -155,7 +155,8 @@ class TutorServices {
   }
 
   static Future getTutor(String id) async {
-    Uri tutorURL = Uri.https('tutormeapi1.azurewebsites.net', '/api/Tutors/$id');
+    Uri tutorURL =
+        Uri.https('tutormeapi1.azurewebsites.net', '/api/Tutors/$id');
     try {
       final response = await http.get(tutorURL, headers: {
         "Accept": "application/json",
@@ -180,8 +181,9 @@ class TutorServices {
   }
 
   static hashPassword(String password) {
-    // TODO: add salt so it can be simple to retrieve the password back
-    String hashedPassword = Crypt.sha256(password).toString();
+    String hashedPassword =
+        Crypt.sha256(password, salt: 'Thisisagreatplatformforstudentstolearn')
+            .toString();
     return hashedPassword;
   }
 
@@ -205,7 +207,7 @@ class TutorServices {
         Uri.https('tutormeapi1.azurewebsites.net', '/api/Tutors/');
     //source: https://protocoderspoint.com/flutter-encryption-decryption-using-flutter-string-encryption/#:~:text=open%20your%20flutter%20project%20that,IDE(android%2Dstudio).&text=Then%20after%20you%20have%20added,the%20password%20the%20user%20enter.
 
-    // password = hashPassword(password);
+    password = hashPassword(password);
 
     String data = jsonEncode({
       'firstName': name,
@@ -223,8 +225,10 @@ class TutorServices {
       'password': password,
       'bio': "No bio added",
       'connections': "No connections added",
-      'rating': 0.toString(),
-      'year': year
+      'rating': "0,0",
+      'year': year,
+      'groupIds': "no groups",
+      'requests':'no requests'
     });
 
     final header = <String, String>{
@@ -277,7 +281,8 @@ class TutorServices {
       'bio': tutor.getBio,
       'connections': tutor.getConnections,
       'rating': tutor.getRating,
-      'year': tutor.getYear
+      'year': tutor.getYear,
+      'groupIds': tutor.getGroupIds
     });
     final header = <String, String>{
       'Content-Type': 'application/json; charset=utf-8',
@@ -319,10 +324,12 @@ class TutorServices {
 
   static logInTutor(String email, String password) async {
     List<Tutors> tutors = await getTutors();
+
     late Tutors tutor;
     bool got = false;
     for (int i = 0; i < tutors.length; i++) {
-      if (tutors[i].getEmail == email && tutors[i].getPassword == password) {
+      if (tutors[i].getEmail == email &&
+          tutors[i].getPassword == hashPassword(password)) {
         got = true;
         tutor = tutors[i];
         break;
@@ -335,13 +342,48 @@ class TutorServices {
     }
   }
 
+  static getTutorByEmail(String email) async {
+    List<Tutors> tutors = await getTutors();
+    late Tutors tutor;
+    bool got = false;
+    for (int i = 0; i < tutors.length; i++) {
+      if (tutors[i].getEmail == email) {
+        got = true;
+        tutor = tutors[i];
+        break;
+      }
+    }
+    if (got == false) {
+      throw Exception("Email is incorrect");
+    } else {
+      return tutor;
+    }
+  }
+
+  static isThereTutorByEmail(String email) async {
+    List<Tutors> tutors = await getTutors();
+    bool got = false;
+    for (int i = 0; i < tutors.length; i++) {
+      if (tutors[i].getEmail == email) {
+        got = true;
+        break;
+      }
+    }
+    if (got == false) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   static uploadProfileImage(File? image, String id) async {
     final imageByte = base64Encode(image!.readAsBytesSync());
     String data = jsonEncode({'id': id, 'tutorImage': imageByte});
     final header = <String, String>{
       'Content-Type': 'application/json; charset=utf-8'
     };
-    final url = Uri.parse('https://tutormefiles1.azurewebsites.net/api/TutorFiles/$id');
+    final url =
+        Uri.parse('https://tutormefiles1.azurewebsites.net/api/TutorFiles/$id');
     try {
       final response = await http.put(url, headers: header, body: data);
       if (response.statusCode == 204) {

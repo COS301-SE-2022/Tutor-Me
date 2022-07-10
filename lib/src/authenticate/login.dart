@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:toggle_switch/toggle_switch.dart';
+import 'package:tutor_me/src/authenticate/register_step1.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import '../../services/models/tutees.dart';
 import '../../services/models/tutors.dart';
@@ -8,6 +9,7 @@ import '../../services/services/tutor_services.dart';
 import '../components.dart';
 import '../tutee_page.dart';
 import '../tutor_page.dart';
+import 'forgot_password.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -27,6 +29,7 @@ class _LoginState extends State<Login> {
   String toRegister = 'Tutor';
 
   bool isLoading = false;
+  int? initialIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -90,12 +93,16 @@ class _LoginState extends State<Login> {
                   totalSwitches: 2,
                   labels: const ['Tutor', 'Tutee'],
                   icons: const [Icons.edit, Icons.person_outlined],
+                  initialLabelIndex: initialIndex,
                   onToggle: (index) {
                     if (index == 0) {
                       toRegister = "Tutor";
                     } else {
                       toRegister = "Tutee";
                     }
+                    setState(() {
+                      initialIndex = index;
+                    });
                   },
                 ),
               ),
@@ -124,12 +131,18 @@ class _LoginState extends State<Login> {
                     inputController: passwordController,
                     inputFocus: passwordFocusNode,
                   ),
-                  const Text(
-                    "Forgot Password?",
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.normal,
-                      color: Colors.white,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const ForgotPassword()));
+                    },
+                    child: const Text(
+                      "Forgot Password?",
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.normal,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ],
@@ -299,7 +312,13 @@ class _LoginState extends State<Login> {
                 height: 25,
               ),
               GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const RegisterStep1()),
+                  );
+                },
                 child: Container(
                   child: const Text(
                     "Create New Account",
