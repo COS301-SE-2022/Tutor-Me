@@ -129,7 +129,7 @@ class TuteeServices {
       String email,
       String password,
       String confirmPassword,
-      String year) async {
+      String year, String course) async {
     List<Tutees> tutees = await getTutees();
     for (int i = 0; i < tutees.length; i++) {
       if (tutees[i].getEmail == email) {
@@ -148,7 +148,7 @@ class TuteeServices {
       'gender': gender,
       'status': "T",
       'faculty': "No faculty added",
-      'course': "No course added",
+      'course': course,
       'institution': institution,
       'modules': "No modules added",
       'location': "No Location added",
