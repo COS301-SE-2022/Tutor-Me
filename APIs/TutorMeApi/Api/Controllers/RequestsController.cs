@@ -51,7 +51,7 @@ namespace Api.Controllers
         }
 
         [HttpGet("Tutor/{tutorId}")]
-        public async Task<ActionResult<Tutor>> GetTutorRequests(String tutorId)
+        public async Task<ActionResult<Request>> GetTutorRequests(String tutorId)
         {
             if (_context.Tutors == null)
             {
@@ -68,7 +68,7 @@ namespace Api.Controllers
         }
 
         [HttpGet("Tutee/{tuteeId}")]
-        public async Task<ActionResult<Tutor>> GetTuteeRequests(String tuteeId)
+        public async Task<ActionResult<Request>> GetTuteeRequests(String tuteeId)
         {
             if (_context.Tutors == null)
             {
