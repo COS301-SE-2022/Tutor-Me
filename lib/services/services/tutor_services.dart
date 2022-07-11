@@ -245,11 +245,29 @@ class TutorServices {
           j = response.body;
         }
         final List list = json.decode(j);
-        List<Tutors> tutors =
-            list.map((json) => Tutors.fromObject(json)).toList();
+        List<Tutors> tutors = list.map((json) => Tutors.fromObject(json)).toList();
+        await createFileRecord(tutors[0].getId);
         return tutors[0];
       } else {
         throw Exception('Failed to upload ' + response.statusCode.toString());
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  static createFileRecord(String id) async{
+    String data = jsonEncode({'id': id, 'tutorImage': '', 'tutorTranscript': ''});
+    final header = <String, String>{
+      'Content-Type': 'application/json; charset=utf-8'
+    };
+    final url = Uri.parse('https://tutormefiles1.azurewebsites.net/api/TutorFiles');
+    try {
+      final response = await http.post(url, headers: header, body: data);
+      if (response.statusCode == 201) {
+        return true;
+      } else {
+        throw "failed to upload";
       }
     } catch (e) {
       rethrow;
