@@ -21,7 +21,7 @@ class ChangePassword extends StatefulWidget {
 }
 
 class ChangePasswordState extends State<ChangePassword> {
-  final FocusNode emailFocusNode = FocusNode();
+  final FocusNode oldPasswordFocusNode = FocusNode();
   final FocusNode passwordFocusNode = FocusNode();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final TextEditingController newpasswordController = TextEditingController();
@@ -92,10 +92,10 @@ class ChangePasswordState extends State<ChangePassword> {
                   PasswordInput(
                     icon: Icons.lock_clock_outlined,
                     hint: 'New Password',
-                    inputAction: TextInputAction.done,
+                    inputAction: TextInputAction.next,
                     inputType: TextInputType.text,
                     inputController: newpasswordController,
-                    inputFocus: passwordFocusNode,
+                    inputFocus: oldPasswordFocusNode,
                   ),
                   PasswordInput(
                     icon: Icons.lock_clock_outlined,
