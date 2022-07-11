@@ -64,7 +64,8 @@ class _RegisterStep3State extends State<RegisterStep3> {
           // courseController.text,
           //yearLvl
           widget.confirmPassword,
-          '1' //TODO:change to actual value
+          '1', //TODO:change to actual value
+          'Bsc Computer Sciences'
         );
         Navigator.push(
           context,
@@ -108,7 +109,8 @@ class _RegisterStep3State extends State<RegisterStep3> {
           // courseController.text,
           //yearLvl
           widget.confirmPassword,
-          '1' //TODO: Change to actual value
+          '1', //TODO: Change to actual value
+          'Bsc Computer Sciences' //TODO: change to act
         );
 
         Navigator.push(
