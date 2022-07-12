@@ -176,6 +176,8 @@ class TuteeServices {
         final List list = json.decode(j);
         List<Tutees> tutees =
             list.map((json) => Tutees.fromObject(json)).toList();
+        //initialize the files record too
+        await createFileRecord(tutees[0].getId);
         return tutees[0];
       } else {
         throw Exception('Failed to upload ' + response.statusCode.toString());
@@ -252,14 +254,31 @@ class TuteeServices {
     }
   }
 
+  static createFileRecord(String id) async{
+    String data = jsonEncode({'id': id, 'tuteeImage': '', 'tuteeTranscript': ''});
+    final header = <String, String>{
+      'Content-Type': 'application/json; charset=utf-8'
+    };
+    final url = Uri.parse('https://tutormefiles1.azurewebsites.net/api/TuteeFiles');
+    try {
+      final response = await http.post(url, headers: header, body: data);
+      if (response.statusCode == 201) {
+        return true;
+      } else {
+        throw "failed to upload";
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   static uploadProfileImage(File? image, String id) async {
     final imageByte = base64Encode(image!.readAsBytesSync());
     String data = jsonEncode({'id': id, 'tutorImage': imageByte});
     final header = <String, String>{
       'Content-Type': 'application/json; charset=utf-8'
     };
-    final url =
-        Uri.parse('https://tutormefiles1.azurewebsites.net/api/TuteeFiles/$id');
+    final url = Uri.parse('https://tutormefiles1.azurewebsites.net/api/TuteeFiles/$id');
     try {
       final response = await http.put(url, headers: header, body: data);
       if (response.statusCode == 204) {

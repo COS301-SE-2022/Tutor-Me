@@ -110,7 +110,7 @@ class _RegisterStep3State extends State<RegisterStep3> {
           //yearLvl
           widget.confirmPassword,
           '1', //TODO: Change to actual value
-          'Bsc Computer Sciences' //TODO: change to act
+          'Bsc Computer Sciences' //TODO: change to actual value
         );
 
         Navigator.push(
