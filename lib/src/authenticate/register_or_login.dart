@@ -98,8 +98,8 @@ class _RegisterOrLoginState extends State<RegisterOrLogin> {
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => const LoginAdmin()));
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const LoginAdmin()));
                 },
                 child: const Text(
                   "        Admin",
@@ -144,35 +144,40 @@ class _RegisterOrLoginState extends State<RegisterOrLogin> {
                 ],
               ),
             ),
-            Container(
-              padding: EdgeInsets.only(
-                  top: screenHeightSize * 0.06,
-                  left: screenWidthSize * 0.15,
-                  right: screenWidthSize * 0.15,
-                  bottom: screenHeightSize * 0.06),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  RichText(
-                    text: TextSpan(
-                      children: <TextSpan>[
-                        TextSpan(
-                            text: "   Register as \nTutor or Tutee",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: screenHeightSize * 0.034,
-                              shadows: const <Shadow>[
-                                Shadow(
-                                  offset: Offset(2.0, 2.0),
-                                  blurRadius: 6.0,
-                                  color: Color.fromARGB(255, 0, 0, 0),
-                                ),
-                              ],
-                            )),
-                      ],
+            GestureDetector(
+              onTap: () {
+                goToRegister(context);
+              },
+              child: Container(
+                padding: EdgeInsets.only(
+                    top: screenHeightSize * 0.06,
+                    left: screenWidthSize * 0.15,
+                    right: screenWidthSize * 0.15,
+                    bottom: screenHeightSize * 0.06),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    RichText(
+                      text: TextSpan(
+                        children: <TextSpan>[
+                          TextSpan(
+                              text: "   Register as \nTutor or Tutee",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: screenHeightSize * 0.034,
+                                shadows: const <Shadow>[
+                                  Shadow(
+                                    offset: Offset(2.0, 2.0),
+                                    blurRadius: 6.0,
+                                    color: Color.fromARGB(255, 0, 0, 0),
+                                  ),
+                                ],
+                              )),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ],
@@ -208,35 +213,40 @@ class _RegisterOrLoginState extends State<RegisterOrLogin> {
                 ],
               ),
             ),
-            Container(
-              padding: EdgeInsets.only(
-                  top: screenHeightSize * 0.06,
-                  left: screenWidthSize * 0.15,
-                  right: screenWidthSize * 0.15,
-                  bottom: screenHeightSize * 0.06),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  RichText(
-                    text: TextSpan(
-                      children: <TextSpan>[
-                        TextSpan(
-                            text: "   Login as \nTutor or Tutee",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: screenHeightSize * 0.034,
-                              shadows: const <Shadow>[
-                                Shadow(
-                                  offset: Offset(2.0, 2.0),
-                                  blurRadius: 6.0,
-                                  color: Color.fromARGB(255, 0, 0, 0),
-                                ),
-                              ],
-                            )),
-                      ],
+            GestureDetector(
+              onTap: () {
+                goToRegister(context);
+              },
+              child: Container(
+                padding: EdgeInsets.only(
+                    top: screenHeightSize * 0.06,
+                    left: screenWidthSize * 0.15,
+                    right: screenWidthSize * 0.15,
+                    bottom: screenHeightSize * 0.06),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    RichText(
+                      text: TextSpan(
+                        children: <TextSpan>[
+                          TextSpan(
+                              text: "   Login as \nTutor or Tutee",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: screenHeightSize * 0.034,
+                                shadows: const <Shadow>[
+                                  Shadow(
+                                    offset: Offset(2.0, 2.0),
+                                    blurRadius: 6.0,
+                                    color: Color.fromARGB(255, 0, 0, 0),
+                                  ),
+                                ],
+                              )),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ],
