@@ -215,7 +215,7 @@ class _RegisterOrLoginState extends State<RegisterOrLogin> {
             ),
             GestureDetector(
               onTap: () {
-                goToRegister(context);
+                goToLogin(context);
               },
               child: Container(
                 padding: EdgeInsets.only(
