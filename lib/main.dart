@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 
 import 'src/tutorAndTuteeCollaboration/tuteeGroups/tuteeGroupSettings.dart';
 import 'src/tutorAndTuteeCollaboration/tuteeGroups/tuteeGroups.dart';
+import 'src/tutorAndTuteeCollaboration/tutorGroups/tutor_add_remove_participants.dart';
 
 // import 'src/app.dart';
 
@@ -17,5 +18,5 @@ void main() async {
   // await dotenv.load(fileName: ".env");
 
   // await settingsController.loadSettings();
-  runApp(MaterialApp(home: TuteeGroupsSettings()));
+  runApp(const MaterialApp(home: Tutor()));
 }

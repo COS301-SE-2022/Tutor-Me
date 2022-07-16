@@ -65,7 +65,6 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
     ));
   }
 
-
   Widget topDesign() {
     return Stack(
       clipBehavior: Clip.none,
@@ -85,7 +84,9 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
             onTap: (() => Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => TuteeProfileEdit(user: widget.user,)))),
+                    builder: (context) => TuteeProfileEdit(
+                          user: widget.user,
+                        )))),
             child: Icon(
               Icons.edit,
               color: colorOrange,
@@ -274,7 +275,7 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
               backColor: colorOrange,
               funct: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => EditModuleList(user:widget.user)));
+                    builder: (context) => EditModuleList(user: widget.user)));
               },
             )),
       ),
