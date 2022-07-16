@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 // import 'src/settings/settings_service.dart';
 // import 'package:flutter_dotenv/flutter_dotenv.dart';
 
+import 'src/tutorAndTuteeCollaboration/tuteeGroups/tuteeGroupSettings.dart';
 import 'src/tutorAndTuteeCollaboration/tuteeGroups/tuteeGroups.dart';
 
 // import 'src/app.dart';
@@ -16,5 +17,5 @@ void main() async {
   // await dotenv.load(fileName: ".env");
 
   // await settingsController.loadSettings();
-  runApp(MaterialApp(home: TuteeGroups()));
+  runApp(MaterialApp(home: TuteeGroupsSettings()));
 }

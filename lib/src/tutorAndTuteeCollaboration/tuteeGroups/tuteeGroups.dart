@@ -19,52 +19,6 @@ class TuteeGroups extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //list of ids from group ids,
-    //getGroupIds(),
-    //getGroupName(),
-    //getGroupCode(),
-    //getGroupsTuteeList(),
-    //getGroupsDescription(),
-    //updateGroupsDescription(),
-    //addTuteeToGroup(group id, tuteeid)
-    //deleteTuteeFromGroup(group id, tuteeid)
-
-    // List modulesGroupIds = List<String>.empty();
-    // List moduleCodes = List<String>.empty();
-    // List moduleNames = List<String>.empty();
-    // List moduleGroupParticipantsNr = List<int>.empty();
-    // List moduleImg = List<String>.empty();
-
-    // getInstitutions() async {
-    //   // final insitutions = await ModuleServices.getInstitutions();
-    //   setState(() {
-    //     items = insitutions;
-    //   });
-    // }
-
-    List<String> moduleGroupCodes = [
-      "COS314",
-      "IMY310",
-      "STK12O",
-    ];
-
-    List<String> moduleGroupNames = [
-      "Compiler Construction - YR 3",
-      "Multimedia - YR 3",
-      "Statistics - YR 1"
-    ];
-
-    List<int> moduleGroupParticipantsNr = [
-      7,
-      2,
-      5,
-    ];
-
-    List<String> moduleGroupImages = [
-      'https://cdn.pixabay.com/photo/2018/09/27/09/22/artificial-intelligence-3706562_960_720.jpg',
-      'https://cdn.pixabay.com/photo/2018/10/19/10/43/social-media-3758364__340.jpg',
-      'https://cdn.pixabay.com/photo/2017/10/17/14/10/financial-2860753__340.jpg',
-    ];
 
     return DefaultTabController(
         length: 3,
