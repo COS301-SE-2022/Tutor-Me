@@ -1,12 +1,10 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:tutor_me/src/Groups/group.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 
 class TutorGroupPage extends StatefulWidget {
-  Group group;
-  TutorGroupPage({Key? key, required this.group}) : super(key: key);
+  final Group group;
+  const TutorGroupPage({Key? key, required this.group}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
