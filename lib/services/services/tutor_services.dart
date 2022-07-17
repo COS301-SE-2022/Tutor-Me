@@ -348,7 +348,6 @@ class TutorServices {
   }
 
   static logInTutor(String email, String password) async {
-     print('checkpoint 2');
     List<Tutors> tutors = await getTutors();
    
     late Tutors tutor;

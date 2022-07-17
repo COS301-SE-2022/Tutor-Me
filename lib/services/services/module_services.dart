@@ -101,7 +101,6 @@ class ModuleServices {
         institutions.add(item.getInstitution);
       }
     }
-    print(institutions[0]);
     return institutions;
   }
 }
