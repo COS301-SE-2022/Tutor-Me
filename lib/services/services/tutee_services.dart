@@ -16,7 +16,7 @@ class TuteeServices {
   //TODO: undo a request
   sendRequest(String receiverId, String requesterId) async {
     try {
-      final url = Uri.https('tutormeapi1.azurewebsites.net', 'api/Requests');
+      final url = Uri.https('tutorme.azurewebsites.net', 'api/Requests');
       final header = {
         "Accept": "application/json",
         "Content-Type": "application/json",
@@ -45,7 +45,7 @@ class TuteeServices {
 
   getRequests(String id) async {
     final url =
-        Uri.https('tutormeapi1.azurewebsites.net', 'api/Requests/Tutee/$id');
+        Uri.https('tutorme.azurewebsites.net', 'api/Requests/Tutee/$id');
     try {
       final response = await http.get(url, headers: {
         "Accept": "application/json",
@@ -70,7 +70,7 @@ class TuteeServices {
   }
 
   static getTutees() async {
-    Uri tuteeURL = Uri.https('tutormeapi1.azurewebsites.net', '/api/Tutees');
+    Uri tuteeURL = Uri.https('tutorme.azurewebsites.net', '/api/Tutees');
     try {
       final response = await http.get(tuteeURL, headers: {
         "Accept": "application/json",
@@ -96,7 +96,7 @@ class TuteeServices {
 
   static Future getTutee(String id) async {
     Uri tuteeURL =
-        Uri.https('tutormeapi1.azurewebsites.net', '/api/Tutees/$id');
+        Uri.https('tutorme.azurewebsites.net', '/api/Tutees/$id');
     try {
       final response = await http.get(tuteeURL, headers: {
         "Accept": "application/json",
@@ -137,7 +137,7 @@ class TuteeServices {
       }
     }
     final modulesURL =
-        Uri.https('tutormeapi1.azurewebsites.net', '/api/Tutees/');
+        Uri.https('tutorme.azurewebsites.net', '/api/Tutees/');
     //source: https://protocoderspoint.com/flutter-encryption-decryption-using-flutter-string-encryption/#:~:text=open%20your%20flutter%20project%20that,IDE(android%2Dstudio).&text=Then%20after%20you%20have%20added,the%20password%20the%20user%20enter.
     password = hashPassword(password);
 
@@ -222,7 +222,7 @@ class TuteeServices {
     try {
       final id = tutee.getId;
       final modulesURL =
-          Uri.parse('https://tutormeapi1.azurewebsites.net/api/Tutees/$id');
+          Uri.parse('https://tutorme.azurewebsites.net/api/Tutees/$id');
       final response = await http.put(modulesURL, headers: header, body: data);
       if (response.statusCode == 204) {
         return tutee;
