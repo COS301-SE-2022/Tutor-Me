@@ -355,6 +355,6 @@ namespace Api.Data
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 
-      //  public DbSet<Api.Models.Group> Group { get; set; }
+      
     }
 }
