@@ -24,6 +24,7 @@ namespace Api.Data
         public virtual DbSet<Admin> Admin { get; set; }
         public virtual DbSet<Tutee> Tutees { get; set; }
         public virtual DbSet<Tutor> Tutors { get; set; }
+        public virtual DbSet<Group> Group { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -354,6 +355,6 @@ namespace Api.Data
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 
-        public DbSet<Api.Models.Group> Group { get; set; }
+      //  public DbSet<Api.Models.Group> Group { get; set; }
     }
 }
