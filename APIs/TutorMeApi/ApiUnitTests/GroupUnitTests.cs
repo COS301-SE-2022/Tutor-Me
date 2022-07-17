@@ -24,6 +24,20 @@ public class GroupUnitTests
             Description=Guid.NewGuid().ToString(),
         };
     }
+
+    [Fact]
+    public async Task GetGroupAsync_WithUnExistingGroup_ReturnsNotFound()
+    {
+        //Arrange
+        var repositoryStub = new Mock<TutorMeContext>();
+        repositoryStub.Setup(repo => repo.Group.FindAsync(It.IsAny<Type>())).ReturnsAsync((Group)null);
+        var controller = new GroupsController(repositoryStub.Object);
+
+        //Act
+        var result = await controller.GetGroup(Guid.NewGuid());
+        //Assert
+        Assert.IsType<NotFoundResult>(result.Result);
+    }
    
 
 }
