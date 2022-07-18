@@ -169,13 +169,6 @@ class GroupChatState extends State<GroupChat> {
   ].toList();
   @override
   Widget build(BuildContext context) {
-    String status = "";
-    if (widget.user.getStatus == "F") {
-      status = "Offline";
-    } else {
-      status = "Online";
-    }
-    String name = widget.user.getName + ' ' + widget.user.getLastName;
     return Scaffold(
         appBar: AppBar(
           backgroundColor: colorOrange,
@@ -256,7 +249,7 @@ class GroupChatState extends State<GroupChat> {
                       icon: const Icon(Icons.send),
                       onPressed: () {},
                     ),
-                    contentPadding: EdgeInsets.all(14),
+                    contentPadding: const EdgeInsets.all(14),
                     hintText: 'Type your message...'),
               ),
             )
