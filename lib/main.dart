@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:tutor_me/src/Groups/group.dart';
+import 'package:tutor_me/src/Groups/tutor_group.dart';
 // import 'package:tutor_me/src/authenticate/register_or_login.dart';
 // import 'src/settings/settings_controller.dart';
 // import 'src/settings/settings_service.dart';
@@ -6,7 +8,7 @@ import 'package:flutter/material.dart';
 
 import 'src/tutorAndTuteeCollaboration/tuteeGroups/tuteeGroupSettings.dart';
 import 'src/tutorAndTuteeCollaboration/tuteeGroups/tuteeGroups.dart';
-import 'src/tutorAndTuteeCollaboration/tutorGroups/tutor_add_remove_participants.dart';
+import 'src/tutorAndTuteeCollaboration/tutorGroups/tutor_remove_participants.dart';
 
 // import 'src/app.dart';
 
@@ -18,5 +20,9 @@ void main() async {
   // await dotenv.load(fileName: ".env");
 
   // await settingsController.loadSettings();
-  runApp(const MaterialApp(home: Tutor()));
+  var group = Group("COS 332", 'Computer Networks', 2, 'Kss');
+  runApp(MaterialApp(
+      home: TutorGroupPage(
+    group: group,
+  )));
 }

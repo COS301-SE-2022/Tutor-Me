@@ -19,7 +19,6 @@ class TuteeGroups extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return DefaultTabController(
         length: 3,
         child: Scaffold(
@@ -89,9 +88,9 @@ class TuteeGroups extends StatelessWidget {
               SizedBox(width: MediaQuery.of(context).size.width * 0.135),
               const Icon(Icons.circle, size: 7, color: colorOrange),
               SizedBox(width: MediaQuery.of(context).size.width * 0.08),
-              Text(
-                groups[i].nrParticipants.toString() + "  participants",
-                style: const TextStyle(
+              const Text(
+                "x   participants",
+                style: TextStyle(
                     color: Colors.white70, fontWeight: FontWeight.bold),
               ),
             ],
