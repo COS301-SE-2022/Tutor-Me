@@ -59,6 +59,22 @@ public class GroupUnitTests
               options => options.ComparingByMembers<Group>());
 
     }
+
+       [Fact]
+    public async Task GetGroupAsync_WithAnEmptyDb()
+    {
+        //Arrange
+        var repositoryStub = new Mock<TutorMeContext>();
+        repositoryStub.Setup(repo => repo.Group).Returns((DbSet<Group>)null);
+
+        //Act
+        var controller = new GroupsController(repositoryStub.Object);
+
+        var result = await controller.GetGroup(new Guid());
+
+        //Assert     
+        Assert.IsType<NotFoundResult>(result.Result);
+    }
    
 
 }
