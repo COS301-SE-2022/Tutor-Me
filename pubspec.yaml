@@ -31,6 +31,7 @@ dependencies:
   open_file: ^3.2.1
   email_auth:
   google_fonts: ^3.0.1
+  grouped_list: ^4.2.0
   
 dev_dependencies:
   flutter_test:
