@@ -60,7 +60,7 @@ public class GroupUnitTests
 
     }
 
-       [Fact]
+    [Fact]
     public async Task GetGroupAsync_WithAnEmptyDb()
     {
         //Arrange
@@ -74,6 +74,22 @@ public class GroupUnitTests
 
         //Assert     
         Assert.IsType<NotFoundResult>(result.Result);
+    }
+
+    [Fact]
+    public async Task GetGroupsAsync_WithExistingItem_ReturnsFound()
+    {
+        //Arrange
+        var repositoryStub = new Mock<TutorMeContext>();
+        var controller = new GroupsController(repositoryStub.Object);
+
+
+        //Act
+        var result = await controller.GetGroups();
+
+        //Assert     
+        Assert.Null(result.Value);
+
     }
    
 
