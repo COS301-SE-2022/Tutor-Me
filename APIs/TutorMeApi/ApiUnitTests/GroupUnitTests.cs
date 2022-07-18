@@ -237,4 +237,32 @@ public class GroupUnitTests
         Assert.IsType<CreatedAtActionResult>(result.Result);
     }
 
+    [Fact]
+    public async Task PostGroup_and_returns_GroupExists_DbUpdateException()
+    {
+
+        //Arrange
+        var expectedGroup = CreateGroup();
+
+        var repositoryStub = new Mock<TutorMeContext>();
+        repositoryStub.Setup(repo => repo.Group.Add(expectedGroup)).Throws<DbUpdateException>();
+
+        //repositoryStub.Setup(repo => repo.Group.Update(expectedGroup)).Throws< DbUpdateException>();
+
+        var controller = new GroupsController(repositoryStub.Object);
+
+        //Act
+        try
+        {
+           await controller.PostGroup(expectedGroup);
+        }
+        // Assert
+        catch (Exception e)
+        {
+            Assert.IsType<DbUpdateException>(e);
+        }
+
+    }
+
+
 }
