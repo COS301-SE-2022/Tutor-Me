@@ -91,6 +91,22 @@ public class GroupUnitTests
         Assert.Null(result.Value);
 
     }
+
+    [Fact]
+    public async Task GetGroupsAsync_WithExistingItemReturnsFound()
+    {
+        //Arrange
+        var repositoryStub = new Mock<TutorMeContext>();
+        repositoryStub.Setup(repo => repo.Group).Returns((DbSet<Group>)null);
+
+        //Act
+        var controller = new GroupsController(repositoryStub.Object);
+
+        var result = await controller.GetGroups();
+
+        //Assert     
+        Assert.IsType<NotFoundResult>(result.Result);
+    }
    
 
 }
