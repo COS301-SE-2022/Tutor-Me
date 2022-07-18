@@ -124,18 +124,21 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
           ),
         ),
       ),
-      Padding(
-        padding: EdgeInsets.only(
-          left: screenWidthSize * 0.06,
-          top: screenHeightSize * 0.01,
-          bottom: screenWidthSize * 0.06,
+      SizedBox(
+        width: double.infinity,
+        child: Padding(
+          padding: EdgeInsets.only(
+            left: screenWidthSize * 0.06,
+            top: screenHeightSize * 0.01,
+            bottom: screenWidthSize * 0.06,
+          ),
+          child: Text(widget.user.getBio,
+              style: TextStyle(
+                fontSize: screenWidthSize * 0.05,
+                fontWeight: FontWeight.normal,
+                color: Colors.black,
+              )),
         ),
-        child: Text(widget.user.getBio,
-            style: TextStyle(
-              fontSize: screenWidthSize * 0.05,
-              fontWeight: FontWeight.normal,
-              color: Colors.black,
-            )),
       ),
       SizedBox(
         width: double.infinity,
@@ -193,7 +196,11 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
             right: screenWidthSize * 0.06,
             top: screenHeightSize * 0,
           ),
-          child: ListView.builder(
+          child: ListView.separated(
+            separatorBuilder: (BuildContext context, index) {
+              return SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.02);
+            },
             scrollDirection: Axis.vertical,
             shrinkWrap: true,
             itemBuilder: _moduleListBuilder,
@@ -246,7 +253,8 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
             onTap: (() => Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => TutorProfileEdit(user: widget.user)))),
+                    builder: (context) =>
+                        TutorProfileEdit(user: widget.user)))),
             child: Icon(
               Icons.edit,
               color: colorOrange,
@@ -293,11 +301,15 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
           size: MediaQuery.of(context).size.height * 0.02,
           color: colorTurqoise,
         ),
-        Text(
-          moduleDescription,
-          style: TextStyle(
-            fontSize: MediaQuery.of(context).size.width * 0.05,
-            color: Colors.black,
+        Expanded(
+          child: Text(
+            moduleDescription,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+              fontSize: MediaQuery.of(context).size.width * 0.05,
+              color: Colors.black,
+            ),
           ),
         ),
       ],

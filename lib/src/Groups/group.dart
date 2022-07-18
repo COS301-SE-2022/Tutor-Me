@@ -1,8 +1,6 @@
 class Group {
-  String code;
-  String name;
-  int nrParticipants;
+  String code, name;
+  int number;
   String image;
-
-  Group(this.code, this.name, this.nrParticipants, this.image);
+  Group(this.code, this.name, this.number,this.image);
 }

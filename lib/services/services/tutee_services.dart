@@ -120,7 +120,7 @@ class TuteeServices {
     }
   }
 
-  static registerTuee(
+  static registerTutee(
       String name,
       String lastName,
       String date,
@@ -129,7 +129,7 @@ class TuteeServices {
       String email,
       String password,
       String confirmPassword,
-      String year) async {
+      String year, String course) async {
     List<Tutees> tutees = await getTutees();
     for (int i = 0; i < tutees.length; i++) {
       if (tutees[i].getEmail == email) {
@@ -139,7 +139,7 @@ class TuteeServices {
     final modulesURL =
         Uri.https('tutormeapi1.azurewebsites.net', '/api/Tutees/');
     //source: https://protocoderspoint.com/flutter-encryption-decryption-using-flutter-string-encryption/#:~:text=open%20your%20flutter%20project%20that,IDE(android%2Dstudio).&text=Then%20after%20you%20have%20added,the%20password%20the%20user%20enter.
-    // password = hashPassword(password);
+    password = hashPassword(password);
 
     String data = jsonEncode({
       'firstName': name,
@@ -148,7 +148,7 @@ class TuteeServices {
       'gender': gender,
       'status': "T",
       'faculty': "No faculty added",
-      'course': "No course added",
+      'course': course,
       'institution': institution,
       'modules': "No modules added",
       'location': "No Location added",
@@ -158,6 +158,7 @@ class TuteeServices {
       'bio': "No bio added",
       'connections': "No connections added",
       'year': year,
+      'groupIds': 'no groups'
     });
 
     final header = <String, String>{
@@ -175,6 +176,8 @@ class TuteeServices {
         final List list = json.decode(j);
         List<Tutees> tutees =
             list.map((json) => Tutees.fromObject(json)).toList();
+        //initialize the files record too
+        await createFileRecord(tutees[0].getId);
         return tutees[0];
       } else {
         throw Exception('Failed to upload ' + response.statusCode.toString());
@@ -210,6 +213,8 @@ class TuteeServices {
       'bio': tutee.getBio,
       'connections': tutee.getConnections,
       'year': tutee.getYear,
+      'groupIds': tutee.getGroupIds,
+      'requests': ''
     });
     final header = <String, String>{
       'Content-Type': 'application/json; charset=utf-8',
@@ -249,14 +254,31 @@ class TuteeServices {
     }
   }
 
+  static createFileRecord(String id) async{
+    String data = jsonEncode({'id': id, 'tuteeImage': '', 'tuteeTranscript': ''});
+    final header = <String, String>{
+      'Content-Type': 'application/json; charset=utf-8'
+    };
+    final url = Uri.parse('https://tutormefiles1.azurewebsites.net/api/TuteeFiles');
+    try {
+      final response = await http.post(url, headers: header, body: data);
+      if (response.statusCode == 201) {
+        return true;
+      } else {
+        throw "failed to upload";
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   static uploadProfileImage(File? image, String id) async {
     final imageByte = base64Encode(image!.readAsBytesSync());
     String data = jsonEncode({'id': id, 'tutorImage': imageByte});
     final header = <String, String>{
       'Content-Type': 'application/json; charset=utf-8'
     };
-    final url =
-        Uri.parse('https://tutormefiles1.azurewebsites.net/api/TuteeFiles/$id');
+    final url = Uri.parse('https://tutormefiles1.azurewebsites.net/api/TuteeFiles/$id');
     try {
       final response = await http.put(url, headers: header, body: data);
       if (response.statusCode == 204) {
@@ -306,7 +328,7 @@ class TuteeServices {
     late Tutees tutee;
     bool got = false;
     for (int i = 0; i < tutees.length; i++) {
-      if (tutees[i].getEmail == email && tutees[i].getPassword == password) {
+      if (tutees[i].getEmail == email && tutees[i].getPassword == hashPassword(password)) {
         got = true;
         tutee = tutees[i];
         break;
@@ -353,8 +375,9 @@ class TuteeServices {
     }
   }
 
-  static hashPassword(String password) {
-    String hashedPassword = Crypt.sha256(password).toString();
+ static hashPassword(String password) {
+    String hashedPassword = Crypt.sha256(password, salt: 'Thisisagreatplatformforstudentstolearn')
+            .toString();
     return hashedPassword;
   }
 }

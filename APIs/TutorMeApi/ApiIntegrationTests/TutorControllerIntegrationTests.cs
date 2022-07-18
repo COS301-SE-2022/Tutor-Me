@@ -33,7 +33,8 @@ public class TutorControllerIntegrationTests
             Connections = "2",
             Rating = "4",
             Requests =Guid.NewGuid().ToString(),
-            Year= Guid.NewGuid().ToString()
+            Year= Guid.NewGuid().ToString(),
+            GroupIds=Guid.NewGuid().ToString()
         };
     }
     [Fact]

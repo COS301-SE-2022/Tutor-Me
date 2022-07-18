@@ -95,12 +95,11 @@ class TutorServices {
         if (tutee.getConnections.contains('No connections added')) {
           tutee.setConnections = request[0].getReceiverId;
         } else {
-          tutee.setConnections =
-              tutee.getConnections + ',' + request[0].getReceiverId;
+          tutee.setConnections = tutee.getConnections + ',' + request[0].getReceiverId;
         }
       }
       if (!tutor.getConnections.contains(request[0].getRequesterId)) {
-        if (tutee.getConnections.contains('No connections added')) {
+        if (tutor.getConnections.contains('No connections added')) {
           tutor.setConnections = request[0].getRequesterId;
         } else {
           tutor.setConnections =
@@ -182,8 +181,9 @@ class TutorServices {
   }
 
   static hashPassword(String password) {
-    // TODO: add salt so it can be simple to retrieve the password back
-    String hashedPassword = Crypt.sha256(password).toString();
+    String hashedPassword =
+        Crypt.sha256(password, salt: 'Thisisagreatplatformforstudentstolearn')
+            .toString();
     return hashedPassword;
   }
 
@@ -196,7 +196,8 @@ class TutorServices {
       String email,
       String password,
       String confirmPassword,
-      String year) async {
+      String year,
+      String course) async {
     List<Tutors> tutors = await getTutors();
     for (int i = 0; i < tutors.length; i++) {
       if (tutors[i].getEmail == email) {
@@ -207,7 +208,7 @@ class TutorServices {
         Uri.https('tutormeapi1.azurewebsites.net', '/api/Tutors/');
     //source: https://protocoderspoint.com/flutter-encryption-decryption-using-flutter-string-encryption/#:~:text=open%20your%20flutter%20project%20that,IDE(android%2Dstudio).&text=Then%20after%20you%20have%20added,the%20password%20the%20user%20enter.
 
-    // password = hashPassword(password);
+    password = hashPassword(password);
 
     String data = jsonEncode({
       'firstName': name,
@@ -216,7 +217,7 @@ class TutorServices {
       'gender': gender,
       'status': "T",
       'faculty': "No faculty added",
-      'course': "No course added",
+      'course': course,
       'institution': institution,
       'modules': "No modules added",
       'location': "No Location added",
@@ -225,8 +226,10 @@ class TutorServices {
       'password': password,
       'bio': "No bio added",
       'connections': "No connections added",
-      'rating': 0.toString(),
-      'year': year
+      'rating': "0,0",
+      'year': year,
+      'groupIds': "no groups",
+      'requests':'no requests'
     });
 
     final header = <String, String>{
@@ -242,11 +245,29 @@ class TutorServices {
           j = response.body;
         }
         final List list = json.decode(j);
-        List<Tutors> tutors =
-            list.map((json) => Tutors.fromObject(json)).toList();
+        List<Tutors> tutors = list.map((json) => Tutors.fromObject(json)).toList();
+        await createFileRecord(tutors[0].getId);
         return tutors[0];
       } else {
         throw Exception('Failed to upload ' + response.statusCode.toString());
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  static createFileRecord(String id) async{
+    String data = jsonEncode({'id': id, 'tutorImage': '', 'tutorTranscript': ''});
+    final header = <String, String>{
+      'Content-Type': 'application/json; charset=utf-8'
+    };
+    final url = Uri.parse('https://tutormefiles1.azurewebsites.net/api/TutorFiles');
+    try {
+      final response = await http.post(url, headers: header, body: data);
+      if (response.statusCode == 201) {
+        return true;
+      } else {
+        throw "failed to upload";
       }
     } catch (e) {
       rethrow;
@@ -279,7 +300,8 @@ class TutorServices {
       'bio': tutor.getBio,
       'connections': tutor.getConnections,
       'rating': tutor.getRating,
-      'year': tutor.getYear
+      'year': tutor.getYear,
+      'groupIds': tutor.getGroupIds
     });
     final header = <String, String>{
       'Content-Type': 'application/json; charset=utf-8',
@@ -321,10 +343,12 @@ class TutorServices {
 
   static logInTutor(String email, String password) async {
     List<Tutors> tutors = await getTutors();
+
     late Tutors tutor;
     bool got = false;
     for (int i = 0; i < tutors.length; i++) {
-      if (tutors[i].getEmail == email && tutors[i].getPassword == password) {
+      if (tutors[i].getEmail == email &&
+          tutors[i].getPassword == hashPassword(password)) {
         got = true;
         tutor = tutors[i];
         break;

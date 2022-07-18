@@ -24,5 +24,6 @@ namespace Api.Models
         public string Bio { get; set; }
         public string Connections { get; set; }
         public string Year { get; set; }
+        public string GroupIds { get; set; }
     }
 }
