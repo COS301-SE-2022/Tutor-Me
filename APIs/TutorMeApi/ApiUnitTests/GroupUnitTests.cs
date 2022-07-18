@@ -38,6 +38,27 @@ public class GroupUnitTests
         //Assert
         Assert.IsType<NotFoundResult>(result.Result);
     }
+
+    [Fact]
+    public async Task GetGroupAsync_WithUnExistingDb_ReturnsFound()
+    {
+        //Arrange
+        var expectedGroup = CreateGroup();
+       
+        var repositoryStub = new Mock<TutorMeContext>();
+        repositoryStub.Setup(repo => repo.Group.FindAsync(It.IsAny<Guid>())).ReturnsAsync((expectedGroup));
+        var controller = new GroupsController(repositoryStub.Object);
+
+        //Act
+        Guid yourGuid = Guid.NewGuid();
+        var result = await controller.GetGroup(yourGuid);
+
+        //Assert 
+        result.Value.Should().BeEquivalentTo(expectedGroup,
+              //Verifying all the DTO variables matches the expected Group 
+              options => options.ComparingByMembers<Group>());
+
+    }
    
 
 }
