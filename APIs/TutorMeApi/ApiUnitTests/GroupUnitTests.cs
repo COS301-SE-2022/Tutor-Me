@@ -147,5 +147,20 @@ public class GroupUnitTests
 
     }
 
+    [Fact]
+    public async Task PutGroup_WithUnExistingId_NotFound()
+    {
+        //Arrange
+        var repositoryStub = new Mock<TutorMeContext>();
+        var expectedGroup = CreateGroup();
+        //Act
+        var controller = new GroupsController(repositoryStub.Object);
+        var id = Guid.NewGuid();
+        var result = await controller.PutGroup(id, expectedGroup);
+
+        //Assert     
+        Assert.IsType<BadRequestResult>(result);
+    }
+
 
 }
