@@ -124,7 +124,28 @@ public class GroupUnitTests
         Assert.IsType<BadRequestResult>(result);
     }
 
-    
+    [Fact]
+    public async Task PutGroup_With_same_Id_but_UnExisting_Group_returns_NullReferenceException()//####
+    {
+        //Arrange
+        var repositoryStub = new Mock<TutorMeContext>();
+        var expectedGroup = CreateGroup();
+        //repositoryStub.Setup(repo => repo.Group.Find(expectedGroup.Id).Equals(expectedGroup.Id)).Returns(false);
+        repositoryStub.Setup(repo => repo.Group).Returns((DbSet<Group>)null);
+        //Act
+        var controller = new GroupsController(repositoryStub.Object);
+     
+        try
+        {
+            await controller.PutGroup(expectedGroup.Id, expectedGroup);
+        }
+        //Assert   
+        catch (Exception e)
+        {
+            Assert.IsType<NullReferenceException>(e);
+        }
+
+    }
 
 
 }
