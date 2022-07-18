@@ -163,7 +163,7 @@ public class GroupUnitTests
     }
 
     [Fact]
-    public async Task PostGroup_and_returns_a_type_of_Action_Result_returns_null()
+    public async Task PostGroup_and_returns_a_type_of_Action_Result()
     {
 
         //Arrange
@@ -180,5 +180,21 @@ public class GroupUnitTests
         Assert.IsType<ActionResult<Api.Models.Group>>(result);
     }
 
+    [Fact]
+    public async Task PostGroup_and_returns_null()
+    {
+
+        //Arrange
+        var expectedGroup = CreateGroup();
+
+        var repositoryStub = new Mock<TutorMeContext>();
+        repositoryStub.Setup(repo => repo.Group.FindAsync(It.IsAny<Guid>())).ReturnsAsync((Group)null);
+        var controller = new GroupsController(repositoryStub.Object);
+
+        //Act
+
+        var result = await controller.PostGroup(expectedGroup);
+        Assert.Null(result.Value);
+    }
 
 }
