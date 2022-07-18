@@ -40,7 +40,7 @@ public class GroupUnitTests
     }
 
     [Fact]
-    public async Task GetGroupAsync_WithUnExistingDb_ReturnsFound()
+    public async Task GetGroupAsync_WithAnExistingDb_ReturnsFound()
     {
         //Arrange
         var expectedGroup = CreateGroup();
@@ -77,7 +77,7 @@ public class GroupUnitTests
     }
 
     [Fact]
-    public async Task GetGroupsAsync_WithExistingItem_ReturnsFound()
+    public async Task GetGroupsAsync_WithExistingItem_ReturnsNull()
     {
         //Arrange
         var repositoryStub = new Mock<TutorMeContext>();
@@ -110,7 +110,7 @@ public class GroupUnitTests
    
     //Test the PutGroup Method to check if id is the same as the id in the DTO
     [Fact]
-    public async Task PutGroup_With_differentIds_BadGroupResult()
+    public async Task PutGroup_With_differentIds_BadRequestResult()
     {
         //Arrange
         var repositoryStub = new Mock<TutorMeContext>();
@@ -299,23 +299,5 @@ public class GroupUnitTests
         // Assert
         Assert.IsType<NoContentResult>(result);
     }
-
-       [Fact]
-    public async Task DeleteGroup_and_returns_a_type_of_NotFound()
-    {
-
-        //Arrange
-        var expectedGroup = CreateGroup();
-
-        var repositoryStub = new Mock<TutorMeContext>();
-        repositoryStub.Setup(repo => repo.Group).Returns((DbSet<Group>)null);
-        var controller = new GroupsController(repositoryStub.Object);
-
-        //Act
-
-        var result = await controller.DeleteGroup(expectedGroup.Id);
-        // Assert
-        Assert.IsType<NotFoundResult>(result);
-    }
-
+    
 }
