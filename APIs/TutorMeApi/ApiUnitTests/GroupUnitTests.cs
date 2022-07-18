@@ -162,5 +162,23 @@ public class GroupUnitTests
         Assert.IsType<BadRequestResult>(result);
     }
 
+    [Fact]
+    public async Task PostGroup_and_returns_a_type_of_Action_Result_returns_null()
+    {
+
+        //Arrange
+        var expectedGroup = CreateGroup();
+
+        var repositoryStub = new Mock<TutorMeContext>();
+        repositoryStub.Setup(repo => repo.Group.FindAsync(It.IsAny<Guid>())).ReturnsAsync((expectedGroup));
+        var controller = new GroupsController(repositoryStub.Object);
+
+        //Act
+
+        var result = await controller.PostGroup(expectedGroup);
+        // Assert
+        Assert.IsType<ActionResult<Api.Models.Group>>(result);
+    }
+
 
 }
