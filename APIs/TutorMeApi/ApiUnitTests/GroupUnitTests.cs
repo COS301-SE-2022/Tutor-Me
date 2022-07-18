@@ -281,5 +281,23 @@ public class GroupUnitTests
         Assert.IsType<NotFoundResult>(result);
     }
 
+        // Mock the DeleteGroup method  and return a Value 
+    [Fact]
+    public async Task DeleteGroup_and_returns_a_type_of_NoContentResult()
+    {
+
+        //Arrange
+        var expectedGroup = CreateGroup();
+
+        var repositoryStub = new Mock<TutorMeContext>();
+        repositoryStub.Setup(repo => repo.Group.FindAsync(It.IsAny<Guid>())).ReturnsAsync(expectedGroup);
+        var controller = new GroupsController(repositoryStub.Object);
+
+        //Act
+
+        var result = await controller.DeleteGroup(expectedGroup.Id);
+        // Assert
+        Assert.IsType<NoContentResult>(result);
+    }
 
 }
