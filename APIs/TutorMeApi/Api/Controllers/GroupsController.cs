@@ -23,7 +23,7 @@ namespace Api.Controllers
 
         // GET: api/Groups
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Group>>> GetGroup()
+        public async Task<ActionResult<IEnumerable<Group>>> GetGroups()
         {
           if (_context.Group == null)
           {
