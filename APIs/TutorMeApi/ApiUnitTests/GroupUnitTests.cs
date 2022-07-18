@@ -108,5 +108,23 @@ public class GroupUnitTests
         Assert.IsType<NotFoundResult>(result.Result);
     }
    
+    //Test the PutGroup Method to check if id is the same as the id in the DTO
+    [Fact]
+    public async Task PutGroup_With_differentIds_BadGroupResult()
+    {
+        //Arrange
+        var repositoryStub = new Mock<TutorMeContext>();
+        var expectedGroup = CreateGroup();
+        //Act
+        var controller = new GroupsController(repositoryStub.Object);
+        var id = Guid.NewGuid();
+        var result = await controller.PutGroup(id, expectedGroup);
+
+        //Assert     
+        Assert.IsType<BadRequestResult>(result);
+    }
+
+    
+
 
 }
