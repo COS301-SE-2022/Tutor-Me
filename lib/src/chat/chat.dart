@@ -28,7 +28,8 @@ class ChatState extends State<Chat> {
         text: 'Yes sure!',
         date: DateTime.now().subtract(const Duration(minutes: 1)),
         isSentByMe: false,
-        isOnline: false)
+        isOnline: false,
+        sentBy: "John@gmail.com")
   ].toList();
   @override
   Widget build(BuildContext context) {
@@ -49,7 +50,6 @@ class ChatState extends State<Chat> {
                 status,
                 textAlign: TextAlign.left,
                 style: const TextStyle(fontSize: 15),
-                
               ),
             ],
           ),
