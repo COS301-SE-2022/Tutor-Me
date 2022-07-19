@@ -85,7 +85,6 @@ namespace Api.Data
 
                 entity.Property(e => e.Password)
                     .IsRequired()
-                    .HasMaxLength(50)
                     .IsUnicode(false)
                     .HasColumnName("password");
             });
