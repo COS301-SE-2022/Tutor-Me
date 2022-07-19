@@ -76,7 +76,6 @@ class ModuleServices {
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 16.0);
-        throw Exception('Failed to delete ' + response.statusCode.toString());
       } else {
         Fluttertoast.showToast(
             msg: "Failed to delete module",
