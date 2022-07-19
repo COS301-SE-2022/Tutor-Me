@@ -67,5 +67,59 @@ class GroupServices {
     }
   }
 
+   static Future getGroup(String id) async {
+    Uri url = Uri.http(
+        'tutorme-prod.us-east-1.elasticbeanstalk.com', 'api/Groups/$id');
+    try {
+      final response = await http.get(url, headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*"
+      });
+      if (response.statusCode == 200) {
+        String j = "";
+        if (response.body[0] != "[") {
+          j = "[" + response.body + "]";
+        } else {
+          j = response.body;
+        }
+        final List list = json.decode(j);
+        return list.map((json) => Groups.fromObject(json)).toList();
+      } else {
+        throw Exception('Failed to load' + response.statusCode.toString());
+      }
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  static updateGroup(Groups group) async {
+    String data = jsonEncode({
+      'id': group.getId,
+      'moduleCode': group.getModuleCode,
+      'moduleName': group.getModuleName,
+      'tutees': group.getTutees,
+      'tutorId': group.getTutorId,
+      'description': group.getDescription
+    });
+
+    final header = <String, String>{
+      'Content-Type': 'application/json; charset=utf-8',
+    };
+    try {
+      final id = group.getId;
+      final modulesURL = Uri.parse(
+          'http://tutorme-prod.us-east-1.elasticbeanstalk.com/api/Groups/$id');
+      final response = await http.put(modulesURL, headers: header, body: data);
+      if (response.statusCode == 204) {
+        return group;
+      } else {
+        throw Exception('Failed to update' + response.statusCode.toString());
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
  
 }
