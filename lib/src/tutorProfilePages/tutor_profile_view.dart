@@ -493,14 +493,12 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
         });
       });
 
-  Widget buildCoverImage() => Container(
-        child: const Image(
-          image: AssetImage('assets/Pictures/tutorCover.jpg'),
-          width: double.infinity,
-          height: 150,
-          fit: BoxFit.cover,
-        ),
-      );
+  Widget buildCoverImage() => const Image(
+    image: AssetImage('assets/Pictures/tutorCover.jpg'),
+    width: double.infinity,
+    height: 150,
+    fit: BoxFit.cover,
+  );
 
   Widget buildProfileImage() => CircleAvatar(
       radius: MediaQuery.of(context).size.width * 0.127,
