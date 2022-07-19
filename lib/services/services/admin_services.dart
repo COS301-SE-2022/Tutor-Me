@@ -96,8 +96,7 @@ class AdminServices {
     late Admins admin;
     bool got = false;
     for (int i = 0; i < admins.length; i++) {
-      if (admins[i].getEmail == email &&
-          admins[i].getPassword == hashPassword(password)) {
+      if (admins[i].getEmail == email && admins[i].getPassword == (password)) {
         got = true;
         admin = admins[i];
         break;

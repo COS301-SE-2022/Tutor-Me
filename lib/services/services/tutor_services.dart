@@ -1,5 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:tutor_me/services/models/modules.dart';
 import 'dart:async';
@@ -82,6 +84,40 @@ class TutorServices {
       }
     } catch (e) {
       throw Exception(e);
+    }
+  }
+
+  static deleteTutor(String id) async {
+    final header = <String, String>{
+      'Content-Type': 'application/json; charset=utf-8',
+    };
+    try {
+      final tutorsURL = Uri.parse(
+          'http://tutorme-prod.us-east-1.elasticbeanstalk.com/api/Tutors/$id');
+      final response = await http.delete(tutorsURL, headers: header);
+      if (response.statusCode == 204) {
+        Fluttertoast.showToast(
+            msg: "Tutor Deleted",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0);
+      } else {
+        Fluttertoast.showToast(
+            msg: "Failed to delete Tutor",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0);
+        throw Exception(
+            'Failed to delete Tutor' + response.statusCode.toString());
+      }
+    } catch (e) {
+      rethrow;
     }
   }
 
@@ -207,8 +243,8 @@ class TutorServices {
         throw "Email already exists";
       }
     }
-    final modulesURL = Uri.http(
-        'tutorme-prod.us-east-1.elasticbeanstalk.com', '/api/Tutors/');
+    final modulesURL =
+        Uri.http('tutorme-prod.us-east-1.elasticbeanstalk.com', '/api/Tutors/');
     //source: https://protocoderspoint.com/flutter-encryption-decryption-using-flutter-string-encryption/#:~:text=open%20your%20flutter%20project%20that,IDE(android%2Dstudio).&text=Then%20after%20you%20have%20added,the%20password%20the%20user%20enter.
 
     password = hashPassword(password);
@@ -266,8 +302,8 @@ class TutorServices {
     final header = <String, String>{
       'Content-Type': 'application/json; charset=utf-8'
     };
-    final url =
-        Uri.parse('http://filesystem-prod.us-east-1.elasticbeanstalk.com/api/TutorFiles');
+    final url = Uri.parse(
+        'http://filesystem-prod.us-east-1.elasticbeanstalk.com/api/TutorFiles');
     try {
       final response = await http.post(url, headers: header, body: data);
       if (response.statusCode == 201) {
@@ -349,7 +385,7 @@ class TutorServices {
 
   static logInTutor(String email, String password) async {
     List<Tutors> tutors = await getTutors();
-   
+
     late Tutors tutor;
     bool got = false;
     for (int i = 0; i < tutors.length; i++) {
@@ -407,8 +443,8 @@ class TutorServices {
     final header = <String, String>{
       'Content-Type': 'application/json; charset=utf-8'
     };
-    final url =
-        Uri.parse('http://filesystem-prod.us-east-1.elasticbeanstalk.com/api/TutorFiles/$id');
+    final url = Uri.parse(
+        'http://filesystem-prod.us-east-1.elasticbeanstalk.com/api/TutorFiles/$id');
     try {
       final response = await http.put(url, headers: header, body: data);
       if (response.statusCode == 204) {
@@ -422,8 +458,9 @@ class TutorServices {
   }
 
   static Future getTutorProfileImage(String id) async {
-    Uri tuteeURL =
-        Uri.http('http://filesystem-prod.us-east-1.elasticbeanstalk.com', 'api/TutorFiles/$id');
+    Uri tuteeURL = Uri.http(
+        'http://filesystem-prod.us-east-1.elasticbeanstalk.com',
+        'api/TutorFiles/$id');
     try {
       final response = await http.get(tuteeURL, headers: {
         "Accept": "application/json",
