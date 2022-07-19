@@ -121,5 +121,25 @@ class GroupServices {
     }
   }
 
+   static  deleteGroup(String id) async {
+    try {
+      final url = Uri.http(
+          'tutorme-prod.us-east-1.elasticbeanstalk.com', 'api/Groups/$id');
+      final header = {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*"
+      };
+      final response = await http.delete(url, headers: header);
+      if (response.statusCode == 204) {
+        return true;
+      } else {
+        throw Exception(
+            'Failed to decline. Please make sure your internet connect is on and try again');
+      }
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
  
 }
