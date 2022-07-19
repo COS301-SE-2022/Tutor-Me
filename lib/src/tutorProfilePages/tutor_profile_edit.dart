@@ -23,24 +23,20 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
   File? image;
 
   Future pickImage(ImageSource source) async {
-    final image = await ImagePicker().pickImage(source: source);
-    if (image == null) {
+    final imageChosed = await ImagePicker().pickImage(source: source);
+    if (imageChosed == null) {
       return;
     }
 
-    final imageTempPath = File(image.path);
-    setState(() => this.image = imageTempPath);
+    final imageTempPath = File(imageChosed.path);
+    setState(() => image = imageTempPath);
   }
 
   ImageProvider buildImage() {
     if (image != null) {
-      return fileImage();
+      return FileImage(image!);
     }
     return const AssetImage('assets/Pictures/penguin.png');
-  }
-
-  FileImage fileImage() {
-    return FileImage(image!);
   }
 
   @override
@@ -127,14 +123,24 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
         SizedBox(height: screenHeightSize * 0.03),
         OrangeButton(
             btnName: "Save",
-            onPressed: () {
-              List<String> name = nameController.text.split(' ');
-              String firstName = name[0];
-              String lastName = name[1];
-              widget.user.setFirstName = firstName;
-              widget.user.setLastName = lastName;
-              widget.user.setBio = bioController.text;
-              TutorServices.updateTutor(widget.user);
+            onPressed: () async {
+              if (image != null) {
+                await TutorServices.uploadProfileImage(
+                    image, widget.user.getId);
+              }
+              if (nameController.text.isNotEmpty) {
+                List<String> name = nameController.text.split(' ');
+                String firstName = name[0];
+                String lastName = name[1];
+
+                widget.user.setFirstName = firstName;
+                widget.user.setLastName = lastName;
+              }
+              if (bioController.text.isNotEmpty) {
+                widget.user.setBio = bioController.text;
+              }
+
+              await TutorServices.updateTutor(widget.user);
 
               Navigator.pop(context);
             })

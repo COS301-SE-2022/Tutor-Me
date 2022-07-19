@@ -140,57 +140,81 @@ class TutorsListState extends State<TutorsList> {
   }
 
   getConnections() async {
-    List<String> connections = widget.tutee.getConnections.split(',');
-    int conLength = connections.length;
-    for (int i = 0; i < conLength; i++) {
-      final tutor = await TutorServices.getTutor(connections[i]);
-      setState(() {
-        connectedTutors += tutor;
-      });
-    }
-    List<String> tuteeModules = widget.tutee.getModules.split(',');
-    int tutorLength = tutorList.length;
     List<int> indecies = List<int>.empty(growable: true);
-
-    for (int i = 0; i < tutorLength; i++) {
-      for (int j = 0; j < connectedTutors.length; j++) {
-        if (tutorList[i].getId == connectedTutors[j].getId) {
-          indecies.add(i);
-        } else {
-          List<String> tutorModules = tutorList[i].getModules.split(',');
-          bool val = false;
-          for (int k = 0; k < tutorModules.length; k++) {
-            for (int l = 0; l < tuteeModules.length; l++) {
-              if (tutorModules[k] == tuteeModules[l]) {
-                val = true;
-              }
-            }
-          }
-          if (!val) {
+    int tutorLength = tutorList.length;
+    if (!widget.tutee.getConnections.contains('No connections added')) {
+      List<String> connections = widget.tutee.getConnections.split(',');
+      int conLength = connections.length;
+      for (int i = 0; i < conLength; i++) {
+        final tutor = await TutorServices.getTutor(connections[i]);
+        setState(() {
+          connectedTutors += tutor;
+        });
+      }
+      for (int i = 0; i < tutorLength; i++) {
+        for (int j = 0; j < connectedTutors.length; j++) {
+          if (tutorList[i].getId == connectedTutors[j].getId) {
             indecies.add(i);
           }
         }
       }
     }
-    for (int i = 0; i < indecies.length; i++) {
-      tutorList.removeAt(indecies[i]);
-      for (int j = 0; j < indecies.length; j++) {
-        indecies[j] -= 1;
+
+    List<String> tuteeModules = widget.tutee.getModules.split(',');
+    for (int i = 0; i < tutorLength; i++) {
+      bool val = false;
+      if (!tutorList[i].getModules.contains('No modules added')) {
+        List<String> tutorModules = tutorList[i].getModules.split(',');
+
+        for (int k = 0; k < tutorModules.length; k++) {
+          for (int l = 0; l < tuteeModules.length; l++) {
+            if (tutorModules[k] == tuteeModules[l]) {
+              val = true;
+            }
+          }
+        }
+      }
+
+      if (!val) {
+        indecies.add(i);
       }
     }
-    setState(() {
-      saveTutors = tutorList;
-    });
+
+    if (widget.tutee.getModules.contains('No modules added')) {
+      setState(() {
+        tutorList = List<Tutors>.empty();
+        _isLoading = false;
+      });
+      const snackBar = SnackBar(
+        content: Text('No Tutor suggestions'),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    } else {
+      List<Tutors> tempList = List<Tutors>.empty(growable: true);
+
+      for (int i = 0; i < tutorList.length; i++) {
+        bool toAdd = true;
+        for (int j = 0; j < indecies.length; j++) {
+          if (i == indecies[j]) {
+            toAdd = false;
+          }
+        }
+        if (toAdd) {
+          tempList.add(tutorList[i]);
+        }
+      }
+      setState(() {
+        _isLoading = false;
+        tutorList = tempList;
+        saveTutors = tempList;
+      });
+    }
   }
 
   @override
   void initState() {
     super.initState();
     getTutors();
-
-    setState(() {
-      _isLoading = false;
-    });
   }
 
   @override
@@ -618,10 +642,11 @@ class TutorsListState extends State<TutorsList> {
     return GestureDetector(
       child: Card(
         elevation: 0,
-        shape: RoundedRectangleBorder(
-          side: const BorderSide(color: colorTurqoise, width: 0.5),
-          borderRadius: BorderRadius.circular(10),
-        ),
+        // shape: RoundedRectangleBorder(
+        //   side: const BorderSide(color: colorTurqoise, width: 0.5),
+        //   borderRadius: BorderRadius.circular(10),
+        // ),
+        color: Colors.transparent,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[

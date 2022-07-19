@@ -44,6 +44,7 @@ class ChatState extends State<Chat> {
         appBar: AppBar(
           backgroundColor: colorOrange,
           title: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Text(name),
               Text(

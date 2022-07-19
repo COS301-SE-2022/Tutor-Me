@@ -207,8 +207,8 @@ class TutorServices {
         throw "Email already exists";
       }
     }
-    final modulesURL = Uri.http(
-        'tutorme-prod.us-east-1.elasticbeanstalk.com', '/api/Tutors/');
+    final modulesURL =
+        Uri.http('tutorme-prod.us-east-1.elasticbeanstalk.com', '/api/Tutors/');
     //source: https://protocoderspoint.com/flutter-encryption-decryption-using-flutter-string-encryption/#:~:text=open%20your%20flutter%20project%20that,IDE(android%2Dstudio).&text=Then%20after%20you%20have%20added,the%20password%20the%20user%20enter.
 
     password = hashPassword(password);
@@ -266,8 +266,8 @@ class TutorServices {
     final header = <String, String>{
       'Content-Type': 'application/json; charset=utf-8'
     };
-    final url =
-        Uri.parse('http://filesystem-prod.us-east-1.elasticbeanstalk.com/api/TutorFiles');
+    final url = Uri.parse(
+        'http://filesystem-prod.us-east-1.elasticbeanstalk.com/api/TutorFiles');
     try {
       final response = await http.post(url, headers: header, body: data);
       if (response.statusCode == 201) {
@@ -349,7 +349,7 @@ class TutorServices {
 
   static logInTutor(String email, String password) async {
     List<Tutors> tutors = await getTutors();
-   
+
     late Tutors tutor;
     bool got = false;
     for (int i = 0; i < tutors.length; i++) {
@@ -407,8 +407,8 @@ class TutorServices {
     final header = <String, String>{
       'Content-Type': 'application/json; charset=utf-8'
     };
-    final url =
-        Uri.parse('http://filesystem-prod.us-east-1.elasticbeanstalk.com/api/TutorFiles/$id');
+    final url = Uri.parse(
+        'http://filesystem-prod.us-east-1.elasticbeanstalk.com/api/TutorFiles/$id');
     try {
       final response = await http.put(url, headers: header, body: data);
       if (response.statusCode == 204) {
@@ -422,8 +422,8 @@ class TutorServices {
   }
 
   static Future getTutorProfileImage(String id) async {
-    Uri tuteeURL =
-        Uri.http('http://filesystem-prod.us-east-1.elasticbeanstalk.com', 'api/TutorFiles/$id');
+    Uri tuteeURL = Uri.parse(
+        'http://filesystem-prod.us-east-1.elasticbeanstalk.com/api/TutorFiles/$id');
     try {
       final response = await http.get(tuteeURL, headers: {
         "Accept": "application/json",
@@ -439,6 +439,10 @@ class TutorServices {
         }
         final List list = json.decode(j);
         String byteString = list[0]['tutorImage'];
+        if (byteString.isEmpty) {
+          throw Exception('No Image found');
+        }
+
         Uint8List image = const Base64Codec().decode(byteString);
         return image;
       } else {
