@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:tutor_me/src/colorpallete.dart';
+import '../../services/services/tutor_services.dart';
 import '../components.dart';
 
 class UpdateTutor extends StatefulWidget {
@@ -111,8 +112,7 @@ class UpdateTutorState extends State<UpdateTutor> {
                           "Please fill in the Tutor's Old and New Email \n";
                     }
 
-                    if (oldemailcontroller.text.isEmpty ==
-                        newemailcontroller.text.isEmpty) {
+                    if (oldemailcontroller.text == newemailcontroller.text) {
                       errMsg += "Old and new Email must differ \n";
                     }
 
@@ -148,6 +148,8 @@ class UpdateTutorState extends State<UpdateTutor> {
                         },
                       );
                     }
+                    TutorServices.updateTutorByEmail(
+                        oldemailcontroller.text, newemailcontroller.text);
                   },
                   child: isLoading
                       ? const CircularProgressIndicator(color: Colors.white)

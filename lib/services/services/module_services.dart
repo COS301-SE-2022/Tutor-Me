@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
@@ -5,7 +7,8 @@ import 'package:tutor_me/services/models/modules.dart';
 
 class ModuleServices {
   static getModules() async {
-    Uri modulesURL = Uri.http('tutorme-prod.us-east-1.elasticbeanstalk.com', '/api/Modules');
+    Uri modulesURL =
+        Uri.http('tutorme-prod.us-east-1.elasticbeanstalk.com', '/api/Modules');
     try {
       final response = await http.get(modulesURL, headers: {
         "Accept": "application/json",
@@ -43,8 +46,8 @@ class ModuleServices {
     };
     try {
       final code = module.getCode;
-      final modulesURL =
-          Uri.parse('http://tutorme-prod.us-east-1.elasticbeanstalk.com/api/Modules/$code');
+      final modulesURL = Uri.parse(
+          'http://tutorme-prod.us-east-1.elasticbeanstalk.com/api/Modules/$code');
       final response = await http.put(modulesURL, headers: header, body: data);
       if (response.statusCode == 204) {
         return module;
@@ -56,9 +59,43 @@ class ModuleServices {
     }
   }
 
+  static deleteModule(String code) async {
+    final header = <String, String>{
+      'Content-Type': 'application/json; charset=utf-8',
+    };
+    try {
+      final modulesURL = Uri.parse(
+          'http://tutorme-prod.us-east-1.elasticbeanstalk.com/api/Modules/$code');
+      final response = await http.delete(modulesURL, headers: header);
+      if (response.statusCode == 204) {
+        Fluttertoast.showToast(
+            msg: "Module Deleted",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0);
+      } else {
+        Fluttertoast.showToast(
+            msg: "Failed to delete module",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0);
+        throw Exception(
+            'Failed to delete module' + response.statusCode.toString());
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   static Future getModule(String id) async {
-    Uri tutorURL =
-        Uri.http('tutorme-prod.us-east-1.elasticbeanstalk.com', '/api/Modules/$id');
+    Uri tutorURL = Uri.http(
+        'tutorme-prod.us-east-1.elasticbeanstalk.com', '/api/Modules/$id');
     try {
       final response = await http.get(tutorURL, headers: {
         "Accept": "application/json",

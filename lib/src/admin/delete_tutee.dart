@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:tutor_me/src/colorpallete.dart';
+import '../../services/services/tutee_services.dart';
 import '../components.dart';
 
 class DeleteTutee extends StatefulWidget {
@@ -133,6 +134,7 @@ class DeleteTuteeState extends State<DeleteTutee> {
                         },
                       );
                     }
+                    TuteeServices.deleteTutee(idcontroller.text);
                   },
                   child: isLoading
                       ? const CircularProgressIndicator(color: Colors.white)
