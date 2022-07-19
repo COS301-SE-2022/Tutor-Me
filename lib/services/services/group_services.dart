@@ -26,12 +26,7 @@ class GroupServices {
     try {
       final response = await http.post(groupsURL, headers: header, body: data);
       if (response.statusCode == 201) {
-        String j = "";
-        if (response.body[0] != "[") {
-          j = "[" + response.body + "]";
-        } else {
-          j = response.body;
-        }
+        return true;
       } else {
         throw Exception('Failed to create ' + response.statusCode.toString());
       }
@@ -67,7 +62,7 @@ class GroupServices {
     }
   }
 
-   static Future getGroup(String id) async {
+  static Future getGroup(String id) async {
     Uri url = Uri.http(
         'tutorme-prod.us-east-1.elasticbeanstalk.com', 'api/Groups/$id');
     try {
@@ -121,7 +116,7 @@ class GroupServices {
     }
   }
 
-   static  deleteGroup(String id) async {
+  static deleteGroup(String id) async {
     try {
       final url = Uri.http(
           'tutorme-prod.us-east-1.elasticbeanstalk.com', 'api/Groups/$id');
@@ -141,5 +136,4 @@ class GroupServices {
       throw Exception(e);
     }
   }
- 
 }
