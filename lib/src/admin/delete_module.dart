@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import '../components.dart';
+import '../../services/services/module_services.dart';
 
 class DeleteModule extends StatefulWidget {
   const DeleteModule({Key? key}) : super(key: key);
@@ -133,6 +134,7 @@ class DeleteModuleState extends State<DeleteModule> {
                         },
                       );
                     }
+                    ModuleServices.deleteModule(idcontroller.text);
                   },
                   child: isLoading
                       ? const CircularProgressIndicator(color: Colors.white)
