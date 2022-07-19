@@ -694,3 +694,4 @@ C:\Users\Dell\Documents\School\Capstone\Tutor-ME\APIs\TutorMeApi\ApiIntegrationT
 C:\Users\Dell\Documents\School\Capstone\Tutor-ME\APIs\TutorMeApi\ApiIntegrationTests\obj\Release\net6.0\ApiIntegrationTests.pdb
 C:\Users\Dell\Documents\School\Capstone\Tutor-ME\APIs\TutorMeApi\ApiIntegrationTests\obj\Release\net6.0\ApiIntegrationTests.genruntimeconfig.cache
 C:\Users\Dell\Documents\School\Capstone\Tutor-ME\APIs\TutorMeApi\ApiIntegrationTests\obj\Release\net6.0\ref\ApiIntegrationTests.dll
+C:\Users\Dell\Documents\School\Capstone\Tutor-ME\APIs\TutorMeApi\ApiIntegrationTests\bin\Release\net6.0\aws-beanstalk-tools-defaults.json

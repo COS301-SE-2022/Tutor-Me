@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\madun\\Documents\\School\\Year 3\\COS301\\Capstone\\Tutor-ME\\APIs\\FileSystemAPI\\FileSystemUnitTests\\FileSystemUnitTests.csproj": {}
+    "C:\\Users\\Dell\\Documents\\School\\Capstone\\Tutor-ME\\APIs\\FileSystemAPI\\FileSystemUnitTests\\FileSystemUnitTests.csproj": {}
   },
   "projects": {
-    "C:\\Users\\madun\\Documents\\School\\Year 3\\COS301\\Capstone\\Tutor-ME\\APIs\\FileSystemAPI\\FileSystemUnitTests\\FileSystemUnitTests.csproj": {
+    "C:\\Users\\Dell\\Documents\\School\\Capstone\\Tutor-ME\\APIs\\FileSystemAPI\\FileSystemUnitTests\\FileSystemUnitTests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\madun\\Documents\\School\\Year 3\\COS301\\Capstone\\Tutor-ME\\APIs\\FileSystemAPI\\FileSystemUnitTests\\FileSystemUnitTests.csproj",
+        "projectUniqueName": "C:\\Users\\Dell\\Documents\\School\\Capstone\\Tutor-ME\\APIs\\FileSystemAPI\\FileSystemUnitTests\\FileSystemUnitTests.csproj",
         "projectName": "FileSystemUnitTests",
-        "projectPath": "C:\\Users\\madun\\Documents\\School\\Year 3\\COS301\\Capstone\\Tutor-ME\\APIs\\FileSystemAPI\\FileSystemUnitTests\\FileSystemUnitTests.csproj",
-        "packagesPath": "C:\\Users\\madun\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\madun\\Documents\\School\\Year 3\\COS301\\Capstone\\Tutor-ME\\APIs\\FileSystemAPI\\FileSystemUnitTests\\obj\\",
+        "projectPath": "C:\\Users\\Dell\\Documents\\School\\Capstone\\Tutor-ME\\APIs\\FileSystemAPI\\FileSystemUnitTests\\FileSystemUnitTests.csproj",
+        "packagesPath": "C:\\Users\\Dell\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Dell\\Documents\\School\\Capstone\\Tutor-ME\\APIs\\FileSystemAPI\\FileSystemUnitTests\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\madun\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Dell\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -28,8 +32,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\madun\\Documents\\School\\Year 3\\COS301\\Capstone\\Tutor-ME\\APIs\\FileSystemAPI\\FileSystem\\FileSystem.csproj": {
-                "projectPath": "C:\\Users\\madun\\Documents\\School\\Year 3\\COS301\\Capstone\\Tutor-ME\\APIs\\FileSystemAPI\\FileSystem\\FileSystem.csproj"
+              "C:\\Users\\Dell\\Documents\\School\\Capstone\\Tutor-ME\\APIs\\FileSystemAPI\\FileSystem\\FileSystem.csproj": {
+                "projectPath": "C:\\Users\\Dell\\Documents\\School\\Capstone\\Tutor-ME\\APIs\\FileSystemAPI\\FileSystem\\FileSystem.csproj"
               }
             }
           }
@@ -88,17 +92,21 @@
         }
       }
     },
-    "C:\\Users\\madun\\Documents\\School\\Year 3\\COS301\\Capstone\\Tutor-ME\\APIs\\FileSystemAPI\\FileSystem\\FileSystem.csproj": {
+    "C:\\Users\\Dell\\Documents\\School\\Capstone\\Tutor-ME\\APIs\\FileSystemAPI\\FileSystem\\FileSystem.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\madun\\Documents\\School\\Year 3\\COS301\\Capstone\\Tutor-ME\\APIs\\FileSystemAPI\\FileSystem\\FileSystem.csproj",
+        "projectUniqueName": "C:\\Users\\Dell\\Documents\\School\\Capstone\\Tutor-ME\\APIs\\FileSystemAPI\\FileSystem\\FileSystem.csproj",
         "projectName": "FileSystem",
-        "projectPath": "C:\\Users\\madun\\Documents\\School\\Year 3\\COS301\\Capstone\\Tutor-ME\\APIs\\FileSystemAPI\\FileSystem\\FileSystem.csproj",
-        "packagesPath": "C:\\Users\\madun\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\madun\\Documents\\School\\Year 3\\COS301\\Capstone\\Tutor-ME\\APIs\\FileSystemAPI\\FileSystem\\obj\\",
+        "projectPath": "C:\\Users\\Dell\\Documents\\School\\Capstone\\Tutor-ME\\APIs\\FileSystemAPI\\FileSystem\\FileSystem.csproj",
+        "packagesPath": "C:\\Users\\Dell\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Dell\\Documents\\School\\Capstone\\Tutor-ME\\APIs\\FileSystemAPI\\FileSystem\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\madun\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Dell\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

@@ -158,6 +158,12 @@ namespace Api.Migrations
                         .HasColumnType("varchar(10)")
                         .HasColumnName("dateCreated");
 
+                    b.Property<string>("ModuleCode")
+                        .IsRequired()
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(max)")
+                        .HasColumnName("moduleCode");
+
                     b.Property<string>("ReceiverId")
                         .IsRequired()
                         .HasMaxLength(36)
