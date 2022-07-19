@@ -115,6 +115,11 @@ namespace Api.Data
                     .HasMaxLength(36)
                     .IsUnicode(false)
                     .HasColumnName("requesterId");
+
+                entity.Property(e => e.ModuleCode)
+                    .IsRequired()
+                    .IsUnicode(false)
+                    .HasColumnName("moduleCode");
             });
 
             modelBuilder.Entity<Group>(entity =>
