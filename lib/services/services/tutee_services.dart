@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:crypt/crypt.dart';
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:tutor_me/services/models/modules.dart';
@@ -67,6 +69,40 @@ class TuteeServices {
       }
     } catch (e) {
       throw Exception(e);
+    }
+  }
+
+  static deleteTutee(String id) async {
+    final header = <String, String>{
+      'Content-Type': 'application/json; charset=utf-8',
+    };
+    try {
+      final tuteesURL = Uri.parse(
+          'http://tutorme-prod.us-east-1.elasticbeanstalk.com/api/Tutees/$id');
+      final response = await http.delete(tuteesURL, headers: header);
+      if (response.statusCode == 204) {
+        Fluttertoast.showToast(
+            msg: "Tutee Deleted",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0);
+      } else {
+        Fluttertoast.showToast(
+            msg: "Failed to delete Tutee",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0);
+        throw Exception(
+            'Failed to delete Tutee' + response.statusCode.toString());
+      }
+    } catch (e) {
+      rethrow;
     }
   }
 
@@ -237,6 +273,68 @@ class TuteeServices {
     }
   }
 
+  static updateTuteeByEmail(String oldEmail, String newEmail) async {
+    Tutees tutee = await getTuteeByEmail(oldEmail);
+    if (isThereTuteeByEmail(newEmail) == false) {
+      tutee.setEmail = newEmail;
+      await TuteeServices.updateTutee(tutee);
+    }
+
+    String data = jsonEncode({
+      'id': tutee.getId,
+      'firstName': tutee.getName,
+      'lastName': tutee.getLastName,
+      'dateOfBirth': tutee.getDateOfBirth,
+      'gender': tutee.getGender,
+      'status': tutee.getStatus,
+      'faculty': tutee.getFaculty,
+      'course': tutee.getCourse,
+      'institution': tutee.getInstitution,
+      'modules': tutee.getModules,
+      'location': tutee.getLocation,
+      'tutorsCode': tutee.getTutorsCode,
+      'email': newEmail,
+      'password': tutee.getPassword,
+      'bio': tutee.getBio,
+      'connections': tutee.getConnections,
+      'year': tutee.getYear,
+      'groupIds': tutee.getGroupIds,
+      'requests': ''
+    });
+    final header = <String, String>{
+      'Content-Type': 'application/json; charset=utf-8',
+    };
+    try {
+      final id = tutee.getId;
+      final modulesURL = Uri.parse(
+          'http://tutorme-prod.us-east-1.elasticbeanstalk.com/api/Tutees/$id');
+      final response = await http.put(modulesURL, headers: header, body: data);
+      if (response.statusCode == 204) {
+        Fluttertoast.showToast(
+            msg: "Tutee Email Updated",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0);
+        return tutee;
+      } else {
+        Fluttertoast.showToast(
+            msg: "Failed To Update Tutee Email",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0);
+        throw Exception('Failed to update' + response.statusCode.toString());
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   static getTuteeModules(String id) async {
     try {
       List tutee = await getTutee(id);
@@ -298,8 +396,9 @@ class TuteeServices {
   }
 
   static Future getTuteeProfileImage(String id) async {
-    Uri tuteeURL = Uri.parse(
-        'http://filesystem-prod.us-east-1.elasticbeanstalk.com/api/TuteeFiles/$id');
+    Uri tuteeURL = Uri.http(
+        'http://filesystem-prod.us-east-1.elasticbeanstalk.com',
+        'api/TuteeFiles/$id');
     try {
       final response = await http.get(tuteeURL, headers: {
         "Accept": "application/json",
@@ -367,6 +466,14 @@ class TuteeServices {
       }
     }
     if (got == false) {
+      Fluttertoast.showToast(
+          msg: "Email is incorrect",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
       throw Exception("Email is incorrect");
     } else {
       return tutee;
