@@ -520,9 +520,11 @@ class TutorServices {
   }
 
   static Future getTutorProfileImage(String id) async {
-    Uri tuteeURL = Uri.http(
-        'http://filesystem-prod.us-east-1.elasticbeanstalk.com',
-        'api/TutorFiles/$id');
+
+    Uri tuteeURL = Uri.parse(
+        'http://filesystem-prod.us-east-1.elasticbeanstalk.com/api/TutorFiles/$id');
+
+
     try {
       final response = await http.get(tuteeURL, headers: {
         "Accept": "application/json",
@@ -538,6 +540,10 @@ class TutorServices {
         }
         final List list = json.decode(j);
         String byteString = list[0]['tutorImage'];
+        if (byteString.isEmpty) {
+          throw Exception('No Image found');
+        }
+
         Uint8List image = const Base64Codec().decode(byteString);
         return image;
       } else {

@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:tutor_me/services/models/tutors.dart';
 import 'package:tutor_me/services/models/tutees.dart';
@@ -25,6 +27,7 @@ class TutorProfilePageView extends StatefulWidget {
 
 class _TutorProfilePageViewState extends State<TutorProfilePageView> {
   List<Modules> currentModules = List<Modules>.empty();
+  List<bool> isChecked = List<bool>.empty();
   late int numConnections;
   late int numTutees;
   bool isRequestLoading = false;
@@ -39,12 +42,18 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
   bool thirdSelected = false;
   bool forthSelected = false;
   bool fifthSelected = false;
-  // late Uint8List bytes;
+  bool? value = false;
+  late Uint8List bytes;
+  bool isImageDisplayed = false;
+  late bool doesImageExist;
+  bool isLoading = true;
+
   getCurrentModules() async {
     final current = await TutorServices.getTutorModules(widget.tutor.getId);
     setState(() {
       currentModules = current;
     });
+    getProfileImage();
   }
 
   int getNumConnections() {
@@ -59,22 +68,32 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
     return allTutees.length;
   }
 
-  // getProfileImage() async {
-  //   final image = TutorServices.getTutorProfileImage(widget.tutor.getId);
-  //   setState(() {
-  //     bytes = image as Uint8List;
-  //   });
-  // }
+  getProfileImage() async {
+    try {
+      final image =
+          await TutorServices.getTutorProfileImage(widget.tutor.getId);
+      setState(() {
+        isLoading = false;
+        bytes = image;
+        isImageDisplayed = true;
+      });
+    } catch (e) {
+      doesImageExist = false;
+    }
+  }
 
   getConnections() async {
-    List<String> connections = widget.tutee.getConnections.split(',');
-    int conLength = connections.length;
-    for (int i = 0; i < conLength; i++) {
-      final tutor = await TutorServices.getTutor(connections[i]);
-      setState(() {
-        tutors += tutor;
-      });
-      isConnected = checkConnection();
+    if (!widget.tutee.getConnections.contains('No connections added')) {
+      List<String> connections = widget.tutee.getConnections.split(',');
+      int conLength = connections.length;
+      for (int i = 0; i < conLength; i++) {
+        final tutor = await TutorServices.getTutor(connections[i]);
+        setState(() {
+          isLoading = false;
+          tutors += tutor;
+        });
+        isConnected = checkConnection();
+      }
     }
   }
 
@@ -97,21 +116,23 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
     numConnections = getNumConnections();
     numTutees = getNumTutees();
     getConnections();
-
-    // getProfileImage();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: ListView(
-      padding: EdgeInsets.zero,
-      children: <Widget>[
-        topDesign(),
-        // readyToTutor(),
-        buildBody(),
-      ],
-    ));
+        body: isLoading
+            ? const Center(
+                child: CircularProgressIndicator.adaptive(),
+              )
+            : ListView(
+                padding: EdgeInsets.zero,
+                children: <Widget>[
+                  topDesign(),
+                  // readyToTutor(),
+                  buildBody(),
+                ],
+              ));
   }
 
   Widget buildBody() {
@@ -269,7 +290,7 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
                 top: MediaQuery.of(context).size.height * 0.03),
             child: ElevatedButton(
               onPressed: () {
-                showAlertDialog(context);
+                showConfirmRequest(context);
               },
               child: const Text("Send Request"),
               style: ButtonStyle(
@@ -472,34 +493,43 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
         });
       });
 
-  Widget buildCoverImage() => Container(
-        color: Colors.grey,
-        // decoration:
-        // BoxDecoration(image: DecorationImage(image: MemoryImage(bytes))),
-        child: const Image(
-          image: AssetImage('assets/Pictures/tutorCover.jpg'),
-          width: double.infinity,
-          height: 150,
-          fit: BoxFit.cover,
-        ),
-      );
+  Widget buildCoverImage() => const Image(
+    image: AssetImage('assets/Pictures/tutorCover.jpg'),
+    width: double.infinity,
+    height: 150,
+    fit: BoxFit.cover,
+  );
 
   Widget buildProfileImage() => CircleAvatar(
-        radius: 50,
-        backgroundColor: Colors.grey.shade800,
-        backgroundImage: const AssetImage("assets/Pictures/penguin.png"),
-      );
+      radius: MediaQuery.of(context).size.width * 0.127,
+      // backgroundColor: Colors.grey.shade800,
+      // backgroundImage: !isImageDisplayed? const AssetImage("assets/Pictures/penguin.png"),
 
-// ImageProvider buildImage() {
-//     if (image != null) {
-//       return DecorationImage(image: image );
-//     }
-//     return const AssetImage('assets/Pictures/penguin.png');
-//   }
+      child: isImageDisplayed
+          ? ClipOval(
+              child: Image.memory(
+                bytes,
+                fit: BoxFit.cover,
+                width: 100,
+              ),
+            )
+          : ClipOval(
+              child: Image.asset(
+              "assets/Pictures/penguin.png",
+              fit: BoxFit.cover,
+              width: 100,
+            )));
 
-//   Image fileImage() {
-//     return Image.memory(image);
-//   }
+  // ImageProvider buildImage() {
+  //   if (image != null) {
+  //     return DecorationImage(image: image);
+  //   }
+  //   return const AssetImage('assets/Pictures/penguin.png');
+  // }
+
+  // Image fileImage() {
+  //   return Image.memory(image);
+  // }
 
   Widget buildEditImageIcon() => const CircleAvatar(
         radius: 18,
@@ -535,7 +565,45 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
     );
   }
 
-  showAlertDialog(BuildContext context) {
+  // showModuleSelect(BuildContext context) {
+  //   String titleMessage =
+  //       "Choose the modules you are requesting this tutor for";
+  //   showDialog(
+  //       context: context,
+  //       builder: (context) {
+  //         return WillPopScope(
+  //             onWillPop: (() async => true),
+  //             child: StatefulBuilder(builder: (context, setState) {
+  //               return AlertDialog(
+  //                   title: Text(titleMessage),
+  //                   content: Form(
+  //                       child: SizedBox(
+  //                           height: MediaQuery.of(context).size.height * 0.2,
+  //                           width: MediaQuery.of(context).size.height * 0.9,
+  //                           child: Scrollbar(
+  //                             isAlwaysShown: true,
+  //                             child: ListView.builder(
+  //                               itemBuilder: (context, i) {
+  //                                 return CheckboxListTile(
+  //                                     controlAffinity:
+  //                                         ListTileControlAffinity.leading,
+  //                                     value: isChecked[i],
+  //                                     title: Text(currentModules[i].getCode),
+  //                                     activeColor: colorOrange,
+  //                                     onChanged: (newValue) {
+  //                                       setState(() {
+  //                                         isChecked[i] = newValue!;
+  //                                       });
+  //                                     });
+  //                               },
+  //                               itemCount: currentModules.length,
+  //                             ),
+  //                           ))));
+  //             }));
+  //       });
+  // }
+
+  showConfirmRequest(BuildContext context) {
     String testMessage = "You are about to send a request to " +
         widget.tutor.getName +
         " " +
