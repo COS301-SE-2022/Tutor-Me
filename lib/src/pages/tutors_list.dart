@@ -1,7 +1,10 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:tutor_me/services/services/tutor_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import '../../services/models/tutees.dart';
+import '../../services/services/tutee_services.dart';
 import '../tutorProfilePages/tutor_profile_view.dart';
 import 'package:tutor_me/services/models/tutors.dart';
 // import 'package:tutor_me/modules/api.services.dart';
@@ -25,6 +28,8 @@ class TutorsListState extends State<TutorsList> {
   final textControl = TextEditingController();
   List<Tutors> tutorList = List<Tutors>.empty();
   List<Tutors> saveTutors = List<Tutors>.empty();
+  List<Uint8List> tutorImages = List<Uint8List>.empty(growable: true);
+  List<int> hasImage = List<int>.empty(growable: true);
   List<Tutors> connectedTutors = List<Tutors>.empty();
   double filterContHeight = 0.0;
   double filterContWidth = 0.0;
@@ -38,6 +43,7 @@ class TutorsListState extends State<TutorsList> {
   bool isFifthSelected = false;
   Color checkedColor = colorBlack;
   bool _isLoading = true;
+  
 
   void search(String search) {
     if (search == '') {
@@ -132,6 +138,8 @@ class TutorsListState extends State<TutorsList> {
     });
   }
 
+  
+
   getTutors() async {
     final tutors = await TutorServices.getTutors();
     tutorList = tutors;
@@ -183,7 +191,6 @@ class TutorsListState extends State<TutorsList> {
     if (widget.tutee.getModules.contains('No modules added')) {
       setState(() {
         tutorList = List<Tutors>.empty();
-        _isLoading = false;
       });
       const snackBar = SnackBar(
         content: Text('No Tutor suggestions'),
@@ -204,11 +211,30 @@ class TutorsListState extends State<TutorsList> {
         }
       }
       setState(() {
-        _isLoading = false;
         tutorList = tempList;
         saveTutors = tempList;
       });
     }
+    getTutorProfileImages();
+  }
+
+  getTutorProfileImages() async {
+    for (int i = 0; i < tutorList.length; i++) {
+      try {
+        final image =
+            await TutorServices.getTutorProfileImage(tutorList[i].getId);
+        setState(() {
+          tutorImages.add(image);
+        });
+      } catch (e) {
+        final byte = Uint8List(128);
+        tutorImages.add(byte);
+        hasImage.add(i);
+      }
+    }
+    setState(() {
+      _isLoading = false;
+    });
   }
 
   @override
@@ -635,6 +661,12 @@ class TutorsListState extends State<TutorsList> {
   }
 
   Widget _cardBuilder(BuildContext context, int i) {
+    bool imageExists = true;
+    for (int j = 0; j < hasImage.length; j++) {
+      if (hasImage[j] == i) {
+        imageExists = false;
+      }
+    }
     String name = tutorList[i].getName;
     name += ' ' + tutorList[i].getLastName;
     String rating = tutorList[i].getRating;
@@ -651,8 +683,25 @@ class TutorsListState extends State<TutorsList> {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             ListTile(
-                leading: const CircleAvatar(
-                    backgroundImage: AssetImage('assets/Pictures/penguin.png')),
+                leading: CircleAvatar(
+                  radius: MediaQuery.of(context).size.width * 0.055,
+                  child: imageExists
+                      ? ClipOval(
+                          child: Image.memory(
+                            tutorImages[i],
+                            fit: BoxFit.cover,
+                            width: MediaQuery.of(context).size.width * 0.15,
+                            height: MediaQuery.of(context).size.width * 0.15,
+                          ),
+                        )
+                      : ClipOval(
+                          child: Image.asset(
+                          "assets/Pictures/penguin.png",
+                          fit: BoxFit.cover,
+                          width: MediaQuery.of(context).size.width * 0.15,
+                          height: MediaQuery.of(context).size.width * 0.15,
+                        )),
+                ),
                 title: Text(name),
                 subtitle: Text(
                   tutorList[i].getBio,

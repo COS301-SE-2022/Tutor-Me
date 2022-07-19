@@ -23,12 +23,12 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
   File? image;
 
   Future pickImage(ImageSource source) async {
-    final imageChosed = await ImagePicker().pickImage(source: source);
-    if (imageChosed == null) {
+    final imageChosen = await ImagePicker().pickImage(source: source);
+    if (imageChosen == null) {
       return;
     }
 
-    final imageTempPath = File(imageChosed.path);
+    final imageTempPath = File(imageChosen.path);
     setState(() => image = imageTempPath);
   }
 
@@ -139,8 +139,10 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
               if (bioController.text.isNotEmpty) {
                 widget.user.setBio = bioController.text;
               }
-
-              await TutorServices.updateTutor(widget.user);
+              if (nameController.text.isNotEmpty ||
+                  bioController.text.isNotEmpty) {
+                await TutorServices.updateTutor(widget.user);
+              }
 
               Navigator.pop(context);
             })
@@ -211,6 +213,7 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
                           child: const Text('Open Camera'))
                     ],
                   ));
+          // Navigator.pop(context);
         },
       );
 

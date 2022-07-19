@@ -1,6 +1,9 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:tutor_me/services/models/tutees.dart';
 import 'package:tutor_me/services/models/tutors.dart';
+import '../services/services/tutee_services.dart';
 import 'Navigation/tutee_nav_drawer.dart';
 // import 'theme/themes.dart';
 import 'pages/calls_page.dart';
@@ -18,15 +21,20 @@ class TuteePage extends StatefulWidget {
 }
 
 class TuteePageState extends State<TuteePage> {
-  List<Tutors> tutorList = List<Tutors>.empty();
-  List<Tutors> tutors = List<Tutors>.empty();
+
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 3,
       child: Scaffold(
-          drawer: TuteeNavigationDrawerWidget(user: widget.user),
+          drawer: TuteeNavigationDrawerWidget(
+              user: widget.user,),
           appBar: AppBar(
             toolbarHeight: 70,
             // shape: const RoundedRectangleBorder(
