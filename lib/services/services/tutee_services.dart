@@ -259,7 +259,7 @@ class TuteeServices {
     final header = <String, String>{
       'Content-Type': 'application/json; charset=utf-8'
     };
-    final url = Uri.parse('https://tutormefiles1.azurewebsites.net/api/TuteeFiles');
+    final url = Uri.parse('http://filesystem-prod.us-east-1.elasticbeanstalk.com/api/TuteeFiles');
     try {
       final response = await http.post(url, headers: header, body: data);
       if (response.statusCode == 201) {
@@ -278,7 +278,7 @@ class TuteeServices {
     final header = <String, String>{
       'Content-Type': 'application/json; charset=utf-8'
     };
-    final url = Uri.parse('http://tutormefiles1.azurewebsites.net/api/TuteeFiles/$id');
+    final url = Uri.parse('http://filesystem-prod.us-east-1.elasticbeanstalk.com/api/TuteeFiles/$id');
     try {
       final response = await http.put(url, headers: header, body: data);
       if (response.statusCode == 204) {
@@ -293,7 +293,7 @@ class TuteeServices {
 
   static Future getTuteeProfileImage(String id) async {
     Uri tuteeURL =
-        Uri.http('tutormefiles1.azurewebsites.net', 'api/TuteeFiles/$id');
+        Uri.http('http://filesystem-prod.us-east-1.elasticbeanstalk.com', 'api/TuteeFiles/$id');
     try {
       final response = await http.get(tuteeURL, headers: {
         "Accept": "application/json",
