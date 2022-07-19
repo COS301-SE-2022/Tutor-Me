@@ -40,5 +40,32 @@ class GroupServices {
     }
   }
 
+  static getGroups() async {
+    Uri groupsURL =
+        Uri.http('tutorme-prod.us-east-1.elasticbeanstalk.com', '/api/Groups');
+    try {
+      final response = await http.get(groupsURL, headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*"
+      });
+
+      if (response.statusCode == 200) {
+        String j = "";
+        if (response.body[0] != "[") {
+          j = "[" + response.body + "]";
+        } else {
+          j = response.body;
+        }
+        final List list = json.decode(j);
+        return list.map((json) => Groups.fromObject(json)).toList();
+      } else {
+        throw Exception('Failed to load');
+      }
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
  
 }
