@@ -87,6 +87,68 @@ class TutorServices {
     }
   }
 
+  static updateTutorByEmail(String oldEmail, String newEmail) async {
+    Tutors tutor = await getTutorByEmail(oldEmail);
+    if (isThereTutorByEmail(newEmail) == false) {
+      tutor.setEmail = newEmail;
+      await TutorServices.updateTutor(tutor);
+    }
+
+    String data = jsonEncode({
+      'id': tutor.getId,
+      'firstName': tutor.getName,
+      'lastName': tutor.getLastName,
+      'dateOfBirth': tutor.getDateOfBirth,
+      'gender': tutor.getGender,
+      'status': tutor.getStatus,
+      'faculty': tutor.getFaculty,
+      'course': tutor.getCourse,
+      'institution': tutor.getInstitution,
+      'modules': tutor.getModules,
+      'location': tutor.getLocation,
+      'tuteesCode': tutor.getTuteesCode,
+      'email': newEmail,
+      'password': tutor.getPassword,
+      'bio': tutor.getBio,
+      'connections': tutor.getConnections,
+      'rating': tutor.getRating,
+      'year': tutor.getYear,
+      'groupIds': tutor.getGroupIds
+    });
+    final header = <String, String>{
+      'Content-Type': 'application/json; charset=utf-8',
+    };
+    try {
+      final id = tutor.getId;
+      final modulesURL = Uri.parse(
+          'http://tutorme-prod.us-east-1.elasticbeanstalk.com/api/Tutors/$id');
+      final response = await http.put(modulesURL, headers: header, body: data);
+      if (response.statusCode == 204) {
+        Fluttertoast.showToast(
+            msg: "Tutor Email Updated",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0);
+        return tutor;
+      } else {
+        Fluttertoast.showToast(
+            msg: "Failed to update Tutor Email",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0);
+        throw Exception('Failed to update' + response.statusCode.toString());
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   static deleteTutor(String id) async {
     final header = <String, String>{
       'Content-Type': 'application/json; charset=utf-8',
