@@ -14,7 +14,7 @@ import '../models/requests.dart';
 
 class TuteeServices {
   //TODO: undo a request
-  sendRequest(String receiverId, String requesterId) async {
+  sendRequest(String receiverId, String requesterId, String moduleCode) async {
     try {
       final url = Uri.http('tutorme-prod.us-east-1.elasticbeanstalk.com', 'api/Requests');
       final header = {
@@ -29,7 +29,8 @@ class TuteeServices {
       final data = jsonEncode({
         'requesterId': requesterId,
         'receiverId': receiverId,
-        'dateCreated': dateCreated
+        'dateCreated': dateCreated,
+        'moduleCode': moduleCode
       });
       final response = await http.post(url, body: data, headers: header);
       if (response.statusCode == 201) {
