@@ -7,9 +7,10 @@ namespace Api.Models
 {
     public partial class Request
     {
+        public Guid Id { get; set; }
         public string RequesterId { get; set; }
         public string ReceiverId { get; set; }
         public string DateCreated { get; set; }
-        public Guid Id { get; set; }
+        public string ModuleCode { get; set; }
     }
 }
