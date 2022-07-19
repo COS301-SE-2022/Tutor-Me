@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:tutor_me/services/models/admins.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import '../components.dart';
 import './admin_home.dart';
+import '../../services/services/admin_services.dart';
 
 class LoginAdmin extends StatefulWidget {
   const LoginAdmin({Key? key}) : super(key: key);
@@ -16,6 +18,7 @@ class LoginAdminState extends State<LoginAdmin> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  late Admins admin;
 
   bool isLoading = false;
   int? initialIndex = 0;
@@ -143,14 +146,14 @@ class LoginAdminState extends State<LoginAdmin> {
                             );
                           } else {
                             try {
-                              // tutor = await TutorServices.logInTutor(
-                              //     emailController.text, passwordController.text);
-                              // tutor.setStatus = "T";
-                              // await TutorServices.updateTutor(tutor);
+                              admin = await AdminServices.logInAdmin(
+                                  emailController.text,
+                                  passwordController.text);
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const AdminHome()),
+                                    builder: (context) =>
+                                        AdminHome(user: admin)),
                               );
                             } catch (e) {
                               setState(() {
