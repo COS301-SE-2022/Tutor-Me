@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Dell\\Documents\\School\\Capstone\\Tutor-ME\\APIs\\TutorMeApi\\ApiUnitTests\\ApiUnitTests.csproj": {}
+    "c:\\Users\\Dell\\Documents\\School\\Capstone\\Tutor-ME\\APIs\\TutorMeApi\\ApiUnitTests\\ApiUnitTests.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Dell\\Documents\\School\\Capstone\\Tutor-ME\\APIs\\TutorMeApi\\ApiUnitTests\\ApiUnitTests.csproj": {
+    "c:\\Users\\Dell\\Documents\\School\\Capstone\\Tutor-ME\\APIs\\TutorMeApi\\ApiUnitTests\\ApiUnitTests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Dell\\Documents\\School\\Capstone\\Tutor-ME\\APIs\\TutorMeApi\\ApiUnitTests\\ApiUnitTests.csproj",
+        "projectUniqueName": "c:\\Users\\Dell\\Documents\\School\\Capstone\\Tutor-ME\\APIs\\TutorMeApi\\ApiUnitTests\\ApiUnitTests.csproj",
         "projectName": "ApiUnitTests",
-        "projectPath": "C:\\Users\\Dell\\Documents\\School\\Capstone\\Tutor-ME\\APIs\\TutorMeApi\\ApiUnitTests\\ApiUnitTests.csproj",
+        "projectPath": "c:\\Users\\Dell\\Documents\\School\\Capstone\\Tutor-ME\\APIs\\TutorMeApi\\ApiUnitTests\\ApiUnitTests.csproj",
         "packagesPath": "C:\\Users\\Dell\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Dell\\Documents\\School\\Capstone\\Tutor-ME\\APIs\\TutorMeApi\\ApiUnitTests\\obj\\",
+        "outputPath": "c:\\Users\\Dell\\Documents\\School\\Capstone\\Tutor-ME\\APIs\\TutorMeApi\\ApiUnitTests\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -32,8 +32,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\Dell\\Documents\\School\\Capstone\\Tutor-ME\\APIs\\TutorMeApi\\Api\\Api.csproj": {
-                "projectPath": "C:\\Users\\Dell\\Documents\\School\\Capstone\\Tutor-ME\\APIs\\TutorMeApi\\Api\\Api.csproj"
+              "c:\\Users\\Dell\\Documents\\School\\Capstone\\Tutor-ME\\APIs\\TutorMeApi\\Api\\Api.csproj": {
+                "projectPath": "c:\\Users\\Dell\\Documents\\School\\Capstone\\Tutor-ME\\APIs\\TutorMeApi\\Api\\Api.csproj"
               }
             }
           }
@@ -96,14 +96,14 @@
         }
       }
     },
-    "C:\\Users\\Dell\\Documents\\School\\Capstone\\Tutor-ME\\APIs\\TutorMeApi\\Api\\Api.csproj": {
+    "c:\\Users\\Dell\\Documents\\School\\Capstone\\Tutor-ME\\APIs\\TutorMeApi\\Api\\Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Dell\\Documents\\School\\Capstone\\Tutor-ME\\APIs\\TutorMeApi\\Api\\Api.csproj",
+        "projectUniqueName": "c:\\Users\\Dell\\Documents\\School\\Capstone\\Tutor-ME\\APIs\\TutorMeApi\\Api\\Api.csproj",
         "projectName": "Api",
-        "projectPath": "C:\\Users\\Dell\\Documents\\School\\Capstone\\Tutor-ME\\APIs\\TutorMeApi\\Api\\Api.csproj",
+        "projectPath": "c:\\Users\\Dell\\Documents\\School\\Capstone\\Tutor-ME\\APIs\\TutorMeApi\\Api\\Api.csproj",
         "packagesPath": "C:\\Users\\Dell\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Dell\\Documents\\School\\Capstone\\Tutor-ME\\APIs\\TutorMeApi\\Api\\obj\\",
+        "outputPath": "c:\\Users\\Dell\\Documents\\School\\Capstone\\Tutor-ME\\APIs\\TutorMeApi\\Api\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
