@@ -91,7 +91,7 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                                     thumbColor: MaterialStateProperty.all(
                                         colorTurqoise))),
                             child: Scrollbar(
-                              isAlwaysShown: true,
+                              thumbVisibility: true,
                               child: ListView.separated(
                                   physics: const BouncingScrollPhysics(),
                                   itemBuilder: pointBuilder,
