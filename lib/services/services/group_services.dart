@@ -88,6 +88,34 @@ class GroupServices {
     }
   }
 
+  static Future getGroupByUserID(String userId, String userType) async {
+    List<Groups> initialGroupList = List<Groups>.empty();
+    List<Groups> finalGroupList = List<Groups>.empty(growable: true);
+    try {
+      final groups = await getGroups();
+
+      initialGroupList = groups;
+
+      if (userType.contains('tutor')) {
+        for (int i = 0; i < initialGroupList.length; i++) {
+          if (userId.contains(initialGroupList[i].getTutorId)) {
+            finalGroupList.add(initialGroupList[i]);
+          }
+        }
+      } else {
+        for (int i = 0; i < initialGroupList.length; i++) {
+          if (userId.contains(initialGroupList[i].getTutees)) {
+            finalGroupList.add(initialGroupList[i]);
+          }
+        }
+      }
+
+      return finalGroupList;
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
   static updateGroup(Groups group) async {
     String data = jsonEncode({
       'id': group.getId,
