@@ -17,10 +17,43 @@ namespace Api.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.6")
+                .HasAnnotation("ProductVersion", "6.0.7")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("Api.Models.Admin", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(800)
+                        .IsUnicode(false)
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("id");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(50)")
+                        .HasColumnName("email");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(max)")
+                        .HasColumnName("name");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(max)")
+                        .HasColumnName("password");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Admin", (string)null);
+                });
 
             modelBuilder.Entity("Api.Models.Group", b =>
                 {
@@ -65,7 +98,7 @@ namespace Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Group");
+                    b.ToTable("Group", (string)null);
                 });
 
             modelBuilder.Entity("Api.Models.Module", b =>
@@ -106,7 +139,7 @@ namespace Api.Migrations
                     b.HasKey("Code")
                         .HasName("PK__Modules__357D4CF8AD050163");
 
-                    b.ToTable("Modules");
+                    b.ToTable("Module", (string)null);
                 });
 
             modelBuilder.Entity("Api.Models.Request", b =>
@@ -124,6 +157,12 @@ namespace Api.Migrations
                         .HasColumnType("varchar(10)")
                         .HasColumnName("dateCreated");
 
+                    b.Property<string>("ModuleCode")
+                        .IsRequired()
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(max)")
+                        .HasColumnName("moduleCode");
+
                     b.Property<string>("ReceiverId")
                         .IsRequired()
                         .HasMaxLength(36)
@@ -140,7 +179,7 @@ namespace Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Requests");
+                    b.ToTable("Request", (string)null);
                 });
 
             modelBuilder.Entity("Api.Models.Tutee", b =>

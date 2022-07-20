@@ -1,17 +1,52 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:tutor_me/services/models/tutors.dart';
 import 'package:tutor_me/src/colorpallete.dart';
+import '../../services/services/tutor_services.dart';
 import '../tutorProfilePages/settings_pofile_view.dart';
-import '../tutorProfilePages/tutor_profile_edit.dart';
 import 'package:tutor_me/src/authenticate/register_or_login.dart';
 
-class TutorNavigationDrawerWidget extends StatelessWidget {
+// ignore: must_be_immutable
+class TutorNavigationDrawerWidget extends StatefulWidget {
+  Tutors user;
+
+  TutorNavigationDrawerWidget({Key? key, required this.user}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() {
+    return TutorNavigationDrawerState();
+  }
+}
+
+class TutorNavigationDrawerState extends State<TutorNavigationDrawerWidget> {
   final padding = const EdgeInsets.symmetric(horizontal: 20);
 
-  final Tutors user;
+  late Uint8List tutorImage;
+  bool doesUserImageExist = false;
 
-  const TutorNavigationDrawerWidget({Key? key, required this.user})
-      : super(key: key);
+  getTutorProfileImage() async {
+    try {
+      final image = await TutorServices.getTutorProfileImage(widget.user.getId);
+
+      setState(() {
+        tutorImage = image;
+        doesUserImageExist = true;
+      });
+    } catch (e) {
+      setState(() {
+        tutorImage = Uint8List(128);
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    getTutorProfileImage();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -26,11 +61,12 @@ class TutorNavigationDrawerWidget extends StatelessWidget {
                   text: 'My Account',
                   icon: Icons.account_circle_outlined,
                   onClicked: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => TutorProfileEdit(user: user),
-                        ));
+                    // Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //       builder: (context) =>
+                    //           TutorProfileEdit(user: widget.user),
+                    //     ));
                   },
                 ),
                 buildMenu(
@@ -53,15 +89,24 @@ class TutorNavigationDrawerWidget extends StatelessWidget {
   }
 
   Widget buildNavHeader(BuildContext context) {
-    String name = user.getName;
-    String fullName = name + ' ' + user.getLastName;
+    String name = widget.user.getName;
+    String fullName = name + ' ' + widget.user.getLastName;
     return InkWell(
-      onTap: () {
-        Navigator.push(
+      onTap: () async {
+        final result = await Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => TutorSettingsProfileView(user: user),
+              builder: (context) => TutorSettingsProfileView(
+                  user: widget.user,
+                  image: tutorImage,
+                  imageExists: doesUserImageExist),
             ));
+        Navigator.pop(context);
+        setState(() {
+          widget.user = result.user;
+        });
+
+        getTutorProfileImage();
       },
       child: Container(
         padding: padding.add(EdgeInsets.symmetric(
@@ -69,7 +114,22 @@ class TutorNavigationDrawerWidget extends StatelessWidget {
         child: Row(children: <Widget>[
           CircleAvatar(
             radius: MediaQuery.of(context).size.width * 0.08,
-            backgroundImage: const AssetImage('assets/Pictures/penguin.png'),
+            child: doesUserImageExist
+                ? ClipOval(
+                    child: Image.memory(
+                      tutorImage,
+                      fit: BoxFit.cover,
+                      width: MediaQuery.of(context).size.width * 0.2,
+                      height: MediaQuery.of(context).size.width * 0.2,
+                    ),
+                  )
+                : ClipOval(
+                    child: Image.asset(
+                    "assets/Pictures/penguin.png",
+                    fit: BoxFit.cover,
+                    width: MediaQuery.of(context).size.width * 0.253,
+                    height: MediaQuery.of(context).size.width * 0.253,
+                  )),
           ),
           SizedBox(
             width: MediaQuery.of(context).size.width * 0.05,
@@ -85,7 +145,7 @@ class TutorNavigationDrawerWidget extends StatelessWidget {
               ),
               SizedBox(height: MediaQuery.of(context).size.width * 0.01),
               Text(
-                user.getEmail,
+                widget.user.getEmail,
                 style: TextStyle(
                     fontSize: MediaQuery.of(context).size.width * 0.03,
                     color: colorWhite),

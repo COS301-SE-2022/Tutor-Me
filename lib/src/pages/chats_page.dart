@@ -28,24 +28,32 @@ class ChatsState extends State<Chats> {
   List<dynamic> tutors = List<dynamic>.empty();
 
   void getConnections() async {
-    if (widget.user is Tutors) {
-      List<String> connections = widget.user.getConnections.split(',');
-      int conLength = connections.length;
-      for (int i = 0; i < conLength; i++) {
-        final tutor = await TuteeServices.getTutee(connections[i]);
-        setState(() {
-          tutors += tutor;
-        });
+    if (!widget.user.getConnections.contains('No connections added')) {
+      if (widget.user is Tutors) {
+        List<String> connections = widget.user.getConnections.split(',');
+        int conLength = connections.length;
+        for (int i = 0; i < conLength; i++) {
+          final tutor = await TuteeServices.getTutee(connections[i]);
+          setState(() {
+            _isLoading = false;
+            tutors += tutor;
+          });
+        }
+      } else {
+        List<String> connections = widget.user.getConnections.split(',');
+        int conLength = connections.length;
+        for (int i = 0; i < conLength; i++) {
+          final tutor = await TutorServices.getTutor(connections[i]);
+          setState(() {
+            _isLoading = false;
+            tutors += tutor;
+          });
+        }
       }
     } else {
-      List<String> connections = widget.user.getConnections.split(',');
-      int conLength = connections.length;
-      for (int i = 0; i < conLength; i++) {
-        final tutor = await TutorServices.getTutor(connections[i]);
-        setState(() {
-          tutors += tutor;
-        });
-      }
+      setState(() {
+        _isLoading = false;
+      });
     }
   }
 
@@ -53,26 +61,38 @@ class ChatsState extends State<Chats> {
   void initState() {
     super.initState();
     getConnections();
-    setState(() {
-      _isLoading = false;
-    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: _isLoading
-            ? const Center(child: CircularProgressIndicator.adaptive())
-            : Padding(
-                padding: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.01),
-                child: SizedBox(
-                  child: ListView.builder(
-                    itemBuilder: _chatBuilder,
-                    itemCount: tutors.length,
+      body: _isLoading
+          ? const Center(child: CircularProgressIndicator.adaptive())
+          : tutors.isNotEmpty
+              ? Padding(
+                  padding: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.height * 0.01),
+                  child: SizedBox(
+                    child: ListView.builder(
+                      itemBuilder: _chatBuilder,
+                      itemCount: tutors.length,
+                    ),
+                  ),
+                )
+              : Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Icon(
+                        Icons.chat,
+                        size: MediaQuery.of(context).size.height * 0.09,
+                        color: colorTurqoise,
+                      ),
+                      const Text('No Chats found')
+                    ],
                   ),
                 ),
-              ));
+    );
   }
 
   Widget _chatBuilder(BuildContext context, int i) {

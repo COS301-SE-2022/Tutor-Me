@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tutor_me/src/authenticate/register_or_login.dart';
+import '../../services/models/admins.dart';
 import 'admin.dart';
 
 void main() => runApp(const MaterialApp(home: Admin()));
 
 class AdminHome extends StatefulWidget {
-  const AdminHome({Key? key}) : super(key: key);
+  final Admins user;
+  const AdminHome({Key? key, required this.user}) : super(key: key);
 
   @override
   AdminHomeState createState() => AdminHomeState();
@@ -56,7 +59,13 @@ class AdminHomeState extends State<AdminHome> {
                     "assets/Pictures/TutorLogo.png",
                     width: 30,
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const RegisterOrLogin()),
+                    );
+                  },
                 )
               ],
             ),

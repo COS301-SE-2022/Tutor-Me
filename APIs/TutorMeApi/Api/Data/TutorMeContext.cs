@@ -21,13 +21,16 @@ namespace Api.Data
 
         public virtual DbSet<Module> Modules { get; set; }
         public virtual DbSet<Request> Requests { get; set; }
+        public virtual DbSet<Admin> Admin { get; set; }
         public virtual DbSet<Tutee> Tutees { get; set; }
         public virtual DbSet<Tutor> Tutors { get; set; }
+        public virtual DbSet<Group> Group { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Module>(entity =>
-            {
+            modelBuilder.Entity<Module>(entity =>{
+                entity.ToTable("Module");
+
                 entity.HasKey(e => e.Code)
                     .HasName("PK__Modules__357D4CF8AD050163");
 
@@ -60,10 +63,36 @@ namespace Api.Data
                     .HasColumnName("moduleName");
             });
 
+            modelBuilder.Entity<Admin>(entity =>{
 
+                entity.ToTable("Admin");
+
+                entity.Property(e => e.Id)
+                    .HasMaxLength(800)
+                    .IsUnicode(false)
+                    .HasColumnName("id");
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .IsUnicode(false)
+                    .HasColumnName("name");
+
+                entity.Property(e => e.Email)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("email");
+
+                entity.Property(e => e.Password)
+                    .IsRequired()
+                    .IsUnicode(false)
+                    .HasColumnName("password");
+            });
 
             modelBuilder.Entity<Request>(entity =>
             {
+                entity.ToTable("Request");
+
                 entity.Property(e => e.Id)
                     .HasColumnName("id")
                     .HasDefaultValueSql("(newid())");
@@ -85,10 +114,17 @@ namespace Api.Data
                     .HasMaxLength(36)
                     .IsUnicode(false)
                     .HasColumnName("requesterId");
+
+                entity.Property(e => e.ModuleCode)
+                    .IsRequired()
+                    .IsUnicode(false)
+                    .HasColumnName("moduleCode");
             });
 
             modelBuilder.Entity<Group>(entity =>
             {
+                entity.ToTable("Group");
+
                 entity.Property(e => e.Id)
                     .HasColumnName("id")
                     .HasDefaultValueSql("(newid())");
@@ -323,8 +359,6 @@ namespace Api.Data
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 
-        public DbSet<Api.Models.Group>? Group { get; set; }
-
-        //public DbSet<Api.Models.Group>? Group { get; set; }
+      
     }
 }

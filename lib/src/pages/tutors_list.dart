@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:tutor_me/services/services/tutor_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
@@ -9,6 +11,13 @@ import 'package:tutor_me/services/models/tutors.dart';
 // import 'tutorProfilePages/tutor_profile_view.dart';
 // import 'Navigation/nav_drawer.dart';
 // import 'theme/themes.dart';
+
+class Tutor {
+  Tutors tutor;
+  Uint8List image;
+  bool hasImage;
+  Tutor(this.tutor, this.image, this.hasImage);
+}
 
 class TutorsList extends StatefulWidget {
   final Tutees tutee;
@@ -24,7 +33,10 @@ class TutorsListState extends State<TutorsList> {
   String query = '';
   final textControl = TextEditingController();
   List<Tutors> tutorList = List<Tutors>.empty();
-  List<Tutors> saveTutors = List<Tutors>.empty();
+  List<Tutor> saveTutors = List<Tutor>.empty();
+  List<Uint8List> tutorImages = List<Uint8List>.empty(growable: true);
+  List<Tutor> tutors = List<Tutor>.empty(growable: true);
+  List<int> hasImage = List<int>.empty(growable: true);
   List<Tutors> connectedTutors = List<Tutors>.empty();
   double filterContHeight = 0.0;
   double filterContWidth = 0.0;
@@ -41,11 +53,11 @@ class TutorsListState extends State<TutorsList> {
 
   void search(String search) {
     if (search == '') {
-      tutorList = saveTutors;
+      tutors = saveTutors;
     }
-    final tutors = tutorList.where((tutor) {
-      final nameToLower = tutor.getName.toLowerCase();
-      final lastNameToLower = tutor.getLastName.toLowerCase();
+    final searchedTutors = tutors.where((tutor) {
+      final nameToLower = tutor.tutor.getName.toLowerCase();
+      final lastNameToLower = tutor.tutor.getLastName.toLowerCase();
       final lowerName = nameToLower + ' ' + lastNameToLower;
       final query = search.toLowerCase();
 
@@ -53,7 +65,7 @@ class TutorsListState extends State<TutorsList> {
     }).toList();
 
     setState(() {
-      tutorList = tutors;
+      tutors = searchedTutors;
       query = search;
     });
   }
@@ -65,26 +77,26 @@ class TutorsListState extends State<TutorsList> {
       filter = 'F';
     } else {
       setState(() {
-        tutorList = saveTutors;
+        tutors = saveTutors;
       });
     }
-    final tutors = tutorList.where((tutor) {
-      final tGender = tutor.getGender;
+    final filteredTutors = tutors.where((tutor) {
+      final tGender = tutor.tutor.getGender;
 
       return tGender.contains(filter);
     }).toList();
 
     setState(() {
-      tutorList = tutors;
+      tutors = filteredTutors;
     });
   }
 
   void filterAge(String filter) {
     if (filter == '36+') {
-      final tutors = tutorList.where((tutor) {
+      final filteredTutors = tutors.where((tutor) {
         bool val = false;
-        if (tutor.getDateOfBirth != '') {
-          String strAge = tutor.getAge;
+        if (tutor.tutor.getDateOfBirth != '') {
+          String strAge = tutor.tutor.getAge;
           int age = int.parse(strAge);
           if (age >= 36) {
             val = true;
@@ -95,7 +107,7 @@ class TutorsListState extends State<TutorsList> {
       }).toList();
 
       setState(() {
-        tutorList = tutors;
+        tutors = filteredTutors;
       });
       return;
     }
@@ -112,10 +124,10 @@ class TutorsListState extends State<TutorsList> {
     var f = int.parse(first);
     var s = int.parse(second);
 
-    final tutors = tutorList.where((tutor) {
+    final filteredTutors = tutors.where((tutor) {
       bool val = false;
-      if (tutor.getDateOfBirth != '') {
-        String strAge = tutor.getAge;
+      if (tutor.tutor.getDateOfBirth != '') {
+        String strAge = tutor.tutor.getAge;
         int age = int.parse(strAge);
         for (int i = f; i < s + 1; i++) {
           if (age == i) {
@@ -128,58 +140,116 @@ class TutorsListState extends State<TutorsList> {
     }).toList();
 
     setState(() {
-      tutorList = tutors;
+      tutors = filteredTutors;
     });
   }
 
   getTutors() async {
     final tutors = await TutorServices.getTutors();
     tutorList = tutors;
-    saveTutors = tutors;
+
     getConnections();
   }
 
   getConnections() async {
-    List<String> connections = widget.tutee.getConnections.split(',');
-    int conLength = connections.length;
-    for (int i = 0; i < conLength; i++) {
-      final tutor = await TutorServices.getTutor(connections[i]);
-      setState(() {
-        connectedTutors += tutor;
-      });
-    }
-    List<String> tuteeModules = widget.tutee.getModules.split(',');
-    int tutorLength = tutorList.length;
     List<int> indecies = List<int>.empty(growable: true);
-
-    for (int i = 0; i < tutorLength; i++) {
-      for (int j = 0; j < connectedTutors.length; j++) {
-        if (tutorList[i].getId == connectedTutors[j].getId) {
-          indecies.add(i);
-        } else {
-          List<String> tutorModules = tutorList[i].getModules.split(',');
-          bool val = false;
-          for (int k = 0; k < tutorModules.length; k++) {
-            for (int l = 0; l < tuteeModules.length; l++) {
-              if (tutorModules[k] == tuteeModules[l]) {
-                val = true;
-              }
-            }
-          }
-          if (!val) {
+    int tutorLength = tutorList.length;
+    if (!widget.tutee.getConnections.contains('No connections added')) {
+      List<String> connections = widget.tutee.getConnections.split(',');
+      int conLength = connections.length;
+      for (int i = 0; i < conLength; i++) {
+        final tutor = await TutorServices.getTutor(connections[i]);
+        setState(() {
+          connectedTutors += tutor;
+        });
+      }
+      for (int i = 0; i < tutorLength; i++) {
+        for (int j = 0; j < connectedTutors.length; j++) {
+          if (tutorList[i].getId == connectedTutors[j].getId) {
             indecies.add(i);
           }
         }
       }
     }
-    for (int i = 0; i < indecies.length; i++) {
-      tutorList.removeAt(indecies[i]);
-      for (int j = 0; j < indecies.length; j++) {
-        indecies[j] -= 1;
+
+    List<String> tuteeModules = widget.tutee.getModules.split(',');
+    for (int i = 0; i < tutorLength; i++) {
+      bool val = false;
+      if (!tutorList[i].getModules.contains('No modules added')) {
+        List<String> tutorModules = tutorList[i].getModules.split(',');
+
+        for (int k = 0; k < tutorModules.length; k++) {
+          for (int l = 0; l < tuteeModules.length; l++) {
+            if (tutorModules[k] == tuteeModules[l]) {
+              val = true;
+            }
+          }
+        }
+      }
+
+      if (!val) {
+        indecies.add(i);
       }
     }
+
+    if (widget.tutee.getModules.contains('No modules added')) {
+      setState(() {
+        tutorList = List<Tutors>.empty();
+      });
+      const snackBar = SnackBar(
+        content: Text('No Tutor suggestions'),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    } else {
+      List<Tutors> tempList = List<Tutors>.empty(growable: true);
+
+      for (int i = 0; i < tutorList.length; i++) {
+        bool toAdd = true;
+        for (int j = 0; j < indecies.length; j++) {
+          if (i == indecies[j]) {
+            toAdd = false;
+          }
+        }
+        if (toAdd) {
+          tempList.add(tutorList[i]);
+        }
+      }
+      setState(() {
+        tutorList = tempList;
+      });
+    }
+
+    getTutorProfileImages();
+  }
+
+  getTutorProfileImages() async {
+    for (int i = 0; i < tutorList.length; i++) {
+      try {
+        final image =
+            await TutorServices.getTutorProfileImage(tutorList[i].getId);
+        setState(() {
+          tutorImages.add(image);
+        });
+      } catch (e) {
+        final byte = Uint8List(128);
+        tutorImages.add(byte);
+        hasImage.add(i);
+      }
+    }
+    for (int i = 0; i < tutorList.length; i++) {
+      setState(() {
+        for (int j = 0; j < hasImage.length; j++) {
+          if (hasImage[j] == i) {
+            tutors.add(Tutor(tutorList[i], tutorImages[i], false));
+          } else {
+            tutors.add(Tutor(tutorList[i], tutorImages[i], true));
+          }
+        }
+      });
+    }
     setState(() {
-      saveTutors = tutorList;
+      saveTutors = tutors;
+      _isLoading = false;
     });
   }
 
@@ -187,10 +257,6 @@ class TutorsListState extends State<TutorsList> {
   void initState() {
     super.initState();
     getTutors();
-
-    setState(() {
-      _isLoading = false;
-    });
   }
 
   @override
@@ -232,7 +298,7 @@ class TutorsListState extends State<TutorsList> {
                           onTap: () {
                             textControl.clear();
                             setState(() {
-                              tutorList = saveTutors;
+                              tutors = saveTutors;
                             });
                           },
                         )
@@ -291,7 +357,7 @@ class TutorsListState extends State<TutorsList> {
                       checkmarkColor: colorTurqoise,
                       onSelected: (isSelected) {
                         if (isFemaleSelected) {
-                          tutorList = saveTutors;
+                          tutors = saveTutors;
                         }
                         String newGen = 'Male';
                         filterGender(newGen);
@@ -313,7 +379,7 @@ class TutorsListState extends State<TutorsList> {
                                 !isThirdSelected ||
                                 !isForthSelected ||
                                 !isFifthSelected) {
-                              tutorList = saveTutors;
+                              tutors = saveTutors;
                             }
                           }
                         });
@@ -334,7 +400,7 @@ class TutorsListState extends State<TutorsList> {
                       checkmarkColor: colorTurqoise,
                       onSelected: (isSelected) {
                         if (isMaleSelected) {
-                          tutorList = saveTutors;
+                          tutors = saveTutors;
                         }
                         String newGen = 'Female';
                         filterGender(newGen);
@@ -356,7 +422,7 @@ class TutorsListState extends State<TutorsList> {
                                 !isThirdSelected ||
                                 !isForthSelected ||
                                 !isFifthSelected) {
-                              tutorList = saveTutors;
+                              tutors = saveTutors;
                             }
                           }
                         });
@@ -384,7 +450,7 @@ class TutorsListState extends State<TutorsList> {
                             isThirdSelected ||
                             isForthSelected ||
                             isFifthSelected) {
-                          tutorList = saveTutors;
+                          tutors = saveTutors;
                         }
 
                         String newAge = '16-18';
@@ -405,7 +471,7 @@ class TutorsListState extends State<TutorsList> {
                           } else {
                             checkedColor = colorBlack;
                             isFirstSelected = isSelected;
-                            tutorList = saveTutors;
+                            tutors = saveTutors;
                           }
                         });
                       },
@@ -428,7 +494,7 @@ class TutorsListState extends State<TutorsList> {
                             isThirdSelected ||
                             isForthSelected ||
                             isFifthSelected) {
-                          tutorList = saveTutors;
+                          tutors = saveTutors;
                         }
                         String newAge = '19-21';
                         filterAge(newAge);
@@ -448,7 +514,7 @@ class TutorsListState extends State<TutorsList> {
                           } else {
                             checkedColor = colorBlack;
                             isSecondSelected = isSelected;
-                            tutorList = saveTutors;
+                            tutors = saveTutors;
                           }
                         });
                       },
@@ -471,7 +537,7 @@ class TutorsListState extends State<TutorsList> {
                             isSecondSelected ||
                             isForthSelected ||
                             isFifthSelected) {
-                          tutorList = saveTutors;
+                          tutors = saveTutors;
                         }
                         String newAge = '22-25';
                         filterAge(newAge);
@@ -491,7 +557,7 @@ class TutorsListState extends State<TutorsList> {
                           } else {
                             checkedColor = colorBlack;
                             isThirdSelected = isSelected;
-                            tutorList = saveTutors;
+                            tutors = saveTutors;
                           }
                         });
                       },
@@ -514,7 +580,7 @@ class TutorsListState extends State<TutorsList> {
                             isSecondSelected ||
                             isThirdSelected ||
                             isFifthSelected) {
-                          tutorList = saveTutors;
+                          tutors = saveTutors;
                         }
                         String newAge = '26-35';
                         filterAge(newAge);
@@ -534,7 +600,7 @@ class TutorsListState extends State<TutorsList> {
                           } else {
                             checkedColor = colorBlack;
                             isForthSelected = isSelected;
-                            tutorList = saveTutors;
+                            tutors = saveTutors;
                           }
                         });
                       },
@@ -557,7 +623,7 @@ class TutorsListState extends State<TutorsList> {
                             isSecondSelected ||
                             isThirdSelected ||
                             isForthSelected) {
-                          tutorList = saveTutors;
+                          tutors = saveTutors;
                         }
                         String newAge = '36+';
                         filterAge(newAge);
@@ -577,7 +643,7 @@ class TutorsListState extends State<TutorsList> {
                           } else {
                             checkedColor = colorBlack;
                             isFifthSelected = isSelected;
-                            tutorList = saveTutors;
+                            tutors = saveTutors;
                           }
                         });
                       },
@@ -603,7 +669,7 @@ class TutorsListState extends State<TutorsList> {
               width: MediaQuery.of(context).size.width,
               child: ListView.builder(
                 // padding: const EdgeInsets.all(10),
-                itemCount: tutorList.length,
+                itemCount: tutors.length,
                 itemBuilder: _cardBuilder,
               ),
             ),
@@ -611,26 +677,44 @@ class TutorsListState extends State<TutorsList> {
   }
 
   Widget _cardBuilder(BuildContext context, int i) {
-    String name = tutorList[i].getName;
-    name += ' ' + tutorList[i].getLastName;
-    String rating = tutorList[i].getRating;
+    String name = tutors[i].tutor.getName;
+    name += ' ' + tutors[i].tutor.getLastName;
+    String rating = tutors[i].tutor.getRating;
     List<String> newRating = rating.split(',');
     return GestureDetector(
       child: Card(
         elevation: 0,
-        shape: RoundedRectangleBorder(
-          side: const BorderSide(color: colorTurqoise, width: 0.5),
-          borderRadius: BorderRadius.circular(10),
-        ),
+        // shape: RoundedRectangleBorder(
+        //   side: const BorderSide(color: colorTurqoise, width: 0.5),
+        //   borderRadius: BorderRadius.circular(10),
+        // ),
+        color: Colors.transparent,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             ListTile(
-                leading: const CircleAvatar(
-                    backgroundImage: AssetImage('assets/Pictures/penguin.png')),
+                leading: CircleAvatar(
+                  radius: MediaQuery.of(context).size.width * 0.055,
+                  child: tutors[i].hasImage
+                      ? ClipOval(
+                          child: Image.memory(
+                            tutors[i].image,
+                            fit: BoxFit.cover,
+                            width: MediaQuery.of(context).size.width * 0.15,
+                            height: MediaQuery.of(context).size.width * 0.15,
+                          ),
+                        )
+                      : ClipOval(
+                          child: Image.asset(
+                          "assets/Pictures/penguin.png",
+                          fit: BoxFit.cover,
+                          width: MediaQuery.of(context).size.width * 0.15,
+                          height: MediaQuery.of(context).size.width * 0.15,
+                        )),
+                ),
                 title: Text(name),
                 subtitle: Text(
-                  tutorList[i].getBio,
+                  tutors[i].tutor.getBio,
                   overflow: TextOverflow.ellipsis,
                 ),
                 trailing: Row(
@@ -649,7 +733,7 @@ class TutorsListState extends State<TutorsList> {
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
             builder: (BuildContext context) => TutorProfilePageView(
-                  tutor: tutorList[i],
+                  tutor: tutors[i].tutor,
                   tutee: widget.tutee,
                 )));
       },
