@@ -378,7 +378,7 @@ class TuteeServices {
 
   static uploadProfileImage(File? image, String id) async {
     final imageByte = base64Encode(image!.readAsBytesSync());
-    String data = jsonEncode({'id': id, 'tutorImage': imageByte});
+    String data = jsonEncode({'id': id, 'tuteeImage': imageByte});
     final header = <String, String>{
       'Content-Type': 'application/json; charset=utf-8'
     };
@@ -397,15 +397,15 @@ class TuteeServices {
   }
 
   static Future getTuteeProfileImage(String id) async {
-    Uri tuteeURL = Uri.http(
-        'http://filesystem-prod.us-east-1.elasticbeanstalk.com',
-        'api/TuteeFiles/$id');
+    Uri tuteeURL = Uri.parse(
+        'http://filesystem-prod.us-east-1.elasticbeanstalk.com/api/TuteeFiles/$id');
     try {
       final response = await http.get(tuteeURL, headers: {
         "Accept": "application/json",
         "Content-Type": "application/json",
         "Access-Control-Allow-Origin": "*"
       });
+
       if (response.statusCode == 200) {
         String j = "";
         if (response.body[0] != "[") {
@@ -413,10 +413,16 @@ class TuteeServices {
         } else {
           j = response.body;
         }
+
         final List list = json.decode(j);
-        String byteString = list[0]['tutorImage'];
+        String byteString = list[0]['tuteeImage'];
+
+        if (byteString.isEmpty) {
+          throw Exception('No Image found');
+        }
         //covert to file from base64 bytes
         // String image = base64Decode(byteString);
+
         Uint8List image = const Base64Codec().decode(byteString);
         return image;
         // return Image.file(base64Decode(kk));

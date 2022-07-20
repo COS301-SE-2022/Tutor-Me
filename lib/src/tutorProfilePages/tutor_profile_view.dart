@@ -79,6 +79,9 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
       });
     } catch (e) {
       doesImageExist = false;
+      setState(() {
+        isLoading = false;
+      });
     }
   }
 
@@ -494,11 +497,11 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
       });
 
   Widget buildCoverImage() => const Image(
-    image: AssetImage('assets/Pictures/tutorCover.jpg'),
-    width: double.infinity,
-    height: 150,
-    fit: BoxFit.cover,
-  );
+        image: AssetImage('assets/Pictures/tutorCover.jpg'),
+        width: double.infinity,
+        height: 150,
+        fit: BoxFit.cover,
+      );
 
   Widget buildProfileImage() => CircleAvatar(
       radius: MediaQuery.of(context).size.width * 0.127,
@@ -510,14 +513,16 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
               child: Image.memory(
                 bytes,
                 fit: BoxFit.cover,
-                width: 100,
+                width: MediaQuery.of(context).size.width * 0.253,
+                height: MediaQuery.of(context).size.width * 0.253,
               ),
             )
           : ClipOval(
               child: Image.asset(
               "assets/Pictures/penguin.png",
               fit: BoxFit.cover,
-              width: 100,
+              width: MediaQuery.of(context).size.width * 0.253,
+              height: MediaQuery.of(context).size.width * 0.253,
             )));
 
   // ImageProvider buildImage() {

@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/tutorProfilePages/tutor_profile_edit.dart';
@@ -9,9 +11,22 @@ import '../../services/services/tutor_services.dart';
 import '../components.dart';
 import '../tuteeProfilePages/edit_module_list.dart';
 
+class ToReturn {
+  Uint8List image;
+  Tutors user;
+  ToReturn(this.image, this.user);
+}
+
+// ignore: must_be_immutable
 class TutorSettingsProfileView extends StatefulWidget {
-  final Tutors user;
-  const TutorSettingsProfileView({Key? key, required this.user})
+  Tutors user;
+  Uint8List image;
+  bool imageExists;
+  TutorSettingsProfileView(
+      {Key? key,
+      required this.user,
+      required this.image,
+      required this.imageExists})
       : super(key: key);
 
   @override
@@ -23,10 +38,13 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
   List<Modules> currentModules = List<Modules>.empty();
   late int numConnections;
   late int numTutees;
+  bool _isLoading = true;
+
   getCurrentModules() async {
     final current = await TutorServices.getTutorModules(widget.user.getId);
     setState(() {
       currentModules = current;
+      _isLoading = false;
     });
   }
 
@@ -53,14 +71,24 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: ListView(
-      padding: EdgeInsets.zero,
-      children: <Widget>[
-        topDesign(),
-        // readyToTutor(),
-        buildBody(),
-      ],
-    ));
+        body: _isLoading
+            ? const Center(
+                child: CircularProgressIndicator.adaptive(),
+              )
+            : WillPopScope(
+                onWillPop: () async {
+                  Navigator.pop(context, ToReturn(widget.image, widget.user));
+                  return false;
+                },
+                child: ListView(
+                  padding: EdgeInsets.zero,
+                  children: <Widget>[
+                    topDesign(),
+                    // readyToTutor(),
+                    buildBody(),
+                  ],
+                ),
+              ));
   }
 
   Widget buildBody() {
@@ -250,11 +278,18 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
           top: MediaQuery.of(context).size.height * 0.17,
           left: MediaQuery.of(context).size.height * 0.42,
           child: GestureDetector(
-            onTap: (() => Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) =>
-                        TutorProfileEdit(user: widget.user)))),
+            onTap: () async {
+              final results = await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          TutorProfileEdit(user: widget.user,image: widget.image,imageExists: widget.imageExists)));
+
+              setState(() {
+                widget.image = results.image;
+                widget.user = results.user;
+              });
+            },
             child: Icon(
               Icons.edit,
               color: colorOrange,
@@ -277,9 +312,23 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
       );
 
   Widget buildProfileImage() => CircleAvatar(
-        radius: 50,
-        backgroundColor: Colors.grey.shade800,
-        backgroundImage: const AssetImage("assets/Pictures/penguin.png"),
+        radius: MediaQuery.of(context).size.width * 0.127,
+        child: widget.imageExists
+            ? ClipOval(
+                child: Image.memory(
+                  widget.image,
+                  fit: BoxFit.cover,
+                  width: MediaQuery.of(context).size.width * 0.253,
+                  height: MediaQuery.of(context).size.width * 0.253,
+                ),
+              )
+            : ClipOval(
+                child: Image.asset(
+                "assets/Pictures/penguin.png",
+                fit: BoxFit.cover,
+                width: MediaQuery.of(context).size.width * 0.253,
+                height: MediaQuery.of(context).size.width * 0.253,
+              )),
       );
 
   Widget buildEditImageIcon() => const CircleAvatar(
