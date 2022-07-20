@@ -1334,3 +1334,4 @@ C:\Users\Dell\Documents\School\Capstone\Tutor-ME\APIs\TutorMeApi\Api\obj\Release
 C:\Users\Dell\Documents\School\Capstone\Tutor-ME\APIs\TutorMeApi\Api\obj\Release\net6.0\Api.pdb
 C:\Users\Dell\Documents\School\Capstone\Tutor-ME\APIs\TutorMeApi\Api\obj\Release\net6.0\Api.genruntimeconfig.cache
 C:\Users\Dell\Documents\School\Capstone\Tutor-ME\APIs\TutorMeApi\Api\obj\Release\net6.0\ref\Api.dll
+C:\Users\Dell\Documents\School\Capstone\Tutor-ME\APIs\TutorMeApi\Api\bin\Release\net6.0\aws-beanstalk-tools-defaults.json

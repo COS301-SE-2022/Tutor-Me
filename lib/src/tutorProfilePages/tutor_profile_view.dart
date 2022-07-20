@@ -642,7 +642,7 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
                                   });
 
                                   bool val = await TuteeServices().sendRequest(
-                                      widget.tutor.getId, widget.tutee.getId);
+                                      widget.tutor.getId, widget.tutee.getId, 'COS301');  //TODO: @Musa make sure you change to actual module
 
                                   if (val) {
                                     setState(() {

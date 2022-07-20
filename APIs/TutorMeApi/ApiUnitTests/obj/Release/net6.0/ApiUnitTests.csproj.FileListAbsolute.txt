@@ -1736,3 +1736,4 @@ C:\Users\Dell\Documents\School\Capstone\Tutor-ME\APIs\TutorMeApi\ApiUnitTests\ob
 C:\Users\Dell\Documents\School\Capstone\Tutor-ME\APIs\TutorMeApi\ApiUnitTests\obj\Release\net6.0\ApiUnitTests.pdb
 C:\Users\Dell\Documents\School\Capstone\Tutor-ME\APIs\TutorMeApi\ApiUnitTests\obj\Release\net6.0\ApiUnitTests.genruntimeconfig.cache
 C:\Users\Dell\Documents\School\Capstone\Tutor-ME\APIs\TutorMeApi\ApiUnitTests\obj\Release\net6.0\ref\ApiUnitTests.dll
+C:\Users\Dell\Documents\School\Capstone\Tutor-ME\APIs\TutorMeApi\ApiUnitTests\bin\Release\net6.0\aws-beanstalk-tools-defaults.json

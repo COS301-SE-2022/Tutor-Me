@@ -46,9 +46,8 @@ namespace Api.Migrations
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasMaxLength(50)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(50)")
+                        .HasColumnType("varchar(max)")
                         .HasColumnName("password");
 
                     b.HasKey("Id");
@@ -157,6 +156,12 @@ namespace Api.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(10)")
                         .HasColumnName("dateCreated");
+
+                    b.Property<string>("ModuleCode")
+                        .IsRequired()
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(max)")
+                        .HasColumnName("moduleCode");
 
                     b.Property<string>("ReceiverId")
                         .IsRequired()

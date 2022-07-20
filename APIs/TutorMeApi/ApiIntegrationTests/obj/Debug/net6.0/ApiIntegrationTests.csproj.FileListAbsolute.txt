@@ -343,3 +343,4 @@
 /home/simphiwe/Desktop/updated_CapsOn/Tutor-ME/APIs/TutorMeApi/ApiIntegrationTests/obj/Debug/net6.0/ApiIntegrationTests.pdb
 /home/simphiwe/Desktop/updated_CapsOn/Tutor-ME/APIs/TutorMeApi/ApiIntegrationTests/obj/Debug/net6.0/ApiIntegrationTests.genruntimeconfig.cache
 /home/simphiwe/Desktop/updated_CapsOn/Tutor-ME/APIs/TutorMeApi/ApiIntegrationTests/obj/Debug/net6.0/ref/ApiIntegrationTests.dll
+/home/simphiwe/Desktop/updated_CapsOn/Tutor-ME/APIs/TutorMeApi/ApiIntegrationTests/bin/Debug/net6.0/aws-beanstalk-tools-defaults.json
