@@ -14,12 +14,12 @@ public class RequestControllerIntegrationTests
     private static Request CreateRequest()
     {
         return new()
-        {
+        { 
+            Id =Guid.NewGuid(),
             RequesterId =Guid.NewGuid().ToString(),
             ReceiverId =Guid.NewGuid().ToString(),
             DateCreated ="26 April 1999",
-            Id =Guid.NewGuid()
-            
+            ModuleCode =Guid.NewGuid().ToString()
         };
     }
     [Fact]

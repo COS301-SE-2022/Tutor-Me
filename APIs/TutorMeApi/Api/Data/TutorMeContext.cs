@@ -85,7 +85,6 @@ namespace Api.Data
 
                 entity.Property(e => e.Password)
                     .IsRequired()
-                    .HasMaxLength(50)
                     .IsUnicode(false)
                     .HasColumnName("password");
             });
@@ -115,6 +114,11 @@ namespace Api.Data
                     .HasMaxLength(36)
                     .IsUnicode(false)
                     .HasColumnName("requesterId");
+
+                entity.Property(e => e.ModuleCode)
+                    .IsRequired()
+                    .IsUnicode(false)
+                    .HasColumnName("moduleCode");
             });
 
             modelBuilder.Entity<Group>(entity =>
