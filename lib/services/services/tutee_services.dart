@@ -396,9 +396,8 @@ class TuteeServices {
   }
 
   static Future getTuteeProfileImage(String id) async {
-    Uri tuteeURL = Uri.http(
-        'http://filesystem-prod.us-east-1.elasticbeanstalk.com',
-        'api/TuteeFiles/$id');
+    Uri tuteeURL = Uri.parse(
+        'http://filesystem-prod.us-east-1.elasticbeanstalk.com/api/TuteeFiles/$id');
     try {
       final response = await http.get(tuteeURL, headers: {
         "Accept": "application/json",

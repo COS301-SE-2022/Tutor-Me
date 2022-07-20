@@ -21,11 +21,7 @@ class TutorPage extends StatefulWidget {
 }
 
 class TutorPageState extends State<TutorPage> {
-  void search(String search) {
-    setState(() {
-      //  tutors = tutors.where((tu) => false)
-    });
-  }
+ 
 
   // var size = tutors.length;
   @override

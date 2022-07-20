@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:tutor_me/services/models/tutees.dart';
 import '../../services/services/tutee_services.dart';
 import '../tuteeProfilePages/tutee_profile.dart';
-import '../tuteeProfilePages/tutee_profile_edit.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/authenticate/register_or_login.dart';
 
+// ignore: must_be_immutable
 class TuteeNavigationDrawerWidget extends StatefulWidget {
   Tutees user;
 
@@ -131,7 +131,6 @@ class TuteeNavigationDrawerState extends State<TuteeNavigationDrawerWidget> {
                     width: MediaQuery.of(context).size.width * 0.253,
                     height: MediaQuery.of(context).size.width * 0.253,
                   )),
-            backgroundImage: const AssetImage('assets/Pictures/penguin.png'),
           ),
           SizedBox(
             width: MediaQuery.of(context).size.width * 0.05,
