@@ -5,7 +5,6 @@ import 'package:tutor_me/services/models/tutors.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import '../../services/services/tutor_services.dart';
 import '../tutorProfilePages/settings_pofile_view.dart';
-import '../tutorProfilePages/tutor_profile_edit.dart';
 import 'package:tutor_me/src/authenticate/register_or_login.dart';
 
 // ignore: must_be_immutable

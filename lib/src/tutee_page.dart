@@ -1,9 +1,5 @@
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:tutor_me/services/models/tutees.dart';
-import 'package:tutor_me/services/models/tutors.dart';
-import '../services/services/tutee_services.dart';
 import 'Navigation/tutee_nav_drawer.dart';
 // import 'theme/themes.dart';
 import 'pages/calls_page.dart';
@@ -21,8 +17,6 @@ class TuteePage extends StatefulWidget {
 }
 
 class TuteePageState extends State<TuteePage> {
-
-
   @override
   void initState() {
     super.initState();
@@ -34,7 +28,8 @@ class TuteePageState extends State<TuteePage> {
       length: 3,
       child: Scaffold(
           drawer: TuteeNavigationDrawerWidget(
-              user: widget.user,),
+            user: widget.user,
+          ),
           appBar: AppBar(
             toolbarHeight: 70,
             // shape: const RoundedRectangleBorder(

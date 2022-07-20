@@ -8,7 +8,6 @@ import 'package:tutor_me/src/components.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../services/models/tutees.dart';
-import 'tutee_profile.dart';
 
 class ToReturn {
   Uint8List image;
