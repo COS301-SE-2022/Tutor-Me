@@ -238,12 +238,17 @@ class TutorsListState extends State<TutorsList> {
     }
     for (int i = 0; i < tutorList.length; i++) {
       setState(() {
+        bool val = true;
         for (int j = 0; j < hasImage.length; j++) {
           if (hasImage[j] == i) {
-            tutors.add(Tutor(tutorList[i], tutorImages[i], false));
-          } else {
-            tutors.add(Tutor(tutorList[i], tutorImages[i], true));
+            val = false;
+            break;
           }
+        }
+        if (!val) {
+          tutors.add(Tutor(tutorList[i], tutorImages[i], false));
+        } else {
+          tutors.add(Tutor(tutorList[i], tutorImages[i], true));
         }
       });
     }
