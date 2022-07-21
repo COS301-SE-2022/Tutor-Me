@@ -8,7 +8,7 @@ import 'package:tutor_me/src/Groups/tutor_group.dart';
 
 import 'src/tutorAndTuteeCollaboration/tuteeGroups/tuteeGroupSettings.dart';
 import 'src/tutorAndTuteeCollaboration/tuteeGroups/tuteeGroups.dart';
-import 'src/tutorAndTuteeCollaboration/tutorGroups/tutor_remove_participants.dart';
+// import 'src/tutorAndTuteeCollaboration/tutorGroups/tutor_remove_participants.dart';
 
 // import 'src/app.dart';
 
@@ -20,9 +20,5 @@ void main() async {
   // await dotenv.load(fileName: ".env");
 
   // await settingsController.loadSettings();
-  var group = Group("COS 332", 'Computer Networks', 2, 'Kss');
-  runApp(MaterialApp(
-      home: TutorGroupPage(
-    group: group,
-  )));
+  runApp(MaterialApp(home: TuteeGroups()));
 }

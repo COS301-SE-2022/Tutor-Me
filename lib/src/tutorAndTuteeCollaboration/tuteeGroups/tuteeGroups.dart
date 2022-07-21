@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:tutor_me/services/models/groups.dart';
 import 'package:tutor_me/src/Groups/group.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 
@@ -16,6 +17,13 @@ class TuteeGroups extends StatelessWidget {
     Group("STK12O", "Multimedia - YR 3", 7,
         'https://cdn.pixabay.com/photo/2017/10/17/14/10/financial-2860753__340.jpg'),
   ];
+  List<Groups> groupIdList = List<Groups>.empty();
+
+  @override
+  // void initState() {
+  //   super.initState();
+  //   // getModules();
+  // }
 
   @override
   Widget build(BuildContext context) {
