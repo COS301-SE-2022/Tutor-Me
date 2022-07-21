@@ -42,7 +42,7 @@ class TutorServices {
 
   getRequest(String id) async {
     Uri url = Uri.http(
-        'tutorme-prod.us-east-1.elasticbeanstalk.com', '/api/Requests/$id');
+        'tutorme-prod.us-east-1.elasticbeanstalk.com', '/api/Requests/Tutor/$id');
     try {
       final response = await http.get(url, headers: {
         "Accept": "application/json",
@@ -69,7 +69,7 @@ class TutorServices {
   declineRequest(String id) async {
     try {
       final url = Uri.http(
-          'tutorme-prod.us-east-1.elasticbeanstalk.com', 'api/Requests/$id');
+          'tutorme-prod.us-east-1.elasticbeanstalk.com', 'api/Requests/Tutor/$id');
       final header = {
         "Accept": "application/json",
         "Content-Type": "application/json",
