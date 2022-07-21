@@ -5,7 +5,8 @@ import 'package:tutor_me/src/Groups/tutor_group.dart';
 // import 'src/settings/settings_controller.dart';
 // import 'src/settings/settings_service.dart';
 // import 'package:flutter_dotenv/flutter_dotenv.dart';
-
+import 'src/authenticate/login.dart';
+import 'src/authenticate/register_or_login.dart';
 import 'src/tutorAndTuteeCollaboration/tuteeGroups/tuteeGroupSettings.dart';
 import 'src/tutorAndTuteeCollaboration/tuteeGroups/tuteeGroups.dart';
 // import 'src/tutorAndTuteeCollaboration/tutorGroups/tutor_remove_participants.dart';
@@ -20,5 +21,5 @@ void main() async {
   // await dotenv.load(fileName: ".env");
 
   // await settingsController.loadSettings();
-  runApp(MaterialApp(home: TuteeGroups()));
+  runApp(const MaterialApp(home: RegisterOrLogin()));
 }
