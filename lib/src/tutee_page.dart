@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:tutor_me/services/models/tutees.dart';
+import 'package:tutor_me/src/Groups/tutee_group.dart';
+import 'package:tutor_me/src/colorpallete.dart';
+import 'package:tutor_me/src/tutorAndTuteeCollaboration/tuteeGroups/tuteeGroups.dart';
 import 'Navigation/tutee_nav_drawer.dart';
 // import 'theme/themes.dart';
+import 'notifications/tutorNotifications/tutor_notifications.dart';
 import 'pages/calls_page.dart';
 import 'pages/tutors_list.dart';
 import 'pages/chats_page.dart';
@@ -24,9 +28,10 @@ class TuteePageState extends State<TuteePage> {
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 3,
-      child: Scaffold(
+    return MaterialApp(
+      home: DefaultTabController(
+        length: 3,
+        child: Scaffold(
           drawer: TuteeNavigationDrawerWidget(
             user: widget.user,
           ),
@@ -51,14 +56,14 @@ class TuteePageState extends State<TuteePage> {
                     Icons.person,
                     color: Colors.white,
                   ),
-                  text: 'Request',
+                  text: 'Groups',
                 ),
                 Tab(
                     icon: Icon(
                       Icons.phone,
                       color: Colors.white,
                     ),
-                    text: 'Calls')
+                    text: 'Calls'),
               ],
             ),
             // backgroundColor: const Color(0xffD6521B),
@@ -73,17 +78,39 @@ class TuteePageState extends State<TuteePage> {
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter)),
             ),
-            // actions: <Widget>[
-
-            // ],
+            actions: <Widget>[
+              IconButton(
+                  onPressed: () {}, icon: const Icon(Icons.notifications)),
+            ],
           ),
           body: TabBarView(
             children: <Widget>[
               Chats(user: widget.user),
-              TutorsList(tutee: widget.user),
-              const Calls()
+              TuteeGroups(tutee: widget.user),
+              const Calls(),
             ],
-          )),
+          ),
+          floatingActionButton: FloatingActionButton.extended(
+            // shape: S,
+            isExtended: false,
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (BuildContext context) => TutorsList(
+                        tutee: widget.user,
+                      )));
+            },
+            icon: const Icon(
+              Icons.person_add_alt,
+              color: Colors.white,
+            ),
+            label: const Text('Request Tutor'),
+            backgroundColor: colorTurqoise.withOpacity(0.8),
+            splashColor: colorOrange,
+          ),
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.miniEndFloat,
+        ),
+      ),
     );
   }
 }
