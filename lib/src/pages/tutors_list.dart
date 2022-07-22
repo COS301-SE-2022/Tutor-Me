@@ -286,9 +286,9 @@ class TutorsListState extends State<TutorsList> {
           child: Column(children: <Widget>[
             Container(
                 padding: EdgeInsets.only(
-                    top: 30,
-                    bottom: MediaQuery.of(context).size.height * 0.14,
-                    right: 210),
+                    top: MediaQuery.of(context).size.height * 0.03,
+                    bottom: MediaQuery.of(context).size.height * 0.12,
+                    right: MediaQuery.of(context).size.width * 0.8),
                 child: Icon(
                   Icons.arrow_back,
                   color: colorWhite,
@@ -297,14 +297,28 @@ class TutorsListState extends State<TutorsList> {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.02,
             ),
-            Text(
-              "Request For A Tutor",
-              style: TextStyle(
-                fontSize: MediaQuery.of(context).size.width * 0.08,
-                fontWeight: FontWeight.bold,
-                color: colorWhite,
+            Padding(
+              padding: EdgeInsets.only(
+                  right: MediaQuery.of(context).size.width * 0.25),
+              child: Column(
+                children: [
+                  Text(
+                    "Request For A Tutor",
+                    style: TextStyle(
+                      fontSize: MediaQuery.of(context).size.width * 0.08,
+                      fontWeight: FontWeight.bold,
+                      color: colorWhite,
+                    ),
+                    textAlign: TextAlign.left,
+                  ),
+                  Text(
+                    "    View and send a request to tutors...",
+                    style: TextStyle(
+                        fontSize: MediaQuery.of(context).size.width * 0.05,
+                        color: Color.fromARGB(255, 255, 153, 0)),
+                  )
+                ],
               ),
-              textAlign: TextAlign.left,
             ),
           ]),
         ),
@@ -349,7 +363,7 @@ class TutorsListState extends State<TutorsList> {
                           : null,
                       border: OutlineInputBorder(
                         borderSide:
-                            const BorderSide(color: Colors.red, width: 1.0),
+                            const BorderSide(color: colorOrange, width: 1.0),
                         borderRadius: BorderRadius.circular(15),
                       ),
                       hintStyle: const TextStyle(
@@ -777,7 +791,7 @@ class TutorsListState extends State<TutorsList> {
                     Text(newRating[0]),
                     const Icon(
                       Icons.star,
-                      color: Colors.yellow,
+                      color: Color.fromARGB(255, 255, 233, 31),
                     )
                   ],
                 )),
