@@ -104,7 +104,8 @@ class GroupServices {
         }
       } else {
         for (int i = 0; i < initialGroupList.length; i++) {
-          if (userId.contains(initialGroupList[i].getTutees)) {
+          if (userId.contains(initialGroupList[i].getTutees) &&
+              initialGroupList[i].getTutees.isNotEmpty) {
             finalGroupList.add(initialGroupList[i]);
           }
         }
