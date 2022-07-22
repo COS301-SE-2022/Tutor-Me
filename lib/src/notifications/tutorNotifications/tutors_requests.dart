@@ -1,10 +1,15 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:tutor_me/services/models/requests.dart';
 import 'package:tutor_me/services/models/tutees.dart';
 import 'package:tutor_me/services/models/tutors.dart';
+import 'package:tutor_me/services/services/group_services.dart';
 import 'package:tutor_me/services/services/tutee_services.dart';
 import 'package:tutor_me/services/services/tutor_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
+
+import '../../../services/models/groups.dart';
 
 class TutorRequests extends StatefulWidget {
   final Tutors user;
@@ -23,26 +28,37 @@ class TutorRequestsState extends State<TutorRequests> {
   double screenHeight = 0.0;
   double screenWidth = 0.0;
 
-  bool isExcepting = false;
-  bool isExcepted = false;
-  bool isDeclining = false;
-  bool isDeclined = false;
+  List<bool> isExcepting = List<bool>.empty();
+  List<bool> isExcepted = List<bool>.empty();
+  List<bool> isDeclining = List<bool>.empty();
+  List<bool> isDeclined = List<bool>.empty();
+  bool isLoading = true;
 
   getRequests() async {
     final requests = await TutorServices().getRequests(widget.user.getId);
-    setState(() {
-      requestList = requests;
-    });
+    requestList = requests;
+    if (requestList.isEmpty) {
+      setState(() {
+        isLoading = false;
+      });
+    }
     getTutees();
   }
 
   getTutees() async {
     for (int i = 0; i < requestList.length; i++) {
       final tutee = await TuteeServices.getTutee(requestList[i].getRequesterId);
-      setState(() {
-        tuteeList += tutee;
-      });
+      tuteeList += tutee;
     }
+    int requestLength = tuteeList.length;
+    setState(() {
+      isExcepting = List<bool>.filled(requestLength, false);
+      isExcepted = List<bool>.filled(requestLength, false);
+      isDeclining = List<bool>.filled(requestLength, false);
+      isDeclined = List<bool>.filled(requestLength, false);
+      tuteeList = tuteeList;
+      isLoading = false;
+    });
   }
 
   @override
@@ -56,32 +72,32 @@ class TutorRequestsState extends State<TutorRequests> {
     screenHeight = MediaQuery.of(context).size.height;
     screenWidth = MediaQuery.of(context).size.width;
 
-    if (requestList.isNotEmpty) {
-      return Material(
-        child: SingleChildScrollView(
-            child: SizedBox(
-                height: screenHeight * 0.9,
-                child: ListView.builder(
-                  itemBuilder: _cardBuilder,
-                  itemCount: requestList.length,
-                ))),
-      );
-    }
-
     return Material(
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Icon(
-              Icons.notifications_off,
-              size: MediaQuery.of(context).size.height * 0.15,
-              color: colorTurqoise,
-            ),
-            const Text('No new requests')
-          ],
-        ),
-      ),
+      child: isLoading
+          ? const Center(
+              child: CircularProgressIndicator.adaptive(),
+            )
+          : requestList.isNotEmpty
+              ? SingleChildScrollView(
+                  child: SizedBox(
+                      height: screenHeight * 0.9,
+                      child: ListView.builder(
+                        itemBuilder: _cardBuilder,
+                        itemCount: requestList.length,
+                      )))
+              : Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Icon(
+                        Icons.notifications_off,
+                        size: MediaQuery.of(context).size.height * 0.15,
+                        color: colorTurqoise,
+                      ),
+                      const Text('No new requests')
+                    ],
+                  ),
+                ),
     );
   }
 
@@ -133,87 +149,171 @@ class TutorRequestsState extends State<TutorRequests> {
   Widget _cardBuilder(BuildContext context, int i) {
     String name = tuteeList[i].getName + ' ' + tuteeList[i].getLastName;
     String howLongAgo = getRequestDate(requestList[i].getDateCreated);
-    return Card(
-      elevation: 0,
-      color: Colors.white60,
-      child: Column(
-        children: <Widget>[
-          ListTile(
-            leading: CircleAvatar(
-              radius: MediaQuery.of(context).size.aspectRatio * 70,
-              backgroundImage: const AssetImage('assets/Pictures/penguin.png'),
-            ),
-            title: Text(name),
-            subtitle: Text(
-              tuteeList[i].getBio,
-              overflow: TextOverflow.ellipsis,
-            ),
-            trailing: Text(
-              howLongAgo,
-              style: TextStyle(color: Colors.grey.shade600),
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+    List<String> moduleList = requestList[i].getModuleCode.split(',');
+    String modules = '';
+    for (int i = 0; i < moduleList.length; i++) {
+      modules += moduleList[i] + '\n';
+    }
+    return Column(
+      children: <Widget>[
+        Card(
+          elevation: 0,
+          color: Colors.transparent,
+          child: Column(
             children: <Widget>[
-              isExcepting || isDeclining
-                  ? const CircularProgressIndicator.adaptive()
-                  : isExcepted
-                      ? Text(
-                          'You have excepted this request',
-                          style: TextStyle(color: Colors.grey[400]),
-                        )
-                      : isDeclined
-                          ? Container()
+              ListTile(
+                leading: CircleAvatar(
+                  radius: MediaQuery.of(context).size.aspectRatio * 70,
+                  backgroundImage:
+                      const AssetImage('assets/Pictures/penguin.png'),
+                ),
+                title: Text(name),
+                subtitle: Text(
+                  tuteeList[i].getBio,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                trailing: Text(
+                  howLongAgo,
+                  style: TextStyle(color: Colors.grey.shade600),
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Tooltip(
+                    message: modules,
+                    showDuration: const Duration(seconds: 4),
+                    preferBelow: false,
+                    padding: EdgeInsets.all(
+                        MediaQuery.of(context).size.width * 0.01),
+                    triggerMode: TooltipTriggerMode.tap,
+                    child: const Text(
+                      'View modules',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, color: colorTurqoise),
+                    ),
+                  ),
+                  isExcepting[i] || isDeclining[i]
+                      ? const CircularProgressIndicator.adaptive()
+                      : isExcepted[i]
+                          ? Text(
+                              'You have excepted this request',
+                              style: TextStyle(color: Colors.grey[400]),
+                            )
+                          : isDeclined[i]
+                              ? Container()
+                              : ElevatedButton(
+                                  onPressed: () async {
+                                    setState(() {
+                                      isExcepting[i] = true;
+                                    });
+
+                                    try {
+                                      await TutorServices()
+                                          .acceptRequest(requestList[i].getId);
+
+                                      List<Groups> groupList =
+                                          List<Groups>.empty();
+
+                                      final groups =
+                                          await GroupServices.getGroupByUserID(
+                                              widget.user.getId, 'tutor');
+
+                                      groupList = groups;
+
+                                      List<Groups> moduleRequestedGroups =
+                                          List<Groups>.empty(growable: true);
+
+                                      List<String> modules = requestList[i]
+                                          .getModuleCode
+                                          .split(',');
+
+                                      for (int j = 0;
+                                          j < groupList.length;
+                                          j++) {
+                                        for (int k = 0;
+                                            k < modules.length;
+                                            k++) {
+                                          if (groupList[j]
+                                              .getModuleCode
+                                              .contains(modules[k])) {
+                                            moduleRequestedGroups
+                                                .add(groupList[j]);
+                                          }
+                                        }
+                                      }
+
+
+                                      for (int j = 0;
+                                          j < moduleRequestedGroups.length;
+                                          j++) {
+                                        String tutees =
+                                            moduleRequestedGroups[j].getTutees;
+
+                                        tutees +=
+                                            ',' + requestList[i].getRequesterId;
+                                        
+                                        moduleRequestedGroups[j].setTutees =
+                                            tutees;
+                                        await GroupServices.updateGroup(
+                                            moduleRequestedGroups[j]);
+                                      }
+                                      setState(() {
+                                        isExcepting[i] = false;
+                                        isExcepted[i] = true;
+                                      });
+                                    } catch (e) {
+                                      setState(() {
+                                        isExcepting[i] = false;
+                                        isExcepted[i] = false;
+                                      });
+                                      const snackBar = SnackBar(
+                                        content: Text('Failed to accept'),
+                                      );
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(snackBar);
+                                    }
+
+                                  },
+                                  child: const Text("Accept"),
+                                  style: ButtonStyle(
+                                    backgroundColor: MaterialStateProperty.all(
+                                        colorTurqoise),
+                                  ),
+                                ),
+                  SizedBox(width: MediaQuery.of(context).size.width * 0.05),
+                  isDeclining[i] || isExcepting[i] || isExcepted[i]
+                      ? Container()
+                      : isDeclined[i]
+                          ? Text(
+                              'You have rejected this request',
+                              style: TextStyle(color: Colors.grey[400]),
+                            )
                           : ElevatedButton(
                               onPressed: () async {
                                 setState(() {
-                                  isExcepting = true;
+                                  isDeclining[i] = true;
                                 });
                                 await TutorServices()
-                                    .acceptRequest(requestList[i].getId);
-
+                                    .declineRequest(requestList[i].getId);
                                 setState(() {
-                                  isExcepting = false;
-                                  isExcepted = true;
+                                  isDeclining[i] = false;
+                                  isDeclined[i] = true;
                                 });
                               },
-                              child: const Text("Accept"),
+                              child: const Text("Reject"),
                               style: ButtonStyle(
                                 backgroundColor:
-                                    MaterialStateProperty.all(colorTurqoise),
+                                    MaterialStateProperty.all(colorOrange),
                               ),
-                            ),
-              SizedBox(width: MediaQuery.of(context).size.width * 0.05),
-              isDeclining || isExcepting || isExcepted
-                  ? Container()
-                  : isDeclined
-                      ? Text(
-                          'You have rejected this request',
-                          style: TextStyle(color: Colors.grey[400]),
-                        )
-                      : ElevatedButton(
-                          onPressed: () async {
-                            setState(() {
-                              isDeclining = true;
-                            });
-                            await TutorServices()
-                                .declineRequest(requestList[i].getId);
-                            setState(() {
-                              isDeclining = false;
-                              isDeclined = true;
-                            });
-                          },
-                          child: const Text("Reject"),
-                          style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.all(colorOrange),
-                          ),
-                        )
+                            )
+                ],
+              )
             ],
-          )
-        ],
-      ),
+          ),
+        ),
+        const Divider()
+      ],
     );
   }
 }

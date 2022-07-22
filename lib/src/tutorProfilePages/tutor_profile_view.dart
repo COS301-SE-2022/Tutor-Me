@@ -293,7 +293,7 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
                 top: MediaQuery.of(context).size.height * 0.03),
             child: ElevatedButton(
               onPressed: () {
-                showConfirmRequest(context);
+                showModuleSelect(context);
               },
               child: const Text("Send Request"),
               style: ButtonStyle(
@@ -570,49 +570,88 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
     );
   }
 
-  // showModuleSelect(BuildContext context) {
-  //   String titleMessage =
-  //       "Choose the modules you are requesting this tutor for";
-  //   showDialog(
-  //       context: context,
-  //       builder: (context) {
-  //         return WillPopScope(
-  //             onWillPop: (() async => true),
-  //             child: StatefulBuilder(builder: (context, setState) {
-  //               return AlertDialog(
-  //                   title: Text(titleMessage),
-  //                   content: Form(
-  //                       child: SizedBox(
-  //                           height: MediaQuery.of(context).size.height * 0.2,
-  //                           width: MediaQuery.of(context).size.height * 0.9,
-  //                           child: Scrollbar(
-  //                             isAlwaysShown: true,
-  //                             child: ListView.builder(
-  //                               itemBuilder: (context, i) {
-  //                                 return CheckboxListTile(
-  //                                     controlAffinity:
-  //                                         ListTileControlAffinity.leading,
-  //                                     value: isChecked[i],
-  //                                     title: Text(currentModules[i].getCode),
-  //                                     activeColor: colorOrange,
-  //                                     onChanged: (newValue) {
-  //                                       setState(() {
-  //                                         isChecked[i] = newValue!;
-  //                                       });
-  //                                     });
-  //                               },
-  //                               itemCount: currentModules.length,
-  //                             ),
-  //                           ))));
-  //             }));
-  //       });
-  // }
+  showModuleSelect(BuildContext context) {
+    String titleMessage =
+        "Choose the modules you are requesting this tutor for...";
+    isChecked = List<bool>.filled(currentModules.length, false);
+    showDialog(
+        context: context,
+        builder: (context) {
+          return WillPopScope(
+              onWillPop: (() async => true),
+              child: StatefulBuilder(builder: (context, setState) {
+                return AlertDialog(
+                    title: Text(titleMessage),
+                    content: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.2,
+                            width: MediaQuery.of(context).size.height * 0.9,
+                            child: Theme(
+                              data: Theme.of(context).copyWith(
+                                  scrollbarTheme: ScrollbarThemeData(
+                                      thumbColor: MaterialStateProperty.all(
+                                          colorTurqoise))),
+                              child: Scrollbar(
+                                isAlwaysShown: true,
+                                child: ListView.builder(
+                                  physics: const BouncingScrollPhysics(),
+                                  itemBuilder: (context, i) {
+                                    return CheckboxListTile(
+                                        controlAffinity:
+                                            ListTileControlAffinity.leading,
+                                        value: isChecked[i],
+                                        title: Text(currentModules[i].getCode),
+                                        activeColor: colorOrange,
+                                        onChanged: (newValue) {
+                                          setState(() {
+                                            isChecked[i] = newValue!;
+                                          });
+                                        });
+                                  },
+                                  itemCount: currentModules.length,
+                                ),
+                              ),
+                            )),
+                        SizedBox(
+                          child: OutlinedButton(
+                              style: OutlinedButton.styleFrom(
+                                  side: const BorderSide(
+                                      width: 2, color: colorTurqoise)),
+                              onPressed: () {
+                                Navigator.pop(context);
+                                showConfirmRequest(context);
+                              },
+                              child: const Text(
+                                'Next',
+                                style: TextStyle(color: colorTurqoise),
+                              )),
+                        ),
+                      ],
+                    ));
+              }));
+        });
+  }
 
   showConfirmRequest(BuildContext context) {
     String testMessage = "You are about to send a request to " +
         widget.tutor.getName +
         " " +
         widget.tutor.getLastName;
+    List<String> modulesToRequest = List.empty(growable: true);
+    for (int i = 0; i < currentModules.length; i++) {
+      if (isChecked[i]) {
+        modulesToRequest.add(currentModules[i].getCode);
+      }
+    }
+    String modulesRequested = '';
+    for (int i = 0; i < modulesToRequest.length; i++) {
+      modulesRequested += modulesToRequest[i];
+      if (i < modulesToRequest.length - 1) {
+        modulesRequested += ',';
+      }
+    }
     showDialog(
         barrierDismissible: false,
         context: context,
@@ -642,7 +681,9 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
                                   });
 
                                   bool val = await TuteeServices().sendRequest(
-                                      widget.tutor.getId, widget.tutee.getId, 'COS301');  //TODO: @Musa make sure you change to actual module
+                                      widget.tutor.getId,
+                                      widget.tutee.getId,
+                                      modulesRequested);
 
                                   if (val) {
                                     setState(() {

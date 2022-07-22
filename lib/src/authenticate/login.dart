@@ -216,6 +216,10 @@ class _LoginState extends State<Login> {
                             MaterialPageRoute(
                                 builder: (context) => TutorPage(user: tutor)),
                           );
+
+                          setState(() {
+                            isLoading = false;
+                          });
                         } catch (e) {
                           setState(() {
                             isLoading = false;
@@ -261,6 +265,10 @@ class _LoginState extends State<Login> {
                             MaterialPageRoute(
                                 builder: (context) => TuteePage(user: tutee)),
                           );
+
+                          setState(() {
+                            isLoading = false;
+                          });
                         } catch (e) {
                           setState(() {
                             isLoading = false;
