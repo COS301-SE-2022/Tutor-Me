@@ -8,6 +8,7 @@ import '../../services/models/tutors.dart';
 import '../../services/services/tutee_services.dart';
 import '../../services/services/tutor_services.dart';
 import '../components.dart';
+import '../tutee_page.dart';
 import '../tutor_page.dart';
 import 'forgot_password.dart';
 
@@ -193,7 +194,7 @@ class _LoginState extends State<Login> {
                               TextButton(
                                 child: const Text(
                                   "Retry",
-                                  style: TextStyle(color: colorWhite),
+                                  style: TextStyle(color: colorOrange),
                                 ),
                                 onPressed: () {
                                   Navigator.of(context).pop();
@@ -260,7 +261,7 @@ class _LoginState extends State<Login> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>
-                                    TuteeGroups(tutee: tutee)),
+                                    TuteePage(user: tutee)),
                           );
                         } catch (e) {
                           setState(() {
