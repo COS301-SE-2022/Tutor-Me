@@ -249,12 +249,18 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
               btnName: "Edit Module list",
               backColor: colorOrange,
               funct: () async {
-                await Navigator.push(
+                final modules = await Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => EditModuleList(user: widget.user)),
+                      builder: (context) => EditModuleList(
+                            user: widget.user,
+                            currentModules: currentModules,
+                          )),
                 );
-                getCurrentModules();
+
+                setState(() {
+                  currentModules = modules;
+                });
               },
             )),
       ),
@@ -282,8 +288,10 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
               final results = await Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) =>
-                          TutorProfileEdit(user: widget.user,image: widget.image,imageExists: widget.imageExists)));
+                      builder: (context) => TutorProfileEdit(
+                          user: widget.user,
+                          image: widget.image,
+                          imageExists: widget.imageExists)));
 
               setState(() {
                 widget.image = results.image;

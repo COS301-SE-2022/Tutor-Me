@@ -1,33 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:tutor_me/services/models/tutors.dart';
+import 'package:tutor_me/services/services/group_services.dart';
 import 'package:tutor_me/services/services/module_services.dart';
 import 'package:tutor_me/services/services/tutor_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/tuteeProfilePages/tutee_profile.dart';
 
+import '../../services/models/groups.dart';
 import '../../services/models/modules.dart';
 import '../../services/services/tutee_services.dart';
 
+// ignore: must_be_immutable
 class EditModuleList extends StatefulWidget {
   final dynamic user;
-  const EditModuleList({Key? key, required this.user}) : super(key: key);
+  List<Modules> currentModules;
+  EditModuleList({Key? key, required this.user, required this.currentModules})
+      : super(key: key);
 
   @override
   _EditModuleListState createState() => _EditModuleListState();
 }
 
 class _EditModuleListState extends State<EditModuleList> {
+  List<Modules> modulesToRemove = List<Modules>.empty(growable: true);
+  List<Modules> modulesToAdd = List<Modules>.empty(growable: true);
+  List<Modules> confirmedModules = List<Modules>.empty();
+  List<Groups> tutorGroups = List<Groups>.empty();
   final textControl = TextEditingController();
   List<Modules> moduleList = List<Modules>.empty();
   List<Modules> saveModule = List<Modules>.empty();
   String query = '';
   bool isCurrentOpen = true;
   bool isAllOpen = false;
-  List<Modules> currentModules = List<Modules>.empty();
 
   void inputCurrent() {
-    for (int i = 0; i < currentModules.length; i++) {
-      updateModules(currentModules[i]);
+    confirmedModules = widget.currentModules;
+    for (int i = 0; i < widget.currentModules.length; i++) {
+      updateModules(widget.currentModules[i]);
     }
   }
 
@@ -46,6 +55,7 @@ class _EditModuleListState extends State<EditModuleList> {
     setState(() {
       moduleList = modules;
     });
+    getTutorGroups();
   }
 
   void search(String search) {
@@ -74,18 +84,11 @@ class _EditModuleListState extends State<EditModuleList> {
     });
   }
 
-  getTutorCurrentModules() async {
-    final current = await TutorServices.getTutorModules(widget.user.getId);
-    setState(() {
-      currentModules = current;
-    });
-  }
+  getTutorGroups() async {
+    final groups =
+        await GroupServices.getGroupByUserID(widget.user.getId, 'tutor');
 
-  getTuteeCurrentModules() async {
-    final current = await TuteeServices.getTuteeModules(widget.user.getId);
-    setState(() {
-      currentModules = current;
-    });
+    tutorGroups = groups;
   }
 
   @override
@@ -93,11 +96,6 @@ class _EditModuleListState extends State<EditModuleList> {
     super.initState();
     getModules();
 
-    if (widget.user is Tutors) {
-      getTutorCurrentModules();
-    } else {
-      getTuteeCurrentModules();
-    }
     inputCurrent();
   }
 
@@ -130,7 +128,7 @@ class _EditModuleListState extends State<EditModuleList> {
                       width: MediaQuery.of(context).size.width * 0.9,
                       child: ListView.builder(
                         itemBuilder: _currentModulesBuilder,
-                        itemCount: currentModules.length,
+                        itemCount: widget.currentModules.length,
                       ),
                     ),
                   ),
@@ -235,23 +233,65 @@ class _EditModuleListState extends State<EditModuleList> {
                       ),
                       child: SmallTagBtn(
                           btnName: "Confirm",
-                          backColor: Colors.green,
+                          backColor: colorTurqoise,
                           funct: () async {
-                            String modules = "";
-                            for (int i = 0; i < currentModules.length; i++) {
-                              modules += currentModules[i].getCode;
-                              if (i != currentModules.length - 1) {
-                                modules += ',';
+                            try {
+                              String modules = "";
+                              for (int i = 0;
+                                  i < widget.currentModules.length;
+                                  i++) {
+                                modules += widget.currentModules[i].getCode;
+                                if (i != widget.currentModules.length - 1) {
+                                  modules += ',';
+                                }
                               }
-                            }
-                            widget.user.setModules = modules;
-                            widget.user.setStatus = "F";
-                            Navigator.pop(context);
+                              widget.user.setModules = modules;
 
-                            if (widget.user is Tutors) {
-                              await TutorServices.updateTutor(widget.user);
-                            } else {
-                              await TuteeServices.updateTutee(widget.user);
+                              if (widget.user is Tutors) {
+                                await TutorServices.updateTutor(widget.user);
+
+                                if (tutorGroups.isEmpty) {
+                                  modulesToAdd = widget.currentModules;
+                                } else {
+                                  final newGroups =
+                                      widget.currentModules.where((module) {
+                                    bool isModuleOld = false;
+                                    for (int i = 0;
+                                        i < tutorGroups.length;
+                                        i++) {
+                                      if (module.getCode.contains(
+                                          tutorGroups[i].getModuleCode)) {
+                                        isModuleOld = true;
+                                      }
+                                    }
+                                    return !isModuleOld;
+                                  }).toList();
+
+                                  modulesToAdd = newGroups;
+                                }
+
+                                if (modulesToAdd.isNotEmpty) {
+                                  showConfirmUpdate(context);
+                                  for (int i = 0;
+                                      i < modulesToAdd.length;
+                                      i++) {
+                                    await GroupServices.createGroup(
+                                        modulesToAdd[i].getCode,
+                                        modulesToAdd[i].getModuleName,
+                                        widget.user.getId);
+                                  }
+                                }
+                              } else {
+                                await TuteeServices.updateTutee(widget.user);
+                              }
+
+                              Navigator.pop(context, widget.currentModules);
+                            } catch (e) {
+                              const snackBar = SnackBar(
+                                content: Text('Failed to update modules.'),
+                              );
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(snackBar);
                             }
                           }),
                     ),
@@ -265,13 +305,13 @@ class _EditModuleListState extends State<EditModuleList> {
 
   void addModule(Modules newModule) {
     setState(() {
-      currentModules.add(newModule);
+      widget.currentModules.add(newModule);
     });
   }
 
   void deleteModule(int i) {
     setState(() {
-      currentModules.removeAt(i);
+      widget.currentModules.removeAt(i);
       getModules();
       inputCurrent();
     });
@@ -292,8 +332,8 @@ class _EditModuleListState extends State<EditModuleList> {
               Icons.book,
               color: colorTurqoise,
             ),
-            title: Text(currentModules[i].getModuleName),
-            subtitle: Text(currentModules[i].getCode),
+            title: Text(widget.currentModules[i].getModuleName),
+            subtitle: Text(widget.currentModules[i].getCode),
             trailing: IconButton(
               onPressed: () {
                 deleteModule(i);
@@ -338,6 +378,36 @@ class _EditModuleListState extends State<EditModuleList> {
         ],
       ),
     );
+  }
+
+  showConfirmUpdate(BuildContext context) {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) {
+          return WillPopScope(
+            onWillPop: (() async => false),
+            child: StatefulBuilder(builder: (context, setState) {
+              return AlertDialog(
+                  title: const Text("Alert"),
+                  content: const Text(
+                      'New Groups will be created for the newly added modules'),
+                  actions: [
+                    OutlinedButton(
+                        style: OutlinedButton.styleFrom(
+                            side: const BorderSide(
+                                width: 2, color: colorTurqoise)),
+                        onPressed: () async {
+                          Navigator.pop(context);
+                        },
+                        child: const Text(
+                          'Continue',
+                          style: TextStyle(color: colorTurqoise),
+                        )),
+                  ]);
+            }),
+          );
+        });
   }
 
   Widget topDesign() {
