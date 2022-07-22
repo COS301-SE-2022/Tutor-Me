@@ -9,6 +9,7 @@ import '../../services/services/tutee_services.dart';
 import '../../services/services/tutor_services.dart';
 import '../components.dart';
 import '../tutor_page.dart';
+import '../tutee_page.dart';
 import 'forgot_password.dart';
 
 class Login extends StatefulWidget {
@@ -260,7 +261,7 @@ class _LoginState extends State<Login> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>
-                                    TuteeGroups(tutee: tutee)),
+                                    TuteePage(user: tutee)),
                           );
                         } catch (e) {
                           setState(() {
