@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import 'package:tutor_me/src/authenticate/register_step1.dart';
 import 'package:tutor_me/src/colorpallete.dart';
-import 'package:tutor_me/src/tutorAndTuteeCollaboration/tuteeGroups/tuteeGroups.dart';
 import '../../services/models/tutees.dart';
 import '../../services/models/tutors.dart';
 import '../../services/services/tutee_services.dart';
