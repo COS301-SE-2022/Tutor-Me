@@ -1,3 +1,6 @@
+
+// ignore_for_file: file_names
+
 import 'dart:io';
 // import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -39,9 +42,6 @@ class _TuteeGroupsSettingsState extends State<TuteeGroupsSettings> {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidthSize = MediaQuery.of(context).size.width;
-    final screenHeightSize = MediaQuery.of(context).size.height;
-
     return Scaffold(
         appBar: AppBar(
           // backgroundColor: const Color(0xffD6521B),
@@ -67,7 +67,6 @@ class _TuteeGroupsSettingsState extends State<TuteeGroupsSettings> {
   }
 
   Widget buildBody() {
-    final screenWidthSize = MediaQuery.of(context).size.width;
     final screenHeightSize = MediaQuery.of(context).size.height;
     // FilePickerResult? filePickerResult;
     // String? fileName;

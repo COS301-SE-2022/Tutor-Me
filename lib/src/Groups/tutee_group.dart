@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tutor_me/src/Groups/group.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/tutorAndTuteeCollaboration/tuteeGroups/tuteeGroupSettings.dart';
 
@@ -77,23 +76,23 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
                     ),
                     Flexible(
                       child: ConstrainedBox(
-                          constraints: const BoxConstraints.expand(),
-                          child: Theme(
-                            data: Theme.of(context).copyWith(
-                                scrollbarTheme: ScrollbarThemeData(
-                                    thumbColor: MaterialStateProperty.all(
-                                        colorTurqoise))),
-                            child: Scrollbar(
-                                child: Container(
-                              child: Text(
-                                widget.group.getDescription,
-                                style: const TextStyle(
-                                  color: colorBlack,
-                                  fontSize: 16,
-                                ),
+                        constraints: const BoxConstraints.expand(),
+                        child: Theme(
+                          data: Theme.of(context).copyWith(
+                              scrollbarTheme: ScrollbarThemeData(
+                                  thumbColor: MaterialStateProperty.all(
+                                      colorTurqoise))),
+                          child: Scrollbar(
+                            child: Text(
+                              widget.group.getDescription,
+                              style: const TextStyle(
+                                color: colorBlack,
+                                fontSize: 16,
                               ),
-                            )),
-                          )),
+                            ),
+                          ),
+                        ),
+                      ),
                     )
                   ],
                 ),

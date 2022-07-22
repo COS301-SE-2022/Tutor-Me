@@ -1,11 +1,8 @@
+// ignore_for_file: file_names
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:tutor_me/services/models/groups.dart';
 import 'package:tutor_me/services/services/group_services.dart';
-import 'package:tutor_me/src/Groups/group.dart';
 import 'package:tutor_me/src/colorpallete.dart';
-
-import '../../../services/models/modules.dart';
 import '../../../services/models/tutees.dart';
 import '../../Groups/tutee_group.dart';
 
@@ -34,7 +31,6 @@ class TuteeGroupsState extends State<TuteeGroups> {
       for (int t = 0; t < groups[i].getTutees.length; t++) {
         if (groups[i].getTutees[t] == ',') {
           numOfTutees++;
-          print(groups[i].getTutees[i] + " yebow\n");
         }
       }
     }
