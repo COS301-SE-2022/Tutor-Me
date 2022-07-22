@@ -191,7 +191,6 @@ class TutorServices {
 
   acceptRequest(String requestId) async {
     try {
-      print('before');
       final request = await getRequest(requestId);
       final tutor1 = await getTutor(request[0].getReceiverId);
       Tutors tutor = tutor1[0];

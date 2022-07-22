@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:tutor_me/services/models/requests.dart';
 import 'package:tutor_me/services/models/tutees.dart';
@@ -243,7 +241,6 @@ class TutorRequestsState extends State<TutorRequests> {
                                         }
                                       }
 
-
                                       for (int j = 0;
                                           j < moduleRequestedGroups.length;
                                           j++) {
@@ -252,7 +249,7 @@ class TutorRequestsState extends State<TutorRequests> {
 
                                         tutees +=
                                             ',' + requestList[i].getRequesterId;
-                                        
+
                                         moduleRequestedGroups[j].setTutees =
                                             tutees;
                                         await GroupServices.updateGroup(
@@ -273,7 +270,6 @@ class TutorRequestsState extends State<TutorRequests> {
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(snackBar);
                                     }
-
                                   },
                                   child: const Text("Accept"),
                                   style: ButtonStyle(
