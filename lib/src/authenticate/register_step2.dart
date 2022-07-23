@@ -1,5 +1,4 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
-
 import 'package:flutter/material.dart';
 import 'package:tutor_me/services/models/tutors.dart';
 import 'package:tutor_me/src/authenticate/register_step3.dart';
@@ -7,6 +6,7 @@ import 'package:tutor_me/src/colorpallete.dart';
 import '../../services/models/tutees.dart';
 import '../components.dart';
 import 'register_step1.dart';
+import 'package:intl/intl.dart';
 
 // ignore: must_be_immutable
 class RegisterStep2 extends StatefulWidget {
@@ -33,17 +33,21 @@ class RegisterStep2 extends StatefulWidget {
 class _RegisterStep2State extends State<RegisterStep2> {
   final FocusNode firstNameFocusNode = FocusNode();
   final FocusNode lastNameFocusNode = FocusNode();
-  final FocusNode dobFocusNode = FocusNode();
   final FocusNode genderFocusNode = FocusNode();
+  final FocusNode calendarFocusNode = FocusNode();
   final FocusNode institutionFocusNode = FocusNode();
   final FocusNode courseFocusNode = FocusNode();
 
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController lastNameController = TextEditingController();
-  final TextEditingController dobController = TextEditingController();
+  final TextEditingController calendarController = TextEditingController();
   final TextEditingController genderController = TextEditingController();
   final TextEditingController institutionController = TextEditingController();
   final TextEditingController courseController = TextEditingController();
+
+  DateTime dateOfBirth = DateTime.now().subtract(const Duration(days: 6205));
+  String formattedDate = "Date Of Birth";
+  DateTime dateOver = DateTime.now().subtract(const Duration(days: 36500));
 
   late Tutors tutor;
   late Tutees tutee;
@@ -140,14 +144,6 @@ class _RegisterStep2State extends State<RegisterStep2> {
                 inputController: lastNameController,
                 // inputFocus: lastNameFocusNode,
               ),
-              TextInputField(
-                icon: Icons.calendar_month_outlined,
-                hint: 'Enter DOB (DD/MM/YYYY)',
-                inputType: TextInputType.emailAddress,
-                inputAction: TextInputAction.next,
-                inputController: dobController,
-                // inputFocus: dobFocusNode,
-              ),
               SizedBox(
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height * 0.02,
@@ -239,6 +235,68 @@ class _RegisterStep2State extends State<RegisterStep2> {
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height * 0.03,
               ),
+              Container(
+                width: MediaQuery.of(context).size.width * 0.8,
+                height: MediaQuery.of(context).size.height * 0.07,
+                padding: EdgeInsets.only(
+                    left: MediaQuery.of(context).size.width * 0.06,
+                    right: MediaQuery.of(context).size.width * 0.01),
+                decoration: BoxDecoration(
+                  color: Colors.grey[500]!.withOpacity(0.3),
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(
+                    color: colorOrange,
+                    width: 1,
+                  ),
+                ),
+                child: TextField(
+                  decoration: InputDecoration(
+                      icon:
+                          const Icon(Icons.calendar_month, color: Colors.white),
+                      labelText: formattedDate,
+                      labelStyle: const TextStyle(
+                        color: Colors.white,
+                      )),
+                  readOnly: true,
+                  onTap: () async {
+                    DateTime? newDateOfBirth = await showDatePicker(
+                        context: context,
+                        builder: (context, child) {
+                          return Theme(
+                            data: Theme.of(context).copyWith(
+                              colorScheme: const ColorScheme.light(
+                                primary: Colors.red,
+                                onPrimary: Colors.white,
+                                onSurface: Colors.black,
+                              ),
+                              textButtonTheme: TextButtonThemeData(
+                                style: TextButton.styleFrom(
+                                  primary: Colors.white,
+                                  backgroundColor: Colors.red,
+                                  textStyle: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            child: child!,
+                          );
+                        },
+                        initialDate: dateOfBirth,
+                        firstDate: dateOver,
+                        lastDate: dateOfBirth);
+
+                    if (newDateOfBirth == null) return;
+
+                    setState(() {
+                      dateOfBirth = newDateOfBirth;
+                      formattedDate =
+                          DateFormat('dd/MM/yyyy').format(dateOfBirth);
+                    });
+                  },
+                ),
+              ),
               SizedBox(
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height * 0.03,
@@ -262,27 +320,12 @@ class _RegisterStep2State extends State<RegisterStep2> {
 
                     if (firstNameController.text == "" ||
                         lastNameController.text == "" ||
-                        dobController.text == "" ||
                         gender == "") {
                       errMsg += "ERROR: One or more parametres missing\n";
-                    } else {
-                      int day = int.parse(dobController.text.split("/")[0]);
-                      int month = int.parse(dobController.text.split("/")[1]);
-                      int year = int.parse(dobController.text.split("/")[2]);
+                    }
 
-                      if (
-                          // zday > 31 ||
-                          day < 1 ||
-                              month > 12 ||
-                              month < 1 ||
-                              year < 1900 ||
-                              year > 2020) {
-                        errMsg += "ERROR: Invalid Date of Birth\n";
-                      }
-
-                      if (dobController.text.contains("/") == false) {
-                        errMsg += "ERROR: Invalid Date of Birth\n";
-                      }
+                    if (formattedDate == "Date Of Birth") {
+                      errMsg += "ERROR: Your Date of birth is missing\n";
                     }
 
                     if (errMsg != "") {
@@ -328,7 +371,7 @@ class _RegisterStep2State extends State<RegisterStep2> {
                                 confirmPassword: widget.confirmPassword,
                                 fullName: firstNameController.text,
                                 lastName: lastNameController.text,
-                                dob: dobController.text,
+                                dob: formattedDate,
                                 gender: gender,
                                 toRegister: widget.toRegister)),
                       );
