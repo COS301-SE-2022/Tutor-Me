@@ -4,7 +4,7 @@ import 'package:tutor_me/services/models/groups.dart';
 import 'package:tutor_me/services/services/group_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import '../../../services/models/tutors.dart';
-import '../../Groups/tutee_group.dart';
+import '../../Groups/tutor_group.dart';
 
 class TutorGroups extends StatefulWidget {
   final Tutors tutor;
@@ -17,9 +17,6 @@ class TutorGroups extends StatefulWidget {
 }
 
 class TutorGroupsState extends State<TutorGroups> {
-  String images =
-      'https://cdn.pixabay.com/photo/2018/09/27/09/22/artificial-intelligence-3706562_960_720.jpg';
-
   List<Groups> groups = List<Groups>.empty();
   int numOfTutees = 0;
   bool hasGroups = false;
@@ -99,7 +96,7 @@ class TutorGroupsState extends State<TutorGroups> {
     return GestureDetector(
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => TuteeGroupPage(
+            builder: (context) => TutorGroupPage(
                   group: groups[i],
                 )));
       },
