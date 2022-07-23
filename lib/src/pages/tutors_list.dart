@@ -3,7 +3,10 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:tutor_me/services/services/tutor_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
+import 'package:tutor_me/src/tutorAndTuteeCollaboration/tuteeGroups/tuteeGroups.dart';
+import 'package:tutor_me/src/tutorAndTuteeCollaboration/tutorGroups/tutorGroups.dart';
 import '../../services/models/tutees.dart';
+import '../tutee_page.dart';
 import '../tutorProfilePages/tutor_profile_view.dart';
 import 'package:tutor_me/services/models/tutors.dart';
 // import 'package:tutor_me/modules/api.services.dart';
@@ -285,12 +288,21 @@ class TutorsListState extends State<TutorsList> {
             Container(
                 padding: EdgeInsets.only(
                     top: MediaQuery.of(context).size.height * 0.03,
-                    bottom: MediaQuery.of(context).size.height * 0.12,
+                    bottom: MediaQuery.of(context).size.height * 0.11,
                     right: MediaQuery.of(context).size.width * 0.8),
-                child: Icon(
-                  Icons.arrow_back,
-                  color: colorWhite,
-                  size: MediaQuery.of(context).size.width * 0.1,
+                child: GestureDetector(
+                  onTap: () => {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => TuteePage(user: widget.tutee)),
+                    ),
+                  },
+                  child: Icon(
+                    Icons.arrow_back,
+                    color: colorWhite,
+                    size: MediaQuery.of(context).size.width * 0.1,
+                  ),
                 )),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.02,
@@ -303,14 +315,14 @@ class TutorsListState extends State<TutorsList> {
                   Text(
                     "Request For A Tutor",
                     style: TextStyle(
-                      fontSize: MediaQuery.of(context).size.width * 0.08,
+                      fontSize: MediaQuery.of(context).size.width * 0.079,
                       fontWeight: FontWeight.bold,
                       color: colorWhite,
                     ),
                     textAlign: TextAlign.left,
                   ),
                   Text(
-                    "    View and send a request to tutors...",
+                    "     View and send a request to tutors...",
                     style: TextStyle(
                         fontSize: MediaQuery.of(context).size.width * 0.05,
                         color: const Color.fromARGB(255, 255, 153, 0)),
@@ -721,7 +733,7 @@ class TutorsListState extends State<TutorsList> {
           ),
           _isLoading
               ? SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.7,
+                  height: MediaQuery.of(context).size.height * 0.60,
                   child: const Center(
                     child: CircularProgressIndicator.adaptive(),
                   ),
