@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tutor_me/services/models/tutors.dart';
 import 'package:tutor_me/src/notifications/tutorNotifications/tutor_notifications.dart';
 import 'package:tutor_me/src/pages/chats_page.dart';
-import 'package:tutor_me/src/tutorAndTuteeCollaboration/tutorGroups/tutorGroups.dart';
+import 'package:tutor_me/src/pages/tutees_list.dart';
 // import 'package:tutor_me/modules/api.services.dart';
 // import 'package:tutor_me/modules/tutors.dart';
 import 'Navigation/tutor_nav_drawer.dart';
@@ -21,6 +21,8 @@ class TutorPage extends StatefulWidget {
 }
 
 class TutorPageState extends State<TutorPage> {
+ 
+
   // var size = tutors.length;
   @override
   Widget build(BuildContext context) {
@@ -49,7 +51,7 @@ class TutorPageState extends State<TutorPage> {
                     Icons.person,
                     color: Colors.white,
                   ),
-                  text: 'Groups',
+                  text: 'Tutees',
                 ),
                 Tab(
                     icon: Icon(
@@ -85,9 +87,7 @@ class TutorPageState extends State<TutorPage> {
           body: TabBarView(
             children: <Widget>[
               Chats(user: widget.user),
-              TutorGroups(
-                tutor: widget.user,
-              ),
+              const TuteesList(),
               const Calls()
             ],
           )),

@@ -193,7 +193,7 @@ class _LoginState extends State<Login> {
                               TextButton(
                                 child: const Text(
                                   "Retry",
-                                  style: TextStyle(color: colorOrange),
+                                  style: TextStyle(color: colorWhite),
                                 ),
                                 onPressed: () {
                                   Navigator.of(context).pop();

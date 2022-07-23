@@ -16,6 +16,5 @@ void main() async {
   // await dotenv.load(fileName: ".env");
 
   // await settingsController.loadSettings();
-
   runApp(const MaterialApp(home: RegisterOrLogin()));
 }

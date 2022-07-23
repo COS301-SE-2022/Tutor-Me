@@ -20,21 +20,12 @@ class TuteeGroupsState extends State<TuteeGroups> {
   String images =
       'https://cdn.pixabay.com/photo/2018/09/27/09/22/artificial-intelligence-3706562_960_720.jpg';
 
-  bool hasGroups = false;
-  bool isLoading = true;
-
   List<Groups> groups = List<Groups>.empty();
   int numOfTutees = 0;
   getGroupDetails() async {
     final incomingGroups =
         await GroupServices.getGroupByUserID(widget.tutee.getId, 'tutee');
     groups = incomingGroups;
-
-    if (groups.isNotEmpty) {
-      setState(() {
-        hasGroups = true;
-      });
-    }
 
     for (int i = 0; i < groups.length; i++) {
       for (int t = 0; t < groups[i].getTutees.length; t++) {
@@ -45,52 +36,45 @@ class TuteeGroupsState extends State<TuteeGroups> {
     }
 
     setState(() {
-      isLoading = false;
       groups = incomingGroups;
       numOfTutees = numOfTutees;
     });
   }
 
   @override
-  void initState() {
-    super.initState();
-    getGroupDetails();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    getGroupDetails();
     return DefaultTabController(
         length: 3,
         child: Scaffold(
+          appBar: AppBar(
+            // backgroundColor: const Color(0xffD6521B),
+            centerTitle: true,
+            title: const Text('My Tutee Groups'),
+            flexibleSpace: Container(
+              decoration: const BoxDecoration(
+                  // borderRadius:
+                  //     BorderRadius.vertical(bottom: Radius.circular(60)),
+                  gradient: LinearGradient(
+                      colors: <Color>[Colors.orange, Colors.red],
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter)),
+            ),
+          ),
           body: Center(
-            child: isLoading
-                ? const CircularProgressIndicator.adaptive()
-                : !hasGroups
-                    ? Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                            Icon(
-                              Icons.people,
-                              size: MediaQuery.of(context).size.height * 0.1,
-                              color: colorTurqoise,
-                            ),
-                            const Text("No Groups Found")
-                          ])
-                    : SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.8,
-                        child: Padding(
-                            padding: EdgeInsets.only(
-                                top: MediaQuery.of(context).size.height * 0.04),
-                            child: ListView.separated(
-                                itemBuilder: groupBuilder,
-                                separatorBuilder:
-                                    (BuildContext context, index) {
-                                  return SizedBox(
-                                    height: MediaQuery.of(context).size.height *
-                                        0.03,
-                                  );
-                                },
-                                itemCount: groups.length))),
+            child: SizedBox(
+                width: MediaQuery.of(context).size.width * 0.8,
+                child: Padding(
+                    padding: EdgeInsets.only(
+                        top: MediaQuery.of(context).size.height * 0.04),
+                    child: ListView.separated(
+                        itemBuilder: groupBuilder,
+                        separatorBuilder: (BuildContext context, index) {
+                          return SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.03,
+                          );
+                        },
+                        itemCount: groups.length))),
           ),
         ));
   }
