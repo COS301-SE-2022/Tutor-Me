@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:tutor_me/services/models/tutees.dart';
-import 'package:tutor_me/src/Groups/tutee_group.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/tutorAndTuteeCollaboration/tuteeGroups/tuteeGroups.dart';
 import 'Navigation/tutee_nav_drawer.dart';
 // import 'theme/themes.dart';
-import 'notifications/tutorNotifications/tutor_notifications.dart';
 import 'pages/calls_page.dart';
 import 'pages/tutors_list.dart';
 import 'pages/chats_page.dart';

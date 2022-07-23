@@ -1,8 +1,6 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:http/http.dart';
 import 'package:tutor_me/services/services/tutor_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import '../../services/models/tutees.dart';
@@ -315,7 +313,7 @@ class TutorsListState extends State<TutorsList> {
                     "    View and send a request to tutors...",
                     style: TextStyle(
                         fontSize: MediaQuery.of(context).size.width * 0.05,
-                        color: Color.fromARGB(255, 255, 153, 0)),
+                        color: const Color.fromARGB(255, 255, 153, 0)),
                   )
                 ],
               ),
@@ -755,7 +753,7 @@ class TutorsListState extends State<TutorsList> {
           borderRadius: BorderRadius.circular(15),
         ),
         // color: Colors.transparent,
-        color: Color.fromARGB(77, 216, 216, 216),
+        color: const Color.fromARGB(77, 216, 216, 216),
 
         child: Column(
           mainAxisSize: MainAxisSize.min,
