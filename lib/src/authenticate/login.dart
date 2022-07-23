@@ -9,6 +9,7 @@ import '../../services/services/tutor_services.dart';
 import '../components.dart';
 import '../tutee_page.dart';
 import '../tutor_page.dart';
+import '../tutee_page.dart';
 import 'forgot_password.dart';
 
 class Login extends StatefulWidget {
@@ -216,6 +217,10 @@ class _LoginState extends State<Login> {
                             MaterialPageRoute(
                                 builder: (context) => TutorPage(user: tutor)),
                           );
+
+                          setState(() {
+                            isLoading = false;
+                          });
                         } catch (e) {
                           setState(() {
                             isLoading = false;
@@ -259,8 +264,13 @@ class _LoginState extends State<Login> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => TuteePage(user: tutee)),
+                                builder: (context) =>
+                                    TuteePage(user: tutee)),
                           );
+
+                          setState(() {
+                            isLoading = false;
+                          });
                         } catch (e) {
                           setState(() {
                             isLoading = false;
