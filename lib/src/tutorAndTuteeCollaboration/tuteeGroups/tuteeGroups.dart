@@ -8,6 +8,7 @@ import '../../Groups/tutee_group.dart';
 
 class TuteeGroups extends StatefulWidget {
   final Tutees tutee;
+
   const TuteeGroups({Key? key, required this.tutee}) : super(key: key);
 
   @override
@@ -42,6 +43,7 @@ class TuteeGroupsState extends State<TuteeGroups> {
       numOfTutees = 0;
       if (groups[i].getTutees.length > 1) {
         numOfTutees++;
+        break;
       }
       for (int t = 0; t < groups[i].getTutees.length; t++) {
         if (groups[i].getTutees[t] == ',') {
@@ -110,7 +112,9 @@ class TuteeGroupsState extends State<TuteeGroups> {
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => TuteeGroupPage(
-                group: groups[i], numberOfParticipants: numOfTutees)));
+                tutee: widget.tutee,
+                group: groups[i],
+                numberOfParticipants: numOfTutees)));
       },
       child: Container(
         width: MediaQuery.of(context).size.width * 0.8,
