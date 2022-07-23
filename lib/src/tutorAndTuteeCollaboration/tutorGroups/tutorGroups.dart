@@ -3,31 +3,31 @@ import 'package:flutter/material.dart';
 import 'package:tutor_me/services/models/groups.dart';
 import 'package:tutor_me/services/services/group_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
-import '../../../services/models/tutees.dart';
+import '../../../services/models/tutors.dart';
 import '../../Groups/tutee_group.dart';
 
-class TuteeGroups extends StatefulWidget {
-  final Tutees tutee;
-  const TuteeGroups({Key? key, required this.tutee}) : super(key: key);
+class TutorGroups extends StatefulWidget {
+  final Tutors tutor;
+  const TutorGroups({Key? key, required this.tutor}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
-    return TuteeGroupsState();
+    return TutorGroupsState();
   }
 }
 
-class TuteeGroupsState extends State<TuteeGroups> {
+class TutorGroupsState extends State<TutorGroups> {
   String images =
       'https://cdn.pixabay.com/photo/2018/09/27/09/22/artificial-intelligence-3706562_960_720.jpg';
 
+  List<Groups> groups = List<Groups>.empty();
+  int numOfTutees = 0;
   bool hasGroups = false;
   bool isLoading = true;
 
-  List<Groups> groups = List<Groups>.empty();
-  int numOfTutees = 0;
   getGroupDetails() async {
     final incomingGroups =
-        await GroupServices.getGroupByUserID(widget.tutee.getId, 'tutee');
+        await GroupServices.getGroupByUserID(widget.tutor.getId, 'tutor');
     groups = incomingGroups;
 
     if (groups.isNotEmpty) {
