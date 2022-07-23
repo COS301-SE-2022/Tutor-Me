@@ -261,6 +261,7 @@ class SmallTagButton extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class OrangeButton extends StatelessWidget {
   const OrangeButton({
     Key? key,
@@ -282,14 +283,18 @@ class OrangeButton extends StatelessWidget {
       ),
       child: TextButton(
         onPressed: onPressed,
-        child: Text(
-          btnName,
-          style: const TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-        ),
+        child: btnName == 'Save'
+            ? Text(
+                btnName,
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              )
+            : const CircularProgressIndicator.adaptive(
+                backgroundColor: colorWhite,
+              ),
       ),
     );
   }
