@@ -265,14 +265,14 @@ class _RegisterStep2State extends State<RegisterStep2> {
                           return Theme(
                             data: Theme.of(context).copyWith(
                               colorScheme: const ColorScheme.light(
-                                primary: Colors.red,
+                                primary: colorTurqoise,
                                 onPrimary: Colors.white,
                                 onSurface: Colors.black,
                               ),
                               textButtonTheme: TextButtonThemeData(
                                 style: TextButton.styleFrom(
                                   primary: Colors.white,
-                                  backgroundColor: Colors.red,
+                                  backgroundColor: colorTurqoise,
                                   textStyle: const TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,
