@@ -27,6 +27,7 @@ class TuteeNavigationDrawerState extends State<TuteeNavigationDrawerWidget> {
 
   late Uint8List tuteeImage;
   bool doesUserImageExist = false;
+  bool isImageLoading = true;
 
   getTuteeProfileImage() async {
     try {
@@ -35,9 +36,11 @@ class TuteeNavigationDrawerState extends State<TuteeNavigationDrawerWidget> {
       setState(() {
         tuteeImage = image;
         doesUserImageExist = true;
+        isImageLoading = false;
       });
     } catch (e) {
       setState(() {
+        isImageLoading = false;
         tuteeImage = Uint8List(128);
       });
     }
@@ -53,11 +56,15 @@ class TuteeNavigationDrawerState extends State<TuteeNavigationDrawerWidget> {
   Widget build(BuildContext context) {
     return Drawer(
       child: Material(
-          color: const Color(0xFFD6521B),
+          color: colorOrange,
           child: ListView(
               // padding: const EdgeInsets.symmetric(horizontal: 20),
               children: <Widget>[
                 buildNavHeader(context),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                const Divider(
+                  color: colorWhite,
+                ),
                 buildMenu(
                   text: 'My Account',
                   icon: Icons.account_circle_outlined,
@@ -93,44 +100,49 @@ class TuteeNavigationDrawerState extends State<TuteeNavigationDrawerWidget> {
     String name = widget.user.getName;
     String fullName = name + ' ' + widget.user.getLastName;
     return InkWell(
-      onTap: () async {
-        final result = await Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => TuteeProfilePage(
-                  user: widget.user,
-                  image: tuteeImage,
-                  imageExists: doesUserImageExist),
-            ));
+      onTap: isImageLoading
+          ? () {}
+          : () async {
+              final result = await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => TuteeProfilePage(
+                        user: widget.user,
+                        image: tuteeImage,
+                        imageExists: doesUserImageExist),
+                  ));
 
-        setState(() {
-          widget.user = result.user;
-        });
+              setState(() {
+                widget.user = result.user;
+              });
 
-        getTuteeProfileImage();
-      },
+              getTuteeProfileImage();
+            },
       child: Container(
         padding: padding.add(EdgeInsets.symmetric(
             vertical: MediaQuery.of(context).size.width * 0.05)),
         child: Row(children: <Widget>[
           CircleAvatar(
+            backgroundColor: colorTurqoise,
             radius: MediaQuery.of(context).size.width * 0.08,
-            child: doesUserImageExist
-                ? ClipOval(
-                    child: Image.memory(
-                      tuteeImage,
-                      fit: BoxFit.cover,
-                      width: MediaQuery.of(context).size.width * 0.2,
-                      height: MediaQuery.of(context).size.width * 0.2,
-                    ),
-                  )
-                : ClipOval(
-                    child: Image.asset(
-                    "assets/Pictures/penguin.png",
-                    fit: BoxFit.cover,
-                    width: MediaQuery.of(context).size.width * 0.253,
-                    height: MediaQuery.of(context).size.width * 0.253,
-                  )),
+            child: isImageLoading
+                ? const CircularProgressIndicator.adaptive()
+                : doesUserImageExist
+                    ? ClipOval(
+                        child: Image.memory(
+                          tuteeImage,
+                          fit: BoxFit.cover,
+                          width: MediaQuery.of(context).size.width * 0.2,
+                          height: MediaQuery.of(context).size.width * 0.2,
+                        ),
+                      )
+                    : ClipOval(
+                        child: Image.asset(
+                        "assets/Pictures/penguin.png",
+                        fit: BoxFit.cover,
+                        width: MediaQuery.of(context).size.width * 0.253,
+                        height: MediaQuery.of(context).size.width * 0.253,
+                      )),
           ),
           SizedBox(
             width: MediaQuery.of(context).size.width * 0.05,

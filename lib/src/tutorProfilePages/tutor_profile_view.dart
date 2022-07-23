@@ -594,7 +594,7 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
                                       thumbColor: MaterialStateProperty.all(
                                           colorTurqoise))),
                               child: Scrollbar(
-                                thumbVisibility: true,
+                                // thumbVisibility: true,
                                 child: ListView.builder(
                                   physics: const BouncingScrollPhysics(),
                                   itemBuilder: (context, i) {

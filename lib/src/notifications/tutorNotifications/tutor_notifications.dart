@@ -24,7 +24,7 @@ class TutorNotificationsState extends State<TutorNotifications> {
       child: Scaffold(
           appBar: PreferredSize(
             preferredSize:
-                Size.fromHeight(MediaQuery.of(context).size.height * 0.14),
+                Size.fromHeight(MediaQuery.of(context).size.height * 0.17),
             child: AppBar(
               bottom: const TabBar(
                 indicatorColor: Colors.white,

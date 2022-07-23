@@ -34,21 +34,24 @@ class ChatsState extends State<Chats> {
         int conLength = connections.length;
         for (int i = 0; i < conLength; i++) {
           final tutor = await TuteeServices.getTutee(connections[i]);
-          setState(() {
-            _isLoading = false;
-            tutors += tutor;
-          });
+          tutors += tutor;
         }
+        setState(() {
+          _isLoading = false;
+          tutors = tutors;
+        });
       } else {
         List<String> connections = widget.user.getConnections.split(',');
         int conLength = connections.length;
         for (int i = 0; i < conLength; i++) {
           final tutor = await TutorServices.getTutor(connections[i]);
-          setState(() {
-            _isLoading = false;
-            tutors += tutor;
-          });
+
+          tutors += tutor;
         }
+        setState(() {
+          _isLoading = false;
+          tutors = tutors;
+        });
       }
     } else {
       setState(() {
@@ -99,7 +102,8 @@ class ChatsState extends State<Chats> {
     String name = tutors[i].getName + ' ' + tutors[i].getLastName;
     return GestureDetector(
         child: Card(
-          elevation: 7.0,
+          elevation: 0,
+          color: Colors.transparent,
           // shape: RoundedRectangleBorder(
           //   side: const BorderSide(color: Colors.red, width: 1),
           //   borderRadius: BorderRadius.circular(10),
