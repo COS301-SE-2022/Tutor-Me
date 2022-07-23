@@ -329,9 +329,17 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
             child: SmallTagBtn(
               btnName: "Edit Module list",
               backColor: colorOrange,
-              funct: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => EditModuleList(user: widget.user)));
+              funct: () async {
+                final modules =
+                    await Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => EditModuleList(
+                              user: widget.user,
+                              currentModules: currentModules,
+                            )));
+
+                setState(() {
+                  currentModules = modules;
+                });
               },
             )),
       ),

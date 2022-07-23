@@ -53,7 +53,7 @@ class LoginAdminState extends State<LoginAdmin> {
                   const Flexible(
                     child: Center(
                       child: Text(
-                        'Tutor Me',
+                        'Admin',
                         style: TextStyle(
                           color: colorWhite,
                           fontSize: 40,
