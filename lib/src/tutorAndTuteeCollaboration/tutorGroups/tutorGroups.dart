@@ -35,7 +35,6 @@ class TutorGroupsState extends State<TutorGroups> {
         hasGroups = true;
       });
     }
-
     for (int i = 0; i < groups.length; i++) {
       for (int t = 0; t < groups[i].getTutees.length; t++) {
         if (groups[i].getTutees[t] == ',') {
@@ -100,8 +99,7 @@ class TutorGroupsState extends State<TutorGroups> {
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => TuteeGroupPage(
-                  group: groups[i],
-                )));
+                group: groups[i], numberOfParticipants: numOfTutees)));
       },
       child: Container(
         width: MediaQuery.of(context).size.width * 0.8,
