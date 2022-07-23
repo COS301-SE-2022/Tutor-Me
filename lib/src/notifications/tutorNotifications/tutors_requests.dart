@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:tutor_me/services/models/requests.dart';
 import 'package:tutor_me/services/models/tutees.dart';
@@ -8,6 +10,13 @@ import 'package:tutor_me/services/services/tutor_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 
 import '../../../services/models/groups.dart';
+
+class Tutee {
+  Tutees tutee;
+  Uint8List image;
+  bool hasImage;
+  Tutee(this.tutee, this.image, this.hasImage);
+}
 
 class TutorRequests extends StatefulWidget {
   final Tutors user;
@@ -21,7 +30,10 @@ class TutorRequests extends StatefulWidget {
 
 class TutorRequestsState extends State<TutorRequests> {
   List<Tutees> tuteeList = List<Tutees>.empty();
+  List<Tutee> tutees = List<Tutee>.empty(growable: true);
   List<Requests> requestList = List<Requests>.empty();
+  List<Uint8List> tuteeImages = List<Uint8List>.empty(growable: true);
+  List<int> hasImage = List<int>.empty(growable: true);
 
   double screenHeight = 0.0;
   double screenWidth = 0.0;
@@ -55,6 +67,41 @@ class TutorRequestsState extends State<TutorRequests> {
       isDeclining = List<bool>.filled(requestLength, false);
       isDeclined = List<bool>.filled(requestLength, false);
       tuteeList = tuteeList;
+    });
+    getTuteeProfileImages();
+  }
+
+  getTuteeProfileImages() async {
+    for (int i = 0; i < tuteeList.length; i++) {
+      try {
+        final image =
+            await TuteeServices.getTuteeProfileImage(tuteeList[i].getId);
+        setState(() {
+          tuteeImages.add(image);
+        });
+      } catch (e) {
+        final byte = Uint8List(128);
+        tuteeImages.add(byte);
+        hasImage.add(i);
+      }
+    }
+    for (int i = 0; i < tuteeList.length; i++) {
+      setState(() {
+        bool val = true;
+        for (int j = 0; j < hasImage.length; j++) {
+          if (hasImage[j] == i) {
+            val = false;
+            break;
+          }
+        }
+        if (!val) {
+          tutees.add(Tutee(tuteeList[i], tuteeImages[i], false));
+        } else {
+          tutees.add(Tutee(tuteeList[i], tuteeImages[i], true));
+        }
+      });
+    }
+    setState(() {
       isLoading = false;
     });
   }
@@ -162,8 +209,22 @@ class TutorRequestsState extends State<TutorRequests> {
               ListTile(
                 leading: CircleAvatar(
                   radius: MediaQuery.of(context).size.aspectRatio * 70,
-                  backgroundImage:
-                      const AssetImage('assets/Pictures/penguin.png'),
+                  child: tutees[i].hasImage
+                      ? ClipOval(
+                          child: Image.memory(
+                            tutees[i].image,
+                            fit: BoxFit.cover,
+                            width: MediaQuery.of(context).size.width * 0.15,
+                            height: MediaQuery.of(context).size.width * 0.15,
+                          ),
+                        )
+                      : ClipOval(
+                          child: Image.asset(
+                          "assets/Pictures/penguin.png",
+                          fit: BoxFit.cover,
+                          width: MediaQuery.of(context).size.width * 0.15,
+                          height: MediaQuery.of(context).size.width * 0.15,
+                        )),
                 ),
                 title: Text(name),
                 subtitle: Text(
@@ -240,20 +301,23 @@ class TutorRequestsState extends State<TutorRequests> {
                                           }
                                         }
                                       }
-
                                       for (int j = 0;
                                           j < moduleRequestedGroups.length;
                                           j++) {
                                         String tutees =
                                             moduleRequestedGroups[j].getTutees;
 
-                                        tutees +=
-                                            ',' + requestList[i].getRequesterId;
-
+                                        if (tutees.isEmpty) {
+                                          tutees +=
+                                              requestList[i].getRequesterId;
+                                        } else {
+                                          tutees += ',' +
+                                              requestList[i].getRequesterId;
+                                        }
                                         moduleRequestedGroups[j].setTutees =
                                             tutees;
-                                        await GroupServices.updateGroup(
-                                            moduleRequestedGroups[j]);
+                                        // await GroupServices.updateGroup(
+                                        //     moduleRequestedGroups[j]);
                                       }
                                       setState(() {
                                         isExcepting[i] = false;
