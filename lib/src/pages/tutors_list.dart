@@ -272,483 +272,500 @@ class TutorsListState extends State<TutorsList> {
     filterContHeight = MediaQuery.of(context).size.height * 0.16;
     filterContWidth = MediaQuery.of(context).size.width * 0.9;
     return Material(
-        child: Column(
-      children: [
-        Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height * 0.3,
-          decoration: const BoxDecoration(
-              // borderRadius:
-              //     BorderRadius.vertical(botCentertom: Radius.circular(60)),
-              image: DecorationImage(
-            image: AssetImage("assets/Pictures/tutorus.jpg"),
-            fit: BoxFit.fill,
-          )),
-          child: Column(children: <Widget>[
-            Container(
-                padding: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.03,
-                    bottom: MediaQuery.of(context).size.height * 0.11,
-                    right: MediaQuery.of(context).size.width * 0.8),
-                child: GestureDetector(
-                  onTap: () => {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => TuteePage(user: widget.tutee)),
-                    ),
-                  },
-                  child: Icon(
-                    Icons.arrow_back,
-                    color: colorWhite,
-                    size: MediaQuery.of(context).size.width * 0.1,
-                  ),
-                )),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.02,
-            ),
-            Padding(
-              padding: EdgeInsets.only(
-                  right: MediaQuery.of(context).size.width * 0.25),
-              child: Column(
-                children: [
-                  Text(
-                    "Request For A Tutor",
-                    style: TextStyle(
-                      fontSize: MediaQuery.of(context).size.width * 0.079,
-                      fontWeight: FontWeight.bold,
-                      color: colorWhite,
-                    ),
-                    textAlign: TextAlign.left,
-                  ),
-                  Text(
-                    "     View and send a request to tutors...",
-                    style: TextStyle(
-                        fontSize: MediaQuery.of(context).size.width * 0.05,
-                        color: const Color.fromARGB(255, 255, 153, 0)),
-                  )
-                ],
-              ),
-            ),
-          ]),
-        ),
-        SingleChildScrollView(
-            child:
-                Column(mainAxisAlignment: MainAxisAlignment.center, children: <
-                    Widget>[
-          Row(
-            children: <Widget>[
+        child: SingleChildScrollView(
+      child: Column(
+        children: [
+          Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height * 0.3,
+            decoration: const BoxDecoration(
+                // borderRadius:
+                //     BorderRadius.vertical(botCentertom: Radius.circular(60)),
+                image: DecorationImage(
+              image: AssetImage("assets/Pictures/tutorus.jpg"),
+              fit: BoxFit.fill,
+            )),
+            child: Column(children: <Widget>[
               Container(
-                margin: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.02,
-                    right: MediaQuery.of(context).size.width * 0.0001,
-                    left: MediaQuery.of(context).size.height * 0.02),
-                width: MediaQuery.of(context).size.width * 0.8,
-                height: MediaQuery.of(context).size.height * 0.06,
-                child: TextField(
-                  cursorColor: colorOrange,
-                  onChanged: (value) => search(value),
-                  controller: textControl,
-                  decoration: InputDecoration(
-                      filled: true,
-                      fillColor: Colors.white,
-                      contentPadding: const EdgeInsets.all(0),
-                      prefixIcon: const Icon(
-                        Icons.search,
-                        color: Colors.black45,
+                  padding: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.height * 0.03,
+                      bottom: MediaQuery.of(context).size.height * 0.1,
+                      right: MediaQuery.of(context).size.width * 0.8),
+                  child: GestureDetector(
+                    onTap: () => {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                TuteePage(user: widget.tutee)),
                       ),
-                      suffixIcon: query.isNotEmpty
-                          ? GestureDetector(
-                              child: const Icon(
-                                Icons.close,
-                                color: Colors.black45,
-                              ),
-                              onTap: () {
-                                textControl.clear();
-                                setState(() {
-                                  tutors = saveTutors;
-                                });
-                              },
-                            )
-                          : null,
-                      border: OutlineInputBorder(
-                        borderSide:
-                            const BorderSide(color: colorOrange, width: 1.0),
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      hintStyle: const TextStyle(
-                        fontSize: 14,
-                      ),
-                      hintText: "Search for Tutors..."),
-                ),
-              ),
-              IconButton(
-                icon: Icon(
-                  Icons.filter_list,
-                  size: MediaQuery.of(context).size.width * 0.09,
-                  color: colorBlack,
-                ),
-                onPressed: () {
-                  setState(() {
-                    collapsed = !collapsed;
-                  });
-                },
-              ),
-            ],
-          ),
-          SingleChildScrollView(
-            child: AnimatedContainer(
-              duration: const Duration(milliseconds: 200),
-              height: collapsed ? 0 : filterContHeight,
-              width: filterContWidth,
-              curve: Curves.linear,
-              decoration: const BoxDecoration(
-                shape: BoxShape.rectangle,
-              ),
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.max,
-                  children: <Widget>[
-                    const Text('Gender:', textAlign: TextAlign.left),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        FilterChip(
-                          selectedColor: colorTurqoise.withOpacity(0.5),
-                          label: Text(
-                            'Male',
-                            style: TextStyle(color: checkedColor),
-                          ),
-                          backgroundColor: Colors.white60,
-                          shape: StadiumBorder(
-                              side: BorderSide(color: checkedColor)),
-                          checkmarkColor: colorTurqoise,
-                          onSelected: (isSelected) {
-                            if (isFemaleSelected) {
-                              tutors = saveTutors;
-                            }
-                            String newGen = 'Male';
-                            filterGender(newGen);
-                            setState(() {
-                              if (isSelected) {
-                                checkedColor = colorTurqoise;
-                                const snackBar = SnackBar(
-                                  content: Text('Filter option applied'),
-                                );
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(snackBar);
-                                isMaleSelected = isSelected;
-                                isFemaleSelected = !isSelected;
-                              } else {
-                                checkedColor = colorBlack;
-                                isMaleSelected = isSelected;
-                                if (!isFirstSelected ||
-                                    !isSecondSelected ||
-                                    !isThirdSelected ||
-                                    !isForthSelected ||
-                                    !isFifthSelected) {
-                                  tutors = saveTutors;
-                                }
-                              }
-                            });
-                          },
-                          selected: isMaleSelected,
-                          // avatar: const Icon(Icons.male),
-                        ),
-                        SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.03),
-                        FilterChip(
-                          selectedColor: colorTurqoise.withOpacity(0.5),
-                          label: Text(
-                            'Female',
-                            style: TextStyle(color: checkedColor),
-                          ),
-                          backgroundColor: Colors.white60,
-                          shape: StadiumBorder(
-                              side: BorderSide(color: checkedColor)),
-                          checkmarkColor: colorTurqoise,
-                          onSelected: (isSelected) {
-                            if (isMaleSelected) {
-                              tutors = saveTutors;
-                            }
-                            String newGen = 'Female';
-                            filterGender(newGen);
-                            setState(() {
-                              if (isSelected) {
-                                checkedColor = colorTurqoise;
-                                const snackBar = SnackBar(
-                                  content: Text('Filter option applied'),
-                                );
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(snackBar);
-                                isMaleSelected = !isSelected;
-                                isFemaleSelected = isSelected;
-                              } else {
-                                checkedColor = colorBlack;
-                                isFemaleSelected = isSelected;
-                                if (!isFirstSelected ||
-                                    !isSecondSelected ||
-                                    !isThirdSelected ||
-                                    !isForthSelected ||
-                                    !isFifthSelected) {
-                                  tutors = saveTutors;
-                                }
-                              }
-                            });
-                          },
-                          selected: isFemaleSelected,
-                          // avatar: const Icon(Icons.female),
-                        ),
-                      ],
+                    },
+                    child: Icon(
+                      Icons.arrow_back,
+                      color: colorWhite,
+                      size: MediaQuery.of(context).size.width * 0.1,
                     ),
-                    const Text('Age:'),
-                    Row(
-                      children: <Widget>[
-                        FilterChip(
-                          selectedColor: colorTurqoise.withOpacity(0.5),
-                          label: Text(
-                            '16-18',
-                            style: TextStyle(color: checkedColor),
-                          ),
-                          backgroundColor: Colors.white60,
-                          shape: StadiumBorder(
-                              side: BorderSide(color: checkedColor)),
-                          checkmarkColor: colorTurqoise,
-                          onSelected: (isSelected) {
-                            if (isSecondSelected ||
-                                isThirdSelected ||
-                                isForthSelected ||
-                                isFifthSelected) {
-                              tutors = saveTutors;
-                            }
-
-                            String newAge = '16-18';
-                            filterAge(newAge);
-                            setState(() {
-                              if (isSelected) {
-                                checkedColor = colorTurqoise;
-                                const snackBar = SnackBar(
-                                  content: Text('Filter option applied'),
-                                );
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(snackBar);
-                                isFirstSelected = isSelected;
-                                isSecondSelected = !isSelected;
-                                isThirdSelected = !isSelected;
-                                isForthSelected = !isSelected;
-                                isFifthSelected = !isSelected;
-                              } else {
-                                checkedColor = colorBlack;
-                                isFirstSelected = isSelected;
-                                tutors = saveTutors;
-                              }
-                            });
-                          },
-                          selected: isFirstSelected,
-                          // avatar: const Icon(Icons.male),
-                        ),
-                        SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.01),
-                        FilterChip(
-                          selectedColor: colorTurqoise.withOpacity(0.5),
-                          label: Text(
-                            '19-21',
-                            style: TextStyle(color: checkedColor),
-                          ),
-                          backgroundColor: Colors.white60,
-                          shape: StadiumBorder(
-                              side: BorderSide(color: checkedColor)),
-                          checkmarkColor: colorTurqoise,
-                          onSelected: (isSelected) {
-                            if (isFirstSelected ||
-                                isThirdSelected ||
-                                isForthSelected ||
-                                isFifthSelected) {
-                              tutors = saveTutors;
-                            }
-                            String newAge = '19-21';
-                            filterAge(newAge);
-                            setState(() {
-                              if (isSelected) {
-                                checkedColor = colorTurqoise;
-                                const snackBar = SnackBar(
-                                  content: Text('Filter option applied'),
-                                );
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(snackBar);
-                                isSecondSelected = isSelected;
-                                isFirstSelected = !isSelected;
-                                isThirdSelected = !isSelected;
-                                isForthSelected = !isSelected;
-                                isFifthSelected = !isSelected;
-                              } else {
-                                checkedColor = colorBlack;
-                                isSecondSelected = isSelected;
-                                tutors = saveTutors;
-                              }
-                            });
-                          },
-                          selected: isSecondSelected,
-                          // avatar: const Icon(Icons.male),
-                        ),
-                        SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.01),
-                        FilterChip(
-                          selectedColor: colorTurqoise.withOpacity(0.5),
-                          label: Text(
-                            '22-25',
-                            style: TextStyle(color: checkedColor),
-                          ),
-                          backgroundColor: Colors.white60,
-                          shape: StadiumBorder(
-                              side: BorderSide(color: checkedColor)),
-                          checkmarkColor: colorTurqoise,
-                          onSelected: (isSelected) {
-                            if (isFirstSelected ||
-                                isSecondSelected ||
-                                isForthSelected ||
-                                isFifthSelected) {
-                              tutors = saveTutors;
-                            }
-                            String newAge = '22-25';
-                            filterAge(newAge);
-                            setState(() {
-                              if (isSelected) {
-                                checkedColor = colorTurqoise;
-                                const snackBar = SnackBar(
-                                  content: Text('Filter option applied'),
-                                );
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(snackBar);
-                                isThirdSelected = isSelected;
-                                isFirstSelected = !isSelected;
-                                isSecondSelected = !isSelected;
-                                isForthSelected = !isSelected;
-                                isFifthSelected = !isSelected;
-                              } else {
-                                checkedColor = colorBlack;
-                                isThirdSelected = isSelected;
-                                tutors = saveTutors;
-                              }
-                            });
-                          },
-                          selected: isThirdSelected,
-                          // avatar: const Icon(Icons.male),
-                        ),
-                        SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.01),
-                        FilterChip(
-                          selectedColor: colorTurqoise.withOpacity(0.5),
-                          label: Text(
-                            '26-35',
-                            style: TextStyle(color: checkedColor),
-                          ),
-                          backgroundColor: Colors.white60,
-                          shape: StadiumBorder(
-                              side: BorderSide(color: checkedColor)),
-                          checkmarkColor: colorTurqoise,
-                          onSelected: (isSelected) {
-                            if (isFirstSelected ||
-                                isSecondSelected ||
-                                isThirdSelected ||
-                                isFifthSelected) {
-                              tutors = saveTutors;
-                            }
-                            String newAge = '26-35';
-                            filterAge(newAge);
-                            setState(() {
-                              if (isSelected) {
-                                checkedColor = colorTurqoise;
-                                const snackBar = SnackBar(
-                                  content: Text('Filter option applied'),
-                                );
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(snackBar);
-                                isForthSelected = isSelected;
-                                isFirstSelected = !isSelected;
-                                isSecondSelected = !isSelected;
-                                isThirdSelected = !isSelected;
-                                isFifthSelected = !isSelected;
-                              } else {
-                                checkedColor = colorBlack;
-                                isForthSelected = isSelected;
-                                tutors = saveTutors;
-                              }
-                            });
-                          },
-                          selected: isForthSelected,
-                          // avatar: const Icon(Icons.male),
-                        ),
-                        SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.01),
-                        FilterChip(
-                          selectedColor: colorTurqoise.withOpacity(0.5),
-                          label: Text(
-                            '36+',
-                            style: TextStyle(color: checkedColor),
-                          ),
-                          backgroundColor: Colors.white60,
-                          shape: StadiumBorder(
-                              side: BorderSide(color: checkedColor)),
-                          checkmarkColor: colorTurqoise,
-                          onSelected: (isSelected) {
-                            if (isFirstSelected ||
-                                isSecondSelected ||
-                                isThirdSelected ||
-                                isForthSelected) {
-                              tutors = saveTutors;
-                            }
-                            String newAge = '36+';
-                            filterAge(newAge);
-                            setState(() {
-                              if (isSelected) {
-                                checkedColor = colorTurqoise;
-                                const snackBar = SnackBar(
-                                  content: Text('Filter option applied'),
-                                );
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(snackBar);
-                                isFifthSelected = isSelected;
-                                isFirstSelected = !isSelected;
-                                isSecondSelected = !isSelected;
-                                isThirdSelected = !isSelected;
-                                isForthSelected = !isSelected;
-                              } else {
-                                checkedColor = colorBlack;
-                                isFifthSelected = isSelected;
-                                tutors = saveTutors;
-                              }
-                            });
-                          },
-                          selected: isFifthSelected,
-                          // avatar: const Icon(Icons.male),
-                        ),
-                      ],
+                  )),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.02,
+              ),
+              Padding(
+                padding: EdgeInsets.only(
+                    right: MediaQuery.of(context).size.width * 0.25),
+                child: Column(
+                  children: [
+                    Text(
+                      "Request For A Tutor",
+                      style: TextStyle(
+                        fontSize: MediaQuery.of(context).size.width * 0.070,
+                        fontWeight: FontWeight.bold,
+                        color: colorWhite,
+                      ),
+                      textAlign: TextAlign.left,
+                    ),
+                    Text(
+                      "     View & send a request to tutors...",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: MediaQuery.of(context).size.width * 0.046,
+                          color: const Color.fromARGB(255, 255, 153, 0)),
                     )
                   ],
                 ),
               ),
-            ),
+            ]),
           ),
-          _isLoading
-              ? SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.60,
-                  child: const Center(
-                    child: CircularProgressIndicator.adaptive(),
-                  ),
-                )
-              : SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.55,
-                  width: MediaQuery.of(context).size.width * 0.9,
-                  child: ListView.builder(
-                    // padding: const EdgeInsets.all(10),
-                    itemCount: tutors.length,
-                    itemBuilder: _cardBuilder,
+          SingleChildScrollView(
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                Row(
+                  children: <Widget>[
+                    Container(
+                      margin: EdgeInsets.only(
+                          top: MediaQuery.of(context).size.height * 0.02,
+                          right: MediaQuery.of(context).size.width * 0.0001,
+                          left: MediaQuery.of(context).size.height * 0.02),
+                      width: MediaQuery.of(context).size.width * 0.8,
+                      height: MediaQuery.of(context).size.height * 0.06,
+                      child: TextField(
+                        cursorColor: colorOrange,
+                        onChanged: (value) => search(value),
+                        controller: textControl,
+                        decoration: InputDecoration(
+                            filled: true,
+                            fillColor: Colors.white,
+                            contentPadding: const EdgeInsets.all(0),
+                            prefixIcon: const Icon(
+                              Icons.search,
+                              color: Colors.black45,
+                            ),
+                            suffixIcon: query.isNotEmpty
+                                ? GestureDetector(
+                                    child: const Icon(
+                                      Icons.close,
+                                      color: Colors.black45,
+                                    ),
+                                    onTap: () {
+                                      textControl.clear();
+                                      setState(() {
+                                        tutors = saveTutors;
+                                      });
+                                    },
+                                  )
+                                : null,
+                            border: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  color: colorOrange, width: 1.0),
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            hintStyle: const TextStyle(
+                              fontSize: 14,
+                            ),
+                            hintText: "Search for Tutors..."),
+                      ),
+                    ),
+                    IconButton(
+                      icon: Icon(
+                        Icons.filter_list,
+                        size: MediaQuery.of(context).size.width * 0.09,
+                        color: colorBlack,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          collapsed = !collapsed;
+                        });
+                      },
+                    ),
+                  ],
+                ),
+                SingleChildScrollView(
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 200),
+                    height: collapsed ? 0 : filterContHeight,
+                    width: filterContWidth,
+                    curve: Curves.linear,
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.rectangle,
+                    ),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.max,
+                        children: <Widget>[
+                          const Text('Gender:', textAlign: TextAlign.left),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              FilterChip(
+                                selectedColor: colorTurqoise.withOpacity(0.5),
+                                label: Text(
+                                  'Male',
+                                  style: TextStyle(color: checkedColor),
+                                ),
+                                backgroundColor: Colors.white60,
+                                shape: StadiumBorder(
+                                    side: BorderSide(color: checkedColor)),
+                                checkmarkColor: colorTurqoise,
+                                onSelected: (isSelected) {
+                                  if (isFemaleSelected) {
+                                    tutors = saveTutors;
+                                  }
+                                  String newGen = 'Male';
+                                  filterGender(newGen);
+                                  setState(() {
+                                    if (isSelected) {
+                                      checkedColor = colorTurqoise;
+                                      const snackBar = SnackBar(
+                                        content: Text('Filter option applied'),
+                                      );
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(snackBar);
+                                      isMaleSelected = isSelected;
+                                      isFemaleSelected = !isSelected;
+                                    } else {
+                                      checkedColor = colorBlack;
+                                      isMaleSelected = isSelected;
+                                      if (!isFirstSelected ||
+                                          !isSecondSelected ||
+                                          !isThirdSelected ||
+                                          !isForthSelected ||
+                                          !isFifthSelected) {
+                                        tutors = saveTutors;
+                                      }
+                                    }
+                                  });
+                                },
+                                selected: isMaleSelected,
+                                // avatar: const Icon(Icons.male),
+                              ),
+                              SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.03),
+                              FilterChip(
+                                selectedColor: colorTurqoise.withOpacity(0.5),
+                                label: Text(
+                                  'Female',
+                                  style: TextStyle(color: checkedColor),
+                                ),
+                                backgroundColor: Colors.white60,
+                                shape: StadiumBorder(
+                                    side: BorderSide(color: checkedColor)),
+                                checkmarkColor: colorTurqoise,
+                                onSelected: (isSelected) {
+                                  if (isMaleSelected) {
+                                    tutors = saveTutors;
+                                  }
+                                  String newGen = 'Female';
+                                  filterGender(newGen);
+                                  setState(() {
+                                    if (isSelected) {
+                                      checkedColor = colorTurqoise;
+                                      const snackBar = SnackBar(
+                                        content: Text('Filter option applied'),
+                                      );
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(snackBar);
+                                      isMaleSelected = !isSelected;
+                                      isFemaleSelected = isSelected;
+                                    } else {
+                                      checkedColor = colorBlack;
+                                      isFemaleSelected = isSelected;
+                                      if (!isFirstSelected ||
+                                          !isSecondSelected ||
+                                          !isThirdSelected ||
+                                          !isForthSelected ||
+                                          !isFifthSelected) {
+                                        tutors = saveTutors;
+                                      }
+                                    }
+                                  });
+                                },
+                                selected: isFemaleSelected,
+                                // avatar: const Icon(Icons.female),
+                              ),
+                            ],
+                          ),
+                          const Text('Age:'),
+                          SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              children: <Widget>[
+                                FilterChip(
+                                  selectedColor: colorTurqoise.withOpacity(0.5),
+                                  label: Text(
+                                    '16-18',
+                                    style: TextStyle(color: checkedColor),
+                                  ),
+                                  backgroundColor: Colors.white60,
+                                  shape: StadiumBorder(
+                                      side: BorderSide(color: checkedColor)),
+                                  checkmarkColor: colorTurqoise,
+                                  onSelected: (isSelected) {
+                                    if (isSecondSelected ||
+                                        isThirdSelected ||
+                                        isForthSelected ||
+                                        isFifthSelected) {
+                                      tutors = saveTutors;
+                                    }
+
+                                    String newAge = '16-18';
+                                    filterAge(newAge);
+                                    setState(() {
+                                      if (isSelected) {
+                                        checkedColor = colorTurqoise;
+                                        const snackBar = SnackBar(
+                                          content:
+                                              Text('Filter option applied'),
+                                        );
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(snackBar);
+                                        isFirstSelected = isSelected;
+                                        isSecondSelected = !isSelected;
+                                        isThirdSelected = !isSelected;
+                                        isForthSelected = !isSelected;
+                                        isFifthSelected = !isSelected;
+                                      } else {
+                                        checkedColor = colorBlack;
+                                        isFirstSelected = isSelected;
+                                        tutors = saveTutors;
+                                      }
+                                    });
+                                  },
+                                  selected: isFirstSelected,
+                                  // avatar: const Icon(Icons.male),
+                                ),
+                                SizedBox(
+                                    width: MediaQuery.of(context).size.width *
+                                        0.01),
+                                FilterChip(
+                                  selectedColor: colorTurqoise.withOpacity(0.5),
+                                  label: Text(
+                                    '19-21',
+                                    style: TextStyle(color: checkedColor),
+                                  ),
+                                  backgroundColor: Colors.white60,
+                                  shape: StadiumBorder(
+                                      side: BorderSide(color: checkedColor)),
+                                  checkmarkColor: colorTurqoise,
+                                  onSelected: (isSelected) {
+                                    if (isFirstSelected ||
+                                        isThirdSelected ||
+                                        isForthSelected ||
+                                        isFifthSelected) {
+                                      tutors = saveTutors;
+                                    }
+                                    String newAge = '19-21';
+                                    filterAge(newAge);
+                                    setState(() {
+                                      if (isSelected) {
+                                        checkedColor = colorTurqoise;
+                                        const snackBar = SnackBar(
+                                          content:
+                                              Text('Filter option applied'),
+                                        );
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(snackBar);
+                                        isSecondSelected = isSelected;
+                                        isFirstSelected = !isSelected;
+                                        isThirdSelected = !isSelected;
+                                        isForthSelected = !isSelected;
+                                        isFifthSelected = !isSelected;
+                                      } else {
+                                        checkedColor = colorBlack;
+                                        isSecondSelected = isSelected;
+                                        tutors = saveTutors;
+                                      }
+                                    });
+                                  },
+                                  selected: isSecondSelected,
+                                  // avatar: const Icon(Icons.male),
+                                ),
+                                SizedBox(
+                                    width: MediaQuery.of(context).size.width *
+                                        0.01),
+                                FilterChip(
+                                  selectedColor: colorTurqoise.withOpacity(0.5),
+                                  label: Text(
+                                    '22-25',
+                                    style: TextStyle(color: checkedColor),
+                                  ),
+                                  backgroundColor: Colors.white60,
+                                  shape: StadiumBorder(
+                                      side: BorderSide(color: checkedColor)),
+                                  checkmarkColor: colorTurqoise,
+                                  onSelected: (isSelected) {
+                                    if (isFirstSelected ||
+                                        isSecondSelected ||
+                                        isForthSelected ||
+                                        isFifthSelected) {
+                                      tutors = saveTutors;
+                                    }
+                                    String newAge = '22-25';
+                                    filterAge(newAge);
+                                    setState(() {
+                                      if (isSelected) {
+                                        checkedColor = colorTurqoise;
+                                        const snackBar = SnackBar(
+                                          content:
+                                              Text('Filter option applied'),
+                                        );
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(snackBar);
+                                        isThirdSelected = isSelected;
+                                        isFirstSelected = !isSelected;
+                                        isSecondSelected = !isSelected;
+                                        isForthSelected = !isSelected;
+                                        isFifthSelected = !isSelected;
+                                      } else {
+                                        checkedColor = colorBlack;
+                                        isThirdSelected = isSelected;
+                                        tutors = saveTutors;
+                                      }
+                                    });
+                                  },
+                                  selected: isThirdSelected,
+                                  // avatar: const Icon(Icons.male),
+                                ),
+                                SizedBox(
+                                    width: MediaQuery.of(context).size.width *
+                                        0.01),
+                                FilterChip(
+                                  selectedColor: colorTurqoise.withOpacity(0.5),
+                                  label: Text(
+                                    '26-35',
+                                    style: TextStyle(color: checkedColor),
+                                  ),
+                                  backgroundColor: Colors.white60,
+                                  shape: StadiumBorder(
+                                      side: BorderSide(color: checkedColor)),
+                                  checkmarkColor: colorTurqoise,
+                                  onSelected: (isSelected) {
+                                    if (isFirstSelected ||
+                                        isSecondSelected ||
+                                        isThirdSelected ||
+                                        isFifthSelected) {
+                                      tutors = saveTutors;
+                                    }
+                                    String newAge = '26-35';
+                                    filterAge(newAge);
+                                    setState(() {
+                                      if (isSelected) {
+                                        checkedColor = colorTurqoise;
+                                        const snackBar = SnackBar(
+                                          content:
+                                              Text('Filter option applied'),
+                                        );
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(snackBar);
+                                        isForthSelected = isSelected;
+                                        isFirstSelected = !isSelected;
+                                        isSecondSelected = !isSelected;
+                                        isThirdSelected = !isSelected;
+                                        isFifthSelected = !isSelected;
+                                      } else {
+                                        checkedColor = colorBlack;
+                                        isForthSelected = isSelected;
+                                        tutors = saveTutors;
+                                      }
+                                    });
+                                  },
+                                  selected: isForthSelected,
+                                  // avatar: const Icon(Icons.male),
+                                ),
+                                SizedBox(
+                                    width: MediaQuery.of(context).size.width *
+                                        0.01),
+                                FilterChip(
+                                  selectedColor: colorTurqoise.withOpacity(0.5),
+                                  label: Text(
+                                    '36+',
+                                    style: TextStyle(color: checkedColor),
+                                  ),
+                                  backgroundColor: Colors.white60,
+                                  shape: StadiumBorder(
+                                      side: BorderSide(color: checkedColor)),
+                                  checkmarkColor: colorTurqoise,
+                                  onSelected: (isSelected) {
+                                    if (isFirstSelected ||
+                                        isSecondSelected ||
+                                        isThirdSelected ||
+                                        isForthSelected) {
+                                      tutors = saveTutors;
+                                    }
+                                    String newAge = '36+';
+                                    filterAge(newAge);
+                                    setState(() {
+                                      if (isSelected) {
+                                        checkedColor = colorTurqoise;
+                                        const snackBar = SnackBar(
+                                          content:
+                                              Text('Filter option applied'),
+                                        );
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(snackBar);
+                                        isFifthSelected = isSelected;
+                                        isFirstSelected = !isSelected;
+                                        isSecondSelected = !isSelected;
+                                        isThirdSelected = !isSelected;
+                                        isForthSelected = !isSelected;
+                                      } else {
+                                        checkedColor = colorBlack;
+                                        isFifthSelected = isSelected;
+                                        tutors = saveTutors;
+                                      }
+                                    });
+                                  },
+                                  selected: isFifthSelected,
+                                  // avatar: const Icon(Icons.male),
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
                   ),
                 ),
-        ])),
-      ],
+                _isLoading
+                    ? SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.50,
+                        child: const Center(
+                          child: CircularProgressIndicator.adaptive(),
+                        ),
+                      )
+                    : SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.60,
+                        width: MediaQuery.of(context).size.width * 0.9,
+                        child: ListView.builder(
+                          // padding: const EdgeInsets.all(10),
+                          itemCount: tutors.length,
+                          itemBuilder: _cardBuilder,
+                        ),
+                      ),
+              ])),
+        ],
+      ),
     ));
   }
 
