@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tutor_me/services/models/tutees.dart';
 import 'package:tutor_me/src/colorpallete.dart';
-import 'package:tutor_me/src/tutorAndTuteeCollaboration/tuteeGroups/tuteeGroups.dart';
+import 'package:tutor_me/src/tutorAndTuteeCollaboration/tuteeGroups/tutee_groups.dart';
 import 'Navigation/tutee_nav_drawer.dart';
 // import 'theme/themes.dart';
 import 'pages/calls_page.dart';
