@@ -4,7 +4,7 @@ import 'package:tutor_me/services/models/groups.dart';
 import 'package:tutor_me/services/services/group_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import '../../../services/models/tutors.dart';
-import '../../Groups/tutor_group.dart';
+import '../../Groups/tutee_group.dart';
 
 class TutorGroups extends StatefulWidget {
   final Tutors tutor;
@@ -32,7 +32,6 @@ class TutorGroupsState extends State<TutorGroups> {
         hasGroups = true;
       });
     }
-
     for (int i = 0; i < groups.length; i++) {
       List<String> tutees = groups[i].getTutees.split(',');
       numTutees.add(tutees.length);
@@ -92,8 +91,10 @@ class TutorGroupsState extends State<TutorGroups> {
     return GestureDetector(
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => TutorGroupPage(
+            builder: (context) => TuteeGroupPage(
                   group: groups[i],
+                  numberOfParticipants: numTutees[i],
+                  tutee: widget.tutor,
                 )));
       },
       child: Container(
