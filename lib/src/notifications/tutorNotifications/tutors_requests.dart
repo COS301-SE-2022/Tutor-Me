@@ -328,7 +328,6 @@ class TutorRequestsState extends State<TutorRequests> {
                                         isExcepted[i] = true;
                                       });
                                     } catch (e) {
-                                      print(e);
                                       setState(() {
                                         isExcepting[i] = false;
                                         isExcepted[i] = false;
