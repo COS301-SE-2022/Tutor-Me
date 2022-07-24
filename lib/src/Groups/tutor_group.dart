@@ -31,20 +31,29 @@ class TutorGroupPageState extends State<TutorGroupPage> {
   List<int> hasImage = List<int>.empty(growable: true);
   bool _isLoading = true;
 
+  bool hasTutees = false;
+
   getTutees() async {
-    try {
-      List<String> tuteeIds = widget.group.getTutees.split(',');
-      for (int i = 0; i < tuteeIds.length; i++) {
-        final tutee = await TuteeServices.getTutee(tuteeIds[i]);
-        tuteeList += tutee;
+    if (widget.group.getTutees == '') {
+      setState(() {
+        hasTutees = false;
+        _isLoading = false;
+      });
+    } else {
+      try {
+        List<String> tuteeIds = widget.group.getTutees.split(',');
+        for (int i = 0; i < tuteeIds.length; i++) {
+          final tutee = await TuteeServices.getTutee(tuteeIds[i]);
+          tuteeList += tutee;
+        }
+      } catch (e) {
+        const snackBar = SnackBar(
+          content: Text('Failed to load tutees'),
+        );
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
       }
-    } catch (e) {
-      const snackBar = SnackBar(
-        content: Text('Failed to load tutees'),
-      );
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      getTuteeProfileImages();
     }
-    getTuteeProfileImages();
   }
 
   getTuteeProfileImages() async {
@@ -78,6 +87,8 @@ class TutorGroupPageState extends State<TutorGroupPage> {
       });
     }
     setState(() {
+
+      hasTutees = true;
       _isLoading = false;
     });
   }
@@ -268,16 +279,25 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                     SizedBox(
                       height: screenHeight * 0.25,
                       width: screenWidth * 0.5,
-                      child: ListView.separated(
-                          controller: ScrollController(),
-                          physics: const BouncingScrollPhysics(),
-                          itemBuilder: participantBuilder,
-                          separatorBuilder: (context, index) {
-                            return SizedBox(
-                              height: screenHeight * 0.0001,
-                            );
-                          },
-                          itemCount: tutees.length),
+
+                      child: hasTutees
+                          ? ListView.separated(
+                              controller: ScrollController(),
+                              physics: const BouncingScrollPhysics(),
+                              itemBuilder: participantBuilder,
+                              separatorBuilder: (context, index) {
+                                return SizedBox(
+                                  height: screenHeight * 0.0001,
+                                );
+                              },
+                              itemCount: tutees.length)
+                          : const Center(
+                              child: Text(
+                                'This group has no tutees',
+                                style: TextStyle(fontWeight: FontWeight.w400),
+                              ),
+                            ),
+
                     ),
                   ],
                 ),

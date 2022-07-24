@@ -18,7 +18,7 @@ class TutorGroups extends StatefulWidget {
 
 class TutorGroupsState extends State<TutorGroups> {
   List<Groups> groups = List<Groups>.empty();
-  int numOfTutees = 0;
+  List<int> numTutees = List<int>.empty(growable: true);
   bool hasGroups = false;
   bool isLoading = true;
 
@@ -33,17 +33,13 @@ class TutorGroupsState extends State<TutorGroups> {
       });
     }
     for (int i = 0; i < groups.length; i++) {
-      for (int t = 0; t < groups[i].getTutees.length; t++) {
-        if (groups[i].getTutees[t] == ',') {
-          numOfTutees++;
-        }
-      }
+      List<String> tutees = groups[i].getTutees.split(',');
+      numTutees.add(tutees.length);
     }
 
     setState(() {
       isLoading = false;
       groups = incomingGroups;
-      numOfTutees = numOfTutees;
     });
   }
 
@@ -128,11 +124,11 @@ class TutorGroupsState extends State<TutorGroups> {
                       color: colorWhite,
                       fontWeight: FontWeight.bold,
                     )),
-                SizedBox(width: MediaQuery.of(context).size.width * 0.135),
+                SizedBox(width: MediaQuery.of(context).size.width * 0.110),
                 const Icon(Icons.circle, size: 7, color: colorOrange),
-                SizedBox(width: MediaQuery.of(context).size.width * 0.08),
+                SizedBox(width: MediaQuery.of(context).size.width * 0.03),
                 Text(
-                  numOfTutees.toString() + "  participants",
+                  numTutees[i].toString() + " other participants(s)",
                   style: const TextStyle(
                       color: Colors.white70, fontWeight: FontWeight.bold),
                 ),

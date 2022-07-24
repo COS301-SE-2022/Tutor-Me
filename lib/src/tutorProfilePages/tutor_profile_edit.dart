@@ -16,13 +16,20 @@ class ToReturn {
 
   ToReturn(this.image, this.user);
 }
+
 // ignore: must_be_immutable
 class TutorProfileEdit extends StatefulWidget {
   final Tutors user;
   Uint8List image;
   final bool imageExists;
+  
 
-  TutorProfileEdit({Key? key, required this.user, required this.image, required this.imageExists}) : super(key: key);
+  TutorProfileEdit(
+      {Key? key,
+      required this.user,
+      required this.image,
+      required this.imageExists})
+      : super(key: key);
 
   @override
   _TutorProfileEditState createState() => _TutorProfileEditState();
@@ -33,6 +40,7 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
   final bioController = TextEditingController();
   File? image;
   bool isImagePicked = false;
+  bool isSaveLoading = false;
 
   Future pickImage(ImageSource source) async {
     final imageChosen = await ImagePicker().pickImage(source: source);
@@ -137,16 +145,19 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
         ),
         SizedBox(height: screenHeightSize * 0.03),
         OrangeButton(
-            btnName: "Save",
+            btnName: isSaveLoading? "Saving": 'Save',
             onPressed: () async {
+              setState(() {
+                isSaveLoading = true;
+              });
               if (image != null) {
                 await TutorServices.uploadProfileImage(
                     image, widget.user.getId);
 
-                    final newImage =
+                final newImage =
                     await TutorServices.getTutorProfileImage(widget.user.getId);
 
-                    setState(() {
+                setState(() {
                   widget.image = newImage;
                 });
               }
@@ -165,8 +176,11 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
                   bioController.text.isNotEmpty) {
                 await TutorServices.updateTutor(widget.user);
               }
+              setState(() {
+                isSaveLoading = false;
+              });
 
-              Navigator.pop(context,ToReturn(widget.image, widget.user));
+              Navigator.pop(context, ToReturn(widget.image, widget.user));
             })
       ],
     );
