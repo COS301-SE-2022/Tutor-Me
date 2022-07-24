@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import '../components.dart';
 import 'register_step2.dart';
 import '../../services/services/tutee_services.dart';
 import '../../services/services/tutor_services.dart';
+import 'package:email_auth/email_auth.dart';
 
 class RegisterStep1 extends StatefulWidget {
   const RegisterStep1({Key? key}) : super(key: key);
@@ -14,10 +16,86 @@ class RegisterStep1 extends StatefulWidget {
 }
 
 class _RegisterStep1State extends State<RegisterStep1> {
+  String inputOTP = "";
+  String errMsg = "";
+  EmailAuth emailAuth = EmailAuth(sessionName: "Tutor Me");
+  void sendOTP() async {
+    var res = await emailAuth.sendOtp(
+        recipientMail: emailController.text, otpLength: 5);
+    if (res) {
+      Fluttertoast.showToast(
+          msg: "OTP sent to your Email",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
+      setState(() {
+        isLoading = false;
+      });
+    } else {
+      errMsg += "Unable to send OTP\n";
+    }
+  }
+
+  void verifyOTP() async {
+    var res = emailAuth.validateOtp(
+        recipientMail: emailController.text, userOtp: inputOTP);
+    if (res) {
+      Fluttertoast.showToast(
+          msg: "OTP verified",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
+
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => RegisterStep2(
+              email: emailController.text,
+              password: passwordController.text,
+              confirmPassword: confirmPasswordController.text,
+              toRegister: toRegister,
+            ),
+          ));
+      setState(() {
+        isLoading = false;
+      });
+    } else {
+      errMsg += "invalid OTP input\n";
+    }
+  }
+
+  Future<void> _displayTextInputDialog(BuildContext context) async {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text('Verify Email'),
+            content: TextField(
+              onChanged: (value) {
+                setState(() {
+                  inputOTP = value;
+                  verifyOTP();
+                });
+              },
+              controller: otpController,
+              decoration: const InputDecoration(
+                  hintText: "Enter OTP sent to your email"),
+            ),
+          );
+        });
+  }
+
   final FocusNode emailFocusNode = FocusNode();
   final FocusNode passwordFocusNode = FocusNode();
   final FocusNode confirmPasswordFocusNode = FocusNode();
 
+  final TextEditingController otpController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmPasswordController =
@@ -165,7 +243,6 @@ class _RegisterStep1State extends State<RegisterStep1> {
                     setState(() {
                       isLoading = true;
                     });
-                    String errMsg = "";
 
                     if (emailController.text == "" ||
                         passwordController.text == "" ||
@@ -208,6 +285,7 @@ class _RegisterStep1State extends State<RegisterStep1> {
                             "ERROR: A Tutee is registered with this email\n";
                       }
                     }
+                    sendOTP();
 
                     if (errMsg != "") {
                       setState(() {
@@ -246,16 +324,7 @@ class _RegisterStep1State extends State<RegisterStep1> {
                         },
                       );
                     } else {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => RegisterStep2(
-                              email: emailController.text,
-                              password: passwordController.text,
-                              confirmPassword: confirmPasswordController.text,
-                              toRegister: toRegister,
-                            ),
-                          ));
+                      _displayTextInputDialog(context);
                     }
                   },
                   child: isLoading

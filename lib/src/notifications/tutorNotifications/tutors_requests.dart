@@ -268,8 +268,7 @@ class TutorRequestsState extends State<TutorRequests> {
                                     });
 
                                     try {
-                                      await TutorServices()
-                                          .acceptRequest(requestList[i].getId);
+                                      
 
                                       List<Groups> groupList =
                                           List<Groups>.empty();
@@ -316,9 +315,16 @@ class TutorRequestsState extends State<TutorRequests> {
                                         }
                                         moduleRequestedGroups[j].setTutees =
                                             tutees;
-                                        // await GroupServices.updateGroup(
-                                        //     moduleRequestedGroups[j]);
+
+                                        await GroupServices.updateGroup(
+                                            moduleRequestedGroups[j]);
+
+                                            
+
                                       }
+                                      await TutorServices()
+                                          .acceptRequest(requestList[i].getId);
+                                          
                                       setState(() {
                                         isExcepting[i] = false;
                                         isExcepted[i] = true;

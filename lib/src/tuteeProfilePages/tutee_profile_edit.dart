@@ -37,6 +37,7 @@ class _TuteeProfileEditState extends State<TuteeProfileEdit> {
   final bioController = TextEditingController();
   File? image;
   bool isImagePicked = false;
+  bool isSaveLoading = false;
 
   Future pickImage(ImageSource source) async {
     final image = await ImagePicker().pickImage(source: source);
@@ -124,9 +125,12 @@ class _TuteeProfileEditState extends State<TuteeProfileEdit> {
         SizedBox(height: screenHeightSize * 0.03),
         SizedBox(height: screenHeightSize * 0.03),
         OrangeButton(
-            btnName: "Save",
+            btnName: isSaveLoading ? 'Saving' : "Save",
             onPressed: () async {
               if (image != null) {
+                setState(() {
+                  isSaveLoading = true;
+                });
                 await TuteeServices.uploadProfileImage(
                     image, widget.user.getId);
 
@@ -152,6 +156,10 @@ class _TuteeProfileEditState extends State<TuteeProfileEdit> {
                   bioController.text.isNotEmpty) {
                 await TuteeServices.updateTutee(widget.user);
               }
+
+              setState(() {
+                isSaveLoading = false;
+              });
 
               Navigator.pop(context, ToReturn(widget.image, widget.user));
             })
