@@ -174,7 +174,7 @@ class ChangePasswordState extends State<ChangePassword> {
                           // TutorServices tutor = TutorServices.Login(
                           tutor =
                               await TutorServices.getTutorByEmail(widget.email);
-                          tutor.setPassword = newpasswordController.text;
+                          tutor.setPassword = TutorServices.hashPassword(newpasswordController.text);
                           await TutorServices.updateTutor(tutor);
                           Navigator.push(
                             context,
@@ -219,7 +219,7 @@ class ChangePasswordState extends State<ChangePassword> {
                           // TutorServices tutor = TutorServices.Login(
                           tutee =
                               await TuteeServices.getTuteeByEmail(widget.email);
-                          tutee.setPassword = newpasswordController.text;
+                          tutee.setPassword = TuteeServices.hashPassword(newpasswordController.text);
                           await TuteeServices.updateTutee(tutee);
                           Navigator.push(
                             context,

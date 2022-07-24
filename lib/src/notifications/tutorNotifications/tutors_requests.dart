@@ -315,10 +315,12 @@ class TutorRequestsState extends State<TutorRequests> {
                                         }
                                         moduleRequestedGroups[j].setTutees =
                                             tutees;
+
                                         await GroupServices.updateGroup(
                                             moduleRequestedGroups[j]);
 
                                             
+
                                       }
                                       await TutorServices()
                                           .acceptRequest(requestList[i].getId);
