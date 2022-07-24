@@ -3,8 +3,6 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:tutor_me/services/services/tutor_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
-import 'package:tutor_me/src/tutorAndTuteeCollaboration/tuteeGroups/tuteeGroups.dart';
-import 'package:tutor_me/src/tutorAndTuteeCollaboration/tutorGroups/tutorGroups.dart';
 import '../../services/models/tutees.dart';
 import '../tutee_page.dart';
 import '../tutorProfilePages/tutor_profile_view.dart';

@@ -9,7 +9,6 @@ import 'package:tutor_me/src/tutorAndTuteeCollaboration/tuteeGroups/tuteeGroupSe
 import '../../services/models/groups.dart';
 import '../../services/models/tutors.dart';
 import '../../services/services/tutee_services.dart';
-import '../tuteeProfilePages/tutee_data.dart';
 
 class Tutee {
   Tutees tutee;
