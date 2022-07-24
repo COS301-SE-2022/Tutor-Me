@@ -30,6 +30,7 @@ class TutorGroupPageState extends State<TutorGroupPage> {
   List<Uint8List> tuteeImages = List<Uint8List>.empty(growable: true);
   List<int> hasImage = List<int>.empty(growable: true);
   bool _isLoading = true;
+
   bool hasTutees = false;
 
   getTutees() async {
@@ -86,6 +87,7 @@ class TutorGroupPageState extends State<TutorGroupPage> {
       });
     }
     setState(() {
+
       hasTutees = true;
       _isLoading = false;
     });
@@ -277,6 +279,7 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                     SizedBox(
                       height: screenHeight * 0.25,
                       width: screenWidth * 0.5,
+
                       child: hasTutees
                           ? ListView.separated(
                               controller: ScrollController(),
@@ -294,6 +297,7 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                                 style: TextStyle(fontWeight: FontWeight.w400),
                               ),
                             ),
+
                     ),
                   ],
                 ),
