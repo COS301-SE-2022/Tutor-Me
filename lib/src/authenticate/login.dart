@@ -280,7 +280,7 @@ class _LoginState extends State<Login> {
                               return AlertDialog(
                                 title: const Text("One Or More Errors Occured"),
                                 content:
-                                    const Text("Invalid Password or Email"),
+                                    const Text("Invalid Password, Email or Network Connection"),
                                 backgroundColor: colorWhite,
                                 titleTextStyle: TextStyle(
                                   color: colorOrange,

@@ -1,26 +1,122 @@
-using System.Reflection;
-using Api.Controllers;
+using System.Net.Http.Json;
 using Api.Data;
 using Api.Models;
-using FluentAssertions;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+
 
 namespace IntegrationTests;
 
-public class TutorControllerIntegrationTests
+public class TutorControllerIntegrationTests :IClassFixture<WebApplicationFactory<Program>>
 {
-    //DTO
-    private static Tutor CreateTutor()
+    private readonly HttpClient _httpClient;
+   
+    public TutorControllerIntegrationTests()
     {
-        return new()
+        var dbname = Guid.NewGuid().ToString();
+        var appFactory = new WebApplicationFactory<Program>()
+            .WithWebHostBuilder(builder =>
+            {
+                builder.ConfigureServices(
+                    services =>
+                    {
+                        var descriptor = services.SingleOrDefault(
+                            d => d.ServiceType == typeof(DbContextOptions<TutorMeContext>));
+
+                        if (descriptor != null)
+                        {
+                            services.Remove(descriptor);
+                        }
+                        services.AddDbContext<TutorMeContext>(
+                            options =>
+                            {
+                                options.UseInMemoryDatabase(dbname);
+                            });
+                    });
+            });
+
+        _httpClient = appFactory.CreateClient();
+    }
+    
+    [Fact]
+    public async Task GetAllTutors_NoTutors()
+    {
+        //Act
+        var response = await _httpClient.GetAsync("https://localhost:7062/api/Tutors");
+
+        //Assert
+        Assert.NotNull(response);
+        Assert.Equal(200, (double)response.StatusCode);
+
+        var tutors = await response.Content.ReadFromJsonAsync<List<Tutor>>();// ReadAsAsync<List<Tutor>>();
+
+        Assert.Equal(0, tutors.Count());
+    }
+    
+    [Fact]
+    public async Task GetAllTutors_Tutors()
+    {
+        //Arrange
+        var testTutor = new Tutor()
         {
+
             Id = Guid.NewGuid(),
             FirstName = "Simphiwe",
             LastName = "Ndlovu",
             DateOfBirth = "26 April 1999",
             Gender = "M",
+            Status = "T",
+            Faculty =  "No faculty added",
+            Course = "Bsc Computer Science",
+            Institution = "University Of Pretoria",
+            Modules =Guid.NewGuid().ToString(),
+            Email = "u19027372@tuks.co.za",
+            Password = "12345678",
+            Location = Guid.NewGuid().ToString(),
+            TuteesCode = Guid.NewGuid().ToString(),
+            Bio = "OnePiece fan",
+            Connections = "No connections added",
+            Rating = "0,0",
+            Requests =Guid.NewGuid().ToString(),
+            Year= "3",
+            GroupIds="no groups"
+
+        };
+        var testTutor2 = new Tutor()
+        {
+
+            Id = Guid.NewGuid(),
+            FirstName = "Musa",
+            LastName = "Mabasa",
+            DateOfBirth = "14 August 2000",
+            Gender = "M",
             Status = Guid.NewGuid().ToString(),
+            Faculty = "No faculty added",
+            Course = Guid.NewGuid().ToString(),
+            Institution = "University Of Pretoria",
+            Modules =Guid.NewGuid().ToString(),
+            Email = "u12345678@tuks.co.za",
+            Password = "2468101214",
+            Location = Guid.NewGuid().ToString(),
+            TuteesCode = Guid.NewGuid().ToString(),
+            Bio = "Stranger things fan",
+            Connections = "1",
+            Rating = "0.5",
+            Requests =Guid.NewGuid().ToString(),
+            Year= "3",
+            GroupIds="No Groups"
+
+        };
+        var testTutor3 = new Tutor()
+        {
+
+            Id = Guid.NewGuid(),
+            FirstName = "Farai",
+            LastName = "Chivunga",
+            DateOfBirth = "30 March 2001",
+            Gender = "M",
+            Status = "T",
             Faculty = Guid.NewGuid().ToString(),
             Course = Guid.NewGuid().ToString(),
             Institution = "University Of Pretoria",
@@ -35,243 +131,320 @@ public class TutorControllerIntegrationTests
             Requests =Guid.NewGuid().ToString(),
             Year= Guid.NewGuid().ToString(),
             GroupIds=Guid.NewGuid().ToString()
+
         };
-    }
-    [Fact]
-    public void ListsTutorsFromDatabase()
-    {
-        DbContextOptionsBuilder<TutorMeContext> optionsBuilder = new();
-        var databaseName = MethodBase.GetCurrentMethod()?.Name;
-        if (databaseName != null)
-            optionsBuilder.UseInMemoryDatabase(databaseName);
 
-        var newTutor = CreateTutor();
-        using (TutorMeContext ctx = new(optionsBuilder.Options))
-        {
-            ctx.Add(newTutor);
-            ctx.SaveChangesAsync();
-        }
+        await _httpClient.PostAsJsonAsync("https://localhost:7062/api/Tutors", testTutor);
+        await _httpClient.PostAsJsonAsync("https://localhost:7062/api/Tutors", testTutor2);
+        await _httpClient.PostAsJsonAsync("https://localhost:7062/api/Tutors", testTutor3);
 
-        Task<ActionResult<IEnumerable<Tutor>>> result;
-            using (TutorMeContext ctx1 = new(optionsBuilder.Options))
-            {
-                result =new TutorsController(ctx1).GetTutors();
-            }
-            
-            
-            var okResult = Assert.IsType<ActionResult<IEnumerable<Tutor >>>(result.Result);
+        //Act
+        var response = await _httpClient.GetAsync("http://localhost:7062/api/Tutors");
 
-            var tutors = Assert.IsType<List<Tutor>>(okResult.Value);
-            var tutor = Assert.Single(tutors);
-            Assert.NotNull(tutor);
-            Assert.Equal("Simphiwe", tutor.FirstName);
-            Assert.Equal("Ndlovu", tutor.LastName);
-            Assert.Equal("26 April 1999", tutor.DateOfBirth);
-            Assert.Equal("u19027372@tuks.co.za",tutor.Email);
-            Assert.Equal("University Of Pretoria",tutor.Institution);
-            tutor.Should().BeEquivalentTo(newTutor,
-                //Verifying all the DTO variables matches the expected Tutor (newTutor)
-                options => options.ComparingByMembers<Tutor>());
+        //Assert
+        Assert.NotNull(response);
+        Assert.Equal(200, (double)response.StatusCode);
+
+        var tutors = await response.Content.ReadFromJsonAsync<List<Tutor>>();
+        Assert.NotNull(tutors);
+        Assert.Equal(3, tutors.Count());
     }
     
     [Fact]
-    public void GetsTutorFromDatabaseById()
+    public async Task GetTutorById_NoTutor()
     {
-        DbContextOptionsBuilder<TutorMeContext> optionsBuilder = new();
-        var databaseName = MethodBase.GetCurrentMethod()?.Name;
-        if (databaseName != null)
-            optionsBuilder.UseInMemoryDatabase(databaseName);
+        //Act
+        Guid id = Guid.NewGuid();
+        var response = await _httpClient.GetAsync("https://localhost:7062/api/Tutors/"+id);
 
-        var newTutor = CreateTutor();
-        using (TutorMeContext ctx = new(optionsBuilder.Options))
-        {
-            ctx.Add(newTutor);
-            ctx.SaveChangesAsync();
-        }
-
-        Task<ActionResult<Tutor>> result;
-            using (TutorMeContext ctx1 = new(optionsBuilder.Options))
-            {
-                result =new TutorsController(ctx1).GetTutor(newTutor.Id);
-            }
-            
-  
-            var okResult = Assert.IsType<ActionResult<Tutor >>(result.Result);
-            var tutor = Assert.IsType<Tutor>(okResult.Value);
-            
-           
-            Assert.NotNull(tutor);
-            Assert.Equal("Simphiwe", tutor.FirstName);
-            Assert.Equal("Ndlovu", tutor.LastName);
-            Assert.Equal("26 April 1999", tutor.DateOfBirth);
-            Assert.Equal("u19027372@tuks.co.za",tutor.Email);
-            Assert.Equal("University Of Pretoria",tutor.Institution);
-            tutor.Should().BeEquivalentTo(newTutor,
-                //Verifying all the DTO variables matches the expected Tutor (newTutor)
-                options => options.ComparingByMembers<Tutor>());
+        //Assert
+        Assert.NotNull(response);
+        Assert.Equal(404, (double)response.StatusCode);
     }
-        
     [Fact]
-    public void GetsTutorFromDatabaseByEmail()
+    public async Task GetTutorById_TutorFound()
     {
-        DbContextOptionsBuilder<TutorMeContext> optionsBuilder = new();
-        var databaseName = MethodBase.GetCurrentMethod()?.Name;
-        if (databaseName != null)
-            optionsBuilder.UseInMemoryDatabase(databaseName);
-
-        var newTutor = CreateTutor();
-        using (TutorMeContext ctx = new(optionsBuilder.Options))
+        //Arrange
+       var testTutor = new Tutor()
         {
-            ctx.Add(newTutor);
-            ctx.SaveChangesAsync();
-        }
 
-        Task<ActionResult<Tutor>> result;
-        using (TutorMeContext ctx1 = new(optionsBuilder.Options))
+            Id = Guid.NewGuid(),
+            FirstName = "Simphiwe",
+            LastName = "Ndlovu",
+            DateOfBirth = "26 April 1999",
+            Gender = "M",
+            Status = "T",
+            Faculty =  "No faculty added",
+            Course = "Bsc Computer Science",
+            Institution = "University Of Pretoria",
+            Modules =Guid.NewGuid().ToString(),
+            Email = "u19027372@tuks.co.za",
+            Password = "12345678",
+            Location = Guid.NewGuid().ToString(),
+            TuteesCode = Guid.NewGuid().ToString(),
+            Bio = "OnePiece fan",
+            Connections = "No connections added",
+            Rating = "0,0",
+            Requests =Guid.NewGuid().ToString(),
+            Year= "3",
+            GroupIds="no groups"
+
+        };
+        var testTutor2 = new Tutor()
         {
-            result =new TutorsController(ctx1).GetTutorByEmail(newTutor.Email);
-        }
 
-        var okResult = Assert.IsType<ActionResult<Tutor >>(result.Result);
-        var tutor = Assert.IsType<Tutor>(okResult.Value);
-           
+            Id = Guid.NewGuid(),
+            FirstName = "Musa",
+            LastName = "Mabasa",
+            DateOfBirth = "14 August 2000",
+            Gender = "M",
+            Status = Guid.NewGuid().ToString(),
+            Faculty = "No faculty added",
+            Course = Guid.NewGuid().ToString(),
+            Institution = "University Of Pretoria",
+            Modules =Guid.NewGuid().ToString(),
+            Email = "u12345678@tuks.co.za",
+            Password = "2468101214",
+            Location = Guid.NewGuid().ToString(),
+            TuteesCode = Guid.NewGuid().ToString(),
+            Bio = "Stranger things fan",
+            Connections = "1",
+            Rating = "0.5",
+            Requests =Guid.NewGuid().ToString(),
+            Year= "3",
+            GroupIds="No Groups"
+
+        };
+        var testTutor3 = new Tutor()
+        {
+
+            Id = Guid.NewGuid(),
+            FirstName = "Farai",
+            LastName = "Chivunga",
+            DateOfBirth = "30 March 2001",
+            Gender = "M",
+            Status = "T",
+            Faculty = Guid.NewGuid().ToString(),
+            Course = Guid.NewGuid().ToString(),
+            Institution = "University Of Pretoria",
+            Modules =Guid.NewGuid().ToString(),
+            Email = "u19027372@tuks.co.za",
+            Password = Guid.NewGuid().ToString(),
+            Location = Guid.NewGuid().ToString(),
+            TuteesCode = Guid.NewGuid().ToString(),
+            Bio = "OnePiece fan",
+            Connections = "2",
+            Rating = "4",
+            Requests =Guid.NewGuid().ToString(),
+            Year= Guid.NewGuid().ToString(),
+            GroupIds=Guid.NewGuid().ToString()
+
+        };
+
+        await _httpClient.PostAsJsonAsync("https://localhost:7062/api/Tutors", testTutor);
+        await _httpClient.PostAsJsonAsync("https://localhost:7062/api/Tutors", testTutor2);
+        await _httpClient.PostAsJsonAsync("https://localhost:7062/api/Tutors", testTutor3);
+
+        //Act
+        var id = testTutor.Id;
+        var response = await _httpClient.GetAsync("https://localhost:7062/api/Tutors/"+id);
+
+        //Assert
+        Assert.NotNull(response);
+        Assert.Equal(200, (double)response.StatusCode);
+
+        var tutor = await response.Content.ReadFromJsonAsync<Tutor>();
+
         Assert.NotNull(tutor);
-        Assert.Equal("Simphiwe", tutor.FirstName);
-        Assert.Equal("Ndlovu", tutor.LastName);
-        Assert.Equal("26 April 1999", tutor.DateOfBirth);
-        Assert.Equal("u19027372@tuks.co.za",tutor.Email);
-        Assert.Equal("University Of Pretoria",tutor.Institution);
-        tutor.Should().BeEquivalentTo(newTutor,
-            //Verifying all the DTO variables matches the expected Tutor (newTutor)
-            options => options.ComparingByMembers<Tutor>());
-    }
-
-
-    [Fact]
-    public void ModifiesTutorFromDatabase()
-    {
-        DbContextOptionsBuilder<TutorMeContext> optionsBuilder = new();
-        var databaseName = MethodBase.GetCurrentMethod()?.Name;
-        if (databaseName != null)
-            optionsBuilder.UseInMemoryDatabase(databaseName);
-
-        var newTutor = CreateTutor();
-        using (TutorMeContext ctx = new(optionsBuilder.Options))
+        if (tutor != null)
         {
-            ctx.Add(newTutor);
-            ctx.SaveChangesAsync();
+            Assert.Equal(testTutor.Id, tutor.Id);
+            Assert.Equal(testTutor.FirstName, tutor.FirstName);
+            Assert.Equal(testTutor.LastName, tutor.LastName);
+            Assert.Equal(testTutor.DateOfBirth, tutor.DateOfBirth);
+            Assert.Equal(testTutor.Gender, tutor.Gender);
+            Assert.Equal(testTutor.Status, tutor.Status);
+            Assert.Equal(testTutor.Faculty, tutor.Faculty);
+            Assert.Equal(testTutor.Course, tutor.Course);
+            Assert.Equal(testTutor.Institution, tutor.Institution);
+            Assert.Equal(testTutor.Modules, tutor.Modules);
+            Assert.Equal(testTutor.Email, tutor.Email);
+            Assert.Equal(testTutor.Password, tutor.Password);
+            Assert.Equal(testTutor.Location, tutor.Location);
+            Assert.Equal(testTutor.TuteesCode, tutor.TuteesCode);
+            Assert.Equal(testTutor.Bio, tutor.Bio);
+            Assert.Equal(testTutor.Connections, tutor.Connections);
+            Assert.Equal(testTutor.Rating, tutor.Rating);
+            Assert.Equal(testTutor.Requests, tutor.Requests);
+            Assert.Equal(testTutor.Year, tutor.Year);
+            Assert.Equal(testTutor.Year, tutor.Year);
+            Assert.Equal(testTutor.GroupIds, tutor.GroupIds);
+            
         }
-
-        //Modify the tutors Bio
-        newTutor.Bio = "Naruto fan";
-        
-        Task<IActionResult> result;
-        using (TutorMeContext ctx1 = new(optionsBuilder.Options))
-        {
-            result =new TutorsController(ctx1).PutTutor(newTutor.Id,newTutor);
-        }
-
-        // result should be of type NoContentResult
-        Assert.IsType<NoContentResult>(result.Result);
-        
-        //Now checking if the Bio was actually Modified on the database 
-        Task<ActionResult<Tutor>> resultCheck;
-        using (TutorMeContext ctx1 = new(optionsBuilder.Options))
-        {
-            resultCheck =new TutorsController(ctx1).GetTutor(newTutor.Id);
-        }
-
-        var okResult = Assert.IsType<ActionResult<Tutor >>(resultCheck.Result);
-        var tutor = Assert.IsType<Tutor>(okResult.Value);
-           
-        Assert.NotNull(tutor);
-        Assert.Equal("Naruto fan",tutor.Bio);
-        Assert.Equal("Simphiwe", tutor.FirstName);
-        Assert.Equal("Ndlovu", tutor.LastName);
-        Assert.Equal("26 April 1999", tutor.DateOfBirth);
-        Assert.Equal("u19027372@tuks.co.za",tutor.Email);
-        Assert.Equal("University Of Pretoria",tutor.Institution);
-        tutor.Should().BeEquivalentTo(newTutor,
-            //Verifying all the DTO variables matches the expected Tutor (newTutor)
-            options => options.ComparingByMembers<Tutor>());
     }
     
     [Fact]
-    public void AddsTutorToDatabase()
+    public async Task GetTutorById_TutorNotFound() 
     {
-        DbContextOptionsBuilder<TutorMeContext> optionsBuilder = new();
-        var databaseName = MethodBase.GetCurrentMethod()?.Name;
-        if (databaseName != null)
-            optionsBuilder.UseInMemoryDatabase(databaseName);
-
-        var newTutor = CreateTutor();
-
-        Task<ActionResult<Tutor>> result;
-        using (TutorMeContext ctx1 = new(optionsBuilder.Options))
+        //Arrange
+       var testTutor = new Tutor()
         {
-            result =new TutorsController(ctx1).PostTutor(newTutor);
-        }
 
-        Assert.IsType<ActionResult<Tutor >>(result.Result);
+            Id = Guid.NewGuid(),
+            FirstName = "Simphiwe",
+            LastName = "Ndlovu",
+            DateOfBirth = "26 April 1999",
+            Gender = "M",
+            Status = "T",
+            Faculty =  "No faculty added",
+            Course = "Bsc Computer Science",
+            Institution = "University Of Pretoria",
+            Modules =Guid.NewGuid().ToString(),
+            Email = "u19027372@tuks.co.za",
+            Password = "12345678",
+            Location = Guid.NewGuid().ToString(),
+            TuteesCode = Guid.NewGuid().ToString(),
+            Bio = "OnePiece fan",
+            Connections = "No connections added",
+            Rating = "0,0",
+            Requests =Guid.NewGuid().ToString(),
+            Year= "3",
+            GroupIds="no groups"
+
+        };
+        var testTutor2 = new Tutor()
+        {
+
+            Id = Guid.NewGuid(),
+            FirstName = "Musa",
+            LastName = "Mabasa",
+            DateOfBirth = "14 August 2000",
+            Gender = "M",
+            Status = Guid.NewGuid().ToString(),
+            Faculty = "No faculty added",
+            Course = Guid.NewGuid().ToString(),
+            Institution = "University Of Pretoria",
+            Modules =Guid.NewGuid().ToString(),
+            Email = "u12345678@tuks.co.za",
+            Password = "2468101214",
+            Location = Guid.NewGuid().ToString(),
+            TuteesCode = Guid.NewGuid().ToString(),
+            Bio = "Stranger things fan",
+            Connections = "1",
+            Rating = "0.5",
+            Requests =Guid.NewGuid().ToString(),
+            Year= "3",
+            GroupIds="No Groups"
+
+        };
+        var testTutor3 = new Tutor()
+        {
+
+            Id = Guid.NewGuid(),
+            FirstName = "Farai",
+            LastName = "Chivunga",
+            DateOfBirth = "30 March 2001",
+            Gender = "M",
+            Status = "T",
+            Faculty = Guid.NewGuid().ToString(),
+            Course = Guid.NewGuid().ToString(),
+            Institution = "University Of Pretoria",
+            Modules =Guid.NewGuid().ToString(),
+            Email = "u19027372@tuks.co.za",
+            Password = Guid.NewGuid().ToString(),
+            Location = Guid.NewGuid().ToString(),
+            TuteesCode = Guid.NewGuid().ToString(),
+            Bio = "OnePiece fan",
+            Connections = "2",
+            Rating = "4",
+            Requests =Guid.NewGuid().ToString(),
+            Year= Guid.NewGuid().ToString(),
+            GroupIds=Guid.NewGuid().ToString()
+
+        };
+
+        await _httpClient.PostAsJsonAsync("https://localhost:7062/api/Tutors", testTutor);
+        await _httpClient.PostAsJsonAsync("https://localhost:7062/api/Tutors", testTutor2);
+        await _httpClient.PostAsJsonAsync("https://localhost:7062/api/Tutors", testTutor3);
+
+        //Act
+        var id = Guid.NewGuid();//Tutor that does not exist
+        var response = await _httpClient.GetAsync("https://localhost:7062/api/Tutors/"+id);
         
-        //Now checking if the tutor was actually added to the database 
-        Task<ActionResult<Tutor>> resultCheck;
-        using (TutorMeContext ctx1 = new(optionsBuilder.Options))
-        {
-            resultCheck =new TutorsController(ctx1).GetTutor(newTutor.Id);
-        }
-
-        var okResult = Assert.IsType<ActionResult<Tutor >>(resultCheck.Result);
-        var tutor = Assert.IsType<Tutor>(okResult.Value);
-           
-        Assert.NotNull(tutor);
-      
-        Assert.Equal("Simphiwe", tutor.FirstName);
-        Assert.Equal("Ndlovu", tutor.LastName);
-        Assert.Equal("26 April 1999", tutor.DateOfBirth);
-        Assert.Equal("u19027372@tuks.co.za",tutor.Email);
-        Assert.Equal("University Of Pretoria",tutor.Institution);
-        tutor.Should().BeEquivalentTo(newTutor,
-            //Verifying all the DTO variables matches the expected Tutor (newTutor)
-            options => options.ComparingByMembers<Tutor>());
+        //Assert
+        Assert.NotNull(response);
+        Assert.Equal(404, (double)response.StatusCode);
     }
     
     [Fact]
-    public void DeletesTutorOnDatabase()
+    public async Task AddTutor()
     {
-        DbContextOptionsBuilder<TutorMeContext> optionsBuilder = new();
-        var databaseName = MethodBase.GetCurrentMethod()?.Name;
-        if (databaseName != null)
-            optionsBuilder.UseInMemoryDatabase(databaseName);
-
-        var newTutor = CreateTutor();
-        using (TutorMeContext ctx = new(optionsBuilder.Options))
+        var testTutor = new Tutor()
         {
-            ctx.Add(newTutor);
-            ctx.SaveChangesAsync();
-        }
-        
+            Id = Guid.NewGuid(),
+            FirstName = "Simphiwe",
+            LastName = "Ndlovu",
+            DateOfBirth = "26 April 1999",
+            Gender = "M",
+            Status = "T",
+            Faculty =  "No faculty added",
+            Course = "Bsc Computer Science",
+            Institution = "University Of Pretoria",
+            Modules =Guid.NewGuid().ToString(),
+            Email = "u19027372@tuks.co.za",
+            Password = "12345678",
+            Location = Guid.NewGuid().ToString(),
+            TuteesCode = Guid.NewGuid().ToString(),
+            Bio = "OnePiece fan",
+            Connections = "No connections added",
+            Rating = "0,0",
+            Requests =Guid.NewGuid().ToString(),
+            Year= "3",
+            GroupIds="no groups"
+        };
 
-        Task<IActionResult> result;
-        using (TutorMeContext ctx1 = new(optionsBuilder.Options))
-        {
-            result =new TutorsController(ctx1).DeleteTutor(newTutor.Id);
-        }
+        //Act
+        var id = testTutor.Id;
+        await _httpClient.PostAsJsonAsync("https://localhost:7062/api/Tutors", testTutor);
+        var response = await _httpClient.GetAsync("https://localhost:7062/api/Tutors/"+id);
 
-        Assert.IsType< NoContentResult>(result.Result);
-        
-        //Now checking if the tutor was actually deleted to the database 
-        Task<ActionResult<Tutor>> resultCheck;
-        using (TutorMeContext ctx1 = new(optionsBuilder.Options))
-        {
-            resultCheck =new TutorsController(ctx1).GetTutor(newTutor.Id);
-        }
+        //Assert
+        Assert.NotNull(response);
+        Assert.Equal(200, (double)response.StatusCode);
 
-        var notFoundResult = Assert.IsType<ActionResult<Tutor >>(resultCheck.Result);
-        var tutor = Assert.IsType<NotFoundResult>(notFoundResult.Result);
+        var tutor = await response.Content.ReadFromJsonAsync<Tutor>();
+
         Assert.NotNull(tutor);
-        Assert.Equal(404, tutor.StatusCode);
-        
+        if (tutor != null)
+        {
+            Assert.Equal(testTutor.Id, tutor.Id);
+            Assert.Equal(testTutor.FirstName, tutor.FirstName);
+            Assert.Equal(testTutor.LastName, tutor.LastName);
+            Assert.Equal(testTutor.DateOfBirth, tutor.DateOfBirth);
+            Assert.Equal(testTutor.Gender, tutor.Gender);
+            Assert.Equal(testTutor.Status, tutor.Status);
+            Assert.Equal(testTutor.Faculty, tutor.Faculty);
+            Assert.Equal(testTutor.Course, tutor.Course);
+            Assert.Equal(testTutor.Institution, tutor.Institution);
+            Assert.Equal(testTutor.Modules, tutor.Modules);
+            Assert.Equal(testTutor.Email, tutor.Email);
+            Assert.Equal(testTutor.Password, tutor.Password);
+            Assert.Equal(testTutor.Location, tutor.Location);
+            Assert.Equal(testTutor.TuteesCode, tutor.TuteesCode);
+            Assert.Equal(testTutor.Bio, tutor.Bio);
+            Assert.Equal(testTutor.Connections, tutor.Connections);
+            Assert.Equal(testTutor.Rating, tutor.Rating);
+            Assert.Equal(testTutor.Requests, tutor.Requests);
+            Assert.Equal(testTutor.Year, tutor.Year);
+            Assert.Equal(testTutor.Year, tutor.Year);
+            Assert.Equal(testTutor.GroupIds, tutor.GroupIds);
+            
+        }
     }
 
-    }
+    
+    
+    
+   
+
+}

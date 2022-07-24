@@ -8,6 +8,7 @@ import '../../Groups/tutee_group.dart';
 
 class TuteeGroups extends StatefulWidget {
   final Tutees tutee;
+
   const TuteeGroups({Key? key, required this.tutee}) : super(key: key);
 
   @override
@@ -24,6 +25,8 @@ class TuteeGroupsState extends State<TuteeGroups> {
   bool isLoading = true;
 
   List<Groups> groups = List<Groups>.empty();
+  final numTuteesForEachGroup = <int>[];
+
   int numOfTutees = 0;
   getGroupDetails() async {
     final incomingGroups =
@@ -37,13 +40,22 @@ class TuteeGroupsState extends State<TuteeGroups> {
     }
 
     for (int i = 0; i < groups.length; i++) {
+      numOfTutees = 0;
+      if (groups[i].getTutees.length > 1) {
+        numOfTutees++;
+        break;
+      }
       for (int t = 0; t < groups[i].getTutees.length; t++) {
         if (groups[i].getTutees[t] == ',') {
           numOfTutees++;
         }
       }
+      numTuteesForEachGroup.add(numOfTutees);
     }
 
+    for (int k = 0; k < numTuteesForEachGroup.length; k++) {
+      k.toString() + " 's # tutees " + numTuteesForEachGroup[k].toString();
+    }
     setState(() {
       isLoading = false;
       groups = incomingGroups;
@@ -100,8 +112,9 @@ class TuteeGroupsState extends State<TuteeGroups> {
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => TuteeGroupPage(
-                  group: groups[i],
-                )));
+                tutee: widget.tutee,
+                group: groups[i],
+                numberOfParticipants: numOfTutees)));
       },
       child: Container(
         width: MediaQuery.of(context).size.width * 0.8,
@@ -133,11 +146,11 @@ class TuteeGroupsState extends State<TuteeGroups> {
                       color: colorWhite,
                       fontWeight: FontWeight.bold,
                     )),
-                SizedBox(width: MediaQuery.of(context).size.width * 0.135),
+                SizedBox(width: MediaQuery.of(context).size.width * 0.110),
                 const Icon(Icons.circle, size: 7, color: colorOrange),
-                SizedBox(width: MediaQuery.of(context).size.width * 0.08),
+                SizedBox(width: MediaQuery.of(context).size.width * 0.03),
                 Text(
-                  numOfTutees.toString() + "  participants",
+                  numOfTutees.toString() + " other participant(s)",
                   style: const TextStyle(
                       color: Colors.white70, fontWeight: FontWeight.bold),
                 ),
