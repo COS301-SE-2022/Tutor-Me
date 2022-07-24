@@ -92,7 +92,10 @@ class TutorGroupsState extends State<TutorGroups> {
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => TuteeGroupPage(
-                group: groups[i], numberOfParticipants: numOfTutees, tutee: widget.tutor,)));
+                  group: groups[i],
+                  numberOfParticipants: numTutees[i],
+                  tutee: widget.tutor,
+                )));
       },
       child: Container(
         width: MediaQuery.of(context).size.width * 0.8,
