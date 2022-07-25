@@ -390,7 +390,10 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
               builder: (BuildContext context) => Chat(
                   reciever: tutorObj,
                     user: widget.tutee,
+                    image: tutorImage,
+                    hasImage: tutorHasImage,
                   )));
+
         },
         child: Card(
             elevation: 0,
@@ -444,6 +447,8 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
               builder: (BuildContext context) => Chat(
                     reciever: tutees[i].tutee,
                     user: tutees[i].tutee,
+                    image: tutees[i].image,
+                    hasImage: tutees[i].hasImage,
                   )));
         },
         child: Card(

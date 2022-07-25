@@ -328,6 +328,8 @@ class TutorGroupPageState extends State<TutorGroupPage> {
               builder: (BuildContext context) => Chat(
                     reciever: tutees[i].tutee,
                     user: widget.tutor,
+                    image: tutees[i].image,
+                    hasImage: tutees[i].hasImage,
                   )));
         },
         child: Card(
