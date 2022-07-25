@@ -4,7 +4,7 @@ import 'package:tutor_me/services/models/groups.dart';
 import 'package:tutor_me/services/services/group_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import '../../../services/models/tutors.dart';
-import '../../Groups/tutee_group.dart';
+import '../../Groups/tutor_group.dart';
 
 class TutorGroups extends StatefulWidget {
   final Tutors tutor;
@@ -91,10 +91,9 @@ class TutorGroupsState extends State<TutorGroups> {
     return GestureDetector(
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => TuteeGroupPage(
+            builder: (context) => TutorGroupPage(
                   group: groups[i],
-                  numberOfParticipants: numTutees[i],
-                  tutee: widget.tutor,
+                  tutor: widget.tutor,
                 )));
       },
       child: Container(

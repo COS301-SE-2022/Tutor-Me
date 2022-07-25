@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:grouped_list/grouped_list.dart';
 import 'package:intl/intl.dart';
+import 'package:tutor_me/services/models/groups.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import '../chat/message.dart';
 // import 'package:signalr_netcore/signalr_client.dart';
 
 class GroupChat extends StatefulWidget {
   final dynamic user;
+  final Groups group;
 
   const GroupChat({
     Key? key,
     required this.user,
+    required this.group,
   }) : super(key: key);
 
   @override
@@ -20,7 +23,7 @@ class GroupChat extends StatefulWidget {
 }
 
 class GroupChatState extends State<GroupChat> {
-  // var connection = new 
+  // var connection = new
   bool isTapped = false;
   TextEditingController messageTextCOntroller = TextEditingController();
   List<Message> messages = [
@@ -177,13 +180,9 @@ class GroupChatState extends State<GroupChat> {
         appBar: AppBar(
           backgroundColor: colorOrange,
           title: Column(
-            children: const [
+            children: [
               Text(
-                "COS301 group",
-              ),
-              Text(
-                "Meeting code: XrL2-BFsG-2aFQ",
-                style: TextStyle(fontSize: 15),
+                widget.group.getModuleCode,
               ),
             ],
           ),
