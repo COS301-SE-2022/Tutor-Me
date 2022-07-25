@@ -7,6 +7,8 @@ import 'package:tutor_me/src/tutorProfilePages/tutor_profile_view.dart';
 import '../../services/models/tutors.dart';
 import '../chat/message.dart';
 import 'package:intl/intl.dart';
+
+import '../tuteeProfilePages/tutee_profile_view.dart';
 // import 'package:tutor_me/modules/api.services.dart';
 // import 'package:tutor_me/modules/tutors.dart';
 // import 'tutorProfilePages/tutor_profile_view.dart';
@@ -65,26 +67,33 @@ class ChatState extends State<Chat> {
                               tutee: widget.user,
                             )));
                   }
-                : () {},
+                : () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (BuildContext context) => TuteeProfilePageView(
+                              user: widget.reciever,
+                              image: widget.image,
+                              imageExists: widget.hasImage,
+                            )));
+                  },
             child: Row(
               children: [
                 CircleAvatar(
                   child: widget.hasImage
-            ? ClipOval(
-                child: Image.memory(
-                  widget.image,
-                  fit: BoxFit.cover,
-                  width: MediaQuery.of(context).size.width * 0.253,
-                  height: MediaQuery.of(context).size.width * 0.253,
-                ),
-              )
-            : ClipOval(
-                child: Image.asset(
-                "assets/Pictures/penguin.png",
-                fit: BoxFit.cover,
-                width: MediaQuery.of(context).size.width * 0.253,
-                height: MediaQuery.of(context).size.width * 0.253,
-              )),
+                      ? ClipOval(
+                          child: Image.memory(
+                            widget.image,
+                            fit: BoxFit.cover,
+                            width: MediaQuery.of(context).size.width * 0.253,
+                            height: MediaQuery.of(context).size.width * 0.253,
+                          ),
+                        )
+                      : ClipOval(
+                          child: Image.asset(
+                          "assets/Pictures/penguin.png",
+                          fit: BoxFit.cover,
+                          width: MediaQuery.of(context).size.width * 0.253,
+                          height: MediaQuery.of(context).size.width * 0.253,
+                        )),
                 ),
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 0.03,

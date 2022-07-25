@@ -53,7 +53,7 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
     setState(() {
       currentModules = current;
     });
-    getProfileImage();
+    getConnections();
   }
 
   int getNumConnections() {
@@ -91,12 +91,14 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
       int conLength = connections.length;
       for (int i = 0; i < conLength; i++) {
         final tutor = await TutorServices.getTutor(connections[i]);
-        setState(() {
-          isLoading = false;
-          tutors += tutor;
-        });
+
+        tutors += tutor;
         isConnected = checkConnection();
       }
+      setState(() {
+        tutors = tutors;
+      });
+      getProfileImage();
     }
   }
 
@@ -118,7 +120,6 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
     getCurrentModules();
     numConnections = getNumConnections();
     numTutees = getNumTutees();
-    getConnections();
   }
 
   @override
