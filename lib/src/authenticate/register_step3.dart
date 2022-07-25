@@ -50,7 +50,7 @@ class _RegisterStep3State extends State<RegisterStep3> {
   late Tutees tutee;
   int currentStep = 2;
 
-  register() async {
+  register(String passedinInstitution) async {
     if (widget.toRegister == "Tutor") {
       try {
         tutor = await TutorServices.registerTutor(
@@ -58,13 +58,13 @@ class _RegisterStep3State extends State<RegisterStep3> {
             widget.lastName,
             widget.dob,
             widget.gender,
-            institutionController.text,
+            passedinInstitution,
             widget.email,
             widget.password,
             // courseController.text,
             //yearLvl
             widget.confirmPassword,
-            '1', //TODO:change to actual value
+            '1',
             'Bsc Computer Sciences');
         Navigator.push(
           context,
@@ -490,7 +490,7 @@ class _RegisterStep3State extends State<RegisterStep3> {
                         },
                       );
                     } else {
-                      register();
+                      register(institution!);
                     }
                   },
                   child: isLoading
