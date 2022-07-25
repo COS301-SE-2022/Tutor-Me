@@ -50,7 +50,7 @@ class _RegisterStep3State extends State<RegisterStep3> {
   late Tutees tutee;
   int currentStep = 2;
 
-  register() async {
+  register(String passedin_institution) async {
     if (widget.toRegister == "Tutor") {
       try {
         tutor = await TutorServices.registerTutor(
@@ -490,7 +490,7 @@ class _RegisterStep3State extends State<RegisterStep3> {
                         },
                       );
                     } else {
-                      register();
+                      register(institution!);
                     }
                   },
                   child: isLoading

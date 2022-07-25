@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:tutor_me/screens/startup_screen.dart';
 import 'package:tutor_me/services/models/tutees.dart';
 import 'package:tutor_me/services/services/tutor_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
@@ -18,6 +19,7 @@ class Tutee {
 }
 
 class TuteeGroupPage extends StatefulWidget {
+  
   final Groups group;
   final int numberOfParticipants;
   final dynamic tutee;
@@ -86,22 +88,21 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
       }
     }
     for (int i = 0; i < tuteeList.length; i++) {
-      setState(() {
-        bool val = true;
-        for (int j = 0; j < hasImage.length; j++) {
-          if (hasImage[j] == i) {
-            val = false;
-            break;
-          }
+      bool val = true;
+      for (int j = 0; j < hasImage.length; j++) {
+        if (hasImage[j] == i) {
+          val = false;
+          break;
         }
-        if (!val) {
-          tutees.add(Tutee(tuteeList[i], tuteeImages[i], false));
-        } else {
-          tutees.add(Tutee(tuteeList[i], tuteeImages[i], true));
-        }
-      });
+      }
+      if (!val) {
+        tutees.add(Tutee(tuteeList[i], tuteeImages[i], false));
+      } else {
+        tutees.add(Tutee(tuteeList[i], tuteeImages[i], true));
+      }
     }
     setState(() {
+      tutees = tutees;
       _isLoading = false;
     });
   }
@@ -128,7 +129,6 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
     } catch (e) {
       setState(() {
         tutorHasImage = false;
-        _isLoading = false;
       });
     }
   }
