@@ -3,12 +3,14 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:tutor_me/services/models/tutees.dart';
 import 'package:tutor_me/services/services/tutor_services.dart';
+import 'package:tutor_me/src/chat/one_to_one_chat.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/tutorAndTuteeCollaboration/tuteeGroups/tuteeGroupSettings.dart';
 
 import '../../services/models/groups.dart';
 import '../../services/models/tutors.dart';
 import '../../services/services/tutee_services.dart';
+import '../chat/group_chat.dart';
 
 class Tutee {
   Tutees tutee;
@@ -234,7 +236,12 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           InkWell(
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (BuildContext context) => GroupChat(
+                                      user: widget.tutee,
+                                      group: widget.group)));
+                            },
                             child: Card(
                               elevation: 0,
                               color: Colors.transparent,
@@ -378,7 +385,13 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
     //getTutees
     String name = tutorObj.getName + ' ' + tutorObj.getLastName;
     return InkWell(
-        onTap: () {},
+        onTap: () {
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (BuildContext context) => Chat(
+                  reciever: tutorObj,
+                    user: widget.tutee,
+                  )));
+        },
         child: Card(
             elevation: 0,
             color: Colors.transparent,
@@ -426,7 +439,13 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
     //getTutees
     String name = tutees[i].tutee.getName + ' ' + tutees[i].tutee.getLastName;
     return InkWell(
-        onTap: () {},
+        onTap: () {
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (BuildContext context) => Chat(
+                    reciever: tutees[i].tutee,
+                    user: tutees[i].tutee,
+                  )));
+        },
         child: Card(
             elevation: 0,
             color: Colors.transparent,

@@ -3,7 +3,7 @@ import 'package:tutor_me/services/services/tutor_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import '../../services/models/tutors.dart';
 import '../../services/services/tutee_services.dart';
-import '../chat/chat.dart';
+import '../chat/one_to_one_chat.dart';
 // import 'package:tutor_me/modules/api.services.dart';
 // import 'package:tutor_me/modules/tutors.dart';
 // import 'tutorProfilePages/tutor_profile_view.dart';
@@ -123,7 +123,8 @@ class ChatsState extends State<Chats> {
         ),
         onTap: () {
           Navigator.of(context).push(MaterialPageRoute(
-              builder: (BuildContext context) => Chat(user: tutors[i])));
+              builder: (BuildContext context) =>
+                  Chat(reciever: tutors[i], user: widget.user)));
         });
   }
 }
