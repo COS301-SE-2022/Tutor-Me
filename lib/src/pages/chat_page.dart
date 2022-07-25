@@ -92,9 +92,7 @@ class _ChatPageState extends State<ChatPage> {
   final connection = HubConnectionBuilder()
       .withUrl(
           'http://tutormechatapi-prod.us-east-1.elasticbeanstalk.com/chatHub',
-          HttpConnectionOptions(
-            logging: (level, message) => print(message),
-          ))
+          HttpConnectionOptions())
       .build();
 
   //connect to signalR
