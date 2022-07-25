@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 // import 'package:tutor_me/modules/api.services.dart';
@@ -50,6 +52,7 @@ class CallHistoryState extends State<CallHistory> {
     Icons.call_made,
     Icons.call_made
   ];
+  // ignore: non_constant_identifier_names
   List<Color> status_color = [
     colorRed,
     Colors.green,
