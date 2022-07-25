@@ -1,11 +1,14 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:tutor_me/src/chat/group_chat.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 
 import '../../services/models/groups.dart';
 import '../../services/models/tutees.dart';
+import '../../services/models/tutors.dart';
 import '../../services/services/tutee_services.dart';
+import '../chat/one_to_one_chat.dart';
 
 class Tutee {
   Tutees tutee;
@@ -16,7 +19,9 @@ class Tutee {
 
 class TutorGroupPage extends StatefulWidget {
   final Groups group;
-  const TutorGroupPage({Key? key, required this.group}) : super(key: key);
+  final Tutors tutor;
+  const TutorGroupPage({Key? key, required this.group, required this.tutor})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -87,7 +92,6 @@ class TutorGroupPageState extends State<TutorGroupPage> {
       });
     }
     setState(() {
-
       hasTutees = true;
       _isLoading = false;
     });
@@ -201,7 +205,12 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                         mainAxisSize: MainAxisSize.min,
                         children: <Widget>[
                           InkWell(
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (BuildContext context) => GroupChat(
+                                      user: widget.tutor,
+                                      group: widget.group)));
+                            },
                             child: Card(
                               elevation: 0,
                               color: Colors.transparent,
@@ -279,7 +288,6 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                     SizedBox(
                       height: screenHeight * 0.25,
                       width: screenWidth * 0.5,
-
                       child: hasTutees
                           ? ListView.separated(
                               controller: ScrollController(),
@@ -297,7 +305,6 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                                 style: TextStyle(fontWeight: FontWeight.w400),
                               ),
                             ),
-
                     ),
                   ],
                 ),
@@ -316,7 +323,15 @@ class TutorGroupPageState extends State<TutorGroupPage> {
   Widget participantBuilder(BuildContext context, int i) {
     String name = tutees[i].tutee.getName + ' ' + tutees[i].tutee.getLastName;
     return InkWell(
-        onTap: () {},
+        onTap: () {
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (BuildContext context) => Chat(
+                    reciever: tutees[i].tutee,
+                    user: widget.tutor,
+                    image: tutees[i].image,
+                    hasImage: tutees[i].hasImage,
+                  )));
+        },
         child: Card(
             elevation: 0,
             color: Colors.transparent,
