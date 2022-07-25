@@ -4,7 +4,6 @@ import 'package:tutor_me/services/models/groups.dart';
 import 'package:tutor_me/services/services/group_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import '../../../services/models/tutors.dart';
-import '../../Groups/tutee_group.dart';
 import '../../Groups/tutor_group.dart';
 
 class TutorGroups extends StatefulWidget {

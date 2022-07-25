@@ -7,8 +7,6 @@ import 'package:tutor_me/src/tutorProfilePages/tutor_profile_view.dart';
 import '../../services/models/tutors.dart';
 import '../chat/message.dart';
 import 'package:intl/intl.dart';
-
-import '../tuteeProfilePages/tutee_profile.dart';
 // import 'package:tutor_me/modules/api.services.dart';
 // import 'package:tutor_me/modules/tutors.dart';
 // import 'tutorProfilePages/tutor_profile_view.dart';
