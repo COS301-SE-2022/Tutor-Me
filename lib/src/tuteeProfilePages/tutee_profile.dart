@@ -396,14 +396,21 @@ class SmallTagBtn extends StatelessWidget {
       ),
       child: TextButton(
         onPressed: funct,
-        child: Text(
-          btnName,
-          style: const TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-        ),
+        child: btnName == 'Confirm' ||
+                btnName == 'Edit Module list' ||
+                btnName == 'Cancel'
+            ? Text(
+                btnName,
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              )
+            : const CircularProgressIndicator.adaptive(
+                backgroundColor: Colors.transparent,
+                valueColor: AlwaysStoppedAnimation<Color>(colorWhite),
+              ),
       ),
     );
   }

@@ -32,6 +32,7 @@ class _EditModuleListState extends State<EditModuleList> {
   String query = '';
   bool isCurrentOpen = true;
   bool isAllOpen = false;
+  bool isConfirming = false;
 
   void inputCurrent() {
     confirmedModules = widget.currentModules;
@@ -218,7 +219,7 @@ class _EditModuleListState extends State<EditModuleList> {
                       child: SmallTagBtn(
                           btnName: "Cancel",
                           backColor: Colors.red,
-                          funct: () {
+                          funct: isConfirming? () {}: () {
                             Navigator.pop(context);
                           }),
                     ),
@@ -232,9 +233,12 @@ class _EditModuleListState extends State<EditModuleList> {
                         bottom: MediaQuery.of(context).size.width * 0.05,
                       ),
                       child: SmallTagBtn(
-                          btnName: "Confirm",
+                          btnName: !isConfirming ? "Confirm" : 'Confirming',
                           backColor: colorTurqoise,
-                          funct: () async {
+                          funct: isConfirming? () {}: ()  async {
+                            setState(() {
+                              isConfirming = true;
+                            });
                             try {
                               String modules = "";
                               for (int i = 0;
@@ -293,6 +297,7 @@ class _EditModuleListState extends State<EditModuleList> {
                               ScaffoldMessenger.of(context)
                                   .showSnackBar(snackBar);
                             }
+                            isConfirming = false;
                           }),
                     ),
                   ),

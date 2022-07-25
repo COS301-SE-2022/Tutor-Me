@@ -3,6 +3,7 @@ import 'package:grouped_list/grouped_list.dart';
 import 'package:intl/intl.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import '../chat/message.dart';
+// import 'package:signalr_netcore/signalr_client.dart';
 
 class GroupChat extends StatefulWidget {
   final dynamic user;
@@ -19,6 +20,9 @@ class GroupChat extends StatefulWidget {
 }
 
 class GroupChatState extends State<GroupChat> {
+  // var connection = new 
+  bool isTapped = false;
+  TextEditingController messageTextCOntroller = TextEditingController();
   List<Message> messages = [
     Message(
         text: 'Now to show who is chatting when they do',
@@ -213,12 +217,12 @@ class GroupChatState extends State<GroupChat> {
                 ),
                 itemBuilder: (context, Message message) => Align(
                   alignment: message.isSentByMe
-                      ? Alignment.centerRight
-                      : Alignment.centerLeft,
+                      ? Alignment.topRight
+                      : Alignment.topLeft,
                   child: Card(
                     color: message.isSentByMe
-                        ? Colors.orange[300]
-                        : Colors.orange[100],
+                        ? colorOrange.withOpacity(0.8)
+                        : Colors.grey[300],
                     elevation: 8,
                     child: Padding(
                       padding: const EdgeInsets.all(12),
@@ -233,7 +237,13 @@ class GroupChatState extends State<GroupChat> {
                                   style: TextStyle(
                                       color: Colors.blue[400],
                                       fontWeight: FontWeight.bold)),
-                          Text(message.text),
+                          Text(
+                            message.text,
+                            style: TextStyle(
+                                color: message.isSentByMe
+                                    ? colorWhite
+                                    : colorBlack),
+                          ),
                         ],
                       ),
                     ),
@@ -242,16 +252,47 @@ class GroupChatState extends State<GroupChat> {
               ),
             ),
             Container(
-              color: Colors.grey,
+              padding: const EdgeInsets.all(4),
+              width: MediaQuery.of(context).size.width * 0.9,
+              decoration: BoxDecoration(
+                  border: Border.all(),
+                  borderRadius: BorderRadius.circular(50)),
               child: TextField(
+                onTap: () {
+                  isTapped = true;
+                },
+                keyboardType: TextInputType.multiline,
+                maxLines: null,
+                controller: messageTextCOntroller,
                 decoration: InputDecoration(
+                    border: InputBorder.none,
+                    icon: isTapped
+                        ? IconButton(
+                            icon: const Icon(Icons.clear),
+                            color: colorBlack,
+                            iconSize:
+                                MediaQuery.of(context).size.height * 0.045,
+                            onPressed: messageTextCOntroller.clear,
+                          )
+                        : Icon(
+                            Icons.mail,
+                            color: colorTurqoise,
+                            size: MediaQuery.of(context).size.height * 0.045,
+                          ),
                     suffixIcon: IconButton(
-                      icon: const Icon(Icons.send),
+                      icon: Icon(
+                        Icons.send,
+                        color: colorTurqoise,
+                        size: MediaQuery.of(context).size.height * 0.045,
+                      ),
                       onPressed: () {},
                     ),
                     contentPadding: const EdgeInsets.all(14),
                     hintText: 'Type your message...'),
               ),
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.02,
             )
           ],
         ));
