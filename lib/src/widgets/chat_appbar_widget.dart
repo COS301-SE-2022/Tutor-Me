@@ -8,10 +8,10 @@ Widget chatAppbarWidget(Size size, BuildContext context, String groupName) {
     color: Colors.orange[900],
     child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: const [
+      children: [
         Text(
-          'COS 301',
-          style: TextStyle(fontSize: 25, color: Colors.white),
+          groupName,
+          style: const TextStyle(fontSize: 25, color: Colors.white),
         ),
       ],
     ),
