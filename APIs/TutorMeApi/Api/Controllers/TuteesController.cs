@@ -18,7 +18,7 @@ namespace Api.Controllers
 
         // GET: api/Tutees
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Tutee>>> GetTutees()
+        public async Task<ActionResult<IEnumerable<Tutee>>> GetAllTutees()
         {
             if (_context.Tutees == null)
             {
@@ -29,7 +29,7 @@ namespace Api.Controllers
 
         // GET: api/Tutees/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Tutee>> GetTutee(Guid id)
+        public async Task<ActionResult<Tutee>> GetTuteeById(Guid id)
         {
             if (_context.Tutees == null)
             {
@@ -48,7 +48,7 @@ namespace Api.Controllers
         // PUT: api/Tutees/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTutee(Guid id, Tutee tutee)
+        public async Task<IActionResult> UpdateTutee(Guid id, Tutee tutee)
         {
             if (id != tutee.Id)
             {
@@ -79,7 +79,7 @@ namespace Api.Controllers
         // POST: api/Tutees
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Tutee>> PostTutee(Tutee tutee)
+        public async Task<ActionResult<Tutee>> RegisterTutee(Tutee tutee)
         {
             if (_context.Tutees == null)
             {
@@ -93,7 +93,7 @@ namespace Api.Controllers
 
         // DELETE: api/Tutees/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteTutee(Guid id)
+        public async Task<IActionResult> DeleteTuteeById(Guid id)
         {
             if (_context.Tutees == null)
             {
