@@ -1,14 +1,22 @@
+// ignore_for_file: non_constant_identifier_names, dead_code
+import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:tutor_me/services/services/group_services.dart';
 // import 'package:tutor_me/src/chat/group_chat.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import '../pages/chat_page.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
+import '../../screens/meeting_screen.dart';
 import '../../services/models/groups.dart';
 import '../../services/models/tutees.dart';
 import '../../services/models/tutors.dart';
 import '../../services/services/tutee_services.dart';
+import '../../utils/toast.dart';
 import '../chat/one_to_one_chat.dart';
+import 'package:http/http.dart' as http;
 
 class Tutee {
   Tutees tutee;
@@ -37,6 +45,8 @@ class TutorGroupPageState extends State<TutorGroupPage> {
   bool _isLoading = true;
 
   bool hasTutees = false;
+  String _token = "";
+  String _meetingID = "";
 
   getTutees() async {
     if (widget.group.getTutees == '') {
@@ -102,6 +112,7 @@ class TutorGroupPageState extends State<TutorGroupPage> {
     super.initState();
 
     getTutees();
+    fetchToken().then((token) => setState(() => _token = token));
   }
 
   @override
@@ -234,7 +245,32 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                             ),
                           ),
                           InkWell(
-                            onTap: () {},
+                            onTap: () async {
+                              try{
+                            
+                              _meetingID = await createMeeting();
+                              widget.group.setGroupLink = _meetingID;
+                              await GroupServices.updateGroup(widget.group);
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => MeetingScreen(
+                                    token: _token,
+                                    meetingId: _meetingID,
+                                    displayName: "Tutor",
+                                  ),
+                                ),
+                              );
+                              }
+                              catch(e)
+                              {
+                                const snackBar = SnackBar(
+                                        content: Text('Failed to start live video'),
+                                      );
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(snackBar);
+                              }
+                            },
                             child: Card(
                               elevation: 0,
                               color: Colors.transparent,
@@ -311,6 +347,52 @@ class TutorGroupPageState extends State<TutorGroupPage> {
               ),
             ),
     );
+  }
+
+  Future<String> fetchToken() async {
+    final String? _AUTH_URL = dotenv.env['AUTH_URL'];
+    String? _AUTH_TOKEN = dotenv.env['AUTH_TOKEN'];
+
+    if ((_AUTH_TOKEN?.isEmpty ?? true) && (_AUTH_URL?.isEmpty ?? true)) {
+      toastMsg("Please set the environment variables");
+      throw Exception("Either AUTH_TOKEN or AUTH_URL is not set in .env file");
+
+      return "";
+    }
+
+    if ((_AUTH_TOKEN?.isNotEmpty ?? false) &&
+        (_AUTH_URL?.isNotEmpty ?? false)) {
+      toastMsg("Please set only one environment variable");
+      throw Exception("Either AUTH_TOKEN or AUTH_URL can be set in .env file");
+
+      return "";
+    }
+
+    if (_AUTH_URL?.isNotEmpty ?? false) {
+      final Uri getTokenUrl = Uri.parse('$_AUTH_URL/get-token');
+      final http.Response tokenResponse = await http.get(getTokenUrl);
+      _AUTH_TOKEN = json.decode(tokenResponse.body)['token'];
+    }
+
+    // log("Auth Token: $_AUTH_TOKEN");
+
+    return _AUTH_TOKEN ?? "";
+  }
+
+  Future<String> createMeeting() async {
+    final String? _VIDEOSDK_API_ENDPOINT = dotenv.env['VIDEOSDK_API_ENDPOINT'];
+
+    final Uri getMeetingIdUrl = Uri.parse('$_VIDEOSDK_API_ENDPOINT/meetings');
+    final http.Response meetingIdResponse =
+        await http.post(getMeetingIdUrl, headers: {
+      "Authorization": _token,
+    });
+
+    final meetingId = json.decode(meetingIdResponse.body)['meetingId'];
+
+    // log("Meeting ID: $meetingId");
+
+    return meetingId;
   }
 
   Widget pointBuilder(BuildContext context, int i) {
