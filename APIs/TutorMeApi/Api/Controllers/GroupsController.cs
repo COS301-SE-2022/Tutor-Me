@@ -40,27 +40,27 @@ namespace Api.Controllers
           {
               return NotFound();
           }
-            var @group = await _context.Group.FindAsync(id);
+            var group = await _context.Group.FindAsync(id);
 
-            if (@group == null)
+            if (group == null)
             {
                 return NotFound();
             }
 
-            return @group;
+            return group;
         }
 
         // PUT: api/Groups/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateGroup(Guid id, Group @group)
+        public async Task<IActionResult> UpdateGroup(Guid id, Group group)
         {
-            if (id != @group.Id)
+            if (id != group.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(@group).State = EntityState.Modified;
+            _context.Entry(group).State = EntityState.Modified;
 
             try
             {
@@ -104,13 +104,13 @@ namespace Api.Controllers
             {
                 return NotFound();
             }
-            var @group = await _context.Group.FindAsync(id);
-            if (@group == null)
+            var group = await _context.Group.FindAsync(id);
+            if (group == null)
             {
                 return NotFound();
             }
 
-            _context.Group.Remove(@group);
+            _context.Group.Remove(group);
             await _context.SaveChangesAsync();
 
             return NoContent();
