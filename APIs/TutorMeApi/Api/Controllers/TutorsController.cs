@@ -20,7 +20,7 @@ namespace Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Tutor>>> GetTutors()
+        public async Task<ActionResult<IEnumerable<Tutor>>> GetAllTutors()
         {
             if (_context.Tutors == null)
             {
@@ -30,7 +30,7 @@ namespace Api.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Tutor>> GetTutor(Guid id)
+        public async Task<ActionResult<Tutor>> GetTutorById(Guid id)
         {
             if (_context.Tutors == null)
             {
@@ -67,7 +67,7 @@ namespace Api.Controllers
 
         // PUT: api/Tutors/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTutor(Guid id, Tutor tutor)
+        public async Task<IActionResult> UpdateTutor(Guid id, Tutor tutor)
         {
             if (id != tutor.Id)
             {
@@ -97,7 +97,7 @@ namespace Api.Controllers
 
         // POST: api/Tutors
         [HttpPost]
-        public async Task<ActionResult<Tutor>> PostTutor(Tutor tutor)
+        public async Task<ActionResult<Tutor>> RegisterTutor(Tutor tutor)
         {
             if (_context.Tutors == null)
             {
@@ -128,7 +128,7 @@ namespace Api.Controllers
 
         // DELETE: api/Tutors/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteTutor(Guid id)
+        public async Task<IActionResult> DeleteTutorById(Guid id)
         {
             if (_context.Tutors == null)
             {
