@@ -198,11 +198,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\farai\\Documents\\flutter-chat-signalr-main\\flutter-chat-signalr-main\\Chat application server\\Chat application server\\Chat application server.csproj",
+      "projectUniqueName": "C:\\Users\\farai\\Documents\\Tutor-ME\\APIs\\TutorMeChatAPI\\Chat application server\\Chat application server.csproj",
       "projectName": "Chat application server",
-      "projectPath": "C:\\Users\\farai\\Documents\\flutter-chat-signalr-main\\flutter-chat-signalr-main\\Chat application server\\Chat application server\\Chat application server.csproj",
+      "projectPath": "C:\\Users\\farai\\Documents\\Tutor-ME\\APIs\\TutorMeChatAPI\\Chat application server\\Chat application server.csproj",
       "packagesPath": "C:\\Users\\farai\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\farai\\Documents\\flutter-chat-signalr-main\\flutter-chat-signalr-main\\Chat application server\\Chat application server\\obj\\",
+      "outputPath": "C:\\Users\\farai\\Documents\\Tutor-ME\\APIs\\TutorMeChatAPI\\Chat application server\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\farai\\AppData\\Roaming\\NuGet\\NuGet.Config",

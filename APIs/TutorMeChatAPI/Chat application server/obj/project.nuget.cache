@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "qbeHaFRr12SxYf9z2e2ulv3JCS/99ZoOlig4TdCt3majJHexNS1kqaI0dhGyQ5w2eNqZT/3xCtK4rW4tfCINrg==",
+  "dgSpecHash": "QFFL5i5KWGChcsQULhFDoF5ywe9lGex/4VDlE7n41NkryLTryBsAng1ZrFagJ1WRs1GgHqQohR0uG0leMmwolw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\farai\\Documents\\flutter-chat-signalr-main\\flutter-chat-signalr-main\\Chat application server\\Chat application server\\Chat application server.csproj",
+  "projectFilePath": "C:\\Users\\farai\\Documents\\Tutor-ME\\APIs\\TutorMeChatAPI\\Chat application server\\Chat application server.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\farai\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
     "C:\\Users\\farai\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
