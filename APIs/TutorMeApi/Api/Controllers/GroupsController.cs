@@ -23,7 +23,7 @@ namespace Api.Controllers
 
         // GET: api/Groups
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Group>>> GetGroups()
+        public async Task<ActionResult<IEnumerable<Group>>> GetAllGroups()
         {
           if (_context.Group == null)
           {
@@ -34,7 +34,7 @@ namespace Api.Controllers
 
         // GET: api/Groups/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Group>> GetGroup(Guid id)
+        public async Task<ActionResult<Group>> GetGroupById(Guid id)
         {
           if (_context.Group == null)
           {
@@ -53,7 +53,7 @@ namespace Api.Controllers
         // PUT: api/Groups/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutGroup(Guid id, Group @group)
+        public async Task<IActionResult> UpdateGroup(Guid id, Group @group)
         {
             if (id != @group.Id)
             {
@@ -84,21 +84,21 @@ namespace Api.Controllers
         // POST: api/Groups
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Group>> PostGroup(Group @group)
+        public async Task<ActionResult<Group>> RegisterGroup(Group group)
         {
           if (_context.Group == null)
           {
               return Problem("Entity set 'TutorMeContext.Group'  is null.");
           }
-            _context.Group.Add(@group);
+            _context.Group.Add(group);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetGroup", new { id = @group.Id }, @group);
+            return CreatedAtAction("GetGroup", new { id = group.Id }, group);
         }
 
         // DELETE: api/Groups/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteGroup(Guid id)
+        public async Task<IActionResult> DeleteGroupById(Guid id)
         {
             if (_context.Group == null)
             {
