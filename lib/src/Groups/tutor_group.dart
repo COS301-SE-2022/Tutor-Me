@@ -1,9 +1,9 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:tutor_me/src/chat/group_chat.dart';
+// import 'package:tutor_me/src/chat/group_chat.dart';
 import 'package:tutor_me/src/colorpallete.dart';
-
+import '../pages/chat_page.dart';
 import '../../services/models/groups.dart';
 import '../../services/models/tutees.dart';
 import '../../services/models/tutors.dart';
@@ -207,7 +207,7 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                           InkWell(
                             onTap: () {
                               Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (BuildContext context) => GroupChat(
+                                  builder: (BuildContext context) => ChatPage(
                                       user: widget.tutor,
                                       group: widget.group)));
                             },

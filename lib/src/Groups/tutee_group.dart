@@ -10,7 +10,8 @@ import 'package:tutor_me/src/tutorAndTuteeCollaboration/tuteeGroups/tuteeGroupSe
 import '../../services/models/groups.dart';
 import '../../services/models/tutors.dart';
 import '../../services/services/tutee_services.dart';
-import '../chat/group_chat.dart';
+import '../pages/chat_page.dart';
+// import '../chat/group_chat.dart';
 
 class Tutee {
   Tutees tutee;
@@ -20,7 +21,6 @@ class Tutee {
 }
 
 class TuteeGroupPage extends StatefulWidget {
-  
   final Groups group;
   final int numberOfParticipants;
   final dynamic tutee;
@@ -237,7 +237,7 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
                           InkWell(
                             onTap: () {
                               Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (BuildContext context) => GroupChat(
+                                  builder: (BuildContext context) => ChatPage(
                                       user: widget.tutee,
                                       group: widget.group)));
                             },
@@ -387,12 +387,11 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
         onTap: () {
           Navigator.of(context).push(MaterialPageRoute(
               builder: (BuildContext context) => Chat(
-                  reciever: tutorObj,
+                    reciever: tutorObj,
                     user: widget.tutee,
                     image: tutorImage,
                     hasImage: tutorHasImage,
                   )));
-
         },
         child: Card(
             elevation: 0,

@@ -2081,3 +2081,12 @@ c:/Users/Dell/Documents/School/Capstone/Tutor-ME/APIs/TutorMeApi/ApiUnitTests/ob
 c:/Users/Dell/Documents/School/Capstone/Tutor-ME/APIs/TutorMeApi/ApiUnitTests/obj/Debug/net6.0/ApiUnitTests.genruntimeconfig.cache
 c:/Users/Dell/Documents/School/Capstone/Tutor-ME/APIs/TutorMeApi/ApiUnitTests/obj/Debug/net6.0/ref/ApiUnitTests.dll
 /home/simphiwe/Desktop/updated_CapsOn/Tutor-ME/APIs/TutorMeApi/ApiUnitTests/bin/Debug/net6.0/aws-beanstalk-tools-defaults.json
+c:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\APIs\TutorMeApi\ApiUnitTests\bin\Debug\net6.0\CoverletSourceRootsMapping
+c:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\APIs\TutorMeApi\ApiUnitTests\obj\Debug\net6.0\ApiUnitTests.csproj.AssemblyReference.cache
+c:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\APIs\TutorMeApi\ApiUnitTests\obj\Debug\net6.0\ApiUnitTests.GeneratedMSBuildEditorConfig.editorconfig
+c:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\APIs\TutorMeApi\ApiUnitTests\obj\Debug\net6.0\ApiUnitTests.AssemblyInfoInputs.cache
+c:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\APIs\TutorMeApi\ApiUnitTests\obj\Debug\net6.0\ApiUnitTests.AssemblyInfo.cs
+c:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\APIs\TutorMeApi\ApiUnitTests\obj\Debug\net6.0\ApiUnitTests.csproj.CoreCompileInputs.cache
+c:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\APIs\TutorMeApi\ApiUnitTests\obj\Debug\net6.0\ApiUnitTests.dll
+c:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\APIs\TutorMeApi\ApiUnitTests\obj\Debug\net6.0\refint\ApiUnitTests.dll
+c:\Users\madun\Documents\School\Year 3\COS301\Capstone\Tutor-ME\APIs\TutorMeApi\ApiUnitTests\obj\Debug\net6.0\ApiUnitTests.pdb
