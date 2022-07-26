@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:tutor_me/services/services/tutor_services.dart';
@@ -9,9 +10,26 @@ import 'package:open_file/open_file.dart';
 
 import '../../services/models/tutors.dart';
 
+class ToReturn {
+  Uint8List image;
+  Tutors user;
+
+  ToReturn(this.image, this.user);
+}
+
+// ignore: must_be_immutable
 class TutorProfileEdit extends StatefulWidget {
   final Tutors user;
-  const TutorProfileEdit({Key? key, required this.user}) : super(key: key);
+  Uint8List image;
+  final bool imageExists;
+  
+
+  TutorProfileEdit(
+      {Key? key,
+      required this.user,
+      required this.image,
+      required this.imageExists})
+      : super(key: key);
 
   @override
   _TutorProfileEditState createState() => _TutorProfileEditState();
@@ -21,15 +39,20 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
   final nameController = TextEditingController();
   final bioController = TextEditingController();
   File? image;
+  bool isImagePicked = false;
+  bool isSaveLoading = false;
 
   Future pickImage(ImageSource source) async {
-    final imageChosed = await ImagePicker().pickImage(source: source);
-    if (imageChosed == null) {
+    final imageChosen = await ImagePicker().pickImage(source: source);
+    if (imageChosen == null) {
       return;
     }
 
-    final imageTempPath = File(imageChosed.path);
-    setState(() => image = imageTempPath);
+    final imageTempPath = File(imageChosen.path);
+    setState(() {
+      image = imageTempPath;
+      isImagePicked = true;
+    });
   }
 
   ImageProvider buildImage() {
@@ -122,11 +145,21 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
         ),
         SizedBox(height: screenHeightSize * 0.03),
         OrangeButton(
-            btnName: "Save",
+            btnName: isSaveLoading? "Saving": 'Save',
             onPressed: () async {
+              setState(() {
+                isSaveLoading = true;
+              });
               if (image != null) {
                 await TutorServices.uploadProfileImage(
                     image, widget.user.getId);
+
+                final newImage =
+                    await TutorServices.getTutorProfileImage(widget.user.getId);
+
+                setState(() {
+                  widget.image = newImage;
+                });
               }
               if (nameController.text.isNotEmpty) {
                 List<String> name = nameController.text.split(' ');
@@ -139,10 +172,15 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
               if (bioController.text.isNotEmpty) {
                 widget.user.setBio = bioController.text;
               }
+              if (nameController.text.isNotEmpty ||
+                  bioController.text.isNotEmpty) {
+                await TutorServices.updateTutor(widget.user);
+              }
+              setState(() {
+                isSaveLoading = false;
+              });
 
-              await TutorServices.updateTutor(widget.user);
-
-              Navigator.pop(context);
+              Navigator.pop(context, ToReturn(widget.image, widget.user));
             })
       ],
     );
@@ -181,9 +219,26 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
       );
 
   Widget buildProfileImage() => CircleAvatar(
-        radius: 50,
-        backgroundColor: const Color.fromRGBO(66, 66, 66, 1),
-        backgroundImage: buildImage(),
+        radius: MediaQuery.of(context).size.width * 0.127,
+        backgroundImage: isImagePicked ? buildImage() : null,
+        child: isImagePicked
+            ? null
+            : widget.imageExists
+                ? ClipOval(
+                    child: Image.memory(
+                      widget.image,
+                      fit: BoxFit.cover,
+                      width: MediaQuery.of(context).size.width * 0.253,
+                      height: MediaQuery.of(context).size.width * 0.253,
+                    ),
+                  )
+                : ClipOval(
+                    child: Image.asset(
+                    "assets/Pictures/penguin.png",
+                    fit: BoxFit.cover,
+                    width: MediaQuery.of(context).size.width * 0.253,
+                    height: MediaQuery.of(context).size.width * 0.253,
+                  )),
       );
 
   Widget buildEditImageIcon() => ElevatedButton(
@@ -211,6 +266,7 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
                           child: const Text('Open Camera'))
                     ],
                   ));
+          // Navigator.pop(context);
         },
       );
 

@@ -7,8 +7,8 @@ import '../../services/models/tutors.dart';
 import '../../services/services/tutee_services.dart';
 import '../../services/services/tutor_services.dart';
 import '../components.dart';
-import '../tutee_page.dart';
 import '../tutor_page.dart';
+import '../tutee_page.dart';
 import 'forgot_password.dart';
 
 class Login extends StatefulWidget {
@@ -193,7 +193,7 @@ class _LoginState extends State<Login> {
                               TextButton(
                                 child: const Text(
                                   "Retry",
-                                  style: TextStyle(color: colorWhite),
+                                  style: TextStyle(color: colorOrange),
                                 ),
                                 onPressed: () {
                                   Navigator.of(context).pop();
@@ -216,6 +216,10 @@ class _LoginState extends State<Login> {
                             MaterialPageRoute(
                                 builder: (context) => TutorPage(user: tutor)),
                           );
+
+                          setState(() {
+                            isLoading = false;
+                          });
                         } catch (e) {
                           setState(() {
                             isLoading = false;
@@ -259,8 +263,13 @@ class _LoginState extends State<Login> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => TuteePage(user: tutee)),
+                                builder: (context) =>
+                                    TuteePage(user: tutee)),
                           );
+
+                          setState(() {
+                            isLoading = false;
+                          });
                         } catch (e) {
                           setState(() {
                             isLoading = false;
@@ -271,7 +280,7 @@ class _LoginState extends State<Login> {
                               return AlertDialog(
                                 title: const Text("One Or More Errors Occured"),
                                 content:
-                                    const Text("Invalid Password or Email"),
+                                    const Text("Invalid Password, Email or Network Connection"),
                                 backgroundColor: colorWhite,
                                 titleTextStyle: TextStyle(
                                   color: colorOrange,

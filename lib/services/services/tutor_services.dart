@@ -15,8 +15,8 @@ import '../models/tutees.dart';
 
 class TutorServices {
   getRequests(String id) async {
-    final url = Uri.http('tutorme-prod.us-east-1.elasticbeanstalk.com',
-        'api/Requests/Tutor/$id');
+    final url = Uri.http(
+        'tutorme-prod.us-east-1.elasticbeanstalk.com', 'api/Requests/');
     try {
       final response = await http.get(url, headers: {
         "Accept": "application/json",
@@ -31,7 +31,13 @@ class TutorServices {
           j = response.body;
         }
         final List list = json.decode(j);
-        return list.map((json) => Requests.fromObject(json)).toList();
+        final requests = list.map((json) => Requests.fromObject(json)).toList();
+
+        List<Requests> finalRequests = requests.where((request) {
+          return request.getReceiverId.contains(id);
+        }).toList();
+
+        return finalRequests;
       } else {
         throw Exception('Failed to load' + response.statusCode.toString());
       }
@@ -68,8 +74,8 @@ class TutorServices {
 
   declineRequest(String id) async {
     try {
-      final url = Uri.http(
-          'tutorme-prod.us-east-1.elasticbeanstalk.com', 'api/Requests/$id');
+      final url = Uri.http('tutorme-prod.us-east-1.elasticbeanstalk.com',
+          'api/Requests/Tutor/$id');
       final header = {
         "Accept": "application/json",
         "Content-Type": "application/json",
@@ -189,6 +195,7 @@ class TutorServices {
       final tutor1 = await getTutor(request[0].getReceiverId);
       Tutors tutor = tutor1[0];
       final tutee1 = await TuteeServices.getTutee(request[0].getRequesterId);
+
       Tutees tutee = tutee1[0];
       if (!tutee.getConnections.contains(request[0].getReceiverId)) {
         if (tutee.getConnections.contains('No connections added')) {
@@ -206,6 +213,7 @@ class TutorServices {
               tutor.getConnections + ',' + request[0].getRequesterId;
         }
       }
+
       await updateTutor(tutor);
       await TuteeServices.updateTutee(tutee);
 
@@ -520,10 +528,8 @@ class TutorServices {
   }
 
   static Future getTutorProfileImage(String id) async {
-
     Uri tuteeURL = Uri.parse(
         'http://filesystem-prod.us-east-1.elasticbeanstalk.com/api/TutorFiles/$id');
-
 
     try {
       final response = await http.get(tuteeURL, headers: {

@@ -50,23 +50,22 @@ class _RegisterStep3State extends State<RegisterStep3> {
   late Tutees tutee;
   int currentStep = 2;
 
-  register() async {
+  register(String passedinInstitution) async {
     if (widget.toRegister == "Tutor") {
       try {
         tutor = await TutorServices.registerTutor(
-          widget.fullName,
-          widget.lastName,
-          widget.dob,
-          widget.gender,
-          institutionController.text,
-          widget.email,
-          widget.password,
-          // courseController.text,
-          //yearLvl
-          widget.confirmPassword,
-          '1', //TODO:change to actual value
-          'Bsc Computer Sciences'
-        );
+            widget.fullName,
+            widget.lastName,
+            widget.dob,
+            widget.gender,
+            passedinInstitution,
+            widget.email,
+            widget.password,
+            // courseController.text,
+            //yearLvl
+            widget.confirmPassword,
+            '1',
+            'Bsc Computer Sciences');
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => TutorPage(user: tutor)),
@@ -99,19 +98,19 @@ class _RegisterStep3State extends State<RegisterStep3> {
     } else {
       try {
         tutee = await TuteeServices.registerTutee(
-          widget.fullName,
-          widget.lastName,
-          widget.dob,
-          widget.gender,
-          institutionController.text,
-          widget.email,
-          widget.password,
-          // courseController.text,
-          //yearLvl
-          widget.confirmPassword,
-          '1', //TODO: Change to actual value
-          'Bsc Computer Sciences' //TODO: change to actual value
-        );
+            widget.fullName,
+            widget.lastName,
+            widget.dob,
+            widget.gender,
+            institutionController.text,
+            widget.email,
+            widget.password,
+            // courseController.text,
+            //yearLvl
+            widget.confirmPassword,
+            '1', //TODO: Change to actual value
+            'Bsc Computer Sciences' //TODO: change to actual value
+            );
 
         Navigator.push(
           context,
@@ -168,6 +167,7 @@ class _RegisterStep3State extends State<RegisterStep3> {
   String? institution;
   String? yearLvl;
 
+  bool isLoading = false;
   @override
   Widget build(BuildContext context) {
     getInstitutions();
@@ -440,6 +440,9 @@ class _RegisterStep3State extends State<RegisterStep3> {
                 ),
                 child: TextButton(
                   onPressed: () async {
+                    setState(() {
+                      isLoading = true;
+                    });
                     String errMsg = "";
                     institution ??= "";
 
@@ -448,6 +451,9 @@ class _RegisterStep3State extends State<RegisterStep3> {
                     } else {}
 
                     if (errMsg != "") {
+                      setState(() {
+                        isLoading = false;
+                      });
                       showDialog(
                         context: context,
                         builder: (context) {
@@ -474,6 +480,9 @@ class _RegisterStep3State extends State<RegisterStep3> {
                                         builder: (context) =>
                                             const RegisterStep1()),
                                   );
+                                  setState(() {
+                                    isLoading = false;
+                                  });
                                 },
                               ),
                             ],
@@ -481,15 +490,17 @@ class _RegisterStep3State extends State<RegisterStep3> {
                         },
                       );
                     } else {
-                      register();
+                      register(institution!);
                     }
                   },
-                  child: Text("Register",
-                      style: TextStyle(
-                        fontSize: MediaQuery.of(context).size.width * 0.06,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      )),
+                  child: isLoading
+                      ? const CircularProgressIndicator(color: Colors.white)
+                      : Text("Register",
+                          style: TextStyle(
+                            fontSize: MediaQuery.of(context).size.width * 0.06,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          )),
                 ),
               ),
             ]),
