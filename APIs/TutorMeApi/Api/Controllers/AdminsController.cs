@@ -23,7 +23,7 @@ namespace Api.Controllers
 
         // GET: api/Admins
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Admin>>> GetAdmin()
+        public async Task<ActionResult<IEnumerable<Admin>>> GetAllAdmins()
         {
           if (_context.Admin == null)
           {
@@ -34,7 +34,7 @@ namespace Api.Controllers
 
         // GET: api/Admins/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Admin>> GetAdmin(Guid id)
+        public async Task<ActionResult<Admin>> GetAdminById(Guid id)
         {
           if (_context.Admin == null)
           {
@@ -53,7 +53,7 @@ namespace Api.Controllers
         // PUT: api/Admins/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAdmin(Guid id, Admin admin)
+        public async Task<IActionResult> UpdateAdmin(Guid id, Admin admin)
         {
             if (id != admin.Id)
             {
@@ -84,7 +84,7 @@ namespace Api.Controllers
         // POST: api/Admins
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Admin>> PostAdmin(Admin admin)
+        public async Task<ActionResult<Admin>> RegisterAdmin(Admin admin)
         {
           if (_context.Admin == null)
           {
@@ -98,7 +98,7 @@ namespace Api.Controllers
 
         // DELETE: api/Admins/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAdmin(Guid id)
+        public async Task<IActionResult> DeleteAdminById(Guid id)
         {
             if (_context.Admin == null)
             {

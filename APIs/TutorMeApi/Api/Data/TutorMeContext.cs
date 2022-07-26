@@ -157,6 +157,11 @@ namespace Api.Data
                     .IsUnicode(false)
                     .HasColumnName("description");
 
+                entity.Property(e => e.GroupLink)
+                    .IsRequired()
+                    .IsUnicode(false)
+                    .HasColumnName("groupLink");
+
             });
 
             modelBuilder.Entity<Tutee>(entity =>
