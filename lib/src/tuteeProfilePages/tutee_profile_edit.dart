@@ -247,7 +247,7 @@ class _TuteeProfileEditState extends State<TuteeProfileEdit> {
                           child: const Text('Open Camera'))
                     ],
                   ));
-          // Navigator.pop(context);
+          Navigator.pop(context);
         },
       );
 }

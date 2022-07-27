@@ -1,15 +1,22 @@
+// ignore_for_file: non_constant_identifier_names, dead_code
+import 'dart:convert';
+import 'dart:developer';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:tutor_me/services/models/tutees.dart';
+import 'package:tutor_me/services/services/group_services.dart';
 import 'package:tutor_me/services/services/tutor_services.dart';
 import 'package:tutor_me/src/chat/one_to_one_chat.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/tutorAndTuteeCollaboration/tuteeGroups/tuteeGroupSettings.dart';
-
+import 'package:http/http.dart' as http;
+import '../../screens/join_screen.dart';
 import '../../services/models/groups.dart';
 import '../../services/models/tutors.dart';
 import '../../services/services/tutee_services.dart';
+import '../../utils/toast.dart';
 import '../pages/chat_page.dart';
 // import '../chat/group_chat.dart';
 
@@ -20,11 +27,12 @@ class Tutee {
   Tutee(this.tutee, this.image, this.hasImage);
 }
 
+// ignore: must_be_immutable
 class TuteeGroupPage extends StatefulWidget {
-  final Groups group;
+  Groups group;
   final int numberOfParticipants;
   final dynamic tutee;
-  const TuteeGroupPage(
+  TuteeGroupPage(
       {Key? key,
       required this.group,
       required this.numberOfParticipants,
@@ -49,6 +57,7 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
   List<Uint8List> tuteeImages = List<Uint8List>.empty(growable: true);
   List<int> hasImage = List<int>.empty(growable: true);
   bool hasOnlyOneTutee = false;
+  String _token = "";
 
   getTutees() async {
     try {
@@ -114,6 +123,7 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
     setState(() {
       tutorObj = tutor[0];
     });
+    fetchToken().then((token) => setState(() => _token = token));
     getTutorImage();
     getTutees();
   }
@@ -264,7 +274,33 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
                             ),
                           ),
                           InkWell(
-                            onTap: () {},
+                            onTap: () async {
+                              widget.group =
+                                  await GroupServices.getGroup(
+                                      widget.group.getId);
+                              try {
+                                if (await validateMeeting(
+                                    widget.group.getGroupLink)) {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => JoinScreen(
+                                        meetingId: widget.group.getGroupLink,
+                                        token: _token,
+                                      ),
+                                    ),
+                                  );
+                                } else {
+                                  toastMsg("Invalid Meeting ID");
+                                }
+                              } catch (e) {
+                                const snackBar = SnackBar(
+                                  content: Text('Failed to join live video'),
+                                );
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(snackBar);
+                              }
+                            },
                             child: Card(
                               elevation: 0,
                               color: Colors.transparent,
@@ -285,7 +321,7 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
                                       ))
                                 ]),
                                 title: Text(
-                                  'Start Live Video Call',
+                                  'Join live video call',
                                   style: TextStyle(
                                       fontWeight: FontWeight.w800,
                                       fontSize:
@@ -490,5 +526,46 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
                 color: colorOrange,
               ),
             )));
+  }
+
+  Future<String> fetchToken() async {
+    final String? _AUTH_URL = dotenv.env['AUTH_URL'];
+    String? _AUTH_TOKEN = dotenv.env['AUTH_TOKEN'];
+
+    if ((_AUTH_TOKEN?.isEmpty ?? true) && (_AUTH_URL?.isEmpty ?? true)) {
+      toastMsg("Please set the environment variables");
+      throw Exception("Either AUTH_TOKEN or AUTH_URL is not set in .env file");
+      return "";
+    }
+
+    if ((_AUTH_TOKEN?.isNotEmpty ?? false) &&
+        (_AUTH_URL?.isNotEmpty ?? false)) {
+      toastMsg("Please set only one environment variable");
+      throw Exception("Either AUTH_TOKEN or AUTH_URL can be set in .env file");
+      return "";
+    }
+
+    if (_AUTH_URL?.isNotEmpty ?? false) {
+      final Uri getTokenUrl = Uri.parse('$_AUTH_URL/get-token');
+      final http.Response tokenResponse = await http.get(getTokenUrl);
+      _AUTH_TOKEN = json.decode(tokenResponse.body)['token'];
+    }
+
+    log("Auth Token: $_AUTH_TOKEN");
+
+    return _AUTH_TOKEN ?? "";
+  }
+
+  Future<bool> validateMeeting(String _meetingId) async {
+    final String? _VIDEOSDK_API_ENDPOINT = dotenv.env['VIDEOSDK_API_ENDPOINT'];
+
+    final Uri validateMeetingUrl =
+        Uri.parse('$_VIDEOSDK_API_ENDPOINT/meetings/$_meetingId');
+    final http.Response validateMeetingResponse =
+        await http.post(validateMeetingUrl, headers: {
+      "Authorization": _token,
+    });
+
+    return validateMeetingResponse.statusCode == 200;
   }
 }

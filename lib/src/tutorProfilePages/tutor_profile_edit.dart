@@ -22,7 +22,6 @@ class TutorProfileEdit extends StatefulWidget {
   final Tutors user;
   Uint8List image;
   final bool imageExists;
-  
 
   TutorProfileEdit(
       {Key? key,
@@ -52,6 +51,7 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
     setState(() {
       image = imageTempPath;
       isImagePicked = true;
+      Navigator.pop(context);
     });
   }
 
@@ -145,7 +145,7 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
         ),
         SizedBox(height: screenHeightSize * 0.03),
         OrangeButton(
-            btnName: isSaveLoading? "Saving": 'Save',
+            btnName: isSaveLoading ? "Saving" : 'Save',
             onPressed: () async {
               setState(() {
                 isSaveLoading = true;
