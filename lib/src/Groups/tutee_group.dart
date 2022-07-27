@@ -275,9 +275,12 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
                           ),
                           InkWell(
                             onTap: () async {
-                              widget.group =
-                                  await GroupServices.getGroup(
-                                      widget.group.getId);
+                              final group = await GroupServices.getGroup(
+                                  widget.group.getId);
+
+                              setState(() {
+                                widget.group = group[0];
+                              });
                               try {
                                 if (await validateMeeting(
                                     widget.group.getGroupLink)) {
