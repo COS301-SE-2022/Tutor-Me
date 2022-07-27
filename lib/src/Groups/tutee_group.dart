@@ -6,6 +6,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:tutor_me/services/models/tutees.dart';
+import 'package:tutor_me/services/services/group_services.dart';
 import 'package:tutor_me/services/services/tutor_services.dart';
 import 'package:tutor_me/src/chat/one_to_one_chat.dart';
 import 'package:tutor_me/src/colorpallete.dart';
@@ -26,11 +27,12 @@ class Tutee {
   Tutee(this.tutee, this.image, this.hasImage);
 }
 
+// ignore: must_be_immutable
 class TuteeGroupPage extends StatefulWidget {
-  final Groups group;
+  Groups group;
   final int numberOfParticipants;
   final dynamic tutee;
-  const TuteeGroupPage(
+  TuteeGroupPage(
       {Key? key,
       required this.group,
       required this.numberOfParticipants,
@@ -273,6 +275,9 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
                           ),
                           InkWell(
                             onTap: () async {
+                              widget.group =
+                                  await GroupServices.getGroup(
+                                      widget.group.getId);
                               try {
                                 if (await validateMeeting(
                                     widget.group.getGroupLink)) {
