@@ -121,7 +121,7 @@ namespace Api.Controllers
                 }
             }
 
-            return CreatedAtAction("GetTutor", new { id = tutor.Id }, tutor);
+            return CreatedAtAction("GetTutorById", new { id = tutor.Id }, tutor);
         }
 
 
