@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\madun\\Documents\\School\\Year 3\\COS301\\Capstone\\Tutor-ME\\APIs\\TutorMeApi\\Api\\Api.csproj": {}
+    "c:\\Users\\user\\OneDrive\\Documents\\GitHub\\Tutor-ME\\APIs\\TutorMeApi\\Api\\Api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\madun\\Documents\\School\\Year 3\\COS301\\Capstone\\Tutor-ME\\APIs\\TutorMeApi\\Api\\Api.csproj": {
+    "c:\\Users\\user\\OneDrive\\Documents\\GitHub\\Tutor-ME\\APIs\\TutorMeApi\\Api\\Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\madun\\Documents\\School\\Year 3\\COS301\\Capstone\\Tutor-ME\\APIs\\TutorMeApi\\Api\\Api.csproj",
+        "projectUniqueName": "c:\\Users\\user\\OneDrive\\Documents\\GitHub\\Tutor-ME\\APIs\\TutorMeApi\\Api\\Api.csproj",
         "projectName": "Api",
-        "projectPath": "C:\\Users\\madun\\Documents\\School\\Year 3\\COS301\\Capstone\\Tutor-ME\\APIs\\TutorMeApi\\Api\\Api.csproj",
-        "packagesPath": "C:\\Users\\madun\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\madun\\Documents\\School\\Year 3\\COS301\\Capstone\\Tutor-ME\\APIs\\TutorMeApi\\Api\\obj\\",
+        "projectPath": "c:\\Users\\user\\OneDrive\\Documents\\GitHub\\Tutor-ME\\APIs\\TutorMeApi\\Api\\Api.csproj",
+        "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
+        "outputPath": "c:\\Users\\user\\OneDrive\\Documents\\GitHub\\Tutor-ME\\APIs\\TutorMeApi\\Api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\madun\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -95,20 +95,6 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Runtime.win-x64",
-              "version": "[6.0.6, 6.0.6]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Runtime.win-x64",
-              "version": "[6.0.6, 6.0.6]"
-            },
-            {
-              "name": "Microsoft.WindowsDesktop.App.Runtime.win-x64",
-              "version": "[6.0.6, 6.0.6]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -117,12 +103,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.301\\RuntimeIdentifierGraph.json"
-        }
-      },
-      "runtimes": {
-        "win-x64": {
-          "#import": []
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.302\\RuntimeIdentifierGraph.json"
         }
       }
     }
