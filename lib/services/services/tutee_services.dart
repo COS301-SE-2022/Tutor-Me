@@ -40,7 +40,8 @@ class TuteeServices {
         return true;
       } else {
         throw Exception(
-            'Failed to send request. Please make sure your internet connect is on and try again');
+            'Failed to send request. Please make sure your internet connect is on and try again ' +
+                response.statusCode.toString());
       }
     } catch (e) {
       throw Exception(e);

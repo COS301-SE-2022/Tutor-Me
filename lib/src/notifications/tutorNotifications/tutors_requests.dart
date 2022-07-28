@@ -125,7 +125,7 @@ class TutorRequestsState extends State<TutorRequests> {
           : requestList.isNotEmpty
               ? SingleChildScrollView(
                   child: SizedBox(
-                      height: screenHeight * 0.9,
+                      height: screenHeight * 0.8,
                       child: ListView.builder(
                         itemBuilder: _cardBuilder,
                         itemCount: requestList.length,
@@ -178,11 +178,11 @@ class TutorRequestsState extends State<TutorRequests> {
       } else {
         howLongAgo = (currentMonth - monthSent).toString() + ' month ago';
       }
-    } else if (currentDay - daySent > 1) {
+    } else if (currentDay - daySent >= 1) {
       if (currentDay - daySent > 1) {
-        howLongAgo = (currentMonth - monthSent).toString() + ' days ago';
+        howLongAgo = (currentDay - daySent).toString() + ' days ago';
       } else {
-        howLongAgo = (currentMonth - monthSent).toString() + ' day ago';
+        howLongAgo = (currentDay - daySent).toString() + ' day ago';
       }
     } else if (currentDay - daySent == 0) {
       howLongAgo = 'Today';
@@ -237,7 +237,7 @@ class TutorRequestsState extends State<TutorRequests> {
                 ),
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   Tooltip(
                     message: modules,
@@ -251,6 +251,9 @@ class TutorRequestsState extends State<TutorRequests> {
                       style: TextStyle(
                           fontWeight: FontWeight.bold, color: colorTurqoise),
                     ),
+                  ),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.2,
                   ),
                   isExcepting[i] || isDeclining[i]
                       ? const CircularProgressIndicator.adaptive()
@@ -268,8 +271,6 @@ class TutorRequestsState extends State<TutorRequests> {
                                     });
 
                                     try {
-                                      
-
                                       List<Groups> groupList =
                                           List<Groups>.empty();
 
@@ -307,24 +308,22 @@ class TutorRequestsState extends State<TutorRequests> {
                                             moduleRequestedGroups[j].getTutees;
 
                                         if (tutees.isEmpty) {
-                                          tutees +=
+                                          tutees =
                                               requestList[i].getRequesterId;
                                         } else {
                                           tutees += ',' +
                                               requestList[i].getRequesterId;
                                         }
-                                        moduleRequestedGroups[j].setTutees =
-                                            tutees;
+                                        // moduleRequestedGroups[j].setTutees =
+                                        //     tutees;
 
                                         await GroupServices.updateGroup(
                                             moduleRequestedGroups[j]);
-
-                                            
-
                                       }
+
                                       await TutorServices()
                                           .acceptRequest(requestList[i].getId);
-                                          
+
                                       setState(() {
                                         isExcepting[i] = false;
                                         isExcepted[i] = true;

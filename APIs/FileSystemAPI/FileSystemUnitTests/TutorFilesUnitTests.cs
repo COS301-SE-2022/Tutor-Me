@@ -5,15 +5,12 @@ using FileSystem.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.Extensions.Options;
 using Moq;
 
 namespace FileSystemUnitTests;
 
 public class TutorFileFilesUnitTests
 {
-      List<TutorFile> _expectedTutorFile = new List<TutorFile> { createTutorFile(), createTutorFile(), createTutorFile(), createTutorFile() };
-
     //DTO
     private static TutorFile createTutorFile()
     {
