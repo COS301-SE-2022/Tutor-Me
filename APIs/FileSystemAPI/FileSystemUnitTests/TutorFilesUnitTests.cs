@@ -57,10 +57,7 @@ public class TutorFileFilesUnitTests
         //Assert 
     //   result.Value.Should().BeEquivalentTo(expectedTutorFile, options => options.CompatingByMembers<TutorFile>());
        result.Value.Equals(expectedTutorFile);
-       // result.Value.Should().BeEquivalentTo(expectedTutorFile,
-       //Verifying all the DTO variables matches the expected TutorFile 
-       //   options => options.ComparingByMembers<TutorFile>());
-
+      
     }
     [Fact]
     public async Task GetTutorFileAsync_WithanEmpyDb()
@@ -258,7 +255,6 @@ public class TutorFileFilesUnitTests
 
         var result = await controller.PostTutorFile(expectedTutorFile);
         // Assert
-        // Assert.IsType<ActionResult<Api.Models.TutorFile>>(result);
         Assert.IsType<ObjectResult>(result.Result);
     }
     [Fact]

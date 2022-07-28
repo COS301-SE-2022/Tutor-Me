@@ -2,7 +2,7 @@
   "version": 2,
   "dgSpecHash": "RwCNGozt3koTWGlYQ2UCS+l1gA1RugSB2uBvDa9gyy38TW2BcEezr0VBCvFYbroOB61Hv7orjZwM3oNzcHTluA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\madun\\Documents\\School\\Year 3\\COS301\\Capstone\\Tutor-ME\\APIs\\TutorMeApi\\ApiUnitTests\\ApiUnitTests.csproj",
+  "projectFilePath": "/home/simphiwe/Desktop/updated_CapsOn/Tutor-ME/APIs/TutorMeApi/ApiUnitTests/ApiUnitTests.csproj",
   "expectedPackageFiles": [
     "/home/simphiwe/.nuget/packages/castle.core/5.0.0/castle.core.5.0.0.nupkg.sha512",
     "/home/simphiwe/.nuget/packages/coverlet.collector/3.1.2/coverlet.collector.3.1.2.nupkg.sha512",

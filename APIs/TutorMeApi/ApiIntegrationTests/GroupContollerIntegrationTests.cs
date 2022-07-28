@@ -51,9 +51,9 @@ public class GroupControllerIntegrationTests :IClassFixture<WebApplicationFactor
         Assert.NotNull(response);
         Assert.Equal(200, (double)response.StatusCode);
     
-        var Groups = await response.Content.ReadFromJsonAsync<List<Group>>();// ReadAsAsync<List<Group>>();
+        var groups = await response.Content.ReadFromJsonAsync<List<Group>>();// ReadAsAsync<List<Group>>();
     
-        Assert.Equal(0, Groups.Count());
+        Assert.Equal(0, groups.Count());
     }
     
     [Fact]
@@ -68,6 +68,7 @@ public class GroupControllerIntegrationTests :IClassFixture<WebApplicationFactor
             Tutees =Guid.NewGuid().ToString(),
             TutorId =Guid.NewGuid().ToString(),
             Description="Software Engineers",
+            GroupLink="groupLink1"
         };
         var testGroup2 = new Group()
         {
@@ -77,6 +78,7 @@ public class GroupControllerIntegrationTests :IClassFixture<WebApplicationFactor
             Tutees =Guid.NewGuid().ToString(),
             TutorId =Guid.NewGuid().ToString(),
             Description="Software Engineers",
+            GroupLink="groupLink2"
         };
         var testGroup3 = new Group()
         {
@@ -86,6 +88,7 @@ public class GroupControllerIntegrationTests :IClassFixture<WebApplicationFactor
             Tutees =Guid.NewGuid().ToString(),
             TutorId =Guid.NewGuid().ToString(),
             Description="Software Engineers",
+            GroupLink="groupLink3"
     
         };
     
@@ -100,9 +103,9 @@ public class GroupControllerIntegrationTests :IClassFixture<WebApplicationFactor
         Assert.NotNull(response);
         Assert.Equal(200, (double)response.StatusCode);
     
-        var Groups = await response.Content.ReadFromJsonAsync<List<Group>>();
-        Assert.NotNull(Groups);
-        Assert.Equal(3, Groups.Count());
+        var groups = await response.Content.ReadFromJsonAsync<List<Group>>();
+        Assert.NotNull(groups);
+        Assert.Equal(3, groups.Count());
     }
     
     [Fact]
@@ -128,6 +131,7 @@ public class GroupControllerIntegrationTests :IClassFixture<WebApplicationFactor
             Tutees =Guid.NewGuid().ToString(),
             TutorId =Guid.NewGuid().ToString(),
             Description="Software Engineers",
+            GroupLink="groupLink1"
     
         };
         var testGroup2 = new Group()
@@ -138,6 +142,7 @@ public class GroupControllerIntegrationTests :IClassFixture<WebApplicationFactor
             Tutees =Guid.NewGuid().ToString(),
             TutorId =Guid.NewGuid().ToString(),
             Description="Software Engineers",
+            GroupLink="groupLink2"
         };
         var testGroup3 = new Group()
         {
@@ -147,6 +152,7 @@ public class GroupControllerIntegrationTests :IClassFixture<WebApplicationFactor
             Tutees =Guid.NewGuid().ToString(),
             TutorId =Guid.NewGuid().ToString(),
             Description="Software Engineers",
+            GroupLink="groupLink3"
     
         };
     
@@ -162,17 +168,17 @@ public class GroupControllerIntegrationTests :IClassFixture<WebApplicationFactor
         Assert.NotNull(response);
         Assert.Equal(200, (double)response.StatusCode);
     
-        var Group = await response.Content.ReadFromJsonAsync<Group>();
+        var group = await response.Content.ReadFromJsonAsync<Group>();
     
-        Assert.NotNull(Group);
-        if (Group != null)
+        Assert.NotNull(group);
+        if (group != null)
         {
-            Assert.Equal(testGroup.Id, Group.Id);
-            Assert.Equal(testGroup.ModuleCode, Group.ModuleCode);
-            Assert.Equal(testGroup.ModuleName, Group.ModuleName);
-            Assert.Equal(testGroup.Tutees, Group.Tutees);
-            Assert.Equal(testGroup.TutorId, Group.TutorId);
-            Assert.Equal(testGroup.Description, Group.Description);
+            Assert.Equal(testGroup.Id, group.Id);
+            Assert.Equal(testGroup.ModuleCode, group.ModuleCode);
+            Assert.Equal(testGroup.ModuleName, group.ModuleName);
+            Assert.Equal(testGroup.Tutees, group.Tutees);
+            Assert.Equal(testGroup.TutorId, group.TutorId);
+            Assert.Equal(testGroup.Description, group.Description);
             
         }
     }
@@ -189,6 +195,7 @@ public class GroupControllerIntegrationTests :IClassFixture<WebApplicationFactor
             Tutees =Guid.NewGuid().ToString(),
             TutorId =Guid.NewGuid().ToString(),
             Description="Software Engineers",
+            GroupLink="groupLink1"
     
         };
         var testGroup2 = new Group()
@@ -199,6 +206,7 @@ public class GroupControllerIntegrationTests :IClassFixture<WebApplicationFactor
             Tutees =Guid.NewGuid().ToString(),
             TutorId =Guid.NewGuid().ToString(),
             Description="Software Engineers",
+            GroupLink="groupLink2"
         };
         var testGroup3 = new Group()
         {
@@ -208,6 +216,7 @@ public class GroupControllerIntegrationTests :IClassFixture<WebApplicationFactor
             Tutees =Guid.NewGuid().ToString(),
             TutorId =Guid.NewGuid().ToString(),
             Description="Software Engineers",
+            GroupLink="groupLink3"
     
         };
     
@@ -236,6 +245,7 @@ public class GroupControllerIntegrationTests :IClassFixture<WebApplicationFactor
             Tutees =Guid.NewGuid().ToString(),
             TutorId =Guid.NewGuid().ToString(),
             Description="Software Engineers",
+            GroupLink="groupLink1"
     
         };
         await _httpClient.PostAsJsonAsync("https://localhost:7062/api/Groups", testGroup);
@@ -260,14 +270,14 @@ public class GroupControllerIntegrationTests :IClassFixture<WebApplicationFactor
         Assert.NotNull(response);
         Assert.Equal(200, (double)response.StatusCode);
     
-        var Group = await response.Content.ReadFromJsonAsync<Group>();
+        var group = await response.Content.ReadFromJsonAsync<Group>();
     
-        Assert.NotNull(Group);
-        if (Group != null)
+        Assert.NotNull(group);
+        if (group != null)
         {
-            Assert.Equal(testGroup.Id, Group.Id);
+            Assert.Equal(testGroup.Id, group.Id);
            
-            Assert.Equal("Software Engineering stuff only",Group.Description);
+            Assert.Equal("Software Engineering stuff only",group.Description);
         }
     
     }
@@ -282,7 +292,8 @@ public class GroupControllerIntegrationTests :IClassFixture<WebApplicationFactor
             Tutees =Guid.NewGuid().ToString(),
             TutorId =Guid.NewGuid().ToString(),
             Description="Software Engineers",
-    
+            GroupLink="groupLink1"
+            
         };
     
         //Act
@@ -294,17 +305,17 @@ public class GroupControllerIntegrationTests :IClassFixture<WebApplicationFactor
         Assert.NotNull(response);
         Assert.Equal(200, (double)response.StatusCode);
     
-        var Group = await response.Content.ReadFromJsonAsync<Group>();
+        var group = await response.Content.ReadFromJsonAsync<Group>();
     
-        Assert.NotNull(Group);
-        if (Group != null)
+        Assert.NotNull(group);
+        if (group != null)
         {
-            Assert.Equal(testGroup.Id, Group.Id);
-            Assert.Equal(testGroup.ModuleCode, Group.ModuleCode);
-            Assert.Equal(testGroup.ModuleName, Group.ModuleName);
-            Assert.Equal(testGroup.Tutees, Group.Tutees);
-            Assert.Equal(testGroup.TutorId, Group.TutorId);
-            Assert.Equal(testGroup.Description, Group.Description);
+            Assert.Equal(testGroup.Id, group.Id);
+            Assert.Equal(testGroup.ModuleCode, group.ModuleCode);
+            Assert.Equal(testGroup.ModuleName, group.ModuleName);
+            Assert.Equal(testGroup.Tutees, group.Tutees);
+            Assert.Equal(testGroup.TutorId, group.TutorId);
+            Assert.Equal(testGroup.Description, group.Description);
         }
     }
 

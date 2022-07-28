@@ -88,7 +88,7 @@ namespace Api.Controllers
             _context.Tutees.Add(tutee);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetTutee", new { id = tutee.Id }, tutee);
+            return CreatedAtAction("GetTuteeById", new { id = tutee.Id }, tutee);
         }
 
         // DELETE: api/Tutees/5

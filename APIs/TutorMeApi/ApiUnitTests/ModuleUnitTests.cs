@@ -25,7 +25,7 @@ public class ModulesUnitTests
        };
    }
    [Fact]
-   public async Task GetModuleAsync_WithUnExistingModule_ReturnsNotFound()
+   public async Task GetModuleByIdAsync_WithUnExistingModule_ReturnsNotFound()
    {
        //Arrange
         
@@ -34,13 +34,13 @@ public class ModulesUnitTests
        var controller = new ModulesController(repositoryStub.Object);
         
        //Act
-       var result = await controller.GetModule(Guid.NewGuid().ToString());
+       var result = await controller.GetModuleById(Guid.NewGuid().ToString());
        //Assert
        Assert.IsType<NotFoundResult>(result.Result);
    }
 
    [Fact]
-   public async Task GetModuleAsync_WithUnExistingDb_ReturnsFound()
+   public async Task GetModuleByIdAsync_WithUnExistingDb_ReturnsFound()
    {   
        //Arrange
        var expectedModule = CreateModule();
@@ -50,7 +50,7 @@ public class ModulesUnitTests
         
        //Act
        var yourGuid = Guid.NewGuid().ToString();
-       var result = await controller.GetModule(yourGuid);
+       var result = await controller.GetModuleById(yourGuid);
     
        //Assert 
        result.Value.Should().BeEquivalentTo(expectedModule,
@@ -59,7 +59,7 @@ public class ModulesUnitTests
         
    }
    [Fact]
-   public async Task GetModuleAsync_WithAnEmptyDb()
+   public async Task GetModuleByIdAsync_WithAnEmptyDb()
    {       
        //Arrange
        var repositoryStub = new Mock<TutorMeContext>();
@@ -69,14 +69,14 @@ public class ModulesUnitTests
        //Act
        var controller = new ModulesController(repositoryStub.Object);
        
-       var result = await controller.GetModule(Guid.NewGuid().ToString());
+       var result = await controller.GetModuleById(Guid.NewGuid().ToString());
     
        //Assert     
        Assert.IsType<NotFoundResult>(result.Result);
    }
-   //  GetModules
+   //  GetAllModules
    [Fact]
-   public async Task GetModulesAsync_WithExistingItem_ReturnsFound()
+   public async Task GetAllModulesAsync_WithExistingItem_ReturnsFound()
    {
        //Arrange
        var repositoryStub = new Mock<TutorMeContext>();
@@ -84,15 +84,15 @@ public class ModulesUnitTests
 
           
        //Act
-       var result = await controller.GetModules();
+       var result = await controller.GetAllModules();
     
        //Assert     
        Assert.Null(result.Value);
 
    }
-   //  Mock the GetModule Method to return a list of Modules
+   //  Mock the GetModuleById Method to return a list of Modules
    [Fact]
-   public async Task GetModulesAsync_WithExistingItemReturnsFound()
+   public async Task GetAllModulesAsync_WithExistingItemReturnsFound()
    {
        //Arrange
        var repositoryStub = new Mock<TutorMeContext>();
@@ -101,7 +101,7 @@ public class ModulesUnitTests
        //Act
        var controller = new ModulesController(repositoryStub.Object);
        
-       var result = await controller.GetModules();
+       var result = await controller.GetAllModules();
     
        //Assert     
        Assert.IsType<NotFoundResult>(result.Result);
@@ -109,7 +109,7 @@ public class ModulesUnitTests
   
    
    [Fact]
-   public async Task PutModule_With_differentIds_BadRequestResult()
+   public async Task UpdateModule_With_differentIds_BadRequestResult()
    {
        //Arrange
        var repositoryStub = new Mock<TutorMeContext>();
@@ -117,14 +117,14 @@ public class ModulesUnitTests
         //Act
        var controller = new ModulesController(repositoryStub.Object);
        var id= Guid.NewGuid().ToString();
-       var result = await controller.PutModule(id,expectedModule);
+       var result = await controller.UpdateModule(id,expectedModule);
 
        //Assert     
        Assert.IsType< BadRequestResult>(result);
    }
    
    [Fact]
-   public async Task PutModule_With_same_Id_but_UnExisting_Module_returns_NullReferenceException()//####
+   public async Task UpdateModule_With_same_Id_but_UnExisting_Module_returns_NullReferenceException()//####
    {
        //Arrange
        var repositoryStub = new Mock<TutorMeContext>();
@@ -135,7 +135,7 @@ public class ModulesUnitTests
        var controller = new ModulesController(repositoryStub.Object);
         try
        {
-         await controller.PutModule(expectedModule.Code,expectedModule);
+         await controller.UpdateModule(expectedModule.Code,expectedModule);
        }
        //Assert   
        catch(Exception e)
@@ -145,7 +145,7 @@ public class ModulesUnitTests
 
    }
    [Fact]
-   public async Task  PutModule_WithUnExistingId_NotFound()
+   public async Task  UpdateModule_WithUnExistingId_NotFound()
    {
        //Arrange
        var repositoryStub = new Mock<TutorMeContext>();
@@ -154,7 +154,7 @@ public class ModulesUnitTests
        //Act
        var controller = new ModulesController(repositoryStub.Object);
        var id= Guid.NewGuid().ToString();
-       var result = await controller.PutModule(id,expectedModule);
+       var result = await controller.UpdateModule(id,expectedModule);
 
        //Assert     
        Assert.IsType< BadRequestResult>(result);
@@ -183,7 +183,7 @@ public class ModulesUnitTests
         Task<IActionResult>  result;
         using (TutorMeContext ctx1 = new(optionsBuilder.Options))
         {
-            result =new ModulesController(ctx1).PutModule(unExsistingModule.Code,unExsistingModule);
+            result =new ModulesController(ctx1).UpdateModule(unExsistingModule.Code,unExsistingModule);
         }
     
         // result should be of type NotFoundResult
@@ -194,7 +194,7 @@ public class ModulesUnitTests
 
 
    [Fact]
-   public async Task PostModule_and_returns_a_type_of_Action_Result_returns_null()
+   public async Task RegisterModule_and_returns_a_type_of_Action_Result_returns_null()
    {
          
        //Arrange
@@ -206,13 +206,13 @@ public class ModulesUnitTests
         
        //Act
         
-       var result = await controller.PostModule(expectedModule);
+       var result = await controller.RegisterModule(expectedModule);
        // Assert
        Assert.IsType<ActionResult<Api.Models.Module>>(result);
       
    }
    [Fact]
-    public async Task PostModule_and_returns_a_type_of_Action()
+    public async Task RegisterModule_and_returns_a_type_of_Action()
    {
          
        //Arrange
@@ -224,13 +224,13 @@ public class ModulesUnitTests
         
        //Act
         
-       var result = await controller.PostModule(expectedModule);
+       var result = await controller.RegisterModule(expectedModule);
        // Assert
       // Assert.IsType<ActionResult<Api.Models.Module>>(result);
       Assert.Null(result.Value);
    }
     [Fact]
-    public async Task PostModule_and_returns_ObjectResult()
+    public async Task RegisterModule_and_returns_ObjectResult()
     {
          
         //Arrange
@@ -243,13 +243,13 @@ public class ModulesUnitTests
         
         //Act
         
-        var result = await controller.PostModule(expectedModule);
+        var result = await controller.RegisterModule(expectedModule);
         // Assert
         // Assert.IsType<ActionResult<Api.Models.Module>>(result);
         Assert.IsType<ObjectResult>(result.Result);
     }
     [Fact]
-    public async Task PostModule_and_returns_CreatedAtActionResult()
+    public async Task RegisterModule_and_returns_CreatedAtActionResult()
     {
          
         //Arrange
@@ -262,13 +262,13 @@ public class ModulesUnitTests
         
         //Act
         
-        var result = await controller.PostModule(expectedModule);
+        var result = await controller.RegisterModule(expectedModule);
         // Assert
         // Assert.IsType<ActionResult<Api.Models.Module>>(result);
         Assert.IsType<CreatedAtActionResult>(result.Result);
     }
     [Fact]
-    public async Task PostModule_and_returns_ModuleExists_DbUpdateException()
+    public async Task RegisterModule_and_returns_ModuleExists_DbUpdateException()
     {
          
         //Arrange
@@ -284,7 +284,7 @@ public class ModulesUnitTests
         //Act
         try
         {
-            await controller.PostModule(expectedModule);
+            await controller.RegisterModule(expectedModule);
         }
         // Assert
         catch(Exception e)
@@ -295,7 +295,7 @@ public class ModulesUnitTests
     }
   
    [Fact]  
-   public async Task DeleteModule_and_returns_a_type_of_NotFoundResult()
+   public async Task DeleteModuleById_and_returns_a_type_of_NotFoundResult()
    {
          
        //Arrange
@@ -306,13 +306,13 @@ public class ModulesUnitTests
        var controller = new ModulesController(repositoryStub.Object);
         
        //Act
-       var result = await controller.DeleteModule(expectedModule.Code);
+       var result = await controller.DeleteModuleById(expectedModule.Code);
        // Assert
        Assert.IsType<NotFoundResult>(result);
    }
-    // Mock the DeleteModule method  and return a Value 
+    // Mock the DeleteModuleById method  and return a Value 
    [Fact]
-   public async Task DeleteModule_and_returns_a_type_of_NoContentResult()
+   public async Task DeleteModuleById_and_returns_a_type_of_NoContentResult()
    {
          
        //Arrange
@@ -324,12 +324,12 @@ public class ModulesUnitTests
         
        //Act
         
-       var result = await controller.DeleteModule(expectedModule.Code);
+       var result = await controller.DeleteModuleById(expectedModule.Code);
        // Assert
        Assert.IsType<NoContentResult>(result);
    }
    [Fact]
-   public async Task DeleteModule_and_returns_a_type_of_NotFound()
+   public async Task DeleteModuleById_and_returns_a_type_of_NotFound()
    {
          
        //Arrange
@@ -341,7 +341,7 @@ public class ModulesUnitTests
         
        //Act
         
-       var result = await controller.DeleteModule(expectedModule.Code);
+       var result = await controller.DeleteModuleById(expectedModule.Code);
        // Assert
        Assert.IsType< NotFoundResult>(result);
    }

@@ -130,7 +130,7 @@ namespace Api.Controllers
             _context.Requests.Add(request);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetRequest", new { id = request.Id }, request);
+            return CreatedAtAction("GetRequestById", new { id = request.Id }, request);
         }
 
         // DELETE: api/Requests/5

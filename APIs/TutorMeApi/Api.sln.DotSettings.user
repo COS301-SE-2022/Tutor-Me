@@ -46,9 +46,9 @@
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=5a687f05_002Db435_002D49f1_002D8cf3_002D6d6706b91797/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GroupControllerIntegrationTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;Solution /&gt;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=8da5b86f_002D9ad3_002D4474_002Db384_002Db5e0c14a0852/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="DeleteTutor_and_returns_a_type_of_NotFound" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=8da5b86f_002D9ad3_002D4474_002Db384_002Db5e0c14a0852/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="DeleteTutor_and_returns_a_type_of_NotFound" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;Solution /&gt;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=bc591a1b_002Da36f_002D4c08_002D947f_002De9bac4fca4e4/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GetTutorAsync_WithExistingItem_ReturnsNotFound" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=bc591a1b_002Da36f_002D4c08_002D947f_002De9bac4fca4e4/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="GetTutorAsync_WithExistingItem_ReturnsNotFound" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;Solution /&gt;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

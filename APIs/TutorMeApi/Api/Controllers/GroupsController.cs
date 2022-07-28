@@ -93,7 +93,7 @@ namespace Api.Controllers
             _context.Group.Add(group);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetGroup", new { id = group.Id }, group);
+            return CreatedAtAction("GetGroupById", new { id = group.Id }, group);
         }
 
         // DELETE: api/Groups/5

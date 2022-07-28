@@ -33,7 +33,7 @@ public class AdminUnitTests
         var controller = new AdminsController(repositoryStub.Object);
 
         //Act
-        var result = await controller.GetAdmin(Guid.NewGuid());
+        var result = await controller.GetAdminById(Guid.NewGuid());
         //Assert
         Assert.IsType<NotFoundResult>(result.Result);
     }
@@ -50,7 +50,7 @@ public class AdminUnitTests
 
         //Act
         Guid yourGuid = Guid.NewGuid();
-        var result = await controller.GetAdmin(yourGuid);
+        var result = await controller.GetAdminById(yourGuid);
 
         //Assert 
         result.Value.Should().BeEquivalentTo(expectedAdmin,
@@ -68,14 +68,14 @@ public class AdminUnitTests
         //Act
         var controller = new AdminsController(repositoryStub.Object);
 
-        var result = await controller.GetAdmin(new Guid());
+        var result = await controller.GetAdminById(new Guid());
 
         //Assert     
         Assert.IsType<NotFoundResult>(result.Result);
     }
 
     [Fact]
-    public async Task GetAdminsAsync_WithExistingItem_ReturnsNull()
+    public async Task GetAllAdminsAsync_WithExistingItem_ReturnsNull()
     {
         //Arrange
         var repositoryStub = new Mock<TutorMeContext>();
@@ -83,7 +83,7 @@ public class AdminUnitTests
 
 
         //Act
-        var result = await controller.GetAdmin();
+        var result = await controller.GetAllAdmins();
 
         //Assert     
         Assert.Null(result.Value);
@@ -91,7 +91,7 @@ public class AdminUnitTests
     }
 
     [Fact]
-    public async Task GetAdminsAsync_WithExistingItemReturnsFound()
+    public async Task GetAllAdminsAsync_WithExistingItemReturnsFound()
     {
         //Arrange
         var repositoryStub = new Mock<TutorMeContext>();
@@ -100,15 +100,14 @@ public class AdminUnitTests
         //Act
         var controller = new AdminsController(repositoryStub.Object);
 
-        var result = await controller.GetAdmin();
+        var result = await controller.GetAllAdmins();
 
         //Assert     
         Assert.IsType<NotFoundResult>(result.Result);
     }
-   
-    //Test the PutAdmin Method to check if id is the same as the id in the DTO
+    //Test the UpdateAdmin Method to check if id is the same as the id in the DTO
     [Fact]
-    public async Task PutAdmin_With_differentIds_BadRequestResult()
+    public async Task UpdateAdmin_With_differentIds_BadRequestResult()
     {
         //Arrange
         var repositoryStub = new Mock<TutorMeContext>();
@@ -116,14 +115,14 @@ public class AdminUnitTests
         //Act
         var controller = new AdminsController(repositoryStub.Object);
         var id = Guid.NewGuid();
-        var result = await controller.PutAdmin(id, expectedAdmin);
+        var result = await controller.UpdateAdmin(id, expectedAdmin);
 
         //Assert     
         Assert.IsType<BadRequestResult>(result);
     }
 
     [Fact]
-    public async Task PutAdmin_With_same_Id_but_UnExisting_Admin_returns_NullReferenceException()//####
+    public async Task UpdateAdmin_With_same_Id_but_UnExisting_Admin_returns_NullReferenceException()//####
     {
         //Arrange
         var repositoryStub = new Mock<TutorMeContext>();
@@ -135,7 +134,7 @@ public class AdminUnitTests
      
         try
         {
-            await controller.PutAdmin(expectedAdmin.Id, expectedAdmin);
+            await controller.UpdateAdmin(expectedAdmin.Id, expectedAdmin);
         }
         //Assert   
         catch (Exception e)
@@ -146,7 +145,7 @@ public class AdminUnitTests
     }
 
     [Fact]
-    public async Task PutAdmin_WithUnExistingId_NotFound()
+    public async Task UpdateAdmin_WithUnExistingId_NotFound()
     {
         //Arrange
         var repositoryStub = new Mock<TutorMeContext>();
@@ -154,7 +153,7 @@ public class AdminUnitTests
         //Act
         var controller = new AdminsController(repositoryStub.Object);
         var id = Guid.NewGuid();
-        var result = await controller.PutAdmin(id, expectedAdmin);
+        var result = await controller.UpdateAdmin(id, expectedAdmin);
 
         //Assert     
         Assert.IsType<BadRequestResult>(result);
@@ -183,7 +182,7 @@ public class AdminUnitTests
         Task<IActionResult>  result;
         using (TutorMeContext ctx1 = new(optionsBuilder.Options))
         {
-            result =new AdminsController(ctx1).PutAdmin(unExsistingAdmin.Id,unExsistingAdmin);
+            result =new AdminsController(ctx1).UpdateAdmin(unExsistingAdmin.Id,unExsistingAdmin);
         }
     
         // result should be of type NotFoundResult
@@ -193,7 +192,7 @@ public class AdminUnitTests
     }
 
     [Fact]
-    public async Task PostAdmin_and_returns_a_type_of_Action_Result()
+    public async Task RegisterAdmin_and_returns_a_type_of_Action_Result()
     {
 
         //Arrange
@@ -205,13 +204,13 @@ public class AdminUnitTests
 
         //Act
 
-        var result = await controller.PostAdmin(expectedAdmin);
+        var result = await controller.RegisterAdmin(expectedAdmin);
         // Assert
         Assert.IsType<ActionResult<Api.Models.Admin>>(result);
     }
 
     [Fact]
-    public async Task PostAdmin_and_returns_null()
+    public async Task RegisterAdmin_and_returns_null()
     {
 
         //Arrange
@@ -223,12 +222,12 @@ public class AdminUnitTests
 
         //Act
 
-        var result = await controller.PostAdmin(expectedAdmin);
+        var result = await controller.RegisterAdmin(expectedAdmin);
         Assert.Null(result.Value);
     }
 
         [Fact]
-    public async Task PostAdmin_and_returns_ObjectResult()
+    public async Task RegisterAdmin_and_returns_ObjectResult()
     {
 
         //Arrange
@@ -241,14 +240,14 @@ public class AdminUnitTests
 
         //Act
 
-        var result = await controller.PostAdmin(expectedAdmin);
+        var result = await controller.RegisterAdmin(expectedAdmin);
         // Assert
         // Assert.IsType<ActionResult<Api.Models.Admin>>(result);
         Assert.IsType<ObjectResult>(result.Result);
     }
 
      [Fact]
-    public async Task PostAdmin_and_returns_CreatedAtActionResult()
+    public async Task RegisterAdmin_and_returns_CreatedAtActionResult()
     {
 
         //Arrange
@@ -261,14 +260,14 @@ public class AdminUnitTests
 
         //Act
 
-        var result = await controller.PostAdmin(expectedAdmin);
+        var result = await controller.RegisterAdmin(expectedAdmin);
         // Assert
         // Assert.IsType<ActionResult<Api.Models.Admin>>(result);
         Assert.IsType<CreatedAtActionResult>(result.Result);
     }
 
     [Fact]
-    public async Task PostAdmin_and_returns_AdminExists_DbUpdateException()
+    public async Task RegisterAdmin_and_returns_AdminExists_DbUpdateException()
     {
 
         //Arrange
@@ -284,7 +283,7 @@ public class AdminUnitTests
         //Act
         try
         {
-           await controller.PostAdmin(expectedAdmin);
+           await controller.RegisterAdmin(expectedAdmin);
         }
         // Assert
         catch (Exception e)
@@ -295,7 +294,7 @@ public class AdminUnitTests
     }
 
     [Fact]
-    public async Task DeleteAdmin_and_returns_a_type_of_NotFoundResult()
+    public async Task DeleteAdminById_and_returns_a_type_of_NotFoundResult()
     {
 
         //Arrange
@@ -306,12 +305,12 @@ public class AdminUnitTests
         var controller = new AdminsController(repositoryStub.Object);
 
         //Act
-        var result = await controller.DeleteAdmin(expectedAdmin.Id);
+        var result = await controller.DeleteAdminById(expectedAdmin.Id);
         // Assert
         Assert.IsType<NotFoundResult>(result);
     }
     [Fact]
-    public async Task DeleteAdmin_and_returns_a_type_of_NotFound()
+    public async Task DeleteAdminById_and_returns_a_type_of_NotFound()
     {
 
         //Arrange
@@ -323,14 +322,14 @@ public class AdminUnitTests
 
         //Act
 
-        var result = await controller.DeleteAdmin(expectedTutor.Id);
+        var result = await controller.DeleteAdminById(expectedTutor.Id);
         // Assert
         Assert.IsType<NotFoundResult>(result);
     }
 
-        // Mock the DeleteAdmin method  and return a Value 
+        // Mock the DeleteAdminById method  and return a Value 
     [Fact]
-    public async Task DeleteAdmin_and_returns_a_type_of_NoContentResult()
+    public async Task DeleteAdminById_and_returns_a_type_of_NoContentResult()
     {
 
         //Arrange
@@ -342,7 +341,7 @@ public class AdminUnitTests
 
         //Act
 
-        var result = await controller.DeleteAdmin(expectedAdmin.Id);
+        var result = await controller.DeleteAdminById(expectedAdmin.Id);
         // Assert
         Assert.IsType<NoContentResult>(result);
     }

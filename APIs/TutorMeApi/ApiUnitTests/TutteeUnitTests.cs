@@ -38,7 +38,7 @@ public class TuteeUnitTests
         };
     }
     [Fact]
-    public async Task GetTuteeAsync_WithUnExistingTutee_ReturnsNotFound()
+    public async Task GetTuteeByIdAsync_WithUnExistingTutee_ReturnsNotFound()
     {
         //Arrange
 
@@ -47,13 +47,13 @@ public class TuteeUnitTests
         var controller = new TuteesController(repositoryStub.Object);
 
         //Act
-        var result = await controller.GetTutee(Guid.NewGuid());
+        var result = await controller.GetTuteeById(Guid.NewGuid());
         //Assert
         Assert.IsType<NotFoundResult>(result.Result);
     }
 
     [Fact]
-    public async Task GetTuteeAsync_WithUnExistingDb_ReturnsFound()
+    public async Task GetTuteeByIdAsync_WithUnExistingDb_ReturnsFound()
     {
         //Arrange
         var expectedTutee = CreateTutee();
@@ -65,7 +65,7 @@ public class TuteeUnitTests
 
         //Act
         Guid yourGuid = Guid.NewGuid();
-        var result = await controller.GetTutee(yourGuid);
+        var result = await controller.GetTuteeById(yourGuid);
 
         //Assert 
         result.Value.Should().BeEquivalentTo(expectedTutee,
@@ -74,7 +74,7 @@ public class TuteeUnitTests
 
     }
     [Fact]
-    public async Task GetTuteeAsync_WithAnEmptyDb()
+    public async Task GetTuteeByIdAsync_WithAnEmptyDb()
     {
         //Arrange
         var repositoryStub = new Mock<TutorMeContext>();
@@ -83,14 +83,14 @@ public class TuteeUnitTests
         //Act
         var controller = new TuteesController(repositoryStub.Object);
 
-        var result = await controller.GetTutee(new Guid());
+        var result = await controller.GetTuteeById(new Guid());
 
         //Assert     
         Assert.IsType<NotFoundResult>(result.Result);
     }
-    //  GetTutees
+    //  GetAllTutees
     [Fact]
-    public async Task GetTuteesAsync_WithExistingItem_ReturnsFound()
+    public async Task GetAllTuteesAsync_WithExistingItem_ReturnsFound()
     {
         //Arrange
         var repositoryStub = new Mock<TutorMeContext>();
@@ -99,15 +99,15 @@ public class TuteeUnitTests
 
         //Act
         Guid.NewGuid();
-        var result = await controller.GetTutees();
+        var result = await controller.GetAllTutees();
 
         //Assert     
         Assert.Null(result.Value);
 
     }
-    //  Mock the GetTutee Method to return a list of Tutees
+    //  Mock the GetTuteeById Method to return a list of Tutees
     [Fact]
-    public async Task GetTuteesAsync_WithExistingItemReturnsFound()
+    public async Task GetAllTuteesAsync_WithExistingItemReturnsFound()
     {
         //Arrange
         var repositoryStub = new Mock<TutorMeContext>();
@@ -116,14 +116,14 @@ public class TuteeUnitTests
         //Act
         var controller = new TuteesController(repositoryStub.Object);
 
-        var result = await controller.GetTutees();
+        var result = await controller.GetAllTutees();
 
         //Assert     
         Assert.IsType<NotFoundResult>(result.Result);
     }
    
    [Fact]
-   public async Task PutTutee_With_differentIds_BadRequestResult()
+   public async Task UpdateTutee_With_differentIds_BadRequestResult()
    {
        //Arrange
        var repositoryStub = new Mock<TutorMeContext>();
@@ -131,14 +131,14 @@ public class TuteeUnitTests
        //Act
        var controller = new TuteesController(repositoryStub.Object);
        var id = Guid.NewGuid();
-       var result = await controller.PutTutee(id, expectedTutee);
+       var result = await controller.UpdateTutee(id, expectedTutee);
 
        //Assert     
        Assert.IsType<BadRequestResult>(result);
    }
 
    [Fact]
-   public async Task PutTutee_With_same_Id_but_UnExisting_Tutor_returns_NullReferenceException()//####
+   public async Task UpdateTutee_With_same_Id_but_UnExisting_Tutor_returns_NullReferenceException()//####
    {
        //Arrange
        var repositoryStub = new Mock<TutorMeContext>();
@@ -150,7 +150,7 @@ public class TuteeUnitTests
       
         try
         {
-           await controller.PutTutee(expectedTutee.Id, expectedTutee);
+           await controller.UpdateTutee(expectedTutee.Id, expectedTutee);
         }
         //Assert   
         catch (Exception e)
@@ -160,7 +160,7 @@ public class TuteeUnitTests
 
     }
     [Fact]
-    public async Task PutTutee_WithUnExistingId_NotFound()
+    public async Task UpdateTutee_WithUnExistingId_NotFound()
     {
         //Arranage
         var repositoryStub = new Mock<TutorMeContext>();
@@ -169,7 +169,7 @@ public class TuteeUnitTests
         //Act
         var controller = new TuteesController(repositoryStub.Object);
         var id = Guid.NewGuid();
-        var result = await controller.PutTutee(id, expectedTutee);
+        var result = await controller.UpdateTutee(id, expectedTutee);
 
         //Assert     
         Assert.IsType<BadRequestResult>(result);
@@ -198,7 +198,7 @@ public class TuteeUnitTests
         Task<IActionResult> result;
         using (TutorMeContext ctx1 = new(optionsBuilder.Options))
         {
-            result =new TuteesController(ctx1).PutTutee(unExsistingTutee.Id,unExsistingTutee);
+            result =new TuteesController(ctx1).UpdateTutee(unExsistingTutee.Id,unExsistingTutee);
         }
     
         // result should be of type NotFoundResult
@@ -209,7 +209,7 @@ public class TuteeUnitTests
 
 
     [Fact]
-    public async Task PostTutee_and_returns_a_type_of_Action_Result_returns_null()
+    public async Task RegisterTutee_and_returns_a_type_of_Action_Result_returns_null()
     {
 
         //Arrange
@@ -221,13 +221,13 @@ public class TuteeUnitTests
 
         //Act
 
-        var result = await controller.PostTutee(expectedTutee);
+        var result = await controller.RegisterTutee(expectedTutee);
         // Assert
         Assert.IsType<ActionResult<Api.Models.Tutee>>(result);
 
     }
     [Fact]
-    public async Task PostTutee_and_returns_a_type_of_Action()
+    public async Task RegisterTutee_and_returns_a_type_of_Action()
     {
 
         //Arrange
@@ -239,13 +239,13 @@ public class TuteeUnitTests
 
         //Act
 
-        var result = await controller.PostTutee(expectedTutee);
+        var result = await controller.RegisterTutee(expectedTutee);
         // Assert
         // Assert.IsType<ActionResult<Api.Models.Tutee>>(result);
         Assert.Null(result.Value);
     }
     [Fact]
-    public async Task PostTutee_and_returns_ObjectResult()
+    public async Task RegisterTutee_and_returns_ObjectResult()
     {
 
         //Arrange
@@ -258,13 +258,13 @@ public class TuteeUnitTests
 
         //Act
 
-        var result = await controller.PostTutee(expectedTutee);
+        var result = await controller.RegisterTutee(expectedTutee);
         // Assert
         // Assert.IsType<ActionResult<Api.Models.Tutee>>(result);
         Assert.IsType<ObjectResult>(result.Result);
     }
     [Fact]
-    public async Task PostTutee_and_returns_CreatedAtActionResult()
+    public async Task RegisterTutee_and_returns_CreatedAtActionResult()
     {
 
        //Arrange
@@ -277,13 +277,13 @@ public class TuteeUnitTests
 
        //Act
 
-       var result = await controller.PostTutee(expectedTutee);
+       var result = await controller.RegisterTutee(expectedTutee);
        // Assert
        // Assert.IsType<ActionResult<Api.Models.Tutee>>(result);
        Assert.IsType<CreatedAtActionResult>(result.Result);
    }
    [Fact]
-   public async Task PostTutee_and_returns_TuteeExists_DbUpdateException()
+   public async Task RegisterTutee_and_returns_TuteeExists_DbUpdateException()
    {
 
        //Arrange
@@ -297,7 +297,7 @@ public class TuteeUnitTests
        //Act
        try
        {
-           var result = await controller.PostTutee(expectedTutee);
+           var result = await controller.RegisterTutee(expectedTutee);
        }
        // Assert
        catch (Exception e)
@@ -308,7 +308,7 @@ public class TuteeUnitTests
    }
 
    [Fact]
-   public async Task DeleteTutee_and_returns_a_type_of_NotFoundResult()
+   public async Task DeleteTuteeById_and_returns_a_type_of_NotFoundResult()
    {
 
        //Arrange
@@ -319,13 +319,13 @@ public class TuteeUnitTests
        var controller = new TuteesController(repositoryStub.Object);
 
        //Act
-       var result = await controller.DeleteTutee(expectedTutee.Id);
+       var result = await controller.DeleteTuteeById(expectedTutee.Id);
        // Assert
        Assert.IsType<NotFoundResult>(result);
    }
-   // Mock the DeleteTutee method  and return a Value 
+   // Mock the DeleteTuteeById method  and return a Value 
    [Fact]
-   public async Task DeleteTutee_and_returns_a_type_of_NoContentResult()
+   public async Task DeleteTuteeById_and_returns_a_type_of_NoContentResult()
    {
 
        //Arrange
@@ -337,12 +337,12 @@ public class TuteeUnitTests
 
        //Act
 
-       var result = await controller.DeleteTutee(expectedTutee.Id);
+       var result = await controller.DeleteTuteeById(expectedTutee.Id);
        // Assert
        Assert.IsType<NoContentResult>(result);
    }
    [Fact]
-   public async Task DeleteTutee_and_returns_a_type_of_NotFound()
+   public async Task DeleteTuteeById_and_returns_a_type_of_NotFound()
    {
 
        //Arrange
@@ -354,7 +354,7 @@ public class TuteeUnitTests
 
        //Act
 
-       var result = await controller.DeleteTutee(expectedTutee.Id);
+       var result = await controller.DeleteTuteeById(expectedTutee.Id);
        // Assert
        Assert.IsType<NotFoundResult>(result);
    }

@@ -8,7 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using NuGet.Protocol;
 
 
-//namespace IntegrationTests;
+namespace IntegrationTests;
 
 public class RequestControllerIntegrationTests :IClassFixture<WebApplicationFactory<Program>>
 {
@@ -137,7 +137,7 @@ public class RequestControllerIntegrationTests :IClassFixture<WebApplicationFact
         
         
         
-        //Request a tutor ( tutee request for a tutor)
+        //Request for a specific tutor ( tutee request for a tutor)  ## Tutee side
         var testRequest = new Request()
         {
             Id =Guid.NewGuid(),
@@ -153,19 +153,21 @@ public class RequestControllerIntegrationTests :IClassFixture<WebApplicationFact
         Assert.Equal(200, (double)requestResponse.StatusCode);
         
         
-        //Accept by  adding connections on both tutor and tutee side
-        var response = await _httpClient.GetAsync("http://localhost:7062/api/Requests");
+        // Accept by  adding connections on both tutor and tutee side
+        
+        //GetRequestsByTutorId  (Get the reuest)  ## Tutor side
+        var response = await _httpClient.GetAsync("http://localhost:7062/api/Requests/Tutor/"+testTutor.Id);
         Assert.NotNull(response);
         Assert.Equal(200, (double)response.StatusCode);
-
-        var requests = await response.Content.ReadFromJsonAsync<List<Request>>();
-        Assert.NotNull(requests);
-        Assert.Equal(1, requests.Count());
+        var request = await response.Content.ReadFromJsonAsync<List<Request>>();
+        Assert.NotNull(request);
+        Assert.Equal(1, request.Count());
         
         //Find a request for a specific tutor
-        Assert.Equal(requests[0].ReceiverId,testTutor.Id.ToString());
-        //Add connections on both sides
+        Assert.Equal(request[0].ReceiverId,testTutor.Id.ToString());
         
+        
+        //Now adding connections on both sides by updating the (Tutor and Tutee )
         
         // Updating Tutor
         testTutor.TuteesCode = testTutee.Id.ToString();
@@ -209,6 +211,7 @@ public class RequestControllerIntegrationTests :IClassFixture<WebApplicationFact
         { Assert.Equal(testTutor.Id.ToString(), Tutee.TutorsCode);
         }
 
+        
     }
     
 
@@ -222,7 +225,7 @@ public class RequestControllerIntegrationTests :IClassFixture<WebApplicationFact
         Assert.NotNull(response);
         Assert.Equal(200, (double)response.StatusCode);
 
-        var requests = await response.Content.ReadFromJsonAsync<List<Request>>();// ReadAsAsync<List<Request>>();
+        var requests = await response.Content.ReadFromJsonAsync<List<Request>>();
 
         Assert.Equal(0, requests.Count());
     }
@@ -436,6 +439,59 @@ public class RequestControllerIntegrationTests :IClassFixture<WebApplicationFact
       
         }
 
+    }
+
+    [Fact]
+    public async Task GetTutorsRequestById()
+    { var testRequest = new Request()
+        {
+            Id =Guid.NewGuid(),
+            RequesterId =Guid.NewGuid().ToString(),
+            ReceiverId =Guid.NewGuid().ToString(),
+            DateCreated ="26 April 1999",
+            ModuleCode =Guid.NewGuid().ToString()
+
+        };
+
+        //Act
+        var id = testRequest.Id;
+        await _httpClient.PostAsJsonAsync("https://localhost:7062/api/Requests", testRequest);
+        
+        var getTutorRequest = await _httpClient.GetAsync("https://localhost:7062/api/Requests/Tutor/"+testRequest.ReceiverId);
+        Assert.NotNull(getTutorRequest);
+        Assert.Equal(200, (double)getTutorRequest.StatusCode);
+        
+        var requests11 = await getTutorRequest.Content.ReadFromJsonAsync<List<Request>>();
+        Assert.NotNull(requests11);
+        Assert.Equal(1,requests11.Count);
+    
+    
+    }
+    [Fact]
+    public async Task GetTuteesRequestById()
+    { var testRequest = new Request()
+        {
+            Id =Guid.NewGuid(),
+            RequesterId =Guid.NewGuid().ToString(),
+            ReceiverId =Guid.NewGuid().ToString(),
+            DateCreated ="26 April 1999",
+            ModuleCode =Guid.NewGuid().ToString()
+
+        };
+
+        //Act
+        var id = testRequest.Id;
+        await _httpClient.PostAsJsonAsync("https://localhost:7062/api/Requests", testRequest);
+        
+        var getTutorRequest = await _httpClient.GetAsync("https://localhost:7062/api/Requests/Tutee/"+testRequest.RequesterId);
+        Assert.NotNull(getTutorRequest);
+        Assert.Equal(200, (double)getTutorRequest.StatusCode);
+        
+        var requests11 = await getTutorRequest.Content.ReadFromJsonAsync<List<Request>>();
+        Assert.NotNull(requests11);
+        Assert.Equal(1,requests11.Count);
+    
+    
     }
     [Fact]
     public async Task AddRequest()
