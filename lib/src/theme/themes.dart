@@ -6,7 +6,7 @@ class ThemeProvider extends ChangeNotifier{
 
   String toggleTheme(bool isOnOROff){
     String darkOrLight;
-    themeMode = isOnOROff ? ThemeMode.light : ThemeMode.dark;
+    themeMode = isOnOROff ? ThemeMode.dark : ThemeMode.light;
     darkOrLight = isOnOROff ? "Light Mode ": "Dark Mode ";
     notifyListeners();
 
