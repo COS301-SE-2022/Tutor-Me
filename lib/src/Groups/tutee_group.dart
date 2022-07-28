@@ -5,11 +5,13 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:provider/provider.dart';
 import 'package:tutor_me/services/models/tutees.dart';
 import 'package:tutor_me/services/services/group_services.dart';
 import 'package:tutor_me/services/services/tutor_services.dart';
 import 'package:tutor_me/src/chat/one_to_one_chat.dart';
 import 'package:tutor_me/src/colorpallete.dart';
+import 'package:tutor_me/src/theme/themes.dart';
 import 'package:tutor_me/src/tutorAndTuteeCollaboration/tuteeGroups/tuteeGroupSettings.dart';
 import 'package:http/http.dart' as http;
 import '../../screens/join_screen.dart';
@@ -152,6 +154,24 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
 
   @override
   Widget build(BuildContext context) {
+       final provider = Provider.of<ThemeProvider>(context,listen: false);
+    Color textColor ;
+    Color highlightColor;
+    Color primaryColor; 
+    
+    if(provider.themeMode == ThemeMode.dark)
+    {
+      highlightColor = colorOrange;
+      textColor = colorWhite ;
+      primaryColor = colorGrey;
+    }
+    else
+    {
+      highlightColor = colorTurqoise;
+      textColor = Colors.black ;
+      primaryColor = colorOrange;
+
+    }
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.height;
     return Scaffold(
@@ -159,7 +179,7 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
         preferredSize: Size.fromHeight(screenHeight * 0.08),
         child: AppBar(
           title: Text(widget.group.getModuleCode + '- Group'),
-          backgroundColor: colorOrange,
+          backgroundColor: primaryColor,
           actions: [
             IconButton(
                 onPressed: () {
@@ -224,8 +244,8 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
                                 child: Scrollbar(
                                   child: Text(
                                     widget.group.getDescription,
-                                    style: const TextStyle(
-                                      color: colorBlack,
+                                    style:  TextStyle(
+                                      color: textColor,
                                       fontSize: 16,
                                     ),
                                   ),
@@ -259,7 +279,7 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
                                 leading: Icon(
                                   Icons.chat,
                                   size: screenHeight * 0.06,
-                                  color: colorOrange,
+                                  color: primaryColor,
                                 ),
                                 title: Text(
                                   'Group Chat',
@@ -313,7 +333,7 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
                                   Icon(
                                     Icons.chat_bubble,
                                     size: screenHeight * 0.06,
-                                    color: colorOrange,
+                                    color: primaryColor,
                                   ),
                                   Positioned(
                                       top: screenHeight * 0.01,
@@ -391,7 +411,7 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
                               child: Text(
                                 "No other Tutees in this group",
                                 style: TextStyle(
-                                    color: Colors.black26,
+                                    color: highlightColor,
                                     fontSize:
                                         MediaQuery.of(context).size.width *
                                             0.06),
@@ -420,6 +440,19 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
   }
 
   Widget tutorBuilder(BuildContext context, int i) {
+
+         final provider = Provider.of<ThemeProvider>(context,listen: false);
+
+    Color primaryColor; 
+    
+    if(provider.themeMode == ThemeMode.dark)
+    {
+      primaryColor = colorGrey;
+    }
+    else
+    {
+      primaryColor = colorOrange;
+    }
     //getTutees
     String name = tutorObj.getName + ' ' + tutorObj.getLastName;
     return InkWell(
@@ -470,7 +503,7 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
               trailing: Icon(
                 Icons.chat_bubble,
                 size: MediaQuery.of(context).size.aspectRatio * 80,
-                color: colorOrange,
+                color: primaryColor,
               ),
             )));
   }
