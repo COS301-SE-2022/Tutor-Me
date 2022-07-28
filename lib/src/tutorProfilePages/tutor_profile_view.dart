@@ -53,6 +53,7 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
     setState(() {
       currentModules = current;
     });
+
     getConnections();
   }
 
@@ -98,8 +99,10 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
       setState(() {
         tutors = tutors;
       });
+
       getProfileImage();
     }
+    getProfileImage();
   }
 
   bool checkConnection() {
@@ -658,7 +661,7 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
         context: context,
         builder: (context) {
           return WillPopScope(
-            onWillPop: (() async => false),
+            onWillPop: (() async => true),
             child: StatefulBuilder(builder: (context, setState) {
               return AlertDialog(
                   title: const Text("Alert"),
@@ -677,26 +680,35 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
                                     side: const BorderSide(
                                         width: 2, color: colorTurqoise)),
                                 onPressed: () async {
-                                  setState(() {
-                                    isRequestLoading = true;
-                                  });
-
-                                  bool val = await TuteeServices().sendRequest(
-                                      widget.tutor.getId,
-                                      widget.tutee.getId,
-                                      modulesRequested);
-
-                                  if (val) {
+                                  try {
                                     setState(() {
-                                      isRequestLoading = false;
-                                      isRequestDone = true;
+                                      isRequestLoading = true;
                                     });
-                                  }
 
-                                  Future.delayed(
-                                      const Duration(milliseconds: 1000), () {
-                                    Navigator.of(context).pop();
-                                  });
+                                    bool val = await TuteeServices()
+                                        .sendRequest(
+                                            widget.tutor.getId,
+                                            widget.tutee.getId,
+                                            modulesRequested);
+
+                                    if (val) {
+                                      setState(() {
+                                        isRequestLoading = false;
+                                        isRequestDone = true;
+                                      });
+                                    }
+
+                                    Future.delayed(
+                                        const Duration(milliseconds: 1000), () {
+                                      Navigator.of(context).pop();
+                                    });
+                                  } catch (e) {
+                                     const snackBar = SnackBar(
+                                        content: Text('Failed to send request.'),
+                                      );
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(snackBar);
+                                  }
                                 },
                                 child: const Text(
                                   'Confirm',
