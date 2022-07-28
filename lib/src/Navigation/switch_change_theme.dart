@@ -17,7 +17,7 @@ class ChangeThemeButtonWidget extends StatelessWidget {
 
     return  Row(
       children: [
-        const Text("      Light Mode",style: TextStyle(fontSize: 15, color:  colorWhite ),),
+        const Text("      Dark Mode",style: TextStyle(fontSize: 15, color:  colorWhite ),),
         Switch.adaptive(
           value: themeProvider.isDarkMode,
           onChanged: (value)  {
