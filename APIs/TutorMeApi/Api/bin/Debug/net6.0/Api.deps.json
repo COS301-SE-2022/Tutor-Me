@@ -872,22 +872,38 @@
           "runtimes/win-arm/native/Microsoft.Data.SqlClient.SNI.dll": {
             "rid": "win-arm",
             "assetType": "native",
+<<<<<<< HEAD
+            "fileVersion": "2.1.1.0"
+=======
             "fileVersion": "0.0.0.0"
+>>>>>>> ebfd2078e7de639569b560fbb48c9cc23798dff7
           },
           "runtimes/win-arm64/native/Microsoft.Data.SqlClient.SNI.dll": {
             "rid": "win-arm64",
             "assetType": "native",
+<<<<<<< HEAD
+            "fileVersion": "2.1.1.0"
+=======
             "fileVersion": "0.0.0.0"
+>>>>>>> ebfd2078e7de639569b560fbb48c9cc23798dff7
           },
           "runtimes/win-x64/native/Microsoft.Data.SqlClient.SNI.dll": {
             "rid": "win-x64",
             "assetType": "native",
+<<<<<<< HEAD
+            "fileVersion": "2.1.1.0"
+=======
             "fileVersion": "0.0.0.0"
+>>>>>>> ebfd2078e7de639569b560fbb48c9cc23798dff7
           },
           "runtimes/win-x86/native/Microsoft.Data.SqlClient.SNI.dll": {
             "rid": "win-x86",
             "assetType": "native",
+<<<<<<< HEAD
+            "fileVersion": "2.1.1.0"
+=======
             "fileVersion": "0.0.0.0"
+>>>>>>> ebfd2078e7de639569b560fbb48c9cc23798dff7
           }
         }
       },
@@ -2333,7 +2349,11 @@
         "runtime": {
           "lib/netstandard2.0/xunit.abstractions.dll": {
             "assemblyVersion": "2.0.0.0",
+<<<<<<< HEAD
+            "fileVersion": "2.0.0.0"
+=======
             "fileVersion": "0.0.0.0"
+>>>>>>> ebfd2078e7de639569b560fbb48c9cc23798dff7
           }
         }
       },
