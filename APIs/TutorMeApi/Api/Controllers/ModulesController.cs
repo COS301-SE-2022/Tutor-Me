@@ -102,7 +102,7 @@ namespace Api.Controllers
                 }
             }
 
-            return CreatedAtAction("GetModule", new { id = module.Code }, module);
+            return CreatedAtAction("GetModuleById", new { id = module.Code }, module);
         }
 
         // DELETE: api/Modules/5
