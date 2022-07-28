@@ -136,72 +136,7 @@ public class RequestUnitTests
         //Assert     
         Assert.IsType<NotFoundResult>(result.Result);
     }
-    //     [Fact]
-    // public void GetTutorRequestsFromDatabaseByTutorId()
-    // {
-    //     DbContextOptionsBuilder<TutorMeContext> optionsBuilder = new();
-    //     var databaseName = MethodBase.GetCurrentMethod()?.Name;
-    //     if (databaseName != null)
-    //         optionsBuilder.UseInMemoryDatabase(databaseName);
-    //     
-    //     var newRequest1 = CreateRequest();
-    //     var newRequest2 = CreateRequest();
-    //     var newRequest3 = CreateRequest();
-    //     
-    //     var requesterId1=Guid.NewGuid().ToString();
-    //     var receiverId1 = Guid.NewGuid().ToString();
-    //    
-    //         newRequest1.ReceiverId = receiverId1;
-    //         newRequest1.RequesterId = requesterId1;
-    //         newRequest1.DateCreated = "26 April 2022";
-    //                         
-    //
-    //     var receiverId2 = Guid.NewGuid().ToString();
-    //     var requesterId2=Guid.NewGuid().ToString();
-    //     
-    //         newRequest2.ReceiverId = receiverId2;
-    //         newRequest2.RequesterId = requesterId2;
-    //         newRequest3.DateCreated = "27 April 2022";
-    //         
-    //    
-    //         newRequest3.ReceiverId  = receiverId1;
-    //         newRequest3.RequesterId = receiverId2;
-    //         newRequest3.DateCreated = "28 April 2022";
-    //     
-    //         
-    //       
-    //     using (TutorMeContext ctx = new(optionsBuilder.Options))
-    //     {
-    //         ctx.Add(newRequest1);
-    //        // ctx.Add(newRequest2);
-    //        // ctx.Add(newRequest3);
-    //         ctx.SaveChangesAsync();
-    //     }
-    //
-    //     Task<ActionResult<Request>> result;
-    //     using (TutorMeContext ctx1 = new(optionsBuilder.Options))
-    //     {
-    //         result =new RequestsController(ctx1).GetRequestsByTutorId(newRequest1.ReceiverId);
-    //     }
-    //
-    //     var actionResult = Assert.IsType<ActionResult<Request>>(result.Result);
-    //     var okResult1= Assert.IsType<OkObjectResult>(actionResult.Result);
-    //     var requests = Assert.IsType<List<Request>>(okResult1.Value);
-    //   
-    //     Assert.NotNull(requests);
-    //     Assert.Equal(2,requests.Count);
-    //     
-    //     Assert.Equal(newRequest1.RequesterId, requests[0].RequesterId);
-    //     Assert.Equal(newRequest1.ReceiverId, requests[0].ReceiverId);
-    //     Assert.Equal("26 April 2022", requests[0].DateCreated);
-    //     
-    //     Assert.Equal(newRequest3.RequesterId, requests[1].RequesterId);
-    //     Assert.Equal(newRequest3.ReceiverId, requests[1].ReceiverId);
-    //     Assert.Equal("28 April 2022", requests[1].DateCreated);
-    //     
-    // }
-    //
-
+   
     //Test the UpdateRequest Method to check if id is the same as the id in the DTO
     [Fact]
     public async Task UpdateRequest_With_differentIds_BadRequestResult()

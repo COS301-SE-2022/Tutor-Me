@@ -51,9 +51,9 @@ public class AdminIntegrationTests :IClassFixture<WebApplicationFactory<Program>
         Assert.NotNull(response);
         Assert.Equal(200, (double)response.StatusCode);
 
-        var Admins = await response.Content.ReadFromJsonAsync<List<Admin>>();
+        var admins = await response.Content.ReadFromJsonAsync<List<Admin>>();
 
-        Assert.Equal(0, Admins.Count());
+        Assert.Equal(0, admins.Count());
     }
     
     [Fact]
@@ -97,9 +97,9 @@ public class AdminIntegrationTests :IClassFixture<WebApplicationFactory<Program>
         Assert.NotNull(response);
         Assert.Equal(200, (double)response.StatusCode);
 
-        var Admins = await response.Content.ReadFromJsonAsync<List<Admin>>();
-        Assert.NotNull(Admins);
-        Assert.Equal(3, Admins.Count());
+        var admins = await response.Content.ReadFromJsonAsync<List<Admin>>();
+        Assert.NotNull(admins);
+        Assert.Equal(3, admins.Count());
     }
     
     [Fact]
@@ -155,15 +155,15 @@ public class AdminIntegrationTests :IClassFixture<WebApplicationFactory<Program>
         Assert.NotNull(response);
         Assert.Equal(200, (double)response.StatusCode);
 
-        var Admin = await response.Content.ReadFromJsonAsync<Admin>();
+        var admin = await response.Content.ReadFromJsonAsync<Admin>();
 
-        Assert.NotNull(Admin);
-        if (Admin != null)
+        Assert.NotNull(admin);
+        if (admin != null)
         {
-            Assert.Equal(testAdmin.Id, Admin.Id);
-            Assert.Equal(testAdmin.Name, Admin.Name);
-            Assert.Equal(testAdmin.Email, Admin.Email);
-            Assert.Equal(testAdmin.Password, Admin.Password);
+            Assert.Equal(testAdmin.Id, admin.Id);
+            Assert.Equal(testAdmin.Name, admin.Name);
+            Assert.Equal(testAdmin.Email, admin.Email);
+            Assert.Equal(testAdmin.Password, admin.Password);
         }
     }
     
@@ -246,15 +246,15 @@ public class AdminIntegrationTests :IClassFixture<WebApplicationFactory<Program>
         Assert.NotNull(response);
         Assert.Equal(200, (double)response.StatusCode);
 
-        var Admin = await response.Content.ReadFromJsonAsync<Admin>();
+        var admin = await response.Content.ReadFromJsonAsync<Admin>();
 
-        Assert.NotNull(Admin);
-        if (Admin != null)
+        Assert.NotNull(admin);
+        if (admin != null)
         {
-            Assert.Equal(testAdmin.Id, Admin.Id);
-            Assert.Equal(testAdmin.Name, Admin.Name);
-            Assert.Equal(testAdmin.Email, Admin.Email);
-            Assert.Equal(testAdmin.Password, Admin.Password);
+            Assert.Equal(testAdmin.Id, admin.Id);
+            Assert.Equal(testAdmin.Name, admin.Name);
+            Assert.Equal(testAdmin.Email, admin.Email);
+            Assert.Equal(testAdmin.Password, admin.Password);
         }
 
     }
@@ -279,15 +279,15 @@ public class AdminIntegrationTests :IClassFixture<WebApplicationFactory<Program>
         Assert.NotNull(response);
         Assert.Equal(200, (double)response.StatusCode);
 
-        var Admin = await response.Content.ReadFromJsonAsync<Admin>();
+        var admin = await response.Content.ReadFromJsonAsync<Admin>();
 
-        Assert.NotNull(Admin);
-        if (Admin != null)
+        Assert.NotNull(admin);
+        if (admin != null)
         {
-            Assert.Equal(testAdmin.Id, Admin.Id);
-            Assert.Equal(testAdmin.Name, Admin.Name);
-            Assert.Equal(testAdmin.Email, Admin.Email);
-            Assert.Equal(testAdmin.Password, Admin.Password);
+            Assert.Equal(testAdmin.Id, admin.Id);
+            Assert.Equal(testAdmin.Name, admin.Name);
+            Assert.Equal(testAdmin.Email, admin.Email);
+            Assert.Equal(testAdmin.Password, admin.Password);
             
         }
     }
