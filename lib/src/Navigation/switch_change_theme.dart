@@ -19,7 +19,7 @@ class ChangeThemeButtonWidget extends StatelessWidget {
       children: [
         const Text("      Dark Mode",style: TextStyle(fontSize: 15, color:  colorWhite ),),
         Switch.adaptive(
-          value: themeProvider.isDarkMode,
+          value: !themeProvider.isDarkMode,
           onChanged: (value)  {
             final provider = Provider.of<ThemeProvider>(context,listen: false);
             provider.toggleTheme(value);
