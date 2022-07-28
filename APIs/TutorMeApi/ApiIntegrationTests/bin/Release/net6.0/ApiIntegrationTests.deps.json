@@ -38,6 +38,7 @@
           "Microsoft.AspNetCore.Mvc.Testing": "6.0.0",
           "Microsoft.EntityFrameworkCore": "6.0.7",
           "Microsoft.EntityFrameworkCore.InMemory": "6.0.0",
+          "Microsoft.Extensions.Configuration.Json": "6.0.0",
           "Microsoft.NET.Test.Sdk": "17.1.0",
           "coverlet.collector": "3.1.2",
           "xunit": "2.4.1",
