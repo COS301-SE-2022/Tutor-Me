@@ -1,9 +1,11 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:tutor_me/services/models/tutors.dart';
 import 'package:tutor_me/services/models/tutees.dart';
 import 'package:tutor_me/services/services/tutee_services.dart';
+import 'package:tutor_me/src/theme/themes.dart';
 // import 'package:tutor_me/src/colorPalette.dart';
 
 import '../../services/models/modules.dart';
@@ -127,6 +129,7 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
 
   @override
   Widget build(BuildContext context) {
+  
     return Scaffold(
         body: isLoading
             ? const Center(
@@ -143,6 +146,22 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
   }
 
   Widget buildBody() {
+
+       final provider = Provider.of<ThemeProvider>(context,listen: false);
+    Color textColor ;
+    Color secondaryTextColor ;
+    
+    if(provider.themeMode == ThemeMode.dark)
+    {
+      textColor = colorWhite ;
+      secondaryTextColor = colorGrey;
+    }
+    else
+    {
+      textColor = Colors.black ;
+      secondaryTextColor = colorTurqoise;
+    }
+
     final screenWidthSize = MediaQuery.of(context).size.width;
     final screenHeightSize = MediaQuery.of(context).size.height;
     String tutorName = widget.tutor.getName + ' ' + widget.tutor.getLastName;
@@ -161,13 +180,13 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
         style: TextStyle(
           fontSize: screenWidthSize * 0.08,
           fontWeight: FontWeight.bold,
-          color: Colors.black,
+          color: textColor,
         ),
       ),
       SmallTagButton(
         btnName: "Tutor",
         onPressed: () {},
-        backColor: colorTurqoise,
+        backColor: secondaryTextColor,
       ),
       SizedBox(height: screenHeightSize * 0.01),
       Text(
@@ -198,7 +217,7 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
             style: TextStyle(
               fontSize: screenWidthSize * 0.065,
               fontWeight: FontWeight.bold,
-              color: Colors.black,
+              color: textColor,
             ),
           ),
         ),
@@ -216,7 +235,7 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
               style: TextStyle(
                 fontSize: screenWidthSize * 0.05,
                 fontWeight: FontWeight.normal,
-                color: Colors.black,
+                color: secondaryTextColor,
               )),
         ),
       ),
@@ -231,7 +250,7 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
               style: TextStyle(
                 fontSize: screenWidthSize * 0.06,
                 fontWeight: FontWeight.bold,
-                color: Colors.black,
+                color: textColor,
               )),
         ),
       ),
@@ -248,7 +267,7 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
               style: TextStyle(
                 fontSize: screenWidthSize * 0.05,
                 fontWeight: FontWeight.normal,
-                color: Colors.black,
+                color: secondaryTextColor,
               )),
         ),
       ),
@@ -264,7 +283,7 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
               style: TextStyle(
                 fontSize: screenWidthSize * 0.06,
                 fontWeight: FontWeight.bold,
-                color: Colors.black,
+                color: textColor,
               )),
         ),
       ),
@@ -310,6 +329,20 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
   }
 
   Widget topDesign() {
+     final provider = Provider.of<ThemeProvider>(context,listen: false);
+    Color textColor ;
+    Color highlightColor;
+    
+    if(provider.themeMode == ThemeMode.dark)
+    {
+      highlightColor = colorOrange;
+      textColor = colorWhite ;
+    }
+    else
+    {
+      highlightColor = colorTurqoise;
+      textColor = Colors.black ;
+    }
     return Stack(
       clipBehavior: Clip.none,
       alignment: Alignment.center,
@@ -328,9 +361,9 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
                 left: MediaQuery.of(context).size.height * 0.01,
                 child: ElevatedButton(
                     child: Row(
-                      children: const <Widget>[
-                        Text('Rate'),
-                        Icon(
+                      children:  <Widget>[
+                        Text('Rate' , style: TextStyle(color: textColor)),
+                        const Icon(
                           Icons.star,
                           color: Colors.yellow,
                         )
@@ -341,7 +374,7 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
                     },
                     style: ButtonStyle(
                         backgroundColor:
-                            MaterialStateProperty.all(colorTurqoise),
+                            MaterialStateProperty.all(highlightColor),
                         shape: MaterialStateProperty.all(RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(
                                 MediaQuery.of(context).size.width * 0.1))))))
@@ -351,9 +384,22 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
   }
 
   void popUpDialog(BuildContext context) => showDialog(
+    
       barrierDismissible: false,
       context: context,
       builder: (context) {
+         final provider = Provider.of<ThemeProvider>(context,listen: false);
+    Color highlightColor;
+    
+    if(provider.themeMode == ThemeMode.dark)
+    {
+      highlightColor = colorOrange;
+    
+    }
+    else
+    {
+      highlightColor = colorTurqoise;
+    }
         return StatefulBuilder(builder: (context, setState) {
           return SimpleDialog(
             title: Row(
@@ -490,9 +536,9 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
 
                       Navigator.of(context).pop();
                     },
-                    child: const Text(
+                    child:  Text(
                       'Save',
-                      style: TextStyle(color: colorTurqoise),
+                      style: TextStyle(color: highlightColor),
                     )),
               )
             ],
@@ -550,6 +596,20 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
       );
 
   Widget _moduleListBuilder(BuildContext context, int i) {
+      final provider = Provider.of<ThemeProvider>(context,listen: false);
+    Color textColor ;
+    Color highlightColor;
+    
+    if(provider.themeMode == ThemeMode.dark)
+    {
+      highlightColor = colorOrange;
+      textColor = colorWhite ;
+    }
+    else
+    {
+      highlightColor = colorTurqoise;
+      textColor = Colors.black ;
+    }
     String moduleDescription =
         currentModules[i].getModuleName + '(' + currentModules[i].getCode + ')';
     return Row(
@@ -557,7 +617,7 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
         Icon(
           Icons.book,
           size: MediaQuery.of(context).size.height * 0.02,
-          color: colorTurqoise,
+          color: highlightColor,
         ),
         Expanded(
           child: Text(
@@ -566,7 +626,7 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
               fontSize: MediaQuery.of(context).size.width * 0.05,
-              color: Colors.black,
+              color:textColor.withOpacity(0.8) ,
             ),
           ),
         ),
