@@ -1,13 +1,14 @@
+using System.Reflection;
 using Api.Controllers;
 using Api.Data;
 using Api.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 
 namespace ApiUnitTests;
-
 using FluentAssertions;
 using Moq;
 public class TutorUnitTests
@@ -34,6 +35,7 @@ public class TutorUnitTests
             Bio = Guid.NewGuid().ToString(),
             Connections = Guid.NewGuid().ToString(),
             Rating = Guid.NewGuid().ToString(),
+            Year=Guid.NewGuid().ToString()
         };
     }
     [Fact]
@@ -149,6 +151,38 @@ public class TutorUnitTests
         //Assert     
         Assert.IsType<BadRequestResult>(result);
     }
+     [Fact]
+    public void ModifiesTutor_Returns_NotFoundResult()
+    {
+        DbContextOptionsBuilder<TutorMeContext> optionsBuilder = new();
+        var databaseName = MethodBase.GetCurrentMethod()?.Name;
+        if (databaseName != null)
+            optionsBuilder.UseInMemoryDatabase(databaseName);
+    
+        var newTutor = CreateTutor();
+        using (TutorMeContext ctx = new(optionsBuilder.Options))
+        {
+            ctx.Add(newTutor);
+            ctx.SaveChangesAsync();
+        }
+    
+        //Modify the tutors Bio
+        newTutor.Bio = "Naruto fan";
+        var id = new Guid();
+        var unExsistingTutor = CreateTutor();
+        unExsistingTutor.Id = id;
+        Task<IActionResult> result;
+        using (TutorMeContext ctx1 = new(optionsBuilder.Options))
+        {
+            result =new TutorsController(ctx1).PutTutor(unExsistingTutor.Id,unExsistingTutor);
+        }
+    
+        // result should be of type NotFoundResult
+        Assert.IsType<NotFoundResult>(result.Result);
+        
+       
+    }
+    
 
     [Fact]
     public async Task PutTutor_With_same_Id_but_UnExisting_Tutor_returns_NullReferenceException()//####
@@ -186,7 +220,6 @@ public class TutorUnitTests
         //Assert     
         Assert.IsType<BadRequestResult>(result);
     }
-
 
 
 

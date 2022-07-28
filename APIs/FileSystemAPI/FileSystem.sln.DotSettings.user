@@ -6,7 +6,5 @@
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=7c3d7386_002D1e89_002D462e_002Db64a_002D34b11ac5caae/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="TutorFileFilesUnitTests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;TestAncestor&gt;
-    &lt;TestId&gt;xUnit::263C2022-C710-4A51-A865-2C8D8EF411D6::net6.0::FileSystemUnitTests.TutorFileFilesUnitTests&lt;/TestId&gt;
-  &lt;/TestAncestor&gt;
+  &lt;Solution /&gt;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

@@ -155,6 +155,10 @@
               "target": "Package",
               "version": "[6.0.0, )"
             },
+            "Microsoft.Extensions.Configuration.Json": {
+              "target": "Package",
+              "version": "[6.0.0, )"
+            },
             "Microsoft.NET.Test.Sdk": {
               "target": "Package",
               "version": "[17.1.0, )"

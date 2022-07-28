@@ -2081,3 +2081,4 @@ c:/Users/Dell/Documents/School/Capstone/Tutor-ME/APIs/TutorMeApi/ApiUnitTests/ob
 c:/Users/Dell/Documents/School/Capstone/Tutor-ME/APIs/TutorMeApi/ApiUnitTests/obj/Debug/net6.0/ApiUnitTests.genruntimeconfig.cache
 c:/Users/Dell/Documents/School/Capstone/Tutor-ME/APIs/TutorMeApi/ApiUnitTests/obj/Debug/net6.0/ref/ApiUnitTests.dll
 /home/simphiwe/Desktop/updated_CapsOn/Tutor-ME/APIs/TutorMeApi/ApiUnitTests/bin/Debug/net6.0/aws-beanstalk-tools-defaults.json
+/home/simphiwe/Desktop/updated_CapsOn/Tutor-ME/APIs/TutorMeApi/ApiUnitTests/bin/Debug/net6.0/Microsoft.EntityFrameworkCore.InMemory.dll

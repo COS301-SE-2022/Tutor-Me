@@ -1,3 +1,4 @@
+using System.Reflection;
 using Api.Controllers;
 using Api.Data;
 using Api.Models;
@@ -161,6 +162,38 @@ public class GroupUnitTests
         //Assert     
         Assert.IsType<BadRequestResult>(result);
     }
+    
+    [Fact]
+    public void ModifiesGroup_Returns_NotFoundResult()
+    {
+        DbContextOptionsBuilder<TutorMeContext> optionsBuilder = new();
+        var databaseName = MethodBase.GetCurrentMethod()?.Name;
+        if (databaseName != null)
+            optionsBuilder.UseInMemoryDatabase(databaseName);
+    
+        var newGroup = CreateGroup();
+        using (TutorMeContext ctx = new(optionsBuilder.Options))
+        {
+            ctx.Add(newGroup);
+            ctx.SaveChangesAsync();
+        }
+    
+        //Modify the tutors Bio
+        newGroup.ModuleName = "Software Engineering Cos 301";
+        var id = Guid.NewGuid();
+        var unExsistingGroup = CreateGroup();
+        unExsistingGroup.Id = id;
+        Task<IActionResult>  result;
+        using (TutorMeContext ctx1 = new(optionsBuilder.Options))
+        {
+            result =new GroupsController(ctx1).PutGroup(unExsistingGroup.Id,unExsistingGroup);
+        }
+    
+        // result should be of type NotFoundResult
+        Assert.IsType<NotFoundResult>(result.Result);
+        
+       
+    }
 
     [Fact]
     public async Task PostGroup_and_returns_a_type_of_Action_Result()
@@ -280,6 +313,23 @@ public class GroupUnitTests
         // Assert
         Assert.IsType<NotFoundResult>(result);
     }
+    [Fact]
+    public async Task DeleteGroup_and_returns_a_type_of_NotFound()
+    {
+
+        //Arrange
+        var expectedTutor = CreateGroup();
+
+        var repositoryStub = new Mock<TutorMeContext>();
+        repositoryStub.Setup(repo => repo.Group).Returns((DbSet<Group>)null);
+        var controller = new GroupsController(repositoryStub.Object);
+
+        //Act
+
+        var result = await controller.DeleteGroup(expectedTutor.Id);
+        // Assert
+        Assert.IsType<NotFoundResult>(result);
+    }
 
         // Mock the DeleteGroup method  and return a Value 
     [Fact]
@@ -294,7 +344,6 @@ public class GroupUnitTests
         var controller = new GroupsController(repositoryStub.Object);
 
         //Act
-
         var result = await controller.DeleteGroup(expectedGroup.Id);
         // Assert
         Assert.IsType<NoContentResult>(result);

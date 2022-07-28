@@ -1,3 +1,4 @@
+using System.Reflection;
 using Api.Controllers;
 using Api.Data;
 using Api.Models;
@@ -174,7 +175,37 @@ public class TuteeUnitTests
         Assert.IsType<BadRequestResult>(result);
     }
 
-
+    [Fact]
+    public void ModifiesTutee_Returns_NotFoundResult()
+    {
+        DbContextOptionsBuilder<TutorMeContext> optionsBuilder = new();
+        var databaseName = MethodBase.GetCurrentMethod()?.Name;
+        if (databaseName != null)
+            optionsBuilder.UseInMemoryDatabase(databaseName);
+    
+        var newTutee = CreateTutee();
+        using (TutorMeContext ctx = new(optionsBuilder.Options))
+        {
+            ctx.Add(newTutee);
+            ctx.SaveChangesAsync();
+        }
+    
+        //Modify the tutors Bio
+        newTutee.Bio = "Naruto fan";
+        var id = new Guid();
+        var unExsistingTutee = CreateTutee();
+        unExsistingTutee.Id = id;
+        Task<IActionResult> result;
+        using (TutorMeContext ctx1 = new(optionsBuilder.Options))
+        {
+            result =new TuteesController(ctx1).PutTutee(unExsistingTutee.Id,unExsistingTutee);
+        }
+    
+        // result should be of type NotFoundResult
+        Assert.IsType<NotFoundResult>(result.Result);
+        
+       
+    }
 
 
     [Fact]

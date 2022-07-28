@@ -1,9 +1,10 @@
+using System.Reflection;
 using Api.Controllers;
 using Api.Data;
-using Api.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Module = Api.Models.Module;
 
 
 namespace ApiUnitTests;
@@ -159,7 +160,37 @@ public class ModulesUnitTests
         Assert.IsType< BadRequestResult>(result);
     }
 
- 
+    [Fact]
+    public void ModifiesModule_Returns_NotFoundResult()
+    {
+        DbContextOptionsBuilder<TutorMeContext> optionsBuilder = new();
+        var databaseName = MethodBase.GetCurrentMethod()?.Name;
+        if (databaseName != null)
+            optionsBuilder.UseInMemoryDatabase(databaseName);
+    
+        var newRequest = CreateModule();
+        using (TutorMeContext ctx = new(optionsBuilder.Options))
+        {
+            ctx.Add(newRequest);
+            ctx.SaveChangesAsync();
+        }
+    
+        //Modify the tutors Bio
+        newRequest.ModuleName = "Software Engineering Cos 301";
+        var id = Guid.NewGuid().ToString();
+        var unExsistingModule = CreateModule();
+        unExsistingModule.Code = id;
+        Task<IActionResult>  result;
+        using (TutorMeContext ctx1 = new(optionsBuilder.Options))
+        {
+            result =new ModulesController(ctx1).PutModule(unExsistingModule.Code,unExsistingModule);
+        }
+    
+        // result should be of type NotFoundResult
+        Assert.IsType<NotFoundResult>(result.Result);
+        
+       
+    }
 
 
     [Fact]
