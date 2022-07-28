@@ -17,7 +17,8 @@ class GroupServices {
       'moduleName': moduleName,
       'tutees': '',
       'tutorId': tutorId,
-      'description': 'No description added'
+      'description': 'No description added',
+      'groupLink':''
     });
 
     final header = <String, String>{
@@ -125,7 +126,7 @@ class GroupServices {
       'tutees': group.getTutees,
       'tutorId': group.getTutorId,
       'description': group.getDescription,
-      'groupLink': group.getGroupLink
+      'groupLink':group.getGroupLink
     });
 
     final header = <String, String>{
