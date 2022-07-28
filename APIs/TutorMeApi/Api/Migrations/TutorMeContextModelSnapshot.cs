@@ -90,16 +90,14 @@ namespace Api.Migrations
 
                     b.Property<string>("Tutees")
                         .IsRequired()
-                        .HasMaxLength(36)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(36)")
+                        .HasColumnType("varchar(max)")
                         .HasColumnName("tutees");
 
                     b.Property<string>("TutorId")
                         .IsRequired()
-                        .HasMaxLength(36)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(36)")
+                        .HasColumnType("varchar(max)")
                         .HasColumnName("tutorId");
 
                     b.HasKey("Id");
