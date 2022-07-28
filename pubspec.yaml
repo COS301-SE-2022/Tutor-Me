@@ -33,7 +33,11 @@ dependencies:
   google_fonts: ^3.0.1
   grouped_list: ^4.2.0
   signalr_core: ^1.1.1
+
+  smooth_page_indicator: ^1.0.0+2
+
   provider: ^5.0.0
+
   
 dev_dependencies:
   flutter_test:
