@@ -124,7 +124,8 @@ class GroupServices {
       'moduleName': group.getModuleName,
       'tutees': group.getTutees,
       'tutorId': group.getTutorId,
-      'description': group.getDescription
+      'description': group.getDescription,
+      'groupLink': group.getGroupLink
     });
 
     final header = <String, String>{
