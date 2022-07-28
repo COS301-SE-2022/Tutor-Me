@@ -142,13 +142,11 @@ namespace Api.Data
 
                 entity.Property(e => e.Tutees)
                     .IsRequired()
-                    .HasMaxLength(36)
                     .IsUnicode(false)
                     .HasColumnName("tutees");
 
                 entity.Property(e => e.TutorId)
                     .IsRequired()
-                    .HasMaxLength(36)
                     .IsUnicode(false)
                     .HasColumnName("tutorId");
                 
