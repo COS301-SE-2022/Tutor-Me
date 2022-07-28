@@ -1044,8 +1044,6 @@
           "lib/netstandard2.0/_._": {}
         }
       },
-<<<<<<< HEAD
-=======
       "Microsoft.EntityFrameworkCore.InMemory/6.0.0": {
         "type": "package",
         "dependencies": {
@@ -1058,7 +1056,6 @@
           "lib/net6.0/Microsoft.EntityFrameworkCore.InMemory.dll": {}
         }
       },
->>>>>>> ebfd2078e7de639569b560fbb48c9cc23798dff7
       "Microsoft.EntityFrameworkCore.Relational/6.0.7": {
         "type": "package",
         "dependencies": {
