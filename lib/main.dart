@@ -15,7 +15,7 @@ void main() async {
 //   // await TutorServices().acceptRequest('6666EB8B-2AE2-4872-9595-9830C8912243');
 
 //   // final settingsController = SettingsController(SettingsService());
-//   await dotenv.load(fileName: ".env");
+   await dotenv.load(fileName: ".env");
 
 //   // await settingsController.loadSettings();
 runApp(const MyApp());

@@ -1044,8 +1044,6 @@
           "lib/netstandard2.0/_._": {}
         }
       },
-<<<<<<< HEAD
-=======
       "Microsoft.EntityFrameworkCore.InMemory/6.0.0": {
         "type": "package",
         "dependencies": {
@@ -1058,7 +1056,6 @@
           "lib/net6.0/Microsoft.EntityFrameworkCore.InMemory.dll": {}
         }
       },
->>>>>>> ebfd2078e7de639569b560fbb48c9cc23798dff7
       "Microsoft.EntityFrameworkCore.Relational/6.0.7": {
         "type": "package",
         "dependencies": {
@@ -4938,8 +4935,6 @@
         "microsoft.entityframeworkcore.analyzers.nuspec"
       ]
     },
-<<<<<<< HEAD
-=======
     "Microsoft.EntityFrameworkCore.InMemory/6.0.0": {
       "sha512": "WJmphvCn0wue9AX+Wvqj3XZ3ehNi9oyYBFNLtHVNvKqZrcimXBOqLo5RNf1fJWYSLWhOia/vzG4JtkAeZxZ8FQ==",
       "type": "package",
@@ -4954,7 +4949,6 @@
         "microsoft.entityframeworkcore.inmemory.nuspec"
       ]
     },
->>>>>>> ebfd2078e7de639569b560fbb48c9cc23798dff7
     "Microsoft.EntityFrameworkCore.Relational/6.0.7": {
       "sha512": "0uo4fPDHutMbd9AJJEKl2q/2fYuFGA8tEBE2fQeQFaNDd+F/aUjaXc1FUD84J7Wcax8WP40rZo1E0u9A0yPPZw==",
       "type": "package",
