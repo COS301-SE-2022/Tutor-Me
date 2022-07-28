@@ -256,7 +256,7 @@ class TutorRequestsState extends State<TutorRequests> {
                       ? const CircularProgressIndicator.adaptive()
                       : isExcepted[i]
                           ? Text(
-                              'You have excepted this request',
+                              'You have accepted this request',
                               style: TextStyle(color: Colors.grey[400]),
                             )
                           : isDeclined[i]

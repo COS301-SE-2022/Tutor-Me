@@ -10,6 +10,7 @@ namespace Api.Models
         public string Tutees { get; set; }
         public string TutorId { get; set; }
         public string Description { get; set; }
+        public string GroupLink { get; set; }
 
     }
 }

@@ -1,0 +1,11 @@
+C:\Users\farai\Documents\flutter-chat-signalr-main\flutter-chat-signalr-main\Chat application server\Chat application server\bin\Debug\net5.0\publish\Chat application server.exe
+C:\Users\farai\Documents\flutter-chat-signalr-main\flutter-chat-signalr-main\Chat application server\Chat application server\bin\Debug\net5.0\publish\appsettings.Development.json
+C:\Users\farai\Documents\flutter-chat-signalr-main\flutter-chat-signalr-main\Chat application server\Chat application server\bin\Debug\net5.0\publish\appsettings.json
+C:\Users\farai\Documents\flutter-chat-signalr-main\flutter-chat-signalr-main\Chat application server\Chat application server\bin\Debug\net5.0\publish\Chat application server.dll
+C:\Users\farai\Documents\flutter-chat-signalr-main\flutter-chat-signalr-main\Chat application server\Chat application server\bin\Debug\net5.0\publish\Chat application server.deps.json
+C:\Users\farai\Documents\flutter-chat-signalr-main\flutter-chat-signalr-main\Chat application server\Chat application server\bin\Debug\net5.0\publish\Chat application server.runtimeconfig.json
+C:\Users\farai\Documents\flutter-chat-signalr-main\flutter-chat-signalr-main\Chat application server\Chat application server\bin\Debug\net5.0\publish\Chat application server.pdb
+C:\Users\farai\Documents\flutter-chat-signalr-main\flutter-chat-signalr-main\Chat application server\Chat application server\bin\Debug\net5.0\publish\Microsoft.OpenApi.dll
+C:\Users\farai\Documents\flutter-chat-signalr-main\flutter-chat-signalr-main\Chat application server\Chat application server\bin\Debug\net5.0\publish\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\farai\Documents\flutter-chat-signalr-main\flutter-chat-signalr-main\Chat application server\Chat application server\bin\Debug\net5.0\publish\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\farai\Documents\flutter-chat-signalr-main\flutter-chat-signalr-main\Chat application server\Chat application server\bin\Debug\net5.0\publish\Swashbuckle.AspNetCore.SwaggerUI.dll

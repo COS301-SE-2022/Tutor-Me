@@ -8,7 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using NuGet.Protocol;
 
 
-namespace IntegrationTests;
+//namespace IntegrationTests;
 
 public class RequestControllerIntegrationTests :IClassFixture<WebApplicationFactory<Program>>
 {

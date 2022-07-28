@@ -5,9 +5,10 @@ class Groups {
   String _tutees = "";
   String _tutorId = "";
   String _description = "";
+  String _groupLink = "";
 
   Groups(this._id, this._moduleCode, this._moduleName, this._tutees,
-      this._tutorId, this._description);
+      this._tutorId, this._description, this._groupLink);
 
   String get getId => _id;
   String get getModuleCode => _moduleCode;
@@ -15,6 +16,7 @@ class Groups {
   String get getTutees => _tutees;
   String get getTutorId => _tutorId;
   String get getDescription => _description;
+  String get getGroupLink => _groupLink;
 
   set setId(String newId) {
     _id = newId;
@@ -40,6 +42,10 @@ class Groups {
     _description = newDescription;
   }
 
+  set setGroupLink(String newGroupLink) {
+    _groupLink = newGroupLink;
+  }
+
   Map<String, dynamic> toMap() {
     var map = <String, dynamic>{};
     map["id"] = _id;
@@ -48,6 +54,7 @@ class Groups {
     map["tutees"] = _tutees;
     map['tutorId'] = _tutorId;
     map['description'] = _description;
+    map['groupLink'] = _groupLink;
     return map;
   }
 
@@ -57,7 +64,8 @@ class Groups {
     _moduleName = o["moduleName"];
     _tutees = o["tutees"];
     _tutorId = o['tutorId'];
-    _description= o['description'];
+    _description = o['description'];
+    _groupLink = o['groupLink'];
   }
 
   static fromJson(model) {}

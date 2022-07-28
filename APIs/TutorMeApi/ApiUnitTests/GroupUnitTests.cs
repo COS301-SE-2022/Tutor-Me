@@ -46,118 +46,118 @@ public class GroupUnitTests
         //Arrange
         var expectedGroup = CreateGroup();
        
-        var repositoryStub = new Mock<TutorMeContext>();
-        repositoryStub.Setup(repo => repo.Group.FindAsync(It.IsAny<Guid>())).ReturnsAsync((expectedGroup));
-        var controller = new GroupsController(repositoryStub.Object);
+//        var repositoryStub = new Mock<TutorMeContext>();
+//        repositoryStub.Setup(repo => repo.Group.FindAsync(It.IsAny<Guid>())).ReturnsAsync((expectedGroup));
+//        var controller = new GroupsController(repositoryStub.Object);
 
-        //Act
-        Guid yourGuid = Guid.NewGuid();
-        var result = await controller.GetGroup(yourGuid);
+//        //Act
+//        Guid yourGuid = Guid.NewGuid();
+//        var result = await controller.GetGroup(yourGuid);
 
-        //Assert 
-        result.Value.Should().BeEquivalentTo(expectedGroup,
-              //Verifying all the DTO variables matches the expected Group 
-              options => options.ComparingByMembers<Group>());
+//        //Assert 
+//        result.Value.Should().BeEquivalentTo(expectedGroup,
+//              //Verifying all the DTO variables matches the expected Group 
+//              options => options.ComparingByMembers<Group>());
 
-    }
+//    }
 
-    [Fact]
-    public async Task GetGroupAsync_WithAnEmptyDb()
-    {
-        //Arrange
-        var repositoryStub = new Mock<TutorMeContext>();
-        repositoryStub.Setup(repo => repo.Group).Returns((DbSet<Group>)null);
+//    [Fact]
+//    public async Task GetGroupAsync_WithAnEmptyDb()
+//    {
+//        //Arrange
+//        var repositoryStub = new Mock<TutorMeContext>();
+//        repositoryStub.Setup(repo => repo.Group).Returns((DbSet<Group>)null);
 
-        //Act
-        var controller = new GroupsController(repositoryStub.Object);
+//        //Act
+//        var controller = new GroupsController(repositoryStub.Object);
 
-        var result = await controller.GetGroup(new Guid());
+//        var result = await controller.GetGroup(new Guid());
 
-        //Assert     
-        Assert.IsType<NotFoundResult>(result.Result);
-    }
+//        //Assert     
+//        Assert.IsType<NotFoundResult>(result.Result);
+//    }
 
-    [Fact]
-    public async Task GetGroupsAsync_WithExistingItem_ReturnsNull()
-    {
-        //Arrange
-        var repositoryStub = new Mock<TutorMeContext>();
-        var controller = new GroupsController(repositoryStub.Object);
+//    [Fact]
+//    public async Task GetGroupsAsync_WithExistingItem_ReturnsNull()
+//    {
+//        //Arrange
+//        var repositoryStub = new Mock<TutorMeContext>();
+//        var controller = new GroupsController(repositoryStub.Object);
 
 
-        //Act
-        var result = await controller.GetGroups();
+//        //Act
+//        var result = await controller.GetGroups();
 
-        //Assert     
-        Assert.Null(result.Value);
+//        //Assert     
+//        Assert.Null(result.Value);
 
-    }
+//    }
 
-    [Fact]
-    public async Task GetGroupsAsync_WithExistingItemReturnsFound()
-    {
-        //Arrange
-        var repositoryStub = new Mock<TutorMeContext>();
-        repositoryStub.Setup(repo => repo.Group).Returns((DbSet<Group>)null);
+//    [Fact]
+//    public async Task GetGroupsAsync_WithExistingItemReturnsFound()
+//    {
+//        //Arrange
+//        var repositoryStub = new Mock<TutorMeContext>();
+//        repositoryStub.Setup(repo => repo.Group).Returns((DbSet<Group>)null);
 
-        //Act
-        var controller = new GroupsController(repositoryStub.Object);
+//        //Act
+//        var controller = new GroupsController(repositoryStub.Object);
 
-        var result = await controller.GetGroups();
+//        var result = await controller.GetGroups();
 
-        //Assert     
-        Assert.IsType<NotFoundResult>(result.Result);
-    }
+//        //Assert     
+//        Assert.IsType<NotFoundResult>(result.Result);
+//    }
    
-    //Test the PutGroup Method to check if id is the same as the id in the DTO
-    [Fact]
-    public async Task PutGroup_With_differentIds_BadRequestResult()
-    {
-        //Arrange
-        var repositoryStub = new Mock<TutorMeContext>();
-        var expectedGroup = CreateGroup();
-        //Act
-        var controller = new GroupsController(repositoryStub.Object);
-        var id = Guid.NewGuid();
-        var result = await controller.PutGroup(id, expectedGroup);
+//    //Test the PutGroup Method to check if id is the same as the id in the DTO
+//    [Fact]
+//    public async Task PutGroup_With_differentIds_BadRequestResult()
+//    {
+//        //Arrange
+//        var repositoryStub = new Mock<TutorMeContext>();
+//        var expectedGroup = CreateGroup();
+//        //Act
+//        var controller = new GroupsController(repositoryStub.Object);
+//        var id = Guid.NewGuid();
+//        var result = await controller.PutGroup(id, expectedGroup);
 
-        //Assert     
-        Assert.IsType<BadRequestResult>(result);
-    }
+//        //Assert     
+//        Assert.IsType<BadRequestResult>(result);
+//    }
 
-    [Fact]
-    public async Task PutGroup_With_same_Id_but_UnExisting_Group_returns_NullReferenceException()//####
-    {
-        //Arrange
-        var repositoryStub = new Mock<TutorMeContext>();
-        var expectedGroup = CreateGroup();
-        //repositoryStub.Setup(repo => repo.Group.Find(expectedGroup.Id).Equals(expectedGroup.Id)).Returns(false);
-        repositoryStub.Setup(repo => repo.Group).Returns((DbSet<Group>)null);
-        //Act
-        var controller = new GroupsController(repositoryStub.Object);
+//    [Fact]
+//    public async Task PutGroup_With_same_Id_but_UnExisting_Group_returns_NullReferenceException()//####
+//    {
+//        //Arrange
+//        var repositoryStub = new Mock<TutorMeContext>();
+//        var expectedGroup = CreateGroup();
+//        //repositoryStub.Setup(repo => repo.Group.Find(expectedGroup.Id).Equals(expectedGroup.Id)).Returns(false);
+//        repositoryStub.Setup(repo => repo.Group).Returns((DbSet<Group>)null);
+//        //Act
+//        var controller = new GroupsController(repositoryStub.Object);
      
-        try
-        {
-            await controller.PutGroup(expectedGroup.Id, expectedGroup);
-        }
-        //Assert   
-        catch (Exception e)
-        {
-            Assert.IsType<NullReferenceException>(e);
-        }
+//        try
+//        {
+//            await controller.PutGroup(expectedGroup.Id, expectedGroup);
+//        }
+//        //Assert   
+//        catch (Exception e)
+//        {
+//            Assert.IsType<NullReferenceException>(e);
+//        }
 
-    }
+//    }
 
-    [Fact]
-    public async Task PutGroup_WithUnExistingId_NotFound()
-    {
-        //Arrange
-        var repositoryStub = new Mock<TutorMeContext>();
-        var expectedGroup = CreateGroup();
-        //Act
-        var controller = new GroupsController(repositoryStub.Object);
-        var id = Guid.NewGuid();
-        var result = await controller.PutGroup(id, expectedGroup);
+//    [Fact]
+//    public async Task PutGroup_WithUnExistingId_NotFound()
+//    {
+//        //Arrange
+//        var repositoryStub = new Mock<TutorMeContext>();
+//        var expectedGroup = CreateGroup();
+//        //Act
+//        var controller = new GroupsController(repositoryStub.Object);
+//        var id = Guid.NewGuid();
+//        var result = await controller.PutGroup(id, expectedGroup);
 
         //Assert     
         Assert.IsType<BadRequestResult>(result);
@@ -195,118 +195,118 @@ public class GroupUnitTests
        
     }
 
-    [Fact]
-    public async Task PostGroup_and_returns_a_type_of_Action_Result()
-    {
+   [Fact]
+   public async Task PostGroup_and_returns_a_type_of_Action_Result()
+   {
 
-        //Arrange
-        var expectedGroup = CreateGroup();
+       //Arrange
+       var expectedGroup = CreateGroup();
 
-        var repositoryStub = new Mock<TutorMeContext>();
-        repositoryStub.Setup(repo => repo.Group.FindAsync(It.IsAny<Guid>())).ReturnsAsync((expectedGroup));
-        var controller = new GroupsController(repositoryStub.Object);
+       var repositoryStub = new Mock<TutorMeContext>();
+       repositoryStub.Setup(repo => repo.Group.FindAsync(It.IsAny<Guid>())).ReturnsAsync((expectedGroup));
+       var controller = new GroupsController(repositoryStub.Object);
 
-        //Act
+       //Act
 
-        var result = await controller.PostGroup(expectedGroup);
-        // Assert
-        Assert.IsType<ActionResult<Api.Models.Group>>(result);
-    }
+       var result = await controller.PostGroup(expectedGroup);
+       // Assert
+       Assert.IsType<ActionResult<Api.Models.Group>>(result);
+   }
 
-    [Fact]
-    public async Task PostGroup_and_returns_null()
-    {
+   [Fact]
+   public async Task PostGroup_and_returns_null()
+   {
 
-        //Arrange
-        var expectedGroup = CreateGroup();
+       //Arrange
+       var expectedGroup = CreateGroup();
 
-        var repositoryStub = new Mock<TutorMeContext>();
-        repositoryStub.Setup(repo => repo.Group.FindAsync(It.IsAny<Guid>())).ReturnsAsync((Group)null);
-        var controller = new GroupsController(repositoryStub.Object);
+       var repositoryStub = new Mock<TutorMeContext>();
+       repositoryStub.Setup(repo => repo.Group.FindAsync(It.IsAny<Guid>())).ReturnsAsync((Group)null);
+       var controller = new GroupsController(repositoryStub.Object);
 
-        //Act
+       //Act
 
-        var result = await controller.PostGroup(expectedGroup);
-        Assert.Null(result.Value);
-    }
+       var result = await controller.PostGroup(expectedGroup);
+       Assert.Null(result.Value);
+   }
 
-        [Fact]
-    public async Task PostGroup_and_returns_ObjectResult()
-    {
+       [Fact]
+   public async Task PostGroup_and_returns_ObjectResult()
+   {
 
-        //Arrange
-        var expectedGroup = CreateGroup();
+       //Arrange
+       var expectedGroup = CreateGroup();
 
-        var repositoryStub = new Mock<TutorMeContext>();
-        repositoryStub.Setup(repo => repo.Group).Returns((DbSet<Group>)null);
+       var repositoryStub = new Mock<TutorMeContext>();
+       repositoryStub.Setup(repo => repo.Group).Returns((DbSet<Group>)null);
 
-        var controller = new GroupsController(repositoryStub.Object);
+       var controller = new GroupsController(repositoryStub.Object);
 
-        //Act
+       //Act
 
-        var result = await controller.PostGroup(expectedGroup);
-        // Assert
-        // Assert.IsType<ActionResult<Api.Models.Group>>(result);
-        Assert.IsType<ObjectResult>(result.Result);
-    }
-
-     [Fact]
-    public async Task PostGroup_and_returns_CreatedAtActionResult()
-    {
-
-        //Arrange
-        var expectedGroup = CreateGroup();
-
-        var repositoryStub = new Mock<TutorMeContext>();
-        repositoryStub.Setup(repo => repo.Group.Add(expectedGroup)).Returns((Func<EntityEntry<Group>>)null);
-
-        var controller = new GroupsController(repositoryStub.Object);
-
-        //Act
-
-        var result = await controller.PostGroup(expectedGroup);
-        // Assert
-        // Assert.IsType<ActionResult<Api.Models.Group>>(result);
-        Assert.IsType<CreatedAtActionResult>(result.Result);
-    }
+       var result = await controller.PostGroup(expectedGroup);
+       // Assert
+       // Assert.IsType<ActionResult<Api.Models.Group>>(result);
+       Assert.IsType<ObjectResult>(result.Result);
+   }
 
     [Fact]
-    public async Task PostGroup_and_returns_GroupExists_DbUpdateException()
-    {
+   public async Task PostGroup_and_returns_CreatedAtActionResult()
+   {
 
-        //Arrange
-        var expectedGroup = CreateGroup();
+       //Arrange
+       var expectedGroup = CreateGroup();
 
-        var repositoryStub = new Mock<TutorMeContext>();
-        repositoryStub.Setup(repo => repo.Group.Add(expectedGroup)).Throws<DbUpdateException>();
+       var repositoryStub = new Mock<TutorMeContext>();
+       repositoryStub.Setup(repo => repo.Group.Add(expectedGroup)).Returns((Func<EntityEntry<Group>>)null);
 
-        //repositoryStub.Setup(repo => repo.Group.Update(expectedGroup)).Throws< DbUpdateException>();
+       var controller = new GroupsController(repositoryStub.Object);
 
-        var controller = new GroupsController(repositoryStub.Object);
+       //Act
 
-        //Act
-        try
-        {
-           await controller.PostGroup(expectedGroup);
-        }
-        // Assert
-        catch (Exception e)
-        {
-            Assert.IsType<DbUpdateException>(e);
-        }
+       var result = await controller.PostGroup(expectedGroup);
+       // Assert
+       // Assert.IsType<ActionResult<Api.Models.Group>>(result);
+       Assert.IsType<CreatedAtActionResult>(result.Result);
+   }
 
-    }
+   [Fact]
+   public async Task PostGroup_and_returns_GroupExists_DbUpdateException()
+   {
 
-    [Fact]
-    public async Task DeleteGroup_and_returns_a_type_of_NotFoundResult()
-    {
+       //Arrange
+       var expectedGroup = CreateGroup();
 
-        //Arrange
-        var expectedGroup = CreateGroup();
+       var repositoryStub = new Mock<TutorMeContext>();
+       repositoryStub.Setup(repo => repo.Group.Add(expectedGroup)).Throws<DbUpdateException>();
 
-        var repositoryStub = new Mock<TutorMeContext>();
-        repositoryStub.Setup(repo => repo.Group.FindAsync(It.IsAny<Guid>())).ReturnsAsync((Group)null);
-        var controller = new GroupsController(repositoryStub.Object);
+       //repositoryStub.Setup(repo => repo.Group.Update(expectedGroup)).Throws< DbUpdateException>();
+
+       var controller = new GroupsController(repositoryStub.Object);
+
+       //Act
+       try
+       {
+          await controller.PostGroup(expectedGroup);
+       }
+       // Assert
+       catch (Exception e)
+       {
+           Assert.IsType<DbUpdateException>(e);
+       }
+
+   }
+
+   [Fact]
+   public async Task DeleteGroup_and_returns_a_type_of_NotFoundResult()
+   {
+
+       //Arrange
+       var expectedGroup = CreateGroup();
+
+       var repositoryStub = new Mock<TutorMeContext>();
+       repositoryStub.Setup(repo => repo.Group.FindAsync(It.IsAny<Guid>())).ReturnsAsync((Group)null);
+       var controller = new GroupsController(repositoryStub.Object);
 
         //Act
         var result = await controller.DeleteGroup(expectedGroup.Id);
@@ -331,17 +331,17 @@ public class GroupUnitTests
         Assert.IsType<NotFoundResult>(result);
     }
 
-        // Mock the DeleteGroup method  and return a Value 
-    [Fact]
-    public async Task DeleteGroup_and_returns_a_type_of_NoContentResult()
-    {
+       // Mock the DeleteGroup method  and return a Value 
+   [Fact]
+   public async Task DeleteGroup_and_returns_a_type_of_NoContentResult()
+   {
 
-        //Arrange
-        var expectedGroup = CreateGroup();
+       //Arrange
+       var expectedGroup = CreateGroup();
 
-        var repositoryStub = new Mock<TutorMeContext>();
-        repositoryStub.Setup(repo => repo.Group.FindAsync(It.IsAny<Guid>())).ReturnsAsync(expectedGroup);
-        var controller = new GroupsController(repositoryStub.Object);
+       var repositoryStub = new Mock<TutorMeContext>();
+       repositoryStub.Setup(repo => repo.Group.FindAsync(It.IsAny<Guid>())).ReturnsAsync(expectedGroup);
+       var controller = new GroupsController(repositoryStub.Object);
 
         //Act
         var result = await controller.DeleteGroup(expectedGroup.Id);

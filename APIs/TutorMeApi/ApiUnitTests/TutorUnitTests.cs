@@ -195,31 +195,31 @@ public class TutorUnitTests
         //Act
         var controller = new TutorsController(repositoryStub.Object);
      
-        try
-        {
-            await controller.PutTutor(expectedTutor.Id, expectedTutor);
-        }
-        //Assert   
-        catch (Exception e)
-        {
-            Assert.IsType<NullReferenceException>(e);
-        }
+       try
+       {
+           await controller.PutTutor(expectedTutor.Id, expectedTutor);
+       }
+       //Assert   
+       catch (Exception e)
+       {
+           Assert.IsType<NullReferenceException>(e);
+       }
 
-    }
-    [Fact]
-    public async Task PutTutor_WithUnExistingId_NotFound()
-    {
-        //Arrange
-        var repositoryStub = new Mock<TutorMeContext>();
-        var expectedTutor = CreateTutor();
-        //Act
-        var controller = new TutorsController(repositoryStub.Object);
-        var id = Guid.NewGuid();
-        var result = await controller.PutTutor(id, expectedTutor);
+   }
+   [Fact]
+   public async Task PutTutor_WithUnExistingId_NotFound()
+   {
+       //Arrange
+       var repositoryStub = new Mock<TutorMeContext>();
+       var expectedTutor = CreateTutor();
+       //Act
+       var controller = new TutorsController(repositoryStub.Object);
+       var id = Guid.NewGuid();
+       var result = await controller.PutTutor(id, expectedTutor);
 
-        //Assert     
-        Assert.IsType<BadRequestResult>(result);
-    }
+       //Assert     
+       Assert.IsType<BadRequestResult>(result);
+   }
 
 
 
@@ -285,93 +285,93 @@ public class TutorUnitTests
         var repositoryStub = new Mock<TutorMeContext>();
         repositoryStub.Setup(repo => repo.Tutors.Add(expectedTutor)).Returns((Func<EntityEntry<Tutor>>)null);
 
-        var controller = new TutorsController(repositoryStub.Object);
+       var controller = new TutorsController(repositoryStub.Object);
 
-        //Act
+       //Act
 
-        var result = await controller.PostTutor(expectedTutor);
-        // Assert
-        // Assert.IsType<ActionResult<Api.Models.Tutor>>(result);
-        Assert.IsType<CreatedAtActionResult>(result.Result);
-    }
-    [Fact]
-    public async Task PostTutor_and_returns_TutorExists_DbUpdateException()
-    {
+       var result = await controller.PostTutor(expectedTutor);
+       // Assert
+       // Assert.IsType<ActionResult<Api.Models.Tutor>>(result);
+       Assert.IsType<CreatedAtActionResult>(result.Result);
+   }
+   [Fact]
+   public async Task PostTutor_and_returns_TutorExists_DbUpdateException()
+   {
 
-        //Arrange
-        var expectedTutor = CreateTutor();
+       //Arrange
+       var expectedTutor = CreateTutor();
 
-        var repositoryStub = new Mock<TutorMeContext>();
-        repositoryStub.Setup(repo => repo.Tutors.Add(expectedTutor)).Throws<DbUpdateException>();
+       var repositoryStub = new Mock<TutorMeContext>();
+       repositoryStub.Setup(repo => repo.Tutors.Add(expectedTutor)).Throws<DbUpdateException>();
 
-        //repositoryStub.Setup(repo => repo.Tutors.Update(expectedTutor)).Throws< DbUpdateException>();
+       //repositoryStub.Setup(repo => repo.Tutors.Update(expectedTutor)).Throws< DbUpdateException>();
 
-        var controller = new TutorsController(repositoryStub.Object);
+       var controller = new TutorsController(repositoryStub.Object);
 
-        //Act
-        try
-        {
-           await controller.PostTutor(expectedTutor);
-        }
-        // Assert
-        catch (Exception e)
-        {
-            Assert.IsType<DbUpdateException>(e);
-        }
+       //Act
+       try
+       {
+          await controller.PostTutor(expectedTutor);
+       }
+       // Assert
+       catch (Exception e)
+       {
+           Assert.IsType<DbUpdateException>(e);
+       }
 
-    }
+   }
 
-    [Fact]
-    public async Task DeleteTutor_and_returns_a_type_of_NotFoundResult()
-    {
+   [Fact]
+   public async Task DeleteTutor_and_returns_a_type_of_NotFoundResult()
+   {
 
-        //Arrange
-        var expectedTutor = CreateTutor();
+       //Arrange
+       var expectedTutor = CreateTutor();
 
-        var repositoryStub = new Mock<TutorMeContext>();
-        repositoryStub.Setup(repo => repo.Tutors.FindAsync(It.IsAny<Guid>())).ReturnsAsync((Tutor)null);
-        var controller = new TutorsController(repositoryStub.Object);
+       var repositoryStub = new Mock<TutorMeContext>();
+       repositoryStub.Setup(repo => repo.Tutors.FindAsync(It.IsAny<Guid>())).ReturnsAsync((Tutor)null);
+       var controller = new TutorsController(repositoryStub.Object);
 
-        //Act
-        var result = await controller.DeleteTutor(expectedTutor.Id);
-        // Assert
-        Assert.IsType<NotFoundResult>(result);
-    }
-    // Mock the DeleteTutor method  and return a Value 
-    [Fact]
-    public async Task DeleteTutor_and_returns_a_type_of_NoContentResult()
-    {
+       //Act
+       var result = await controller.DeleteTutor(expectedTutor.Id);
+       // Assert
+       Assert.IsType<NotFoundResult>(result);
+   }
+   // Mock the DeleteTutor method  and return a Value 
+   [Fact]
+   public async Task DeleteTutor_and_returns_a_type_of_NoContentResult()
+   {
 
-        //Arrange
-        var expectedTutor = CreateTutor();
+       //Arrange
+       var expectedTutor = CreateTutor();
 
-        var repositoryStub = new Mock<TutorMeContext>();
-        repositoryStub.Setup(repo => repo.Tutors.FindAsync(It.IsAny<Guid>())).ReturnsAsync(expectedTutor);
-        var controller = new TutorsController(repositoryStub.Object);
+       var repositoryStub = new Mock<TutorMeContext>();
+       repositoryStub.Setup(repo => repo.Tutors.FindAsync(It.IsAny<Guid>())).ReturnsAsync(expectedTutor);
+       var controller = new TutorsController(repositoryStub.Object);
 
-        //Act
+       //Act
 
-        var result = await controller.DeleteTutor(expectedTutor.Id);
-        // Assert
-        Assert.IsType<NoContentResult>(result);
-    }
-    [Fact]
-    public async Task DeleteTutor_and_returns_a_type_of_NotFound()
-    {
+       var result = await controller.DeleteTutor(expectedTutor.Id);
+       // Assert
+       Assert.IsType<NoContentResult>(result);
+   }
+   [Fact]
+   public async Task DeleteTutor_and_returns_a_type_of_NotFound()
+   {
 
-        //Arrange
-        var expectedTutor = CreateTutor();
+       //Arrange
+       var expectedTutor = CreateTutor();
 
-        var repositoryStub = new Mock<TutorMeContext>();
-        repositoryStub.Setup(repo => repo.Tutors).Returns((DbSet<Tutor>)null);
-        var controller = new TutorsController(repositoryStub.Object);
+       var repositoryStub = new Mock<TutorMeContext>();
+       repositoryStub.Setup(repo => repo.Tutors).Returns((DbSet<Tutor>)null);
+       var controller = new TutorsController(repositoryStub.Object);
 
-        //Act
+       //Act
 
-        var result = await controller.DeleteTutor(expectedTutor.Id);
-        // Assert
-        Assert.IsType<NotFoundResult>(result);
-    }
+       var result = await controller.DeleteTutor(expectedTutor.Id);
+       // Assert
+       Assert.IsType<NotFoundResult>(result);
+   }
 
 
 
