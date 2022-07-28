@@ -26,7 +26,7 @@ class ChangeThemeButtonWidget extends StatelessWidget {
 
           },
         ),
-        const Text("   Dark Mode",style: TextStyle(fontSize: 15, color: colorWhite) ),
+        // const Text("   Dark Mode",style: TextStyle(fontSize: 15, color: colorWhite) ),
 
 
       ],
