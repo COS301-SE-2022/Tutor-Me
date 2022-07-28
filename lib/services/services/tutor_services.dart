@@ -48,7 +48,7 @@ class TutorServices {
 
   getRequest(String id) async {
     Uri url = Uri.http(
-        'tutorme-prod.us-east-1.elasticbeanstalk.com', '/api/Requests/Tutor/$id');
+        'tutorme-prod.us-east-1.elasticbeanstalk.com', '/api/Requests/$id');
     try {
       final response = await http.get(url, headers: {
         "Accept": "application/json",
@@ -75,7 +75,7 @@ class TutorServices {
   declineRequest(String id) async {
     try {
       final url = Uri.http(
-          'tutorme-prod.us-east-1.elasticbeanstalk.com', 'api/Requests/Tutor/$id');
+          'tutorme-prod.us-east-1.elasticbeanstalk.com', 'api/Requests/$id');
       final header = {
         "Accept": "application/json",
         "Content-Type": "application/json",
@@ -193,10 +193,12 @@ class TutorServices {
     try {
       final request = await getRequest(requestId);
       final tutor1 = await getTutor(request[0].getReceiverId);
+
       Tutors tutor = tutor1[0];
       final tutee1 = await TuteeServices.getTutee(request[0].getRequesterId);
 
       Tutees tutee = tutee1[0];
+
       if (!tutee.getConnections.contains(request[0].getReceiverId)) {
         if (tutee.getConnections.contains('No connections added')) {
           tutee.setConnections = request[0].getReceiverId;

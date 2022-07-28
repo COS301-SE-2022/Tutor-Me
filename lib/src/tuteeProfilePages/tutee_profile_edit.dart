@@ -49,6 +49,7 @@ class _TuteeProfileEditState extends State<TuteeProfileEdit> {
     setState(() {
       this.image = imageTempPath;
       isImagePicked = true;
+      Navigator.pop(context);
     });
   }
 
@@ -247,7 +248,6 @@ class _TuteeProfileEditState extends State<TuteeProfileEdit> {
                           child: const Text('Open Camera'))
                     ],
                   ));
-          Navigator.pop(context);
         },
       );
 }
