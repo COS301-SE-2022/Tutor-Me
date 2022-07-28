@@ -1,6 +1,5 @@
 {
   "version": 3,
-<<<<<<< HEAD
   "targets": {
     "net6.0": {
       "Castle.Core/5.0.0": {
@@ -11318,10 +11317,6 @@
       "msbuildProject": "../Api/Api.csproj"
     }
   },
-=======
-  "targets": {},
-  "libraries": {},
->>>>>>> fda6c2541c691266f13497eff4360f3fe6e4fe7b
   "projectFileDependencyGroups": {
     "net6.0": [
       "FluentAssertions >= 6.7.0",
@@ -11334,16 +11329,11 @@
     ]
   },
   "packageFolders": {
-<<<<<<< HEAD
     "/home/simphiwe/.nuget/packages/": {}
-=======
-    "C:\\Users\\user\\.nuget\\packages\\": {}
->>>>>>> fda6c2541c691266f13497eff4360f3fe6e4fe7b
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-<<<<<<< HEAD
       "projectUniqueName": "/home/simphiwe/Desktop/updated_CapsOn/Tutor-ME/APIs/TutorMeApi/ApiUnitTests/ApiUnitTests.csproj",
       "projectName": "ApiUnitTests",
       "projectPath": "/home/simphiwe/Desktop/updated_CapsOn/Tutor-ME/APIs/TutorMeApi/ApiUnitTests/ApiUnitTests.csproj",
@@ -11352,17 +11342,6 @@
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/simphiwe/.nuget/NuGet/NuGet.Config"
-=======
-      "projectUniqueName": "c:\\Users\\user\\OneDrive\\Documents\\GitHub\\Tutor-ME\\APIs\\TutorMeApi\\ApiUnitTests\\ApiUnitTests.csproj",
-      "projectName": "ApiUnitTests",
-      "projectPath": "c:\\Users\\user\\OneDrive\\Documents\\GitHub\\Tutor-ME\\APIs\\TutorMeApi\\ApiUnitTests\\ApiUnitTests.csproj",
-      "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\user\\OneDrive\\Documents\\GitHub\\Tutor-ME\\APIs\\TutorMeApi\\ApiUnitTests\\obj\\",
-      "projectStyle": "PackageReference",
-      "configFilePaths": [
-        "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
->>>>>>> fda6c2541c691266f13497eff4360f3fe6e4fe7b
       ],
       "originalTargetFrameworks": [
         "net6.0"
@@ -11374,13 +11353,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-<<<<<<< HEAD
             "/home/simphiwe/Desktop/updated_CapsOn/Tutor-ME/APIs/TutorMeApi/Api/Api.csproj": {
               "projectPath": "/home/simphiwe/Desktop/updated_CapsOn/Tutor-ME/APIs/TutorMeApi/Api/Api.csproj"
-=======
-            "c:\\Users\\user\\OneDrive\\Documents\\GitHub\\Tutor-ME\\APIs\\TutorMeApi\\Api\\Api.csproj": {
-              "projectPath": "c:\\Users\\user\\OneDrive\\Documents\\GitHub\\Tutor-ME\\APIs\\TutorMeApi\\Api\\Api.csproj"
->>>>>>> fda6c2541c691266f13497eff4360f3fe6e4fe7b
             }
           }
         }
@@ -11443,11 +11417,7 @@
             "privateAssets": "all"
           }
         },
-<<<<<<< HEAD
         "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/6.0.300/RuntimeIdentifierGraph.json"
-=======
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.302\\RuntimeIdentifierGraph.json"
->>>>>>> fda6c2541c691266f13497eff4360f3fe6e4fe7b
       }
     }
   },
