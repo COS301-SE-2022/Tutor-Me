@@ -1,347 +1,533 @@
-//using System.Reflection;
-//using Api.Controllers;
-//using Api.Data;
-//using Api.Models;
-//using FluentAssertions;
-//using Microsoft.AspNetCore.Mvc;
-//using Microsoft.EntityFrameworkCore;
+using System.Net.Http.Json;
+using System.Text;
+using Api.Data;
+using Api.Models;
+using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using NuGet.Protocol;
 
-//namespace IntegrationTests;
 
-//public class RequestControllerIntegrationTests
-//{
-//    //DTO
-//    private static Request CreateRequest()
-//    {
-//        return new()
-//        { 
-//            Id =Guid.NewGuid(),
-//            RequesterId =Guid.NewGuid().ToString(),
-//            ReceiverId =Guid.NewGuid().ToString(),
-//            DateCreated ="26 April 1999",
-//            ModuleCode =Guid.NewGuid().ToString()
-//        };
-//    }
-//    [Fact]
-//    public void ListsRequestsFromDatabase()
-//    {
-//        DbContextOptionsBuilder<TutorMeContext> optionsBuilder = new();
-//        var databaseName = MethodBase.GetCurrentMethod()?.Name;
-//        if (databaseName != null)
-//            optionsBuilder.UseInMemoryDatabase(databaseName);
+namespace IntegrationTests;
 
-//        var newRequest = CreateRequest();
-//        using (TutorMeContext ctx = new(optionsBuilder.Options))
-//        {
-//            ctx.Add(newRequest);
-//            ctx.SaveChangesAsync();
-//        }
+public class RequestControllerIntegrationTests :IClassFixture<WebApplicationFactory<Program>>
+{
+    private readonly HttpClient _httpClient;
+   
+    public RequestControllerIntegrationTests()
+    {
+        var dbname = Guid.NewGuid().ToString();
+        var appFactory = new WebApplicationFactory<Program>()
+            .WithWebHostBuilder(builder =>
+            {
+                builder.ConfigureServices(
+                    services =>
+                    {
+                        var descriptor = services.SingleOrDefault(
+                            d => d.ServiceType == typeof(DbContextOptions<TutorMeContext>));
 
-//        Task<ActionResult<IEnumerable<Request>>> result;
-//            using (TutorMeContext ctx1 = new(optionsBuilder.Options))
-//            {
-//                result =new RequestsController(ctx1).GetRequests();
-//            }
-            
-            
-//            var okResult = Assert.IsType<ActionResult<IEnumerable<Request >>>(result.Result);
+                        if (descriptor != null)
+                        {
+                            services.Remove(descriptor);
+                        }
+                        services.AddDbContext<TutorMeContext>(
+                            options =>
+                            {
+                                options.UseInMemoryDatabase(dbname);
+                            });
+                    });
+            });
 
-//            var requests = Assert.IsType<List<Request>>(okResult.Value);
-//            var request = Assert.Single(requests);
-//            Assert.NotNull(request);
-//            Assert.Equal(newRequest.RequesterId, request.RequesterId);
-//            Assert.Equal(newRequest.ReceiverId, request.ReceiverId);
-//            Assert.Equal("26 April 1999", request.DateCreated);
-//            Assert.Equal(newRequest.Id, request.Id);
-//            request.Should().BeEquivalentTo(newRequest,
-//                //Verifying all the DTO variables matches the expected Request (newRequest)
-//                options => options.ComparingByMembers<Request>());
-//    }
+        _httpClient = appFactory.CreateClient();
+    }
+    //Accepting a request process
+    [Fact]
+    public async Task Accepting_a_request()
+    {
+        //Act 
+        
+        //Create a tutor and a tutee and a Module
+        var testTutor = new Tutor()
+        {
+
+            Id = Guid.NewGuid(),
+            FirstName = "Simphiwe",
+            LastName = "Ndlovu",
+            DateOfBirth = "26 April 1999",
+            Gender = "M",
+            Status = "T",
+            Faculty =  "No faculty added",
+            Course = "Bsc Computer Science",
+            Institution = "University Of Pretoria",
+            Modules =Guid.NewGuid().ToString(),
+            Email = "u19027372@tuks.co.za",
+            Password = "12345678",
+            Location = Guid.NewGuid().ToString(),
+            TuteesCode = Guid.NewGuid().ToString(),
+            Bio = "OnePiece fan",
+            Connections = "No connections added",
+            Rating = "0,0",
+            Requests =Guid.NewGuid().ToString(),
+            Year= "3",
+            GroupIds="no groups"
+
+        };
+        
+        var testTutee = new Tutee()
+        {
+            Id = Guid.NewGuid(),
+            FirstName = "Simphiwe",
+            LastName = "Ndlovu",
+            DateOfBirth = "26 April 1999",
+            Gender = "M",
+            Status = "T",
+            Faculty =  "No faculty added",
+            Course = "Bsc Computer Science",
+            Institution = "University Of Pretoria",
+            Modules =Guid.NewGuid().ToString(),
+            Email = "u19027372@tuks.co.za",
+            Password = "12345678",
+            Location = Guid.NewGuid().ToString(),
+            TutorsCode = Guid.NewGuid().ToString(),
+            Bio = "OnePiece fan",
+            Connections =Guid.NewGuid().ToString(),
+            Year= "3",
+            GroupIds="no groups"
+
+        };
+        
+        var testModule = new Module()
+        {
+            Code =Guid.NewGuid().ToString(),
+            ModuleName = "Software engineering cos 301",
+            Institution ="University Of Pretoria",
+            Faculty = "Faculty of Engineering, Built Environment and IT",
+            Year="3"
+
+        };
+        
+        //Add tutor to the InMemoryDatabase
+        var tutorId = testTutor.Id;
+        await _httpClient.PostAsJsonAsync("https://localhost:7062/api/Tutors", testTutor);
+        var tutorResponse = await _httpClient.GetAsync("https://localhost:7062/api/Tutors/"+tutorId);
+        Assert.NotNull(tutorResponse);
+        Assert.Equal(200, (double)tutorResponse.StatusCode);
+        
+        //Add tutee to the InMemoryDatabase
+        var tuteeId = testTutee.Id;
+        await _httpClient.PostAsJsonAsync("https://localhost:7062/api/Tutees", testTutee);
+        var tuteeResponse = await _httpClient.GetAsync("https://localhost:7062/api/Tutees/"+tuteeId);
+        Assert.NotNull(tuteeResponse);
+        Assert.Equal(200, (double)tuteeResponse.StatusCode);
+        
+        //Add Module to the InMemoryDatabase    
+        var moduleId = testModule.Code;
+        await _httpClient.PostAsJsonAsync("https://localhost:7062/api/Modules", testModule);
+        var moduleResponse = await _httpClient.GetAsync("https://localhost:7062/api/Modules/"+moduleId);
+        Assert.NotNull(moduleResponse);
+        Assert.Equal(200, (double)moduleResponse.StatusCode);
+        
+        //Add module (Software engineering cos 301) to the tutor
+        testTutor.Modules = testModule.Code;
+        // Updating Tutor
+        var updateTutorStringContent =new StringContent(testTutor.ToJson(), Encoding.UTF8, "application/json");
+        var updateTutorResponse1= await _httpClient.PutAsync("https://localhost:7062/api/Tutors/" + testTutor.Id,updateTutorStringContent );
+        Assert.NotNull(updateTutorResponse1);
+        Assert.Equal(204, (double)updateTutorResponse1.StatusCode); 
+        
+        
+        
+        //Request for a specific tutor ( tutee request for a tutor)  ## Tutee side
+        var testRequest = new Request()
+        {
+            Id =Guid.NewGuid(),
+            RequesterId =tuteeId.ToString(),
+            ReceiverId =tutorId.ToString(),
+            DateCreated ="29/07/2022",
+            ModuleCode =testModule.Code
+        };
+        var requestId = testRequest.Id;
+        await _httpClient.PostAsJsonAsync("https://localhost:7062/api/Requests", testRequest);
+        var requestResponse = await _httpClient.GetAsync("https://localhost:7062/api/Requests/"+requestId);
+        Assert.NotNull(requestResponse);
+        Assert.Equal(200, (double)requestResponse.StatusCode);
+        
+        
+        // Accept by  adding connections on both tutor and tutee side
+        
+        //GetRequestsByTutorId  (Get the reuest)  ## Tutor side
+        var response = await _httpClient.GetAsync("http://localhost:7062/api/Requests/Tutor/"+testTutor.Id);
+        Assert.NotNull(response);
+        Assert.Equal(200, (double)response.StatusCode);
+        var request = await response.Content.ReadFromJsonAsync<List<Request>>();
+        Assert.NotNull(request);
+        Assert.Equal(1, request.Count());
+        
+        //Find a request for a specific tutor
+        Assert.Equal(request[0].ReceiverId,testTutor.Id.ToString());
+        
+        
+        //Now adding connections on both sides by updating the (Tutor and Tutee )
+        
+        // Updating Tutor
+        testTutor.TuteesCode = testTutee.Id.ToString();
+        var updateTutorStringContent2 =new StringContent(testTutor.ToJson(), Encoding.UTF8, "application/json");
+        var updateTutorResponse2= await _httpClient.PutAsync("https://localhost:7062/api/Tutors/" + testTutor.Id,updateTutorStringContent2 );
+        Assert.NotNull(updateTutorResponse2);
+        Assert.Equal(204, (double)updateTutorResponse2.StatusCode); 
+        
+        // Updating Tutee
+        testTutee.TutorsCode = testTutor.Id.ToString();
+        var updateStringContent =new StringContent(testTutee.ToJson(), Encoding.UTF8, "application/json");
+        var updateResponse1= await _httpClient.PutAsync("https://localhost:7062/api/Tutees/" + testTutee.Id,updateStringContent );
+        Assert.NotNull(updateResponse1);
+        Assert.Equal(204, (double)updateResponse1.StatusCode); 
+        
+        
+        //Checking if tutor and tutee are connected
+        var id =testTutor.Id;
+        
+        var checkConnectionResponse = await _httpClient.GetAsync("https://localhost:7062/api/Tutors/"+id);
+        Assert.NotNull(checkConnectionResponse);
+        Assert.Equal(200, (double)checkConnectionResponse.StatusCode);
+        var tutor = await checkConnectionResponse.Content.ReadFromJsonAsync<Tutor>();
+        Assert.NotNull(tutor);
+        if (tutor != null)
+        {
+            Assert.Equal(testTutee.Id.ToString(), tutor.TuteesCode);
+        }
+        
+        
+        var tuteeId1 = testTutee.Id;
+        await _httpClient.PostAsJsonAsync("https://localhost:7062/api/Tutees", testTutee);
+        var updateTuteeResponse = await _httpClient.GetAsync("https://localhost:7062/api/Tutees/"+tuteeId1);
+        Assert.NotNull(updateTuteeResponse);
+        Assert.Equal(200, (double)updateTuteeResponse.StatusCode);
+
+        var Tutee = await updateTuteeResponse.Content.ReadFromJsonAsync<Tutee>();
+
+        Assert.NotNull(Tutee);
+        if (Tutee != null)
+        { Assert.Equal(testTutor.Id.ToString(), Tutee.TutorsCode);
+        }
+
+        
+    }
     
-//    [Fact]
-//    public void GetsRequestFromDatabaseById()
-//    {
-//        DbContextOptionsBuilder<TutorMeContext> optionsBuilder = new();
-//        var databaseName = MethodBase.GetCurrentMethod()?.Name;
-//        if (databaseName != null)
-//            optionsBuilder.UseInMemoryDatabase(databaseName);
 
-//        var newRequest = CreateRequest();
-//        using (TutorMeContext ctx = new(optionsBuilder.Options))
-//        {
-//            ctx.Add(newRequest);
-//            ctx.SaveChangesAsync();
-//        }
+    [Fact]
+    public async Task GetAllRequests_NoRequests()
+    {
+        //Act
+        var response = await _httpClient.GetAsync("https://localhost:7062/api/Requests");
 
-//        Task<ActionResult<Request>> result;
-//            using (TutorMeContext ctx1 = new(optionsBuilder.Options))
-//            {
-//                result =new RequestsController(ctx1).GetRequest(newRequest.Id);
-//            }
-            
-  
-//            var okResult = Assert.IsType<ActionResult<Request >>(result.Result);
-//            var request = Assert.IsType<Request>(okResult.Value);
-            
+        //Assert
+        Assert.NotNull(response);
+        Assert.Equal(200, (double)response.StatusCode);
+
+        var requests = await response.Content.ReadFromJsonAsync<List<Request>>();
+
+        Assert.Equal(0, requests.Count());
+    }
+    
+    [Fact]
+    public async Task GetAllRequests_Requests()
+    {
+        //Arrange
+        var testRequest = new Request()
+        {
+            Id =Guid.NewGuid(),
+            RequesterId =Guid.NewGuid().ToString(),
+            ReceiverId =Guid.NewGuid().ToString(),
+            DateCreated ="26 April 1999",
+            ModuleCode =Guid.NewGuid().ToString()
+
+        };
+        var testRequest2 = new Request()
+        {
+
+            Id =Guid.NewGuid(),
+            RequesterId =Guid.NewGuid().ToString(),
+            ReceiverId =Guid.NewGuid().ToString(),
+            DateCreated ="25 April 2020",
+            ModuleCode =Guid.NewGuid().ToString()
+
+        };
+        var testRequest3 = new Request()
+        {
+            Id =Guid.NewGuid(),
+            RequesterId =Guid.NewGuid().ToString(),
+            ReceiverId =Guid.NewGuid().ToString(),
+            DateCreated ="30 April 2022",
+            ModuleCode =Guid.NewGuid().ToString()
+
+        };
+
+        await _httpClient.PostAsJsonAsync("https://localhost:7062/api/Requests", testRequest);
+        await _httpClient.PostAsJsonAsync("https://localhost:7062/api/Requests", testRequest2);
+        await _httpClient.PostAsJsonAsync("https://localhost:7062/api/Requests", testRequest3);
+
+        //Act
+        var response = await _httpClient.GetAsync("http://localhost:7062/api/Requests");
+
+        //Assert
+        Assert.NotNull(response);
+        Assert.Equal(200, (double)response.StatusCode);
+
+        var requests = await response.Content.ReadFromJsonAsync<List<Request>>();
+        Assert.NotNull(requests);
+        Assert.Equal(3, requests.Count());
+    }
+    
+    [Fact]
+    public async Task GetRequestById_NoRequest()
+    {
+        //Act
+        Guid id = Guid.NewGuid();
+        var response = await _httpClient.GetAsync("https://localhost:7062/api/Requests/"+id);
+
+        //Assert
+        Assert.NotNull(response);
+        Assert.Equal(404, (double)response.StatusCode);
+    }
+    [Fact]
+    public async Task GetRequestById_RequestFound()
+    {
+        //Arrange
+        var testRequest = new Request()
+        {
+            Id =Guid.NewGuid(),
+            RequesterId =Guid.NewGuid().ToString(),
+            ReceiverId =Guid.NewGuid().ToString(),
+            DateCreated ="26 April 1999",
+            ModuleCode =Guid.NewGuid().ToString()
+
+        };
+        var testRequest2 = new Request()
+        {
+
+            Id =Guid.NewGuid(),
+            RequesterId =Guid.NewGuid().ToString(),
+            ReceiverId =Guid.NewGuid().ToString(),
+            DateCreated ="25 April 2020",
+            ModuleCode =Guid.NewGuid().ToString()
+
+        };
+        var testRequest3 = new Request()
+        {
+            Id =Guid.NewGuid(),
+            RequesterId =Guid.NewGuid().ToString(),
+            ReceiverId =Guid.NewGuid().ToString(),
+            DateCreated ="30 April 2022",
+            ModuleCode =Guid.NewGuid().ToString()
+
+        };
+        await _httpClient.PostAsJsonAsync("https://localhost:7062/api/Requests", testRequest);
+        await _httpClient.PostAsJsonAsync("https://localhost:7062/api/Requests", testRequest2);
+        await _httpClient.PostAsJsonAsync("https://localhost:7062/api/Requests", testRequest3);
+
+        //Act
+        var id = testRequest.Id;
+        var response = await _httpClient.GetAsync("https://localhost:7062/api/Requests/"+id);
+
+        //Assert
+        Assert.NotNull(response);
+        Assert.Equal(200, (double)response.StatusCode);
+
+        var request = await response.Content.ReadFromJsonAsync<Request>();
+
+        Assert.NotNull(request);
+        if (request != null)
+        {
+            Assert.Equal(testRequest.Id, request.Id);
+            Assert.Equal(testRequest.ReceiverId, request.ReceiverId);
+            Assert.Equal(testRequest.RequesterId, request.RequesterId);
+            Assert.Equal(testRequest.DateCreated, request.DateCreated);
+            Assert.Equal(testRequest.ModuleCode, request.ModuleCode);
            
-//            Assert.NotNull(request);
-//            Assert.Equal(newRequest.RequesterId, request.RequesterId);
-//            Assert.Equal(newRequest.ReceiverId, request.ReceiverId);
-//            Assert.Equal("26 April 1999", request.DateCreated);
-//            Assert.Equal(newRequest.Id, request.Id);
-//            request.Should().BeEquivalentTo(newRequest,
-//                //Verifying all the DTO variables matches the expected Request (newRequest)
-//                options => options.ComparingByMembers<Request>());
-//    }
-        
-//    [Fact]
-//    public void GetTutorRequestsFromDatabaseByTutorId()
-//    {
-//        DbContextOptionsBuilder<TutorMeContext> optionsBuilder = new();
-//        var databaseName = MethodBase.GetCurrentMethod()?.Name;
-//        if (databaseName != null)
-//            optionsBuilder.UseInMemoryDatabase(databaseName);
-        
-//        var newRequest1 = CreateRequest();
-//        var newRequest2 = CreateRequest();
-//        var newRequest3 = CreateRequest();
-        
-//        var requesterId1=Guid.NewGuid().ToString();
-//        var receiverId1 = Guid.NewGuid().ToString();
-       
-//            newRequest1.ReceiverId = receiverId1;
-//            newRequest1.RequesterId = requesterId1;
-//            newRequest1.DateCreated = "26 April 2022";
-                            
+        }
+    }
     
-//        var receiverId2 = Guid.NewGuid().ToString();
-//        var requesterId2=Guid.NewGuid().ToString();
-        
-//            newRequest2.ReceiverId = receiverId2;
-//            newRequest2.RequesterId = requesterId2;
-//            newRequest3.DateCreated = "27 April 2022";
-            
-       
-//            newRequest3.ReceiverId  = receiverId1;
-//            newRequest3.RequesterId = receiverId2;
-//            newRequest3.DateCreated = "28 April 2022";
-        
-            
-          
-//        using (TutorMeContext ctx = new(optionsBuilder.Options))
-//        {
-//            ctx.Add(newRequest1);
-//            ctx.Add(newRequest2);
-//            ctx.Add(newRequest3);
-//            ctx.SaveChangesAsync();
-//        }
+    [Fact]
+    public async Task GetRequestById_RequestNotFound() 
+    {
+        //Arrange
+        var testRequest = new Request()
+        {
+            Id =Guid.NewGuid(),
+            RequesterId =Guid.NewGuid().ToString(),
+            ReceiverId =Guid.NewGuid().ToString(),
+            DateCreated ="26 April 1999",
+            ModuleCode =Guid.NewGuid().ToString()
 
-//        Task<ActionResult<Request>> result;
-//        using (TutorMeContext ctx1 = new(optionsBuilder.Options))
-//        {
-//            result =new RequestsController(ctx1).GetTutorRequests(newRequest1.ReceiverId);
-//        }
+        };
+        var testRequest2 = new Request()
+        {
 
-//        var actionResult = Assert.IsType<ActionResult<Request>>(result.Result);
-//        var okResult1= Assert.IsType<OkObjectResult>(actionResult.Result);
-//        var requests = Assert.IsType<List<Request>>(okResult1.Value);
+            Id =Guid.NewGuid(),
+            RequesterId =Guid.NewGuid().ToString(),
+            ReceiverId =Guid.NewGuid().ToString(),
+            DateCreated ="25 April 2020",
+            ModuleCode =Guid.NewGuid().ToString()
+
+        };
+        var testRequest3 = new Request()
+        {
+            Id =Guid.NewGuid(),
+            RequesterId =Guid.NewGuid().ToString(),
+            ReceiverId =Guid.NewGuid().ToString(),
+            DateCreated ="30 April 2022",
+            ModuleCode =Guid.NewGuid().ToString()
+
+        };
+        await _httpClient.PostAsJsonAsync("https://localhost:7062/api/Requests", testRequest);
+        await _httpClient.PostAsJsonAsync("https://localhost:7062/api/Requests", testRequest2);
+        await _httpClient.PostAsJsonAsync("https://localhost:7062/api/Requests", testRequest3);
+
+        //Act
+        var id = Guid.NewGuid();//Request that does not exist
+        var response = await _httpClient.GetAsync("https://localhost:7062/api/Requests/"+id);
+        
+        //Assert
+        Assert.NotNull(response);
+        Assert.Equal(404, (double)response.StatusCode);
+    }
+    
+    [Fact]
+    public async Task ModifiesRequestFromDatabase()
+    {
+        //Arrange
+        var testRequest = new Request()
+        {
+            Id =Guid.NewGuid(),
+            RequesterId =Guid.NewGuid().ToString(),
+            ReceiverId =Guid.NewGuid().ToString(),
+            DateCreated ="26 April 1999",
+            ModuleCode =Guid.NewGuid().ToString()
+
+        };
       
-//        Assert.NotNull(requests);
-//        Assert.Equal(2,requests.Count);
+        await _httpClient.PostAsJsonAsync("https://localhost:7062/api/Requests", testRequest);
         
-//        Assert.Equal(newRequest1.RequesterId, requests[0].RequesterId);
-//        Assert.Equal(newRequest1.ReceiverId, requests[0].ReceiverId);
-//        Assert.Equal("26 April 2022", requests[0].DateCreated);
+        //Act
         
-//        Assert.Equal(newRequest3.RequesterId, requests[1].RequesterId);
-//        Assert.Equal(newRequest3.ReceiverId, requests[1].ReceiverId);
-//        Assert.Equal("28 April 2022", requests[1].DateCreated);
-        
-//    }
-    
-//      [Fact]
-//    public void GetTuteeRequestsFromDatabaseByTuteeId()
-//    {
-//        DbContextOptionsBuilder<TutorMeContext> optionsBuilder = new();
-//        var databaseName = MethodBase.GetCurrentMethod()?.Name;
-//        if (databaseName != null)
-//            optionsBuilder.UseInMemoryDatabase(databaseName);
-        
-//        var newRequest1 = CreateRequest();
-//        var newRequest2 = CreateRequest();
-//        var newRequest3 = CreateRequest();
-        
-//        var requesterId1=Guid.NewGuid().ToString();
-//        var receiverId1 = Guid.NewGuid().ToString();
-       
-//            newRequest1.ReceiverId = receiverId1;
-//            newRequest1.RequesterId = requesterId1;
-//            newRequest1.DateCreated = "26 April 2022";
-                            
-    
-//        var receiverId2 = Guid.NewGuid().ToString();
-//        var requesterId2=Guid.NewGuid().ToString();
-        
-//            newRequest2.ReceiverId = receiverId2;
-//            newRequest2.RequesterId = requesterId2;
-//            newRequest3.DateCreated = "27 April 2022";
-            
-       
-//            newRequest3.ReceiverId  = receiverId1;
-//            newRequest3.RequesterId = receiverId2;
-//            newRequest3.DateCreated = "28 April 2022";
-        
-            
-          
-//        using (TutorMeContext ctx = new(optionsBuilder.Options))
-//        {
-//            ctx.Add(newRequest1);
-//            ctx.Add(newRequest2);
-//            ctx.Add(newRequest3);
-//            ctx.SaveChangesAsync();
-//        }
+        //Modify the Requests Date
+        testRequest.DateCreated = "28 April 2020";
 
-//        Task<ActionResult<Request>> result;
-//        using (TutorMeContext ctx1 = new(optionsBuilder.Options))
-//        {
-//            result =new RequestsController(ctx1).GetTuteeRequests(newRequest1.RequesterId);
-//        }
+        var stringContent =new StringContent(testRequest.ToJson(), Encoding.UTF8, "application/json");
+        var response1= await _httpClient.PutAsync("https://localhost:7062/api/Requests/" + testRequest.Id,stringContent );
+        //Assert
+        Assert.NotNull(response1);
+        Assert.Equal(204, (double)response1.StatusCode); 
 
-//        var actionResult = Assert.IsType<ActionResult<Request>>(result.Result);
-//        var okResult1= Assert.IsType<OkObjectResult>(actionResult.Result);
-//        var requests = Assert.IsType<List<Request>>(okResult1.Value);
+        
+        //Now checking if the Date was actually Modified on the database 
+        var id = testRequest.Id;
+        var response = await _httpClient.GetAsync("https://localhost:7062/api/Requests/"+id);
+
+        //Assert
+        Assert.NotNull(response);
+        Assert.Equal(200, (double)response.StatusCode);
+
+        var request = await response.Content.ReadFromJsonAsync<Request>();
+
+        Assert.NotNull(request);
+        if (request != null)
+        {
+            Assert.Equal(testRequest.Id, request.Id);
+            Assert.Equal(testRequest.DateCreated, request.DateCreated);
       
-//        Assert.NotNull(requests);
-//        Assert.Single(requests);
+        }
+
+    }
+
+    [Fact]
+    public async Task GetTutorsRequestById()
+    { var testRequest = new Request()
+        {
+            Id =Guid.NewGuid(),
+            RequesterId =Guid.NewGuid().ToString(),
+            ReceiverId =Guid.NewGuid().ToString(),
+            DateCreated ="26 April 1999",
+            ModuleCode =Guid.NewGuid().ToString()
+
+        };
+
+        //Act
+        var id = testRequest.Id;
+        await _httpClient.PostAsJsonAsync("https://localhost:7062/api/Requests", testRequest);
         
-//        Assert.Equal(newRequest1.RequesterId, requests[0].RequesterId);
-//        Assert.Equal(newRequest1.ReceiverId, requests[0].ReceiverId);
-//        Assert.Equal("26 April 2022", requests[0].DateCreated);
+        var getTutorRequest = await _httpClient.GetAsync("https://localhost:7062/api/Requests/Tutor/"+testRequest.ReceiverId);
+        Assert.NotNull(getTutorRequest);
+        Assert.Equal(200, (double)getTutorRequest.StatusCode);
         
-//    }
-
-
-//    [Fact]
-//    public void ModifiesRequestFromDatabase()
-//    {
-//        DbContextOptionsBuilder<TutorMeContext> optionsBuilder = new();
-//        var databaseName = MethodBase.GetCurrentMethod()?.Name;
-//        if (databaseName != null)
-//            optionsBuilder.UseInMemoryDatabase(databaseName);
-
-//        var newRequest = CreateRequest();
-//        using (TutorMeContext ctx = new(optionsBuilder.Options))
-//        {
-//            ctx.Add(newRequest);
-//            ctx.SaveChangesAsync();
-//        }
-
-//        //Modify the Requests DateCreated
-//        newRequest.DateCreated = "27 April 1999";
-        
-//        Task<IActionResult> result;
-//        using (TutorMeContext ctx1 = new(optionsBuilder.Options))
-//        {
-//            result =new RequestsController(ctx1).PutRequest(newRequest.Id,newRequest);
-//        }
-
-//        // result should be of type NoContentResult
-//        Assert.IsType<NoContentResult>(result.Result);
-        
-//        //Now checking if the Date was actually Modified on the database 
-//        Task<ActionResult<Request>> resultCheck;
-//        using (TutorMeContext ctx1 = new(optionsBuilder.Options))
-//        {
-//            resultCheck =new RequestsController(ctx1).GetRequest(newRequest.Id);
-//        }
-
-//        var okResult = Assert.IsType<ActionResult<Request >>(resultCheck.Result);
-//        var request = Assert.IsType<Request>(okResult.Value);
-           
-//        Assert.NotNull(request);
-//        Assert.Equal(newRequest.RequesterId, request.RequesterId);
-//        Assert.Equal(newRequest.ReceiverId, request.ReceiverId);
-//        Assert.Equal("27 April 1999", request.DateCreated);
-//        Assert.Equal(newRequest.Id, request.Id);
-//        request.Should().BeEquivalentTo(newRequest,
-//            //Verifying all the DTO variables matches the expected Request (newRequest)
-//            options => options.ComparingByMembers<Request>());
-//    }
+        var requests11 = await getTutorRequest.Content.ReadFromJsonAsync<List<Request>>();
+        Assert.NotNull(requests11);
+        Assert.Equal(1,requests11.Count);
     
-//    [Fact]
-//    public void AddsRequestToDatabase()
-//    {
-//        DbContextOptionsBuilder<TutorMeContext> optionsBuilder = new();
-//        var databaseName = MethodBase.GetCurrentMethod()?.Name;
-//        if (databaseName != null)
-//            optionsBuilder.UseInMemoryDatabase(databaseName);
-
-//        var newRequest = CreateRequest();
-
-//        Task<ActionResult<Request>> result;
-//        using (TutorMeContext ctx1 = new(optionsBuilder.Options))
-//        {
-//            result =new RequestsController(ctx1).PostRequest(newRequest);
-//        }
-
-//        Assert.IsType<ActionResult<Request >>(result.Result);
-        
-//        //Now checking if the Request was actually added to the database 
-//        Task<ActionResult<Request>> resultCheck;
-//        using (TutorMeContext ctx1 = new(optionsBuilder.Options))
-//        {
-//            resultCheck =new RequestsController(ctx1).GetRequest(newRequest.Id);
-//        }
-
-//        var okResult = Assert.IsType<ActionResult<Request >>(resultCheck.Result);
-//        var request = Assert.IsType<Request>(okResult.Value);
-           
-//        Assert.NotNull(request);
-//        Assert.Equal(newRequest.RequesterId, request.RequesterId);
-//        Assert.Equal(newRequest.ReceiverId, request.ReceiverId);
-//        Assert.Equal("26 April 1999", request.DateCreated);
-//        Assert.Equal(newRequest.Id, request.Id);
-//        request.Should().BeEquivalentTo(newRequest,
-//            //Verifying all the DTO variables matches the expected Request (newRequest)
-//            options => options.ComparingByMembers<Request>());
-//    }
     
-//    [Fact]
-//    public void DeletesRequestOnDatabase()
-//    {
-//        DbContextOptionsBuilder<TutorMeContext> optionsBuilder = new();
-//        var databaseName = MethodBase.GetCurrentMethod()?.Name;
-//        if (databaseName != null)
-//            optionsBuilder.UseInMemoryDatabase(databaseName);
+    }
+    [Fact]
+    public async Task GetTuteesRequestById()
+    { var testRequest = new Request()
+        {
+            Id =Guid.NewGuid(),
+            RequesterId =Guid.NewGuid().ToString(),
+            ReceiverId =Guid.NewGuid().ToString(),
+            DateCreated ="26 April 1999",
+            ModuleCode =Guid.NewGuid().ToString()
 
-//        var newRequest = CreateRequest();
-//        using (TutorMeContext ctx = new(optionsBuilder.Options))
-//        {
-//            ctx.Add(newRequest);
-//            ctx.SaveChangesAsync();
-//        }
+        };
+
+        //Act
+        var id = testRequest.Id;
+        await _httpClient.PostAsJsonAsync("https://localhost:7062/api/Requests", testRequest);
         
-
-//        Task<IActionResult> result;
-//        using (TutorMeContext ctx1 = new(optionsBuilder.Options))
-//        {
-//            result =new RequestsController(ctx1).DeleteRequest(newRequest.Id);
-//        }
-
-//        Assert.IsType< NoContentResult>(result.Result);
+        var getTutorRequest = await _httpClient.GetAsync("https://localhost:7062/api/Requests/Tutee/"+testRequest.RequesterId);
+        Assert.NotNull(getTutorRequest);
+        Assert.Equal(200, (double)getTutorRequest.StatusCode);
         
-//        //Now checking if the Request was actually deleted to the database 
-//        Task<ActionResult<Request>> resultCheck;
-//        using (TutorMeContext ctx1 = new(optionsBuilder.Options))
-//        {
-//            resultCheck =new RequestsController(ctx1).GetRequest(newRequest.Id);
-//        }
+        var requests11 = await getTutorRequest.Content.ReadFromJsonAsync<List<Request>>();
+        Assert.NotNull(requests11);
+        Assert.Equal(1,requests11.Count);
+    
+    
+    }
+    [Fact]
+    public async Task AddRequest()
+    {
+        var testRequest = new Request()
+        {
+            Id =Guid.NewGuid(),
+            RequesterId =Guid.NewGuid().ToString(),
+            ReceiverId =Guid.NewGuid().ToString(),
+            DateCreated ="26 April 1999",
+            ModuleCode =Guid.NewGuid().ToString()
 
-//        var notFoundResult = Assert.IsType<ActionResult<Request >>(resultCheck.Result);
-//        var request = Assert.IsType<NotFoundResult>(notFoundResult.Result);
-//        Assert.NotNull(request);
-//        Assert.Equal(404, request.StatusCode);
-        
-//    }
+        };
 
-//    }
+        //Act
+        var id = testRequest.Id;
+        await _httpClient.PostAsJsonAsync("https://localhost:7062/api/Requests", testRequest);
+        var response = await _httpClient.GetAsync("https://localhost:7062/api/Requests/"+id);
+
+        //Assert
+        Assert.NotNull(response);
+        Assert.Equal(200, (double)response.StatusCode);
+
+        var request = await response.Content.ReadFromJsonAsync<Request>();
+
+        Assert.NotNull(request);
+        if (request != null)
+        {
+            Assert.Equal(testRequest.Id, request.Id);
+            Assert.Equal(testRequest.ReceiverId, request.ReceiverId);
+            Assert.Equal(testRequest.RequesterId, request.RequesterId);
+            Assert.Equal(testRequest.DateCreated, request.DateCreated);
+            Assert.Equal(testRequest.ModuleCode, request.ModuleCode);
+            
+        }
+    }
+    
+
+}
