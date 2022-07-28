@@ -62,6 +62,12 @@ additional functionalities like filtering tutors by gender to enable students to
 ## [Recorded Demo]()
 ## [Technical Installation Document](https://github.com/COS301-SE-2022/Tutor-ME/blob/develop/assets/Technical%20installation%20manual.pdf)
 ## [User Manual](https://github.com/COS301-SE-2022/Tutor-ME/blob/develop/assets/User%20Manual%20TutorMe-1.pdf)
+## [SRS Document](https://github.com/COS301-SE-2022/Tutor-ME/blob/develop/assets/SRS%20Document%20-%20version%203.pdf)
+## [Coding Standards Document](https://github.com/COS301-SE-2022/Tutor-ME/blob/develop/assets/Coding%20standards%20document.pdf)
+## [Sprint Planning](https://github.com/COS301-SE-2022/Tutor-ME/blob/develop/assets/Sprint%20Planning%20And%20Burndown%20Charts%20-1.pdf)
+## Project Boards:
+> > > ### [GitHub Project Board](https://github.com/COS301-SE-2022/Tutor-ME/projects/1)
+> > > ### [Trello Project Board](https://trello.com/b/R58mrioT/tutor-me)
 
 ## Project Technologies
 - Frontend: Flutter(Dart)
@@ -113,7 +119,7 @@ I am a self-motivated individual who has worked on multiple projects as a Busine
 # [Farai Chivunga](https://github.com/FaraiQC) (Developer Operations Lead)
 - LinkedIn:  <a href="https://linkedin.com/in/farai-chivunga-17a173188" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="farai-chivunga-17a173188" height="30" width="40" /></a>
 
-I am a hardworker and I am able to learn new technologies quickly. A team player with excellent communication skills. I find joy in finding inovative ways to solve problems and I am highly motivated. I have worked on projecst as a backend (service) engineer and developer operations. I am confident with coding in Java, C++, Python, Flutter(Dart), Javascript and Typescript. I have worked on projects where we used AngularJS with NestJS as a backend, and I have worked in a project where  we used Flutter and Dart for our frontend, ASP.net core for our backend and MicrosoftSQL Server for our Database.
+I am a hardworker and I am able to learn new technologies quickly. A team player with excellent communication skills. I find joy in finding inovative ways to solve problems and I am highly motivated. I have worked on projects as a backend (service) engineer and head of developer operations. I am confident with coding in Java, C++, Python, Flutter(Dart), Javascript and Typescript. I have worked on projects where we used AngularJS with NestJS as a backend, and I have worked in a project where  we used Flutter and Dart for our frontend, ASP.net core for our backend and MicrosoftSQL Server for our Database.
 
  ![GitHub Stats](https://github-readme-stats.vercel.app/api?username=FaraiQC&theme=highcontrast)
  
