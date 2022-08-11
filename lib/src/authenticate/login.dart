@@ -32,6 +32,14 @@ class _LoginState extends State<Login> {
   int? initialIndex = 0;
   @override
   Widget build(BuildContext context) {
+    double widthOfScreen = MediaQuery.of(context).size.width;
+    double toggleWidth = MediaQuery.of(context).size.width * 0.4;
+    double textBoxWidth = MediaQuery.of(context).size.width * 0.4;
+    double buttonWidth = MediaQuery.of(context).size.width * 0.8;
+    if (widthOfScreen >= 400.0) {
+      toggleWidth = toggleWidth / 2;
+      buttonWidth = buttonWidth / 2;
+    }
     return Scaffold(
       key: _scaffoldKey,
       body: Stack(
@@ -81,7 +89,7 @@ class _LoginState extends State<Login> {
               ),
               Center(
                 child: ToggleSwitch(
-                  minWidth: MediaQuery.of(context).size.width * 0.4,
+                  minWidth: toggleWidth,
                   minHeight: MediaQuery.of(context).size.height * 0.06,
                   cornerRadius: MediaQuery.of(context).size.height * 0.07,
                   fontSize: MediaQuery.of(context).size.height * 0.02,
@@ -115,21 +123,27 @@ class _LoginState extends State<Login> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  TextInputField(
-                    icon: Icons.email_outlined,
-                    hint: 'Email',
-                    inputType: TextInputType.emailAddress,
-                    inputAction: TextInputAction.next,
-                    inputController: emailController,
-                    // inputFocus: emailFocusNode,
+                  SizedBox(
+                    width: textBoxWidth,
+                    child: TextInputField(
+                      icon: Icons.email_outlined,
+                      hint: 'Email',
+                      inputType: TextInputType.emailAddress,
+                      inputAction: TextInputAction.next,
+                      inputController: emailController,
+                      // inputFocus: emailFocusNode,
+                    ),
                   ),
-                  PasswordInput(
-                    icon: Icons.lock_clock_outlined,
-                    hint: 'Password',
-                    inputAction: TextInputAction.done,
-                    inputType: TextInputType.text,
-                    inputController: passwordController,
-                    inputFocus: passwordFocusNode,
+                  SizedBox(
+                    width: textBoxWidth,
+                    child: PasswordInput(
+                      icon: Icons.lock_clock_outlined,
+                      hint: 'Password',
+                      inputAction: TextInputAction.done,
+                      inputType: TextInputType.text,
+                      inputController: passwordController,
+                      inputFocus: passwordFocusNode,
+                    ),
                   ),
                   GestureDetector(
                     onTap: () {
@@ -152,7 +166,7 @@ class _LoginState extends State<Login> {
               ),
               Container(
                 height: MediaQuery.of(context).size.height * 0.06,
-                width: MediaQuery.of(context).size.width * 0.8,
+                width: buttonWidth,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(16),
                   color: colorOrange,
@@ -263,8 +277,7 @@ class _LoginState extends State<Login> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>
-                                    TuteePage(user: tutee)),
+                                builder: (context) => TuteePage(user: tutee)),
                           );
 
                           setState(() {
@@ -279,8 +292,8 @@ class _LoginState extends State<Login> {
                             builder: (context) {
                               return AlertDialog(
                                 title: const Text("One Or More Errors Occured"),
-                                content:
-                                    const Text("Invalid Password, Email or Network Connection"),
+                                content: const Text(
+                                    "Invalid Password, Email or Network Connection"),
                                 backgroundColor: colorWhite,
                                 titleTextStyle: TextStyle(
                                   color: colorOrange,
