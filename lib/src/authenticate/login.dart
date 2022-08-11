@@ -34,11 +34,12 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     double widthOfScreen = MediaQuery.of(context).size.width;
     double toggleWidth = MediaQuery.of(context).size.width * 0.4;
-    double textBoxWidth = MediaQuery.of(context).size.width * 0.4;
+    double textBoxWidth = MediaQuery.of(context).size.width * 0.4 * 2;
     double buttonWidth = MediaQuery.of(context).size.width * 0.8;
     if (widthOfScreen >= 400.0) {
       toggleWidth = toggleWidth / 2;
       buttonWidth = buttonWidth / 2;
+      textBoxWidth = textBoxWidth / 2;
     }
     return Scaffold(
       key: _scaffoldKey,

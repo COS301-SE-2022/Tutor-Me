@@ -112,7 +112,7 @@ class _RegisterStep1State extends State<RegisterStep1> {
     double widthOfScreen = MediaQuery.of(context).size.width;
     double stepperWidth = MediaQuery.of(context).size.width * 0.95;
     double toggleWidth = MediaQuery.of(context).size.width * 0.4;
-    double textBoxWidth = MediaQuery.of(context).size.width * 0.4;
+    double textBoxWidth = MediaQuery.of(context).size.width * 0.4 * 2;
     double buttonWidth = MediaQuery.of(context).size.width * 0.8;
     String welcome = "";
     if (widthOfScreen < 400.0) {
@@ -121,6 +121,7 @@ class _RegisterStep1State extends State<RegisterStep1> {
       stepperWidth = stepperWidth / 2;
       toggleWidth = toggleWidth / 2;
       buttonWidth = buttonWidth / 2;
+      textBoxWidth = textBoxWidth / 2;
     }
     return Scaffold(
       // key: _scaffoldKey,
