@@ -15,6 +15,9 @@ import '../widgets/meeting_controls/meeting_action_bar.dart';
 import '../widgets/participant_grid_view/participant_grid_view.dart';
 import 'startup_screen.dart';
 
+import 'package:provider/provider.dart';
+import 'package:tutor_me/src/theme/themes.dart';
+
 // Meeting Screen
 class MeetingScreen extends StatefulWidget {
   final String meetingId, token, displayName;
@@ -117,8 +120,15 @@ class _MeetingScreenState extends State<MeetingScreen> {
             );
           }
 
+          final provider = Provider.of<ThemeProvider>(context, listen: false);
+          Color themeColor;
+          if (provider.themeMode == ThemeMode.dark) {
+            themeColor = Colors.grey.shade800;
+          } else {
+            themeColor = Colors.orange.shade900;
+          }
           return Scaffold(
-            backgroundColor: Theme.of(context).backgroundColor.withOpacity(0.8),
+            backgroundColor: themeColor,
             floatingActionButton: MeetingActionBar(
               isMicEnabled: audioStream != null,
               isWebcamEnabled: videoStream != null,

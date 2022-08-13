@@ -5,6 +5,9 @@ import 'package:flutter/material.dart';
 import '../../constants/colors.dart';
 import 'meeting_action_button.dart';
 
+// import 'package:provider/provider.dart';
+// import 'package:tutor_me/src/theme/themes.dart';
+
 // Meeting ActionBar
 class MeetingActionBar extends StatelessWidget {
   // control states
@@ -37,9 +40,16 @@ class MeetingActionBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // final provider = Provider.of<ThemeProvider>(context, listen: false);
+    // Color participantColor;
+    // if (provider.themeMode == ThemeMode.dark) {
+    //   participantColor = Colors.grey;
+    // } else {
+    //   participantColor = Colors.orange.shade900;
+    // }
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-      color: Theme.of(context).backgroundColor,
+      // color: participantColor,
       child: Row(
         children: [
           // Call End Control
