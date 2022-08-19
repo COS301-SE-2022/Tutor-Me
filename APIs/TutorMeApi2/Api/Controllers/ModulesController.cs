@@ -18,7 +18,7 @@ namespace Api.Controllers
 
         // GET: api/Modules
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Module>>> GetModules()
+        public async Task<ActionResult<IEnumerable<Module>>> GetAllModules()
         {
             if (_context.Modules == null)
             {
@@ -29,7 +29,7 @@ namespace Api.Controllers
 
         // GET: api/Modules/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Module>> GetModule(string id)
+        public async Task<ActionResult<Module>> GetModuleById(string id)
         {
             if (_context.Modules == null)
             {
@@ -48,14 +48,14 @@ namespace Api.Controllers
         // PUT: api/Modules/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutModule(string id, Module @module)
+        public async Task<IActionResult> UpdateModule(string id, Module module)
         {
-            if (id != @module.Code)
+            if (id != module.Code)
             {
                 return BadRequest();
             }
 
-            _context.Entry(@module).State = EntityState.Modified;
+            _context.Entry(module).State = EntityState.Modified;
 
             try
             {
@@ -79,20 +79,20 @@ namespace Api.Controllers
         // POST: api/Modules
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Module>> PostModule(Module @module)
+        public async Task<ActionResult<Module>> RegisterModule(Module module)
         {
             if (_context.Modules == null)
             {
                 return Problem("Entity set 'TutorMeContext.Modules'  is null.");
             }
-            _context.Modules.Add(@module);
+            _context.Modules.Add(module);
             try
             {
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
-                if (ModuleExists(@module.Code))
+                if (ModuleExists(module.Code))
                 {
                     return Conflict();
                 }
@@ -102,24 +102,24 @@ namespace Api.Controllers
                 }
             }
 
-            return CreatedAtAction("GetModule", new { id = @module.Code }, @module);
+            return CreatedAtAction("GetModuleById", new { id = module.Code }, module);
         }
 
         // DELETE: api/Modules/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteModule(string id)
+        public async Task<IActionResult> DeleteModuleById(string id)
         {
             if (_context.Modules == null)
             {
                 return NotFound();
             }
-            var @module = await _context.Modules.FindAsync(id);
-            if (@module == null)
+            var module = await _context.Modules.FindAsync(id);
+            if (module == null)
             {
                 return NotFound();
             }
 
-            _context.Modules.Remove(@module);
+            _context.Modules.Remove(module);
             await _context.SaveChangesAsync();
 
             return NoContent();

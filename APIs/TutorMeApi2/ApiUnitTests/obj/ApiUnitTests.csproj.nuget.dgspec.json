@@ -1,6 +1,7 @@
 {
   "format": 1,
   "restore": {
+<<<<<<< HEAD:APIs/TutorMeApi2/ApiUnitTests/obj/ApiUnitTests.csproj.nuget.dgspec.json
     "C:\\Users\\madun\\Documents\\School\\COS301\\Capstone\\Tutor-ME\\APIs\\TutorMeApi\\ApiUnitTests\\ApiUnitTests.csproj": {}
   },
   "projects": {
@@ -12,6 +13,19 @@
         "projectPath": "C:\\Users\\madun\\Documents\\School\\COS301\\Capstone\\Tutor-ME\\APIs\\TutorMeApi\\ApiUnitTests\\ApiUnitTests.csproj",
         "packagesPath": "C:\\Users\\madun\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\madun\\Documents\\School\\COS301\\Capstone\\Tutor-ME\\APIs\\TutorMeApi\\ApiUnitTests\\obj\\",
+=======
+    "C:\\Users\\madun\\Documents\\School\\Year 3\\COS301\\Capstone\\Tutor-ME\\APIs\\TutorMeApi\\ApiUnitTests\\ApiUnitTests.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\madun\\Documents\\School\\Year 3\\COS301\\Capstone\\Tutor-ME\\APIs\\TutorMeApi\\ApiUnitTests\\ApiUnitTests.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\madun\\Documents\\School\\Year 3\\COS301\\Capstone\\Tutor-ME\\APIs\\TutorMeApi\\ApiUnitTests\\ApiUnitTests.csproj",
+        "projectName": "ApiUnitTests",
+        "projectPath": "C:\\Users\\madun\\Documents\\School\\Year 3\\COS301\\Capstone\\Tutor-ME\\APIs\\TutorMeApi\\ApiUnitTests\\ApiUnitTests.csproj",
+        "packagesPath": "C:\\Users\\madun\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\madun\\Documents\\School\\Year 3\\COS301\\Capstone\\Tutor-ME\\APIs\\TutorMeApi\\ApiUnitTests\\obj\\",
+>>>>>>> 8d796b1fa9cc9397aa2e80b7b18549ad3f2755d7:APIs/TutorMeApi/ApiUnitTests/obj/ApiUnitTests.csproj.nuget.dgspec.json
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\madun\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -28,8 +42,13 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
+<<<<<<< HEAD:APIs/TutorMeApi2/ApiUnitTests/obj/ApiUnitTests.csproj.nuget.dgspec.json
               "C:\\Users\\madun\\Documents\\School\\COS301\\Capstone\\Tutor-ME\\APIs\\TutorMeApi\\Api\\Api.csproj": {
                 "projectPath": "C:\\Users\\madun\\Documents\\School\\COS301\\Capstone\\Tutor-ME\\APIs\\TutorMeApi\\Api\\Api.csproj"
+=======
+              "C:\\Users\\madun\\Documents\\School\\Year 3\\COS301\\Capstone\\Tutor-ME\\APIs\\TutorMeApi\\Api\\Api.csproj": {
+                "projectPath": "C:\\Users\\madun\\Documents\\School\\Year 3\\COS301\\Capstone\\Tutor-ME\\APIs\\TutorMeApi\\Api\\Api.csproj"
+>>>>>>> 8d796b1fa9cc9397aa2e80b7b18549ad3f2755d7:APIs/TutorMeApi/ApiUnitTests/obj/ApiUnitTests.csproj.nuget.dgspec.json
               }
             }
           }
@@ -47,6 +66,10 @@
             "FluentAssertions": {
               "target": "Package",
               "version": "[6.7.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.InMemory": {
+              "target": "Package",
+              "version": "[6.0.0, )"
             },
             "Microsoft.NET.Test.Sdk": {
               "target": "Package",
@@ -92,6 +115,7 @@
         }
       }
     },
+<<<<<<< HEAD:APIs/TutorMeApi2/ApiUnitTests/obj/ApiUnitTests.csproj.nuget.dgspec.json
     "C:\\Users\\madun\\Documents\\School\\COS301\\Capstone\\Tutor-ME\\APIs\\TutorMeApi\\Api\\Api.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -100,6 +124,16 @@
         "projectPath": "C:\\Users\\madun\\Documents\\School\\COS301\\Capstone\\Tutor-ME\\APIs\\TutorMeApi\\Api\\Api.csproj",
         "packagesPath": "C:\\Users\\madun\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\madun\\Documents\\School\\COS301\\Capstone\\Tutor-ME\\APIs\\TutorMeApi\\Api\\obj\\",
+=======
+    "C:\\Users\\madun\\Documents\\School\\Year 3\\COS301\\Capstone\\Tutor-ME\\APIs\\TutorMeApi\\Api\\Api.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\madun\\Documents\\School\\Year 3\\COS301\\Capstone\\Tutor-ME\\APIs\\TutorMeApi\\Api\\Api.csproj",
+        "projectName": "Api",
+        "projectPath": "C:\\Users\\madun\\Documents\\School\\Year 3\\COS301\\Capstone\\Tutor-ME\\APIs\\TutorMeApi\\Api\\Api.csproj",
+        "packagesPath": "C:\\Users\\madun\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\madun\\Documents\\School\\Year 3\\COS301\\Capstone\\Tutor-ME\\APIs\\TutorMeApi\\Api\\obj\\",
+>>>>>>> 8d796b1fa9cc9397aa2e80b7b18549ad3f2755d7:APIs/TutorMeApi/ApiUnitTests/obj/ApiUnitTests.csproj.nuget.dgspec.json
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\madun\\AppData\\Roaming\\NuGet\\NuGet.Config",

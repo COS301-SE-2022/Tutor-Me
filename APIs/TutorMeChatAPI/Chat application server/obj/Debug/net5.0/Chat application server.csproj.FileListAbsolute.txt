@@ -1,0 +1,58 @@
+C:\Users\farai\Documents\flutter-chat-signalr-main\flutter-chat-signalr-main\Chat application server\Chat application server\bin\Debug\net5.0\appsettings.Development.json
+C:\Users\farai\Documents\flutter-chat-signalr-main\flutter-chat-signalr-main\Chat application server\Chat application server\bin\Debug\net5.0\appsettings.json
+C:\Users\farai\Documents\flutter-chat-signalr-main\flutter-chat-signalr-main\Chat application server\Chat application server\bin\Debug\net5.0\aws-beanstalk-tools-defaults.json
+C:\Users\farai\Documents\flutter-chat-signalr-main\flutter-chat-signalr-main\Chat application server\Chat application server\bin\Debug\net5.0\Chat application server.exe
+C:\Users\farai\Documents\flutter-chat-signalr-main\flutter-chat-signalr-main\Chat application server\Chat application server\bin\Debug\net5.0\Chat application server.deps.json
+C:\Users\farai\Documents\flutter-chat-signalr-main\flutter-chat-signalr-main\Chat application server\Chat application server\bin\Debug\net5.0\Chat application server.runtimeconfig.json
+C:\Users\farai\Documents\flutter-chat-signalr-main\flutter-chat-signalr-main\Chat application server\Chat application server\bin\Debug\net5.0\Chat application server.runtimeconfig.dev.json
+C:\Users\farai\Documents\flutter-chat-signalr-main\flutter-chat-signalr-main\Chat application server\Chat application server\bin\Debug\net5.0\Chat application server.dll
+C:\Users\farai\Documents\flutter-chat-signalr-main\flutter-chat-signalr-main\Chat application server\Chat application server\bin\Debug\net5.0\Chat application server.pdb
+C:\Users\farai\Documents\flutter-chat-signalr-main\flutter-chat-signalr-main\Chat application server\Chat application server\bin\Debug\net5.0\Microsoft.OpenApi.dll
+C:\Users\farai\Documents\flutter-chat-signalr-main\flutter-chat-signalr-main\Chat application server\Chat application server\bin\Debug\net5.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\farai\Documents\flutter-chat-signalr-main\flutter-chat-signalr-main\Chat application server\Chat application server\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\farai\Documents\flutter-chat-signalr-main\flutter-chat-signalr-main\Chat application server\Chat application server\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\farai\Documents\flutter-chat-signalr-main\flutter-chat-signalr-main\Chat application server\Chat application server\obj\Debug\net5.0\Chat application server.csproj.AssemblyReference.cache
+C:\Users\farai\Documents\flutter-chat-signalr-main\flutter-chat-signalr-main\Chat application server\Chat application server\obj\Debug\net5.0\Chat application server.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\farai\Documents\flutter-chat-signalr-main\flutter-chat-signalr-main\Chat application server\Chat application server\obj\Debug\net5.0\Chat application server.AssemblyInfoInputs.cache
+C:\Users\farai\Documents\flutter-chat-signalr-main\flutter-chat-signalr-main\Chat application server\Chat application server\obj\Debug\net5.0\Chat application server.AssemblyInfo.cs
+C:\Users\farai\Documents\flutter-chat-signalr-main\flutter-chat-signalr-main\Chat application server\Chat application server\obj\Debug\net5.0\Chat application server.csproj.CoreCompileInputs.cache
+C:\Users\farai\Documents\flutter-chat-signalr-main\flutter-chat-signalr-main\Chat application server\Chat application server\obj\Debug\net5.0\Chat application server.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\farai\Documents\flutter-chat-signalr-main\flutter-chat-signalr-main\Chat application server\Chat application server\obj\Debug\net5.0\Chat application server.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\farai\Documents\flutter-chat-signalr-main\flutter-chat-signalr-main\Chat application server\Chat application server\obj\Debug\net5.0\scopedcss\bundle\Chat application server.styles.css
+C:\Users\farai\Documents\flutter-chat-signalr-main\flutter-chat-signalr-main\Chat application server\Chat application server\obj\Debug\net5.0\staticwebassets\Chat application server.StaticWebAssets.Manifest.cache
+C:\Users\farai\Documents\flutter-chat-signalr-main\flutter-chat-signalr-main\Chat application server\Chat application server\obj\Debug\net5.0\Chat application server.RazorTargetAssemblyInfo.cache
+C:\Users\farai\Documents\flutter-chat-signalr-main\flutter-chat-signalr-main\Chat application server\Chat application server\obj\Debug\net5.0\Chat application server.csproj.CopyComplete
+C:\Users\farai\Documents\flutter-chat-signalr-main\flutter-chat-signalr-main\Chat application server\Chat application server\obj\Debug\net5.0\Chat application server.dll
+C:\Users\farai\Documents\flutter-chat-signalr-main\flutter-chat-signalr-main\Chat application server\Chat application server\obj\Debug\net5.0\refint\Chat application server.dll
+C:\Users\farai\Documents\flutter-chat-signalr-main\flutter-chat-signalr-main\Chat application server\Chat application server\obj\Debug\net5.0\Chat application server.pdb
+C:\Users\farai\Documents\flutter-chat-signalr-main\flutter-chat-signalr-main\Chat application server\Chat application server\obj\Debug\net5.0\Chat application server.genruntimeconfig.cache
+C:\Users\farai\Documents\flutter-chat-signalr-main\flutter-chat-signalr-main\Chat application server\Chat application server\obj\Debug\net5.0\ref\Chat application server.dll
+C:\Users\farai\Documents\Tutor-ME\APIs\TutorMeChatAPI\Chat application server\bin\Debug\net5.0\appsettings.Development.json
+C:\Users\farai\Documents\Tutor-ME\APIs\TutorMeChatAPI\Chat application server\bin\Debug\net5.0\appsettings.json
+C:\Users\farai\Documents\Tutor-ME\APIs\TutorMeChatAPI\Chat application server\bin\Debug\net5.0\aws-beanstalk-tools-defaults.json
+C:\Users\farai\Documents\Tutor-ME\APIs\TutorMeChatAPI\Chat application server\bin\Debug\net5.0\Chat application server.exe
+C:\Users\farai\Documents\Tutor-ME\APIs\TutorMeChatAPI\Chat application server\bin\Debug\net5.0\Chat application server.deps.json
+C:\Users\farai\Documents\Tutor-ME\APIs\TutorMeChatAPI\Chat application server\bin\Debug\net5.0\Chat application server.runtimeconfig.json
+C:\Users\farai\Documents\Tutor-ME\APIs\TutorMeChatAPI\Chat application server\bin\Debug\net5.0\Chat application server.runtimeconfig.dev.json
+C:\Users\farai\Documents\Tutor-ME\APIs\TutorMeChatAPI\Chat application server\bin\Debug\net5.0\Chat application server.dll
+C:\Users\farai\Documents\Tutor-ME\APIs\TutorMeChatAPI\Chat application server\bin\Debug\net5.0\Chat application server.pdb
+C:\Users\farai\Documents\Tutor-ME\APIs\TutorMeChatAPI\Chat application server\bin\Debug\net5.0\Microsoft.OpenApi.dll
+C:\Users\farai\Documents\Tutor-ME\APIs\TutorMeChatAPI\Chat application server\bin\Debug\net5.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\farai\Documents\Tutor-ME\APIs\TutorMeChatAPI\Chat application server\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\farai\Documents\Tutor-ME\APIs\TutorMeChatAPI\Chat application server\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\farai\Documents\Tutor-ME\APIs\TutorMeChatAPI\Chat application server\obj\Debug\net5.0\Chat application server.csproj.AssemblyReference.cache
+C:\Users\farai\Documents\Tutor-ME\APIs\TutorMeChatAPI\Chat application server\obj\Debug\net5.0\Chat application server.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\farai\Documents\Tutor-ME\APIs\TutorMeChatAPI\Chat application server\obj\Debug\net5.0\Chat application server.AssemblyInfoInputs.cache
+C:\Users\farai\Documents\Tutor-ME\APIs\TutorMeChatAPI\Chat application server\obj\Debug\net5.0\Chat application server.AssemblyInfo.cs
+C:\Users\farai\Documents\Tutor-ME\APIs\TutorMeChatAPI\Chat application server\obj\Debug\net5.0\Chat application server.csproj.CoreCompileInputs.cache
+C:\Users\farai\Documents\Tutor-ME\APIs\TutorMeChatAPI\Chat application server\obj\Debug\net5.0\Chat application server.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\farai\Documents\Tutor-ME\APIs\TutorMeChatAPI\Chat application server\obj\Debug\net5.0\Chat application server.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\farai\Documents\Tutor-ME\APIs\TutorMeChatAPI\Chat application server\obj\Debug\net5.0\scopedcss\bundle\Chat application server.styles.css
+C:\Users\farai\Documents\Tutor-ME\APIs\TutorMeChatAPI\Chat application server\obj\Debug\net5.0\staticwebassets\Chat application server.StaticWebAssets.Manifest.cache
+C:\Users\farai\Documents\Tutor-ME\APIs\TutorMeChatAPI\Chat application server\obj\Debug\net5.0\Chat application server.RazorTargetAssemblyInfo.cache
+C:\Users\farai\Documents\Tutor-ME\APIs\TutorMeChatAPI\Chat application server\obj\Debug\net5.0\Chat application server.csproj.CopyComplete
+C:\Users\farai\Documents\Tutor-ME\APIs\TutorMeChatAPI\Chat application server\obj\Debug\net5.0\Chat application server.dll
+C:\Users\farai\Documents\Tutor-ME\APIs\TutorMeChatAPI\Chat application server\obj\Debug\net5.0\refint\Chat application server.dll
+C:\Users\farai\Documents\Tutor-ME\APIs\TutorMeChatAPI\Chat application server\obj\Debug\net5.0\Chat application server.pdb
+C:\Users\farai\Documents\Tutor-ME\APIs\TutorMeChatAPI\Chat application server\obj\Debug\net5.0\Chat application server.genruntimeconfig.cache
+C:\Users\farai\Documents\Tutor-ME\APIs\TutorMeChatAPI\Chat application server\obj\Debug\net5.0\ref\Chat application server.dll

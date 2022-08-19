@@ -51,7 +51,7 @@ class Requests {
     _receiverId = o["receiverId"];
     _requesterId = o["requesterId"];
     _dateCreated = o["dateCreated"];
-    _moduleCode = o["modeuleCode"];
+    _moduleCode = o["moduleCode"];
   }
 
   static fromJson(model) {}

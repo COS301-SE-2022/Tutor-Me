@@ -23,7 +23,7 @@ namespace Api.Controllers
 
         // GET: api/Requests
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Request>>> GetRequests()
+        public async Task<ActionResult<IEnumerable<Request>>> GetAllRequests()
         {
           if (_context.Requests == null)
           {
@@ -34,7 +34,7 @@ namespace Api.Controllers
 
         // GET: api/Requests/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Request>> GetRequest(Guid id)
+        public async Task<ActionResult<Request>> GetRequestById(Guid id)
         {
           if (_context.Requests == null)
           {
@@ -51,7 +51,7 @@ namespace Api.Controllers
         }
 
         [HttpGet("Tutor/{tutorId}")]
-        public async Task<ActionResult<Request>> GetTutorRequests(String tutorId)
+        public async Task<ActionResult<Request>> GetRequestsByTutorId(String tutorId)
         {
             if (_context.Tutors == null)
             {
@@ -68,7 +68,7 @@ namespace Api.Controllers
         }
 
         [HttpGet("Tutee/{tuteeId}")]
-        public async Task<ActionResult<Request>> GetTuteeRequests(String tuteeId)
+        public async Task<ActionResult<Request>> GetRequestsByTuteeId(String tuteeId)
         {
             if (_context.Tutors == null)
             {
@@ -90,7 +90,7 @@ namespace Api.Controllers
         // PUT: api/Requests/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutRequest(Guid id, Request request)
+        public async Task<IActionResult> UpdateRequest(Guid id, Request request)
         {
             if (id != request.Id)
             {
@@ -121,7 +121,7 @@ namespace Api.Controllers
         // POST: api/Requests
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Request>> PostRequest(Request request)
+        public async Task<ActionResult<Request>> RegiterRequest(Request request)
         {
           if (_context.Requests == null)
           {
@@ -130,12 +130,12 @@ namespace Api.Controllers
             _context.Requests.Add(request);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetRequest", new { id = request.Id }, request);
+            return CreatedAtAction("GetRequestById", new { id = request.Id }, request);
         }
 
         // DELETE: api/Requests/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteRequest(Guid id)
+        public async Task<IActionResult> DeleteRequestById(Guid id)
         {
             if (_context.Requests == null)
             {

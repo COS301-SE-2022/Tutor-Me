@@ -1,222 +1,308 @@
-using System.Reflection;
-using Api.Controllers;
+using System.Net.Http.Json;
+using System.Text;
 using Api.Data;
-using FluentAssertions;
-using Microsoft.AspNetCore.Mvc;
+using Api.Models;
+using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
-using Module = Api.Models.Module;
+using Microsoft.Extensions.DependencyInjection;
+using NuGet.Protocol;
 
 
 namespace IntegrationTests;
 
-public class ModuleControllerIntegrationTests
+public class ModuleControllerIntegrationTests :IClassFixture<WebApplicationFactory<Program>>
 {
-    //DTO
-    private static Module CreateModule()
+    private readonly HttpClient _httpClient;
+   
+    public ModuleControllerIntegrationTests()
     {
-        return new()
+        var dbname = Guid.NewGuid().ToString();
+        var appFactory = new WebApplicationFactory<Program>()
+            .WithWebHostBuilder(builder =>
+            {
+                builder.ConfigureServices(
+                    services =>
+                    {
+                        var descriptor = services.SingleOrDefault(
+                            d => d.ServiceType == typeof(DbContextOptions<TutorMeContext>));
+
+                        if (descriptor != null)
+                        {
+                            services.Remove(descriptor);
+                        }
+                        services.AddDbContext<TutorMeContext>(
+                            options =>
+                            {
+                                options.UseInMemoryDatabase(dbname);
+                            });
+                    });
+            });
+
+        _httpClient = appFactory.CreateClient();
+    }
+    
+    [Fact]
+    public async Task GetAllModules_NoModules()
+    {
+        //Act
+        var response = await _httpClient.GetAsync("https://localhost:7062/api/Modules");
+
+        //Assert
+        Assert.NotNull(response);
+        Assert.Equal(200, (double)response.StatusCode);
+
+        var modules = await response.Content.ReadFromJsonAsync<List<Module>>();
+
+        Assert.Equal(0, modules.Count());
+    }
+    
+    [Fact]
+    public async Task GetAllModules_Modules()
+    {
+        //Arrange
+        var testModule = new Module()
         {
             Code =Guid.NewGuid().ToString(),
             ModuleName = "Software engineering 301",
             Institution ="University Of Pretoria",
             Faculty = "Faculty of Engineering, Built Environment and IT",
-            Year=Guid.NewGuid().ToString()
+            Year="3"
+
         };
-    }
-    [Fact]
-    public void ListsModulesFromDatabase()
-    {
-        DbContextOptionsBuilder<TutorMeContext> optionsBuilder = new();
-        var databaseName = MethodBase.GetCurrentMethod()?.Name;
-        if (databaseName != null)
-            optionsBuilder.UseInMemoryDatabase(databaseName);
-
-        var newModule = CreateModule();
-        using (TutorMeContext ctx = new(optionsBuilder.Options))
+        var testModule2 = new Module()
         {
-            ctx.Add(newModule);
-            ctx.SaveChangesAsync();
-        }
 
-        Task<ActionResult<IEnumerable<Module>>> result;
-            using (TutorMeContext ctx1 = new(optionsBuilder.Options))
-            {
-                result =new ModulesController(ctx1).GetModules();
-            }
-            
-            
-            var okResult = Assert.IsType<ActionResult<IEnumerable<Module >>>(result.Result);
+            Code =Guid.NewGuid().ToString(),
+            ModuleName = "COS 212",
+            Institution ="University Of Pretoria",
+            Faculty = "Faculty of Engineering, Built Environment and IT",
+            Year="2"
 
-            var modules = Assert.IsType<List<Module>>(okResult.Value);
-            var module = Assert.Single(modules);
-            Assert.NotNull(module);
-        
-            Assert.Equal("Software engineering 301", module.ModuleName);
-            Assert.Equal("University Of Pretoria", module.Institution);
-            Assert.Equal("Faculty of Engineering, Built Environment and IT", module.Faculty);
-                
-                  module.Should().BeEquivalentTo(newModule,
-                //Verifying all the DTO variables matches the expected Module (newModule)
-                options => options.ComparingByMembers<Module>());
+        };
+        var testModule3 = new Module()
+        {
+            Code =Guid.NewGuid().ToString(),
+            ModuleName = "COS 332",
+            Institution ="University Of Pretoria",
+            Faculty = "Faculty of Engineering, Built Environment and IT",
+            Year="3"
+
+        };
+
+        await _httpClient.PostAsJsonAsync("https://localhost:7062/api/Modules", testModule);
+        await _httpClient.PostAsJsonAsync("https://localhost:7062/api/Modules", testModule2);
+        await _httpClient.PostAsJsonAsync("https://localhost:7062/api/Modules", testModule3);
+
+        //Act
+        var response = await _httpClient.GetAsync("http://localhost:7062/api/Modules");
+
+        //Assert
+        Assert.NotNull(response);
+        Assert.Equal(200, (double)response.StatusCode);
+
+        var modules = await response.Content.ReadFromJsonAsync<List<Module>>();
+        Assert.NotNull(modules);
+        Assert.Equal(3, modules.Count());
     }
     
     [Fact]
-    public void GetsModuleFromDatabaseById()
+    public async Task GetModuleById_NoModule()
     {
-        DbContextOptionsBuilder<TutorMeContext> optionsBuilder = new();
-        var databaseName = MethodBase.GetCurrentMethod()?.Name;
-        if (databaseName != null)
-            optionsBuilder.UseInMemoryDatabase(databaseName);
+        //Act
+        Guid id = Guid.NewGuid();
+        var response = await _httpClient.GetAsync("https://localhost:7062/api/Modules/"+id);
 
-        var newModule = CreateModule();
-        using (TutorMeContext ctx = new(optionsBuilder.Options))
-        {
-            ctx.Add(newModule);
-            ctx.SaveChangesAsync();
-        }
-
-        Task<ActionResult<Module>> result;
-            using (TutorMeContext ctx1 = new(optionsBuilder.Options))
-            {
-                result =new ModulesController(ctx1).GetModule(newModule.Code);
-            }
-            
-  
-            var okResult = Assert.IsType<ActionResult<Module >>(result.Result);
-            var module = Assert.IsType<Module>(okResult.Value);
-            
-           
-            Assert.NotNull(module);
-            Assert.Equal("Software engineering 301", module.ModuleName);
-            Assert.Equal("University Of Pretoria", module.Institution);
-            Assert.Equal("Faculty of Engineering, Built Environment and IT", module.Faculty);
-                
-            module.Should().BeEquivalentTo(newModule,
-                //Verifying all the DTO variables matches the expected Module (newModule)
-                options => options.ComparingByMembers<Module>());
+        //Assert
+        Assert.NotNull(response);
+        Assert.Equal(404, (double)response.StatusCode);
     }
-
-
     [Fact]
-    public void ModifiesModuleFromDatabase()
+    public async Task GetModuleById_ModuleFound()
     {
-        DbContextOptionsBuilder<TutorMeContext> optionsBuilder = new();
-        var databaseName = MethodBase.GetCurrentMethod()?.Name;
-        if (databaseName != null)
-            optionsBuilder.UseInMemoryDatabase(databaseName);
-
-        var newModule = CreateModule();
-        using (TutorMeContext ctx = new(optionsBuilder.Options))
+        //Arrange
+        var testModule = new Module()
         {
-            ctx.Add(newModule);
-            ctx.SaveChangesAsync();
-        }
+            Code =Guid.NewGuid().ToString(),
+            ModuleName = "Software engineering 301",
+            Institution ="University Of Pretoria",
+            Faculty = "Faculty of Engineering, Built Environment and IT",
+            Year="3"
 
-        //Modify the Modules Name
-        newModule.ModuleName = "Computer networks 332";
-        
-        Task<IActionResult> result;
-        using (TutorMeContext ctx1 = new(optionsBuilder.Options))
+        };
+        var testModule2 = new Module()
         {
-            result =new ModulesController(ctx1).PutModule(newModule.Code,newModule);
-        }
 
-        // result should be of type NoContentResult
-        Assert.IsType<NoContentResult>(result.Result);
-        
-        //Now checking if the Bio was actually Modified on the database 
-        Task<ActionResult<Module>> resultCheck;
-        using (TutorMeContext ctx1 = new(optionsBuilder.Options))
+            Code =Guid.NewGuid().ToString(),
+            ModuleName = "COS 212",
+            Institution ="University Of Pretoria",
+            Faculty = "Faculty of Engineering, Built Environment and IT",
+            Year="2"
+
+        };
+        var testModule3 = new Module()
         {
-            resultCheck =new ModulesController(ctx1).GetModule(newModule.Code);
-        }
+            Code =Guid.NewGuid().ToString(),
+            ModuleName = "COS 332",
+            Institution ="University Of Pretoria",
+            Faculty = "Faculty of Engineering, Built Environment and IT",
+            Year="3"
 
-        var okResult = Assert.IsType<ActionResult<Module >>(resultCheck.Result);
-        var module = Assert.IsType<Module>(okResult.Value);
-           
+        };
+
+        await _httpClient.PostAsJsonAsync("https://localhost:7062/api/Modules", testModule);
+        await _httpClient.PostAsJsonAsync("https://localhost:7062/api/Modules", testModule2);
+        await _httpClient.PostAsJsonAsync("https://localhost:7062/api/Modules", testModule3);
+
+        //Act
+        var id = testModule.Code;
+        var response = await _httpClient.GetAsync("https://localhost:7062/api/Modules/"+id);
+
+        //Assert
+        Assert.NotNull(response);
+        Assert.Equal(200, (double)response.StatusCode);
+
+        var module = await response.Content.ReadFromJsonAsync<Module>();
+
         Assert.NotNull(module);
-        Assert.Equal("Computer networks 332", module.ModuleName);
-        Assert.Equal("University Of Pretoria", module.Institution);
-        Assert.Equal("Faculty of Engineering, Built Environment and IT", module.Faculty);
-        module.Should().BeEquivalentTo(newModule,
-            //Verifying all the DTO variables matches the expected Module (newModule)
-            options => options.ComparingByMembers<Module>());
+        if (module != null)
+        {
+            Assert.Equal(testModule.Code, module.Code);
+            Assert.Equal(testModule.ModuleName, module.ModuleName);
+            Assert.Equal(testModule.Institution, module.Institution);
+            Assert.Equal(testModule.Faculty, module.Faculty);
+            Assert.Equal(testModule.Year, module.Year);
+           
+        }
     }
     
     [Fact]
-    public void AddsModuleToDatabase()
+    public async Task GetModuleById_ModuleNotFound() 
     {
-        DbContextOptionsBuilder<TutorMeContext> optionsBuilder = new();
-        var databaseName = MethodBase.GetCurrentMethod()?.Name;
-        if (databaseName != null)
-            optionsBuilder.UseInMemoryDatabase(databaseName);
-
-        var newModule = CreateModule();
-
-        Task<ActionResult<Module>> result;
-        using (TutorMeContext ctx1 = new(optionsBuilder.Options))
+        //Arrange
+        var testModule = new Module()
         {
-            result =new ModulesController(ctx1).PostModule(newModule);
-        }
+            Code =Guid.NewGuid().ToString(),
+            ModuleName = "Software engineering 301",
+            Institution ="University Of Pretoria",
+            Faculty = "Faculty of Engineering, Built Environment and IT",
+            Year="3"
 
-        Assert.IsType<ActionResult<Module >>(result.Result);
+        };
+        var testModule2 = new Module()
+        {
+
+            Code =Guid.NewGuid().ToString(),
+            ModuleName = "COS 212",
+            Institution ="University Of Pretoria",
+            Faculty = "Faculty of Engineering, Built Environment and IT",
+            Year="2"
+
+        };
+        var testModule3 = new Module()
+        {
+            Code =Guid.NewGuid().ToString(),
+            ModuleName = "COS 332",
+            Institution ="University Of Pretoria",
+            Faculty = "Faculty of Engineering, Built Environment and IT",
+            Year="3"
+
+        };
+
+        await _httpClient.PostAsJsonAsync("https://localhost:7062/api/Modules", testModule);
+        await _httpClient.PostAsJsonAsync("https://localhost:7062/api/Modules", testModule2);
+        await _httpClient.PostAsJsonAsync("https://localhost:7062/api/Modules", testModule3);
+
+        //Act
+        var id = Guid.NewGuid();//Module that does not exist
+        var response = await _httpClient.GetAsync("https://localhost:7062/api/Modules/"+id);
         
-        //Now checking if the Module was actually added to the database 
-        Task<ActionResult<Module>> resultCheck;
-        using (TutorMeContext ctx1 = new(optionsBuilder.Options))
+        //Assert
+        Assert.NotNull(response);
+        Assert.Equal(404, (double)response.StatusCode);
+    }
+    
+    [Fact]
+    public async Task ModifiesModuleFromDatabase()
+    {
+        //Arrange
+        var testModule = new Module()
         {
-            resultCheck =new ModulesController(ctx1).GetModule(newModule.Code);
-        }
+            Code =Guid.NewGuid().ToString(),
+            ModuleName = "Software engineering 301",
+            Institution ="University Of Pretoria",
+            Faculty = "Faculty of Engineering, Built Environment and IT",
+            Year="3"
 
-        var okResult = Assert.IsType<ActionResult<Module >>(resultCheck.Result);
-        var module = Assert.IsType<Module>(okResult.Value);
-           
-        Assert.NotNull(module);
+        };
       
-        Assert.Equal("Software engineering 301", module.ModuleName);
-        Assert.Equal("University Of Pretoria", module.Institution);
-        Assert.Equal("Faculty of Engineering, Built Environment and IT", module.Faculty);
-        module.Should().BeEquivalentTo(newModule,
-            //Verifying all the DTO variables matches the expected Module (newModule)
-            options => options.ComparingByMembers<Module>());
-    }
-    
-    [Fact]
-    public void DeletesModuleOnDatabase()
-    {
-        DbContextOptionsBuilder<TutorMeContext> optionsBuilder = new();
-        var databaseName = MethodBase.GetCurrentMethod()?.Name;
-        if (databaseName != null)
-            optionsBuilder.UseInMemoryDatabase(databaseName);
-
-        var newModule = CreateModule();
-        using (TutorMeContext ctx = new(optionsBuilder.Options))
-        {
-            ctx.Add(newModule);
-            ctx.SaveChangesAsync();
-        }
+        await _httpClient.PostAsJsonAsync("https://localhost:7062/api/Modules", testModule);
         
-
-        Task<IActionResult> result;
-        using (TutorMeContext ctx1 = new(optionsBuilder.Options))
-        {
-            result =new ModulesController(ctx1).DeleteModule(newModule.Code);
-        }
-
-        Assert.IsType< NoContentResult>(result.Result);
+        //Act
         
-        //Now checking if the Module was actually deleted to the database 
-        Task<ActionResult<Module>> resultCheck;
-        using (TutorMeContext ctx1 = new(optionsBuilder.Options))
-        {
-            resultCheck =new ModulesController(ctx1).GetModule(newModule.Code);
-        }
+        //Modify the Modules Name and year
+        testModule.ModuleName = "COS 132";
+        testModule.Year = "1";
 
-        var notFoundResult = Assert.IsType<ActionResult<Module >>(resultCheck.Result);
-        var module = Assert.IsType<NotFoundResult>(notFoundResult.Result);
+        var stringContent =new StringContent(testModule.ToJson(), Encoding.UTF8, "application/json");
+        var response1= await _httpClient.PutAsync("https://localhost:7062/api/Modules/" + testModule.Code,stringContent );
+        //Assert
+        Assert.NotNull(response1);
+        Assert.Equal(204, (double)response1.StatusCode); 
+
+        
+        //Now checking if the Name and year was actually Modified on the database 
+        var id = testModule.Code;
+        var response = await _httpClient.GetAsync("https://localhost:7062/api/Modules/"+id);
+
+        //Assert
+        Assert.NotNull(response);
+        Assert.Equal(200, (double)response.StatusCode);
+
+        var module = await response.Content.ReadFromJsonAsync<Module>();
+
         Assert.NotNull(module);
-        Assert.Equal(404, module.StatusCode);
-        
-    }
+        if (module != null)
+        {
+            Assert.Equal(testModule.Code, module.Code);
+            Assert.Equal(testModule.Year, module.Year);
+            Assert.Equal(testModule.ModuleName, module.ModuleName);
+        }
 
     }
+    [Fact]
+    public async Task AddModule()
+    {
+        var testModule = new Module()
+        {
+            Code =Guid.NewGuid().ToString(),
+            ModuleName = "Software engineering 301",
+            Institution ="University Of Pretoria",
+            Faculty = "Faculty of Engineering, Built Environment and IT",
+            Year="3"
+
+        };
+
+        //Act
+        var id = testModule.Code;
+        await _httpClient.PostAsJsonAsync("https://localhost:7062/api/Modules", testModule);
+        var response = await _httpClient.GetAsync("https://localhost:7062/api/Modules/"+id);
+
+        //Assert
+        Assert.NotNull(response);
+        Assert.Equal(200, (double)response.StatusCode);
+
+        var module = await response.Content.ReadFromJsonAsync<Module>();
+
+        Assert.NotNull(module);
+        if (module != null)
+        {
+            Assert.Equal(testModule.Code, module.Code);
+            Assert.Equal(testModule.ModuleName, module.ModuleName);
+            Assert.Equal(testModule.Institution, module.Institution);
+            Assert.Equal(testModule.Faculty, module.Faculty);
+            Assert.Equal(testModule.Year, module.Year);
+            
+        }
+    }
+
+}

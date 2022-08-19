@@ -26,7 +26,7 @@ class UserStats extends StatelessWidget {
       children: <Widget>[
         buildButton(text: 'Rating', value: rating),
         buildDivider(),
-        buildButton(text: '  Tutees', value: numTutees),
+        buildButton(text: '  Tutors', value: numTutees),
         buildDivider(),
         buildButton(text: '  Connections', value: numConnections),
       ],

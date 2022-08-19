@@ -1,3 +1,4 @@
+using System.Reflection;
 using FileSystem.Controllers;
 using FileSystem.Data;
 using FileSystem.Models;
@@ -56,10 +57,7 @@ public class TutorFileFilesUnitTests
         //Assert 
     //   result.Value.Should().BeEquivalentTo(expectedTutorFile, options => options.CompatingByMembers<TutorFile>());
        result.Value.Equals(expectedTutorFile);
-       // result.Value.Should().BeEquivalentTo(expectedTutorFile,
-       //Verifying all the DTO variables matches the expected TutorFile 
-       //   options => options.ComparingByMembers<TutorFile>());
-
+      
     }
     [Fact]
     public async Task GetTutorFileAsync_WithanEmpyDb()
@@ -170,6 +168,37 @@ public class TutorFileFilesUnitTests
         //Assert     
         Assert.IsType<BadRequestResult>(result);
     }
+    [Fact]
+    public void ModifiesTutorFile_Returns_NotFoundResult()
+    {
+        DbContextOptionsBuilder<FilesContext> optionsBuilder = new();
+        var databaseName = MethodBase.GetCurrentMethod()?.Name;
+        if (databaseName != null)
+            optionsBuilder.UseInMemoryDatabase(databaseName);
+    
+        var newTutorFile = createTutorFile();
+        using (FilesContext ctx = new(optionsBuilder.Options))
+        {
+            ctx.Add(newTutorFile);
+            ctx.SaveChangesAsync();
+        }
+    
+        //Modify the tutors Bio
+        newTutorFile.TutorImage = Guid.NewGuid().ToByteArray();
+        var id = Guid.NewGuid();
+        var unExsistingTutorFile = createTutorFile();
+        unExsistingTutorFile.Id = id;
+        Task<IActionResult>  result;
+        using (FilesContext ctx1 = new(optionsBuilder.Options))
+        {
+            result =new TutorFilesController(ctx1).PutTutorFile(unExsistingTutorFile.Id,unExsistingTutorFile);
+        }
+    
+        // result should be of type NotFoundResult
+        Assert.IsType<NotFoundResult>(result.Result);
+        
+       
+    }
 
 
 
@@ -226,7 +255,6 @@ public class TutorFileFilesUnitTests
 
         var result = await controller.PostTutorFile(expectedTutorFile);
         // Assert
-        // Assert.IsType<ActionResult<Api.Models.TutorFile>>(result);
         Assert.IsType<ObjectResult>(result.Result);
     }
     [Fact]

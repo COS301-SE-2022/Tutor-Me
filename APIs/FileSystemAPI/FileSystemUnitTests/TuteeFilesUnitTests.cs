@@ -1,3 +1,4 @@
+using System.Reflection;
 using FileSystem.Controllers;
 using FileSystem.Data;
 using FileSystem.Models;
@@ -170,7 +171,37 @@ public class TuteeFilesUnitTests
         Assert.IsType<BadRequestResult>(result);
     }
 
-
+    [Fact]
+    public void ModifiesTuteeFile_Returns_NotFoundResult()
+    {
+        DbContextOptionsBuilder<FilesContext> optionsBuilder = new();
+        var databaseName = MethodBase.GetCurrentMethod()?.Name;
+        if (databaseName != null)
+            optionsBuilder.UseInMemoryDatabase(databaseName);
+    
+        var newTuteeFile = createTuteeFile();
+        using (FilesContext ctx = new(optionsBuilder.Options))
+        {
+            ctx.Add(newTuteeFile);
+            ctx.SaveChangesAsync();
+        }
+    
+        //Modify the tutors Bio
+        newTuteeFile.TuteeImage = Guid.NewGuid().ToByteArray();
+        var id = Guid.NewGuid();
+        var unExsistingTuteeFile = createTuteeFile();
+        unExsistingTuteeFile.Id = id;
+        Task<IActionResult>  result;
+        using (FilesContext ctx1 = new(optionsBuilder.Options))
+        {
+            result =new TuteeFilesController(ctx1).PutTuteeFile(unExsistingTuteeFile.Id,unExsistingTuteeFile);
+        }
+    
+        // result should be of type NotFoundResult
+        Assert.IsType<NotFoundResult>(result.Result);
+        
+       
+    }
 
 
     [Fact]

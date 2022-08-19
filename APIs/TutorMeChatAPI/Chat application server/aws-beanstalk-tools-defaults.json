@@ -1,0 +1,14 @@
+
+{
+    "region" : "us-east-1",
+    "configuration" : "Debug",
+    "framework"     : "net5.0",
+    "self-contained" : false,
+    "application"    : "TutorMeChatAPi",
+    "environment"    : "TutorMeChatAPi-prod",
+    "app-path"       : "/",
+    "iis-website"    : "Default Web Site",
+    "enable-xray"    : false,
+    "enhanced-health-type" : "basic",
+    "additional-options"   : ""
+}
