@@ -130,7 +130,7 @@ class TutorGroupsState extends State<TutorGroups> {
                 const Icon(Icons.circle, size: 7, color: colorOrange),
                 SizedBox(width: MediaQuery.of(context).size.width * 0.03),
                 Text(
-                  numTutees[i].toString() + " other participants(s)",
+                  numTutees[i].toString() + " participants(s)",
                   style: const TextStyle(
                       color: Colors.white70, fontWeight: FontWeight.bold),
                 ),

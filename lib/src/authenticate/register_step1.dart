@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:toggle_switch/toggle_switch.dart';
+import 'package:tutor_me/src/authenticate/login.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import '../components.dart';
 import 'register_step2.dart';
@@ -335,6 +336,34 @@ class _RegisterStep1State extends State<RegisterStep1> {
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
                           )),
+                ),
+              ),
+              const SizedBox(
+                height: 25,
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const RegisterStep1()),
+                  );
+                },
+                child: TextButton(
+                  onPressed: (() {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const Login()),
+                    );
+                  }),
+                  child: const Text(
+                    "Already have and account? Login",
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
                 ),
               ),
             ]),

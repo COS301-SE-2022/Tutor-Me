@@ -454,7 +454,6 @@ public class RequestControllerIntegrationTests :IClassFixture<WebApplicationFact
         };
 
         //Act
-        var id = testRequest.Id;
         await _httpClient.PostAsJsonAsync("https://localhost:7062/api/Requests", testRequest);
         
         var getTutorRequest = await _httpClient.GetAsync("https://localhost:7062/api/Requests/Tutor/"+testRequest.ReceiverId);
@@ -480,7 +479,6 @@ public class RequestControllerIntegrationTests :IClassFixture<WebApplicationFact
         };
 
         //Act
-        var id = testRequest.Id;
         await _httpClient.PostAsJsonAsync("https://localhost:7062/api/Requests", testRequest);
         
         var getTutorRequest = await _httpClient.GetAsync("https://localhost:7062/api/Requests/Tutee/"+testRequest.RequesterId);
