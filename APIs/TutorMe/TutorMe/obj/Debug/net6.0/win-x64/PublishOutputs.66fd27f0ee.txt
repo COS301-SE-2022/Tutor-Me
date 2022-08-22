@@ -1,6 +1,7 @@
 C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\bin\Debug\net6.0\publish\TutorMe.exe
 C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\bin\Debug\net6.0\publish\appsettings.Development.json
 C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\bin\Debug\net6.0\publish\appsettings.json
+C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\bin\Debug\net6.0\publish\aws-beanstalk-tools-defaults.json
 C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\bin\Debug\net6.0\publish\efpt.config.json
 C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\bin\Debug\net6.0\publish\TutorMe.dll
 C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\bin\Debug\net6.0\publish\TutorMe.runtimeconfig.json
