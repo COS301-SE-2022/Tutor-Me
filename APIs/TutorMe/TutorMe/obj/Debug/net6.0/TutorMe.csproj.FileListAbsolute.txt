@@ -526,3 +526,4 @@ C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\ob
 C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\obj\Debug\net6.0\TutorMe.csproj.CopyComplete
 C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\obj\Debug\net6.0\TutorMe.genruntimeconfig.cache
 C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\obj\Debug\net6.0\ref\TutorMe.dll
+C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\bin\Debug\net6.0\aws-beanstalk-tools-defaults.json
