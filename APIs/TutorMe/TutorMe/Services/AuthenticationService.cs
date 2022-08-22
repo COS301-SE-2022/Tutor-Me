@@ -1,5 +1,6 @@
 ﻿using TutorMe.Data;
 using TutorMe.Entities;
+using TutorMe.Helpers;
 using TutorMe.Models;
 
 namespace TutorMe.Services
@@ -12,9 +13,11 @@ namespace TutorMe.Services
     {
 
         private TutorMeContext _context;
+        private Encrypter encrypter;
         public UserAuthenticationServices(TutorMeContext context)
         {
             _context = context;
+            encrypter = new Encrypter();
         }
         public User LogInUser(UserLogIn userDetails)
         {
@@ -23,7 +26,7 @@ namespace TutorMe.Services
             var user = _context.User.FirstOrDefault(e => e.Email == userDetails.Email);
             if (user != null)
             {
-                if (user.Password == userDetails.Password)
+                if (user.Password == encrypter.HashString(userDetails.Password))
                 {
                     return user;
                 }
