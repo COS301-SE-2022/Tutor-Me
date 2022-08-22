@@ -27,6 +27,12 @@ namespace TutorMe.Controllers
             return Ok(users);
         }
 
+        [HttpGet("tutors")]
+        public IActionResult GetAllTutors() {
+            var users = userService.GetAllTutors();
+            return Ok(users);
+        }
+
         [HttpGet("{id}")]
         public IActionResult GetUserById(Guid id)
         {
@@ -58,5 +64,7 @@ namespace TutorMe.Controllers
                 return Conflict(e.Message);
             }
         }
+
+        
     }
 }

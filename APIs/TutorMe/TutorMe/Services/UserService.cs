@@ -1,12 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TutorMe.Data;
 using TutorMe.Models;
+using TutorMe.Helpers;
 
 namespace TutorMe.Services
 {
     public interface IUserService
     {
         IEnumerable<User> GetAllUsers();
+        IEnumerable<User> GetAllTutors();
         User GetUserById(Guid id);
         Guid RegisterUser(User user);
 
@@ -16,14 +18,24 @@ namespace TutorMe.Services
     {
 
         private TutorMeContext _context;
-        public UserServices(TutorMeContext context)
-        {
+        private Encrypter encrypter;
+        public UserServices(TutorMeContext context){
             _context = context;
+            encrypter = new Encrypter();
         }
 
         public IEnumerable<User> GetAllUsers()
         {
             return _context.User;
+        }
+
+        public IEnumerable<User> GetAllTutors() {
+            var type = _context.UserType.Where(e => e.Type == "Tutor").FirstOrDefault();
+            //print type
+            Console.Write(type);
+            var user = _context.User.Where(e => e.UserTypeId == type.UserTypeId);
+            Console.Write(user);
+            return user;
         }
 
         public User GetUserById(Guid id)
@@ -41,7 +53,7 @@ namespace TutorMe.Services
             {
                 throw new KeyNotFoundException("This User already exists, Please log in");
             }
-            //User.Password = BCrypt.Net.BCrypt.HashPassword(User.Password, "ThisWillBeAGoodPlatformForBothUsersAndTuteesToConnectOnADailyBa5e5");
+            user.Password = encrypter.HashString(user.Password);
             user.UserId = Guid.NewGuid();
             _context.User.Add(user);
             _context.SaveChanges();
@@ -62,7 +74,7 @@ namespace TutorMe.Services
                     updateUser.Status = user.Status;
                     updateUser.Gender = user.Gender;
                     updateUser.Email = user.Email;
-                    updateUser.Password = user.Password;
+                    updateUser.Password = encrypter.HashString(user.Password);
                     updateUser.UserTypeId = user.UserTypeId;
                     updateUser.InstitutionId = user.InstitutionId;
                     updateUser.Location = user.Location;
