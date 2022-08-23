@@ -344,3 +344,4 @@
 /home/simphiwe/Desktop/updated_CapsOn/Tutor-ME/APIs/TutorMe/Tests/obj/Debug/net6.0/Tests.pdb
 /home/simphiwe/Desktop/updated_CapsOn/Tutor-ME/APIs/TutorMe/Tests/obj/Debug/net6.0/Tests.genruntimeconfig.cache
 /home/simphiwe/Desktop/updated_CapsOn/Tutor-ME/APIs/TutorMe/Tests/obj/Debug/net6.0/ref/Tests.dll
+/home/simphiwe/Desktop/updated_CapsOn/Tutor-ME/APIs/TutorMe/Tests/bin/Debug/net6.0/Microsoft.EntityFrameworkCore.InMemory.dll
