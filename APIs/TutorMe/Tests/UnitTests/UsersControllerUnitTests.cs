@@ -3,6 +3,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Moq;
+using NuGet.Versioning;
 using TutorMe.Controllers;
 using TutorMe.Data;
 using TutorMe.Models;
@@ -268,83 +269,110 @@ public class UsersControllerUnitTests
     }
     
     //Test get all Tutors returns all the tutors
-    // [Fact]
-    // public async Task GetAllTutors_ReturnsAllTutors()
-    // {
-    //     //arrange
-    //     List<Tutor> users = new List<User>
-    //     {
-    //         new User
-    //         {
-    //             UserId =new Guid(),
-    //             FirstName ="Thabo",
-    //             LastName ="Maduna",
-    //             DateOfBirth ="02/04/2000",
-    //             Status = true,
-    //             Gender ="M",
-    //             Email ="thaboMaduna527@gmail.com",
-    //             Password ="24681012",
-    //             UserTypeId =new Guid(),
-    //             InstitutionId =new Guid(),
-    //             Location ="1166 TMN, 0028",
-    //             Bio = "The boys",
-    //             Year ="3",
-    //             Rating =0
-    //         },
-    //         new User
-    //         {
-    //             UserId =new Guid(),
-    //             FirstName ="Simphiwe",
-    //             LastName ="Ndlovu",
-    //             DateOfBirth ="02/04/1999",
-    //             Status = true,
-    //             Gender ="M",
-    //             Email ="simphiwendlovu527@gmail.com",
-    //             Password ="12345678",
-    //             UserTypeId =new Guid(),
-    //             InstitutionId =new Guid(),
-    //             Location ="1166 Burnett St, Hatfield, Pretoria, 0028",
-    //             Bio = "Naruto Fan",
-    //             Year ="3",
-    //             Rating =0
-    //         },
-    //         new User
-    //         {
-    //             UserId =new Guid(),
-    //             FirstName ="Kuda",
-    //             LastName ="Chivunga",
-    //             DateOfBirth ="28/03/2000",
-    //             Status = true,
-    //             Gender ="F",
-    //             Email ="kudaChivunga527@gmail.com",
-    //             Password ="147258369",
-    //             UserTypeId =new Guid(),
-    //             InstitutionId =new Guid(),
-    //             Location ="1166 TMN, 0028",
-    //             Bio = "The boys",
-    //             Year ="3",
-    //             Rating =0
-    //         }
-    //     };
-    //     
-    //     
-    //     _userRepositoryMock.Setup(u => u.GetAllUsers()).Returns(users);
-    //
-    //     var controller = new UsersController(_userRepositoryMock.Object, _mapper.Object);
-    //     var result = controller.GetAllUsers();
-    //
-    //
-    //     Assert.NotNull(result);
-    //     Assert.IsType<OkObjectResult>(result);
-    //         
-    //     var actual = (result as OkObjectResult).Value;
-    //     Assert.IsType<List<User>>(actual);
-    //     Assert.Equal(3, (actual as List<User>).Count);
-    //
-    //
-    // }
-    //
+    [Fact]
+    public async Task GetAllTutors_ReturnsAllTutors()
+    {
+        //arrange
+        List<UserType> userTypes = new List<UserType>
+        {
+            new UserType
+            {
+                UserTypeId = Guid.NewGuid(),
+                Type ="Tutor"
+            },
+            new UserType
+            {
+                UserTypeId =Guid.NewGuid(),
+                Type ="Tutee"
+            },
+            new UserType
+            {
+                UserTypeId =Guid.NewGuid(),
+                Type ="Tutor"
+            }
 
+        };
+        
+        List<User> users = new List<User>
+        {
+            new User
+            {
+                UserId =Guid.NewGuid(),
+                FirstName ="Thabo",
+                LastName ="Maduna",
+                DateOfBirth ="02/04/2000",
+                Status = true,
+                Gender ="M",
+                Email ="thaboMaduna527@gmail.com",
+                Password ="24681012",
+                UserTypeId =userTypes[0].UserTypeId,
+                InstitutionId =new Guid(),
+                Location ="1166 TMN, 0028",
+                Bio = "The boys",
+                Year ="3",
+                Rating =0
+            },
+            new User
+            {
+                UserId =Guid.NewGuid(),
+                FirstName ="Simphiwe",
+                LastName ="Ndlovu",
+                DateOfBirth ="02/04/1999",
+                Status = true,
+                Gender ="M",
+                Email ="simphiwendlovu527@gmail.com",
+                Password ="12345678",
+                UserTypeId =userTypes[1].UserTypeId,
+                InstitutionId =new Guid(),
+                Location ="1166 Burnett St, Hatfield, Pretoria, 0028",
+                Bio = "Naruto Fan",
+                Year ="3",
+                Rating =0
+            },
+            new User
+            {
+                UserId =Guid.NewGuid(),
+                FirstName ="Kuda",
+                LastName ="Chivunga",
+                DateOfBirth ="28/03/2000",
+                Status = true,
+                Gender ="F",
+                Email ="kudaChivunga527@gmail.com",
+                Password ="147258369",
+                UserTypeId =userTypes[2].UserTypeId,
+                InstitutionId =Guid.NewGuid(),
+                Location ="1166 TMN, 0028",
+                Bio = "The boys",
+                Year ="3",
+                Rating =0
+                
+            }
+        };
+        
+        List<User> tutorList = new List<User>();
+       for (int i = 0; i < users.Count; i++)
+       {
+           for(int ii=0;ii<userTypes.Count;ii++)
+           {
+               if(users[i].UserTypeId.Equals(userTypes[ii].UserTypeId) && userTypes[ii].Type.Equals("Tutor"))
+               {
+                   tutorList.Add(users[i]);
+               }
+           }
+          
+       }
+        _userRepositoryMock.Setup(u => u.GetAllTutors()).Returns(tutorList);
+        
+        var controller = new UsersController(_userRepositoryMock.Object, _mapper.Object);
+        var result = controller.GetAllTutors();
+        
+        Assert.NotNull(result);
+        Assert.IsType<OkObjectResult>(result);
+            
+        var actual = (result as OkObjectResult).Value;
+        Assert.IsType<List<User>>(actual);
+        Assert.Equal(2, (actual as List<User>).Count);
 
-
+    }
+    
 }

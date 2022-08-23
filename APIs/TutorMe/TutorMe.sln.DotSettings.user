@@ -1,6 +1,6 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
 	<s:String x:Key="/Default/Environment/Highlighting/HighlightingSourceSnapshotLocation/@EntryValue">/home/simphiwe/.cache/JetBrains/Rider2022.2/resharper-host/temp/Rider/vAny/CoverageData/_TutorMe.-297807847/Snapshot/snapshot.utdcvr</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=469e7bce_002D454e_002D4a99_002Dbb1b_002D0b8af5fdfac2/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="GetAllUsers_ListOfUsers_ReturnsListOfUsers" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=469e7bce_002D454e_002D4a99_002Dbb1b_002D0b8af5fdfac2/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GetAllUsers_ListOfUsers_ReturnsListOfUsers" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
     &lt;TestId&gt;xUnit::BF4C8A78-8369-4AF0-BEF1-DAE6FB9CB6B4::net6.0::Tests.UnitTests.UsersControllerUnitTests&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
