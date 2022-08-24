@@ -121,6 +121,32 @@ public class RequestControllerUnitTests
         var actual = (result as OkObjectResult).Value;
         Assert.IsType<Request>(actual);
     }
+    [Fact]
+    public async  Task AddRequest_Request_ReturnsRequest()
+    {
+        //arrange
+        var Request = new Request
+        {
+            RequestId  = Guid.NewGuid(),
+            TuteeId  = Guid.NewGuid(),
+            TutorId  = Guid.NewGuid(),
+            DateCreated ="20/04/2020",
+            ModuleId=Guid.NewGuid()
+        };
+        _RequestRepositoryMock.Setup(u => u. createRequest(It.IsAny<Request>())).Returns(Request.RequestId);
+        
+        var controller = new RequestsController(_RequestRepositoryMock.Object,_mapper.Object);
+        
+        //act
+        var result =  controller.createRequest(Request);
+        
+        Assert.NotNull(result);
+        Assert.IsType<OkObjectResult>(result);
+        
+        var actual = (result as OkObjectResult).Value;
+        Assert.IsType<System.Guid>(actual);
+    }
+ 
  
     
    
