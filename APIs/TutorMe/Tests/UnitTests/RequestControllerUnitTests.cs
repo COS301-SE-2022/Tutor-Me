@@ -67,6 +67,32 @@ public class RequestControllerUnitTests
         Assert.Equal(3, (actual as List<Request>).Count);
 
     }
+    [Fact]
+    public async  Task GetRequestById_RequestId_ReturnsRequestById()
+    {
+        //arrange
+        var Request = new Request
+        {
+            RequestId  = Guid.NewGuid(),
+            TuteeId  = Guid.NewGuid(),
+            TutorId  = Guid.NewGuid(),
+            DateCreated ="20/04/2020",
+            ModuleId=Guid.NewGuid()
+        };
+        
+        _RequestRepositoryMock.Setup(u => u.GetRequestById(Request.RequestId)).Returns(Request);
+        
+        var controller = new RequestsController(_RequestRepositoryMock.Object,_mapper.Object);
+        
+        //act
+        var result = controller.GetRequestById(Request.RequestId);
+        
+        Assert.NotNull(result);
+        Assert.IsType<OkObjectResult>(result);
+
+        var actual = (result as OkObjectResult).Value;
+        Assert.IsType<Request>(actual);
+    }
     
    
 }
