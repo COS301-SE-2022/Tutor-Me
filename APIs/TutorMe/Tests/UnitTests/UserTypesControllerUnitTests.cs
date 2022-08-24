@@ -8,12 +8,12 @@ using TutorMe.Services;
 
 namespace Tests.UnitTests;
 
-public class UserTypesTypesControllerUnitTests
+public class UserTypesControllerUnitTests
 {
     private readonly Mock<IUserTypeService> _UserTypeRepositoryMock;
     private static Mock<IMapper> _mapper;
 
-    public UserTypesTypesControllerUnitTests()
+    public UserTypesControllerUnitTests()
     {
         _UserTypeRepositoryMock = new Mock<IUserTypeService>();
         _mapper = new Mock<IMapper>();
