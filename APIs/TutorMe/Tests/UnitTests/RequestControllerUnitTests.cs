@@ -146,6 +146,36 @@ public class RequestControllerUnitTests
         var actual = (result as OkObjectResult).Value;
         Assert.IsType<System.Guid>(actual);
     }
+
+       
+    [Fact]
+    public async Task DeleteRequestById_Returns_True()
+    {
+
+        //Arrange
+            var expectedTutor =  new Request
+            {
+                RequestId  = Guid.NewGuid(),
+                TuteeId  = Guid.NewGuid(),
+                TutorId  = Guid.NewGuid(),
+                DateCreated ="20/04/2020",
+                ModuleId=Guid.NewGuid()
+            };
+            
+        _RequestRepositoryMock.Setup(repo => repo.deleteRequestById(It.IsAny<Guid>())).Returns(true);
+        var controller = new  RequestsController(_RequestRepositoryMock.Object,_mapper.Object);
+
+        //Act
+        var result = controller.DeleteRequest(expectedTutor.RequestId);
+        // Assert
+        Assert.NotNull(result);
+        Assert.IsType<OkObjectResult>(result);
+        var actual = (result as OkObjectResult).Value;
+        Assert.IsType<Boolean>(actual);
+        Assert.Equal(true, actual);
+
+    }
+    
  
  
     
