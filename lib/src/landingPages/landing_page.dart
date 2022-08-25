@@ -147,7 +147,6 @@ class LandingPageState extends State<LandingPage> {
       required String description,
       required Color color,
       required int index}) {
-    double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     return Stack(children: [
       ClipPath(
