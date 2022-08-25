@@ -1,10 +1,7 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:tutor_me/src/colorpallete.dart';
-import 'package:tutor_me/src/components.dart';
 import 'package:tutor_me/src/pages/badges.dart';
 
 class Home extends StatefulWidget {
@@ -202,7 +199,7 @@ class _HomeState extends State<Home> {
                             //render Badges Page
                             Navigator.of(context).push(MaterialPageRoute(
                             builder: (BuildContext context) =>
-                              Badges()  ));
+                             const  Badges()  ));
 
                           }
                           else if(index == 3)
@@ -228,7 +225,7 @@ class _HomeState extends State<Home> {
                                     height: screenHeightSize *0.1,
                                     width: screenWidthSize * 0.4,
                                     decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.only(topLeft: Radius.circular(10),topRight: Radius.circular(10)),
+                                      borderRadius:const  BorderRadius.only(topLeft: Radius.circular(10),topRight: Radius.circular(10)),
                                       image: DecorationImage(
                                         image: AssetImage(images[index]),
                                         fit: BoxFit.cover,
@@ -237,6 +234,7 @@ class _HomeState extends State<Home> {
                                   ),
                                   Padding(
                                     padding:  EdgeInsets.only(left: screenWidthSize * 0.02),
+                                    // ignore: unnecessary_string_interpolations
                                     child: Text("${titles[index]}", 
                                     style: TextStyle(fontSize: screenWidthSize * 0.05, fontWeight: FontWeight.w500),),
                                   ),
