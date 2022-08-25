@@ -6,7 +6,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
 import 'package:tutor_me/src/theme/themes.dart';
 
-import 'src/pages/report_a_peer.dart';
+import 'src/pages/calendar.dart';
 //import 'src/authenticate/register_or_login.dart';
 // import 'src/tutorAndTuteeCollaboration/tutorGroups/tutor_remove_participants.dart';
 
@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
       themeMode: themeProvider.themeMode,
       theme: Themes.lightTheme,
       darkTheme: Themes.darkTheme,  
-      home: const ReportAPeer(),
+      home: const Calendar(),
       );
     });
 }

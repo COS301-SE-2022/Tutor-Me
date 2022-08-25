@@ -12,40 +12,41 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  http: ^0.13.4
+  http: ^0.13.5
   crypt: ^4.2.1
   flutter_localizations:
     sdk: flutter
   intl: ^0.17.0
   file_picker: ^4.6.1
-  videosdk: ^0.0.10
+  videosdk: ^1.0.1
   flutter_dotenv: ^5.0.2
-  cupertino_icons: ^1.0.4
-  fluttertoast: ^8.0.8
-  camera: ^0.9.4+5
-  flutter_svg: ^1.0.1
-  visibility_detector: ^0.2.2
+  cupertino_icons: ^1.0.5
+  fluttertoast: ^8.0.9
+  camera: ^0.10.0+1
+  flutter_svg: ^1.1.4
+  visibility_detector: ^0.3.3
   date_time_format: ^2.0.1
   touch_ripple_effect: ^2.2.3  
   toggle_switch: ^2.0.1
   open_file: ^3.2.1
-  email_auth:
+  email_auth: ^1.0.0
   google_fonts: ^3.0.1
-  grouped_list: ^4.2.0
+  grouped_list: ^5.1.2
   signalr_core: ^1.1.1
+  table_calendar: ^3.0.6
 
   smooth_page_indicator: ^1.0.0+2
 
-  provider: ^5.0.0
+  provider: ^6.0.3
 
   
 dev_dependencies:
   flutter_test:
     sdk: flutter
     
-  flutter_lints: ^1.0.0
+  flutter_lints: ^2.0.1
   
-  flutter_native_splash: ^2.0.1+1
+  flutter_native_splash: ^2.2.8
 
   image_picker: ^0.8.5+3
 
