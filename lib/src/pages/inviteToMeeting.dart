@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/pages/badges.dart';
 
-class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+class InviteToMeeting extends StatefulWidget {
+  const InviteToMeeting({Key? key}) : super(key: key);
 
   @override
-  State<Home> createState() => _HomeState();
+  State<InviteToMeeting> createState() => _InviteToMeetingState();
 }
 
-class _HomeState extends State<Home> {
+class _InviteToMeetingState extends State<InviteToMeeting> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
