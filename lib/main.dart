@@ -1,5 +1,3 @@
-            import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 // import 'package:tutor_me/src/authenticate/register_or_login.dart';
 // import 'src/settings/settings_controller.dart';
@@ -8,7 +6,6 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
 import 'package:tutor_me/src/landingPages/landing_page.dart'; 
 import 'package:tutor_me/src/theme/themes.dart';
-import 'src/authenticate/register_or_login.dart';
 // import 'src/tutorAndTuteeCollaboration/tutorGroups/tutor_remove_participants.dart';
 
 // import 'src/app.dart';
