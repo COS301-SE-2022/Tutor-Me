@@ -10311,19 +10311,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\madun\\.nuget\\packages\\": {}
+    "C:\\Users\\user\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\madun\\Documents\\School\\Year 3\\COS301\\Capstone\\Tutor-ME\\APIs\\TutorMeApi\\Api\\Api.csproj",
+      "projectUniqueName": "c:\\Users\\user\\OneDrive\\Documents\\GitHub\\Tutor-ME\\APIs\\TutorMeApi\\Api\\Api.csproj",
       "projectName": "Api",
-      "projectPath": "C:\\Users\\madun\\Documents\\School\\Year 3\\COS301\\Capstone\\Tutor-ME\\APIs\\TutorMeApi\\Api\\Api.csproj",
-      "packagesPath": "C:\\Users\\madun\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\madun\\Documents\\School\\Year 3\\COS301\\Capstone\\Tutor-ME\\APIs\\TutorMeApi\\Api\\obj\\",
+      "projectPath": "c:\\Users\\user\\OneDrive\\Documents\\GitHub\\Tutor-ME\\APIs\\TutorMeApi\\Api\\Api.csproj",
+      "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
+      "outputPath": "c:\\Users\\user\\OneDrive\\Documents\\GitHub\\Tutor-ME\\APIs\\TutorMeApi\\Api\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\madun\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -10412,7 +10412,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.301\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.302\\RuntimeIdentifierGraph.json"
       }
     }
   }

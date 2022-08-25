@@ -2,6 +2,9 @@ import 'package:date_time_format/date_time_format.dart';
 import 'package:flutter/material.dart';
 import 'package:videosdk/rtc.dart';
 
+import 'package:provider/provider.dart';
+import 'package:tutor_me/src/theme/themes.dart';
+
 class ChatWidget extends StatelessWidget {
   final bool isLocalParticipant;
   final PubSubMessage message;
@@ -11,6 +14,13 @@ class ChatWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
+    Color appBarColor;
+    if (provider.themeMode == ThemeMode.dark) {
+      appBarColor = Colors.grey;
+    } else {
+      appBarColor = Colors.orange.shade900;
+    }
     return Align(
       alignment:
           isLocalParticipant ? Alignment.centerRight : Alignment.centerLeft,
@@ -22,7 +32,7 @@ class ChatWidget extends StatelessWidget {
         ),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
-          color: Theme.of(context).primaryColor,
+          color: appBarColor,
         ),
         child: Column(
           crossAxisAlignment: isLocalParticipant

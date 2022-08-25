@@ -4,6 +4,9 @@ import 'package:visibility_detector/visibility_detector.dart';
 
 import '../../utils/toast.dart';
 
+import 'package:provider/provider.dart';
+import 'package:tutor_me/src/theme/themes.dart';
+
 class ParticipantTile extends StatefulWidget {
   final Participant participant;
   final bool isLocalParticipant;
@@ -43,6 +46,13 @@ class _ParticipantTileState extends State<ParticipantTile> {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
+    Color participantColor;
+    if (provider.themeMode == ThemeMode.dark) {
+      participantColor = Colors.grey;
+    } else {
+      participantColor = Colors.orange.shade200;
+    }
     return VisibilityDetector(
       key: Key("tile_${widget.participant.id}"),
       onVisibilityChanged: (visibilityInfo) {
@@ -59,9 +69,9 @@ class _ParticipantTileState extends State<ParticipantTile> {
       child: Container(
         margin: const EdgeInsets.all(4.0),
         decoration: BoxDecoration(
-          color: Theme.of(context).backgroundColor.withOpacity(1),
+          color: participantColor,
           border: Border.all(
-            color: Colors.white38,
+            color: Colors.white,
           ),
         ),
         child: AspectRatio(

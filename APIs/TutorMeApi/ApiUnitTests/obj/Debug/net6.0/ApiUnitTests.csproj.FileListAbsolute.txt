@@ -1744,3 +1744,4 @@ c:\Users\user\OneDrive\Documents\GitHub\Tutor-ME\APIs\TutorMeApi\ApiUnitTests\ob
 =======
 /home/simphiwe/Desktop/updated_CapsOn/Tutor-ME/APIs/TutorMeApi/ApiUnitTests/bin/Debug/net6.0/Microsoft.EntityFrameworkCore.InMemory.dll
 >>>>>>> ebfd2078e7de639569b560fbb48c9cc23798dff7
+c:\Users\user\OneDrive\Documents\GitHub\Tutor-ME\APIs\TutorMeApi\ApiUnitTests\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.InMemory.dll
