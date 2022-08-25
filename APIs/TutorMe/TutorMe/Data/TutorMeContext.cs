@@ -27,6 +27,7 @@ namespace TutorMe.Data
         public virtual DbSet<Request> Request { get; set; }
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<UserType> UserType { get; set; }
+        public virtual DbSet<UserModule> UserModule { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -99,6 +100,30 @@ namespace TutorMe.Data
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("GroupMembers_User_FK");
+            });
+
+            modelBuilder.Entity<UserModule>(entity => {
+                entity.HasKey(e => e.UserModuleId);
+                
+                entity.HasIndex(e => e.UserId, "IX_UserModule_UserId");
+
+                entity.Property(e => e.UserModuleId).HasDefaultValueSql("(newid())").HasMaxLength(36); ;
+
+                entity.Property(e => e.ModuleId).HasDefaultValueSql("(newid())").HasMaxLength(36); ;
+
+                entity.Property(e => e.UserId).HasDefaultValueSql("(newid())").HasMaxLength(36); ;
+
+                entity.HasOne(d => d.Module)
+                    .WithMany(p => p.UserModule)
+                    .HasForeignKey(d => d.ModuleId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("UserModule_Group_FK");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.UserModule)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("UserModule_User_FK");
             });
 
             modelBuilder.Entity<Institution>(entity =>
