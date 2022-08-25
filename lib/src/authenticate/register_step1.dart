@@ -29,7 +29,7 @@ class _RegisterStep1State extends State<RegisterStep1> {
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,
           timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red,
+          backgroundColor: Colors.green,
           textColor: Colors.white,
           fontSize: 16.0);
       setState(() {
@@ -49,7 +49,7 @@ class _RegisterStep1State extends State<RegisterStep1> {
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,
           timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red,
+          backgroundColor: Colors.green,
           textColor: Colors.white,
           fontSize: 16.0);
 
@@ -109,6 +109,20 @@ class _RegisterStep1State extends State<RegisterStep1> {
   int? initialIndex = 0;
   @override
   Widget build(BuildContext context) {
+    double widthOfScreen = MediaQuery.of(context).size.width;
+    double stepperWidth = MediaQuery.of(context).size.width * 0.95;
+    double toggleWidth = MediaQuery.of(context).size.width * 0.4;
+    double textBoxWidth = MediaQuery.of(context).size.width * 0.4 * 2;
+    double buttonWidth = MediaQuery.of(context).size.width * 0.8;
+    String welcome = "";
+    if (widthOfScreen < 400.0) {
+      welcome = "Hi, Welcome!";
+    } else {
+      stepperWidth = stepperWidth / 2;
+      toggleWidth = toggleWidth / 2;
+      buttonWidth = buttonWidth / 2;
+      textBoxWidth = textBoxWidth / 2;
+    }
     return Scaffold(
       // key: _scaffoldKey,
       resizeToAvoidBottomInset: false,
@@ -142,7 +156,7 @@ class _RegisterStep1State extends State<RegisterStep1> {
               ),
               Flexible(
                 child: Text(
-                  'Hi, Welcome!',
+                  welcome,
                   style: TextStyle(
                     color: colorWhite,
                     fontSize: MediaQuery.of(context).size.width * 0.12,
@@ -157,7 +171,7 @@ class _RegisterStep1State extends State<RegisterStep1> {
               // Flexible(
 
               SizedBox(
-                width: MediaQuery.of(context).size.width * 0.95,
+                width: stepperWidth,
                 height: MediaQuery.of(context).size.height * 0.15,
                 child: Theme(
                   data: ThemeData(
@@ -175,7 +189,7 @@ class _RegisterStep1State extends State<RegisterStep1> {
 
               Center(
                 child: ToggleSwitch(
-                  minWidth: MediaQuery.of(context).size.width * 0.4,
+                  minWidth: toggleWidth,
                   minHeight: MediaQuery.of(context).size.height * 0.06,
                   cornerRadius: MediaQuery.of(context).size.height * 0.07,
                   fontSize: MediaQuery.of(context).size.height * 0.02,
@@ -204,29 +218,38 @@ class _RegisterStep1State extends State<RegisterStep1> {
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height * 0.03,
               ),
-              TextInputField(
-                icon: Icons.email_outlined,
-                hint: 'Enter Your Email',
-                inputType: TextInputType.emailAddress,
-                inputAction: TextInputAction.next,
-                inputController: emailController,
-                // inputFocus: emailFocusNode,
+              SizedBox(
+                width: textBoxWidth,
+                child: TextInputField(
+                  icon: Icons.email_outlined,
+                  hint: 'Enter Your Email',
+                  inputType: TextInputType.emailAddress,
+                  inputAction: TextInputAction.next,
+                  inputController: emailController,
+                  // inputFocus: emailFocusNode,
+                ),
               ),
-              PasswordInput(
-                icon: Icons.lock_outline_rounded,
-                hint: 'Password',
-                inputAction: TextInputAction.next,
-                inputType: TextInputType.text,
-                inputController: passwordController,
-                inputFocus: passwordFocusNode,
+              SizedBox(
+                width: textBoxWidth,
+                child: PasswordInput(
+                  icon: Icons.lock_outline_rounded,
+                  hint: 'Password',
+                  inputAction: TextInputAction.next,
+                  inputType: TextInputType.text,
+                  inputController: passwordController,
+                  inputFocus: passwordFocusNode,
+                ),
               ),
-              PasswordInput(
-                icon: Icons.password_outlined,
-                hint: 'Confirm Password',
-                inputAction: TextInputAction.next,
-                inputType: TextInputType.text,
-                inputController: confirmPasswordController,
-                inputFocus: confirmPasswordFocusNode,
+              SizedBox(
+                width: textBoxWidth,
+                child: PasswordInput(
+                  icon: Icons.password_outlined,
+                  hint: 'Confirm Password',
+                  inputAction: TextInputAction.next,
+                  inputType: TextInputType.text,
+                  inputController: confirmPasswordController,
+                  inputFocus: confirmPasswordFocusNode,
+                ),
               ),
               SizedBox(
                 width: MediaQuery.of(context).size.width,
@@ -234,7 +257,7 @@ class _RegisterStep1State extends State<RegisterStep1> {
               ),
               Container(
                 height: MediaQuery.of(context).size.height * 0.06,
-                width: MediaQuery.of(context).size.width * 0.8,
+                width: buttonWidth,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(16),
                   color: colorOrange,

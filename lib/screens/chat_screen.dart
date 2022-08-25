@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:videosdk/rtc.dart';
 import '../widgets/chat/chat_widget.dart';
 
+import 'package:provider/provider.dart';
+import 'package:tutor_me/src/theme/themes.dart';
+
 // ChatScreen
 class ChatScreen extends StatefulWidget {
   final Meeting meeting;
@@ -33,11 +36,18 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
+    Color appBarColor;
+    if (provider.themeMode == ThemeMode.dark) {
+      appBarColor = Colors.grey;
+    } else {
+      appBarColor = const Color(0xffD6521B);
+    }
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Chat"),
+        title: const Text("TutorMe Chat"),
         automaticallyImplyLeading: false,
-        backgroundColor: Theme.of(context).backgroundColor,
+        backgroundColor: appBarColor,
         actions: [
           // Close Button
           IconButton(

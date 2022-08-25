@@ -6,9 +6,13 @@ import 'package:flutter/material.dart';
 // import 'src/settings/settings_service.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
+
 import 'package:tutor_me/src/landingPages/landing_page.dart'; 
+
 import 'package:tutor_me/src/theme/themes.dart';
-import 'src/authenticate/register_or_login.dart';
+
+import 'src/pages/report_a_peer.dart';
+//import 'src/authenticate/register_or_login.dart';
 // import 'src/tutorAndTuteeCollaboration/tutorGroups/tutor_remove_participants.dart';
 
 // import 'src/app.dart';
@@ -33,7 +37,6 @@ runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  
   const MyApp({Key? key}) : super(key: key);
 
   @override
@@ -46,7 +49,9 @@ class MyApp extends StatelessWidget {
       themeMode: themeProvider.themeMode,
       theme: Themes.lightTheme,
       darkTheme: Themes.darkTheme,  
+
       home: const LandingPage(),
+
       );
     });
 }
