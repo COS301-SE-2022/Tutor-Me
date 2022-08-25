@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:tutor_me/src/colorpallete.dart';
+import 'package:tutor_me/src/models/event.dart';
 import 'package:tutor_me/src/pages/badges.dart';
 
 class Calendar extends StatefulWidget {
@@ -14,22 +15,36 @@ class Calendar extends StatefulWidget {
 
 class _CalendarState extends State<Calendar> {
   // late CalendarController _controller;
-  @override
+
+  late Map<DateTime, List<dynamic>> scheduledSessions ={};
+
+
+
+  List getScheduledSessions(DateTime date ){
+    return scheduledSessions[date] ?? [];
+  }
+
+    @override
   void iniState() {
+    scheduledSessions ={};
     super.initState();
     // _controller = CalendarController();
   }
 
-  @override
-  void dispose() {
-    // _controller.dispose();
-    super.dispose();
-  }
+
 
   CalendarFormat format = CalendarFormat.month;
   DateTime mySelectedDay = DateTime.now();
   DateTime myFocusedDay = DateTime.now();
 
+  TextEditingController meetingController = TextEditingController();
+
+
+  @override
+  void dispose() {
+    meetingController.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,6 +68,9 @@ class _CalendarState extends State<Calendar> {
             children: <Widget>[
               TableCalendar( 
                 startingDayOfWeek: StartingDayOfWeek.sunday,
+
+                eventLoader: scheduledSessions.isNotEmpty ? (date) => getScheduledSessions(date) : null,
+
                 calendarStyle: CalendarStyle(
                   selectedDecoration: BoxDecoration(
                     color: colorWhite,
@@ -114,11 +132,52 @@ class _CalendarState extends State<Calendar> {
                   ),
                 ),
                 ),
+                ...getScheduledSessions(mySelectedDay).map((e) => ListTile(
+                  title: Container(decoration: BoxDecoration(border: Border(bottom:BorderSide( width: 1.0,color: colorTurqoise.withOpacity(0.2))) ),child: Padding(
+                    padding:  EdgeInsets.only(top:MediaQuery.of(context).size.height * 0.03,bottom:MediaQuery.of(context).size.height * 0.03),
+                    child: Text(e.title, style: TextStyle(color: colorTurqoise, fontSize: MediaQuery.of(context).size.width*0.06),),
+                  )),
+                ))
+                
             ],
           ),
         ),
       ),
-
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => showDialog(context: context, builder: (context) =>  AlertDialog(
+          title: const  Text('Schedule Meeting'),
+          content: TextFormField(controller: meetingController,),
+          actions: <Widget>[
+            TextButton(
+              child: const  Text('Cancel', style: TextStyle(color: colorDarkGrey),),
+              onPressed: () => Navigator.pop(context),
+            ),
+            TextButton(
+              child: const  Text('Add', style: TextStyle(color: Colors.green),),
+              onPressed: () {
+                if(meetingController.text.isEmpty){
+                  return;
+                }
+                else {
+                  if(scheduledSessions[mySelectedDay] != null){
+                    scheduledSessions[mySelectedDay]?.add(Event(title: meetingController.text));
+                  }
+                  else
+                  {
+                    scheduledSessions[mySelectedDay] = [Event(title: meetingController.text)];
+                  }
+                }
+                Navigator.pop(context);
+                meetingController.clear();
+                
+                return;
+              },
+            ),
+          ],
+        )),
+        backgroundColor: colorOrange,
+        child: const Icon(Icons.add),
+      ),
     );
   }
   
