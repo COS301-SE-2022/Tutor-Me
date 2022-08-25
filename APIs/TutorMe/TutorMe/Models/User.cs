@@ -43,6 +43,8 @@ namespace TutorMe.Models
         [JsonIgnore]
         public virtual ICollection<GroupMember> GroupMembers { get; set; }
         [JsonIgnore]
+        public virtual ICollection<UserModule> UserModule { get; set; }
+        [JsonIgnore]
         public virtual ICollection<Request> RequestsTutee { get; set; }
         [JsonIgnore]
         public virtual ICollection<Request> RequestsTutor { get; set; }
