@@ -130,8 +130,6 @@ namespace TutorMe.Data
             {
                 entity.Property(e => e.InstitutionId).HasDefaultValueSql("(newid())").HasMaxLength(36);;
 
-                entity.Property(e => e.Faculty).IsRequired();
-
                 entity.Property(e => e.Location).IsRequired();
 
                 entity.Property(e => e.Name).IsRequired();
