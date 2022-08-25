@@ -117,8 +117,8 @@ namespace TutorMe.Data
                 entity.HasKey(e => e.ModuleId);
 
                 entity.HasIndex(e => e.InstitutionId, "IX_Modules_InstitutionId");
-
-                entity.Property(e => e.ModuleId).ValueGeneratedNever();
+                
+                entity.Property(e => e.ModuleId).HasDefaultValueSql("(newid())").HasMaxLength(36); ;
 
                 entity.Property(e => e.InstitutionId).HasDefaultValueSql("(newid())").HasMaxLength(36);;
 
