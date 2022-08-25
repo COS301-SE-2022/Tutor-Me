@@ -1,6 +1,7 @@
 class Event {
   final String title;
-  Event ({required this.title});
+  final String description;
+  Event ({required this.title, required this.description});
   @override
   String toString() => title;
 }

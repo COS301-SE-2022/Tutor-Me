@@ -38,11 +38,13 @@ class _CalendarState extends State<Calendar> {
   DateTime myFocusedDay = DateTime.now();
 
   TextEditingController meetingController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
 
 
   @override
   void dispose() {
     meetingController.dispose();
+    descriptionController.dispose();
     super.dispose();
   }
   @override
@@ -135,7 +137,14 @@ class _CalendarState extends State<Calendar> {
                 ...getScheduledSessions(mySelectedDay).map((e) => ListTile(
                   title: Container(decoration: BoxDecoration(border: Border(bottom:BorderSide( width: 1.0,color: colorTurqoise.withOpacity(0.2))) ),child: Padding(
                     padding:  EdgeInsets.only(top:MediaQuery.of(context).size.height * 0.03,bottom:MediaQuery.of(context).size.height * 0.03),
-                    child: Text(e.title, style: TextStyle(color: colorTurqoise, fontSize: MediaQuery.of(context).size.width*0.06),),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children:<Widget> [
+                        Text(e.title, style: TextStyle(color: colorOrange, fontSize: MediaQuery.of(context).size.width*0.07),),
+                        Text(e.description, style: TextStyle(color: colorTurqoise, fontSize: MediaQuery.of(context).size.width*0.05),),
+                      ],
+                    ),
                   )),
                 ))
                 
@@ -146,7 +155,16 @@ class _CalendarState extends State<Calendar> {
       floatingActionButton: FloatingActionButton(
         onPressed: () => showDialog(context: context, builder: (context) =>  AlertDialog(
           title: const  Text('Schedule Meeting'),
-          content: TextFormField(controller: meetingController,),
+          content: Container(
+            height: MediaQuery.of(context).size.height * 0.2,
+            child: Column(
+              children: [
+                TextFormField(controller: meetingController, decoration: InputDecoration(labelText: 'Meeting Title'),),
+                TextFormField(controller: descriptionController,decoration: InputDecoration(labelText: 'Meeting Description'), ),
+
+              ],
+            ),
+          ),
           actions: <Widget>[
             TextButton(
               child: const  Text('Cancel', style: TextStyle(color: colorDarkGrey),),
@@ -160,16 +178,17 @@ class _CalendarState extends State<Calendar> {
                 }
                 else {
                   if(scheduledSessions[mySelectedDay] != null){
-                    scheduledSessions[mySelectedDay]?.add(Event(title: meetingController.text));
+                    scheduledSessions[mySelectedDay]?.add(Event(title: meetingController.text, description: descriptionController.text));
                   }
                   else
                   {
-                    scheduledSessions[mySelectedDay] = [Event(title: meetingController.text)];
+                    scheduledSessions[mySelectedDay] = [Event(title: meetingController.text, description: descriptionController.text)];
                   }
                 }
                 Navigator.pop(context);
                 meetingController.clear();
-                
+                descriptionController.clear();
+                //move forward to next page
                 return;
               },
             ),
