@@ -2,14 +2,13 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tutor_me/services/models/tutors.dart';
-import 'package:tutor_me/services/models/tutees.dart';
+import 'package:tutor_me/services/models/users.dart';
 import 'package:tutor_me/services/services/tutee_services.dart';
 import 'package:tutor_me/src/theme/themes.dart';
 // import 'package:tutor_me/src/colorPalette.dart';
 
 import '../../services/models/modules.dart';
-import '../../services/services/tutor_services.dart';
+import '../../services/services/user_services.dart';
 import '../colorpallete.dart';
 import '../components.dart';
 import 'user_stats.dart';
@@ -18,8 +17,8 @@ class TutorProfilePageView extends StatefulWidget {
   // ignore: prefer_const_constructors_in_immutables
   TutorProfilePageView({Key? key, required this.tutor, required this.tutee})
       : super(key: key);
-  final Tutors tutor;
-  final Tutees tutee;
+  final Users tutor;
+  final Users tutee;
 
   static const String route = '/tutor_profile_view';
 
@@ -34,7 +33,7 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
   late int numTutees;
   bool isRequestLoading = false;
   bool isRequestDone = false;
-  List<Tutors> tutors = List<Tutors>.empty();
+  List<Users> tutors = List<Users>.empty();
   bool isConnected = false;
   int rating = 0;
   Color colorOne = Colors.yellow;
@@ -51,7 +50,7 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
   bool isLoading = true;
 
   getCurrentModules() async {
-    final current = await TutorServices.getTutorModules(widget.tutor.getId);
+    final current = await UserServices.getTutorModules(widget.tutor.getId);
     setState(() {
       currentModules = current;
     });
@@ -74,7 +73,7 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
   getProfileImage() async {
     try {
       final image =
-          await TutorServices.getTutorProfileImage(widget.tutor.getId);
+          await UserServices.getTutorProfileImage(widget.tutor.getId);
       setState(() {
         isLoading = false;
         bytes = image;
@@ -93,7 +92,7 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
       List<String> connections = widget.tutee.getConnections.split(',');
       int conLength = connections.length;
       for (int i = 0; i < conLength; i++) {
-        final tutor = await TutorServices.getTutor(connections[i]);
+        final tutor = await UserServices.getTutor(connections[i]);
 
         tutors += tutor;
         isConnected = checkConnection();
@@ -526,7 +525,7 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
                         widget.tutor.setRating = ratingFormat;
                       });
                       try {
-                        await TutorServices.updateTutor(widget.tutor);
+                        await UserServices.updateTutor(widget.tutor);
                       } catch (e) {
                         const snackBar = SnackBar(
                           content: Text('Failed to upload rating'),

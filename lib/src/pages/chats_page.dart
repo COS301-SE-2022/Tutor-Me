@@ -1,10 +1,11 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:tutor_me/services/services/tutor_services.dart';
+import 'package:tutor_me/services/services/user_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/pages/tutors_list.dart';
-import '../../services/models/tutors.dart';
+// import '../../services/models/tutors.dart';
+import '../../services/models/users.dart';
 import '../../services/services/tutee_services.dart';
 import '../Groups/tutee_group.dart';
 import '../chat/one_to_one_chat.dart';
@@ -37,7 +38,7 @@ class ChatsState extends State<Chats> {
 
   void getConnections() async {
     if (!widget.user.getConnections.contains('No connections added')) {
-      if (widget.user is Tutors) {
+      if (widget.user is Users) {
         List<String> connections = widget.user.getConnections.split(',');
         int conLength = connections.length;
         for (int i = 0; i < conLength; i++) {
@@ -51,7 +52,7 @@ class ChatsState extends State<Chats> {
         List<String> connections = widget.user.getConnections.split(',');
         int conLength = connections.length;
         for (int i = 0; i < conLength; i++) {
-          final tutor = await TutorServices.getTutor(connections[i]);
+          final tutor = await UserServices.getTutor(connections[i]);
 
           tutors += tutor;
         }
@@ -64,7 +65,7 @@ class ChatsState extends State<Chats> {
   }
 
   getChatsProfileImages() async {
-    if (widget.user is Tutors) {
+    if (widget.user is Users) {
       for (int i = 0; i < tutors.length; i++) {
         try {
           final image =
@@ -98,7 +99,7 @@ class ChatsState extends State<Chats> {
       for (int i = 0; i < tutors.length; i++) {
         try {
           final image =
-              await TutorServices.getTutorProfileImage(tutors[i].getId);
+              await UserServices.getTutorProfileImage(tutors[i].getId);
           setState(() {
             images.add(image);
           });
@@ -170,7 +171,7 @@ class ChatsState extends State<Chats> {
 
   Widget _chatBuilder(BuildContext context, int i) {
     String name;
-    if (widget.user is Tutors) {
+    if (widget.user is Users) {
       name = tuteeChats[i].tutee.getName + ' ' + tutors[i].getLastName;
     } else {
       name = tutorChats[i].tutor.getName + ' ' + tutors[i].getLastName;
@@ -189,7 +190,7 @@ class ChatsState extends State<Chats> {
             children: <Widget>[
               ListTile(
                 leading: CircleAvatar(
-                  child: widget.user is Tutors
+                  child: widget.user is Users
                       ? tuteeChats[i].hasImage
                           ? ClipOval(
                               child: Image.memory(
@@ -239,7 +240,7 @@ class ChatsState extends State<Chats> {
         onTap: () {
           Navigator.of(context).push(MaterialPageRoute(
               builder: (BuildContext context) =>
-                  Chat(reciever: tutors[i], user: widget.user, image: widget.user is Tutors? tuteeChats[i].image:tutorChats[i].image, hasImage: widget.user is Tutors? tuteeChats[i].hasImage :tutorChats[i].hasImage )));
+                  Chat(reciever: tutors[i], user: widget.user, image: widget.user is Users? tuteeChats[i].image:tutorChats[i].image, hasImage: widget.user is Users? tuteeChats[i].hasImage :tutorChats[i].hasImage )));
         });
   }
 }

@@ -1,13 +1,13 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
 
 import 'package:flutter/material.dart';
-import 'package:tutor_me/services/models/tutors.dart';
-import 'package:tutor_me/services/services/tutor_services.dart';
+// import 'package:tutor_me/services/models/tutors.dart';
+import 'package:tutor_me/services/models/users.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/tutor_page.dart';
-import '../../services/models/tutees.dart';
+// import '../../services/models/tutees.dart';
 import '../../services/services/module_services.dart';
-import '../../services/services/tutee_services.dart';
+import '../../services/services/user_services.dart';
 import '../components.dart';
 import '../tutee_page.dart';
 import 'register_step1.dart';
@@ -46,26 +46,23 @@ class _RegisterStep3State extends State<RegisterStep3> {
   final TextEditingController institutionController = TextEditingController();
   final TextEditingController courseController = TextEditingController();
 
-  late Tutors tutor;
-  late Tutees tutee;
+  late Users tutor;
+  late Users tutee;
   int currentStep = 2;
 
   register(String passedinInstitution) async {
     if (widget.toRegister == "Tutor") {
       try {
-        tutor = await TutorServices.registerTutor(
+        tutor = await UserServices.registerTutor(
             widget.fullName,
             widget.lastName,
             widget.dob,
             widget.gender,
-            passedinInstitution,
             widget.email,
             widget.password,
-            // courseController.text,
-            //yearLvl
+            passedinInstitution,
             widget.confirmPassword,
-            '1',
-            'Bsc Computer Sciences');
+            "1"); //TODO: change to actual value
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => TutorPage(user: tutor)),
@@ -97,19 +94,16 @@ class _RegisterStep3State extends State<RegisterStep3> {
       }
     } else {
       try {
-        tutee = await TuteeServices.registerTutee(
+        tutee = await UserServices.registerTutee(
             widget.fullName,
             widget.lastName,
             widget.dob,
             widget.gender,
-            institutionController.text,
             widget.email,
             widget.password,
-            // courseController.text,
-            //yearLvl
+            passedinInstitution,
             widget.confirmPassword,
-            '1', //TODO: Change to actual value
-            'Bsc Computer Sciences' //TODO: change to actual value
+            "1" //TODO: change to actual value
             );
 
         Navigator.push(

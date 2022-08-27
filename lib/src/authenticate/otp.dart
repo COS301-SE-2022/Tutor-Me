@@ -2,8 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:tutor_me/src/colorpallete.dart';
-import '../../services/models/tutees.dart';
-import '../../services/models/tutors.dart';
+import '../../services/models/users.dart';
 import '../components.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'change_password.dart';
@@ -23,8 +22,8 @@ class OTPState extends State<OTP> {
   final FocusNode emailFocusNode = FocusNode();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final TextEditingController otpcontroller = TextEditingController();
-  late Tutors tutor;
-  late Tutees tutee;
+  late Users tutor;
+  late Users tutee;
   bool isActive = false;
 
   void verifyOTP() async {

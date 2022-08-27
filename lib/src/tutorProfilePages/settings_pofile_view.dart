@@ -6,20 +6,20 @@ import 'package:tutor_me/src/tutorProfilePages/tutor_profile_edit.dart';
 import 'package:tutor_me/src/tutorProfilePages/user_stats.dart';
 
 import '../../services/models/modules.dart';
-import '../../services/models/tutors.dart';
-import '../../services/services/tutor_services.dart';
+import '../../services/models/users.dart';
+import '../../services/services/user_services.dart';
 import '../components.dart';
 import '../tuteeProfilePages/edit_module_list.dart';
 
 class ToReturn {
   Uint8List image;
-  Tutors user;
+  Users user;
   ToReturn(this.image, this.user);
 }
 
 // ignore: must_be_immutable
 class TutorSettingsProfileView extends StatefulWidget {
-  Tutors user;
+  Users user;
   Uint8List image;
   bool imageExists;
   TutorSettingsProfileView(
@@ -41,7 +41,7 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
   bool _isLoading = true;
 
   getCurrentModules() async {
-    final current = await TutorServices.getTutorModules(widget.user.getId);
+    final current = await UserServices.getTutorModules(widget.user.getId);
     setState(() {
       currentModules = current;
       _isLoading = false;

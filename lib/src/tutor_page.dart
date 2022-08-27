@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tutor_me/services/models/tutors.dart';
+import 'package:tutor_me/services/models/users.dart';
 import 'package:tutor_me/src/notifications/tutorNotifications/tutor_notifications.dart';
 import 'package:tutor_me/src/pages/chats_page.dart';
 import 'package:tutor_me/src/tutorAndTuteeCollaboration/tutorGroups/tutor_groups.dart';
@@ -10,7 +10,7 @@ import 'Navigation/tutor_nav_drawer.dart';
 import 'pages/calls_page.dart';
 
 class TutorPage extends StatefulWidget {
-  final Tutors user;
+  final Users user;
 
   const TutorPage({Key? key, required this.user}) : super(key: key);
 

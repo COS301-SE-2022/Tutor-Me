@@ -4,19 +4,19 @@ import 'package:flutter/material.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/tutorProfilePages/user_stats.dart';
 import '../../services/models/modules.dart';
-import '../../services/models/tutees.dart';
+import '../../services/models/users.dart';
 import '../../services/services/tutee_services.dart';
 import '../components.dart';
 
 class ToReturn {
   Uint8List image;
-  Tutees user;
+  Users user;
   ToReturn(this.image, this.user);
 }
 
 // ignore: must_be_immutable
 class TuteeProfilePageView extends StatefulWidget {
-  Tutees user;
+  Users user;
   Uint8List image;
   final bool imageExists;
   TuteeProfilePageView(

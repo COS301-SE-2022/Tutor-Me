@@ -8,21 +8,21 @@ import 'package:tutor_me/src/colorpallete.dart';
 // import 'package:tutor_me/src/tutorProfilePages/tutor_profile_edit.dart';
 import 'package:tutor_me/src/tutorProfilePages/user_stats.dart';
 import '../../services/models/modules.dart';
-import '../../services/models/tutees.dart';
-import '../../services/services/tutee_services.dart';
+import '../../services/models/users.dart';
+import '../../services/services/user_services.dart';
 import '../components.dart';
 import 'edit_module_list.dart';
 import 'tutee_profile_edit.dart';
 
 class ToReturn {
   Uint8List image;
-  Tutees user;
+  Users user;
   ToReturn(this.image, this.user);
 }
 
 // ignore: must_be_immutable
 class TuteeProfilePage extends StatefulWidget {
-  Tutees user;
+  Users user;
   Uint8List image;
   final bool imageExists;
   TuteeProfilePage(
@@ -43,7 +43,7 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
   bool _isLoading = true;
 
   getCurrentModules() async {
-    final current = await TuteeServices.getTuteeModules(widget.user.getId);
+    final current = await UserServices.getTuteeModules(widget.user.getId);
     setState(() {
       currentModules = current;
       _isLoading = false;

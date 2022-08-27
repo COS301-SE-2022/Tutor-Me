@@ -1,4 +1,4 @@
-class Tutees {
+class Users {
   String _id = "";
   String _firstName = "";
   String _lastName = "";
@@ -13,10 +13,9 @@ class Tutees {
   String _bio = "";
   String _year = '';
   int _rating = 0;
-  String _age  = "";
+  String _age = "";
 
-
-  Tutees(
+  Users(
       this._id,
       this._firstName,
       this._lastName,
@@ -31,7 +30,6 @@ class Tutees {
       this._bio,
       this._year,
       this._rating);
-  
 
   String get getId => _id;
   String get getName => _firstName;
@@ -48,8 +46,9 @@ class Tutees {
   String get getYear => _year;
   int get getRating => _rating;
 
-
-
+  set setStatus(bool newStatus) {
+    _status = newStatus;
+  }
 
   set setId(String newId) {
     _id = newId;
@@ -96,8 +95,7 @@ class Tutees {
     return _age.toString();
   }
 
-  set setAge(String a)
-  {
+  set setAge(String a) {
     _age = a;
   }
 
@@ -113,12 +111,9 @@ class Tutees {
     _gender = newGender;
   }
 
- 
-
   set setYear(String newYear) {
     _year = newYear;
   }
-
 
   Map<String, dynamic> toMap() {
     var map = <String, dynamic>{};
@@ -139,7 +134,7 @@ class Tutees {
     return map;
   }
 
-  Tutees.fromObject(dynamic o) {
+  Users.fromObject(dynamic o) {
     _id = o["id"];
     _firstName = o["firstName"];
     _lastName = o["lastName"];
@@ -149,7 +144,7 @@ class Tutees {
     _dateOfBirth = o["dateOfBirth"];
     _gender = o["gender"];
     _email = o["email"];
-    _password = o["password"];  
+    _password = o["password"];
     userTypeID = o["userTypeId"];
     _institutionID = o["institutionId"];
     _year = o["year"];

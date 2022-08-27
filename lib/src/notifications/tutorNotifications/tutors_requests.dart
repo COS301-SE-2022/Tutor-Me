@@ -6,7 +6,7 @@ import 'package:tutor_me/services/models/tutees.dart';
 import 'package:tutor_me/services/models/tutors.dart';
 import 'package:tutor_me/services/services/group_services.dart';
 import 'package:tutor_me/services/services/tutee_services.dart';
-import 'package:tutor_me/services/services/tutor_services.dart';
+// import 'package:tutor_me/services/services/tutor_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 
 import '../../../services/models/groups.dart';

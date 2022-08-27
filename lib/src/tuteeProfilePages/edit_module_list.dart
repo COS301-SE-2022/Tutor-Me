@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:tutor_me/services/models/tutors.dart';
 import 'package:tutor_me/services/services/group_services.dart';
 import 'package:tutor_me/services/services/module_services.dart';
-import 'package:tutor_me/services/services/tutor_services.dart';
+import 'package:tutor_me/services/services/user_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/tuteeProfilePages/tutee_profile.dart';
 
 import '../../services/models/groups.dart';
 import '../../services/models/modules.dart';
+import '../../services/models/users.dart';
 import '../../services/services/tutee_services.dart';
 
 // ignore: must_be_immutable
@@ -251,8 +251,8 @@ class _EditModuleListState extends State<EditModuleList> {
                               }
                               widget.user.setModules = modules;
 
-                              if (widget.user is Tutors) {
-                                await TutorServices.updateTutor(widget.user);
+                              if (widget.user is Users) {
+                                await UserServices.updateTutor(widget.user);
 
                                 if (tutorGroups.isEmpty) {
                                   modulesToAdd = widget.currentModules;

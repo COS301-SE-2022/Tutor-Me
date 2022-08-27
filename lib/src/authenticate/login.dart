@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import 'package:tutor_me/src/authenticate/register_step1.dart';
 import 'package:tutor_me/src/colorpallete.dart';
-import '../../services/models/tutees.dart';
-import '../../services/models/tutors.dart';
-import '../../services/services/tutee_services.dart';
-import '../../services/services/tutor_services.dart';
+// import '../../services/models/tutees.dart';
+// import '../../services/models/tutors.dart';
+import '../../services/services/user_services.dart';
+import '../../services/models/users.dart';
 import '../components.dart';
 import '../tutor_page.dart';
 import '../tutee_page.dart';
@@ -24,8 +24,8 @@ class _LoginState extends State<Login> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  late Tutors tutor;
-  late Tutees tutee;
+  late Users tutor;
+  late Users tutee;
   String toRegister = 'Tutor';
 
   bool isLoading = false;
@@ -222,10 +222,10 @@ class _LoginState extends State<Login> {
                       if (toRegister == "Tutor") {
                         try {
                           // TutorServices tutor = TutorServices.Login(
-                          tutor = await TutorServices.logInTutor(
+                          tutor = await UserServices.logInTutor(
                               emailController.text, passwordController.text);
-                          tutor.setStatus = "T";
-                          await TutorServices.updateTutor(tutor);
+                          tutor.setStatus = true;
+                          await UserServices.updateTutor(tutor);
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -271,10 +271,10 @@ class _LoginState extends State<Login> {
                       } else {
                         try {
                           // TutorServices tutor = TutorServices.Login(
-                          tutee = await TuteeServices.logInTutee(
+                          tutee = await UserServices.logInTutee(
                               emailController.text, passwordController.text);
-                          tutee.setStatus = "T";
-                          await TuteeServices.updateTutee(tutee);
+                          tutee.setStatus = true;
+                          await UserServices.updateTutee(tutee);
                           Navigator.push(
                             context,
                             MaterialPageRoute(

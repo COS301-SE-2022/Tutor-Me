@@ -3,6 +3,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import 'package:tutor_me/src/authenticate/login.dart';
 import 'package:tutor_me/src/colorpallete.dart';
+import '../../services/services/user_services.dart';
 import '../components.dart';
 import 'register_step2.dart';
 import '../../services/services/tutee_services.dart';
@@ -292,7 +293,7 @@ class _RegisterStep1State extends State<RegisterStep1> {
 
                     if (toRegister == "Tutor") {
                       bool isThereTutorWithEmail =
-                          await TutorServices.isThereTutorByEmail(
+                          await UserServices.isThereTutorByEmail(
                               emailController.text);
 
                       if (isThereTutorWithEmail) {
@@ -301,7 +302,7 @@ class _RegisterStep1State extends State<RegisterStep1> {
                       }
                     } else {
                       bool isThereTuteeWithEmail =
-                          await TuteeServices.isThereTuteeByEmail(
+                          await UserServices.isThereTuteeByEmail(
                               emailController.text);
 
                       if (isThereTuteeWithEmail) {

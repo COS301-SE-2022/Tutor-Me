@@ -1,12 +1,12 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:tutor_me/services/services/tutor_services.dart';
+import 'package:tutor_me/services/services/user_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
-import '../../services/models/tutees.dart';
+import '../../services/models/users.dart';
 import '../tutee_page.dart';
 import '../tutorProfilePages/tutor_profile_view.dart';
-import 'package:tutor_me/services/models/tutors.dart';
+// import 'package:tutor_me/services/models/tutors.dart';
 // import 'package:tutor_me/modules/api.services.dart';
 // import 'package:tutor_me/modules/tutors.dart';
 // import 'tutorProfilePages/tutor_profile_view.dart';
@@ -14,14 +14,14 @@ import 'package:tutor_me/services/models/tutors.dart';
 // import 'theme/themes.dart';
 
 class Tutor {
-  Tutors tutor;
+  Users tutor;
   Uint8List image;
   bool hasImage;
   Tutor(this.tutor, this.image, this.hasImage);
 }
 
 class TutorsList extends StatefulWidget {
-  final Tutees tutee;
+  final Users tutee;
   const TutorsList({Key? key, required this.tutee}) : super(key: key);
 
   @override
@@ -33,12 +33,12 @@ class TutorsList extends StatefulWidget {
 class TutorsListState extends State<TutorsList> {
   String query = '';
   final textControl = TextEditingController();
-  List<Tutors> tutorList = List<Tutors>.empty();
+  List<Users> tutorList = List<Users>.empty();
   List<Tutor> saveTutors = List<Tutor>.empty();
   List<Uint8List> tutorImages = List<Uint8List>.empty(growable: true);
   List<Tutor> tutors = List<Tutor>.empty(growable: true);
   List<int> hasImage = List<int>.empty(growable: true);
-  List<Tutors> connectedTutors = List<Tutors>.empty();
+  List<Users> connectedTutors = List<Users>.empty();
   double filterContHeight = 0.0;
   double filterContWidth = 0.0;
   bool collapsed = true;
@@ -146,7 +146,7 @@ class TutorsListState extends State<TutorsList> {
   }
 
   getTutors() async {
-    final tutors = await TutorServices.getTutors();
+    final tutors = await UserServices.getTutors();
     tutorList = tutors;
 
     getConnections();
@@ -159,7 +159,7 @@ class TutorsListState extends State<TutorsList> {
       List<String> connections = widget.tutee.getConnections.split(',');
       int conLength = connections.length;
       for (int i = 0; i < conLength; i++) {
-        final tutor = await TutorServices.getTutor(connections[i]);
+        final tutor = await UserServices.getTutor(connections[i]);
         setState(() {
           connectedTutors += tutor;
         });
@@ -195,14 +195,14 @@ class TutorsListState extends State<TutorsList> {
 
     if (widget.tutee.getModules.contains('No modules added')) {
       setState(() {
-        tutorList = List<Tutors>.empty();
+        tutorList = List<Users>.empty();
       });
       const snackBar = SnackBar(
         content: Text('No Tutor suggestions'),
       );
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     } else {
-      List<Tutors> tempList = List<Tutors>.empty(growable: true);
+      List<Users> tempList = List<Users>.empty(growable: true);
 
       for (int i = 0; i < tutorList.length; i++) {
         bool toAdd = true;
@@ -227,7 +227,7 @@ class TutorsListState extends State<TutorsList> {
     for (int i = 0; i < tutorList.length; i++) {
       try {
         final image =
-            await TutorServices.getTutorProfileImage(tutorList[i].getId);
+            await UserServices.getTutorProfileImage(tutorList[i].getId);
         setState(() {
           tutorImages.add(image);
         });

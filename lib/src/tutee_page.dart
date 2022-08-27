@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tutor_me/services/models/tutees.dart';
+import 'package:tutor_me/services/models/users.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/pages/%20call_history.dart';
 import 'package:tutor_me/src/theme/themes.dart';
@@ -11,7 +11,7 @@ import 'pages/tutors_list.dart';
 import 'pages/chats_page.dart';
 
 class TuteePage extends StatefulWidget {
-  final Tutees user;
+  final Users user;
   const TuteePage({Key? key, required this.user}) : super(key: key);
 
   @override
