@@ -47,25 +47,25 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
       _isLoading = false;
     });
   }
+  //TODO: get numConnections and numTutees
+  // int getNumConnections() {
+  //   var allConnections = widget.user.getConnections.split(',');
 
-  int getNumConnections() {
-    var allConnections = widget.user.getConnections.split(',');
+  //   return allConnections.length;
+  // }
 
-    return allConnections.length;
-  }
+  // int getNumTutees() {
+  //   var allTutees = widget.user.getTuteesCode.split(',');
 
-  int getNumTutees() {
-    var allTutees = widget.user.getTuteesCode.split(',');
-
-    return allTutees.length;
-  }
+  //   return allTutees.length;
+  // }
 
   @override
   void initState() {
     super.initState();
     getCurrentModules();
-    numConnections = getNumConnections();
-    numTutees = getNumTutees();
+    // numConnections = getNumConnections();
+    // numTutees = getNumTutees();
   }
 
   @override
@@ -96,7 +96,7 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
     final screenHeightSize = MediaQuery.of(context).size.height;
     String userName = widget.user.getName + ' ' + widget.user.getLastName;
     String courseInfo =
-        widget.user.getCourse + ' | ' + widget.user.getInstitution;
+        widget.user.getInstitutionID + ' | ' + widget.user.getInstitutionID;
     String personalDets = userName + '(' + widget.user.getAge + ')';
     String gender = "";
     if (widget.user.getGender == "F") {

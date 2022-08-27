@@ -154,7 +154,7 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
                 await UserServices.uploadProfileImage(image, widget.user.getId);
 
                 final newImage =
-                    await UserServices.getTutorProfileImage(widget.user.getId);
+                    await UserServices.getProfileImage(widget.user.getId);
 
                 setState(() {
                   widget.image = newImage;

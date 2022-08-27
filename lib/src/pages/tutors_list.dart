@@ -97,7 +97,7 @@ class TutorsListState extends State<TutorsList> {
       final filteredTutors = tutors.where((tutor) {
         bool val = false;
         if (tutor.tutor.getDateOfBirth != '') {
-          String strAge = tutor.tutor.getAge;
+          String strAge = tutor.tutor.getDateOfBirth;
           int age = int.parse(strAge);
           if (age >= 36) {
             val = true;
@@ -149,85 +149,85 @@ class TutorsListState extends State<TutorsList> {
     final tutors = await UserServices.getTutors();
     tutorList = tutors;
 
-    getConnections();
+    // getConnections();
   }
+  //TODO: fix get connections
+  // getConnections() async {
+  //   List<int> indecies = List<int>.empty(growable: true);
+  //   int tutorLength = tutorList.length;
+  //   if (!widget.tutee.getConnections.contains('No connections added')) {
+  //     List<String> connections = widget.tutee.getConnections.split(',');
+  //     int conLength = connections.length;
+  //     for (int i = 0; i < conLength; i++) {
+  //       final tutor = await UserServices.getTutor(connections[i]);
+  //       setState(() {
+  //         connectedTutors += tutor;
+  //       });
+  //     }
+  //     for (int i = 0; i < tutorLength; i++) {
+  //       for (int j = 0; j < connectedTutors.length; j++) {
+  //         if (tutorList[i].getId == connectedTutors[j].getId) {
+  //           indecies.add(i);
+  //         }
+  //       }
+  //     }
+  //   }
 
-  getConnections() async {
-    List<int> indecies = List<int>.empty(growable: true);
-    int tutorLength = tutorList.length;
-    if (!widget.tutee.getConnections.contains('No connections added')) {
-      List<String> connections = widget.tutee.getConnections.split(',');
-      int conLength = connections.length;
-      for (int i = 0; i < conLength; i++) {
-        final tutor = await UserServices.getTutor(connections[i]);
-        setState(() {
-          connectedTutors += tutor;
-        });
-      }
-      for (int i = 0; i < tutorLength; i++) {
-        for (int j = 0; j < connectedTutors.length; j++) {
-          if (tutorList[i].getId == connectedTutors[j].getId) {
-            indecies.add(i);
-          }
-        }
-      }
-    }
+  //   List<String> tuteeModules = widget.tutee.getModules.split(',');
+  //   for (int i = 0; i < tutorLength; i++) {
+  //     bool val = false;
+  //     if (!tutorList[i].getModules.contains('No modules added')) {
+  //       List<String> tutorModules = tutorList[i].getModules.split(',');
 
-    List<String> tuteeModules = widget.tutee.getModules.split(',');
-    for (int i = 0; i < tutorLength; i++) {
-      bool val = false;
-      if (!tutorList[i].getModules.contains('No modules added')) {
-        List<String> tutorModules = tutorList[i].getModules.split(',');
+  //       for (int k = 0; k < tutorModules.length; k++) {
+  //         for (int l = 0; l < tuteeModules.length; l++) {
+  //           if (tutorModules[k] == tuteeModules[l]) {
+  //             val = true;
+  //           }
+  //         }
+  //       }
+  //     }
 
-        for (int k = 0; k < tutorModules.length; k++) {
-          for (int l = 0; l < tuteeModules.length; l++) {
-            if (tutorModules[k] == tuteeModules[l]) {
-              val = true;
-            }
-          }
-        }
-      }
+  //     if (!val) {
+  //       indecies.add(i);
+  //     }
+  //   }
 
-      if (!val) {
-        indecies.add(i);
-      }
-    }
+  //   if (widget.tutee.getModules.contains('No modules added')) {
+  //     setState(() {
+  //       tutorList = List<Users>.empty();
+  //     });
+  //     const snackBar = SnackBar(
+  //       content: Text('No Tutor suggestions'),
+  //     );
+  //     ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  //   } else {
+  //     List<Users> tempList = List<Users>.empty(growable: true);
 
-    if (widget.tutee.getModules.contains('No modules added')) {
-      setState(() {
-        tutorList = List<Users>.empty();
-      });
-      const snackBar = SnackBar(
-        content: Text('No Tutor suggestions'),
-      );
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-    } else {
-      List<Users> tempList = List<Users>.empty(growable: true);
+  //     for (int i = 0; i < tutorList.length; i++) {
+  //       bool toAdd = true;
+  //       for (int j = 0; j < indecies.length; j++) {
+  //         if (i == indecies[j]) {
+  //           toAdd = false;
+  //         }
+  //       }
+  //       if (toAdd) {
+  //         tempList.add(tutorList[i]);
+  //       }
+  //     }
+  //     setState(() {
+  //       tutorList = tempList;
+  //     });
+  //   }
 
-      for (int i = 0; i < tutorList.length; i++) {
-        bool toAdd = true;
-        for (int j = 0; j < indecies.length; j++) {
-          if (i == indecies[j]) {
-            toAdd = false;
-          }
-        }
-        if (toAdd) {
-          tempList.add(tutorList[i]);
-        }
-      }
-      setState(() {
-        tutorList = tempList;
-      });
-    }
-
-    getTutorProfileImages();
-  }
+  //   getTutorProfileImages();
+  // }
 
   getTutorProfileImages() async {
     for (int i = 0; i < tutorList.length; i++) {
       try {
         final image =
-            await UserServices.getTutorProfileImage(tutorList[i].getId);
+            await UserServices.getProfileImage(tutorList[i].getId);
         setState(() {
           tutorImages.add(image);
         });

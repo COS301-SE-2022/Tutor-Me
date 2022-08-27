@@ -55,25 +55,24 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
       currentModules = current;
     });
 
-    getConnections();
+    // getConnections();
   }
+  //TODO: Add a function to get the number of connections and tutees
+  // int getNumConnections() {
+  //   var allConnections = widget.tutor.getConnections.split(',');
 
-  int getNumConnections() {
-    var allConnections = widget.tutor.getConnections.split(',');
+  //   return allConnections.length;
+  // }
 
-    return allConnections.length;
-  }
+  // int getNumTutees() {
+  //   var allTutees = widget.tutor.getTuteesCode.split(',');
 
-  int getNumTutees() {
-    var allTutees = widget.tutor.getTuteesCode.split(',');
-
-    return allTutees.length;
-  }
+  //   return allTutees.length;
+  // }
 
   getProfileImage() async {
     try {
-      final image =
-          await UserServices.getTutorProfileImage(widget.tutor.getId);
+      final image = await UserServices.getProfileImage(widget.tutor.getId);
       setState(() {
         isLoading = false;
         bytes = image;
@@ -86,25 +85,26 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
       });
     }
   }
+  //TODO; fix getConnections
 
-  getConnections() async {
-    if (!widget.tutee.getConnections.contains('No connections added')) {
-      List<String> connections = widget.tutee.getConnections.split(',');
-      int conLength = connections.length;
-      for (int i = 0; i < conLength; i++) {
-        final tutor = await UserServices.getTutor(connections[i]);
+  // getConnections() async {
+  //   if (!widget.tutee.getConnections.contains('No connections added')) {
+  //     List<String> connections = widget.tutee.getConnections.split(',');
+  //     int conLength = connections.length;
+  //     for (int i = 0; i < conLength; i++) {
+  //       final tutor = await UserServices.getTutor(connections[i]);
 
-        tutors += tutor;
-        isConnected = checkConnection();
-      }
-      setState(() {
-        tutors = tutors;
-      });
+  //       tutors += tutor;
+  //       isConnected = checkConnection();
+  //     }
+  //     setState(() {
+  //       tutors = tutors;
+  //     });
 
-      getProfileImage();
-    }
-    getProfileImage();
-  }
+  //     getProfileImage();
+  //   }
+  //   getProfileImage();
+  // }
 
   bool checkConnection() {
     bool val = false;
@@ -122,13 +122,12 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
   void initState() {
     super.initState();
     getCurrentModules();
-    numConnections = getNumConnections();
-    numTutees = getNumTutees();
+    // numConnections = getNumConnections();
+    // numTutees = getNumTutees();
   }
 
   @override
   Widget build(BuildContext context) {
-  
     return Scaffold(
         body: isLoading
             ? const Center(
@@ -145,19 +144,15 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
   }
 
   Widget buildBody() {
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
+    Color textColor;
+    Color secondaryTextColor;
 
-       final provider = Provider.of<ThemeProvider>(context,listen: false);
-    Color textColor ;
-    Color secondaryTextColor ;
-    
-    if(provider.themeMode == ThemeMode.dark)
-    {
-      textColor = colorWhite ;
+    if (provider.themeMode == ThemeMode.dark) {
+      textColor = colorWhite;
       secondaryTextColor = colorGrey;
-    }
-    else
-    {
-      textColor = Colors.black ;
+    } else {
+      textColor = Colors.black;
       secondaryTextColor = colorTurqoise;
     }
 
@@ -165,7 +160,7 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
     final screenHeightSize = MediaQuery.of(context).size.height;
     String tutorName = widget.tutor.getName + ' ' + widget.tutor.getLastName;
     String courseInfo =
-        widget.tutor.getCourse + ' | ' + widget.tutor.getInstitution;
+        widget.tutor.getInstitutionID + ' | ' + widget.tutor.getInstitutionID;
     String personalDets = tutorName + '(' + widget.tutor.getAge + ')';
     String gender = "";
     if (widget.tutor.getGender == "F") {
@@ -328,19 +323,16 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
   }
 
   Widget topDesign() {
-     final provider = Provider.of<ThemeProvider>(context,listen: false);
-    Color textColor ;
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
+    Color textColor;
     Color highlightColor;
-    
-    if(provider.themeMode == ThemeMode.dark)
-    {
+
+    if (provider.themeMode == ThemeMode.dark) {
       highlightColor = colorOrange;
-      textColor = colorWhite ;
-    }
-    else
-    {
+      textColor = colorWhite;
+    } else {
       highlightColor = colorTurqoise;
-      textColor = Colors.black ;
+      textColor = Colors.black;
     }
     return Stack(
       clipBehavior: Clip.none,
@@ -360,8 +352,8 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
                 left: MediaQuery.of(context).size.height * 0.01,
                 child: ElevatedButton(
                     child: Row(
-                      children:  <Widget>[
-                        Text('Rate' , style: TextStyle(color: textColor)),
+                      children: <Widget>[
+                        Text('Rate', style: TextStyle(color: textColor)),
                         const Icon(
                           Icons.star,
                           color: Colors.yellow,
@@ -383,22 +375,17 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
   }
 
   void popUpDialog(BuildContext context) => showDialog(
-    
       barrierDismissible: false,
       context: context,
       builder: (context) {
-         final provider = Provider.of<ThemeProvider>(context,listen: false);
-    Color highlightColor;
-    
-    if(provider.themeMode == ThemeMode.dark)
-    {
-      highlightColor = colorOrange;
-    
-    }
-    else
-    {
-      highlightColor = colorTurqoise;
-    }
+        final provider = Provider.of<ThemeProvider>(context, listen: false);
+        Color highlightColor;
+
+        if (provider.themeMode == ThemeMode.dark) {
+          highlightColor = colorOrange;
+        } else {
+          highlightColor = colorTurqoise;
+        }
         return StatefulBuilder(builder: (context, setState) {
           return SimpleDialog(
             title: Row(
@@ -535,7 +522,7 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
 
                       Navigator.of(context).pop();
                     },
-                    child:  Text(
+                    child: Text(
                       'Save',
                       style: TextStyle(color: highlightColor),
                     )),
@@ -595,19 +582,16 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
       );
 
   Widget _moduleListBuilder(BuildContext context, int i) {
-      final provider = Provider.of<ThemeProvider>(context,listen: false);
-    Color textColor ;
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
+    Color textColor;
     Color highlightColor;
-    
-    if(provider.themeMode == ThemeMode.dark)
-    {
+
+    if (provider.themeMode == ThemeMode.dark) {
       highlightColor = colorOrange;
-      textColor = colorWhite ;
-    }
-    else
-    {
+      textColor = colorWhite;
+    } else {
       highlightColor = colorTurqoise;
-      textColor = Colors.black ;
+      textColor = Colors.black;
     }
     String moduleDescription =
         currentModules[i].getModuleName + '(' + currentModules[i].getCode + ')';
@@ -625,7 +609,7 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
               fontSize: MediaQuery.of(context).size.width * 0.05,
-              color:textColor.withOpacity(0.8) ,
+              color: textColor.withOpacity(0.8),
             ),
           ),
         ),
@@ -762,11 +746,11 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
                                       Navigator.of(context).pop();
                                     });
                                   } catch (e) {
-                                     const snackBar = SnackBar(
-                                        content: Text('Failed to send request.'),
-                                      );
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(snackBar);
+                                    const snackBar = SnackBar(
+                                      content: Text('Failed to send request.'),
+                                    );
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(snackBar);
                                   }
                                 },
                                 child: const Text(

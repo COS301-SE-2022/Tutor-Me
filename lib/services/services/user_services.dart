@@ -337,6 +337,32 @@ class UserServices {
     }
   }
 
+  static Future getConnections(String id) async
+  {
+    Uri connectionsURL = Uri.http('tutorme-prod.us-east-1.elasticbeanstalk.com', '/api/Connections/$id');
+    try {
+      final response = await http.get(connectionsURL, headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*"
+      });
+      if (response.statusCode == 200) {
+        String j = "";
+        if (response.body[0] != "[") {
+          j = "[" + response.body + "]";
+        } else {
+          j = response.body;
+        }
+        final List list = json.decode(j);
+        return list.map((json) => Users.fromObject(json)).toList();
+      } else {
+        throw Exception('Failed to load' + response.statusCode.toString());
+      }
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
   static Future registerTutor(
       String name,
       String lastName,
@@ -702,24 +728,27 @@ class UserServices {
   }
 
   static logInTutor(String email, String password) async {
-    List<Users> tutors = await getTutors();
-
-    late Users tutor;
-    bool got = false;
-    for (int i = 0; i < tutors.length; i++) {
-      if (tutors[i].getEmail == email &&
-          tutors[i].getPassword == hashPassword(password)) {
-        got = true;
-        tutor = tutors[i];
-        break;
+    String data = jsonEncode({
+      'email': email,
+      'password': password,
+    });
+    final header = <String, String>{
+      'Content-Type': 'application/json; charset=utf-8',
+    };
+    try {
+      final modulesURL = Uri.parse(
+          'http://tutorme-dev.us-east-1.elasticbeanstalk.com/Login');
+      final response = await http.post(modulesURL, headers: header, body: data);
+      if (response.statusCode == 200) {
+        return jsonDecode(response.body);
+      } else {
+        throw Exception('Failed to log in' + response.statusCode.toString());
       }
-    }
-    if (got == false) {
-      throw Exception("Email or password is incorrect");
-    } else {
-      return tutor;
+    } catch (e) {
+      rethrow;
     }
   }
+
 
   //TODO: Add a function to get the modules of a tutor backend too
 
@@ -767,7 +796,7 @@ class UserServices {
 
   //TODO: Add a function to get the modules of a tutor backend too
 
-  static Future getTuteeProfileImage(String id) async {
+  static Future getProfileImage(String id) async {
     Uri tuteeURL = Uri.parse(
         'http://filesystem-prod.us-east-1.elasticbeanstalk.com/api/TuteeFiles/$id');
     try {
@@ -807,21 +836,29 @@ class UserServices {
   }
 
   static logInTutee(String email, String password) async {
-    List<Users> tutees = await getTutees();
-    late Users tutee;
-    bool got = false;
-    for (int i = 0; i < tutees.length; i++) {
-      if (tutees[i].getEmail == email &&
-          tutees[i].getPassword == hashPassword(password)) {
-        got = true;
-        tutee = tutees[i];
-        break;
+    String data = jsonEncode({'email': email, 'password': password});
+    final header = <String, String>{
+      'Content-Type': 'application/json; charset=utf-8'
+    };
+    final url = Uri.parse(
+        'http://tutee-prod.us-east-1.elasticbeanstalk.com/login');
+    try {
+      final response = await http.post(url, headers: header, body: data);
+      if (response.statusCode == 200) {
+        String j = "";
+        if (response.body[0] != "[") {
+          j = "[" + response.body + "]";
+        } else {
+          j = response.body;
+        }
+
+        final List list = json.decode(j);
+        return list.map((json) => Users.fromObject(json)).toList();
+      } else {
+        throw Exception('Email or password is incorrect');
       }
-    }
-    if (got == false) {
-      throw Exception("Email or password is incorrect");
-    } else {
-      return tutee;
+    } catch (e) {
+      throw Exception(e);
     }
   }
 

@@ -12,7 +12,7 @@ class Users {
   String _location = "";
   String _bio = "";
   String _year = '';
-  int _rating = 0;
+  String _rating = "";
   String _age = "";
 
   Users(
@@ -29,7 +29,8 @@ class Users {
       this._location,
       this._bio,
       this._year,
-      this._rating);
+      this._rating,
+      this._age);
 
   String get getId => _id;
   String get getName => _firstName;
@@ -44,7 +45,8 @@ class Users {
   String get getLocation => _location;
   String get getBio => _bio;
   String get getYear => _year;
-  int get getRating => _rating;
+  String get getRating => _rating;
+  String get getAge => calculateAge(_dateOfBirth);
 
   set setStatus(bool newStatus) {
     _status = newStatus;
@@ -113,6 +115,10 @@ class Users {
 
   set setYear(String newYear) {
     _year = newYear;
+  }
+
+  set setRating(String newRating) {
+    _rating = newRating;
   }
 
   Map<String, dynamic> toMap() {

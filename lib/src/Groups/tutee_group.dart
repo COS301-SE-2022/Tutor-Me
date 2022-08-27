@@ -87,7 +87,7 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
     for (int i = 0; i < tuteeList.length; i++) {
       try {
         final image =
-            await UserServices.getTuteeProfileImage(tuteeList[i].getId);
+            await UserServices.getProfileImage(tuteeList[i].getId);
         setState(() {
           tuteeImages.add(image);
         });
@@ -131,7 +131,7 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
   getTutorImage() async {
     try {
       final image =
-          await UserServices.getTutorProfileImage(widget.group.getTutorId);
+          await UserServices.getProfileImage(widget.group.getTutorId);
 
       setState(() {
         tutorHasImage = true;
@@ -486,7 +486,7 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
                 ),
               ),
               subtitle: Text(
-                tutorObj.getCourse,
+                tutorObj.getBio,
                 style: const TextStyle(
                     fontWeight: FontWeight.w500, color: colorOrange),
               ),
@@ -542,7 +542,7 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
                 ),
               ),
               subtitle: Text(
-                tutees[i].tutee.getCourse,
+                tutees[i].tutee.getBio,
                 style: const TextStyle(
                     fontWeight: FontWeight.w500, color: colorOrange),
               ),

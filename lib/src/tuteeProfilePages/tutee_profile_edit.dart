@@ -3,6 +3,7 @@ import 'dart:typed_data';
 // import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:tutor_me/services/services/tutee_services.dart';
+import 'package:tutor_me/services/services/user_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/components.dart';
 import 'package:image_picker/image_picker.dart';
@@ -155,7 +156,7 @@ class _TuteeProfileEditState extends State<TuteeProfileEdit> {
               }
               if (nameController.text.isNotEmpty ||
                   bioController.text.isNotEmpty) {
-                await TuteeServices.updateTutee(widget.user);
+                await UserServices.updateTutee(widget.user);
               }
 
               setState(() {

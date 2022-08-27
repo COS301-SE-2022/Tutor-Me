@@ -99,7 +99,7 @@ class ChatsState extends State<Chats> {
       for (int i = 0; i < tutors.length; i++) {
         try {
           final image =
-              await UserServices.getTutorProfileImage(tutors[i].getId);
+              await UserServices.getProfileImage(tutors[i].getId);
           setState(() {
             images.add(image);
           });

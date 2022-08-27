@@ -6,10 +6,12 @@ import 'package:tutor_me/services/models/tutees.dart';
 import 'package:tutor_me/services/models/tutors.dart';
 import 'package:tutor_me/services/services/group_services.dart';
 import 'package:tutor_me/services/services/tutee_services.dart';
+import 'package:tutor_me/services/services/user_services.dart';
 // import 'package:tutor_me/services/services/tutor_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 
 import '../../../services/models/groups.dart';
+import '../../../services/models/users.dart';
 
 class Tutee {
   Tutees tutee;
@@ -19,7 +21,7 @@ class Tutee {
 }
 
 class TutorRequests extends StatefulWidget {
-  final Tutors user;
+  final Users user;
   const TutorRequests({Key? key, required this.user}) : super(key: key);
 
   @override
@@ -45,7 +47,7 @@ class TutorRequestsState extends State<TutorRequests> {
   bool isLoading = true;
 
   getRequests() async {
-    final requests = await TutorServices().getRequests(widget.user.getId);
+    final requests = await UserServices().getRequests(widget.user.getId);
     requestList = requests;
     if (requestList.isEmpty) {
       setState(() {
@@ -320,9 +322,10 @@ class TutorRequestsState extends State<TutorRequests> {
                                         await GroupServices.updateGroup(
                                             moduleRequestedGroups[j]);
                                       }
+                                      //TODO: update request accepting
 
-                                      await TutorServices()
-                                          .acceptRequest(requestList[i].getId);
+                                      // await UserServices()
+                                      //     .acceptRequest(requestList[i].getId);
 
                                       setState(() {
                                         isExcepting[i] = false;
@@ -359,8 +362,9 @@ class TutorRequestsState extends State<TutorRequests> {
                                 setState(() {
                                   isDeclining[i] = true;
                                 });
-                                await TutorServices()
-                                    .declineRequest(requestList[i].getId);
+                                  //TODO: update request declining
+                                // await TutorServices()
+                                //     .declineRequest(requestList[i].getId);
                                 setState(() {
                                   isDeclining[i] = false;
                                   isDeclined[i] = true;

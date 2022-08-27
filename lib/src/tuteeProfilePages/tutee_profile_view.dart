@@ -43,25 +43,26 @@ class _TuteeProfilePageState extends State<TuteeProfilePageView> {
       _isLoading = false;
     });
   }
+  //TODO: Add in the number of connections and number of tutees
+  
+  // int getNumConnections() {
+  //   var allConnections = widget.user.getConnections.split(',');
 
-  int getNumConnections() {
-    var allConnections = widget.user.getConnections.split(',');
+  //   return allConnections.length;
+  // }
 
-    return allConnections.length;
-  }
+  // int getNumTutees() {
+  //   var allTutees = widget.user.getTutorsCode.split(',');
 
-  int getNumTutees() {
-    var allTutees = widget.user.getTutorsCode.split(',');
-
-    return allTutees.length;
-  }
+  //   return allTutees.length;
+  // }
 
   @override
   void initState() {
     super.initState();
     getCurrentModules();
-    numConnections = getNumConnections();
-    numTutees = getNumTutees();
+    // numConnections = getNumConnections();
+    // numTutees = getNumTutees();
   }
 
   @override
@@ -148,7 +149,7 @@ class _TuteeProfilePageState extends State<TuteeProfilePageView> {
     String name = widget.user.getName + ' ' + widget.user.getLastName;
     String personalInfo = name + '(' + widget.user.getAge + ')';
     String courseInfo =
-        widget.user.getCourse + ' | ' + widget.user.getInstitution;
+        widget.user.getInstitutionID + ' | ' + widget.user.getInstitutionID;
     String gender = "";
     if (widget.user.getGender == "F") {
       gender = "Female";

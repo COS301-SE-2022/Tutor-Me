@@ -75,7 +75,7 @@ class TutorGroupPageState extends State<TutorGroupPage> {
     for (int i = 0; i < tuteeList.length; i++) {
       try {
         final image =
-            await UserServices.getTuteeProfileImage(tuteeList[i].getId);
+            await UserServices.getProfileImage(tuteeList[i].getId);
         setState(() {
           tuteeImages.add(image);
         });
@@ -441,7 +441,7 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                 ),
               ),
               subtitle: Text(
-                tutees[i].tutee.getCourse,
+                tutees[i].tutee.getBio,
                 style: const TextStyle(
                     fontWeight: FontWeight.w500, color: colorOrange),
               ),
