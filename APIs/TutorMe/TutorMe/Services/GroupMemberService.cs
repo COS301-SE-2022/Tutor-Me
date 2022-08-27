@@ -40,7 +40,6 @@ namespace TutorMe.Services
             {
                 throw new KeyNotFoundException("This GroupMember already exists, Please log in");
             }
-            //GroupMember.Password = BCrypt.Net.BCrypt.HashPassword(GroupMember.Password, "ThisWillBeAGoodPlatformForBothGroupMembersAndTuteesToConnectOnADailyBa5e5");
             groupMember.GroupMemberId = Guid.NewGuid();
             _context.GroupMember.Add(groupMember);
             _context.SaveChanges();
