@@ -24,8 +24,11 @@ namespace TutorMe.Controllers {
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetUserModuleById(Guid id) {
-            var userModule = userModuleService.GetUserModuleById(id);
+        public IActionResult GetUserModulesByUserId(Guid id) {
+            var userModule = userModuleService.GetUserModulesByUserId(id);
+            if (userModule == null) {
+                return NotFound();
+            }
             return Ok(userModule);
         }
 
