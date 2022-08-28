@@ -7,7 +7,7 @@ import 'package:crypt/crypt.dart';
 class AdminServices {
   static getAdmins() async {
     Uri adminsURL =
-        Uri.http('tutorme-prod.us-east-1.elasticbeanstalk.com', '/api/Admins');
+        Uri.http('tutorme-dev.us-east-1.elasticbeanstalk.com', '/api/Admins');
     try {
       final response = await http.get(adminsURL, headers: {
         "Accept": "application/json",
@@ -45,7 +45,7 @@ class AdminServices {
     try {
       final id = admin.getId;
       final adminsURL = Uri.parse(
-          'http://tutorme-prod.us-east-1.elasticbeanstalk.com/api/Admins/$id');
+          'http://tutorme-dev.us-east-1.elasticbeanstalk.com/api/Admins/$id');
       final response = await http.put(adminsURL, headers: header, body: data);
       if (response.statusCode == 204) {
         return admin;
@@ -59,7 +59,7 @@ class AdminServices {
 
   static Future getAdmin(String id) async {
     Uri tutorURL = Uri.http(
-        'tutorme-prod.us-east-1.elasticbeanstalk.com', '/api/Admins/$id');
+        'tutorme-dev.us-east-1.elasticbeanstalk.com', '/api/Admins/$id');
     try {
       final response = await http.get(tutorURL, headers: {
         "Accept": "application/json",

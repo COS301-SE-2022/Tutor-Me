@@ -770,8 +770,7 @@ class TutorsListState extends State<TutorsList> {
   Widget _cardBuilder(BuildContext context, int i) {
     String name = tutors[i].tutor.getName;
     name += ' ' + tutors[i].tutor.getLastName;
-    String rating = tutors[i].tutor.getRating;
-    List<String> newRating = rating.split(',');
+    int rating = tutors[i].tutor.getRating;
     return GestureDetector(
       child: Card(
         elevation: 0,
@@ -813,7 +812,7 @@ class TutorsListState extends State<TutorsList> {
                 trailing: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    Text(newRating[0]),
+                    Text(rating.toString()),
                     const Icon(
                       Icons.star,
                       color: Color.fromARGB(255, 255, 233, 31),

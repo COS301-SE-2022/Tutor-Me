@@ -30,6 +30,7 @@ class TutorNavigationDrawerState extends State<TutorNavigationDrawerWidget> {
 
   getTutorProfileImage() async {
     try {
+      print('getting image');
       final image = await UserServices.getProfileImage(widget.user.getId);
 
       setState(() {
@@ -38,6 +39,7 @@ class TutorNavigationDrawerState extends State<TutorNavigationDrawerWidget> {
         isImageLoading = false;
       });
     } catch (e) {
+      print('error getting image');
       setState(() {
         tutorImage = Uint8List(128);
         isImageLoading = false;
@@ -54,14 +56,11 @@ class TutorNavigationDrawerState extends State<TutorNavigationDrawerWidget> {
 
   @override
   Widget build(BuildContext context) {
-       final provider = Provider.of<ThemeProvider>(context,listen: false);
-    Color drawerColor ;
-    if(provider.themeMode == ThemeMode.dark)
-    {
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
+    Color drawerColor;
+    if (provider.themeMode == ThemeMode.dark) {
       drawerColor = colorDarkGrey;
-    }
-    else
-    {
+    } else {
       drawerColor = colorOrange;
     }
 

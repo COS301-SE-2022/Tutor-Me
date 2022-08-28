@@ -498,18 +498,15 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
                     style: OutlinedButton.styleFrom(
                         side: const BorderSide(width: 2, color: colorTurqoise)),
                     onPressed: () async {
-                      List<String> splitRating =
-                          widget.tutor.getRating.split(',');
-                      int tutorRating = int.parse(splitRating[0]);
-                      int numRatings = int.parse(splitRating[1]);
+                      int tutorRating = widget.tutor.getRating;
+                      int numRatings = widget.tutor.getNumberOfReviews;
                       numRatings++;
                       double updatedRating =
                           ((tutorRating + rating) / numRatings);
                       int asInt = updatedRating.round();
-                      String ratingFormat =
-                          asInt.toString() + ',' + numRatings.toString();
                       setState(() {
-                        widget.tutor.setRating = ratingFormat;
+                        widget.tutor.setRating = asInt;
+                        widget.tutor.setNumberOfReviews = numRatings;
                       });
                       try {
                         await UserServices.updateTutor(widget.tutor);

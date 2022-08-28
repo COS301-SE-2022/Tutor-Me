@@ -103,7 +103,7 @@ class UserServices {
   declineRequest(String id) async {
     try {
       final url = Uri.http(
-          'tutorme-prod.us-east-1.elasticbeanstalk.com', 'api/Requests/$id');
+          'tutorme-dev.us-east-1.elasticbeanstalk.com', 'api/Requests/$id');
       final header = {
         "Accept": "application/json",
         "Content-Type": "application/json",
@@ -154,7 +154,7 @@ class UserServices {
   //     await TuteeServices.updateTutee(tutee);
 
   //     //Delete the request
-  //     final url = Uri.http('tutorme-prod.us-east-1.elasticbeanstalk.com',
+  //     final url = Uri.http('tutorme-dev.us-east-1.elasticbeanstalk.com',
   //         'api/Requests/$requestId');
   //     final header = {
   //       "Accept": "application/json",
@@ -209,7 +209,7 @@ class UserServices {
 
   static Future getTutee(String id) async {
     Uri tuteeURL = Uri.http(
-        'tutorme-prod.us-east-1.elasticbeanstalk.com', '/api/Users/Tutees/$id');
+        'tutorme-dev.us-east-1.elasticbeanstalk.com', '/api/Users/Tutees/$id');
     try {
       final response = await http.get(tuteeURL, headers: {
         "Accept": "application/json",
@@ -285,9 +285,29 @@ class UserServices {
     }
   }
 
+  static Future getUserType(String userTypeId) async {
+    Uri userURL = Uri.http('tutorme-dev.us-east-1.elasticbeanstalk.com',
+        '/api/UserTypes/$userTypeId');
+    try {
+      final response = await http.get(userURL, headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*"
+      });
+      if (response.statusCode == 200) {
+        final UserType type = UserType.fromObject(json.decode(response.body));
+        return type;
+      } else {
+        throw Exception('Failed to load' + response.statusCode.toString());
+      }
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
   static getTutors() async {
     Uri tutorURL = Uri.http(
-        'tutorme-prod.us-east-1.elasticbeanstalk.com', '/api/Users/tutors');
+        'tutorme-dev.us-east-1.elasticbeanstalk.com', '/api/Users/tutors');
     try {
       final response = await http.get(tutorURL, headers: {
         "Accept": "application/json",
@@ -313,7 +333,7 @@ class UserServices {
 
   static Future getTutor(String id) async {
     Uri tutorURL = Uri.http(
-        'tutorme-prod.us-east-1.elasticbeanstalk.com', '/api/Users/$id');
+        'tutorme-dev.us-east-1.elasticbeanstalk.com', '/api/Users/$id');
     try {
       final response = await http.get(tutorURL, headers: {
         "Accept": "application/json",
@@ -337,9 +357,9 @@ class UserServices {
     }
   }
 
-  static Future getConnections(String id) async
-  {
-    Uri connectionsURL = Uri.http('tutorme-prod.us-east-1.elasticbeanstalk.com', '/api/Connections/$id');
+  static Future getConnections(String id) async {
+    Uri connectionsURL = Uri.http(
+        'tutorme-dev.us-east-1.elasticbeanstalk.com', '/api/Connections/$id');
     try {
       final response = await http.get(connectionsURL, headers: {
         "Accept": "application/json",
@@ -380,7 +400,7 @@ class UserServices {
       }
     }
     final modulesURL =
-        Uri.http('tutorme-prod.us-east-1.elasticbeanstalk.com', '/api/Tutors/');
+        Uri.http('tutorme-dev.us-east-1.elasticbeanstalk.com', '/api/Tutors/');
     //source: https://protocoderspoint.com/flutter-encryption-decryption-using-flutter-string-encryption/#:~:text=open%20your%20flutter%20project%20that,IDE(android%2Dstudio).&text=Then%20after%20you%20have%20added,the%20password%20the%20user%20enter.
 
     password = hashPassword(password);
@@ -731,16 +751,19 @@ class UserServices {
     String data = jsonEncode({
       'email': email,
       'password': password,
+      'typeId': '3fa85f64-5717-4562-b3fc-2c963f66afa6'
     });
     final header = <String, String>{
       'Content-Type': 'application/json; charset=utf-8',
     };
     try {
-      final modulesURL = Uri.parse(
-          'http://tutorme-dev.us-east-1.elasticbeanstalk.com/Login');
+      final modulesURL =
+          Uri.parse('http://tutorme-dev.us-east-1.elasticbeanstalk.com/Login');
       final response = await http.post(modulesURL, headers: header, body: data);
       if (response.statusCode == 200) {
-        return jsonDecode(response.body);
+        final Users tutor = Users.fromObject(jsonDecode(response.body));
+        return tutor;
+        // return jsonDecode(response.body);
       } else {
         throw Exception('Failed to log in' + response.statusCode.toString());
       }
@@ -748,7 +771,6 @@ class UserServices {
       rethrow;
     }
   }
-
 
   //TODO: Add a function to get the modules of a tutor backend too
 
@@ -840,8 +862,8 @@ class UserServices {
     final header = <String, String>{
       'Content-Type': 'application/json; charset=utf-8'
     };
-    final url = Uri.parse(
-        'http://tutee-prod.us-east-1.elasticbeanstalk.com/login');
+    final url =
+        Uri.parse('http://tutee-prod.us-east-1.elasticbeanstalk.com/login');
     try {
       final response = await http.post(url, headers: header, body: data);
       if (response.statusCode == 200) {

@@ -236,6 +236,7 @@ class _LoginState extends State<Login> {
                             isLoading = false;
                           });
                         } catch (e) {
+                          print(e);
                           setState(() {
                             isLoading = false;
                           });

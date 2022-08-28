@@ -19,7 +19,7 @@ import '../chat/one_to_one_chat.dart';
 class Chats extends StatefulWidget {
   const Chats({Key? key, required this.user}) : super(key: key);
 
-  final dynamic user;
+  final Users user;
 
   @override
   State<StatefulWidget> createState() {
@@ -33,43 +33,36 @@ class ChatsState extends State<Chats> {
   List<Tutee> tuteeChats = List<Tutee>.empty(growable: true);
   List<Uint8List> images = List<Uint8List>.empty(growable: true);
   List<int> hasImage = List<int>.empty(growable: true);
+  late UserType userType;
+  List<Users> userChats = List<Users>.empty();
 
-  List<dynamic> tutors = List<dynamic>.empty();
+  getUserType() async {
+    print('hello');
+    final type = await UserServices.getUserType(widget.user.getUserTypeID);
+
+    userType = type;
+    getConnections();
+  }
 
   void getConnections() async {
-    if (!widget.user.getConnections.contains('No connections added')) {
-      if (widget.user is Users) {
-        List<String> connections = widget.user.getConnections.split(',');
-        int conLength = connections.length;
-        for (int i = 0; i < conLength; i++) {
-          final tutor = await TuteeServices.getTutee(connections[i]);
-          tutors += tutor;
-        }
-        setState(() {
-          tutors = tutors;
-        });
-      } else {
-        List<String> connections = widget.user.getConnections.split(',');
-        int conLength = connections.length;
-        for (int i = 0; i < conLength; i++) {
-          final tutor = await UserServices.getTutor(connections[i]);
-
-          tutors += tutor;
-        }
-        setState(() {
-          tutors = tutors;
-        });
-      }
+    if (userType.getType == "Tutor") {
+      print('getting tutor chats');
+      userChats = await UserServices.getConnections(widget.user.getId);
+      setState(() {
+        userChats = userChats;
+      });
+    } else {
+      userChats = await UserServices.getConnections(widget.user.getId);
     }
+
     getChatsProfileImages();
   }
 
   getChatsProfileImages() async {
-    if (widget.user is Users) {
-      for (int i = 0; i < tutors.length; i++) {
+    if (userType.getType == "Tutor") {
+      for (int i = 0; i < userChats.length; i++) {
         try {
-          final image =
-              await TuteeServices.getTuteeProfileImage(tutors[i].getId);
+          final image = await UserServices.getProfileImage(userChats[i].getId);
           setState(() {
             images.add(image);
           });
@@ -79,7 +72,7 @@ class ChatsState extends State<Chats> {
           hasImage.add(i);
         }
       }
-      for (int i = 0; i < tutors.length; i++) {
+      for (int i = 0; i < userChats.length; i++) {
         setState(() {
           bool val = true;
           for (int j = 0; j < hasImage.length; j++) {
@@ -89,17 +82,16 @@ class ChatsState extends State<Chats> {
             }
           }
           if (!val) {
-            tuteeChats.add(Tutee(tutors[i], images[i], false));
+            tuteeChats.add(Tutee(userChats[i], images[i], false));
           } else {
-            tuteeChats.add(Tutee(tutors[i], images[i], true));
+            tuteeChats.add(Tutee(userChats[i], images[i], true));
           }
         });
       }
     } else {
-      for (int i = 0; i < tutors.length; i++) {
+      for (int i = 0; i < userChats.length; i++) {
         try {
-          final image =
-              await UserServices.getProfileImage(tutors[i].getId);
+          final image = await UserServices.getProfileImage(userChats[i].getId);
           setState(() {
             images.add(image);
           });
@@ -109,7 +101,7 @@ class ChatsState extends State<Chats> {
           hasImage.add(i);
         }
       }
-      for (int i = 0; i < tutors.length; i++) {
+      for (int i = 0; i < userChats.length; i++) {
         setState(() {
           bool val = true;
           for (int j = 0; j < hasImage.length; j++) {
@@ -119,9 +111,9 @@ class ChatsState extends State<Chats> {
             }
           }
           if (!val) {
-            tutorChats.add(Tutor(tutors[i], images[i], false));
+            tutorChats.add(Tutor(userChats[i], images[i], false));
           } else {
-            tutorChats.add(Tutor(tutors[i], images[i], true));
+            tutorChats.add(Tutor(userChats[i], images[i], true));
           }
         });
       }
@@ -134,7 +126,7 @@ class ChatsState extends State<Chats> {
   @override
   void initState() {
     super.initState();
-    getConnections();
+    getUserType();
   }
 
   @override
@@ -142,14 +134,14 @@ class ChatsState extends State<Chats> {
     return Scaffold(
       body: _isLoading
           ? const Center(child: CircularProgressIndicator.adaptive())
-          : tutors.isNotEmpty
+          : userChats.isNotEmpty
               ? Padding(
                   padding: EdgeInsets.only(
                       top: MediaQuery.of(context).size.height * 0.01),
                   child: SizedBox(
                     child: ListView.builder(
                       itemBuilder: _chatBuilder,
-                      itemCount: tutors.length,
+                      itemCount: userChats.length,
                     ),
                   ),
                 )
@@ -171,10 +163,10 @@ class ChatsState extends State<Chats> {
 
   Widget _chatBuilder(BuildContext context, int i) {
     String name;
-    if (widget.user is Users) {
-      name = tuteeChats[i].tutee.getName + ' ' + tutors[i].getLastName;
+    if (userType.getType == "Tutors") {
+      name = tuteeChats[i].tutee.getName + ' ' + userChats[i].getLastName;
     } else {
-      name = tutorChats[i].tutor.getName + ' ' + tutors[i].getLastName;
+      name = tutorChats[i].tutor.getName + ' ' + userChats[i].getLastName;
     }
 
     return GestureDetector(
@@ -239,8 +231,15 @@ class ChatsState extends State<Chats> {
         ),
         onTap: () {
           Navigator.of(context).push(MaterialPageRoute(
-              builder: (BuildContext context) =>
-                  Chat(reciever: tutors[i], user: widget.user, image: widget.user is Users? tuteeChats[i].image:tutorChats[i].image, hasImage: widget.user is Users? tuteeChats[i].hasImage :tutorChats[i].hasImage )));
+              builder: (BuildContext context) => Chat(
+                  reciever: userChats[i],
+                  user: widget.user,
+                  image: widget.user is Users
+                      ? tuteeChats[i].image
+                      : tutorChats[i].image,
+                  hasImage: widget.user is Users
+                      ? tuteeChats[i].hasImage
+                      : tutorChats[i].hasImage)));
         });
   }
 }
