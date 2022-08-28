@@ -400,7 +400,7 @@ class UserServices {
       }
     }
     final modulesURL =
-        Uri.http('tutorme-dev.us-east-1.elasticbeanstalk.com', '/api/Tutors/');
+        Uri.http('tutorme-dev.us-east-1.elasticbeanstalk.com', '/api/Users');
     //source: https://protocoderspoint.com/flutter-encryption-decryption-using-flutter-string-encryption/#:~:text=open%20your%20flutter%20project%20that,IDE(android%2Dstudio).&text=Then%20after%20you%20have%20added,the%20password%20the%20user%20enter.
 
     password = hashPassword(password);
@@ -418,7 +418,8 @@ class UserServices {
       'location': "No Location added",
       'bio': "No bio added",
       'year': year,
-      'rating': 0
+      'rating': 0,
+      'numberOfReviews': 0
     });
 
     final header = <String, String>{
@@ -427,17 +428,9 @@ class UserServices {
     try {
       final response = await http.post(modulesURL, headers: header, body: data);
       if (response.statusCode == 201) {
-        String j = "";
-        if (response.body[0] != "[") {
-          j = "[" + response.body + "]";
-        } else {
-          j = response.body;
-        }
-        final List list = json.decode(j);
-        List<Users> tutors =
-            list.map((json) => Users.fromObject(json)).toList();
-        await createFileRecord(tutors[0].getId);
-        return tutors[0];
+        final Users user = Users.fromObject(response.body);
+        // await createFileRecord(tutors[0].getId);
+        return user;
       } else {
         throw Exception('Failed to upload ' + response.statusCode.toString());
       }
@@ -480,7 +473,8 @@ class UserServices {
       'location': "No Location added",
       'bio': "No bio added",
       'year': year,
-      'rating': 0
+      'rating': 0,
+      'numberOfReviews': 0
     });
 
     final header = <String, String>{

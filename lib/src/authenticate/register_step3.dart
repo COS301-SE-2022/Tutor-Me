@@ -1,8 +1,10 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
 
 import 'package:flutter/material.dart';
+import 'package:tutor_me/services/models/intitutions.dart';
 // import 'package:tutor_me/services/models/tutors.dart';
 import 'package:tutor_me/services/models/users.dart';
+import 'package:tutor_me/services/services/institution_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/tutor_page.dart';
 // import '../../services/models/tutees.dart';
@@ -49,6 +51,7 @@ class _RegisterStep3State extends State<RegisterStep3> {
   late Users tutor;
   late Users tutee;
   int currentStep = 2;
+  String institutionIdToPassIn = '';
 
   register(String passedinInstitution) async {
     if (widget.toRegister == "Tutor") {
@@ -62,7 +65,7 @@ class _RegisterStep3State extends State<RegisterStep3> {
             widget.password,
             passedinInstitution,
             widget.confirmPassword,
-            "1"); //TODO: change to actual value
+            yearLvl!);
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => TutorPage(user: tutor)),
@@ -103,8 +106,7 @@ class _RegisterStep3State extends State<RegisterStep3> {
             widget.password,
             passedinInstitution,
             widget.confirmPassword,
-            "1" //TODO: change to actual value
-            );
+            yearLvl!);
 
         Navigator.push(
           context,
@@ -141,13 +143,24 @@ class _RegisterStep3State extends State<RegisterStep3> {
     }
   }
 
-  List items = List<String>.empty();
+  List items = List<String>.empty(growable: true);
+  List<Institutions> institutions = List<Institutions>.empty();
 
   getInstitutions() async {
-    final insitutions = await ModuleServices.getInstitutions();
-    setState(() {
-      items = insitutions;
-    });
+    try {
+      final insitutionlist = await InstitutionServices.getInstitutions();
+      institutions = insitutionlist;
+      print(institutions.length);
+      for (var i = 0; i < institutions.length; i++) {
+        items.add(institutions[i].getName);
+      }
+      print(items.length);
+      setState(() {
+        items = items;
+      });
+    } catch (e) {
+      print(e);
+    }
   }
 
   List<String> yearlevels = [
@@ -162,10 +175,18 @@ class _RegisterStep3State extends State<RegisterStep3> {
   String? yearLvl;
 
   bool isLoading = false;
+
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
     getInstitutions();
 
+
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    
     return Scaffold(
       // key: _scaffoldKey,
       resizeToAvoidBottomInset: false,
@@ -396,6 +417,11 @@ class _RegisterStep3State extends State<RegisterStep3> {
                         institution = val;
                       },
                     );
+                    for(int i =0 ;i<institutions.length;i++){
+                      if(institutions[i].getName == val){
+                        institutionIdToPassIn = institutions[i].getId;
+                      }
+                    }
                   },
                 ),
                 decoration: BoxDecoration(
@@ -484,7 +510,7 @@ class _RegisterStep3State extends State<RegisterStep3> {
                         },
                       );
                     } else {
-                      register(institution!);
+                      register(institutionIdToPassIn);
                     }
                   },
                   child: isLoading

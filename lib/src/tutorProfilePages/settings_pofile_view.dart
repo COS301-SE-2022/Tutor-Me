@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:tutor_me/services/services/module_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/tutorProfilePages/tutor_profile_edit.dart';
 import 'package:tutor_me/src/tutorProfilePages/user_stats.dart';
@@ -41,13 +42,19 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
   bool _isLoading = true;
 
   getCurrentModules() async {
-    final current = await UserServices.getTutorModules(widget.user.getId);
+    print('getting current modules');
+    numTutees = 2;
+    numConnections = 3;
+    //TODO:get current modules
+
+    // final current = await ModuleServices.getUsermodules(widget.user.getId);
     setState(() {
-      currentModules = current;
+      // currentModules = current;
       _isLoading = false;
     });
   }
   //TODO: get numConnections and numTutees
+
   // int getNumConnections() {
   //   var allConnections = widget.user.getConnections.split(',');
 
