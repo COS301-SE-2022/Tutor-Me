@@ -5,7 +5,8 @@ namespace TutorMe.Services {
 
     public interface IUserModuleService {
         IEnumerable<UserModule> GetAllUserModules();
-        IEnumerable<UserModule> GetUserModulesByUserId(Guid id);
+        //TODO: Fix this function
+        IEnumerable<Module> GetUserModulesByUserId(Guid id);
         UserModule GetUserModuleById(Guid id);
         Guid createUserModule(UserModule userModule);
         bool deleteUserModuleById(Guid id);
@@ -37,9 +38,16 @@ namespace TutorMe.Services {
             return userModule.UserModuleId;
         }
 
-        public IEnumerable<UserModule> GetUserModulesByUserId(Guid id) {
+        public IEnumerable<Module> GetUserModulesByUserId(Guid id) {
             var userModules = _context.UserModule.Where(e => e.UserId == id);
-            return userModules;
+            if(userModules == null) {
+                throw new KeyNotFoundException("User Module Record not found.");
+            }
+            var modules = new List<Module>();
+            foreach (UserModule item in userModules) {
+                modules.Add(_context.Module.Where(e => e.ModuleId == item.ModuleId).FirstOrDefault());
+            }
+            return modules;
         }
 
         public bool deleteUserModuleById(Guid id) {
