@@ -106,6 +106,7 @@ namespace TutorMe.Services
                     updateUser.Bio = user.Bio;
                     updateUser.Year = user.Year;
                     updateUser.Rating = user.Rating;
+                    updateUser.NumberOfReviews = user.NumberOfReviews;
 
                     _context.SaveChanges();
                     return _context.User.FirstOrDefault(e => e.UserId == user.UserId);

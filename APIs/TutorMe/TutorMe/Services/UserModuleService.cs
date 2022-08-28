@@ -5,6 +5,7 @@ namespace TutorMe.Services {
 
     public interface IUserModuleService {
         IEnumerable<UserModule> GetAllUserModules();
+        IEnumerable<UserModule> GetUserModulesByUserId(Guid id);
         UserModule GetUserModuleById(Guid id);
         Guid createUserModule(UserModule userModule);
         bool deleteUserModuleById(Guid id);
@@ -34,6 +35,11 @@ namespace TutorMe.Services {
             _context.UserModule.Add(userModule);
             _context.SaveChanges();
             return userModule.UserModuleId;
+        }
+
+        public IEnumerable<UserModule> GetUserModulesByUserId(Guid id) {
+            var userModules = _context.UserModule.Where(e => e.UserId == id);
+            return userModules;
         }
 
         public bool deleteUserModuleById(Guid id) {
