@@ -123,7 +123,35 @@ public class ConnectionsControllerUnitTests
         Assert.IsType<System.Guid>(actual);
     }
     
- 
+      [Fact]
+    public async Task DeleteConnectionById_Returns_true()
+    {
+
+        //Arrange
+        var expectedTutor =  new Connection
+        {
+            ConnectionId = Guid.NewGuid(),
+            TutorId = Guid.NewGuid(),
+            TuteeId = Guid.NewGuid(),
+            ModuleId = Guid.NewGuid(),
+            TuteeUserId = Guid.NewGuid(),
+        };
+            
+        _ConnectionRepositoryMock.Setup(repo => repo.deleteConnectionById(It.IsAny<Guid>())).Returns(true);
+        var controller = new  ConnectionsController(_ConnectionRepositoryMock.Object,_mapper.Object);
+
+        //Act
+        var result = controller.DeleteConnection(expectedTutor.ConnectionId);
+        // Assert
+        Assert.NotNull(result);
+        Assert.IsType<OkObjectResult>(result);
+        var actual = (result as OkObjectResult).Value;
+        Assert.IsType<Boolean>(actual);
+        Assert.Equal(true, actual);
+
+    }
+    
+   
     
   
   
