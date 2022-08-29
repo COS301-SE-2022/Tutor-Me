@@ -1,4 +1,5 @@
-﻿using TutorMe.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using TutorMe.Data;
 using TutorMe.Models;
 
 namespace TutorMe.Services {
@@ -39,13 +40,13 @@ namespace TutorMe.Services {
         }
 
         public IEnumerable<Module> GetUserModulesByUserId(Guid id) {
-            var userModules = _context.UserModule.Where(e => e.UserId == id);
+            var userModules = _context.UserModule.Include(e=>e.Module).Where(e => e.UserId == id);
             if(userModules == null) {
                 throw new KeyNotFoundException("User Module Record not found.");
             }
             var modules = new List<Module>();
             foreach (UserModule item in userModules) {
-                modules.Add(_context.Module.Where(e => e.ModuleId == item.ModuleId).FirstOrDefault());
+                modules.Add(item.Module);
             }
             return modules;
         }
