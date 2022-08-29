@@ -130,8 +130,6 @@ namespace TutorMe.Data
             {
                 entity.Property(e => e.InstitutionId).HasDefaultValueSql("(newid())").HasMaxLength(36);;
 
-                entity.Property(e => e.Faculty).IsRequired();
-
                 entity.Property(e => e.Location).IsRequired();
 
                 entity.Property(e => e.Name).IsRequired();
@@ -211,7 +209,9 @@ namespace TutorMe.Data
 
                 entity.Property(e => e.Password).IsRequired();
 
-                entity.Property(e => e.Rating).HasColumnName("rating");
+                entity.Property(e => e.Rating).HasColumnName("rating").HasDefaultValue(0);
+                
+                entity.Property(e => e.NumberOfReviews).HasDefaultValue(0);
 
                 entity.Property(e => e.UserTypeId).HasDefaultValueSql("(newid())").HasMaxLength(36);;
 

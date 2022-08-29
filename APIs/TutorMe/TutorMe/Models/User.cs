@@ -31,6 +31,7 @@ namespace TutorMe.Models
         public string Bio { get; set; }
         public string Year { get; set; }
         public int? Rating { get; set; }
+        public int? NumberOfReviews { get; set; }
 
         [JsonIgnore]
         public virtual Institution Institution { get; set; }
