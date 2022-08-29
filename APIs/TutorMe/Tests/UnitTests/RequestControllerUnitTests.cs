@@ -94,6 +94,33 @@ public class RequestControllerUnitTests
         Assert.IsType<Request>(actual);
     }
 
+    // test for get request by tutee id
+    [Fact]
+    public async  Task GetRequestByTuteeIdReturnsRequest()
+    {
+        //arrange
+        var Request = new Request
+        {
+            RequestId  = Guid.NewGuid(),
+            TuteeId  = Guid.NewGuid(),
+            TutorId  = Guid.NewGuid(),
+            DateCreated ="20/04/2020",
+            ModuleId=Guid.NewGuid()
+        };
+        
+        _RequestRepositoryMock.Setup(u => u.GetRequestByTuteeById(Request.TuteeId)).Returns(Request);
+        
+        var controller = new RequestsController(_RequestRepositoryMock.Object,_mapper.Object);
+        
+        //act
+        var result = controller.GetRequestByTuteeById(Request.TuteeId);
+        
+        Assert.NotNull(result);
+        Assert.IsType<OkObjectResult>(result);
+
+        var actual = (result as OkObjectResult).Value;
+        Assert.IsType<Request>(actual);
+    }
     // test for get request by tutor id
     [Fact]
     public async  Task GetRequestByTutorIdReturnsRequest()
@@ -175,9 +202,138 @@ public class RequestControllerUnitTests
         Assert.Equal(true, actual);
 
     }
+    [Fact]
+    public async Task DeleteRequestById_Returns_False()
+    {
+
+        //Arrange
+        var expectedTutor =  new Request
+        {
+            RequestId  = Guid.NewGuid(),
+            TuteeId  = Guid.NewGuid(),
+            TutorId  = Guid.NewGuid(),
+            DateCreated ="20/04/2020",
+            ModuleId=Guid.NewGuid()
+        };
+            
+        _RequestRepositoryMock.Setup(repo => repo.deleteRequestById(It.IsAny<Guid>())).Returns(false);
+        var controller = new  RequestsController(_RequestRepositoryMock.Object,_mapper.Object);
+
+        //Act
+        var result = controller.DeleteRequest(expectedTutor.RequestId);
+        // Assert
+        Assert.NotNull(result);
+        Assert.IsType<OkObjectResult>(result);
+        var actual = (result as OkObjectResult).Value;
+        Assert.IsType<Boolean>(actual);
+        Assert.Equal(false, actual);
+
+    }
+
+    // test for AcceptRequestById_Returns_True
+    [Fact]
+    public async Task AcceptRequestById_Returns_True()
+    {
+        //Arrange
+        var expectedTutor =  new Request
+        {
+            RequestId  = Guid.NewGuid(),
+            TuteeId  = Guid.NewGuid(),
+            TutorId  = Guid.NewGuid(),
+            DateCreated ="20/04/2020",
+            ModuleId=Guid.NewGuid()
+        };
+            
+        _RequestRepositoryMock.Setup(repo => repo.AcceptRequestById(It.IsAny<Guid>())).Returns(true);
+        var controller = new  RequestsController(_RequestRepositoryMock.Object,_mapper.Object);
+
+        //Act
+        var result = controller.AcceptRequestById(expectedTutor.RequestId);
+        // Assert
+        Assert.NotNull(result);
+        Assert.IsType<OkObjectResult>(result);
+        var actual = (result as OkObjectResult).Value;
+        Assert.IsType<Boolean>(actual);
+        Assert.Equal(true, actual);
+
+    }
+    // test for AcceptRequestById_Returns_False
+    [Fact]
+    public async Task AcceptRequestById_Returns_False()
+    {
+        //Arrange
+        var expectedTutor =  new Request
+        {
+            RequestId  = Guid.NewGuid(),
+            TuteeId  = Guid.NewGuid(),
+            TutorId  = Guid.NewGuid(),
+            DateCreated ="20/04/2020",
+            ModuleId=Guid.NewGuid()
+        };
+            
+        _RequestRepositoryMock.Setup(repo => repo.AcceptRequestById(It.IsAny<Guid>())).Returns(false);
+        var controller = new  RequestsController(_RequestRepositoryMock.Object,_mapper.Object);
+
+        //Act
+        var result = controller.AcceptRequestById(expectedTutor.RequestId);
+        // Assert
+        Assert.NotNull(result);
+        Assert.IsType<OkObjectResult>(result);
+        var actual = (result as OkObjectResult).Value;
+        Assert.IsType<Boolean>(actual);
+        Assert.Equal(false, actual);
+
+    }
     
- 
- 
+   // test RejectRequestById_Returns_True
+    [Fact]
+    public async Task RejectRequestById_Returns_True()
+    {
+        //Arrange
+        var expectedTutor =  new Request
+        {
+            RequestId  = Guid.NewGuid(),
+            TuteeId  = Guid.NewGuid(),
+            TutorId  = Guid.NewGuid(),
+            DateCreated ="20/04/2020",
+            ModuleId=Guid.NewGuid()
+        };
+            
+        _RequestRepositoryMock.Setup(repo => repo.RejectRequestById(It.IsAny<Guid>())).Returns(true);
+        var controller = new  RequestsController(_RequestRepositoryMock.Object,_mapper.Object);
+
+        //Act
+        var result = controller.RejectRequestById(expectedTutor.RequestId);
+        // Assert
+        Assert.NotNull(result);
+        Assert.IsType<OkObjectResult>(result);
+        var actual = (result as OkObjectResult).Value;
+        Assert.IsType<Boolean>(actual);
+        Assert.Equal(true, actual);
+
+    }
+    // test RejectRequestById_Returns_False
+    [Fact]
+    public async Task RejectRequestById_Returns_False()
+    {
+        //Arrange
+        var expectedTutor = new Request
+        {
+            RequestId = Guid.NewGuid(),
+            TuteeId = Guid.NewGuid(),
+            TutorId = Guid.NewGuid(),
+            DateCreated = "20/04/2020",
+            ModuleId = Guid.NewGuid()
+        };
+
+        _RequestRepositoryMock.Setup(repo => repo.RejectRequestById(It.IsAny<Guid>())).Returns(false);
+        var controller = new RequestsController(_RequestRepositoryMock.Object, _mapper.Object);
+
+        //Act
+        var result = controller.RejectRequestById(expectedTutor.RequestId);
+        // Assert
+        Assert.NotNull(result);
+        Assert.IsType<OkObjectResult>(result);
+    }
     
-   
 }
