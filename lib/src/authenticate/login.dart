@@ -274,8 +274,6 @@ class _LoginState extends State<Login> {
                           // TutorServices tutor = TutorServices.Login(
                           tutee = await UserServices.logInTutee(
                               emailController.text, passwordController.text);
-                          tutee.setStatus = true;
-                          await UserServices.updateTutee(tutee);
                           Navigator.push(
                             context,
                             MaterialPageRoute(

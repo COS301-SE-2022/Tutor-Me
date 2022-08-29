@@ -35,7 +35,7 @@ class ModuleServices {
 
   static Future getUsermodules(String id) async {
     Uri url = Uri.http(
-        'tutorme-dev.us-east-1.elasticbeanstalk.com', 'api/Modules/$id');
+        'tutorme-dev.us-east-1.elasticbeanstalk.com', 'api/UserModules/$id');
     try {
       final response = await http.get(url, headers: {
         "Accept": "application/json",
@@ -156,7 +156,5 @@ class ModuleServices {
     return modulesByInstitution;
   }
 
-  static getInstitutions() async {
-    
-  }
+  static getInstitutions() async {}
 }

@@ -32,24 +32,16 @@ class InstitutionServices {
     }
   }
 
-  static Future getUserInstitutions(String id) async {
-    Uri url = Uri.http(
-        'tutorme-dev.us-east-1.elasticbeanstalk.com', 'api/Institutions/$id');
+  static Future getUserInstitution(String id) async {
+    Uri url = Uri.parse(
+        'http://tutorme-dev.us-east-1.elasticbeanstalk.com/api/Institutions/$id');
     try {
-      final response = await http.get(url, headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*"
-      });
+      final response = await http.get(url);
       if (response.statusCode == 200) {
-        String j = "";
-        if (response.body[0] != "[") {
-          j = "[" + response.body + "]";
-        } else {
-          j = response.body;
-        }
-        final List list = json.decode(j);
-        return list.map((json) => Institutions.fromObject(json)).toList();
+        final Institutions institution =
+            Institutions.fromObject(json.decode(response.body));
+
+        return institution;
       } else {
         throw Exception('Failed to load' + response.statusCode.toString());
       }

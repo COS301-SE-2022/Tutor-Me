@@ -393,14 +393,9 @@ class UserServices {
       String institution,
       String confirmPassword,
       String year) async {
-    List<Users> tutors = await getTutors();
-    for (int i = 0; i < tutors.length; i++) {
-      if (tutors[i].getEmail == email) {
-        throw "Email already exists";
-      }
-    }
-    final modulesURL =
-        Uri.http('tutorme-dev.us-east-1.elasticbeanstalk.com', '/api/Users');
+    final modulesURL = Uri.parse(
+        'http://tutorme-dev.us-east-1.elasticbeanstalk.com/api/Users/');
+
     //source: https://protocoderspoint.com/flutter-encryption-decryption-using-flutter-string-encryption/#:~:text=open%20your%20flutter%20project%20that,IDE(android%2Dstudio).&text=Then%20after%20you%20have%20added,the%20password%20the%20user%20enter.
 
     password = hashPassword(password);
@@ -422,8 +417,10 @@ class UserServices {
       'numberOfReviews': 0
     });
 
-    final header = <String, String>{
-      'Content-Type': 'application/json; charset=utf-8',
+    final header = {
+      "Accept": "application/json",
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*"
     };
     try {
       final response = await http.post(modulesURL, headers: header, body: data);
@@ -852,29 +849,26 @@ class UserServices {
   }
 
   static logInTutee(String email, String password) async {
-    String data = jsonEncode({'email': email, 'password': password});
+    String data = jsonEncode({
+      'email': email,
+      'password': password,
+      'typeId': '3fa85f64-5717-4562-b3fc-2c963f66afa6'
+    });
     final header = <String, String>{
-      'Content-Type': 'application/json; charset=utf-8'
+      'Content-Type': 'application/json; charset=utf-8',
     };
-    final url =
-        Uri.parse('http://tutee-prod.us-east-1.elasticbeanstalk.com/login');
     try {
-      final response = await http.post(url, headers: header, body: data);
+      final modulesURL =
+          Uri.parse('http://tutorme-dev.us-east-1.elasticbeanstalk.com/Login');
+      final response = await http.post(modulesURL, headers: header, body: data);
       if (response.statusCode == 200) {
-        String j = "";
-        if (response.body[0] != "[") {
-          j = "[" + response.body + "]";
-        } else {
-          j = response.body;
-        }
-
-        final List list = json.decode(j);
-        return list.map((json) => Users.fromObject(json)).toList();
+        final Users tutee = Users.fromObject(jsonDecode(response.body));
+        return tutee;
       } else {
-        throw Exception('Email or password is incorrect');
+        throw Exception('Failed to log in' + response.statusCode.toString());
       }
     } catch (e) {
-      throw Exception(e);
+      rethrow;
     }
   }
 

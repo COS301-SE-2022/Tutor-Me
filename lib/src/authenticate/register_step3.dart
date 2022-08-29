@@ -150,11 +150,9 @@ class _RegisterStep3State extends State<RegisterStep3> {
     try {
       final insitutionlist = await InstitutionServices.getInstitutions();
       institutions = insitutionlist;
-      print(institutions.length);
       for (var i = 0; i < institutions.length; i++) {
         items.add(institutions[i].getName);
       }
-      print(items.length);
       setState(() {
         items = items;
       });

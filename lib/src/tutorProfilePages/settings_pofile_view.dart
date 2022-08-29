@@ -1,11 +1,13 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:tutor_me/services/services/institution_services.dart';
 import 'package:tutor_me/services/services/module_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/tutorProfilePages/tutor_profile_edit.dart';
 import 'package:tutor_me/src/tutorProfilePages/user_stats.dart';
 
+import '../../services/models/intitutions.dart';
 import '../../services/models/modules.dart';
 import '../../services/models/users.dart';
 import '../../services/services/user_services.dart';
@@ -37,19 +39,31 @@ class TutorSettingsProfileView extends StatefulWidget {
 
 class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
   List<Modules> currentModules = List<Modules>.empty();
+  late Institutions institution;
   late int numConnections;
   late int numTutees;
   bool _isLoading = true;
 
   getCurrentModules() async {
-    print('getting current modules');
     numTutees = 2;
     numConnections = 3;
     //TODO:get current modules
 
-    // final current = await ModuleServices.getUsermodules(widget.user.getId);
+    final currentModulesList =
+        await ModuleServices.getUsermodules(widget.user.getId);
+
     setState(() {
-      // currentModules = current;
+      currentModules = currentModulesList;
+    });
+
+    getInstitution();
+  }
+
+  getInstitution() async {
+    final tempInstitution = await InstitutionServices.getUserInstitution(
+        widget.user.getInstitutionID);
+    setState(() {
+      institution = tempInstitution;
       _isLoading = false;
     });
   }
@@ -102,8 +116,7 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
     final screenWidthSize = MediaQuery.of(context).size.width;
     final screenHeightSize = MediaQuery.of(context).size.height;
     String userName = widget.user.getName + ' ' + widget.user.getLastName;
-    String courseInfo =
-        widget.user.getInstitutionID + ' | ' + widget.user.getInstitutionID;
+    String courseInfo = institution.getName;
     String personalDets = userName + '(' + widget.user.getAge + ')';
     String gender = "";
     if (widget.user.getGender == "F") {

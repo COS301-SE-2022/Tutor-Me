@@ -1,8 +1,10 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:tutor_me/services/services/module_services.dart';
 import 'package:tutor_me/services/services/user_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
+import '../../services/models/modules.dart';
 import '../../services/models/users.dart';
 import '../tutee_page.dart';
 import '../tutorProfilePages/tutor_profile_view.dart';
@@ -146,88 +148,98 @@ class TutorsListState extends State<TutorsList> {
   }
 
   getTutors() async {
-    final tutors = await UserServices.getTutors();
-    tutorList = tutors;
-
-    // getConnections();
+    try {
+      final tutors = await UserServices.getTutors();
+      tutorList = tutors;
+      getConnections();
+    } catch (e) {
+      setState(() {
+        _isLoading = false;
+      });
+    }
   }
-  //TODO: fix get connections
-  // getConnections() async {
-  //   List<int> indecies = List<int>.empty(growable: true);
-  //   int tutorLength = tutorList.length;
-  //   if (!widget.tutee.getConnections.contains('No connections added')) {
-  //     List<String> connections = widget.tutee.getConnections.split(',');
-  //     int conLength = connections.length;
-  //     for (int i = 0; i < conLength; i++) {
-  //       final tutor = await UserServices.getTutor(connections[i]);
-  //       setState(() {
-  //         connectedTutors += tutor;
-  //       });
-  //     }
-  //     for (int i = 0; i < tutorLength; i++) {
-  //       for (int j = 0; j < connectedTutors.length; j++) {
-  //         if (tutorList[i].getId == connectedTutors[j].getId) {
-  //           indecies.add(i);
-  //         }
-  //       }
-  //     }
-  //   }
 
-  //   List<String> tuteeModules = widget.tutee.getModules.split(',');
-  //   for (int i = 0; i < tutorLength; i++) {
-  //     bool val = false;
-  //     if (!tutorList[i].getModules.contains('No modules added')) {
-  //       List<String> tutorModules = tutorList[i].getModules.split(',');
+  getConnections() async {
+    try {
+      List<int> indecies = List<int>.empty(growable: true);
+      int tutorLength = tutorList.length;
+      final tutors = await UserServices.getConnections(widget.tutee.getId);
+      setState(() {
+        connectedTutors = tutors;
+      });
 
-  //       for (int k = 0; k < tutorModules.length; k++) {
-  //         for (int l = 0; l < tuteeModules.length; l++) {
-  //           if (tutorModules[k] == tuteeModules[l]) {
-  //             val = true;
-  //           }
-  //         }
-  //       }
-  //     }
+      for (int i = 0; i < tutorLength; i++) {
+        for (int j = 0; j < connectedTutors.length; j++) {
+          if (tutorList[i].getId == connectedTutors[j].getId) {
+            indecies.add(i);
+          }
+        }
+      }
+      List<Modules> tuteeModules = List<Modules>.empty();
+      final tuteeModuleList =
+          await ModuleServices.getUsermodules(widget.tutee.getId);
+      tuteeModules = tuteeModuleList;
+      for (int i = 0; i < tutorLength; i++) {
+        bool val = false;
+        if (tuteeModules.isNotEmpty) {
+          List<Modules> tutorModules = List<Modules>.empty();
+          final tutorModuleList =
+              await ModuleServices.getUsermodules(tutorList[i].getId);
+          tutorModules = tutorModuleList;
 
-  //     if (!val) {
-  //       indecies.add(i);
-  //     }
-  //   }
+          for (int k = 0; k < tutorModules.length; k++) {
+            for (int l = 0; l < tuteeModules.length; l++) {
+              if (tutorModules[k].getCode == tuteeModules[l].getCode) {
+                val = true;
+              }
+            }
+          }
+        }
 
-  //   if (widget.tutee.getModules.contains('No modules added')) {
-  //     setState(() {
-  //       tutorList = List<Users>.empty();
-  //     });
-  //     const snackBar = SnackBar(
-  //       content: Text('No Tutor suggestions'),
-  //     );
-  //     ScaffoldMessenger.of(context).showSnackBar(snackBar);
-  //   } else {
-  //     List<Users> tempList = List<Users>.empty(growable: true);
+        if (!val) {
+          indecies.add(i);
+        }
+      }
 
-  //     for (int i = 0; i < tutorList.length; i++) {
-  //       bool toAdd = true;
-  //       for (int j = 0; j < indecies.length; j++) {
-  //         if (i == indecies[j]) {
-  //           toAdd = false;
-  //         }
-  //       }
-  //       if (toAdd) {
-  //         tempList.add(tutorList[i]);
-  //       }
-  //     }
-  //     setState(() {
-  //       tutorList = tempList;
-  //     });
-  //   }
+      if (tuteeModules.isEmpty) {
+        setState(() {
+          tutorList = List<Users>.empty();
+        });
+        const snackBar = SnackBar(
+          content: Text('No Tutor suggestions'),
+        );
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      } else {
+        List<Users> tempList = List<Users>.empty(growable: true);
 
-  //   getTutorProfileImages();
-  // }
+        for (int i = 0; i < tutorList.length; i++) {
+          bool toAdd = true;
+          for (int j = 0; j < indecies.length; j++) {
+            if (i == indecies[j]) {
+              toAdd = false;
+            }
+          }
+          if (toAdd) {
+            tempList.add(tutorList[i]);
+          }
+        }
+        setState(() {
+          tutorList = tempList;
+        });
+      }
+
+      getTutorProfileImages();
+    } catch (e) {
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
 
   getTutorProfileImages() async {
     for (int i = 0; i < tutorList.length; i++) {
       try {
-        final image =
-            await UserServices.getProfileImage(tutorList[i].getId);
+        final image = await UserServices.getProfileImage(tutorList[i].getId);
         setState(() {
           tutorImages.add(image);
         });
@@ -752,15 +764,33 @@ class TutorsListState extends State<TutorsList> {
                           child: CircularProgressIndicator.adaptive(),
                         ),
                       )
-                    : SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.60,
-                        width: MediaQuery.of(context).size.width * 0.9,
-                        child: ListView.builder(
-                          // padding: const EdgeInsets.all(10),
-                          itemCount: tutors.length,
-                          itemBuilder: _cardBuilder,
-                        ),
-                      ),
+                    : tutors.isEmpty
+                        ? SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.50,
+                            child: Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Icon(
+                                    Icons.person_add_disabled,
+                                    size: MediaQuery.of(context).size.height *
+                                        0.09,
+                                    color: colorTurqoise,
+                                  ),
+                                  const Text('No Tutors available')
+                                ],
+                              ),
+                            ),
+                          )
+                        : SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.60,
+                            width: MediaQuery.of(context).size.width * 0.9,
+                            child: ListView.builder(
+                              // padding: const EdgeInsets.all(10),
+                              itemCount: tutors.length,
+                              itemBuilder: _cardBuilder,
+                            ),
+                          ),
               ])),
         ],
       ),

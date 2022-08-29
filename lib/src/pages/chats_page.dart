@@ -46,7 +46,6 @@ class ChatsState extends State<Chats> {
 
   void getConnections() async {
     if (userType.getType == "Tutor") {
-      print('getting tutor chats');
       userChats = await UserServices.getConnections(widget.user.getId);
       setState(() {
         userChats = userChats;
