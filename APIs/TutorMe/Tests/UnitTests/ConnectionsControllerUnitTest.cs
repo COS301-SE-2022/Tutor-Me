@@ -97,7 +97,34 @@ public class ConnectionsControllerUnitTests
         Assert.IsType<Connection>(actual);
     }
     
-  
+      [Fact]
+    public async  Task AddConnection_Connection_ReturnsConnection()
+    {
+        //arrange
+        var Connection = new Connection
+        {
+            ConnectionId = Guid.NewGuid(),
+            TutorId = Guid.NewGuid(),
+            TuteeId = Guid.NewGuid(),
+            ModuleId = Guid.NewGuid(),
+            TuteeUserId = Guid.NewGuid(),
+        };
+        _ConnectionRepositoryMock.Setup(u => u. createConnection(It.IsAny<Connection>())).Returns(Connection.ConnectionId);
+        
+        var controller = new ConnectionsController(_ConnectionRepositoryMock.Object,_mapper.Object);
+        
+        //act
+        var result =  controller.createConnection(Connection);
+        
+        Assert.NotNull(result);
+        Assert.IsType<OkObjectResult>(result);
+        
+        var actual = (result as OkObjectResult).Value;
+        Assert.IsType<System.Guid>(actual);
+    }
+    
+ 
+    
   
   
 }
