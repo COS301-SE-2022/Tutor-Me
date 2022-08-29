@@ -107,7 +107,7 @@ public class UserTypesControllerUnitTests
     }
     
     [Fact]
-    public async Task DeleteUserTypeById_and_returns_a_type_of_NotFoundResult()
+    public async Task DeleteUserTypeById_Returns_true()
     {
 
         //Arrange
@@ -131,4 +131,28 @@ public class UserTypesControllerUnitTests
 
     }
     
+    [Fact]
+    public async Task DeleteUserTypeById_Returns_False()
+    {
+
+        //Arrange
+        var expectedTutor =  new UserType
+        {
+            UserTypeId = Guid.NewGuid(),
+            Type ="Tutor"
+        };
+            
+        _UserTypeRepositoryMock.Setup(repo => repo.deleteUserTypeById(It.IsAny<Guid>())).Returns(false);
+        var controller = new  UserTypesController(_UserTypeRepositoryMock.Object,_mapper.Object);
+
+        //Act
+        var result = controller.DeleteUserType(expectedTutor.UserTypeId);
+        // Assert
+        Assert.NotNull(result);
+        Assert.IsType<OkObjectResult>(result);
+        var actual = (result as OkObjectResult).Value;
+        Assert.IsType<Boolean>(actual);
+        Assert.Equal(false, actual);
+
+    }
 }
