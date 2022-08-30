@@ -10,6 +10,7 @@ import '../components.dart';
 import '../tutor_page.dart';
 import '../tutee_page.dart';
 import 'forgot_password.dart';
+import '../admin/login.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -83,8 +84,7 @@ class _LoginState extends State<Login> {
                   '',
                   style: TextStyle(
                     color: colorWhite,
-                    fontSize: 30,
-                    fontWeight: FontWeight.normal,
+                    fontSize: 5,
                   ),
                 ),
               ),
@@ -122,7 +122,7 @@ class _LoginState extends State<Login> {
               ),
 
               Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SizedBox(
                     width: textBoxWidth,
@@ -146,24 +146,10 @@ class _LoginState extends State<Login> {
                       inputFocus: passwordFocusNode,
                     ),
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const ForgotPassword()));
-                    },
-                    child: const Text(
-                      "Forgot Password?",
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.normal,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
                 ],
               ),
               const SizedBox(
-                height: 25,
+                height: 10,
               ),
               Container(
                 height: MediaQuery.of(context).size.height * 0.06,
@@ -236,7 +222,6 @@ class _LoginState extends State<Login> {
                             isLoading = false;
                           });
                         } catch (e) {
-                          print(e);
                           setState(() {
                             isLoading = false;
                           });
@@ -333,6 +318,36 @@ class _LoginState extends State<Login> {
               const SizedBox(
                 height: 25,
               ),
+
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const ForgotPassword()));
+                },
+                child: Container(
+                  child: const Text(
+                    "Forgot Password?",
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.normal,
+                      color: Colors.white,
+                    ),
+                  ),
+                  decoration: const BoxDecoration(
+                    border: Border(
+                      bottom: BorderSide(
+                        color: Colors.white,
+                        width: 2,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+
+              const SizedBox(
+                height: 25,
+              ),
+
               GestureDetector(
                 onTap: () {
                   Navigator.push(
@@ -360,9 +375,26 @@ class _LoginState extends State<Login> {
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 25,
-              )
+              const Flexible(
+                child: SizedBox(
+                  height: 50,
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const LoginAdmin()),
+                  );
+                },
+                child: Text(
+                  "Admin",
+                  style: TextStyle(
+                    fontSize: 10,
+                    color: Colors.grey[850],
+                  ),
+                ),
+              ),
 
               //second input
             ]),
