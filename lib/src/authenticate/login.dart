@@ -375,8 +375,10 @@ class _LoginState extends State<Login> {
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 50,
+              const Flexible(
+                child: SizedBox(
+                  height: 50,
+                ),
               ),
               GestureDetector(
                 onTap: () {
