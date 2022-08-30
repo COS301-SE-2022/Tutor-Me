@@ -28,63 +28,61 @@ class _EditModuleListState extends State<EditModuleList> {
   List<Modules> confirmedModules = List<Modules>.empty();
   List<Groups> tutorGroups = List<Groups>.empty();
   final textControl = TextEditingController();
-  List<Modules> moduleList = List<Modules>.empty();
-  List<Modules> saveModule = List<Modules>.empty();
   String query = '';
   bool isCurrentOpen = true;
   bool isAllOpen = false;
   bool isConfirming = false;
 
-  void inputCurrent() {
-    confirmedModules = widget.currentModules;
-    for (int i = 0; i < widget.currentModules.length; i++) {
-      updateModules(widget.currentModules[i]);
-    }
-  }
+  // void inputCurrent() {
+  //   confirmedModules = widget.currentModules;
+  //   for (int i = 0; i < widget.currentModules.length; i++) {
+  //     updateModules(widget.currentModules[i]);
+  //   }
+  // }
 
-  void updateModules(Modules cModule) {
-    String cName = cModule.getModuleName;
-    String cCode = cModule.getCode;
-    final modules = moduleList.where((module) {
-      final nameToLower = module.getModuleName.toLowerCase();
-      final codeToLower = module.getCode.toLowerCase();
-      final cNameToLower = cName.toLowerCase();
-      final cCodeToLower = cCode.toLowerCase();
+  // void updateModules(Modules cModule) {
+  //   String cName = cModule.getModuleName;
+  //   String cCode = cModule.getCode;
+  //   final modules = moduleList.where((module) {
+  //     final nameToLower = module.getModuleName.toLowerCase();
+  //     final codeToLower = module.getCode.toLowerCase();
+  //     final cNameToLower = cName.toLowerCase();
+  //     final cCodeToLower = cCode.toLowerCase();
 
-      return !nameToLower.contains(cNameToLower) &&
-          !codeToLower.contains(cCodeToLower);
-    }).toList();
-    setState(() {
-      moduleList = modules;
-    });
-    getTutorGroups();
-  }
+  //     return !nameToLower.contains(cNameToLower) &&
+  //         !codeToLower.contains(cCodeToLower);
+  //   }).toList();
+  //   setState(() {
+  //     moduleList = modules;
+  //   });
+  //   getTutorGroups();
+  // }
 
-  void search(String search) {
-    if (search == '') {
-      moduleList = saveModule;
-    }
-    final modules = moduleList.where((module) {
-      final nameToLower = module.getModuleName.toLowerCase();
-      final codeToLower = module.getCode.toLowerCase();
-      final query = search.toLowerCase();
+  // void search(String search) {
+  //   if (search == '') {
+  //     moduleList = saveModule;
+  //   }
+  //   final modules = moduleList.where((module) {
+  //     final nameToLower = module.getModuleName.toLowerCase();
+  //     final codeToLower = module.getCode.toLowerCase();
+  //     final query = search.toLowerCase();
 
-      return nameToLower.contains(query) || codeToLower.contains(query);
-    }).toList();
+  //     return nameToLower.contains(query) || codeToLower.contains(query);
+  //   }).toList();
 
-    setState(() {
-      moduleList = modules;
-      query = search;
-    });
-  }
+  //   setState(() {
+  //     moduleList = modules;
+  //     query = search;
+  //   });
+  // }
 
-  getModules() async {
-    final modules = await ModuleServices.getModules();
-    setState(() {
-      moduleList = modules;
-      saveModule = modules;
-    });
-  }
+  // getModules() async {
+  //   final modules = await ModuleServices.getModules();
+  //   setState(() {
+  //     moduleList = modules;
+  //     saveModule = modules;
+  //   });
+  // }
 
   getTutorGroups() async {
     final groups =
@@ -93,19 +91,19 @@ class _EditModuleListState extends State<EditModuleList> {
     tutorGroups = groups;
   }
 
-  @override
-  void initState() {
-    super.initState();
-    getModules();
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   getModules();
 
-    inputCurrent();
-  }
+  //   inputCurrent();
+  // }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: buildAddButton(),
-      bottomSheet: buildButtons(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       appBar: AppBar(
         title: const Text('Current Modules'),
         backgroundColor: colorOrange,
@@ -114,11 +112,121 @@ class _EditModuleListState extends State<EditModuleList> {
         child: Column(
           children: [
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.8,
+              height: MediaQuery.of(context).size.height * 0.03,
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.7,
               width: MediaQuery.of(context).size.width * 0.9,
-              child: ListView.builder(
-                itemBuilder: _currentModulesBuilder,
-                itemCount: widget.currentModules.length,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: ListView.builder(
+                  itemBuilder: _currentModulesBuilder,
+                  itemCount: widget.currentModules.length,
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Row(
+                children: [
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.45,
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                        left: MediaQuery.of(context).size.width * 0.1,
+                        top: MediaQuery.of(context).size.width * 0.04,
+                        bottom: MediaQuery.of(context).size.width * 0.05,
+                      ),
+                      child: SmallTagBtn(
+                          btnName: "Cancel",
+                          backColor: colorOrange,
+                          funct: isConfirming
+                              ? () {}
+                              : () {
+                                  Navigator.pop(context);
+                                }),
+                    ),
+                  ),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.02,
+                  ),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.45,
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                        top: MediaQuery.of(context).size.width * 0.04,
+                        right: MediaQuery.of(context).size.width * 0.1,
+                        bottom: MediaQuery.of(context).size.width * 0.05,
+                      ),
+                      child: SmallTagBtn(
+                          btnName: !isConfirming ? "Confirm" : 'Confirming',
+                          backColor: colorTurqoise,
+                          funct: isConfirming
+                              ? () {}
+                              : () async {
+                                  setState(() {
+                                    isConfirming = true;
+                                  });
+                                  try {
+                                    //TODO: update modules
+
+                                    for (var module in widget.currentModules) {
+                                      try {
+                                        await ModuleServices.addUserModule(
+                                            widget.user.getId, module);
+                                      } catch (e) {
+                                        print(e);
+                                        continue;
+                                      }
+                                    }
+
+                                    // if (tutorGroups.isEmpty) {
+                                    //   modulesToAdd = widget.currentModules;
+                                    // } else {
+                                    //   final newGroups =
+                                    //       widget.currentModules.where((module) {
+                                    //     bool isModuleOld = false;
+                                    //     for (int i = 0;
+                                    //         i < tutorGroups.length;
+                                    //         i++) {
+                                    //       if (module.getCode.contains(
+                                    //           tutorGroups[i].getModuleCode)) {
+                                    //         isModuleOld = true;
+                                    //       }
+                                    //     }
+                                    //     return !isModuleOld;
+                                    //   }).toList();
+
+                                    //   modulesToAdd = newGroups;
+                                    // }
+
+                                    // if (modulesToAdd.isNotEmpty) {
+                                    //   showConfirmUpdate(context);
+                                    //   for (int i = 0;
+                                    //       i < modulesToAdd.length;
+                                    //       i++) {
+                                    //     await GroupServices.createGroup(
+                                    //         modulesToAdd[i].getCode,
+                                    //         modulesToAdd[i].getModuleName,
+                                    //         widget.user.getId);
+                                    //   }
+                                    // }
+
+                                    Navigator.pop(
+                                        context, widget.currentModules);
+                                  } catch (e) {
+                                    const snackBar = SnackBar(
+                                      content:
+                                          Text('Failed to update modules.'),
+                                    );
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(snackBar);
+                                  }
+                                  isConfirming = false;
+                                }),
+                    ),
+                  ),
+                ],
               ),
             ),
           ],
@@ -197,8 +305,7 @@ class _EditModuleListState extends State<EditModuleList> {
   void deleteModule(int i) {
     setState(() {
       widget.currentModules.removeAt(i);
-      getModules();
-      inputCurrent();
+      // inputCurrent();
     });
   }
 
@@ -206,7 +313,6 @@ class _EditModuleListState extends State<EditModuleList> {
     return Card(
       elevation: 4.0,
       shape: RoundedRectangleBorder(
-        side: const BorderSide(color: Colors.red, width: 1),
         borderRadius: BorderRadius.circular(10),
       ),
       child: Column(
@@ -372,19 +478,16 @@ class _EditModuleListState extends State<EditModuleList> {
 
   Widget buildAddButton() {
     return FloatingActionButton.extended(
-      onPressed: () {
-        Navigator.push(
+      onPressed: () async {
+        final results = await Navigator.push(
             context,
             MaterialPageRoute(
                 builder: (context) => AddModulesPage(
                       user: widget.user,
                       currentModules: widget.currentModules,
-                    ))).then((value) {
-          if (value != null) {
-            setState(() {
-              widget.currentModules = value;
-            });
-          }
+                    )));
+        setState(() {
+          widget.currentModules += results;
         });
       },
       icon: const Icon(Icons.add),

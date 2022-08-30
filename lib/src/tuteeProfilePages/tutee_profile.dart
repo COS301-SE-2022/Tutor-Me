@@ -398,7 +398,8 @@ class SmallTagBtn extends StatelessWidget {
         onPressed: funct,
         child: btnName == 'Confirm' ||
                 btnName == 'Edit Module list' ||
-                btnName == 'Cancel'
+                btnName == 'Cancel' ||
+                btnName == "Done"
             ? Text(
                 btnName,
                 style: const TextStyle(
