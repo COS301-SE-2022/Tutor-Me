@@ -34,14 +34,26 @@ namespace TutorMe.Controllers {
 
         [HttpPost]
         public IActionResult createUserModule(UserModule userModule) {
-            var userModuleId = userModuleService.createUserModule(userModule);
-            return Ok(userModuleId);
+            try {
+                var userModuleId = userModuleService.createUserModule(userModule);
+                return Ok(userModuleId);
+            }
+            catch(Exception exception) {
+                return BadRequest(exception.Message);
+            }
+            
         }
 
         [HttpDelete("{id}")]
         public IActionResult DeleteUserModule(Guid id) {
-            var userModule = userModuleService.deleteUserModuleById(id);
-            return Ok(userModule);
+            try {
+                var userModule = userModuleService.deleteUserModuleById(id);
+                return Ok(userModule);
+            }
+            catch(Exception exception) {
+                return BadRequest(exception.Message);
+            }
+            
         }
     }
 }

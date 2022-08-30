@@ -58,6 +58,17 @@ namespace TutorMe.Controllers
             var userId = userService.RegisterUser(user);
             return Ok(userId);
         }
+        
+        [HttpPut("bio/{id}")]
+        public IActionResult UpdateBioByUserId(Guid id, string bio) {
+            try {
+                var user = userService.updateUserBio(id, bio);
+                return Ok(user);
+            }
+            catch (Exception e) {
+                return BadRequest(e.Message);
+            }
+        }
 
         [HttpPut("{id}")]
         public IActionResult UpdateUser(Guid id, User user)

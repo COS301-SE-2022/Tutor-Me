@@ -14,7 +14,7 @@ namespace TutorMe.Services
         User GetUserById(Guid id);
         Guid RegisterUser(User user);
         bool DeleteUserById(Guid id);
-
+        bool updateUserBio(Guid id, string bio);
         User UpdateUser(User user);
     }
     public class UserServices : IUserService
@@ -72,6 +72,7 @@ namespace TutorMe.Services
             }
             return user;
         }
+        
         public Guid RegisterUser(User user)
         {
             if (_context.User.Where(e => e.Email == user.Email).Any())
@@ -122,6 +123,16 @@ namespace TutorMe.Services
                 throw;
             }
 
+        }
+
+        public bool updateUserBio(Guid id, string bio) {
+            var user = _context.User.Find(id);
+            if (user == null) {
+                throw new KeyNotFoundException("User not found");
+            }
+            user.Bio = bio;
+            _context.SaveChanges();
+            return true;
         }
 
         public bool DeleteUserById(Guid id) {
