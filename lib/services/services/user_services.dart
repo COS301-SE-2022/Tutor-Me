@@ -181,22 +181,24 @@ class UserServices {
       final usersURL = Uri.parse(
           'http://tutorme-dev.us-east-1.elasticbeanstalk.com/api/Users/$id');
       final response = await http.delete(usersURL, headers: header);
-      if (response.statusCode == 204) {
+      if (response.statusCode == 200 ||
+          response.statusCode == 202 ||
+          response.statusCode == 204) {
         Fluttertoast.showToast(
             msg: "Tutee Deleted",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.CENTER,
             timeInSecForIosWeb: 1,
-            backgroundColor: Colors.red,
+            backgroundColor: Colors.orange,
             textColor: Colors.white,
             fontSize: 16.0);
       } else {
         Fluttertoast.showToast(
-            msg: "Failed to delete Tutee",
+            msg: "Failed to delete User",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.CENTER,
             timeInSecForIosWeb: 1,
-            backgroundColor: Colors.red,
+            backgroundColor: Colors.grey,
             textColor: Colors.white,
             fontSize: 16.0);
         throw Exception(
@@ -589,7 +591,7 @@ class UserServices {
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.CENTER,
             timeInSecForIosWeb: 1,
-            backgroundColor: Colors.red,
+            backgroundColor: Colors.grey,
             textColor: Colors.white,
             fontSize: 16.0);
         throw Exception('Failed to update' + response.statusCode.toString());
@@ -688,7 +690,7 @@ class UserServices {
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.CENTER,
             timeInSecForIosWeb: 1,
-            backgroundColor: Colors.red,
+            backgroundColor: Colors.grey,
             textColor: Colors.white,
             fontSize: 16.0);
         throw Exception('Failed to update' + response.statusCode.toString());
@@ -907,7 +909,7 @@ class UserServices {
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,
           timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red,
+          backgroundColor: Colors.grey,
           textColor: Colors.white,
           fontSize: 16.0);
       throw Exception("Email is incorrect");
