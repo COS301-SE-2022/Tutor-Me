@@ -7,6 +7,7 @@ namespace TutorMe.Services
     public interface IConnectionService
     {
         IEnumerable<Connection> GetAllConnections();
+        IEnumerable<Connection> GetConnectionsByUserId(Guid id);
         Connection GetConnectionById(Guid id);
         Guid createConnection(Connection connection);
         bool deleteConnectionById(Guid id);
@@ -28,11 +29,12 @@ namespace TutorMe.Services
         public Connection GetConnectionById(Guid id)
         {
             var connection = _context.Connection.Find(id);
-            if (connection == null)
-            {
-                throw new KeyNotFoundException("Connection not found");
-            }
             return connection;
+        }
+
+        public IEnumerable<Connection> GetConnectionsByUserId(Guid id) {
+            var connections = _context.Connection.Where(e => e.TuteeId == id || e.TutorId == id);
+            return connections;
         }
         public Guid createConnection(Connection connection)
         {
