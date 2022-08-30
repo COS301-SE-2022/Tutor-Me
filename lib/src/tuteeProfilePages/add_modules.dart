@@ -12,6 +12,15 @@ import '../../services/services/tutee_services.dart';
 import 'add_modules.dart';
 
 // ignore: must_be_immutable
+
+class Module {
+  Modules module;
+  bool selected;
+
+  Module(this.module, this.selected);
+}
+
+// ignore: must_be_immutable
 class AddModulesPage extends StatefulWidget {
   final Users user;
   List<Modules> currentModules;
@@ -26,14 +35,17 @@ class _AddModulesPageState extends State<AddModulesPage> {
   List<Modules> modulesToRemove = List<Modules>.empty(growable: true);
   List<Modules> modulesToAdd = List<Modules>.empty(growable: true);
   List<Modules> confirmedModules = List<Modules>.empty();
+  List<Module> modules = List<Module>.empty(growable: true);
+  List<Module> saveModule = List<Module>.empty();
   List<Groups> tutorGroups = List<Groups>.empty();
   final textControl = TextEditingController();
   List<Modules> moduleList = List<Modules>.empty();
-  List<Modules> saveModule = List<Modules>.empty();
+
   String query = '';
   bool isCurrentOpen = true;
   bool isAllOpen = false;
   bool isConfirming = false;
+  bool _isLoading = true;
 
   void inputCurrent() {
     confirmedModules = widget.currentModules;
@@ -45,9 +57,9 @@ class _AddModulesPageState extends State<AddModulesPage> {
   void updateModules(Modules cModule) {
     String cName = cModule.getModuleName;
     String cCode = cModule.getCode;
-    final modules = moduleList.where((module) {
-      final nameToLower = module.getModuleName.toLowerCase();
-      final codeToLower = module.getCode.toLowerCase();
+    final checkModules = modules.where((module) {
+      final nameToLower = module.module.getModuleName.toLowerCase();
+      final codeToLower = module.module.getCode.toLowerCase();
       final cNameToLower = cName.toLowerCase();
       final cCodeToLower = cCode.toLowerCase();
 
@@ -55,35 +67,45 @@ class _AddModulesPageState extends State<AddModulesPage> {
           !codeToLower.contains(cCodeToLower);
     }).toList();
     setState(() {
-      moduleList = modules;
+      modules = checkModules;
+      saveModule = modules;
     });
     getTutorGroups();
   }
 
   void search(String search) {
     if (search == '') {
-      moduleList = saveModule;
+      modules = saveModule;
     }
-    final modules = moduleList.where((module) {
-      final nameToLower = module.getModuleName.toLowerCase();
-      final codeToLower = module.getCode.toLowerCase();
+    final checkModules = modules.where((module) {
+      final nameToLower = module.module.getModuleName.toLowerCase();
+      final codeToLower = module.module.getCode.toLowerCase();
       final query = search.toLowerCase();
 
       return nameToLower.contains(query) || codeToLower.contains(query);
     }).toList();
 
     setState(() {
-      moduleList = modules;
+      modules = checkModules;
       query = search;
     });
   }
 
   getModules() async {
-    final modules = await ModuleServices.getModules();
+    final fetchedModules = await ModuleServices.getModules();
+
+    moduleList = fetchedModules;
+
+    for (var element in moduleList) {
+      modules.add(Module(element, false));
+    }
+
     setState(() {
-      moduleList = modules;
+      modules = modules;
       saveModule = modules;
     });
+
+    inputCurrent();
   }
 
   getTutorGroups() async {
@@ -91,14 +113,15 @@ class _AddModulesPageState extends State<AddModulesPage> {
         await GroupServices.getGroupByUserID(widget.user.getId, 'tutor');
 
     tutorGroups = groups;
+    setState(() {
+      _isLoading = false;
+    });
   }
 
   @override
   void initState() {
     super.initState();
     getModules();
-
-    inputCurrent();
   }
 
   @override
@@ -108,87 +131,106 @@ class _AddModulesPageState extends State<AddModulesPage> {
         title: const Text("Available Modules"),
         backgroundColor: colorOrange,
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.7,
-              width: MediaQuery.of(context).size.width * 0.9,
-              child: Container(
-                margin: const EdgeInsets.all(15),
-                height: 50,
-                child: TextField(
-                  onChanged: (value) => search(value),
-                  controller: textControl,
-                  decoration: InputDecoration(
-                      filled: true,
-                      fillColor: Colors.white,
-                      contentPadding: const EdgeInsets.all(0),
-                      prefixIcon: const Icon(
-                        Icons.search,
-                        color: Colors.black45,
+      body: _isLoading
+          ? const Center(
+              child: CircularProgressIndicator.adaptive(),
+            )
+          : moduleList.isEmpty
+              ? Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Icon(
+                        Icons.book,
+                        size: MediaQuery.of(context).size.height * 0.09,
+                        color: colorTurqoise,
                       ),
-                      suffixIcon: query.isNotEmpty
-                          ? GestureDetector(
-                              child: const Icon(
-                                Icons.close,
-                                color: Colors.black45,
-                              ),
-                              onTap: () {
-                                textControl.clear();
-                                setState(() {
-                                  moduleList = saveModule;
-                                });
-                              },
-                            )
-                          : null,
-                      border: OutlineInputBorder(
-                        borderSide:
-                            const BorderSide(color: colorOrange, width: 1.0),
-                        borderRadius: BorderRadius.circular(50),
+                      const Text('No Modules Available')
+                    ],
+                  ),
+                )
+              : SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.1,
+                        child: Container(
+                          margin: const EdgeInsets.all(15),
+                          height: 50,
+                          child: TextField(
+                            onChanged: (value) => search(value),
+                            controller: textControl,
+                            decoration: InputDecoration(
+                                filled: true,
+                                fillColor: Colors.white,
+                                contentPadding: const EdgeInsets.all(0),
+                                prefixIcon: const Icon(
+                                  Icons.search,
+                                  color: Colors.black45,
+                                ),
+                                suffixIcon: query.isNotEmpty
+                                    ? GestureDetector(
+                                        child: const Icon(
+                                          Icons.close,
+                                          color: Colors.black45,
+                                        ),
+                                        onTap: () {
+                                          textControl.clear();
+                                          setState(() {
+                                            modules = saveModule;
+                                          });
+                                        },
+                                      )
+                                    : null,
+                                border: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                      color: colorOrange, width: 1.0),
+                                  borderRadius: BorderRadius.circular(50),
+                                ),
+                                hintStyle: const TextStyle(
+                                  fontSize: 14,
+                                ),
+                                hintText: "Search for a module..."),
+                          ),
+                        ),
                       ),
-                      hintStyle: const TextStyle(
-                        fontSize: 14,
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.7,
+                        width: MediaQuery.of(context).size.width * 0.9,
+                        child: ListView.builder(
+                          // padding: const EdgeInsets.all(10),
+                          itemCount: modules.length,
+                          itemBuilder: _cardBuilder,
+                        ),
                       ),
-                      hintText: "Search for a module..."),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.5,
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                            left: MediaQuery.of(context).size.width * 0.1,
+                            top: MediaQuery.of(context).size.width * 0.04,
+                            right: MediaQuery.of(context).size.width * 0.08,
+                            bottom: MediaQuery.of(context).size.width * 0.05,
+                          ),
+                          child: SmallTagBtn(
+                              btnName: "Done",
+                              backColor: colorTurqoise,
+                              funct: () {
+                                Navigator.pop(context, modulesToAdd);
+                              }),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.5,
-              width: MediaQuery.of(context).size.width * 0.9,
-              child: ListView.builder(
-                // padding: const EdgeInsets.all(10),
-                itemCount: moduleList.length,
-                itemBuilder: _cardBuilder,
-              ),
-            ),
-          ],
-        ),
-      ),
     );
   }
 
-  void addModule(Modules newModule) {
-    setState(() {
-      widget.currentModules.add(newModule);
-    });
-  }
-
-  void deleteModule(int i) {
-    setState(() {
-      widget.currentModules.removeAt(i);
-      getModules();
-      inputCurrent();
-    });
-  }
-
   Widget _cardBuilder(BuildContext context, int i) {
-    String name = moduleList[i].getModuleName;
+    String name = modules[i].module.getModuleName;
     return Card(
       elevation: 4.0,
       shape: RoundedRectangleBorder(
-        side: const BorderSide(color: Colors.red, width: 1),
         borderRadius: BorderRadius.circular(10),
       ),
       child: Column(
@@ -200,15 +242,19 @@ class _AddModulesPageState extends State<AddModulesPage> {
               color: colorTurqoise,
             ),
             title: Text(name),
-            subtitle: Text(moduleList[i].getCode),
-            trailing: IconButton(
-              onPressed: () {
-                addModule(moduleList[i]);
+            subtitle: Text(modules[i].module.getCode),
+            trailing: Checkbox(
+              value: modules[i].selected,
+              onChanged: (bool? value) {
+                setState(() {
+                  modules[i].selected = value!;
+                  if (value) {
+                    modulesToAdd.add(modules[i].module);
+                  } else {
+                    modulesToAdd.remove(modules[i].module);
+                  }
+                });
               },
-              icon: const Icon(
-                Icons.add_circle,
-                color: Colors.green,
-              ),
             ),
           )
         ],

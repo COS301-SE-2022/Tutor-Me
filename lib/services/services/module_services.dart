@@ -156,5 +156,25 @@ class ModuleServices {
     return modulesByInstitution;
   }
 
-  static getInstitutions() async {}
+  static addUserModule(String userId, Modules module) async {
+    String data = jsonEncode(
+        {'userModuleId': '', 'moduleId': module.getModuleId, 'userId': userId});
+
+    final header = <String, String>{
+      'Content-Type': 'application/json; charset=utf-8',
+    };
+
+    Uri url = Uri.http('tutorme-dev.us-east-1.elasticbeanstalk.com',
+        '/api/UserModules/$userId');
+    try {
+      final response = await http.post(url, headers: header, body: data);
+      if (response.statusCode == 200) {
+        return true;
+      } else {
+        throw Exception('Failed to load' + response.statusCode.toString());
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
 }
