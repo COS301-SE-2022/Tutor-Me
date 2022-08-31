@@ -21,6 +21,8 @@ namespace TutorMe.Services
         }
         public User LogInUser(UserLogIn userDetails)
         {
+            Console.Write(userDetails.Email);
+
             var user = _context.User.FirstOrDefault(e => e.Email == userDetails.Email);
             if (user != null)
             {

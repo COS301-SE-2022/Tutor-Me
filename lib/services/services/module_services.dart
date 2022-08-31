@@ -85,21 +85,23 @@ class ModuleServices {
     }
   }
 
-  static deleteModule(String code) async {
+  static deleteModule(String id) async {
     final header = <String, String>{
       'Content-Type': 'application/json; charset=utf-8',
     };
     try {
       final modulesURL = Uri.parse(
-          'http://tutorme-dev.us-east-1.elasticbeanstalk.com/api/Modules/$code');
+          'http://tutorme-dev.us-east-1.elasticbeanstalk.com/api/Modules/$id');
       final response = await http.delete(modulesURL, headers: header);
-      if (response.statusCode == 204) {
+      if (response.statusCode == 200 ||
+          response.statusCode == 202 ||
+          response.statusCode == 204) {
         Fluttertoast.showToast(
             msg: "Module Deleted",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.CENTER,
             timeInSecForIosWeb: 1,
-            backgroundColor: Colors.red,
+            backgroundColor: Colors.orange,
             textColor: Colors.white,
             fontSize: 16.0);
       } else {
@@ -108,7 +110,7 @@ class ModuleServices {
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.CENTER,
             timeInSecForIosWeb: 1,
-            backgroundColor: Colors.red,
+            backgroundColor: Colors.grey,
             textColor: Colors.white,
             fontSize: 16.0);
         throw Exception(

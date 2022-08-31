@@ -13,7 +13,6 @@ namespace TutorMe.Services
         Request GetRequestByTutorById(Guid id);
         Request GetRequestByTuteeById(Guid id);
         bool AcceptRequestById(Guid id);
-        bool RejectRequestById(Guid id);
     }
     public class RequestServices : IRequestService
     {
@@ -89,14 +88,5 @@ namespace TutorMe.Services
             return true;
         }
 
-        public bool RejectRequestById(Guid id) {
-            var request = _context.Request.Find(id);
-            if (request == null) {
-                throw new KeyNotFoundException("Request record not found");
-            }
-            _context.Request.Remove(request);
-            _context.SaveChanges();
-            return true;
-        }
     }
 }

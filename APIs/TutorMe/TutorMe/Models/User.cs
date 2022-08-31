@@ -31,7 +31,6 @@ namespace TutorMe.Models
         public string Bio { get; set; }
         public string Year { get; set; }
         public int? Rating { get; set; }
-        public int? NumberOfReviews { get; set; }
 
         [JsonIgnore]
         public virtual Institution Institution { get; set; }
@@ -43,8 +42,6 @@ namespace TutorMe.Models
         public virtual ICollection<Connection> ConnectionsTutor { get; set; }
         [JsonIgnore]
         public virtual ICollection<GroupMember> GroupMembers { get; set; }
-        [JsonIgnore]
-        public virtual ICollection<UserModule> UserModule { get; set; }
         [JsonIgnore]
         public virtual ICollection<Request> RequestsTutee { get; set; }
         [JsonIgnore]

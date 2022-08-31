@@ -9,11 +9,8 @@ namespace TutorMe.Services
     {
         IEnumerable<User> GetAllUsers();
         IEnumerable<User> GetAllTutors();
-        IEnumerable<User> GetAllTutees();
-        IEnumerable<User> GetAllAdmins();
         User GetUserById(Guid id);
         Guid RegisterUser(User user);
-        bool DeleteUserById(Guid id);
 
         User UpdateUser(User user);
     }
@@ -34,29 +31,7 @@ namespace TutorMe.Services
 
         public IEnumerable<User> GetAllTutors() {
             var type = _context.UserType.Where(e => e.Type == "Tutor").FirstOrDefault();
-            if(type == null) {
-                return null;
-            }
-            var user = _context.User.Where(e => e.UserTypeId == type.UserTypeId);
-            return user;
-        }
-
-        public IEnumerable<User> GetAllTutees() {
-            var type = _context.UserType.Where(e => e.Type == "Tutee").FirstOrDefault();
-            if (type == null) {
-                return null;
-            }
-            Console.Write(type);
-            var user = _context.User.Where(e => e.UserTypeId == type.UserTypeId);
-            Console.Write(user);
-            return user;
-        }
-
-        public IEnumerable<User> GetAllAdmins() {
-            var type = _context.UserType.Where(e => e.Type == "Admin").FirstOrDefault();
-            if (type == null) {
-                return null;
-            }
+            //print type
             Console.Write(type);
             var user = _context.User.Where(e => e.UserTypeId == type.UserTypeId);
             Console.Write(user);
@@ -106,7 +81,6 @@ namespace TutorMe.Services
                     updateUser.Bio = user.Bio;
                     updateUser.Year = user.Year;
                     updateUser.Rating = user.Rating;
-                    updateUser.NumberOfReviews = user.NumberOfReviews;
 
                     _context.SaveChanges();
                     return _context.User.FirstOrDefault(e => e.UserId == user.UserId);
@@ -122,16 +96,6 @@ namespace TutorMe.Services
                 throw;
             }
 
-        }
-
-        public bool DeleteUserById(Guid id) {
-            var user = _context.User.Find(id);
-            if (user == null) {
-                throw new KeyNotFoundException("User not found");
-            }
-            _context.User.Remove(user);
-            _context.SaveChanges();
-            return true;
         }
     }
 }

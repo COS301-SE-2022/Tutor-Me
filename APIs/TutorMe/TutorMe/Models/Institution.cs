@@ -16,6 +16,7 @@ namespace TutorMe.Models
 
         public Guid InstitutionId { get; set; }
         public string Name { get; set; }
+        public string Faculty { get; set; } //TODO : why did I do this? I forgot
         public string Location { get; set; }
         
         

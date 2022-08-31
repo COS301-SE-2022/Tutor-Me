@@ -39,7 +39,7 @@ namespace TutorMe.Controllers
         {
             var userTypeId = userTypeService.createUserType(userType);
             return Ok(userTypeId);
-        }  
+        }
 
         [HttpDelete("{id}")]
         public IActionResult DeleteUserType(Guid id)

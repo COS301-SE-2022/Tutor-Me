@@ -33,18 +33,6 @@ namespace TutorMe.Controllers
             return Ok(users);
         }
 
-        [HttpGet("tutees")]
-        public IActionResult GetAllTutees() {
-            var users = userService.GetAllTutees();
-            return Ok(users);
-        }
-
-        [HttpGet("admins")]
-        public IActionResult GetAllAdmins() {
-            var users = userService.GetAllAdmins();
-            return Ok(users);
-        }
-
         [HttpGet("{id}")]
         public IActionResult GetUserById(Guid id)
         {
@@ -77,15 +65,6 @@ namespace TutorMe.Controllers
             }
         }
 
-        [HttpDelete("{id}")]
-        public IActionResult DeleteUserById(Guid id) {
-            try {
-                userService.DeleteUserById(id);
-                return Ok();
-            }
-            catch (Exception e) {
-                return Conflict(e.Message);
-            }
-        }
+        
     }
 }

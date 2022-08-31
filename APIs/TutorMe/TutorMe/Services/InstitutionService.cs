@@ -38,8 +38,9 @@ namespace TutorMe.Services
         {
             if (_context.Institution.Where(e => e.Name == institution.Name).Any())
             {
-                throw new KeyNotFoundException("This Institution already exists.");
+                throw new KeyNotFoundException("This Institution already exists, Please log in");
             }
+            //Institution.Password = BCrypt.Net.BCrypt.HashPassword(Institution.Password, "ThisWillBeAGoodPlatformForBothInstitutionsAndTuteesToConnectOnADailyBa5e5");
             institution.InstitutionId = Guid.NewGuid();
             _context.Institution.Add(institution);
             _context.SaveChanges();
