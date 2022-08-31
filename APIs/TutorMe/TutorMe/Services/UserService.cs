@@ -2,9 +2,9 @@
 using TutorMe.Data;
 using TutorMe.Models;
 using TutorMe.Helpers;
+using TutorMe.Entities;
 
-namespace TutorMe.Services
-{
+namespace TutorMe.Services {
     public interface IUserService
     {
         IEnumerable<User> GetAllUsers();
@@ -22,9 +22,11 @@ namespace TutorMe.Services
 
         private TutorMeContext _context;
         private Encrypter encrypter;
+        private UserAuthenticationServices auth;
         public UserServices(TutorMeContext context){
             _context = context;
             encrypter = new Encrypter();
+            auth = new UserAuthenticationServices(_context);
         }
 
         public IEnumerable<User> GetAllUsers()

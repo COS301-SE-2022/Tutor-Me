@@ -8,6 +8,8 @@ namespace TutorMe.Services
     public interface IUserAuthenticationService
     {
         User LogInUser(UserLogIn user);
+        string hashPassword(string password);
+        bool UpdateEmailByUserId(Guid id, UserEmail emailEntity);
     }
     public class UserAuthenticationServices : IUserAuthenticationService
     {
@@ -19,6 +21,7 @@ namespace TutorMe.Services
             _context = context;
             encrypter = new Encrypter();
         }
+
         public User LogInUser(UserLogIn userDetails)
         {
             var user = _context.User.FirstOrDefault(e => e.Email == userDetails.Email);
@@ -37,6 +40,25 @@ namespace TutorMe.Services
             {
                 throw new KeyNotFoundException("The user not found, Please register an account first.");
             }
+        }
+        
+        public bool UpdateEmailByUserId(Guid id, UserEmail data) {
+            var user = _context.User.Find(id);
+            if (user == null) {
+                throw new KeyNotFoundException("User not found");
+            }
+            if (user.Password == hashPassword(data.Password) && user.Email == data.OldEmail) {
+                user.Email = data.NewEmail;
+                _context.SaveChanges();
+                return true;
+            }
+            else {
+                throw new KeyNotFoundException("Password or Email is incorrect");
+            }
+        }
+        
+        public string hashPassword(string password) {
+            return encrypter.HashString(password);
         }
     }
 }

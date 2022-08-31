@@ -3,6 +3,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using TutorMe.Data;
 using TutorMe.Services;
+using TutorMe.Entities;
 
 namespace TutorMe.Controllers {
     [Route("api/[controller]")]
@@ -19,6 +20,7 @@ namespace TutorMe.Controllers {
 
         [HttpGet]
         public IActionResult GetAllUserModules() {
+            Console.WriteLine("this is what we got");
             var userModules = userModuleService.GetAllUserModules();
             return Ok(userModules);
         }
@@ -33,7 +35,7 @@ namespace TutorMe.Controllers {
         }
 
         [HttpPost]
-        public IActionResult createUserModule(UserModule userModule) {
+        public IActionResult createUserModule(IUserModule userModule) {
             try {
                 var userModuleId = userModuleService.createUserModule(userModule);
                 return Ok(userModuleId);

@@ -3,6 +3,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using TutorMe.Data;
 using TutorMe.Services;
+using TutorMe.Entities;
 
 namespace TutorMe.Controllers
 {
@@ -70,6 +71,7 @@ namespace TutorMe.Controllers
             }
         }
 
+        
         [HttpPut("{id}")]
         public IActionResult UpdateUser(Guid id, User user)
         {
