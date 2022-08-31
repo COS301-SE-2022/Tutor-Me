@@ -157,21 +157,24 @@ class ModuleServices {
   }
 
   static addUserModule(String userId, Modules module) async {
-    String data = jsonEncode(
-        {'userModuleId': '', 'moduleId': module.getModuleId, 'userId': userId});
+    String data = jsonEncode({
+      'userModuleId': userId,
+      'moduleId': module.getModuleId,
+      'userId': userId
+    });
 
     final header = <String, String>{
       'Content-Type': 'application/json; charset=utf-8',
     };
 
-    Uri url = Uri.http('tutorme-dev.us-east-1.elasticbeanstalk.com',
-        '/api/UserModules/$userId');
+    Uri url = Uri.http(
+        'tutorme-dev.us-east-1.elasticbeanstalk.com', '/api/UserModules');
     try {
       final response = await http.post(url, headers: header, body: data);
       if (response.statusCode == 200) {
         return true;
       } else {
-        throw Exception('Failed to load' + response.statusCode.toString());
+        throw Exception('Failed to load' + response.body);
       }
     } catch (e) {
       rethrow;

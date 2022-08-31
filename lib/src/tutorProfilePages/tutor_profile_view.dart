@@ -58,6 +58,7 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
     // getConnections();
   }
   //TODO: Add a function to get the number of connections and tutees
+
   // int getNumConnections() {
   //   var allConnections = widget.tutor.getConnections.split(',');
 
@@ -121,7 +122,8 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
   @override
   void initState() {
     super.initState();
-    getCurrentModules();
+    // getConnections();
+    // getCurrentModules();
     // numConnections = getNumConnections();
     // numTutees = getNumTutees();
   }
@@ -725,18 +727,18 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
                                       isRequestLoading = true;
                                     });
 
-                                    bool val = await TuteeServices()
-                                        .sendRequest(
-                                            widget.tutor.getId,
-                                            widget.tutee.getId,
-                                            modulesRequested);
 
-                                    if (val) {
-                                      setState(() {
-                                        isRequestLoading = false;
-                                        isRequestDone = true;
-                                      });
+                                    for (var module in currentModules) {
+                                      await UserServices().sendRequest(
+                                          widget.tutee.getId,
+                                          widget.tutor.getId,
+                                          module.getModuleId);
                                     }
+
+                                    setState(() {
+                                      isRequestLoading = false;
+                                      isRequestDone = true;
+                                    });
 
                                     Future.delayed(
                                         const Duration(milliseconds: 1000), () {

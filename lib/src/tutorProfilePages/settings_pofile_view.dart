@@ -314,7 +314,9 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
                           imageExists: widget.imageExists)));
 
               setState(() {
-                widget.image = results.image;
+                if (results.image != null) {
+                  widget.image = results.image;
+                }
                 widget.user = results.user;
               });
             },

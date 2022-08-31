@@ -52,6 +52,9 @@ class _AddModulesPageState extends State<AddModulesPage> {
     for (int i = 0; i < widget.currentModules.length; i++) {
       updateModules(widget.currentModules[i]);
     }
+    setState(() {
+      _isLoading = false;
+    });
   }
 
   void updateModules(Modules cModule) {

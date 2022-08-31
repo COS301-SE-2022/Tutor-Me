@@ -16,10 +16,11 @@ import '../models/requests.dart';
 
 class UserServices {
   //TODO: undo a request
-  sendRequest(String receiverId, String requesterId, String moduleCode) async {
+  sendRequest(String receiverId, String requesterId, String moduleId) async {
     try {
       final url = Uri.http(
-          'http://tutorme-dev.us-east-1.elasticbeanstalk.com', 'api/Requests');
+          'tutorme-dev.us-east-1.elasticbeanstalk.com', 'api/Requests');
+
       final header = {
         "Accept": "application/json",
         "Content-Type": "application/json",
@@ -30,10 +31,11 @@ class UserServices {
       var changeFormat = DateFormat('dd/MM/yyyy');
       String dateCreated = changeFormat.format(now);
       final data = jsonEncode({
-        'requesterId': requesterId,
-        'receiverId': receiverId,
+        'requestId': moduleId,
+        'tuteeId': requesterId,
+        'tutorId': receiverId,
         'dateCreated': dateCreated,
-        'moduleCode': moduleCode
+        'moduleId': moduleId
       });
       final response = await http.post(url, body: data, headers: header);
       if (response.statusCode == 201) {
@@ -399,12 +401,12 @@ class UserServices {
     //source: https://protocoderspoint.com/flutter-encryption-decryption-using-flutter-string-encryption/#:~:text=open%20your%20flutter%20project%20that,IDE(android%2Dstudio).&text=Then%20after%20you%20have%20added,the%20password%20the%20user%20enter.
 
     password = hashPassword(password);
-
     String data = jsonEncode({
+      'userId': institution,
       'firstName': name,
       'lastName': lastName,
       'dateOfBirth': date,
-      'status': "true",
+      'status': false,
       'gender': gender,
       'email': email,
       'password': password,
@@ -424,7 +426,7 @@ class UserServices {
     };
     try {
       final response = await http.post(modulesURL, headers: header, body: data);
-      if (response.statusCode == 201) {
+      if (response.statusCode == 200) {
         final Users user = Users.fromObject(response.body);
         // await createFileRecord(tutors[0].getId);
         return user;
@@ -600,15 +602,8 @@ class UserServices {
   }
 
   static updateTutor(Users tutor) async {
-    List<Users> tutors = await getTutees();
-    for (int i = 0; i < tutors.length; i++) {
-      if (tutors[i].getEmail == tutor.getEmail &&
-          tutors[i].getId != tutor.getId) {
-        throw Exception("Email already exists");
-      }
-    }
     String data = jsonEncode({
-      'id': tutor.getId,
+      'userId': tutor.getId,
       'firstName': tutor.getName,
       'lastName': tutor.getLastName,
       'dateOfBirth': tutor.getDateOfBirth,
@@ -621,7 +616,8 @@ class UserServices {
       'location': tutor.getLocation,
       'bio': tutor.getBio,
       'year': tutor.getYear,
-      'rating': tutor.getRating
+      'rating': tutor.getRating,
+      'numberOfReviews': tutor.getNumberOfReviews,
     });
     final header = <String, String>{
       'Content-Type': 'application/json; charset=utf-8',
@@ -629,9 +625,9 @@ class UserServices {
     try {
       final id = tutor.getId;
       final modulesURL = Uri.parse(
-          'http://tutorme-dev.us-east-1.elasticbeanstalk.com/api/Users/Tutors/$id');
+          'http://tutorme-dev.us-east-1.elasticbeanstalk.com/api/Users/$id');
       final response = await http.put(modulesURL, headers: header, body: data);
-      if (response.statusCode == 204) {
+      if (response.statusCode == 200) {
         return tutor;
       } else {
         throw Exception('Failed to update' + response.statusCode.toString());
