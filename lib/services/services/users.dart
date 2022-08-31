@@ -34,7 +34,7 @@ class TutorServices {
         final requests = list.map((json) => Requests.fromObject(json)).toList();
 
         List<Requests> finalRequests = requests.where((request) {
-          return request.getReceiverId.contains(id);
+          return request.getTutorId.contains(id);
         }).toList();
 
         return finalRequests;

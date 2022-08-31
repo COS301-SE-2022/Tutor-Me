@@ -1,10 +1,12 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:tutor_me/services/models/modules.dart';
 import 'package:tutor_me/services/models/requests.dart';
 import 'package:tutor_me/services/models/tutees.dart';
 import 'package:tutor_me/services/models/tutors.dart';
 import 'package:tutor_me/services/services/group_services.dart';
+import 'package:tutor_me/services/services/module_services.dart';
 import 'package:tutor_me/services/services/tutee_services.dart';
 import 'package:tutor_me/services/services/user_services.dart';
 // import 'package:tutor_me/services/services/tutor_services.dart';
@@ -17,7 +19,8 @@ class Tutee {
   Tutees tutee;
   Uint8List image;
   bool hasImage;
-  Tutee(this.tutee, this.image, this.hasImage);
+  Modules module;
+  Tutee(this.tutee, this.image, this.hasImage, this.module);
 }
 
 class TutorRequests extends StatefulWidget {
@@ -36,6 +39,7 @@ class TutorRequestsState extends State<TutorRequests> {
   List<Requests> requestList = List<Requests>.empty();
   List<Uint8List> tuteeImages = List<Uint8List>.empty(growable: true);
   List<int> hasImage = List<int>.empty(growable: true);
+  List<Modules> modules = List<Modules>.empty(growable: true);
 
   double screenHeight = 0.0;
   double screenWidth = 0.0;
@@ -59,7 +63,7 @@ class TutorRequestsState extends State<TutorRequests> {
 
   getTutees() async {
     for (int i = 0; i < requestList.length; i++) {
-      final tutee = await TuteeServices.getTutee(requestList[i].getRequesterId);
+      final tutee = await UserServices.getTutee(requestList[i].getId);
       tuteeList += tutee;
     }
     int requestLength = tuteeList.length;
@@ -70,6 +74,24 @@ class TutorRequestsState extends State<TutorRequests> {
       isDeclined = List<bool>.filled(requestLength, false);
       tuteeList = tuteeList;
     });
+    getTuteeModules();
+  }
+
+  getTuteeModules() async {
+    try {
+      for (int i = 0; i < requestList.length; i++) {
+        final module = await ModuleServices.getModule(requestList[i].getId);
+        setState(() {
+          modules += module;
+        });
+      }
+    } catch (e) {
+      const snackBar = SnackBar(
+        content: Text('Failed loadi'),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
+
     getTuteeProfileImages();
   }
 
@@ -97,15 +119,13 @@ class TutorRequestsState extends State<TutorRequests> {
           }
         }
         if (!val) {
-          tutees.add(Tutee(tuteeList[i], tuteeImages[i], false));
+          tutees.add(Tutee(tuteeList[i], tuteeImages[i], false, modules[i]));
         } else {
-          tutees.add(Tutee(tuteeList[i], tuteeImages[i], true));
+          tutees.add(Tutee(tuteeList[i], tuteeImages[i], true, modules[i]));
         }
       });
     }
-    setState(() {
-      isLoading = false;
-    });
+    getTuteeModules();
   }
 
   @override
@@ -196,11 +216,9 @@ class TutorRequestsState extends State<TutorRequests> {
   Widget _cardBuilder(BuildContext context, int i) {
     String name = tuteeList[i].getName + ' ' + tuteeList[i].getLastName;
     String howLongAgo = getRequestDate(requestList[i].getDateCreated);
-    List<String> moduleList = requestList[i].getModuleCode.split(',');
-    String modules = '';
-    for (int i = 0; i < moduleList.length; i++) {
-      modules += moduleList[i] + '\n';
-    }
+
+    String module = tutees[i].module.getCode;
+
     return Column(
       children: <Widget>[
         Card(
@@ -242,14 +260,14 @@ class TutorRequestsState extends State<TutorRequests> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   Tooltip(
-                    message: modules,
+                    message: module,
                     showDuration: const Duration(seconds: 4),
                     preferBelow: false,
                     padding: EdgeInsets.all(
                         MediaQuery.of(context).size.width * 0.01),
                     triggerMode: TooltipTriggerMode.tap,
                     child: const Text(
-                      'View modules',
+                      'View module',
                       style: TextStyle(
                           fontWeight: FontWeight.bold, color: colorTurqoise),
                     ),
@@ -273,59 +291,17 @@ class TutorRequestsState extends State<TutorRequests> {
                                     });
 
                                     try {
-                                      List<Groups> groupList =
-                                          List<Groups>.empty();
 
-                                      final groups =
-                                          await GroupServices.getGroupByUserID(
-                                              widget.user.getId, 'tutor');
 
-                                      groupList = groups;
+                                      Groups moduleRequestedGroup;
 
-                                      List<Groups> moduleRequestedGroups =
-                                          List<Groups>.empty(growable: true);
+                                      final group = await GroupServices.getGroupByUserID(tutees[i].module.getModuleId,'tutor');
+                                      moduleRequestedGroup = group;
 
-                                      List<String> modules = requestList[i]
-                                          .getModuleCode
-                                          .split(',');
+                                      await GroupServices.updateGroup(moduleRequestedGroup);
 
-                                      for (int j = 0;
-                                          j < groupList.length;
-                                          j++) {
-                                        for (int k = 0;
-                                            k < modules.length;
-                                            k++) {
-                                          if (groupList[j]
-                                              .getModuleCode
-                                              .contains(modules[k])) {
-                                            moduleRequestedGroups
-                                                .add(groupList[j]);
-                                          }
-                                        }
-                                      }
-                                      for (int j = 0;
-                                          j < moduleRequestedGroups.length;
-                                          j++) {
-                                        String tutees =
-                                            moduleRequestedGroups[j].getTutees;
-
-                                        if (tutees.isEmpty) {
-                                          tutees =
-                                              requestList[i].getRequesterId;
-                                        } else {
-                                          tutees += ',' +
-                                              requestList[i].getRequesterId;
-                                        }
-                                        // moduleRequestedGroups[j].setTutees =
-                                        //     tutees;
-
-                                        await GroupServices.updateGroup(
-                                            moduleRequestedGroups[j]);
-                                      }
-                                      //TODO: update request accepting
-
-                                      // await UserServices()
-                                      //     .acceptRequest(requestList[i].getId);
+                                      await UserServices()
+                                          .acceptRequest(requestList[i].getId);
 
                                       setState(() {
                                         isExcepting[i] = false;
@@ -362,9 +338,11 @@ class TutorRequestsState extends State<TutorRequests> {
                                 setState(() {
                                   isDeclining[i] = true;
                                 });
-                                  //TODO: update request declining
-                                // await TutorServices()
-                                //     .declineRequest(requestList[i].getId);
+                                //TODO: update request declining
+
+                                await UserServices()
+                                    .declineRequest(requestList[i].getId);
+
                                 setState(() {
                                   isDeclining[i] = false;
                                   isDeclined[i] = true;

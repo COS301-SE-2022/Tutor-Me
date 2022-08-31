@@ -2,56 +2,56 @@
 
 class Requests {
   String _id = "";
-  String _requesterId = "";
-  String _receiverId = "";
+  String _tuteeId = "";
+  String _tutorId = "";
   String _dateCreated = "";
-  String _moduleCode = "";
+  String _moduleId = "";
 
-  Requests(this._id, this._requesterId, this._receiverId, this._dateCreated,
-      this._moduleCode);
+  Requests(this._id, this._tuteeId, this._tutorId, this._dateCreated,
+      this._moduleId);
 
   String get getId => _id;
-  String get getRequesterId => _requesterId;
-  String get getReceiverId => _receiverId;
+  String get getTuteeId => _tuteeId;
+  String get getTutorId => _tutorId;
   String get getDateCreated => _dateCreated;
-  String get getModuleCode => _moduleCode;
+  String get getModuleId => _moduleId;
 
   set setID(String newId) {
     _id = newId;
   }
 
   set setRequesterId(String newRequesterId) {
-    _requesterId = newRequesterId;
+    _tuteeId = newRequesterId;
   }
 
   set setReceiverId(String newReceiverId) {
-    _receiverId = newReceiverId;
+    _tutorId = newReceiverId;
   }
 
   set setDateCreated(String newDateCreated) {
     _dateCreated = newDateCreated;
   }
 
-  set setModuleCode(String newModuleCode) {
-    _moduleCode = newModuleCode;
+  set setModuleID(String newModuleId) {
+    _moduleId = newModuleId;
   }
 
   Map<String, dynamic> toMap() {
     var map = <String, dynamic>{};
-    map["id"] = _id;
-    map["receiverId"] = _receiverId;
-    map["requesterId"] = _requesterId;
+    map["requestId"] = _id;
+    map["tuteeId"] = _tuteeId;
+    map["tutorId"] = _tutorId;
     map["dateCreated"] = _dateCreated;
-    map["moduleCode"] = _moduleCode;
+    map["moduleId"] = _moduleId;
     return map;
   }
 
   Requests.fromObject(dynamic o) {
-    _id = o["id"];
-    _receiverId = o["receiverId"];
-    _requesterId = o["requesterId"];
+    _id = o["requestId"];
+    _tuteeId = o["tuteeId"];
+    _tutorId = o["tutorId"];
     _dateCreated = o["dateCreated"];
-    _moduleCode = o["moduleCode"];
+    _moduleId = o["moduleId"];
   }
 
   static fromJson(model) {}

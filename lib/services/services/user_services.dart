@@ -125,55 +125,26 @@ class UserServices {
 
   //TODO: accept request
 
-  // acceptRequest(String requestId) async {
-  //   try {
-  //     final request = await getRequest(requestId);
-  //     final tutor1 = await getUser(request[0].getReceiverId);
-
-  //     Users tutor = tutor1[0];
-  //     final tutee1 = await UserServices.getUser(request[0].getRequesterId);
-
-  //     Users tutee = tutee1[0];
-
-  //     if (!tutee.getConnections.contains(request[0].getReceiverId)) {
-  //       if (tutee.getConnections.contains('No connections added')) {
-  //         tutee.setConnections = request[0].getReceiverId;
-  //       } else {
-  //         tutee.setConnections =
-  //             tutee.getConnections + ',' + request[0].getReceiverId;
-  //       }
-  //     }
-  //     if (!tutor.getConnections.contains(request[0].getRequesterId)) {
-  //       if (tutor.getConnections.contains('No connections added')) {
-  //         tutor.setConnections = request[0].getRequesterId;
-  //       } else {
-  //         tutor.setConnections =
-  //             tutor.getConnections + ',' + request[0].getRequesterId;
-  //       }
-  //     }
-
-  //     await updateTutor(tutor);
-  //     await TuteeServices.updateTutee(tutee);
-
-  //     //Delete the request
-  //     final url = Uri.http('tutorme-dev.us-east-1.elasticbeanstalk.com',
-  //         'api/Requests/$requestId');
-  //     final header = {
-  //       "Accept": "application/json",
-  //       "Content-Type": "application/json",
-  //       "Access-Control-Allow-Origin": "*"
-  //     };
-  //     final response = await http.delete(url, headers: header);
-  //     if (response.statusCode == 204) {
-  //       return true;
-  //     } else {
-  //       throw Exception(
-  //           'Failed to accept. Please make sure your internet connect is on and try again');
-  //     }
-  //   } catch (e) {
-  //     throw Exception(e);
-  //   }
-  // }
+  acceptRequest(String requestId) async {
+    try {
+      final url = Uri.http(
+          'tutorme-dev.us-east-1.elasticbeanstalk.com', 'api/Requests/$requestId');
+      final header = {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*"
+      };
+      final response = await http.put(url, headers: header);
+      if (response.statusCode == 204) {
+        return true;
+      } else {
+        throw Exception(
+            'Failed to accept. Please make sure your internet connect is on and try again');
+      }
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
 
   static deleteUser(String id) async {
     final header = <String, String>{
