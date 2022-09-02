@@ -14,11 +14,12 @@ namespace TutorMe.Models
         public Guid GroupId { get; set; }
         public Guid ModuleId { get; set; }
         public string Description { get; set; }
-
-        //TODO: add owner field to group
+        public Guid UserId { get; set; }
 
         [JsonIgnore]
         public virtual Module Module { get; set; }
+        [JsonIgnore]
+        public virtual User User { get; set; }
         [JsonIgnore]
         public virtual ICollection<GroupMember> GroupMembers { get; set; }
     }

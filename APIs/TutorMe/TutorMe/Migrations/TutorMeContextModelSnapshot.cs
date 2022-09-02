@@ -66,7 +66,12 @@ namespace TutorMe.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasDefaultValueSql("(newid())");
 
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("GroupId");
+
+                    b.HasIndex("UserId");
 
                     b.HasIndex(new[] { "ModuleId" }, "IX_Group_ModuleId");
 
@@ -345,7 +350,15 @@ namespace TutorMe.Migrations
                         .IsRequired()
                         .HasConstraintName("Group_Module_FK");
 
+                    b.HasOne("TutorMe.Models.User", "User")
+                        .WithMany("Group")
+                        .HasForeignKey("UserId")
+                        .IsRequired()
+                        .HasConstraintName("Group_User_FK");
+
                     b.Navigation("Module");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("TutorMe.Models.GroupMember", b =>
@@ -471,6 +484,8 @@ namespace TutorMe.Migrations
                     b.Navigation("ConnectionsTutee");
 
                     b.Navigation("ConnectionsTutor");
+
+                    b.Navigation("Group");
 
                     b.Navigation("GroupMembers");
 

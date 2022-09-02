@@ -3,6 +3,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using TutorMe.Data;
 using TutorMe.Services;
+using TutorMe.Entities;
 
 namespace TutorMe.Controllers
 {
@@ -35,7 +36,7 @@ namespace TutorMe.Controllers
         }
 
         [HttpPost]
-        public IActionResult createGroup(Group group)
+        public IActionResult createGroup(IGroup group)
         {
             var groupId = groupService.createGroup(group);
             return Ok(groupId);
