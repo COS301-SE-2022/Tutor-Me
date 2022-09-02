@@ -7,8 +7,11 @@ import 'package:tutor_me/src/colorpallete.dart';
 
 // import 'package:tutor_me/src/tutorProfilePages/tutor_profile_edit.dart';
 import 'package:tutor_me/src/tutorProfilePages/user_stats.dart';
+import '../../services/models/intitutions.dart';
 import '../../services/models/modules.dart';
 import '../../services/models/users.dart';
+import '../../services/services/institution_services.dart';
+import '../../services/services/module_services.dart';
 import '../../services/services/user_services.dart';
 import '../components.dart';
 import 'edit_module_list.dart';
@@ -38,14 +41,25 @@ class TuteeProfilePage extends StatefulWidget {
 
 class _TuteeProfilePageState extends State<TuteeProfilePage> {
   List<Modules> currentModules = List<Modules>.empty();
+  late Institutions institution;
   late int numConnections;
   late int numTutees;
   bool _isLoading = true;
 
   getCurrentModules() async {
-    final current = await UserServices.getTuteeModules(widget.user.getId);
+    final currentModulesList =
+        await ModuleServices.getUsermodules(widget.user.getId);
     setState(() {
-      currentModules = current;
+      currentModules = currentModulesList;
+    });
+    getInstitution();
+  }
+
+  getInstitution() async {
+    final tempInstitution = await InstitutionServices.getUserInstitution(
+        widget.user.getInstitutionID);
+    setState(() {
+      institution = tempInstitution;
       _isLoading = false;
     });
   }
@@ -177,8 +191,7 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
     final screenHeightSize = MediaQuery.of(context).size.height;
     String name = widget.user.getName + ' ' + widget.user.getLastName;
     String personalInfo = name + '(' + widget.user.getAge + ')';
-    String courseInfo =
-        widget.user.getInstitutionID + ' | ' + widget.user.getInstitutionID;
+    String courseInfo = institution.getName;
     String gender = "";
     if (widget.user.getGender == "F") {
       gender = "Female";

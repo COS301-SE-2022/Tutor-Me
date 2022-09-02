@@ -7,8 +7,11 @@ import 'package:tutor_me/src/theme/themes.dart';
 import 'package:tutor_me/src/tutorAndTuteeCollaboration/tuteeGroups/tutee_groups.dart';
 import 'Navigation/tutee_nav_drawer.dart';
 // import 'theme/themes.dart';
+import 'pages/calls_page.dart';
+import 'pages/home.dart';
 import 'pages/tutors_list.dart';
 import 'pages/chats_page.dart';
+import 'tutorAndTuteeCollaboration/tutorGroups/tutor_groups.dart';
 
 class TuteePage extends StatefulWidget {
   final Users user;
@@ -21,6 +24,17 @@ class TuteePage extends StatefulWidget {
 }
 
 class TuteePageState extends State<TuteePage> {
+  int currentIndex = 0;
+
+  getScreens() {
+    return [
+      const Home(),
+      Chats(user: widget.user),
+      TutorGroups(tutor: widget.user),
+      const Calls()
+    ];
+  }
+
   @override
   void initState() {
     super.initState();
@@ -28,23 +42,21 @@ class TuteePageState extends State<TuteePage> {
 
   @override
   Widget build(BuildContext context) {
-     final provider = Provider.of<ThemeProvider>(context,listen: false);
-    Color appBarColor1 ;
+    final screens = getScreens();
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
+    Color appBarColor1;
     Color appBarColor2;
     Color highlightColor;
-    if(provider.themeMode == ThemeMode.dark)
-    {
+    if (provider.themeMode == ThemeMode.dark) {
       appBarColor1 = colorDarkGrey;
-      appBarColor2 = colorGrey ;
+      appBarColor2 = colorGrey;
       highlightColor = colorOrange;
-    }
-    else
-    {
+    } else {
       appBarColor1 = Colors.red;
-      appBarColor2 = Colors.orange ;
+      appBarColor2 = Colors.orange;
       highlightColor = colorTurqoise;
     }
-    
+
     return DefaultTabController(
       length: 3,
       child: Scaffold(
@@ -53,44 +65,14 @@ class TuteePageState extends State<TuteePage> {
         ),
         appBar: AppBar(
           toolbarHeight: 70,
-          // shape: const RoundedRectangleBorder(
-          //   borderRadius: BorderRadius.vertical(
-          //     bottom: Radius.circular(60),
-          //   ),
-          // ),
-          bottom: const TabBar(
-            indicatorColor: Colors.white,
-            tabs: [
-              Tab(
-                  icon: Icon(
-                    Icons.chat_bubble_rounded,
-                    color: Colors.white,
-                  ),
-                  text: 'Chat'),
-              Tab(
-                icon: Icon(
-                  Icons.person,
-                  color: Colors.white,
-                ),
-                text: 'Groups',
-              ),
-              Tab(
-                  icon: Icon(
-                    Icons.phone,
-                    color: Colors.white,
-                  ),
-                  text: 'Calls'),
-            ],
-          ),
-          // backgroundColor: const Color(0xffD6521B),
           centerTitle: true,
           title: const Text('Tutor Me'),
           flexibleSpace: Container(
-            decoration:  BoxDecoration(
+            decoration: BoxDecoration(
                 // borderRadius:
                 //     BorderRadius.vertical(bottom: Radius.circular(60)),
                 gradient: LinearGradient(
-                    colors: <Color>[appBarColor1, appBarColor2 ],
+                    colors: <Color>[appBarColor1, appBarColor2],
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter)),
           ),
@@ -98,11 +80,34 @@ class TuteePageState extends State<TuteePage> {
             IconButton(onPressed: () {}, icon: const Icon(Icons.notifications)),
           ],
         ),
-        body: TabBarView(
-          children: <Widget>[
-            Chats(user: widget.user),
-            TuteeGroups(tutee: widget.user),
-            const CallHistory(),
+        body: screens[currentIndex],
+        bottomNavigationBar: BottomNavigationBar(
+          selectedItemColor: colorOrange,
+          unselectedItemColor: colorDarkGrey,
+          unselectedLabelStyle: const TextStyle(color: colorDarkGrey),
+          currentIndex: currentIndex,
+          onTap: (index) {
+            setState(() {
+              currentIndex = index;
+            });
+          },
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.chat),
+              label: 'Chat',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.people),
+              label: 'Groups',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person),
+              label: 'Calls',
+            ),
           ],
         ),
         floatingActionButton: FloatingActionButton.extended(

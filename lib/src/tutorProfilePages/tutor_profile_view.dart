@@ -7,7 +7,10 @@ import 'package:tutor_me/services/services/tutee_services.dart';
 import 'package:tutor_me/src/theme/themes.dart';
 // import 'package:tutor_me/src/colorPalette.dart';
 
+import '../../services/models/intitutions.dart';
 import '../../services/models/modules.dart';
+import '../../services/services/institution_services.dart';
+import '../../services/services/module_services.dart';
 import '../../services/services/user_services.dart';
 import '../colorpallete.dart';
 import '../components.dart';
@@ -28,7 +31,9 @@ class TutorProfilePageView extends StatefulWidget {
 
 class _TutorProfilePageViewState extends State<TutorProfilePageView> {
   List<Modules> currentModules = List<Modules>.empty();
+  List<Modules> modulesToRequest = List<Modules>.empty(growable: true);
   List<bool> isChecked = List<bool>.empty();
+  late Institutions institution;
   late int numConnections;
   late int numTutees;
   bool isRequestLoading = false;
@@ -50,10 +55,13 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
   bool isLoading = true;
 
   getCurrentModules() async {
-    final current = await UserServices.getTutorModules(widget.tutor.getId);
+    numTutees = 2;
+    numConnections = 3;
+    final current = await ModuleServices.getUsermodules(widget.tutor.getId);
     setState(() {
       currentModules = current;
     });
+    getInstitution();
 
     // getConnections();
   }
@@ -74,16 +82,12 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
   getProfileImage() async {
     try {
       final image = await UserServices.getProfileImage(widget.tutor.getId);
-      setState(() {
-        isLoading = false;
-        bytes = image;
-        isImageDisplayed = true;
-      });
+      bytes = image;
+      isImageDisplayed = true;
+      getInstitution();
     } catch (e) {
       doesImageExist = false;
-      setState(() {
-        isLoading = false;
-      });
+      getInstitution();
     }
   }
   //TODO; fix getConnections
@@ -119,11 +123,20 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
     return val;
   }
 
+  getInstitution() async {
+    final tempInstitution = await InstitutionServices.getUserInstitution(
+        widget.tutor.getInstitutionID);
+    setState(() {
+      institution = tempInstitution;
+      isLoading = false;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
     // getConnections();
-    // getCurrentModules();
+    getCurrentModules();
     // numConnections = getNumConnections();
     // numTutees = getNumTutees();
   }
@@ -161,8 +174,7 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
     final screenWidthSize = MediaQuery.of(context).size.width;
     final screenHeightSize = MediaQuery.of(context).size.height;
     String tutorName = widget.tutor.getName + ' ' + widget.tutor.getLastName;
-    String courseInfo =
-        widget.tutor.getInstitutionID + ' | ' + widget.tutor.getInstitutionID;
+    String courseInfo = institution.getName;
     String personalDets = tutorName + '(' + widget.tutor.getAge + ')';
     String gender = "";
     if (widget.tutor.getGender == "F") {
@@ -651,8 +663,15 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
                                         title: Text(currentModules[i].getCode),
                                         activeColor: colorOrange,
                                         onChanged: (newValue) {
+                                          if (newValue!) {
+                                            modulesToRequest
+                                                .add(currentModules[i]);
+                                          } else {
+                                            modulesToRequest
+                                                .remove(currentModules[i]);
+                                          }
                                           setState(() {
-                                            isChecked[i] = newValue!;
+                                            isChecked[i] = newValue;
                                           });
                                         });
                                   },
@@ -685,19 +704,7 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
         widget.tutor.getName +
         " " +
         widget.tutor.getLastName;
-    List<String> modulesToRequest = List.empty(growable: true);
-    for (int i = 0; i < currentModules.length; i++) {
-      if (isChecked[i]) {
-        modulesToRequest.add(currentModules[i].getCode);
-      }
-    }
-    String modulesRequested = '';
-    for (int i = 0; i < modulesToRequest.length; i++) {
-      modulesRequested += modulesToRequest[i];
-      if (i < modulesToRequest.length - 1) {
-        modulesRequested += ',';
-      }
-    }
+
     showDialog(
         barrierDismissible: false,
         context: context,
@@ -727,12 +734,21 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
                                       isRequestLoading = true;
                                     });
 
-
-                                    for (var module in currentModules) {
-                                      await UserServices().sendRequest(
-                                          widget.tutee.getId,
-                                          widget.tutor.getId,
-                                          module.getModuleId);
+                                    for (var module in modulesToRequest) {
+                                      try {
+                                        await UserServices().sendRequest(
+                                            widget.tutor.getId,
+                                             widget.tutee.getId,
+                                            module.getModuleId);
+                                      } catch (e) {
+                                        const snackBar = SnackBar(
+                                          content:
+                                              Text('Failed to send request.'),
+                                        );
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(snackBar);
+                                        break;
+                                      }
                                     }
 
                                     setState(() {

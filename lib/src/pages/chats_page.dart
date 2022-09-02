@@ -37,7 +37,6 @@ class ChatsState extends State<Chats> {
   List<Users> userChats = List<Users>.empty();
 
   getUserType() async {
-    print('hello');
     final type = await UserServices.getUserType(widget.user.getUserTypeID);
 
     userType = type;
@@ -45,77 +44,45 @@ class ChatsState extends State<Chats> {
   }
 
   void getConnections() async {
-    if (userType.getType == "Tutor") {
+    try {
       userChats = await UserServices.getConnections(widget.user.getId);
       setState(() {
         userChats = userChats;
       });
-    } else {
-      userChats = await UserServices.getConnections(widget.user.getId);
+      getChatsProfileImages();
+    } catch (e) {
+      getChatsProfileImages();
     }
-
-    getChatsProfileImages();
   }
 
   getChatsProfileImages() async {
-    if (userType.getType == "Tutor") {
-      for (int i = 0; i < userChats.length; i++) {
-        try {
-          final image = await UserServices.getProfileImage(userChats[i].getId);
-          setState(() {
-            images.add(image);
-          });
-        } catch (e) {
-          final byte = Uint8List(128);
-          images.add(byte);
-          hasImage.add(i);
-        }
-      }
-      for (int i = 0; i < userChats.length; i++) {
+    for (int i = 0; i < userChats.length; i++) {
+      try {
+        final image = await UserServices.getProfileImage(userChats[i].getId);
         setState(() {
-          bool val = true;
-          for (int j = 0; j < hasImage.length; j++) {
-            if (hasImage[j] == i) {
-              val = false;
-              break;
-            }
-          }
-          if (!val) {
-            tuteeChats.add(Tutee(userChats[i], images[i], false));
-          } else {
-            tuteeChats.add(Tutee(userChats[i], images[i], true));
-          }
+          images.add(image);
         });
+      } catch (e) {
+        final byte = Uint8List(128);
+        images.add(byte);
+        hasImage.add(i);
       }
-    } else {
-      for (int i = 0; i < userChats.length; i++) {
-        try {
-          final image = await UserServices.getProfileImage(userChats[i].getId);
-          setState(() {
-            images.add(image);
-          });
-        } catch (e) {
-          final byte = Uint8List(128);
-          images.add(byte);
-          hasImage.add(i);
+    }
+    for (int i = 0; i < userChats.length; i++) {
+      setState(() {
+        bool val = true;
+        for (int j = 0; j < hasImage.length; j++) {
+          if (hasImage[j] == i) {
+            val = false;
+            break;
+          }
         }
-      }
-      for (int i = 0; i < userChats.length; i++) {
-        setState(() {
-          bool val = true;
-          for (int j = 0; j < hasImage.length; j++) {
-            if (hasImage[j] == i) {
-              val = false;
-              break;
-            }
-          }
-          if (!val) {
-            tutorChats.add(Tutor(userChats[i], images[i], false));
-          } else {
-            tutorChats.add(Tutor(userChats[i], images[i], true));
-          }
-        });
-      }
+        if (!val) {
+          tuteeChats.add(Tutee(userChats[i], images[i], false));
+        } else {
+          tuteeChats.add(Tutee(userChats[i], images[i], true));
+        }
+      });
     }
     setState(() {
       _isLoading = false;

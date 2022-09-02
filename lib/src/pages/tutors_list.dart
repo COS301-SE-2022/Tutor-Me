@@ -17,8 +17,8 @@ import '../tutorProfilePages/tutor_profile_view.dart';
 
 class Tutor {
   Users tutor;
-  Uint8List image;
-  bool hasImage;
+  Uint8List image = Uint8List(128);
+  bool hasImage = false;
   Tutor(this.tutor, this.image, this.hasImage);
 }
 
@@ -227,48 +227,57 @@ class TutorsListState extends State<TutorsList> {
           tutorList = tempList;
         });
       }
-
-      getTutorProfileImages();
     } catch (e) {
+      for (var tutor in tutorList) {
+        tutors.add(Tutor(tutor, Uint8List(128), false));
+      }
       setState(() {
         _isLoading = false;
       });
+      // getTutorProfileImages();
     }
   }
 
   getTutorProfileImages() async {
-    for (int i = 0; i < tutorList.length; i++) {
-      try {
-        final image = await UserServices.getProfileImage(tutorList[i].getId);
-        setState(() {
-          tutorImages.add(image);
-        });
-      } catch (e) {
-        final byte = Uint8List(128);
-        tutorImages.add(byte);
-        hasImage.add(i);
+    try {
+      for (int i = 0; i < tutorList.length; i++) {
+        try {
+          final image = await UserServices.getProfileImage(tutorList[i].getId);
+          setState(() {
+            tutorImages.add(image);
+          });
+        } catch (e) {
+          final byte = Uint8List(128);
+          tutorImages.add(byte);
+          hasImage.add(i);
+        }
       }
-    }
-    for (int i = 0; i < tutorList.length; i++) {
-      setState(() {
-        bool val = true;
-        for (int j = 0; j < hasImage.length; j++) {
-          if (hasImage[j] == i) {
-            val = false;
-            break;
+      for (int i = 0; i < tutorList.length; i++) {
+        setState(() {
+          bool val = true;
+          for (int j = 0; j < hasImage.length; j++) {
+            if (hasImage[j] == i) {
+              val = false;
+              break;
+            }
           }
-        }
-        if (!val) {
-          tutors.add(Tutor(tutorList[i], tutorImages[i], false));
-        } else {
-          tutors.add(Tutor(tutorList[i], tutorImages[i], true));
-        }
+          if (!val) {
+            tutors.add(Tutor(tutorList[i], tutorImages[i], false));
+          } else {
+            tutors.add(Tutor(tutorList[i], tutorImages[i], true));
+          }
+        });
+      }
+      setState(() {
+        saveTutors = tutors;
+        _isLoading = false;
+      });
+    } catch (e) {
+      setState(() {
+        saveTutors = tutors;
+        _isLoading = false;
       });
     }
-    setState(() {
-      saveTutors = tutors;
-      _isLoading = false;
-    });
   }
 
   @override
