@@ -24,9 +24,8 @@ namespace TutorMe.Services
 
         public User LogInUser(UserLogIn userDetails)
         {
-            var user = _context.User.FirstOrDefault(e => e.Email == userDetails.Email);
-            if (user != null)
-            {
+            var user = _context.User.FirstOrDefault(e => e.Email == userDetails.Email && e.UserTypeId == userDetails.TypeId);
+            if (user != null){
                 if (user.Password == encrypter.HashString(userDetails.Password))
                 {
                     return user;
@@ -36,8 +35,7 @@ namespace TutorMe.Services
                     throw new Exception("Wrong Username/Password");
                 }
             }
-            else
-            {
+            else{
                 throw new KeyNotFoundException("The user not found, Please register an account first.");
             }
         }
