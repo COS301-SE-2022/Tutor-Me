@@ -10949,32 +10949,34 @@
     ]
   },
   "packageFolders": {
-    "/home/simphiwe/.nuget/packages/": {}
+    "C:\\Users\\madun\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/simphiwe/Desktop/updated_CapsOn/Tutor-ME/APIs/FileSystemAPI/FileSystemUnitTests/FileSystemUnitTests.csproj",
+      "projectUniqueName": "C:\\Users\\madun\\Documents\\School\\COS301\\Capstone\\Tutor-ME\\APIs\\FileSystemAPI\\FileSystemUnitTests\\FileSystemUnitTests.csproj",
       "projectName": "FileSystemUnitTests",
-      "projectPath": "/home/simphiwe/Desktop/updated_CapsOn/Tutor-ME/APIs/FileSystemAPI/FileSystemUnitTests/FileSystemUnitTests.csproj",
-      "packagesPath": "/home/simphiwe/.nuget/packages/",
-      "outputPath": "/home/simphiwe/Desktop/updated_CapsOn/Tutor-ME/APIs/FileSystemAPI/FileSystemUnitTests/obj/",
+      "projectPath": "C:\\Users\\madun\\Documents\\School\\COS301\\Capstone\\Tutor-ME\\APIs\\FileSystemAPI\\FileSystemUnitTests\\FileSystemUnitTests.csproj",
+      "packagesPath": "C:\\Users\\madun\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\madun\\Documents\\School\\COS301\\Capstone\\Tutor-ME\\APIs\\FileSystemAPI\\FileSystemUnitTests\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/home/simphiwe/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\madun\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "/home/simphiwe/Desktop/updated_CapsOn/Tutor-ME/APIs/FileSystemAPI/FileSystem/FileSystem.csproj": {
-              "projectPath": "/home/simphiwe/Desktop/updated_CapsOn/Tutor-ME/APIs/FileSystemAPI/FileSystem/FileSystem.csproj"
+            "C:\\Users\\madun\\Documents\\School\\COS301\\Capstone\\Tutor-ME\\APIs\\FileSystemAPI\\FileSystem\\FileSystem.csproj": {
+              "projectPath": "C:\\Users\\madun\\Documents\\School\\COS301\\Capstone\\Tutor-ME\\APIs\\FileSystemAPI\\FileSystem\\FileSystem.csproj"
             }
           }
         }
@@ -11033,7 +11035,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/6.0.300/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.302\\RuntimeIdentifierGraph.json"
       }
     }
   }
