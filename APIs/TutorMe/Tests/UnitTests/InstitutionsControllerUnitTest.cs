@@ -42,14 +42,14 @@ public class InstitutionsControllerUnitTests
                 InstitutionId = Guid.NewGuid(),
                 Name ="University Of Freestate",
                 // Faculty 
-                Location ="Hatfield"
+                Location ="Freestate"
             },
             new Institution
             {
                 InstitutionId = Guid.NewGuid(),
                 Name ="University Of Johannesburg",
                 // Faculty 
-                Location ="Hatfield"
+                Location ="Johannesburg"
             }
         };
         

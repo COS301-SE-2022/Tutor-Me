@@ -85,7 +85,7 @@ public class UsersModuleControllerUnitTests
         var controller = new UserModulesController(_UserModuleRepositoryMock.Object,_mapper.Object);
         
         //act
-        var result = controller.GetUserModuleById(UserModule.UserModuleId);
+        var result = controller.GetUserModulesByUserId(UserModule.UserModuleId);
         
         Assert.NotNull(result);
         Assert.IsType<OkObjectResult>(result);
@@ -145,7 +145,6 @@ public class UsersModuleControllerUnitTests
         var actual = (result as OkObjectResult).Value;
         Assert.IsType<Boolean>(actual);
         Assert.Equal(true, actual);
-
     }
     
     [Fact]
