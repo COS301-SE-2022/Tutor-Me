@@ -211,5 +211,41 @@ public class GroupServicesUnitTests
         Assert.Equal(Group.GroupId, result);
     }
     
+      // test CreateGroup_Returns_createGroup()
+    [Fact]
+    public async  Task CreateGroup_Returns_Type_already_exists()
+    {
+        //arrange
+        var Group = new Group
+        {
+            GroupId = Guid.NewGuid(), 
+            ModuleId  = Guid.NewGuid(),
+            Description = "This is a group for students to learn about software development",
+        };
+        
+        DbContextOptionsBuilder<TutorMeContext> optionsBuilder = new();
+        var databaseName = MethodBase.GetCurrentMethod()?.Name;
+        if (databaseName != null)
+            optionsBuilder.UseInMemoryDatabase(databaseName);
+        using (TutorMeContext ctx = new(optionsBuilder.Options))
+        {
+            ctx.Add(Group);
+        }
+        Guid result;
+        try
+        {
+            using (TutorMeContext ctx1 = new(optionsBuilder.Options))
+            {
+                result =new GroupServices(ctx1).createGroup(Group);
+            }
+        }
+        catch (Exception e)
+        {
+            Assert.Equal("This user type already exists, Please log in", e.Message);
+        }
+
+    }
+    
+    
   
 }
