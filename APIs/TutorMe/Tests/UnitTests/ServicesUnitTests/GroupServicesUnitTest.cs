@@ -1,6 +1,76 @@
+using System.Reflection;
+using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using Moq;
+using NuGet.ContentModel;
+using TutorMe.Data;
+using TutorMe.Services;
+using TutorMe.Models;
+using TutorMe.Services;
+
+
 namespace Tests.UnitTests;
 
-public class GroupServicesUnitTest
+public class GroupServicesUnitTests
 {
+    private readonly Mock<TutorMeContext> _GroupRepositoryMock;
+   
+
+    public GroupServicesUnitTests()
+    {
+        _GroupRepositoryMock = new Mock<TutorMeContext>();
+     
+    }
     
+    [Fact]
+    public void GetAllGroups_ReturnsListOfGroups()
+    {
+        DbContextOptionsBuilder<TutorMeContext> optionsBuilder = new();
+        var databaseName = MethodBase.GetCurrentMethod()?.Name;
+        if (databaseName != null)
+            optionsBuilder.UseInMemoryDatabase(databaseName);
+
+        var Group = new Group
+        {
+            GroupId = Guid.NewGuid(), 
+            ModuleId  = Guid.NewGuid(),
+            Description = "This is a group for students to learn about software development",
+        };
+        
+        var Group2 = new Group
+        {
+            GroupId = Guid.NewGuid(), 
+            ModuleId  = Guid.NewGuid(),
+            Description = "This is a group for students to learn about Computer Networking",
+        };
+        
+        using (TutorMeContext ctx = new(optionsBuilder.Options))
+        {
+            ctx.Add(Group);
+            ctx.Add(Group2);
+            ctx.SaveChanges();
+        }
+
+        IEnumerable<Group> result;
+        using (TutorMeContext ctx1 = new(optionsBuilder.Options))
+        {
+            result =new GroupServices(ctx1).GetAllGroups();
+            //ToDo: Must change all getALL FUNCTIONS to return a list of objects
+        }
+        
+        Assert.NotNull(result);
+        var okResult = Assert.IsType< List<Group>>(result); 
+        Assert.Equal(2, okResult.Count());
+        var Groups = Assert.IsType<List<Group>>(okResult);
+        Assert.Equal(Group.GroupId, Groups[0].GroupId);
+        Assert.Equal(Group2.GroupId, Groups[1].GroupId);
+       
+    }
+
+   
+    
+  
+  
 }
