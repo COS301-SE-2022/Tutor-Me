@@ -2,11 +2,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:tutor_me/src/colorpallete.dart';
+import 'package:tutor_me/src/pages/calendar.dart';
 
 class InviteToMeeting extends StatefulWidget {
   final String title;
   final String description;
-  const InviteToMeeting({Key? key, required this.title, required this.description}) : super(key: key);
+  const InviteToMeeting(
+      {Key? key, required this.title, required this.description})
+      : super(key: key);
 
   @override
   State<InviteToMeeting> createState() => _InviteToMeetingState();
@@ -75,22 +78,26 @@ class _InviteToMeetingState extends State<InviteToMeeting> {
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.25,
           ),
-          Container(
-            height: MediaQuery.of(context).size.height * 0.06,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(16),
-              color: colorOrange,
+          GestureDetector(
+            onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                builder: (BuildContext context) => Calendar())),
+            child: Container(
+              height: MediaQuery.of(context).size.height * 0.06,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(16),
+                color: colorOrange,
+              ),
+              child: TextButton(
+                  onPressed: () {},
+                  child: Text(
+                    "Invite",
+                    style: TextStyle(
+                      fontSize: MediaQuery.of(context).size.width * 0.05,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  )),
             ),
-            child: TextButton(
-                onPressed: () {},
-                child: Text(
-                  "Invite",
-                  style: TextStyle(
-                    fontSize: MediaQuery.of(context).size.width * 0.05,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                )),
           ),
         ],
       ),

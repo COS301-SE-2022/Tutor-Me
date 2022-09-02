@@ -142,26 +142,55 @@ class _CalendarState extends State<Calendar> {
                               top: MediaQuery.of(context).size.height * 0.03,
                               bottom:
                                   MediaQuery.of(context).size.height * 0.03),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text(
-                                e.title,
-                                style: TextStyle(
-                                    color: colorOrange,
-                                    fontSize:
-                                        MediaQuery.of(context).size.width *
-                                            0.07),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Container(
+                                    width: MediaQuery.of(context).size.width *
+                                        0.45,
+                                    child: Text(
+                                      e.title,
+                                      style: TextStyle(
+                                          color: colorOrange,
+                                          fontSize: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.07),
+                                    ),
+                                  ),
+                                  Container(
+                                    width: MediaQuery.of(context).size.width *
+                                        0.45,
+                                    child: Text(
+                                      e.description,
+                                      style: TextStyle(
+                                          color: colorTurqoise,
+                                          fontSize: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.05),
+                                    ),
+                                  ),
+                                ],
                               ),
-                              Text(
-                                e.description,
-                                style: TextStyle(
-                                    color: colorTurqoise,
-                                    fontSize:
-                                        MediaQuery.of(context).size.width *
-                                            0.05),
-                              ),
+                              TextButton(
+                                child: const Text("Send Invitation",
+                                    style: TextStyle(color: colorOrange)),
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => InviteToMeeting(
+                                          title: e.title,
+                                          description: e.description),
+                                    ),
+                                  );
+                                },
+                              )
                             ],
                           ),
                         )),
@@ -209,14 +238,25 @@ class _CalendarState extends State<Calendar> {
                         if (meetingController.text.isEmpty) {
                           return;
                         }
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (BuildContext context) =>
-                                const InviteToMeeting()));
+                        // else {
+                        if (scheduledSessions[mySelectedDay] != null) {
+                          scheduledSessions[mySelectedDay]?.add(Event(
+                              title: meetingController.text,
+                              description: descriptionController.text));
+                        } else {
+                          scheduledSessions[mySelectedDay] = [
+                            Event(
+                                title: meetingController.text,
+                                description: descriptionController.text)
+                          ];
+                        }
+                        // }
+                        Navigator.pop(context);
+                        meetingController.clear();
+                        descriptionController.clear();
 
-                        // meetingController.clear();
-                        // descriptionController.clear();
                         //move forward to next page
-                        // return;
+                        return;
                       },
                     ),
                   ],
