@@ -91,8 +91,8 @@ class LandingPageState extends State<LandingPage> {
                   ),
                 ),
                 style: TextButton.styleFrom(
-                    primary: colorWhite,
-                    backgroundColor: colorOrange,
+                    backgroundColor: colorWhite,
+                    foregroundColor: colorOrange,
                     minimumSize: Size.fromHeight(screenSize.height * 0.08)),
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(

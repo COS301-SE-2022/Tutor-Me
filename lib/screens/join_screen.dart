@@ -198,7 +198,7 @@ class _JoinScreenState extends State<JoinScreen> {
                         "JOIN",
                       ),
                       style: TextButton.styleFrom(
-                        primary: Colors.white,
+                        foregroundColor: Colors.white,
                         backgroundColor: Theme.of(context).primaryColor,
                         textStyle: const TextStyle(
                           fontWeight: FontWeight.bold,

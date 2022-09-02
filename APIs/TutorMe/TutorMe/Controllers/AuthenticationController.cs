@@ -9,8 +9,7 @@ namespace TutorMe.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AuthenticationController : ControllerBase
-    {
+    public class AuthenticationController : ControllerBase {
         private IUserAuthenticationService userService;
         private IMapper mapper;
         private TutorMeContext _context;
@@ -33,6 +32,17 @@ namespace TutorMe.Controllers
             catch (Exception e)
             {
                 return Unauthorized(e.Message);
+            }
+        }
+
+        [HttpPut("email/{id}")]
+        public IActionResult UpdateEmailByUserId(Guid id, UserEmail emailEntity) {
+            try {
+                var user = userService.UpdateEmailByUserId(id, emailEntity);
+                return Ok(user);
+            }
+            catch (Exception e) {
+                return BadRequest(e.Message);
             }
         }
     }

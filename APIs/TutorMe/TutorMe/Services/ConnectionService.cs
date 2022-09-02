@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TutorMe.Data;
+using TutorMe.Entities;
 using TutorMe.Models;
 
 namespace TutorMe.Services
@@ -9,7 +10,7 @@ namespace TutorMe.Services
         IEnumerable<Connection> GetAllConnections();
         IEnumerable<Connection> GetConnectionsByUserId(Guid id);
         Connection GetConnectionById(Guid id);
-        Guid createConnection(Connection connection);
+        Guid createConnection(IConnection connection);
         bool deleteConnectionById(Guid id);
     }
     public class ConnectionServices : IConnectionService
@@ -36,15 +37,18 @@ namespace TutorMe.Services
             var connections = _context.Connection.Where(e => e.TuteeId == id || e.TutorId == id);
             return connections;
         }
-        public Guid createConnection(Connection connection)
+        public Guid createConnection(IConnection connection)
         {
             if (_context.Connection.Where(e => e.ModuleId == connection.ModuleId && e.TuteeId == connection.TuteeId && e.TutorId == connection.TutorId).Any())
             {
                 throw new KeyNotFoundException("This Connection already exists, Please log in");
             }
-            //Connection.Password = BCrypt.Net.BCrypt.HashPassword(Connection.Password, "ThisWillBeAGoodPlatformForBothConnectionsAndTuteesToConnectOnADailyBa5e5");
-            connection.ConnectionId = Guid.NewGuid();
-            _context.Connection.Add(connection);
+            var newConnection = new Connection();
+            newConnection.ConnectionId = Guid.NewGuid();
+            newConnection.ModuleId = connection.ModuleId;
+            newConnection.TuteeId = connection.TuteeId;
+            newConnection.TutorId = connection.TutorId;
+            _context.Connection.Add(newConnection);
             _context.SaveChanges();
             return connection.ConnectionId;
         }

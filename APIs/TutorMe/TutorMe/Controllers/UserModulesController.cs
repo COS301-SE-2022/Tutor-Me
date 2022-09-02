@@ -3,6 +3,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using TutorMe.Data;
 using TutorMe.Services;
+using TutorMe.Entities;
 
 namespace TutorMe.Controllers {
     [Route("api/[controller]")]
@@ -19,6 +20,7 @@ namespace TutorMe.Controllers {
 
         [HttpGet]
         public IActionResult GetAllUserModules() {
+            Console.WriteLine("this is what we got");
             var userModules = userModuleService.GetAllUserModules();
             return Ok(userModules);
         }
@@ -33,15 +35,27 @@ namespace TutorMe.Controllers {
         }
 
         [HttpPost]
-        public IActionResult createUserModule(UserModule userModule) {
-            var userModuleId = userModuleService.createUserModule(userModule);
-            return Ok(userModuleId);
+        public IActionResult createUserModule(IUserModule userModule) {
+            try {
+                var userModuleId = userModuleService.createUserModule(userModule);
+                return Ok(userModuleId);
+            }
+            catch(Exception exception) {
+                return BadRequest(exception.Message);
+            }
+            
         }
 
         [HttpDelete("{id}")]
         public IActionResult DeleteUserModule(Guid id) {
-            var userModule = userModuleService.deleteUserModuleById(id);
-            return Ok(userModule);
+            try {
+                var userModule = userModuleService.deleteUserModuleById(id);
+                return Ok(userModule);
+            }
+            catch(Exception exception) {
+                return BadRequest(exception.Message);
+            }
+            
         }
     }
 }
