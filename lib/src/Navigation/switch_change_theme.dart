@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/theme/themes.dart';
 
-import '../theme/themes.dart';
+// import '../theme/themes.dart';
 // import 'package:theme_example/provider/theme_provider.dart';
 // import 'package:flutter/material.dart';/
 
