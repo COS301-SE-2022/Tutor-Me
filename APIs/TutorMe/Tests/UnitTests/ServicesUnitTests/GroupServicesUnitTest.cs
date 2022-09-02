@@ -247,5 +247,41 @@ public class GroupServicesUnitTests
     }
     
     
+    
+    [Fact]
+    public async Task DeleteGroupById_Returns_true()
+    {
+        //arrange
+        var Group = new Group
+        {
+            GroupId = Guid.NewGuid(), 
+            ModuleId  = Guid.NewGuid(),
+            Description = "This is a group for students to learn about software development",
+        };
+        
+        DbContextOptionsBuilder<TutorMeContext> optionsBuilder = new();
+        var databaseName = MethodBase.GetCurrentMethod()?.Name;
+        if (databaseName != null)
+            optionsBuilder.UseInMemoryDatabase(databaseName);
+        
+        using (TutorMeContext ctx = new(optionsBuilder.Options))
+        {
+            ctx.Add(Group);
+            ctx.SaveChanges();
+        }
+
+        bool result;
+        using (TutorMeContext ctx1 = new(optionsBuilder.Options))
+        {
+            result =new GroupServices(ctx1).deleteGroupById(Group.GroupId);
+        }
+
+        // Assert
+        Assert.NotNull(result);
+        Assert.IsType<Boolean>(result);
+        Assert.Equal(true, result);
+    
+    }
+  
   
 }
