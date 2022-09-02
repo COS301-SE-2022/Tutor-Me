@@ -91,7 +91,7 @@ class LandingPageState extends State<LandingPage> {
                   ),
                 ),
                 style: TextButton.styleFrom(
-                    primary: colorWhite,
+                    backgroundColor: colorWhite,
                     backgroundColor: colorOrange,
                     minimumSize: Size.fromHeight(screenSize.height * 0.08)),
                 onPressed: () {
