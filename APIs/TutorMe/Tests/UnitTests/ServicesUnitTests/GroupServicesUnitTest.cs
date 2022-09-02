@@ -137,5 +137,46 @@ public class GroupServicesUnitTests
     }
     
     
-  
+  [Fact]
+    public async  Task GetGroupById_Returns_Group_not_found()
+    {
+        //arrange
+        var Group = new Group
+        {
+            GroupId = Guid.NewGuid(), 
+            ModuleId  = Guid.NewGuid(),
+            Description = "This is a group for students to learn about software development",
+        };
+        
+        DbContextOptionsBuilder<TutorMeContext> optionsBuilder = new();
+        var databaseName = MethodBase.GetCurrentMethod()?.Name;
+        if (databaseName != null)
+            optionsBuilder.UseInMemoryDatabase(databaseName);
+        
+        using (TutorMeContext ctx = new(optionsBuilder.Options))
+        {
+            //Empty TutorMeContext
+        }
+        Group result = null;
+        try
+        {
+           
+            using (TutorMeContext ctx1 = new(optionsBuilder.Options))
+            {
+                result =new GroupServices(ctx1).GetGroupById(Group.GroupId);
+            }
+
+        }
+        catch (Exception e)
+        {
+            Assert.Equal("Group not found", e.Message);
+        }
+      
+        
+        
+       
+    }
+
+    
+    
 }
