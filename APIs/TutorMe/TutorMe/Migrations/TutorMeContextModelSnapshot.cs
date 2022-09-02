@@ -33,9 +33,6 @@ namespace TutorMe.Migrations
                     b.Property<Guid>("TuteeId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("TuteeUserId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<Guid>("TutorId")
                         .HasColumnType("uniqueidentifier");
 
@@ -44,8 +41,6 @@ namespace TutorMe.Migrations
                     b.HasIndex(new[] { "ModuleId" }, "IX_Connections_ModuleId");
 
                     b.HasIndex(new[] { "TuteeId" }, "IX_Connections_TuteeId");
-
-                    b.HasIndex(new[] { "TuteeUserId" }, "IX_Connections_TuteeUserId");
 
                     b.HasIndex(new[] { "TutorId" }, "IX_Connections_TutorId");
 
