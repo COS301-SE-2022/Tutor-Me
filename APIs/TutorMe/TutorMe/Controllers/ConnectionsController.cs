@@ -30,7 +30,10 @@ namespace TutorMe.Controllers
         [HttpGet("{id}")]
         public IActionResult GetConnectionById(Guid id)
         {
-            var connection = connectionService.GetConnectionById(id);
+            var connection = connectionService.GetConnectionsByUserId(id);
+            if(connection == null) {
+                return NotFound();
+            }
             return Ok(connection);
         }
 

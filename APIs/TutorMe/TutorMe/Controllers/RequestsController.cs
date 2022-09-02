@@ -48,23 +48,29 @@ namespace TutorMe.Controllers
             return Ok(request);
         }
 
-        [HttpGet("/tutor/{id}")]
+        [HttpGet("tutor/{id}")]
         public IActionResult GetRequestByTutorById(Guid id)
         {
             var request = requestService.GetRequestByTutorById(id);
             return Ok(request);
         }
 
-        [HttpGet("/tutee/{id}")]
+        [HttpGet("tutee/{id}")]
         public IActionResult GetRequestByTuteeById(Guid id)
         {
             var request = requestService.GetRequestByTuteeById(id);
             return Ok(request);
         }
 
-        [HttpGet("/accept/{id}")]
+        [HttpGet("accept/{id}")]
         public IActionResult AcceptRequestById(Guid id) {
             var request = requestService.AcceptRequestById(id);
+            return Ok(request);
+        }
+
+        [HttpGet("reject/{id}")]
+        public IActionResult RejectRequestById(Guid id) {
+            var request = requestService.RejectRequestById(id);
             return Ok(request);
         }
     }

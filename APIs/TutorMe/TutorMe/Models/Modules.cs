@@ -29,6 +29,8 @@ namespace TutorMe.Models
         public virtual ICollection<Group> Group { get; set; }
         [JsonIgnore]
         public virtual ICollection<Request> RequestModule { get; set; }
+        [JsonIgnore]
+        public virtual ICollection<UserModule> UserModule { get; set; }
 
     }
 }
