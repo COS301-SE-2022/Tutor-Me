@@ -21,17 +21,27 @@ namespace TutorMe.Controllers {
         [HttpGet]
         public IActionResult GetAllUserModules() {
             Console.WriteLine("this is what we got");
-            var userModules = userModuleService.GetAllUserModules();
-            return Ok(userModules);
+            try {
+                var userModules = userModuleService.GetAllUserModules();
+                return Ok(userModules);
+            }
+            catch (Exception exception) {
+                return BadRequest(exception.Message);
+            }
         }
 
         [HttpGet("{id}")]
         public IActionResult GetUserModulesByUserId(Guid id) {
-            var userModule = userModuleService.GetUserModulesByUserId(id);
-            if (userModule == null) {
-                return NotFound();
+            try {
+                var userModule = userModuleService.GetUserModulesByUserId(id);
+                if (userModule == null) {
+                    return NotFound();
+                }
+                return Ok(userModule);
             }
-            return Ok(userModule);
+            catch (Exception exception) {
+                return BadRequest(exception.Message);
+            }
         }
 
         [HttpPost]

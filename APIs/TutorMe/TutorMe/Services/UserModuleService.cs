@@ -7,7 +7,6 @@ namespace TutorMe.Services {
 
     public interface IUserModuleService {
         IEnumerable<UserModule> GetAllUserModules();
-        //TODO: Fix this function
         IEnumerable<Module> GetUserModulesByUserId(Guid id);
         UserModule GetUserModuleById(Guid id);
         Guid createUserModule(IUserModule userModule);
