@@ -70,7 +70,35 @@ public class GroupServicesUnitTests
     }
 
    
+       [Fact]
+    public void GetAllGroups_Returns_Empty_ListOfGroups()
+    {
+        DbContextOptionsBuilder<TutorMeContext> optionsBuilder = new();
+        var databaseName = MethodBase.GetCurrentMethod()?.Name;
+        if (databaseName != null)
+            optionsBuilder.UseInMemoryDatabase(databaseName);
+
+      
+        
+        using (TutorMeContext ctx = new(optionsBuilder.Options))
+        {
+            //Empty TutorMeContext
+        }
+
+        IEnumerable<Group> result;
+        using (TutorMeContext ctx1 = new(optionsBuilder.Options))
+        {
+            result =new GroupServices(ctx1).GetAllGroups();
+        }
+        
+        Assert.NotNull(result);
+        var okResult = Assert.IsType< List<Group>>(result); 
+        Assert.Empty(okResult);
+
+    }
     
+        
+   
   
   
 }
