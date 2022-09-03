@@ -190,7 +190,7 @@ class _TuteeGroupsSettingsState extends State<TuteeGroupsSettings> {
 
   Widget buildEditImageIcon() => ElevatedButton(
         style: ElevatedButton.styleFrom(
-            backgroundColor: colorOrange,
+            primary: colorOrange,
             shape: const CircleBorder(),
             padding: const EdgeInsets.all(8)),
         child: const Icon(

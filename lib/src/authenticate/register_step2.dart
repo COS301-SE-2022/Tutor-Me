@@ -270,7 +270,7 @@ class _RegisterStep2State extends State<RegisterStep2> {
                               ),
                               textButtonTheme: TextButtonThemeData(
                                 style: TextButton.styleFrom(
-                                  foregroundColor: Colors.white,
+                                  primary: Colors.white,
                                   backgroundColor: colorTurqoise,
                                   textStyle: const TextStyle(
                                     fontSize: 16,

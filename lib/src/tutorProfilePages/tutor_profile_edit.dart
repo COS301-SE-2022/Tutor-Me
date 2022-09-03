@@ -242,7 +242,7 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
 
   Widget buildEditImageIcon() => ElevatedButton(
         style: ElevatedButton.styleFrom(
-            backgroundColor: colorOrange,
+            primary: colorOrange,
             shape: const CircleBorder(),
             padding: const EdgeInsets.all(8)),
         child: const Icon(

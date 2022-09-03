@@ -130,7 +130,7 @@ class _RegisterOrLoginState extends State<RegisterOrLogin> {
                 style: ElevatedButton.styleFrom(
                     minimumSize: Size.zero,
                     padding: EdgeInsets.zero,
-                    backgroundColor: const Color(0xffD6521B)),
+                    primary: const Color(0xffD6521B)),
               ),
               height: screenHeightSize * 0.28,
               decoration: BoxDecoration(
@@ -199,7 +199,7 @@ class _RegisterOrLoginState extends State<RegisterOrLogin> {
                 style: ElevatedButton.styleFrom(
                     minimumSize: Size.zero,
                     padding: EdgeInsets.zero,
-                    foregroundColor: const Color(0xffD6521B)),
+                    primary: const Color(0xffD6521B)),
               ),
               height: screenHeightSize * 0.28,
               decoration: BoxDecoration(
