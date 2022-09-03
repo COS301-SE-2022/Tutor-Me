@@ -11,6 +11,7 @@ namespace TutorMe.Services
         Group GetGroupById(Guid id);
         Guid createGroup(IGroup group);
         bool deleteGroupById(Guid id);
+        IEnumerable<Group> GetGroupsByUserId(Guid id);
     }
     public class GroupServices : IGroupService
     {
@@ -25,6 +26,15 @@ namespace TutorMe.Services
         {
             return _context.Group;
         }
+
+        public IEnumerable<Group> GetGroupsByUserId(Guid id) {
+            var groups = _context.Group.Where(e => e.UserId == id);
+            if (groups == null) {
+                throw new KeyNotFoundException("Groups not found");
+            }
+            return groups;
+        }
+
 
         public Group GetGroupById(Guid id)
         {
@@ -48,6 +58,12 @@ namespace TutorMe.Services
             
             _context.Group.Add(newGroup);
             _context.SaveChanges();
+            //add user to Group Member
+            var newGroupMember = new GroupMember();
+            newGroupMember.GroupMemberId = Guid.NewGuid();
+            newGroupMember.GroupId = newGroup.GroupId;
+            newGroupMember.UserId = group.UserId;
+            _context.GroupMember.Add(newGroupMember);
             return group.GroupId;
         }
 
