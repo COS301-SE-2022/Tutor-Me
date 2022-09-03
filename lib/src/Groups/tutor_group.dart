@@ -48,28 +48,28 @@ class TutorGroupPageState extends State<TutorGroupPage> {
   String _token = "";
   String _meetingID = "";
 
-  getTutees() async {
-    if (widget.group.getTutees == '') {
-      setState(() {
-        hasTutees = false;
-        _isLoading = false;
-      });
-    } else {
-      try {
-        List<String> tuteeIds = widget.group.getTutees.split(',');
-        for (int i = 0; i < tuteeIds.length; i++) {
-          final tutee = await UserServices.getTutee(tuteeIds[i]);
-          tuteeList += tutee;
-        }
-      } catch (e) {
-        const snackBar = SnackBar(
-          content: Text('Failed to load tutees'),
-        );
-        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-      }
-      getTuteeProfileImages();
-    }
-  }
+  // getTutees() async {
+  //   if (widget.group.getTutees == '') {
+  //     setState(() {
+  //       hasTutees = false;
+  //       _isLoading = false;
+  //     });
+  //   } else {
+  //     try {
+  //       List<String> tuteeIds = widget.group.getTutees.split(',');
+  //       for (int i = 0; i < tuteeIds.length; i++) {
+  //         final tutee = await TuteeServices.getTutee(tuteeIds[i]);
+  //         tuteeList += tutee;
+  //       }
+  //     } catch (e) {
+  //       const snackBar = SnackBar(
+  //         content: Text('Failed to load tutees'),
+  //       );
+  //       ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  //     }
+  //     getTuteeProfileImages();
+  //   }
+  // }
 
   getTuteeProfileImages() async {
     for (int i = 0; i < tuteeList.length; i++) {
@@ -111,7 +111,7 @@ class TutorGroupPageState extends State<TutorGroupPage> {
   void initState() {
     super.initState();
 
-    getTutees();
+    // getTutees();
     fetchToken().then((token) => setState(() => _token = token));
   }
 
@@ -123,7 +123,7 @@ class TutorGroupPageState extends State<TutorGroupPage> {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(screenHeight * 0.08),
         child: AppBar(
-          title: Text(widget.group.getModuleCode + '- Group'),
+          title: Text('- Group'),
           backgroundColor: colorOrange,
           actions: [
             IconButton(onPressed: () {}, icon: const Icon(Icons.settings))
@@ -246,19 +246,22 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                           ),
                           InkWell(
                             onTap: () async {
-                              try {
-                                _meetingID = await createMeeting();
-                                widget.group.setGroupLink = _meetingID;
-                                await GroupServices.updateGroup(widget.group);
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => MeetingScreen(
-                                      token: _token,
-                                      meetingId: _meetingID,
-                                      displayName: "Tutor",
-                                    ),
+                              try{
+                            
+                              _meetingID = await createMeeting();
+                              //TODO: add meeting to database
+                              
+                              // widget.group.setGroupLink = _meetingID;
+                              await GroupServices.updateGroup(widget.group);
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => MeetingScreen(
+                                    token: _token,
+                                    meetingId: _meetingID,
+                                    displayName: "Tutor",
                                   ),
+                                ),
                                 );
                               } catch (e) {
                                 const snackBar = SnackBar(

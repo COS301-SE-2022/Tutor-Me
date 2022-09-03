@@ -59,29 +59,29 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
   bool hasOnlyOneTutee = false;
   String _token = "";
 
-  getTutees() async {
-    try {
-      if (widget.numberOfParticipants == 1) {
-        hasOnlyOneTutee = true;
-      }
+  // getTutees() async {
+  //   try {
+  //     if (widget.numberOfParticipants == 1) {
+  //       hasOnlyOneTutee = true;
+  //     }
 
-      List<String> tuteeIds = widget.group.getTutees.split(',');
-      int tuteeIndex = tuteeIds.indexOf(widget.tutee.getId);
+  //     List<String> tuteeIds = widget.group.getTutees.split(',');
+  //     int tuteeIndex = tuteeIds.indexOf(widget.tutee.getId);
 
-      tuteeIds.removeAt(tuteeIndex);
+  //     tuteeIds.removeAt(tuteeIndex);
 
-      for (int i = 0; i < tuteeIds.length; i++) {
-        final tutee = await UserServices.getTutee(tuteeIds[i]);
-        tuteeList += tutee;
-      }
-    } catch (e) {
-      const snackBar = SnackBar(
-        content: Text('Failed to load tutees'),
-      );
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-    }
-    getTuteeProfileImages();
-  }
+  //     for (int i = 0; i < tuteeIds.length; i++) {
+  //       final tutee = await TuteeServices.getTutee(tuteeIds[i]);
+  //       tuteeList += tutee;
+  //     }
+  //   } catch (e) {
+  //     const snackBar = SnackBar(
+  //       content: Text('Failed to load tutees'),
+  //     );
+  //     ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  //   }
+  //   getTuteeProfileImages();
+  // }
 
   getTuteeProfileImages() async {
     for (int i = 0; i < tuteeList.length; i++) {
@@ -117,37 +117,37 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
     });
   }
 
-  getTutor() async {
-    final tutor = await UserServices.getTutor(widget.group.getTutorId);
+  // getTutor() async {
+  //   final tutor = await TutorServices.getTutor(widget.group.getTutorId);
 
-    setState(() {
-      tutorObj = tutor[0];
-    });
-    fetchToken().then((token) => setState(() => _token = token));
-    getTutorImage();
-    getTutees();
-  }
+  //   setState(() {
+  //     tutorObj = tutor[0];
+  //   });
+  //   fetchToken().then((token) => setState(() => _token = token));
+  //   getTutorImage();
+  //   // getTutees();
+  // }
 
-  getTutorImage() async {
-    try {
-      final image =
-          await UserServices.getProfileImage(widget.group.getTutorId);
+  // getTutorImage() async {
+  //   try {
+  //     final image =
+  //         await TutorServices.getTutorProfileImage(widget.group.getTutorId);
 
-      setState(() {
-        tutorHasImage = true;
-        tutorImage = image;
-      });
-    } catch (e) {
-      setState(() {
-        tutorHasImage = false;
-      });
-    }
-  }
+  //     setState(() {
+  //       tutorHasImage = true;
+  //       tutorImage = image;
+  //     });
+  //   } catch (e) {
+  //     setState(() {
+  //       tutorHasImage = false;
+  //     });
+  //   }
+  // }
 
   @override
   void initState() {
     super.initState();
-    getTutor();
+    // getTutor();
   }
 
   @override
@@ -172,7 +172,7 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(screenHeight * 0.08),
         child: AppBar(
-          title: Text(widget.group.getModuleCode + '- Group'),
+          title: Text(  '- Group'),
           backgroundColor: primaryColor,
           actions: [
             IconButton(
@@ -296,20 +296,22 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
                                 widget.group = group[0];
                               });
                               try {
-                                if (await validateMeeting(
-                                    widget.group.getGroupLink)) {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => JoinScreen(
-                                        meetingId: widget.group.getGroupLink,
-                                        token: _token,
-                                      ),
-                                    ),
-                                  );
-                                } else {
-                                  toastMsg("Invalid Meeting ID");
-                                }
+                                //TODO: validate meeting
+
+                                // if (await validateMeeting(
+                                //     widget.group.getGroupLink)) {
+                                //   Navigator.push(
+                                //     context,
+                                //     MaterialPageRoute(
+                                //       builder: (context) => JoinScreen(
+                                //         meetingId: widget.group.getGroupLink,
+                                //         token: _token,
+                                //       ),
+                                //     ),
+                                //   );
+                                // } else {
+                                //   toastMsg("Invalid Meeting ID");
+                                // }
                               } catch (e) {
                                 const snackBar = SnackBar(
                                   content: Text('Failed to join live video'),

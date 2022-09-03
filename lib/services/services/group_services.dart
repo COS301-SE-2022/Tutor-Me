@@ -85,34 +85,32 @@ class GroupServices {
     }
   }
 
-  // static Future getGroupByUserID(String userId, String userType) async {
-  //   List<Groups> initialGroupList = List<Groups>.empty();
-  //   List<Groups> finalGroupList = List<Groups>.empty(growable: true);
-  //   try {
-  //     final groups = await getGroups();
+  static Future getGroupByUserID(String userId) async {
+    Uri url = Uri.http('tutorme-prod.us-east-1.elasticbeanstalk.com',
+        'api/Groups/Users/$userId');
 
-  //     initialGroupList = groups;
-
-  //     if (userType.contains('tutor')) {
-  //       for (int i = 0; i < initialGroupList.length; i++) {
-  //         if (userId.contains(initialGroupList[i].getTutorId)) {
-  //           finalGroupList.add(initialGroupList[i]);
-  //         }
-  //       }
-  //     } else {
-  //       for (int i = 0; i < initialGroupList.length; i++) {
-  //         if (userId.contains(initialGroupList[i].getTutees) &&
-  //             initialGroupList[i].getTutees.isNotEmpty) {
-  //           finalGroupList.add(initialGroupList[i]);
-  //         }
-  //       }
-  //     }
-
-  //     return finalGroupList;
-  //   } catch (e) {
-  //     throw Exception(e);
-  //   }
-  // }
+    try {
+      final response = await http.get(url, headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*"
+      });
+      if (response.statusCode == 200) {
+        String j = "";
+        if (response.body[0] != "[") {
+          j = "[" + response.body + "]";
+        } else {
+          j = response.body;
+        }
+        final List list = json.decode(j);
+        return list.map((json) => Groups.fromObject(json)).toList();
+      } else {
+        throw Exception('Failed to load' + response.body);
+      }
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
 
   static updateGroup(Groups group) async {
     String data = jsonEncode({
