@@ -1,7 +1,6 @@
 // ignore_for_file: file_names
 import 'package:flutter/material.dart';
 import 'package:tutor_me/services/models/groups.dart';
-import 'package:tutor_me/services/services/group_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import '../../../services/models/users.dart';
 import '../../Groups/tutor_group.dart';

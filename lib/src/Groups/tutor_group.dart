@@ -74,8 +74,7 @@ class TutorGroupPageState extends State<TutorGroupPage> {
   getTuteeProfileImages() async {
     for (int i = 0; i < tuteeList.length; i++) {
       try {
-        final image =
-            await UserServices.getProfileImage(tuteeList[i].getId);
+        final image = await UserServices.getProfileImage(tuteeList[i].getId);
         setState(() {
           tuteeImages.add(image);
         });
@@ -123,7 +122,7 @@ class TutorGroupPageState extends State<TutorGroupPage> {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(screenHeight * 0.08),
         child: AppBar(
-          title: Text('- Group'),
+          title: const Text('- Group'),
           backgroundColor: colorOrange,
           actions: [
             IconButton(onPressed: () {}, icon: const Icon(Icons.settings))
@@ -219,9 +218,10 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                             onTap: () {
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (BuildContext context) => ChatPage(
-                                      user: widget.tutor,
-                                      group: widget.group,
-                                      moduleCode: widget.group.getDescription,)));
+                                        user: widget.tutor,
+                                        group: widget.group,
+                                        moduleCode: widget.group.getDescription,
+                                      )));
                             },
                             child: Card(
                               elevation: 0,
@@ -247,22 +247,21 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                           ),
                           InkWell(
                             onTap: () async {
-                              try{
-                            
-                              _meetingID = await createMeeting();
-                              //TODO: add meeting to database
-                              
-                              // widget.group.setGroupLink = _meetingID;
-                              await GroupServices.updateGroup(widget.group);
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => MeetingScreen(
-                                    token: _token,
-                                    meetingId: _meetingID,
-                                    displayName: "Tutor",
+                              try {
+                                _meetingID = await createMeeting();
+                                //TODO: add meeting to database
+
+                                // widget.group.setGroupLink = _meetingID;
+                                await GroupServices.updateGroup(widget.group);
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => MeetingScreen(
+                                      token: _token,
+                                      meetingId: _meetingID,
+                                      displayName: "Tutor",
+                                    ),
                                   ),
-                                ),
                                 );
                               } catch (e) {
                                 const snackBar = SnackBar(

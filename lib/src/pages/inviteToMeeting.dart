@@ -1,4 +1,4 @@
-// ignore_for_file: sort_child_properties_last
+// ignore_for_file: sort_child_properties_last, file_names
 
 import 'package:flutter/material.dart';
 import 'package:tutor_me/src/colorpallete.dart';
@@ -17,6 +17,7 @@ class InviteToMeeting extends StatefulWidget {
 
 class _InviteToMeetingState extends State<InviteToMeeting> {
   final allChecked = CheckBoxModal(name: "All Checked");
+  // ignore: non_constant_identifier_names
   final CheckBoxList = [
     CheckBoxModal(name: "Kuda Christine"),
     CheckBoxModal(name: "Farai Chivunga"),
@@ -30,7 +31,7 @@ class _InviteToMeetingState extends State<InviteToMeeting> {
     return SafeArea(
         child: Scaffold(
       appBar: AppBar(
-        title: Text("Invite To Meeting"),
+        title: const Text("Invite To Meeting"),
         backgroundColor: colorOrange,
       ),
       body: ListView(
@@ -80,7 +81,7 @@ class _InviteToMeetingState extends State<InviteToMeeting> {
           ),
           GestureDetector(
             onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                builder: (BuildContext context) => Calendar())),
+                builder: (BuildContext context) => const Calendar())),
             child: Container(
               height: MediaQuery.of(context).size.height * 0.06,
               decoration: BoxDecoration(

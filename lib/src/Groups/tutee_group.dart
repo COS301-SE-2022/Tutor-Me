@@ -13,7 +13,6 @@ import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/theme/themes.dart';
 import 'package:tutor_me/src/tutorAndTuteeCollaboration/tuteeGroups/tuteeGroupSettings.dart';
 import 'package:http/http.dart' as http;
-import '../../screens/join_screen.dart';
 import '../../services/models/groups.dart';
 import '../../services/models/modules.dart';
 import '../../services/services/user_services.dart';
@@ -60,7 +59,7 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
   List<Uint8List> tuteeImages = List<Uint8List>.empty(growable: true);
   List<int> hasImage = List<int>.empty(growable: true);
   bool hasOnlyOneTutee = false;
-  String _token = "";
+  final String _token = "";
 
   getTutees() async {
     try {

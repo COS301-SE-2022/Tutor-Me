@@ -32,11 +32,9 @@ class TuteeGroupsState extends State<TuteeGroups> {
 
   int numOfTutees = 3;
   getGroupDetails() async {
-    print('before');
     final incomingGroups =
         await GroupServices.getGroupByUserID(widget.tutee.getId);
     groups = incomingGroups;
-    print(groups.length);
     if (groups.isNotEmpty) {
       setState(() {
         hasGroups = true;
@@ -74,7 +72,6 @@ class TuteeGroupsState extends State<TuteeGroups> {
         modules.add(incomingModules);
       }
     } catch (e) {
-      print(e);
       const snack = SnackBar(content: Text('Error loading modules'));
       ScaffoldMessenger.of(context).showSnackBar(snack);
     }
