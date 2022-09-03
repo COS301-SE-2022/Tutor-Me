@@ -13,6 +13,7 @@ namespace TutorMe.Services
         bool deleteGroupMemberById(Guid id);
         IEnumerable<User> GetGroupTutees(Guid id);
         IEnumerable<User> getTuteesFromGroups(IEnumerable<GroupMember> groupMembers);
+        IEnumerable<Group> GetUserGroups(Guid id);
     }
     public class GroupMemberServices : IGroupMemberService
     {
@@ -87,6 +88,18 @@ namespace TutorMe.Services
                 }
             }
             return tutees;
+        }
+
+        public IEnumerable<Group> GetUserGroups(Guid id) {
+            var groupMembers = _context.GroupMember.Include(e=>e.Group).Where(e => e.UserId == id);
+            if (groupMembers == null) {
+                throw new KeyNotFoundException("User Module Record not found.");
+            }
+            var users = new List<Group>();
+            foreach (GroupMember item in groupMembers) {
+                users.Add(item.Group);
+            }
+            return users;
         }
     }
 }

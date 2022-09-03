@@ -15,6 +15,7 @@ namespace TutorMe.Models
         public Guid ModuleId { get; set; }
         public string Description { get; set; }
         public Guid UserId { get; set; }
+        public string VideoId { get; set; }
 
         [JsonIgnore]
         public virtual Module Module { get; set; }

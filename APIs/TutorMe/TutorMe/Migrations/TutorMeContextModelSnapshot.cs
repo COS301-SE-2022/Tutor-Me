@@ -69,6 +69,10 @@ namespace TutorMe.Migrations
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("VideoId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("GroupId");
 
                     b.HasIndex("UserId");

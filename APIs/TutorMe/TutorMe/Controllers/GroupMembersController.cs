@@ -59,5 +59,16 @@ namespace TutorMe.Controllers
                 return BadRequest(exception.Message);
             }
         }
+
+        [HttpGet("group/{id}")]
+        public IActionResult getUserGroups(Guid id) {
+            try {
+                var groups = groupMemberService.GetUserGroups(id);
+                return Ok(groups);
+            }
+            catch (Exception exception) {
+                return BadRequest(exception.Message);
+            }
+        }
     }
 }
