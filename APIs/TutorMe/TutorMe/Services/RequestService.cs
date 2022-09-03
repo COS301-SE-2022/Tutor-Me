@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using TutorMe.Data;
+﻿using TutorMe.Data;
 using TutorMe.Models;
 
 namespace TutorMe.Services
@@ -54,7 +53,6 @@ namespace TutorMe.Services
             {
                 throw new KeyNotFoundException("This Request already exists, Please log in");
             }
-            //Request.Password = BCrypt.Net.BCrypt.HashPassword(Request.Password, "ThisWillBeAGoodPlatformForBothRequestsAndTuteesToConnectOnADailyBa5e5");
             request.RequestId = Guid.NewGuid();
             _context.Request.Add(request);
             _context.SaveChanges();

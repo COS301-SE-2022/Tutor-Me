@@ -17,47 +17,30 @@ namespace FileSystem.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.5")
+                .HasAnnotation("ProductVersion", "6.0.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("FileSystem.Models.TuteeFile", b =>
+            modelBuilder.Entity("FileSystem.Models.UserFiles", b =>
                 {
                     b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(36)
                         .HasColumnType("uniqueidentifier")
-                        .HasColumnName("id");
+                        .HasDefaultValueSql("(newid())");
 
-                    b.Property<byte[]>("TuteeImage")
+                    b.Property<byte[]>("UserImage")
                         .HasColumnType("varbinary(max)")
-                        .HasColumnName("tuteeImage");
+                        .HasColumnName("UserImage");
 
-                    b.Property<byte[]>("TuteeTranscript")
+                    b.Property<byte[]>("UserTranscript")
                         .HasColumnType("varbinary(max)")
-                        .HasColumnName("tuteeTranscript");
+                        .HasColumnName("UserTranscript");
 
                     b.HasKey("Id");
 
-                    b.ToTable("TuteeFiles");
-                });
-
-            modelBuilder.Entity("FileSystem.Models.TutorFile", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("id");
-
-                    b.Property<byte[]>("TutorImage")
-                        .HasColumnType("varbinary(max)")
-                        .HasColumnName("tutorImage");
-
-                    b.Property<byte[]>("TutorTranscript")
-                        .HasColumnType("varbinary(max)")
-                        .HasColumnName("tutorTranscript");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("TutorFiles");
+                    b.ToTable("UserFiles");
                 });
 #pragma warning restore 612, 618
         }
