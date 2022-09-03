@@ -1,7 +1,6 @@
 // ignore_for_file: file_names
 import 'package:flutter/material.dart';
 import 'package:tutor_me/services/models/groups.dart';
-import 'package:tutor_me/services/services/group_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import '../../../services/models/users.dart';
 import '../../Groups/tutor_group.dart';
@@ -22,31 +21,31 @@ class TutorGroupsState extends State<TutorGroups> {
   bool hasGroups = false;
   bool isLoading = true;
 
-  getGroupDetails() async {
-    final incomingGroups =
-        await GroupServices.getGroupByUserID(widget.tutor.getId, 'tutor');
-    groups = incomingGroups;
+  // getGroupDetails() async {
+  //   final incomingGroups =
+  //       await GroupServices.getGroupByUserID(widget.tutor.getId);
+  //   groups = incomingGroups;
 
-    if (groups.isNotEmpty) {
-      setState(() {
-        hasGroups = true;
-      });
-    }
-    for (int i = 0; i < groups.length; i++) {
-      List<String> tutees = groups[i].getTutees.split(',');
-      numTutees.add(tutees.length);
-    }
+  //   if (groups.isNotEmpty) {
+  //     setState(() {
+  //       hasGroups = true;
+  //     });
+  //   }
+  //   for (int i = 0; i < groups.length; i++) {
+  //     List<String> tutees = groups[i].getTutees.split(',');
+  //     numTutees.add(tutees.length);
+  //   }
 
-    setState(() {
-      isLoading = false;
-      groups = incomingGroups;
-    });
-  }
+  //   setState(() {
+  //     isLoading = false;
+  //     groups = incomingGroups;
+  //   });
+  // }
 
   @override
   void initState() {
     super.initState();
-    getGroupDetails();
+    // getGroupDetails();
   }
 
   @override
@@ -120,7 +119,7 @@ class TutorGroupsState extends State<TutorGroups> {
             Row(
               children: [
                 SizedBox(height: MediaQuery.of(context).size.height * 0.04),
-                Text("  " + groups[i].getModuleCode,
+                Text("  " + groups[i].getModuleId,
                     style: TextStyle(
                       fontSize: MediaQuery.of(context).size.width * 0.06,
                       color: colorWhite,
@@ -140,7 +139,7 @@ class TutorGroupsState extends State<TutorGroups> {
               height: MediaQuery.of(context).size.height * 0.01,
             ),
             Text(
-              "  " + groups[i].getModuleName,
+              "  " + groups[i].getDescription,
               style: TextStyle(
                 fontSize: MediaQuery.of(context).size.width * 0.05,
                 color: colorWhite,

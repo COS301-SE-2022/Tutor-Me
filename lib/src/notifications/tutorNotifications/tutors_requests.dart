@@ -296,10 +296,8 @@ class TutorRequestsState extends State<TutorRequests> {
 
                                       final group =
                                           await GroupServices.getGroupByUserID(
-                                              tutees[i].module.getModuleId,
-                                              'tutor');
+                                              widget.user.getId);
                                       moduleRequestedGroup = group;
-
                                       await GroupServices.updateGroup(
                                           moduleRequestedGroup);
 

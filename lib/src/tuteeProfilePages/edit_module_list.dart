@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tutor_me/services/services/group_services.dart';
 import 'package:tutor_me/services/services/module_services.dart';
-import 'package:tutor_me/services/services/user_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/tuteeProfilePages/tutee_profile.dart';
 
@@ -85,7 +84,7 @@ class _EditModuleListState extends State<EditModuleList> {
 
   getTutorGroups() async {
     final groups =
-        await GroupServices.getGroupByUserID(widget.user.getId, 'tutor');
+        await GroupServices.getGroupByUserID(widget.user.getId);
 
     tutorGroups = groups;
   }
@@ -368,94 +367,6 @@ class _EditModuleListState extends State<EditModuleList> {
   Widget topDesign() {
     return const Scaffold(
       body: Text('Edit Module List'),
-    );
-  }
-
-  Widget buildButtons() {
-    return Row(
-      children: [
-        SizedBox(
-          width: MediaQuery.of(context).size.width * 0.45,
-          child: Padding(
-            padding: EdgeInsets.only(
-              left: MediaQuery.of(context).size.width * 0.1,
-              top: MediaQuery.of(context).size.width * 0.04,
-              right: MediaQuery.of(context).size.width * 0.08,
-              bottom: MediaQuery.of(context).size.width * 0.05,
-            ),
-            child: SmallTagBtn(
-                btnName: "Cancel",
-                backColor: Colors.red,
-                funct: isConfirming
-                    ? () {}
-                    : () {
-                        Navigator.pop(context);
-                      }),
-          ),
-        ),
-        SizedBox(
-          width: MediaQuery.of(context).size.width * 0.45,
-          child: Padding(
-            padding: EdgeInsets.only(
-              top: MediaQuery.of(context).size.width * 0.04,
-              right: MediaQuery.of(context).size.width * 0.1,
-              bottom: MediaQuery.of(context).size.width * 0.05,
-            ),
-            child: SmallTagBtn(
-                btnName: !isConfirming ? "Confirm" : 'Confirming',
-                backColor: colorTurqoise,
-                funct: isConfirming
-                    ? () {}
-                    : () async {
-                        setState(() {
-                          isConfirming = true;
-                        });
-                        try {
-
-                         
-                            await UserServices.updateTutor(widget.user);
-
-                            if (tutorGroups.isEmpty) {
-                              modulesToAdd = widget.currentModules;
-                            } else {
-                              final newGroups =
-                                  widget.currentModules.where((module) {
-                                bool isModuleOld = false;
-                                for (int i = 0; i < tutorGroups.length; i++) {
-                                  if (module.getCode
-                                      .contains(tutorGroups[i].getModuleCode)) {
-                                    isModuleOld = true;
-                                  }
-                                }
-                                return !isModuleOld;
-                              }).toList();
-
-                              modulesToAdd = newGroups;
-                            }
-
-                            if (modulesToAdd.isNotEmpty) {
-                              showConfirmUpdate(context);
-                              for (int i = 0; i < modulesToAdd.length; i++) {
-                                await GroupServices.createGroup(
-                                    modulesToAdd[i].getCode,
-                                    modulesToAdd[i].getModuleName,
-                                    widget.user.getId);
-                              }
-                            }
-                          
-
-                          Navigator.pop(context, widget.currentModules);
-                        } catch (e) {
-                          const snackBar = SnackBar(
-                            content: Text('Failed to update modules.'),
-                          );
-                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                        }
-                        isConfirming = false;
-                      }),
-          ),
-        ),
-      ],
     );
   }
 

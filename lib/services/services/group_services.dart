@@ -3,22 +3,20 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:tutor_me/services/models/groups.dart';
 
+import '../models/users.dart';
+
 class GroupServices {
   static createGroup(
-    String moduleCode,
-    String moduleName,
+    String moduleId,
     String tutorId,
   ) async {
     final groupsURL =
         Uri.http('tutorme-dev.us-east-1.elasticbeanstalk.com', '/api/Groups');
 
     String data = jsonEncode({
-      'moduleCode': moduleCode,
-      'moduleName': moduleName,
-      'tutees': '',
-      'tutorId': tutorId,
+      'moduleId': moduleId,
       'description': 'No description added',
-      'groupLink': ''
+      'userId': tutorId,
     });
 
     final header = <String, String>{
@@ -89,30 +87,55 @@ class GroupServices {
     }
   }
 
-  static Future getGroupByUserID(String userId, String userType) async {
-    List<Groups> initialGroupList = List<Groups>.empty();
-    List<Groups> finalGroupList = List<Groups>.empty(growable: true);
+  static Future getGroupByUserID(String userId) async {
+    Uri url = Uri.http('tutorme-dev.us-east-1.elasticbeanstalk.com',
+        'api/GroupMembers/group/$userId');
+
     try {
-      final groups = await getGroups();
-
-      initialGroupList = groups;
-
-      if (userType.contains('tutor')) {
-        for (int i = 0; i < initialGroupList.length; i++) {
-          if (userId.contains(initialGroupList[i].getTutorId)) {
-            finalGroupList.add(initialGroupList[i]);
-          }
+      final response = await http.get(url, headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*"
+      });
+      if (response.statusCode == 200) {
+        String j = "";
+        if (response.body[0] != "[") {
+          j = "[" + response.body + "]";
+        } else {
+          j = response.body;
         }
+        final List list = json.decode(j);
+        return list.map((json) => Groups.fromObject(json)).toList();
       } else {
-        for (int i = 0; i < initialGroupList.length; i++) {
-          if (userId.contains(initialGroupList[i].getTutees) &&
-              initialGroupList[i].getTutees.isNotEmpty) {
-            finalGroupList.add(initialGroupList[i]);
-          }
-        }
+        throw Exception('Failed to load' + response.body);
       }
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
 
-      return finalGroupList;
+  static getGroupTutees(String groupId) async {
+    Uri url = Uri.http('tutorme-dev.us-east-1.elasticbeanstalk.com',
+        'api/GroupMembers/tutee/$groupId');
+
+    try {
+      final response = await http.get(url, headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*"
+      });
+      if (response.statusCode == 200) {
+        String j = "";
+        if (response.body[0] != "[") {
+          j = "[" + response.body + "]";
+        } else {
+          j = response.body;
+        }
+        final List list = json.decode(j);
+        return list.map((json) => Users.fromObject(json)).toList();
+      } else {
+        throw Exception('Failed to load' + response.body);
+      }
     } catch (e) {
       throw Exception(e);
     }
@@ -121,12 +144,7 @@ class GroupServices {
   static updateGroup(Groups group) async {
     String data = jsonEncode({
       'id': group.getId,
-      'moduleCode': group.getModuleCode,
-      'moduleName': group.getModuleName,
-      'tutees': group.getTutees,
-      'tutorId': group.getTutorId,
       'description': group.getDescription,
-      'groupLink': group.getGroupLink
     });
 
     final header = <String, String>{
