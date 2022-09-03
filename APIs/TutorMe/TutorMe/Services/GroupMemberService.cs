@@ -12,7 +12,6 @@ namespace TutorMe.Services
         Guid createGroupMember(IGroupMember groupMember);
         bool deleteGroupMemberById(Guid id);
         IEnumerable<User> GetGroupTutees(Guid id);
-        IEnumerable<User> getTuteesFromGroups(IEnumerable<GroupMember> groupMembers);
         IEnumerable<Group> GetUserGroups(Guid id);
     }
     public class GroupMemberServices : IGroupMemberService
@@ -70,21 +69,11 @@ namespace TutorMe.Services
             if (tuteeId == null) {
                 throw new KeyNotFoundException("Tutee User type not found");
             }
-            var groupMembers = _context.GroupMember.Where(e => e.GroupId == id);
-            var tutees = getTuteesFromGroups(groupMembers);
-            return tutees;
-        }
-
-        public IEnumerable<User> getTuteesFromGroups(IEnumerable<GroupMember> groupMembers) {
-            var tuteeId = _context.UserType.FirstOrDefault(e => e.Type == "Tutee").UserTypeId;
-            if (tuteeId == null) {
-                throw new KeyNotFoundException("Tutee User type not found");
-            }
+            var groupMembers = _context.GroupMember.Include(e=>e.User).Where(e => e.GroupId == id);
             var tutees = new List<User>();
-            foreach (var groupMember in groupMembers) {
-                var user = _context.User.FirstOrDefault(e => e.UserId == groupMember.UserId && e.UserTypeId == tuteeId);
-                if (user != null) {
-                    tutees.Add(user);
+            foreach(GroupMember user in groupMembers) {
+                if (user.User.UserTypeId == tuteeId) {
+                    tutees.Add(user.User);
                 }
             }
             return tutees;
