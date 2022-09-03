@@ -120,6 +120,15 @@ namespace TutorMe.Controllers
             }
         }
 
-        
+        [HttpDelete("{id}")]
+        public IActionResult DeleteUserById(Guid id) {
+            try {
+                userService.DeleteUserById(id);
+                return Ok();
+            }
+            catch (Exception e) {
+                return Conflict(e.Message);
+            }
+        }
     }
 }
