@@ -5,9 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
 
-import 'package:tutor_me/src/landingPages/landing_page.dart'; 
+import 'package:tutor_me/src/landingPages/landing_page.dart';
 
 import 'package:tutor_me/src/theme/themes.dart';
+
+import 'src/pages/home.dart';
 
 //import 'src/authenticate/register_or_login.dart';
 // import 'src/tutorAndTuteeCollaboration/tutorGroups/tutor_remove_participants.dart';
@@ -19,10 +21,10 @@ void main() async {
 //   // await TutorServices().acceptRequest('6666EB8B-2AE2-4872-9595-9830C8912243');
 
 //   // final settingsController = SettingsController(SettingsService());
-   await dotenv.load(fileName: ".env");
+  await dotenv.load(fileName: ".env");
 
 //   // await settingsController.loadSettings();
-runApp(const MyApp());
+  runApp(const MyApp());
 //   runApp( Chna(
 //     create: (context) =>,
 //     builder:(context,_){
@@ -38,17 +40,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => ChangeNotifierProvider(
-    create: (context) => ThemeProvider(),
-    
-    builder: (context, _) {
-      final themeProvider = Provider.of<ThemeProvider>(context, listen: true);
-      return MaterialApp(
-      themeMode: themeProvider.themeMode,
-      theme: Themes.lightTheme,
-      darkTheme: Themes.darkTheme,  
-
-      home: const LandingPage(),
-
-      );
-    });
+      create: (context) => ThemeProvider(),
+      builder: (context, _) {
+        final themeProvider = Provider.of<ThemeProvider>(context, listen: true);
+        return MaterialApp(
+          themeMode: themeProvider.themeMode,
+          theme: Themes.lightTheme,
+          darkTheme: Themes.darkTheme,
+          home: const Home(),
+        );
+      });
 }
