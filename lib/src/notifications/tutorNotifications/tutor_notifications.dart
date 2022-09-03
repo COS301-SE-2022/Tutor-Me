@@ -33,7 +33,7 @@ class TutorNotificationsState extends State<TutorNotifications> {
                 tabs: [
                   Tab(
                       icon: Icon(
-                        Icons.chat_bubble_rounded,
+                        Icons.mail,
                         color: Colors.white,
                       ),
                       text: 'Requests'),

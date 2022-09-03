@@ -16,7 +16,7 @@ import '../../../services/models/groups.dart';
 import '../../../services/models/users.dart';
 
 class Tutee {
-  Tutees tutee;
+  Users tutee;
   Uint8List image;
   bool hasImage;
   Modules module;
@@ -34,7 +34,7 @@ class TutorRequests extends StatefulWidget {
 }
 
 class TutorRequestsState extends State<TutorRequests> {
-  List<Tutees> tuteeList = List<Tutees>.empty();
+  List<Users> tuteeList = List<Users>.empty();
   List<Tutee> tutees = List<Tutee>.empty(growable: true);
   List<Requests> requestList = List<Requests>.empty();
   List<Uint8List> tuteeImages = List<Uint8List>.empty(growable: true);
@@ -51,8 +51,10 @@ class TutorRequestsState extends State<TutorRequests> {
   bool isLoading = true;
 
   getRequests() async {
-    final requests = await UserServices().getRequests(widget.user.getId);
+    print('hereee');
+    final requests = await UserServices().getTutorRequests(widget.user.getId);
     requestList = requests;
+    print(requestList.length);
     if (requestList.isEmpty) {
       setState(() {
         isLoading = false;
@@ -63,7 +65,7 @@ class TutorRequestsState extends State<TutorRequests> {
 
   getTutees() async {
     for (int i = 0; i < requestList.length; i++) {
-      final tutee = await UserServices.getTutee(requestList[i].getId);
+      final tutee = await UserServices.getTutee(requestList[i].getTuteeId);
       tuteeList += tutee;
     }
     int requestLength = tuteeList.length;
@@ -80,14 +82,15 @@ class TutorRequestsState extends State<TutorRequests> {
   getTuteeModules() async {
     try {
       for (int i = 0; i < requestList.length; i++) {
-        final module = await ModuleServices.getModule(requestList[i].getId);
+        final module =
+            await ModuleServices.getModule(requestList[i].getModuleId);
         setState(() {
           modules += module;
         });
       }
     } catch (e) {
       const snackBar = SnackBar(
-        content: Text('Failed loadi'),
+        content: Text('Failed to load'),
       );
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
@@ -119,13 +122,21 @@ class TutorRequestsState extends State<TutorRequests> {
           }
         }
         if (!val) {
+          print('1: ' +
+              tuteeList.length.toString() +
+              ' ' +
+              tuteeImages.length.toString() +
+              ' ' +
+              modules.length.toString());
           tutees.add(Tutee(tuteeList[i], tuteeImages[i], false, modules[i]));
         } else {
           tutees.add(Tutee(tuteeList[i], tuteeImages[i], true, modules[i]));
         }
       });
     }
-    getTuteeModules();
+    setState(() {
+      isLoading = false;
+    });
   }
 
   @override
@@ -291,14 +302,16 @@ class TutorRequestsState extends State<TutorRequests> {
                                     });
 
                                     try {
-
-
                                       Groups moduleRequestedGroup;
 
-                                      final group = await GroupServices.getGroupByUserID(tutees[i].module.getModuleId,'tutor');
+                                      final group =
+                                          await GroupServices.getGroupByUserID(
+                                              tutees[i].module.getModuleId,
+                                              'tutor');
                                       moduleRequestedGroup = group;
 
-                                      await GroupServices.updateGroup(moduleRequestedGroup);
+                                      await GroupServices.updateGroup(
+                                          moduleRequestedGroup);
 
                                       await UserServices()
                                           .acceptRequest(requestList[i].getId);

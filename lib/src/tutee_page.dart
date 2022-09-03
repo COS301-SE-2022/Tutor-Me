@@ -7,6 +7,8 @@ import 'package:tutor_me/src/theme/themes.dart';
 import 'package:tutor_me/src/tutorAndTuteeCollaboration/tuteeGroups/tutee_groups.dart';
 import 'Navigation/tutee_nav_drawer.dart';
 // import 'theme/themes.dart';
+import 'notifications/tuteeNotifications/tutee_notifications.dart';
+import 'notifications/tuteeNotifications/tutee_pending_requests.dart';
 import 'pages/calls_page.dart';
 import 'pages/home.dart';
 import 'pages/tutors_list.dart';
@@ -77,7 +79,14 @@ class TuteePageState extends State<TuteePage> {
                     end: Alignment.bottomCenter)),
           ),
           actions: <Widget>[
-            IconButton(onPressed: () {}, icon: const Icon(Icons.notifications)),
+            IconButton(
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (BuildContext context) => TuteeNotifications(
+                            user: widget.user,
+                          )));
+                },
+                icon: const Icon(Icons.notifications)),
           ],
         ),
         body: screens[currentIndex],

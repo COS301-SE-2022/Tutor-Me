@@ -50,9 +50,35 @@ class UserServices {
     }
   }
 
-  getRequests(String id) async {
-    final url = Uri.http('http://tutorme-dev.us-east-1.elasticbeanstalk.com',
-        'api/Requests/$id');
+  getTutorRequests(String id) async {
+    final url = Uri.http(
+        'tutorme-dev.us-east-1.elasticbeanstalk.com', 'api/Requests/Tutor/$id');
+    try {
+      final response = await http.get(url, headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*"
+      });
+      if (response.statusCode == 200) {
+        String j = "";
+        if (response.body[0] != "[") {
+          j = "[" + response.body + "]";
+        } else {
+          j = response.body;
+        }
+        final List list = json.decode(j);
+        return list.map((json) => Requests.fromObject(json)).toList();
+      } else {
+        throw Exception('Failed to load' + response.statusCode.toString());
+      }
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  getTuteeRequests(String id) async {
+    final url = Uri.http(
+        'tutorme-dev.us-east-1.elasticbeanstalk.com', 'api/Requests/Tutee/$id');
     try {
       final response = await http.get(url, headers: {
         "Accept": "application/json",
@@ -127,8 +153,8 @@ class UserServices {
 
   acceptRequest(String requestId) async {
     try {
-      final url = Uri.http(
-          'tutorme-dev.us-east-1.elasticbeanstalk.com', 'api/Requests/$requestId');
+      final url = Uri.http('tutorme-dev.us-east-1.elasticbeanstalk.com',
+          'api/Requests/$requestId');
       final header = {
         "Accept": "application/json",
         "Content-Type": "application/json",
@@ -182,9 +208,35 @@ class UserServices {
     }
   }
 
+  static Future getTutor(String id) async {
+    Uri tuteeURL = Uri.http(
+        'tutorme-dev.us-east-1.elasticbeanstalk.com', '/api/Users/$id');
+    try {
+      final response = await http.get(tuteeURL, headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*"
+      });
+      if (response.statusCode == 200) {
+        String j = "";
+        if (response.body[0] != "[") {
+          j = "[" + response.body + "]";
+        } else {
+          j = response.body;
+        }
+        final List list = json.decode(j);
+        return list.map((json) => Users.fromObject(json)).toList();
+      } else {
+        throw Exception('Failed to load' + response.statusCode.toString());
+      }
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
   static Future getTutee(String id) async {
     Uri tuteeURL = Uri.http(
-        'tutorme-dev.us-east-1.elasticbeanstalk.com', '/api/Users/Tutees/$id');
+        'tutorme-dev.us-east-1.elasticbeanstalk.com', '/api/Users/$id');
     try {
       final response = await http.get(tuteeURL, headers: {
         "Accept": "application/json",
@@ -283,32 +335,6 @@ class UserServices {
   static getTutors() async {
     Uri tutorURL = Uri.http(
         'tutorme-dev.us-east-1.elasticbeanstalk.com', '/api/Users/tutors');
-    try {
-      final response = await http.get(tutorURL, headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*"
-      });
-      if (response.statusCode == 200) {
-        String j = "";
-        if (response.body[0] != "[") {
-          j = "[" + response.body + "]";
-        } else {
-          j = response.body;
-        }
-        final List list = json.decode(j);
-        return list.map((json) => Users.fromObject(json)).toList();
-      } else {
-        throw Exception('Failed to load' + response.statusCode.toString());
-      }
-    } catch (e) {
-      throw Exception(e);
-    }
-  }
-
-  static Future getTutor(String id) async {
-    Uri tutorURL = Uri.http(
-        'tutorme-dev.us-east-1.elasticbeanstalk.com', '/api/Users/$id');
     try {
       final response = await http.get(tutorURL, headers: {
         "Accept": "application/json",

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
 import '../../../services/models/tutees.dart';
+import '../../../services/models/users.dart';
 import 'tutee_activity.dart';
 import 'tutee_pending_requests.dart';
 
 class TuteeNotifications extends StatefulWidget {
-  final Tutees user;
+  final Users user;
   const TuteeNotifications({Key? key, required this.user}) : super(key: key);
 
   @override
@@ -29,7 +30,7 @@ class TuteeNotificationsState extends State<TuteeNotifications> {
                 tabs: [
                   Tab(
                       icon: Icon(
-                        Icons.chat_bubble_rounded,
+                        Icons.mail,
                         color: Colors.white,
                       ),
                       text: 'Pending Requests'),
