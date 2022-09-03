@@ -40,7 +40,6 @@ namespace TutorMe.Services
             {
                 throw new KeyNotFoundException("This Module already exists, Please log in");
             }
-            //Module.Password = BCrypt.Net.BCrypt.HashPassword(Module.Password, "ThisWillBeAGoodPlatformForBothModulesAndTuteesToConnectOnADailyBa5e5");
             module.ModuleId = Guid.NewGuid();
             _context.Module.Add(module);
             _context.SaveChanges();

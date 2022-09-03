@@ -23,29 +23,49 @@ namespace TutorMe.Controllers
         [HttpGet]
         public IActionResult GetAllModules()
         {
-            var modules = moduleService.GetAllModules();
-            return Ok(modules);
+            try {
+                var modules = moduleService.GetAllModules();
+                return Ok(modules);
+            }
+            catch (Exception exception) {
+                return BadRequest(exception.Message);
+            }
         }
 
         [HttpGet("{id}")]
         public IActionResult GetModuleById(Guid id)
         {
-            var module = moduleService.GetModuleById(id);
-            return Ok(module);
+            try {
+                var module = moduleService.GetModuleById(id);
+                return Ok(module);
+            }
+            catch (Exception exception) {
+                return BadRequest(exception.Message);
+            }
         }
 
         [HttpPost]
         public IActionResult createModule(Module module)
         {
-            var moduleId = moduleService.createModule(module);
-            return Ok(moduleId);
+            try {
+                var moduleId = moduleService.createModule(module);
+                return Ok(moduleId);
+            }
+            catch (Exception exception) {
+                return BadRequest(exception.Message);
+            }
         }
 
         [HttpDelete("{id}")]
         public IActionResult DeleteModule(Guid id)
         {
-            var module = moduleService.deleteModuleById(id);
-            return Ok(module);
+            try {
+                var module = moduleService.deleteModuleById(id);
+                return Ok(module);
+            }
+            catch (Exception exception) {
+                return BadRequest(exception.Message);
+            }
         }
     }
 }

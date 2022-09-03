@@ -13,6 +13,7 @@ namespace TutorMe.Models
             RequestsTutee = new HashSet<Request>();
             RequestsTutor = new HashSet<Request>();
             UserModule = new HashSet<UserModule>();
+            Group = new HashSet<Group>();
         }
 
         public Guid UserId { get; set; }
@@ -47,5 +48,7 @@ namespace TutorMe.Models
         public virtual ICollection<Request> RequestsTutee { get; set; }
         [JsonIgnore]
         public virtual ICollection<Request> RequestsTutor { get; set; }
+        [JsonIgnore]
+        public virtual ICollection<Group> Group { get; set; }
     }
 }
