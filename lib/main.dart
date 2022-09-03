@@ -1,12 +1,10 @@
-import 'package:flutter/material.dart';
+  import 'package:flutter/material.dart';
 // import 'package:tutor_me/src/authenticate/register_or_login.dart';
 // import 'src/settings/settings_controller.dart';
 // import 'src/settings/settings_service.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
-
 import 'package:tutor_me/src/landingPages/landing_page.dart';
-
 import 'package:tutor_me/src/theme/themes.dart';
 
 import 'src/pages/home.dart';
@@ -40,14 +38,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => ChangeNotifierProvider(
-      create: (context) => ThemeProvider(),
-      builder: (context, _) {
-        final themeProvider = Provider.of<ThemeProvider>(context, listen: true);
-        return MaterialApp(
-          themeMode: themeProvider.themeMode,
-          theme: Themes.lightTheme,
-          darkTheme: Themes.darkTheme,
-          home: const Home(),
-        );
-      });
+    create: (context) => ThemeProvider(),
+    builder: (context, _) {
+      final themeProvider = Provider.of<ThemeProvider>(context, listen: true);
+      return MaterialApp(
+      themeMode: themeProvider.themeMode,
+      theme: Themes.lightTheme,
+      darkTheme: Themes.darkTheme,  
+      home: const LandingPage(),
+      );
+    });
 }

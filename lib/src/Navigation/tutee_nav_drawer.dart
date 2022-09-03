@@ -2,7 +2,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tutor_me/services/models/tutees.dart';
+import 'package:tutor_me/services/models/users.dart';
 import 'package:tutor_me/src/Navigation/switch_change_theme.dart';
 import 'package:tutor_me/src/theme/themes.dart';
 import '../../services/services/tutee_services.dart';
@@ -12,7 +12,7 @@ import 'package:tutor_me/src/authenticate/register_or_login.dart';
 
 // ignore: must_be_immutable
 class TuteeNavigationDrawerWidget extends StatefulWidget {
-  Tutees user;
+  Users user;
 
   TuteeNavigationDrawerWidget({
     Key? key,
@@ -57,23 +57,18 @@ class TuteeNavigationDrawerState extends State<TuteeNavigationDrawerWidget> {
 
   @override
   Widget build(BuildContext context) {
-      // final text = MediaQuery.of(context).platformBrightness == Brightness.dark;
-    final provider = Provider.of<ThemeProvider>(context,listen: false);
-    Color drawerColor ;
-    if(provider.themeMode == ThemeMode.dark)
-    {
+    // final text = MediaQuery.of(context).platformBrightness == Brightness.dark;
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
+    Color drawerColor;
+    if (provider.themeMode == ThemeMode.dark) {
       drawerColor = colorDarkGrey;
-    }
-    else
-    {
+    } else {
       drawerColor = colorOrange;
     }
-
 
     return Drawer(
       child: Material(
           color: drawerColor,
-          
           child: ListView(
               // padding: const EdgeInsets.symmetric(horizontal: 20),
               children: <Widget>[
@@ -94,16 +89,14 @@ class TuteeNavigationDrawerState extends State<TuteeNavigationDrawerWidget> {
                     //     ));
                   },
                 ),
-
                 buildMenu(
                     text: 'Settings',
                     icon: Icons.settings,
                     onClicked: () => selected(context, 1)),
                 const ChangeThemeButtonWidget(),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height *0.4,
+                  height: MediaQuery.of(context).size.height * 0.4,
                 ),
-                 
                 buildMenu(
                   text: 'Logout',
                   icon: Icons.logout,

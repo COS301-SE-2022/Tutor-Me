@@ -18,7 +18,6 @@ builder.Services.AddScoped<IModuleService,ModuleServices>();
 builder.Services.AddScoped<IInstitutionService, InstitutionServices>();
 builder.Services.AddScoped<IGroupMemberService, GroupMemberServices>();
 builder.Services.AddScoped<IGroupService, GroupServices>();
-builder.Services.AddScoped<IUserModuleService, UserModuleServices>();
 builder.Services.AddScoped<IUserAuthenticationService, UserAuthenticationServices>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

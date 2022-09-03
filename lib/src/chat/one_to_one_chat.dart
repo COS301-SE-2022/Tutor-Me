@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:grouped_list/grouped_list.dart';
 import 'package:tutor_me/src/tutorProfilePages/tutor_profile_view.dart';
-import '../../services/models/tutors.dart';
+import '../../services/models/users.dart';
 import '../chat/message.dart';
 import 'package:intl/intl.dart';
 
@@ -59,7 +59,7 @@ class ChatState extends State<Chat> {
         appBar: AppBar(
           backgroundColor: colorOrange,
           title: InkWell(
-            onTap: widget.reciever is Tutors
+            onTap: widget.reciever is Users
                 ? () {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (BuildContext context) => TutorProfilePageView(

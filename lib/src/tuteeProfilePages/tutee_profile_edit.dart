@@ -3,22 +3,23 @@ import 'dart:typed_data';
 // import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:tutor_me/services/services/tutee_services.dart';
+import 'package:tutor_me/services/services/user_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/components.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../services/models/tutees.dart';
+import '../../services/models/users.dart';
 
 class ToReturn {
   Uint8List image;
-  Tutees user;
+  Users user;
 
   ToReturn(this.image, this.user);
 }
 
 // ignore: must_be_immutable
 class TuteeProfileEdit extends StatefulWidget {
-  final Tutees user;
+  final Users user;
   Uint8List image;
   final bool imageExists;
   TuteeProfileEdit(
@@ -155,7 +156,7 @@ class _TuteeProfileEditState extends State<TuteeProfileEdit> {
               }
               if (nameController.text.isNotEmpty ||
                   bioController.text.isNotEmpty) {
-                await TuteeServices.updateTutee(widget.user);
+                await UserServices.updateTutee(widget.user);
               }
 
               setState(() {

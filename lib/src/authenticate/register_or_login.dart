@@ -128,8 +128,9 @@ class _RegisterOrLoginState extends State<RegisterOrLogin> {
                 },
                 child: Image.asset("assets/Pictures/student.jpg"),
                 style: ElevatedButton.styleFrom(
-                    minimumSize: Size.zero, backgroundColor: const Color(0xffD6521B),
-                    padding: EdgeInsets.zero),
+                    minimumSize: Size.zero,
+                    padding: EdgeInsets.zero,
+                    backgroundColor: const Color(0xffD6521B)),
               ),
               height: screenHeightSize * 0.28,
               decoration: BoxDecoration(
@@ -198,7 +199,7 @@ class _RegisterOrLoginState extends State<RegisterOrLogin> {
                 style: ElevatedButton.styleFrom(
                     minimumSize: Size.zero,
                     padding: EdgeInsets.zero,
-                    primary: const Color(0xffD6521B)),
+                    backgroundColor: const Color(0xffD6521B)),
               ),
               height: screenHeightSize * 0.28,
               decoration: BoxDecoration(

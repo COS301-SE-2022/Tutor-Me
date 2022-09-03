@@ -3,10 +3,9 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import 'package:tutor_me/src/authenticate/login.dart';
 import 'package:tutor_me/src/colorpallete.dart';
+import '../../services/services/user_services.dart';
 import '../components.dart';
 import 'register_step2.dart';
-import '../../services/services/tutee_services.dart';
-import '../../services/services/tutor_services.dart';
 import 'package:email_auth/email_auth.dart';
 
 class RegisterStep1 extends StatefulWidget {
@@ -19,7 +18,7 @@ class RegisterStep1 extends StatefulWidget {
 class _RegisterStep1State extends State<RegisterStep1> {
   String inputOTP = "";
   String errMsg = "";
-  EmailAuth emailAuth = EmailAuth(sessionName: "Tutor Me");
+  EmailAuth emailAuth = EmailAuth(sessionName: "TutorWhizz");
   void sendOTP() async {
     var res = await emailAuth.sendOtp(
         recipientMail: emailController.text, otpLength: 5);
@@ -292,7 +291,7 @@ class _RegisterStep1State extends State<RegisterStep1> {
 
                     if (toRegister == "Tutor") {
                       bool isThereTutorWithEmail =
-                          await TutorServices.isThereTutorByEmail(
+                          await UserServices.isThereTutorByEmail(
                               emailController.text);
 
                       if (isThereTutorWithEmail) {
@@ -301,7 +300,7 @@ class _RegisterStep1State extends State<RegisterStep1> {
                       }
                     } else {
                       bool isThereTuteeWithEmail =
-                          await TuteeServices.isThereTuteeByEmail(
+                          await UserServices.isThereTuteeByEmail(
                               emailController.text);
 
                       if (isThereTuteeWithEmail) {
@@ -309,6 +308,7 @@ class _RegisterStep1State extends State<RegisterStep1> {
                             "ERROR: A Tutee is registered with this email\n";
                       }
                     }
+
                     sendOTP();
 
                     if (errMsg != "") {
@@ -349,6 +349,16 @@ class _RegisterStep1State extends State<RegisterStep1> {
                       );
                     } else {
                       _displayTextInputDialog(context);
+                      // Navigator.push(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //       builder: (context) => RegisterStep2(
+                      //         email: emailController.text,
+                      //         password: passwordController.text,
+                      //         confirmPassword: confirmPasswordController.text,
+                      //         toRegister: toRegister,
+                      //       ),
+                      //     ));
                     }
                   },
                   child: isLoading

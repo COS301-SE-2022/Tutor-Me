@@ -23,55 +23,95 @@ namespace TutorMe.Controllers
         [HttpGet]
         public IActionResult GetAllRequests()
         {
-            var requests = requestService.GetAllRequests();
-            return Ok(requests);
+            try {
+                var requests = requestService.GetAllRequests();
+                return Ok(requests);
+            }
+            catch (Exception exception) {
+                return BadRequest(exception.Message);
+            }
         }
 
         [HttpGet("{id}")]
         public IActionResult GetRequestById(Guid id)
         {
-            var request = requestService.GetRequestById(id);
-            return Ok(request);
+            try {
+                var request = requestService.GetRequestById(id);
+                return Ok(request);
+            }
+            catch (Exception exception) {
+                return BadRequest(exception.Message);
+            }
         }
 
         [HttpPost]
         public IActionResult createRequest(Request request)
         {
-            var requestId = requestService.createRequest(request);
-            return Ok(requestId);
+            try {
+                var requestId = requestService.createRequest(request);
+                return Ok(requestId);
+            }
+            catch (Exception exception) {
+                return BadRequest(exception.Message);
+            }
         }
 
         [HttpDelete("{id}")]
         public IActionResult DeleteRequest(Guid id)
         {
-            var request = requestService.deleteRequestById(id);
-            return Ok(request);
+            try {
+                var request = requestService.deleteRequestById(id);
+                return Ok(request);
+            }
+            catch (Exception exception) {
+                return BadRequest(exception.Message);
+            }
         }
 
-        [HttpGet("tutor/{id}")]
+        [HttpGet("/tutor/{id}")]
         public IActionResult GetRequestByTutorById(Guid id)
         {
-            var request = requestService.GetRequestByTutorById(id);
-            return Ok(request);
+            try {
+                var request = requestService.GetRequestByTutorById(id);
+                return Ok(request);
+            }
+            catch (Exception exception) {
+                return BadRequest(exception.Message);
+            }
         }
 
-        [HttpGet("tutee/{id}")]
+        [HttpGet("/tutee/{id}")]
         public IActionResult GetRequestByTuteeById(Guid id)
         {
-            var request = requestService.GetRequestByTuteeById(id);
-            return Ok(request);
+            try {
+                var request = requestService.GetRequestByTuteeById(id);
+                return Ok(request);
+            }
+            catch (Exception exception) {
+                return BadRequest(exception.Message);
+            }
         }
 
-        [HttpGet("accept/{id}")]
+        [HttpGet("/accept/{id}")]
         public IActionResult AcceptRequestById(Guid id) {
-            var request = requestService.AcceptRequestById(id);
-            return Ok(request);
+            try {
+                var request = requestService.AcceptRequestById(id);
+                return Ok(request);
+            }
+            catch (Exception exception) {
+                return BadRequest(exception.Message);
+            }
         }
 
         [HttpGet("reject/{id}")]
         public IActionResult RejectRequestById(Guid id) {
-            var request = requestService.RejectRequestById(id);
-            return Ok(request);
+            try { 
+                var request = requestService.RejectRequestById(id);
+                return Ok(request);
+            }
+            catch (Exception exception) {
+                return BadRequest(exception.Message);
+            }
         }
     }
 }

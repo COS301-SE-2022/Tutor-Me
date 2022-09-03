@@ -12,7 +12,6 @@ namespace TutorMe.Models
         public Guid TutorId { get; set; }
         public Guid TuteeId { get; set; }
         public Guid ModuleId { get; set; }
-        public Guid? TuteeUserId { get; set; }
 
         [JsonIgnore]
         public virtual Module Module { get; set; }

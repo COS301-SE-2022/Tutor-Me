@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:tutor_me/src/colorpallete.dart';
-import '../../services/services/tutor_services.dart';
+import '../../services/services/user_services.dart';
 import '../components.dart';
 
 class DeleteTutor extends StatefulWidget {
@@ -134,7 +134,7 @@ class DeleteTutorState extends State<DeleteTutor> {
                         },
                       );
                     }
-                    TutorServices.deleteTutor(idcontroller.text);
+                    UserServices.deleteUser(idcontroller.text);
                   },
                   child: isLoading
                       ? const CircularProgressIndicator(color: Colors.white)

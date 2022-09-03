@@ -2,16 +2,16 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tutor_me/services/models/tutors.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/theme/themes.dart';
-import '../../services/services/tutor_services.dart';
+import '../../services/services/user_services.dart';
+import '../../services/models/users.dart';
 import '../tutorProfilePages/settings_pofile_view.dart';
 import 'package:tutor_me/src/authenticate/register_or_login.dart';
 
 // ignore: must_be_immutable
 class TutorNavigationDrawerWidget extends StatefulWidget {
-  Tutors user;
+  Users user;
 
   TutorNavigationDrawerWidget({Key? key, required this.user}) : super(key: key);
 
@@ -30,7 +30,7 @@ class TutorNavigationDrawerState extends State<TutorNavigationDrawerWidget> {
 
   getTutorProfileImage() async {
     try {
-      final image = await TutorServices.getTutorProfileImage(widget.user.getId);
+      final image = await UserServices.getProfileImage(widget.user.getId);
 
       setState(() {
         tutorImage = image;
@@ -54,14 +54,11 @@ class TutorNavigationDrawerState extends State<TutorNavigationDrawerWidget> {
 
   @override
   Widget build(BuildContext context) {
-       final provider = Provider.of<ThemeProvider>(context,listen: false);
-    Color drawerColor ;
-    if(provider.themeMode == ThemeMode.dark)
-    {
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
+    Color drawerColor;
+    if (provider.themeMode == ThemeMode.dark) {
       drawerColor = colorDarkGrey;
-    }
-    else
-    {
+    } else {
       drawerColor = colorOrange;
     }
 
