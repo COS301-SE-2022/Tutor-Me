@@ -10,7 +10,7 @@ import 'pages/calls_page.dart';
 import 'pages/home.dart';
 import 'pages/tutors_list.dart';
 import 'pages/chats_page.dart';
-import 'tutorAndTuteeCollaboration/tutorGroups/tutor_groups.dart';
+import 'tutorAndTuteeCollaboration/tuteeGroups/tutee_groups.dart';
 
 class TuteePage extends StatefulWidget {
   final Users user;
@@ -29,7 +29,7 @@ class TuteePageState extends State<TuteePage> {
     return [
       const Home(),
       Chats(user: widget.user),
-      TutorGroups(tutor: widget.user),
+      TuteeGroups(tutee: widget.user),
       const Calls()
     ];
   }

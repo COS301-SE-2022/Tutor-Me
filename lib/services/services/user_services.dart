@@ -737,7 +737,7 @@ class UserServices {
     String data = jsonEncode({
       'email': email,
       'password': password,
-      'typeId': '3fa85f64-5717-4562-b3fc-2c963f66afa6'
+      'typeId': '7654103a-01ba-4277-b5e9-82746855f9f4'
     });
     final header = <String, String>{
       'Content-Type': 'application/json; charset=utf-8',
@@ -758,7 +758,6 @@ class UserServices {
     }
   }
 
-
   static createFileRecord(String id) async {
     String data =
         jsonEncode({'id': id, 'tuteeImage': '', 'tuteeTranscript': ''});
@@ -778,7 +777,6 @@ class UserServices {
       rethrow;
     }
   }
-
 
   static uploadProfileImage(File? image, String id) async {
     final imageByte = base64Encode(image!.readAsBytesSync());
@@ -843,7 +841,7 @@ class UserServices {
     String data = jsonEncode({
       'email': email,
       'password': password,
-      'typeId': '3fa85f64-5717-4562-b3fc-2c963f66afa6'
+      'typeId': '54cca757-54ec-4671-a714-64208c5197fb'
     });
     final header = <String, String>{
       'Content-Type': 'application/json; charset=utf-8',

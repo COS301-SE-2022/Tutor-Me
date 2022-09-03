@@ -220,7 +220,8 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (BuildContext context) => ChatPage(
                                       user: widget.tutor,
-                                      group: widget.group)));
+                                      group: widget.group,
+                                      moduleCode: widget.group.getDescription,)));
                             },
                             child: Card(
                               elevation: 0,

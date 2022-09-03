@@ -110,7 +110,7 @@ class _AddModulesPageState extends State<AddModulesPage> {
 
   getTutorGroups() async {
     final groups =
-        await GroupServices.getGroupByUserID(widget.user.getId, 'tutor');
+        await GroupServices.getGroupByUserID(widget.user.getId);
 
     tutorGroups = groups;
     setState(() {
