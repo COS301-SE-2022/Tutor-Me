@@ -3,6 +3,8 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:tutor_me/services/models/groups.dart';
 
+import '../models/users.dart';
+
 class GroupServices {
   static createGroup(
     String moduleId,
@@ -86,8 +88,8 @@ class GroupServices {
   }
 
   static Future getGroupByUserID(String userId) async {
-    Uri url = Uri.http('tutorme-prod.us-east-1.elasticbeanstalk.com',
-        'api/Groups/Users/$userId');
+    Uri url = Uri.http('tutorme-dev.us-east-1.elasticbeanstalk.com',
+        'api/GroupMembers/group/$userId');
 
     try {
       final response = await http.get(url, headers: {
@@ -104,6 +106,33 @@ class GroupServices {
         }
         final List list = json.decode(j);
         return list.map((json) => Groups.fromObject(json)).toList();
+      } else {
+        throw Exception('Failed to load' + response.body);
+      }
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  static getGroupTutees(String groupId) async {
+    Uri url = Uri.http('tutorme-dev.us-east-1.elasticbeanstalk.com',
+        'api/GroupMembers/tutee/$groupId');
+
+    try {
+      final response = await http.get(url, headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*"
+      });
+      if (response.statusCode == 200) {
+        String j = "";
+        if (response.body[0] != "[") {
+          j = "[" + response.body + "]";
+        } else {
+          j = response.body;
+        }
+        final List list = json.decode(j);
+        return list.map((json) => Users.fromObject(json)).toList();
       } else {
         throw Exception('Failed to load' + response.body);
       }

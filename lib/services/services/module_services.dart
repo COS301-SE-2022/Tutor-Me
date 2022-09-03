@@ -131,14 +131,8 @@ class ModuleServices {
         "Access-Control-Allow-Origin": "*"
       });
       if (response.statusCode == 200) {
-        String j = "";
-        if (response.body[0] != "[") {
-          j = "[" + response.body + "]";
-        } else {
-          j = response.body;
-        }
-        final List list = json.decode(j);
-        return list.map((json) => Modules.fromObject(json)).toList();
+        final module = Modules.fromObject(json.decode(response.body));
+        return module;
       } else {
         throw Exception('Failed to load');
       }
