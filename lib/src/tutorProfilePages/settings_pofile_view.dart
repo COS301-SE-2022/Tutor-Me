@@ -10,7 +10,6 @@ import 'package:tutor_me/src/tutorProfilePages/user_stats.dart';
 import '../../services/models/intitutions.dart';
 import '../../services/models/modules.dart';
 import '../../services/models/users.dart';
-import '../../services/services/user_services.dart';
 import '../components.dart';
 import '../tuteeProfilePages/edit_module_list.dart';
 
@@ -47,7 +46,6 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
   getCurrentModules() async {
     numTutees = 2;
     numConnections = 3;
-    //TODO:get current modules
 
     final currentModulesList =
         await ModuleServices.getUsermodules(widget.user.getId);

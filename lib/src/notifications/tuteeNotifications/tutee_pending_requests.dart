@@ -3,16 +3,12 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:tutor_me/services/models/modules.dart';
 import 'package:tutor_me/services/models/requests.dart';
-import 'package:tutor_me/services/models/tutees.dart';
-import 'package:tutor_me/services/models/tutors.dart';
-import 'package:tutor_me/services/services/group_services.dart';
 import 'package:tutor_me/services/services/module_services.dart';
 import 'package:tutor_me/services/services/tutee_services.dart';
 import 'package:tutor_me/services/services/user_services.dart';
 // import 'package:tutor_me/services/services/tutor_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 
-import '../../../services/models/groups.dart';
 import '../../../services/models/users.dart';
 
 class Tutor {
@@ -51,10 +47,8 @@ class TuteePendingRequestsState extends State<TuteePendingRequests> {
   bool isLoading = true;
 
   getRequests() async {
-    print('hereee');
     final requests = await UserServices().getTuteeRequests(widget.user.getId);
     requestList = requests;
-    print(requestList.length);
     if (requestList.isEmpty) {
       setState(() {
         isLoading = false;

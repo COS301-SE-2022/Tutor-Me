@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-
-import '../../../services/models/tutees.dart';
 import '../../../services/models/users.dart';
 import 'tutee_activity.dart';
 import 'tutee_pending_requests.dart';

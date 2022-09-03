@@ -3,8 +3,6 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:tutor_me/services/models/modules.dart';
 import 'package:tutor_me/services/models/requests.dart';
-import 'package:tutor_me/services/models/tutees.dart';
-import 'package:tutor_me/services/models/tutors.dart';
 import 'package:tutor_me/services/services/group_services.dart';
 import 'package:tutor_me/services/services/module_services.dart';
 import 'package:tutor_me/services/services/tutee_services.dart';
@@ -51,10 +49,8 @@ class TutorRequestsState extends State<TutorRequests> {
   bool isLoading = true;
 
   getRequests() async {
-    print('hereee');
     final requests = await UserServices().getTutorRequests(widget.user.getId);
     requestList = requests;
-    print(requestList.length);
     if (requestList.isEmpty) {
       setState(() {
         isLoading = false;
@@ -122,12 +118,6 @@ class TutorRequestsState extends State<TutorRequests> {
           }
         }
         if (!val) {
-          print('1: ' +
-              tuteeList.length.toString() +
-              ' ' +
-              tuteeImages.length.toString() +
-              ' ' +
-              modules.length.toString());
           tutees.add(Tutee(tuteeList[i], tuteeImages[i], false, modules[i]));
         } else {
           tutees.add(Tutee(tuteeList[i], tuteeImages[i], true, modules[i]));
@@ -351,7 +341,6 @@ class TutorRequestsState extends State<TutorRequests> {
                                 setState(() {
                                   isDeclining[i] = true;
                                 });
-                                //TODO: update request declining
 
                                 await UserServices()
                                     .declineRequest(requestList[i].getId);

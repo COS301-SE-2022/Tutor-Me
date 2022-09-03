@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tutor_me/services/models/tutors.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 
 import '../../../services/models/users.dart';

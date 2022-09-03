@@ -8,7 +8,6 @@ import 'package:tutor_me/services/services/institution_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/tutor_page.dart';
 // import '../../services/models/tutees.dart';
-import '../../services/services/module_services.dart';
 import '../../services/services/user_services.dart';
 import '../components.dart';
 import '../tutee_page.dart';
@@ -157,7 +156,9 @@ class _RegisterStep3State extends State<RegisterStep3> {
         items = items;
       });
     } catch (e) {
-      print(e);
+      const snackBar = SnackBar(content: Text('Failed to load'));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      getInstitutions();
     }
   }
 
@@ -178,13 +179,10 @@ class _RegisterStep3State extends State<RegisterStep3> {
   void initState() {
     super.initState();
     getInstitutions();
-
-
   }
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       // key: _scaffoldKey,
       resizeToAvoidBottomInset: false,
@@ -415,8 +413,8 @@ class _RegisterStep3State extends State<RegisterStep3> {
                         institution = val;
                       },
                     );
-                    for(int i =0 ;i<institutions.length;i++){
-                      if(institutions[i].getName == val){
+                    for (int i = 0; i < institutions.length; i++) {
+                      if (institutions[i].getName == val) {
                         institutionIdToPassIn = institutions[i].getId;
                       }
                     }

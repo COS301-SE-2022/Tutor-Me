@@ -8,7 +8,6 @@ import 'package:tutor_me/src/tuteeProfilePages/tutee_profile.dart';
 import '../../services/models/groups.dart';
 import '../../services/models/modules.dart';
 import '../../services/models/users.dart';
-import '../../services/services/tutee_services.dart';
 import 'add_modules.dart';
 
 // ignore: must_be_immutable
@@ -168,14 +167,12 @@ class _EditModuleListState extends State<EditModuleList> {
                                     isConfirming = true;
                                   });
                                   try {
-                                    //TODO: update modules
 
                                     for (var module in widget.currentModules) {
                                       try {
                                         await ModuleServices.addUserModule(
                                             widget.user.getId, module);
                                       } catch (e) {
-                                        print(e);
                                         continue;
                                       }
                                     }
@@ -414,20 +411,8 @@ class _EditModuleListState extends State<EditModuleList> {
                           isConfirming = true;
                         });
                         try {
-                          String modules = "";
-                          for (int i = 0;
-                              i < widget.currentModules.length;
-                              i++) {
-                            modules += widget.currentModules[i].getCode;
-                            if (i != widget.currentModules.length - 1) {
-                              modules += ',';
-                            }
-                          }
-                          //TODO: update modules
 
-                          // widget.user.setModules = modules;
-
-                          if (widget.user is Users) {
+                         
                             await UserServices.updateTutor(widget.user);
 
                             if (tutorGroups.isEmpty) {
@@ -457,9 +442,7 @@ class _EditModuleListState extends State<EditModuleList> {
                                     widget.user.getId);
                               }
                             }
-                          } else {
-                            // await TuteeServices.updateTutee(widget.user);
-                          }
+                          
 
                           Navigator.pop(context, widget.currentModules);
                         } catch (e) {

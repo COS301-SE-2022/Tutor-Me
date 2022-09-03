@@ -3,7 +3,6 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tutor_me/services/models/users.dart';
-import 'package:tutor_me/services/services/tutee_services.dart';
 import 'package:tutor_me/src/theme/themes.dart';
 // import 'package:tutor_me/src/colorPalette.dart';
 

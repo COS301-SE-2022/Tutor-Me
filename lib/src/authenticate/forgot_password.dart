@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import 'package:tutor_me/src/colorpallete.dart';
-import '../../services/models/tutees.dart';
-import '../../services/models/tutors.dart';
 import '../components.dart';
 import 'package:email_auth/email_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';

@@ -12,7 +12,6 @@ import '../../services/models/modules.dart';
 import '../../services/models/users.dart';
 import '../../services/services/institution_services.dart';
 import '../../services/services/module_services.dart';
-import '../../services/services/user_services.dart';
 import '../components.dart';
 import 'edit_module_list.dart';
 import 'tutee_profile_edit.dart';

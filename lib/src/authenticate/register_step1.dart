@@ -6,8 +6,6 @@ import 'package:tutor_me/src/colorpallete.dart';
 import '../../services/services/user_services.dart';
 import '../components.dart';
 import 'register_step2.dart';
-import '../../services/services/tutee_services.dart';
-import '../../services/services/tutor_services.dart';
 import 'package:email_auth/email_auth.dart';
 
 class RegisterStep1 extends StatefulWidget {

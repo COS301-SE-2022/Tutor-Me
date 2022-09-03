@@ -15,7 +15,6 @@ import '../models/requests.dart';
 // import 'package:flutter_string_encryption/flutter_string_encryption.dart';
 
 class TuteeServices {
-  //TODO: undo a request
   sendRequest(String receiverId, String requesterId, String moduleCode) async {
     try {
       final url = Uri.http(

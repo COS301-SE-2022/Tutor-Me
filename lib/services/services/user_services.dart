@@ -15,7 +15,7 @@ import '../models/requests.dart';
 // import 'package:flutter_string_encryption/flutter_string_encryption.dart';
 
 class UserServices {
-  //TODO: undo a request
+  //
   sendRequest(String receiverId, String requesterId, String moduleId) async {
     try {
       final url = Uri.http(
@@ -149,7 +149,7 @@ class UserServices {
     }
   }
 
-  //TODO: accept request
+  //
 
   acceptRequest(String requestId) async {
     try {
@@ -758,7 +758,6 @@ class UserServices {
     }
   }
 
-  //TODO: Add a function to get the modules of a tutor backend too
 
   static createFileRecord(String id) async {
     String data =
@@ -780,7 +779,6 @@ class UserServices {
     }
   }
 
-  //TODO: Add a function to get the modules of a tutor backend too
 
   static uploadProfileImage(File? image, String id) async {
     final imageByte = base64Encode(image!.readAsBytesSync());
@@ -801,8 +799,6 @@ class UserServices {
       rethrow;
     }
   }
-
-  //TODO: Add a function to get the modules of a tutor backend too
 
   static Future getProfileImage(String id) async {
     Uri tuteeURL = Uri.parse(

@@ -30,7 +30,6 @@ class TutorNavigationDrawerState extends State<TutorNavigationDrawerWidget> {
 
   getTutorProfileImage() async {
     try {
-      print('getting image');
       final image = await UserServices.getProfileImage(widget.user.getId);
 
       setState(() {
@@ -39,7 +38,6 @@ class TutorNavigationDrawerState extends State<TutorNavigationDrawerWidget> {
         isImageLoading = false;
       });
     } catch (e) {
-      print('error getting image');
       setState(() {
         tutorImage = Uint8List(128);
         isImageLoading = false;

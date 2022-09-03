@@ -258,7 +258,7 @@ class _HomeState extends State<Home> {
                                       left: screenWidthSize * 0.02),
                                   // ignore: unnecessary_string_interpolations
                                   child: Text(
-                                    "${titles[index]}",
+                                    titles[index],
                                     style: TextStyle(
                                         fontSize: screenWidthSize * 0.05,
                                         fontWeight: FontWeight.w500),

@@ -6,7 +6,6 @@ import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/pages/tutors_list.dart';
 // import '../../services/models/tutors.dart';
 import '../../services/models/users.dart';
-import '../../services/services/tutee_services.dart';
 import '../Groups/tutee_group.dart';
 import '../chat/one_to_one_chat.dart';
 // import 'package:tutor_me/modules/api.services.dart';
@@ -148,7 +147,7 @@ class ChatsState extends State<Chats> {
             children: <Widget>[
               ListTile(
                 leading: CircleAvatar(
-                  child: widget.user is Users
+                  child: userType.getType == 'Tutors'
                       ? tuteeChats[i].hasImage
                           ? ClipOval(
                               child: Image.memory(
@@ -200,10 +199,10 @@ class ChatsState extends State<Chats> {
               builder: (BuildContext context) => Chat(
                   reciever: userChats[i],
                   user: widget.user,
-                  image: widget.user is Users
+                  image: userType.getType == 'Tutors'
                       ? tuteeChats[i].image
                       : tutorChats[i].image,
-                  hasImage: widget.user is Users
+                  hasImage: userType.getType == 'Tutors'
                       ? tuteeChats[i].hasImage
                       : tutorChats[i].hasImage)));
         });
