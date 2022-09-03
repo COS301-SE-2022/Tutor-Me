@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:tutor_me/services/models/groups.dart';
 import 'package:tutor_me/services/services/group_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
-import '../../../services/models/tutees.dart';
+import '../../../services/models/users.dart';
 import '../../Groups/tutee_group.dart';
 
 class TuteeGroups extends StatefulWidget {
-  final Tutees tutee;
+  final Users tutee;
 
   const TuteeGroups({Key? key, required this.tutee}) : super(key: key);
 

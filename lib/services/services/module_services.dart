@@ -8,7 +8,7 @@ import 'package:tutor_me/services/models/modules.dart';
 class ModuleServices {
   static getModules() async {
     Uri modulesURL =
-        Uri.http('tutorme-prod.us-east-1.elasticbeanstalk.com', '/api/Modules');
+        Uri.http('tutorme-dev.us-east-1.elasticbeanstalk.com', '/api/Modules');
     try {
       final response = await http.get(modulesURL, headers: {
         "Accept": "application/json",
@@ -33,6 +33,32 @@ class ModuleServices {
     }
   }
 
+  static Future getUsermodules(String id) async {
+    Uri url = Uri.http(
+        'tutorme-dev.us-east-1.elasticbeanstalk.com', 'api/UserModules/$id');
+    try {
+      final response = await http.get(url, headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*"
+      });
+      if (response.statusCode == 200) {
+        String j = "";
+        if (response.body[0] != "[") {
+          j = "[" + response.body + "]";
+        } else {
+          j = response.body;
+        }
+        final List list = json.decode(j);
+        return list.map((json) => Modules.fromObject(json)).toList();
+      } else {
+        throw Exception('Failed to load' + response.statusCode.toString());
+      }
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
   static updateModule(Modules module) async {
     String data = jsonEncode({
       'code': module.getCode,
@@ -47,7 +73,7 @@ class ModuleServices {
     try {
       final code = module.getCode;
       final modulesURL = Uri.parse(
-          'http://tutorme-prod.us-east-1.elasticbeanstalk.com/api/Modules/$code');
+          'http://tutorme-dev.us-east-1.elasticbeanstalk.com/api/Modules/$code');
       final response = await http.put(modulesURL, headers: header, body: data);
       if (response.statusCode == 204) {
         return module;
@@ -59,21 +85,23 @@ class ModuleServices {
     }
   }
 
-  static deleteModule(String code) async {
+  static deleteModule(String id) async {
     final header = <String, String>{
       'Content-Type': 'application/json; charset=utf-8',
     };
     try {
       final modulesURL = Uri.parse(
-          'http://tutorme-prod.us-east-1.elasticbeanstalk.com/api/Modules/$code');
+          'http://tutorme-dev.us-east-1.elasticbeanstalk.com/api/Modules/$id');
       final response = await http.delete(modulesURL, headers: header);
-      if (response.statusCode == 204) {
+      if (response.statusCode == 200 ||
+          response.statusCode == 202 ||
+          response.statusCode == 204) {
         Fluttertoast.showToast(
             msg: "Module Deleted",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.CENTER,
             timeInSecForIosWeb: 1,
-            backgroundColor: Colors.red,
+            backgroundColor: Colors.orange,
             textColor: Colors.white,
             fontSize: 16.0);
       } else {
@@ -82,7 +110,7 @@ class ModuleServices {
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.CENTER,
             timeInSecForIosWeb: 1,
-            backgroundColor: Colors.red,
+            backgroundColor: Colors.grey,
             textColor: Colors.white,
             fontSize: 16.0);
         throw Exception(
@@ -95,7 +123,7 @@ class ModuleServices {
 
   static Future getModule(String id) async {
     Uri tutorURL = Uri.http(
-        'tutorme-prod.us-east-1.elasticbeanstalk.com', '/api/Modules/$id');
+        'tutorme-dev.us-east-1.elasticbeanstalk.com', '/api/Modules/$id');
     try {
       final response = await http.get(tutorURL, headers: {
         "Accept": "application/json",
@@ -130,14 +158,28 @@ class ModuleServices {
     return modulesByInstitution;
   }
 
-  static getInstitutions() async {
-    final modules = await getModules();
-    List institutions = [];
-    for (final item in modules) {
-      if (!institutions.contains(item.getInstitution)) {
-        institutions.add(item.getInstitution);
+  static addUserModule(String userId, Modules module) async {
+    String data = jsonEncode({
+      'userModuleId': userId,
+      'moduleId': module.getModuleId,
+      'userId': userId
+    });
+
+    final header = <String, String>{
+      'Content-Type': 'application/json; charset=utf-8',
+    };
+
+    Uri url = Uri.http(
+        'tutorme-dev.us-east-1.elasticbeanstalk.com', '/api/UserModules');
+    try {
+      final response = await http.post(url, headers: header, body: data);
+      if (response.statusCode == 200) {
+        return true;
+      } else {
+        throw Exception('Failed to load' + response.body);
       }
+    } catch (e) {
+      rethrow;
     }
-    return institutions;
   }
 }

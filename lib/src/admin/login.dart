@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tutor_me/services/models/admins.dart';
+import 'package:tutor_me/services/models/users.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import '../components.dart';
 import './admin_home.dart';
@@ -18,7 +18,7 @@ class LoginAdminState extends State<LoginAdmin> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  late Admins admin;
+  late Users admin;
 
   bool isLoading = false;
   int? initialIndex = 0;

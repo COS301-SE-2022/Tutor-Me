@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:tutor_me/src/colorpallete.dart';
-import '../../services/services/tutor_services.dart';
+import '../../services/services/user_services.dart';
 import '../components.dart';
 
 class UpdateTutor extends StatefulWidget {
@@ -148,7 +148,7 @@ class UpdateTutorState extends State<UpdateTutor> {
                         },
                       );
                     }
-                    TutorServices.updateTutorByEmail(
+                    UserServices.updateTutorByEmail(
                         oldemailcontroller.text, newemailcontroller.text);
                   },
                   child: isLoading

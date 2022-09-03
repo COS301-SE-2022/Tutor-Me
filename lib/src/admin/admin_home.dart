@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tutor_me/src/authenticate/register_or_login.dart';
-import '../../services/models/admins.dart';
+import '../../services/models/users.dart';
 import 'admin.dart';
 
 void main() => runApp(const MaterialApp(home: Admin()));
 
 class AdminHome extends StatefulWidget {
-  final Admins user;
+  final Users user;
   const AdminHome({Key? key, required this.user}) : super(key: key);
 
   @override

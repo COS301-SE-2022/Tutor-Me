@@ -10,7 +10,7 @@ class GroupServices {
     String tutorId,
   ) async {
     final groupsURL =
-        Uri.http('tutorme-prod.us-east-1.elasticbeanstalk.com', '/api/Groups');
+        Uri.http('tutorme-dev.us-east-1.elasticbeanstalk.com', '/api/Groups');
 
     String data = jsonEncode({
       'moduleCode': moduleCode,
@@ -38,7 +38,7 @@ class GroupServices {
 
   static getGroups() async {
     Uri groupsURL =
-        Uri.http('tutorme-prod.us-east-1.elasticbeanstalk.com', '/api/Groups');
+        Uri.http('tutorme-dev.us-east-1.elasticbeanstalk.com', '/api/Groups');
     try {
       final response = await http.get(groupsURL, headers: {
         "Accept": "application/json",
@@ -65,7 +65,7 @@ class GroupServices {
 
   static Future getGroup(String id) async {
     Uri url = Uri.http(
-        'tutorme-prod.us-east-1.elasticbeanstalk.com', 'api/Groups/$id');
+        'tutorme-dev.us-east-1.elasticbeanstalk.com', 'api/Groups/$id');
     try {
       final response = await http.get(url, headers: {
         "Accept": "application/json",
@@ -128,7 +128,6 @@ class GroupServices {
       'description': group.getDescription,
       'groupLink': group.getGroupLink
     });
-   
 
     final header = <String, String>{
       'Content-Type': 'application/json; charset=utf-8',
@@ -136,7 +135,7 @@ class GroupServices {
     try {
       final id = group.getId;
       final modulesURL = Uri.parse(
-          'http://tutorme-prod.us-east-1.elasticbeanstalk.com/api/Groups/$id');
+          'http://tutorme-dev.us-east-1.elasticbeanstalk.com/api/Groups/$id');
       final response = await http.put(modulesURL, headers: header, body: data);
       if (response.statusCode == 204) {
         return group;
@@ -151,7 +150,7 @@ class GroupServices {
   static deleteGroup(String id) async {
     try {
       final url = Uri.http(
-          'tutorme-prod.us-east-1.elasticbeanstalk.com', 'api/Groups/$id');
+          'tutorme-dev.us-east-1.elasticbeanstalk.com', 'api/Groups/$id');
       final header = {
         "Accept": "application/json",
         "Content-Type": "application/json",
