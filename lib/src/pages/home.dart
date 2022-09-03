@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/pages/badges.dart';
+import 'package:tutor_me/src/pages/calendar.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -13,20 +14,6 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        // appBar: AppBar(
-        //     // backgroundColor: const Color(0xffD6521B),
-        //     centerTitle: true,
-        //     title: const Text('Home'),
-        //     flexibleSpace: Container(
-        //       decoration: const BoxDecoration(
-        //           // borderRadius:
-        //           //     BorderRadius.vertical(bottom: Radius.circular(60)),
-        //           gradient: LinearGradient(
-        //               colors: <Color>[Colors.orange, Colors.red],
-        //               begin: Alignment.topCenter,
-        //               end: Alignment.bottomCenter)),
-        //     ),
-        //   ),
         body: ListView(
       padding: EdgeInsets.zero,
       children: <Widget>[
@@ -44,19 +31,16 @@ class _HomeState extends State<Home> {
       "assets/Pictures/groups.jpg",
       "assets/Pictures/badges.jpg",
       "assets/Pictures/calendar.jpg",
+      "assets/Pictures/book.jpg",
     ];
     final titles = [
       "Tutees",
       "Groups",
       "Badges",
       "Calendar",
+      "Book for a Tutor"
     ];
-    final numberStats = [
-      "4",
-      "4",
-      "2",
-      "more info",
-    ];
+    final numberStats = ["4", "4", "2", "more info", "more info"];
 
     // FilePickerResult? filePickerResult;
     // String? fileName;
@@ -138,7 +122,7 @@ class _HomeState extends State<Home> {
             children: <Widget>[
               Icon(
                 Icons.circle,
-                color: colorTurqoise,
+                color: colorLightGreen,
                 size: screenWidthSize * 0.03,
               ),
               SizedBox(width: screenWidthSize * 0.02),
@@ -164,7 +148,7 @@ class _HomeState extends State<Home> {
             children: <Widget>[
               Icon(
                 Icons.circle,
-                color: colorTurqoise,
+                color: colorLightGreen,
                 size: screenWidthSize * 0.03,
               ),
               SizedBox(width: screenWidthSize * 0.02),
@@ -202,13 +186,13 @@ class _HomeState extends State<Home> {
         Padding(
           padding: EdgeInsets.only(left: screenWidthSize * 0.1),
           child: SizedBox(
-            height: screenHeightSize * 0.4,
+            height: screenHeightSize * 0.6,
             width: screenWidthSize * 0.8,
             child: GridView.count(
               childAspectRatio: 1,
               physics: const NeverScrollableScrollPhysics(),
               crossAxisCount: 2,
-              children: List<Widget>.generate(4, (index) {
+              children: List<Widget>.generate(5, (index) {
                 return GridTile(
                   child: GestureDetector(
                     onTap: () {
@@ -222,6 +206,9 @@ class _HomeState extends State<Home> {
                             builder: (BuildContext context) => const Badges()));
                       } else if (index == 3) {
                         //render Calendar Page
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                const Calendar()));
                       }
                     },
                     child: Card(
@@ -256,7 +243,7 @@ class _HomeState extends State<Home> {
                                 ),
                                 Padding(
                                   padding: EdgeInsets.only(
-                                      left: screenWidthSize * 0.02),
+                                      left: screenWidthSize * 0.01),
                                   // ignore: unnecessary_string_interpolations
                                   child: Text(
                                     titles[index],
@@ -267,13 +254,13 @@ class _HomeState extends State<Home> {
                                 ),
                                 Padding(
                                   padding: EdgeInsets.only(
-                                    left: screenWidthSize * 0.02,
+                                    left: screenWidthSize * 0.01,
                                   ),
                                   child: Row(
                                     children: <Widget>[
                                       Icon(
                                         Icons.circle,
-                                        color: Colors.green,
+                                        color: colorLightGreen,
                                         size: screenWidthSize * 0.025,
                                       ),
                                       SizedBox(width: screenWidthSize * 0.02),

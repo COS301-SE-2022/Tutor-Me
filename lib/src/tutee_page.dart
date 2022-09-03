@@ -51,7 +51,7 @@ class TuteePageState extends State<TuteePage> {
       appBarColor2 = colorGrey;
       highlightColor = colorOrange;
     } else {
-      appBarColor1 = Colors.red;
+      appBarColor1 = Color.fromRGBO(244, 67, 54, 1);
       appBarColor2 = Colors.orange;
       highlightColor = colorTurqoise;
     }

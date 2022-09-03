@@ -74,9 +74,9 @@ class TuteeNavigationDrawerState extends State<TuteeNavigationDrawerWidget> {
               children: <Widget>[
                 buildNavHeader(context),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-                const Divider(
-                  color: colorWhite,
-                ),
+                // const Divider(
+                //   color: colorWhite,
+                // ),
                 buildMenu(
                   text: 'My Account',
                   icon: Icons.account_circle_outlined,
@@ -136,7 +136,13 @@ class TuteeNavigationDrawerState extends State<TuteeNavigationDrawerWidget> {
             },
       child: Container(
         padding: padding.add(EdgeInsets.symmetric(
-            vertical: MediaQuery.of(context).size.width * 0.05)),
+            vertical: MediaQuery.of(context).size.width * 0.08)),
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/Pictures/profileBackground.jpg'),
+            fit: BoxFit.cover,
+          ),
+        ),
         child: Row(children: <Widget>[
           CircleAvatar(
             backgroundColor: colorTurqoise,
