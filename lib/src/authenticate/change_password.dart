@@ -172,17 +172,14 @@ class ChangePasswordState extends State<ChangePassword> {
                           // TutorServices tutor = TutorServices.Login(
                           tutor =
                               await UserServices.getTutorByEmail(widget.email);
-                          print(tutor.getEmail);
                           await UserServices.changePassword(
                               tutor, newpasswordController.text);
-                          print('afterrrr');
                           Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => TutorPage(user: tutor)),
                           );
                         } catch (e) {
-                          print(e);
                           setState(() {
                             isLoading = false;
                           });
