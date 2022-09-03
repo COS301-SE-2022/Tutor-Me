@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:tutor_me/services/services/group_services.dart';
 // import 'package:tutor_me/src/chat/group_chat.dart';
 import 'package:tutor_me/src/colorpallete.dart';
+import '../../services/models/modules.dart';
 import '../pages/chat_page.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
@@ -28,7 +29,12 @@ class Tutee {
 class TutorGroupPage extends StatefulWidget {
   final Groups group;
   final Users tutor;
-  const TutorGroupPage({Key? key, required this.group, required this.tutor})
+  final Modules module;
+  const TutorGroupPage(
+      {Key? key,
+      required this.group,
+      required this.tutor,
+      required this.module})
       : super(key: key);
 
   @override
@@ -48,28 +54,22 @@ class TutorGroupPageState extends State<TutorGroupPage> {
   String _token = "";
   String _meetingID = "";
 
-  // getTutees() async {
-  //   if (widget.group.getTutees == '') {
-  //     setState(() {
-  //       hasTutees = false;
-  //       _isLoading = false;
-  //     });
-  //   } else {
-  //     try {
-  //       List<String> tuteeIds = widget.group.getTutees.split(',');
-  //       for (int i = 0; i < tuteeIds.length; i++) {
-  //         final tutee = await TuteeServices.getTutee(tuteeIds[i]);
-  //         tuteeList += tutee;
-  //       }
-  //     } catch (e) {
-  //       const snackBar = SnackBar(
-  //         content: Text('Failed to load tutees'),
-  //       );
-  //       ScaffoldMessenger.of(context).showSnackBar(snackBar);
-  //     }
-  //     getTuteeProfileImages();
-  //   }
-  // }
+  getTutees() async {
+    fetchToken().then((token) => setState(() => _token = token));
+    try {
+      final tutees = await GroupServices.getGroupTutees(widget.group.getId);
+      setState(() {
+        tuteeList = tutees;
+        if (tuteeList.isNotEmpty) {
+          hasTutees = true;
+        }
+      });
+    } catch (e) {
+      const snackBar = SnackBar(content: Text('Error getting tutees'));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
+    getTuteeProfileImages();
+  }
 
   getTuteeProfileImages() async {
     for (int i = 0; i < tuteeList.length; i++) {
@@ -85,23 +85,21 @@ class TutorGroupPageState extends State<TutorGroupPage> {
       }
     }
     for (int i = 0; i < tuteeList.length; i++) {
-      setState(() {
-        bool val = true;
-        for (int j = 0; j < hasImage.length; j++) {
-          if (hasImage[j] == i) {
-            val = false;
-            break;
-          }
+      bool val = true;
+      for (int j = 0; j < hasImage.length; j++) {
+        if (hasImage[j] == i) {
+          val = false;
+          break;
         }
-        if (!val) {
-          tutees.add(Tutee(tuteeList[i], tuteeImages[i], false));
-        } else {
-          tutees.add(Tutee(tuteeList[i], tuteeImages[i], true));
-        }
-      });
+      }
+      if (!val) {
+        tutees.add(Tutee(tuteeList[i], tuteeImages[i], false));
+      } else {
+        tutees.add(Tutee(tuteeList[i], tuteeImages[i], true));
+      }
     }
     setState(() {
-      hasTutees = true;
+      tutees = tutees;
       _isLoading = false;
     });
   }
@@ -110,8 +108,7 @@ class TutorGroupPageState extends State<TutorGroupPage> {
   void initState() {
     super.initState();
 
-    // getTutees();
-    fetchToken().then((token) => setState(() => _token = token));
+    getTutees();
   }
 
   @override
@@ -122,7 +119,7 @@ class TutorGroupPageState extends State<TutorGroupPage> {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(screenHeight * 0.08),
         child: AppBar(
-          title: const Text('- Group'),
+          title: Text(widget.module.getCode + '- Group'),
           backgroundColor: colorOrange,
           actions: [
             IconButton(onPressed: () {}, icon: const Icon(Icons.settings))
