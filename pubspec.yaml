@@ -34,9 +34,11 @@ dependencies:
   grouped_list: ^4.2.0
   signalr_core: ^1.1.1
 
+  table_calendar: ^3.0.6
+
   smooth_page_indicator: ^1.0.0+2
 
-  provider: ^5.0.0
+  provider: ^6.0.3
 
   
 dev_dependencies:

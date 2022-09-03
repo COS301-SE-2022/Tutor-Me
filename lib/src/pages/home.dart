@@ -92,7 +92,8 @@ class _HomeState extends State<Home> {
                 Column(
                   children: <Widget>[
                     Padding(
-                      padding: const EdgeInsets.all(6.0),
+                      padding: EdgeInsets.all(
+                          MediaQuery.of(context).size.height * 0.01),
                       child: Text(
                         "Kuda Christine",
                         style: TextStyle(
@@ -241,7 +242,7 @@ class _HomeState extends State<Home> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
                                 Container(
-                                  height: screenHeightSize * 0.1,
+                                  height: screenHeightSize * 0.09,
                                   width: screenWidthSize * 0.4,
                                   decoration: BoxDecoration(
                                     borderRadius: const BorderRadius.only(

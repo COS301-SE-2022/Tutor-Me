@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:tutor_me/services/models/groups.dart';
 // import 'package:tutor_me/services/models/tutors.dart';
 
+import '../../services/models/modules.dart';
 import '../models/message_model.dart';
 import '../widgets/chat_appbar_widget.dart';
 import '../widgets/chat_message_list_widget.dart';
@@ -14,7 +15,8 @@ import 'package:signalr_core/signalr_core.dart';
 class ChatPage extends StatefulWidget {
   final dynamic user;
   final Groups group;
-  const ChatPage({Key? key, required this.group, required this.user})
+  final String moduleCode;
+  const ChatPage({Key? key, required this.group, required this.user, required this.moduleCode}) 
       : super(key: key);
 
   @override
@@ -22,6 +24,10 @@ class ChatPage extends StatefulWidget {
 }
 
 class _ChatPageState extends State<ChatPage> {
+
+  late Modules module ;
+  
+
   @override
   void initState() {
     super.initState();
@@ -78,7 +84,7 @@ class _ChatPageState extends State<ChatPage> {
         width: size.width,
         child: Column(
           children: [
-            chatAppbarWidget(size, context, widget.group.getModuleCode),
+            chatAppbarWidget(size, context, widget.moduleCode),
             chatMessageWidget(
                 chatListScrollController, messageModel, currentUserId),
             chatTypeMessageWidget(messageTextController, submitMessageFunction)
