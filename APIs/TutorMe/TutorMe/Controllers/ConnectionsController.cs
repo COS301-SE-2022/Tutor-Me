@@ -3,6 +3,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using TutorMe.Data;
 using TutorMe.Services;
+using TutorMe.Entities;
 
 namespace TutorMe.Controllers
 {
@@ -23,29 +24,40 @@ namespace TutorMe.Controllers
         [HttpGet]
         public IActionResult GetAllConnections()
         {
-            var connections = connectionService.GetAllConnections();
-            return Ok(connections);
+            try {
+                var connections = connectionService.GetAllConnections();
+                return Ok(connections);
+            }
+            catch (Exception exception) {
+                return BadRequest(exception.Message);
+            }
         }
 
         [HttpGet("{id}")]
         public IActionResult GetConnectionById(Guid id)
         {
-            var connection = connectionService.GetConnectionById(id);
-            return Ok(connection);
-        }
-
-        [HttpPost]
-        public IActionResult createConnection(Connection connection)
-        {
-            var connectionId = connectionService.createConnection(connection);
-            return Ok(connectionId);
+            try {
+                var connection = connectionService.GetConnectionsByUserId(id);
+                if (connection == null) {
+                    return NotFound();
+                }
+                return Ok(connection);
+            }
+            catch (Exception exception) {
+                return BadRequest(exception.Message);
+            }
         }
 
         [HttpDelete("{id}")]
         public IActionResult DeleteConnection(Guid id)
         {
-            var connection = connectionService.deleteConnectionById(id);
-            return Ok(connection);
+            try {
+                var connection = connectionService.deleteConnectionById(id);
+                return Ok(connection);
+            }
+            catch (Exception exception) {
+                return BadRequest(exception.Message);
+            }
         }
     }
 }

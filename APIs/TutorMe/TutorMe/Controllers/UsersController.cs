@@ -3,6 +3,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using TutorMe.Data;
 using TutorMe.Services;
+using TutorMe.Entities;
 
 namespace TutorMe.Controllers
 {
@@ -23,30 +24,84 @@ namespace TutorMe.Controllers
         [HttpGet]
         public IActionResult GetAllUsers()
         {
-            var users = userService.GetAllUsers();
-            return Ok(users);
+            try {
+                var users = userService.GetAllUsers();
+                return Ok(users);
+            }
+            catch (Exception exception) {
+                return BadRequest(exception.Message);
+            }
         }
 
         [HttpGet("tutors")]
         public IActionResult GetAllTutors() {
-            var users = userService.GetAllTutors();
-            return Ok(users);
+            try {
+                var users = userService.GetAllTutors();
+                return Ok(users);
+            }
+            catch (Exception exception) {
+                return BadRequest(exception.Message);
+            }
+        }
+
+        [HttpGet("tutees")]
+        public IActionResult GetAllTutees() {
+            try {
+                var users = userService.GetAllTutees();
+                return Ok(users);
+            }
+            catch (Exception exception) {
+                return BadRequest(exception.Message);
+            }
+        }
+
+        [HttpGet("admins")]
+        public IActionResult GetAllAdmins() {
+            try {
+                var users = userService.GetAllAdmins();
+                return Ok(users);
+            }
+            catch (Exception exception) {
+                return BadRequest(exception.Message);
+            }
         }
 
         [HttpGet("{id}")]
         public IActionResult GetUserById(Guid id)
         {
-            var user = userService.GetUserById(id);
-            return Ok(user);
+            try {
+                var user = userService.GetUserById(id);
+                return Ok(user);
+            }
+            catch (Exception exception) {
+                return BadRequest(exception.Message);
+            }
         }
 
         [HttpPost]
         public IActionResult RegisterUser(User user)
         {
-            var userId = userService.RegisterUser(user);
-            return Ok(userId);
+            try {
+                var userId = userService.RegisterUser(user);
+                return Ok(userId);
+            }
+            catch (Exception exception) {
+                return BadRequest(exception.Message);
+            }
+        }
+        
+        [HttpPut("bio/{id}")]
+        public IActionResult UpdateBioByUserId(Guid id, string bio) {
+            try {
+                var user = userService.updateUserBio(id, bio);
+                return Ok(user);
+            }
+            catch (Exception e) {
+                return BadRequest(e.Message);
+            }
         }
 
+        
         [HttpPut("{id}")]
         public IActionResult UpdateUser(Guid id, User user)
         {

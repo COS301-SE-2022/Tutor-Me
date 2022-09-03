@@ -23,29 +23,49 @@ namespace TutorMe.Controllers
         [HttpGet]
         public IActionResult GetAllUserTypes()
         {
-            var userTypes = userTypeService.GetAllUserTypes();
-            return Ok(userTypes);
+            try {
+                var userTypes = userTypeService.GetAllUserTypes();
+                return Ok(userTypes);
+            }
+            catch (Exception exception) {
+                return BadRequest(exception.Message);
+            }
         }
 
         [HttpGet("{id}")]
         public IActionResult GetUserTypeById(Guid id)
         {
-            var userType = userTypeService.GetUserTypeById(id);
-            return Ok(userType);
+            try {
+                var userType = userTypeService.GetUserTypeById(id);
+                return Ok(userType);
+            }
+            catch (Exception exception) {
+                return BadRequest(exception.Message);
+            }
         }
 
         [HttpPost]
         public IActionResult createUserType(UserType userType)
         {
-            var userTypeId = userTypeService.createUserType(userType);
-            return Ok(userTypeId);
-        }
+            try {
+                var userTypeId = userTypeService.createUserType(userType);
+                return Ok(userTypeId);
+            }
+            catch (Exception exception) {
+                return BadRequest(exception.Message);
+            }
+        }  
 
         [HttpDelete("{id}")]
         public IActionResult DeleteUserType(Guid id)
         {
-            var userType = userTypeService.deleteUserTypeById(id);
-            return Ok(userType);
+            try {
+                var userType = userTypeService.deleteUserTypeById(id);
+                return Ok(userType);
+            }
+            catch (Exception exception) {
+                return BadRequest(exception.Message);
+            }
         }
     }
 }

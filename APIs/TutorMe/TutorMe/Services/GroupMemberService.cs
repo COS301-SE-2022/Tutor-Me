@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TutorMe.Data;
+using TutorMe.Entities;
 using TutorMe.Models;
 
 namespace TutorMe.Services
@@ -8,7 +9,7 @@ namespace TutorMe.Services
     {
         IEnumerable<GroupMember> GetAllGroupMembers();
         GroupMember GetGroupMemberById(Guid id);
-        Guid createGroupMember(GroupMember groupMember);
+        Guid createGroupMember(IGroupMember groupMember);
         bool deleteGroupMemberById(Guid id);
     }
     public class GroupMemberServices : IGroupMemberService
@@ -34,15 +35,17 @@ namespace TutorMe.Services
             }
             return groupMember;
         }
-        public Guid createGroupMember(GroupMember groupMember)
+        public Guid createGroupMember(IGroupMember groupMember)
         {
             if (_context.GroupMember.Where(e => e.UserId == groupMember.UserId && e.GroupId == groupMember.GroupId).Any())
             {
                 throw new KeyNotFoundException("This GroupMember already exists, Please log in");
             }
-            //GroupMember.Password = BCrypt.Net.BCrypt.HashPassword(GroupMember.Password, "ThisWillBeAGoodPlatformForBothGroupMembersAndTuteesToConnectOnADailyBa5e5");
-            groupMember.GroupMemberId = Guid.NewGuid();
-            _context.GroupMember.Add(groupMember);
+            var newUserGroup = new GroupMember();
+            newUserGroup.GroupMemberId = Guid.NewGuid();
+            newUserGroup.GroupId = groupMember.GroupId;
+            newUserGroup.UserId = groupMember.UserId;
+            _context.GroupMember.Add(newUserGroup);
             _context.SaveChanges();
             return groupMember.GroupMemberId;
         }

@@ -38,8 +38,6 @@ namespace TutorMe.Data
 
                 entity.HasIndex(e => e.TuteeId, "IX_Connections_TuteeId");
 
-                entity.HasIndex(e => e.TuteeUserId, "IX_Connections_TuteeUserId");
-
                 entity.HasIndex(e => e.TutorId, "IX_Connections_TutorId");
 
                 entity.Property(e => e.ConnectionId).ValueGeneratedNever();

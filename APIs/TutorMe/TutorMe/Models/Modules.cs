@@ -12,6 +12,8 @@ namespace TutorMe.Models
         {
             Connections = new HashSet<Connection>();
             Group = new HashSet<Group>();
+            RequestModule = new HashSet<Request>();
+            UserModule = new HashSet<UserModule>();
         }
 
         public Guid ModuleId { get; set; }

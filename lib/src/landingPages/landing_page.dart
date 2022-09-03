@@ -54,10 +54,10 @@ class LandingPageState extends State<LandingPage> {
             buildPage(
                 description:
                     "Set up a profile and get ready to interact with your peers and tutors.",
-                urlImage: 'assets/Pictures/onlineLesson.jpg'),
+                urlImage: 'assets/Pictures/undraw_account_re_o7id.svg'),
             buildPage(
-                description: "This is the first page and where we type stuff",
-                urlImage: 'assets/Pictures/onlineLesson.jpg'),
+                description: "Let's begin our learning journey",
+                urlImage: 'assets/Pictures/undraw_maker_launch_re_rq81.svg'),
           ],
         ),
       ),
@@ -71,8 +71,7 @@ class LandingPageState extends State<LandingPage> {
                 ),
               ),
               style: TextButton.styleFrom(
-                  primary: colorWhite,
-                  backgroundColor: colorOrange,
+                  backgroundColor: colorWhite,
                   minimumSize: Size.fromHeight(screenSize.height * 0.08)),
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(
@@ -80,6 +79,7 @@ class LandingPageState extends State<LandingPage> {
               })
           : SizedBox(
               // padding: EdgeInsets.symmetric(horizontal: screenSize.height * 0.9),
+
               height: screenSize.height * 0.08,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
