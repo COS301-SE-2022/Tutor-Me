@@ -172,15 +172,17 @@ class ChangePasswordState extends State<ChangePassword> {
                           // TutorServices tutor = TutorServices.Login(
                           tutor =
                               await UserServices.getTutorByEmail(widget.email);
-                          tutor.setPassword = UserServices.hashPassword(
-                              newpasswordController.text);
-                          await UserServices.updateTutor(tutor);
+                          print(tutor.getEmail);
+                          await UserServices.changePassword(
+                              tutor, newpasswordController.text);
+                          print('afterrrr');
                           Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => TutorPage(user: tutor)),
                           );
                         } catch (e) {
+                          print(e);
                           setState(() {
                             isLoading = false;
                           });
@@ -218,9 +220,8 @@ class ChangePasswordState extends State<ChangePassword> {
                           // TutorServices tutor = TutorServices.Login(
                           tutee =
                               await UserServices.getTuteeByEmail(widget.email);
-                          tutee.setPassword = UserServices.hashPassword(
-                              newpasswordController.text);
-                          await UserServices.updateTutee(tutee);
+                          await UserServices.changePassword(
+                              tutee, newpasswordController.text);
                           Navigator.push(
                             context,
                             MaterialPageRoute(
