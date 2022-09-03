@@ -24,47 +24,28 @@ namespace TutorMe.Controllers
         public IActionResult GetAllInstitutions()
         {
             var institutions = institutionService.GetAllInstitutions();
-            if (institutions == null) {
-                return NotFound();
-            }
             return Ok(institutions);
         }
 
         [HttpGet("{id}")]
         public IActionResult GetInstitutionById(Guid id)
         {
-            try {
-                var institution = institutionService.GetInstitutionById(id);
-                return Ok(institution);
-            }
-            catch(Exception exception) {
-                return BadRequest(exception.Message);
-            }
+            var institution = institutionService.GetInstitutionById(id);
+            return Ok(institution);
         }
 
         [HttpPost]
         public IActionResult createInstitution(Institution institution)
         {
-            try {
-                var institutionId = institutionService.createInstitution(institution);
-                return Ok(institutionId);
-            }
-            catch(Exception e) {
-                return BadRequest(e.Message);
-            }
-
+            var institutionId = institutionService.createInstitution(institution);
+            return Ok(institutionId);
         }
 
         [HttpDelete("{id}")]
         public IActionResult DeleteInstitution(Guid id)
         {
-            try {
-                var institution = institutionService.deleteInstitutionById(id);
-                return Ok(institution);
-            }
-            catch(Exception exception) {
-                return BadRequest(exception.Message);
-            }
+            var institution = institutionService.deleteInstitutionById(id);
+            return Ok(institution);
         }
     }
 }

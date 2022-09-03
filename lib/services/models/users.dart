@@ -1,4 +1,4 @@
-class Tutees {
+class Users {
   String _id = "";
   String _firstName = "";
   String _lastName = "";
@@ -7,16 +7,16 @@ class Tutees {
   String _gender = "";
   String _email = "";
   String _password = "";
-  String userTypeID = "";
+  String _userTypeID = "";
   String _institutionID = "";
   String _location = "";
   String _bio = "";
   String _year = '';
   int _rating = 0;
-  String _age  = "";
+  String _age = "";
+  int _numberOfReviews = 0;
 
-
-  Tutees(
+  Users(
       this._id,
       this._firstName,
       this._lastName,
@@ -25,13 +25,13 @@ class Tutees {
       this._gender,
       this._email,
       this._password,
-      this.userTypeID,
+      this._userTypeID,
       this._institutionID,
       this._location,
       this._bio,
       this._year,
-      this._rating);
-  
+      this._rating,
+      this._age);
 
   String get getId => _id;
   String get getName => _firstName;
@@ -41,15 +41,18 @@ class Tutees {
   String get getGender => _gender;
   String get getEmail => _email;
   String get getPassword => _password;
-  String get getUserTypeID => userTypeID;
+  String get getUserTypeID => _userTypeID;
   String get getInstitutionID => _institutionID;
   String get getLocation => _location;
   String get getBio => _bio;
   String get getYear => _year;
   int get getRating => _rating;
+  int get getNumberOfReviews => _numberOfReviews;
+  String get getAge => calculateAge(_dateOfBirth);
 
-
-
+  set setStatus(bool newStatus) {
+    _status = newStatus;
+  }
 
   set setId(String newId) {
     _id = newId;
@@ -96,8 +99,7 @@ class Tutees {
     return _age.toString();
   }
 
-  set setAge(String a)
-  {
+  set setAge(String a) {
     _age = a;
   }
 
@@ -113,12 +115,17 @@ class Tutees {
     _gender = newGender;
   }
 
- 
-
   set setYear(String newYear) {
     _year = newYear;
   }
 
+  set setRating(int newRating) {
+    _rating = newRating;
+  }
+
+  set setNumberOfReviews(int newNumberOfReviews) {
+    _numberOfReviews = newNumberOfReviews;
+  }
 
   Map<String, dynamic> toMap() {
     var map = <String, dynamic>{};
@@ -130,31 +137,63 @@ class Tutees {
     map["gender"] = _gender;
     map["email"] = _email;
     map["password"] = _password;
-    map["userTypeId"] = userTypeID;
+    map["userTypeId"] = _userTypeID;
     map["institutionId"] = _institutionID;
     map["location"] = _location;
     map["bio"] = _bio;
     map["year"] = _year;
     map["rating"] = _rating;
+    map["numberOfReviews"] = _numberOfReviews;
     return map;
   }
 
-  Tutees.fromObject(dynamic o) {
-    _id = o["id"];
+  Users.fromObject(dynamic o) {
+    _id = o["userId"];
     _firstName = o["firstName"];
     _lastName = o["lastName"];
-    _bio = o["bio"];
-    _location = o["location"];
-    _status = o["status"];
     _dateOfBirth = o["dateOfBirth"];
+    _status = o["status"];
     _gender = o["gender"];
     _email = o["email"];
-    _password = o["password"];  
-    userTypeID = o["userTypeId"];
+    _password = o["password"];
+    _userTypeID = o["userTypeId"];
     _institutionID = o["institutionId"];
+    _location = o["location"];
+    _bio = o["bio"];
     _year = o["year"];
     _rating = o["rating"];
+    _numberOfReviews = o["numberOfReviews"];
   }
 
   static fromJson(model) {}
+}
+
+class UserType {
+  String _id = "";
+  String type = "";
+
+  UserType(this._id, this.type);
+
+  String get getId => _id;
+  String get getType => type;
+
+  set setId(String newId) {
+    _id = newId;
+  }
+
+  set setType(String newType) {
+    type = newType;
+  }
+
+  Map<String, dynamic> toMap() {
+    var map = <String, dynamic>{};
+    map["userTypeId"] = _id;
+    map["type"] = type;
+    return map;
+  }
+
+  UserType.fromObject(dynamic o) {
+    _id = o["userTypeId"];
+    type = o["type"];
+  }
 }
