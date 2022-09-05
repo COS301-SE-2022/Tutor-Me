@@ -3,14 +3,11 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:tutor_me/services/models/modules.dart';
 import 'package:tutor_me/services/models/requests.dart';
-import 'package:tutor_me/services/services/group_services.dart';
 import 'package:tutor_me/services/services/module_services.dart';
-import 'package:tutor_me/services/services/tutee_services.dart';
 import 'package:tutor_me/services/services/user_services.dart';
 // import 'package:tutor_me/services/services/tutor_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 
-import '../../../services/models/groups.dart';
 import '../../../services/models/users.dart';
 
 class Tutee {
@@ -91,7 +88,6 @@ class TutorRequestsState extends State<TutorRequests> {
         });
       }
     } catch (e) {
-      print(e);
       const snackBar = SnackBar(
         content: Text('Failed to load'),
       );
@@ -355,7 +351,6 @@ class TutorRequestsState extends State<TutorRequests> {
                                     isDeclined[i] = true;
                                   });
                                 } catch (e) {
-                                  print(e);
                                   const snackBar = SnackBar(
                                     content: Text('Failed to decline'),
                                   );

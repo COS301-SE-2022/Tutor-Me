@@ -150,7 +150,6 @@ class GroupServices {
           'http://tutorme-dev.us-east-1.elasticbeanstalk.com/api/Groups/description/$id');
       final response =
           await http.put(modulesURL, headers: header, body: description);
-      print(response.statusCode);
       if (response.statusCode == 204) {
         return group;
       } else {
@@ -176,7 +175,6 @@ class GroupServices {
           'http://tutorme-dev.us-east-1.elasticbeanstalk.com/api/Groups/videoId/$id?videoId=$videoId');
       final response =
           await http.put(modulesURL, headers: header, body: videoId);
-      print(response.statusCode);
       if (response.statusCode == 200) {
         return group;
       } else {
