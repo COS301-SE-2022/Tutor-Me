@@ -59,7 +59,7 @@ class _TutorProfileBookingPageState extends State<TutorProfileBookingPage> {
   getCurrentModules() async {
     numTutees = 2;
     numConnections = 3;
-    final current = await ModuleServices.getUsermodules(widget.tutor.getId);
+    final current = await ModuleServices.getUserModules(widget.tutor.getId);
     setState(() {
       currentModules = current;
     });

@@ -178,14 +178,14 @@ class TutorExploreState extends State<TutorExplore> {
       }
       List<Modules> tuteeModules = List<Modules>.empty();
       final tuteeModuleList =
-          await ModuleServices.getUsermodules(widget.tutee.getId);
+          await ModuleServices.getUserModules(widget.tutee.getId);
       tuteeModules = tuteeModuleList;
       for (int i = 0; i < tutorLength; i++) {
         bool val = false;
         if (tuteeModules.isNotEmpty) {
           List<Modules> tutorModules = List<Modules>.empty();
           final tutorModuleList =
-              await ModuleServices.getUsermodules(tutorList[i].getId);
+              await ModuleServices.getUserModules(tutorList[i].getId);
           tutorModules = tutorModuleList;
 
           for (int k = 0; k < tutorModules.length; k++) {
