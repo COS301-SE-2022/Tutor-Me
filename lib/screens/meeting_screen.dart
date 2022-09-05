@@ -1,7 +1,4 @@
 import 'dart:developer';
-
-import 'package:tutor_me/src/authenticate/register_or_login.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -126,7 +123,7 @@ class _MeetingScreenState extends State<MeetingScreen> {
           if (provider.themeMode == ThemeMode.dark) {
             themeColor = Colors.grey.shade800;
           } else {
-            themeColor = Colors.orange.shade900;
+            themeColor = Colors.grey;
           }
           return Scaffold(
             backgroundColor: themeColor,
