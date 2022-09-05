@@ -133,11 +133,10 @@ class _TuteeProfileEditState extends State<TuteeProfileEdit> {
                 setState(() {
                   isSaveLoading = true;
                 });
-                await TuteeServices.uploadProfileImage(
+               final newImage = await UserServices.uploadProfileImage(
                     image, widget.user.getId);
 
-                final newImage =
-                    await TuteeServices.getTuteeProfileImage(widget.user.getId);
+
 
                 setState(() {
                   widget.image = newImage;
