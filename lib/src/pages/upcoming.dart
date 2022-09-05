@@ -164,14 +164,23 @@ class UpcomingState extends State<Upcoming> {
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.01,
                     ),
-                    Text(
-                      "Tutor: " + tutors[i],
-                      style: TextStyle(
-                        color: colorDarkGrey,
-                        fontWeight: FontWeight.w500,
-                        fontSize: MediaQuery.of(context).size.height * 0.018,
+                    Row(children: <Widget>[
+                      Text(
+                        "Created by - Tutor: ",
+                        style: TextStyle(
+                          color: colorOrange,
+                          fontWeight: FontWeight.w500,
+                          fontSize: MediaQuery.of(context).size.height * 0.018,
+                        ),
                       ),
-                    ),
+                      Text(tutors[i],
+                          style: TextStyle(
+                            color: colorDarkGrey,
+                            fontWeight: FontWeight.w500,
+                            fontSize:
+                                MediaQuery.of(context).size.height * 0.018,
+                          )),
+                    ])
                   ],
                 ),
               ],
