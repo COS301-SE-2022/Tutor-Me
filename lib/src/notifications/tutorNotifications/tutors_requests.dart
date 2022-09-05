@@ -49,14 +49,20 @@ class TutorRequestsState extends State<TutorRequests> {
   bool isLoading = true;
 
   getRequests() async {
-    final requests = await UserServices().getTutorRequests(widget.user.getId);
-    requestList = requests;
-    if (requestList.isEmpty) {
+    try {
+      final requests = await UserServices().getTutorRequests(widget.user.getId);
+      requestList = requests;
+      if (requestList.isEmpty) {
+        setState(() {
+          isLoading = false;
+        });
+      }
+      getTutees();
+    } catch (e) {
       setState(() {
         isLoading = false;
       });
     }
-    getTutees();
   }
 
   getTutees() async {
@@ -81,10 +87,11 @@ class TutorRequestsState extends State<TutorRequests> {
         final module =
             await ModuleServices.getModule(requestList[i].getModuleId);
         setState(() {
-          modules += module;
+          modules.add(module);
         });
       }
     } catch (e) {
+      print(e);
       const snackBar = SnackBar(
         content: Text('Failed to load'),
       );
@@ -292,14 +299,14 @@ class TutorRequestsState extends State<TutorRequests> {
                                     });
 
                                     try {
-                                      Groups moduleRequestedGroup;
+                                      // Groups moduleRequestedGroup;
 
-                                      final group =
-                                          await GroupServices.getGroupByUserID(
-                                              widget.user.getId);
-                                      moduleRequestedGroup = group;
-                                      await GroupServices.updateGroup(
-                                          moduleRequestedGroup);
+                                      // final group =
+                                      //     await GroupServices.getGroupByUserID(
+                                      //         widget.user.getId);
+                                      // moduleRequestedGroup = group;
+                                      // await GroupServices.updateGroup(
+                                      //     moduleRequestedGroup);
 
                                       await UserServices()
                                           .acceptRequest(requestList[i].getId);
@@ -339,14 +346,22 @@ class TutorRequestsState extends State<TutorRequests> {
                                 setState(() {
                                   isDeclining[i] = true;
                                 });
+                                try {
+                                  await UserServices()
+                                      .declineRequest(requestList[i].getId);
 
-                                await UserServices()
-                                    .declineRequest(requestList[i].getId);
-
-                                setState(() {
-                                  isDeclining[i] = false;
-                                  isDeclined[i] = true;
-                                });
+                                  setState(() {
+                                    isDeclining[i] = false;
+                                    isDeclined[i] = true;
+                                  });
+                                } catch (e) {
+                                  print(e);
+                                  const snackBar = SnackBar(
+                                    content: Text('Failed to decline'),
+                                  );
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(snackBar);
+                                }
                               },
                               child: const Text("Reject"),
                               style: ButtonStyle(

@@ -154,14 +154,14 @@ class UserServices {
   acceptRequest(String requestId) async {
     try {
       final url = Uri.http('tutorme-dev.us-east-1.elasticbeanstalk.com',
-          'api/Requests/$requestId');
+          'api/Requests/accept/$requestId');
       final header = {
         "Accept": "application/json",
         "Content-Type": "application/json",
         "Access-Control-Allow-Origin": "*"
       };
-      final response = await http.put(url, headers: header);
-      if (response.statusCode == 204) {
+      final response = await http.get(url, headers: header);
+      if (response.statusCode == 200) {
         return true;
       } else {
         throw Exception(
