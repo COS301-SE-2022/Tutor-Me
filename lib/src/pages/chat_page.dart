@@ -16,7 +16,11 @@ class ChatPage extends StatefulWidget {
   final dynamic user;
   final Groups group;
   final String moduleCode;
-  const ChatPage({Key? key, required this.group, required this.user, required this.moduleCode}) 
+  const ChatPage(
+      {Key? key,
+      required this.group,
+      required this.user,
+      required this.moduleCode})
       : super(key: key);
 
   @override
@@ -24,9 +28,7 @@ class ChatPage extends StatefulWidget {
 }
 
 class _ChatPageState extends State<ChatPage> {
-
-  late Modules module ;
-  
+  late Modules module;
 
   @override
   void initState() {
@@ -97,7 +99,8 @@ class _ChatPageState extends State<ChatPage> {
   //set url and configs
   final connection = HubConnectionBuilder()
       .withUrl(
-          'http://tutormechatapi-prod.us-east-1.elasticbeanstalk.com/chatHub',
+          // 'http://tutormechatapi-prod.us-east-1.elasticbeanstalk.com/chatHub',
+          'http://192.168.42.155:500/chatHub',
           HttpConnectionOptions())
       .build();
 
