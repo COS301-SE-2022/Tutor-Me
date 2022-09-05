@@ -129,18 +129,23 @@ class _TuteeProfileEditState extends State<TuteeProfileEdit> {
         OrangeButton(
             btnName: isSaveLoading ? 'Saving' : "Save",
             onPressed: () async {
+              setState(() {
+                isSaveLoading = true;
+              });
               if (image != null) {
-                setState(() {
-                  isSaveLoading = true;
-                });
-               final newImage = await UserServices.uploadProfileImage(
-                    image, widget.user.getId);
-
-
-
-                setState(() {
-                  widget.image = newImage;
-                });
+                try {
+                  await UserServices.updateProfileImage(
+                      image, widget.user.getId);
+                } catch (e) {
+                  try {
+                    await UserServices.uploadProfileImage(
+                        image, widget.user.getId);
+                  } catch (e) {
+                    const snack =
+                        SnackBar(content: Text("Error uploading image"));
+                    ScaffoldMessenger.of(context).showSnackBar(snack);
+                  }
+                }
               }
               if (nameController.text.isNotEmpty) {
                 List<String> name = nameController.text.split(' ');
@@ -155,7 +160,7 @@ class _TuteeProfileEditState extends State<TuteeProfileEdit> {
               }
               if (nameController.text.isNotEmpty ||
                   bioController.text.isNotEmpty) {
-                await UserServices.updateTutee(widget.user);
+                // await UserServices.updateTutee(widget.user);
               }
 
               setState(() {

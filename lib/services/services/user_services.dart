@@ -778,18 +778,38 @@ class UserServices {
     }
   }
 
-  static uploadProfileImage(File? image, String id) async {
+  static updateProfileImage(File? image, String id) async {
     final imageByte = base64Encode(image!.readAsBytesSync());
-    // String data =
-    //     jsonEncode({'id': id, 'userImage': imageByte, 'userTranscript': ''});
+    String data =
+        jsonEncode({'id': id, 'userImage': imageByte, 'userTranscript': ''});
     final header = <String, String>{
       'Content-Type': 'application/json; charset=utf-8'
     };
-    print(imageByte);
     final url = Uri.parse(
-        'http://tutorfilesystem-dev.us-east-1.elasticbeanstalk.com/api/UserFiles/image/$id');
+        'http://tutorfilesystem-dev.us-east-1.elasticbeanstalk.com/api/UserFiles/$id');
     try {
-      final response = await http.put(url, headers: header, body: imageByte);
+      final response = await http.put(url, headers: header, body: data);
+      if (response.statusCode == 200) {
+        return image;
+      } else {
+        throw "failed to upload ${response.body}";
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  static uploadProfileImage(File? image, String id) async {
+    final imageByte = base64Encode(image!.readAsBytesSync());
+    String data =
+        jsonEncode({'id': id, 'userImage': imageByte, 'userTranscript': ''});
+    final header = <String, String>{
+      'Content-Type': 'application/json; charset=utf-8'
+    };
+    final url = Uri.parse(
+        'http://tutorfilesystem-dev.us-east-1.elasticbeanstalk.com/api/UserFiles');
+    try {
+      final response = await http.post(url, headers: header, body: data);
       if (response.statusCode == 200) {
         return image;
       } else {

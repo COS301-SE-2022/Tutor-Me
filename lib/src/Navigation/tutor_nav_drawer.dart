@@ -38,7 +38,6 @@ class TutorNavigationDrawerState extends State<TutorNavigationDrawerWidget> {
         isImageLoading = false;
       });
     } catch (e) {
-      print(e);
       setState(() {
         tutorImage = Uint8List(128);
         isImageLoading = false;

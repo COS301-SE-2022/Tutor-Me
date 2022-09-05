@@ -151,11 +151,22 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
                 isSaveLoading = true;
               });
               if (image != null) {
-               final newImage = await UserServices.uploadProfileImage(image, widget.user.getId);
-               
-                setState(() {
-                  widget.image = newImage;
-                });
+                try {
+                  await UserServices.updateProfileImage(
+                      image, widget.user.getId);
+                } catch (e) {
+                  try{
+                    await UserServices.uploadProfileImage(
+                        image, widget.user.getId);
+                  }
+                  catch(e){
+                    const snack =
+                      SnackBar(content: Text("Error uploading image"));
+                  ScaffoldMessenger.of(context).showSnackBar(snack);
+                  }
+
+                  
+                }
               }
               if (nameController.text.isNotEmpty) {
                 List<String> name = nameController.text.split(' ');
@@ -170,7 +181,7 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
               }
               if (nameController.text.isNotEmpty ||
                   bioController.text.isNotEmpty) {
-                await UserServices.updateTutor(widget.user);
+                // await UserServices.updateTutor(widget.user);
               }
               setState(() {
                 isSaveLoading = false;
