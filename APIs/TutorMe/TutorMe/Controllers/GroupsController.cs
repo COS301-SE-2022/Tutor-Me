@@ -79,5 +79,27 @@ namespace TutorMe.Controllers
                 return BadRequest(exception.Message);
             }
         }
+
+        [HttpPut("description/{id}")]
+        public IActionResult UpdateGroupDescription(Guid id, string description) {
+            try {
+                var group = groupService.updateGroupDescription(id, description);
+                return Ok(group);
+            }
+            catch (Exception exception) {
+                return BadRequest(exception.Message);
+            }
+        }
+
+        [HttpPut("videoId/{id}")]
+        public IActionResult UpdateGroupVideoId(Guid id, string videoId) {
+            try {
+                var group = groupService.updateGroupVideoId(id, videoId);
+                return Ok(group);
+            }
+            catch (Exception exception) {
+                return BadRequest(exception.Message);
+            }
+        }
     }
 }
