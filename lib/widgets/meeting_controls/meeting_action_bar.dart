@@ -13,6 +13,7 @@ class MeetingActionBar extends StatelessWidget {
   // control states
   final bool isMicEnabled,
       isWebcamEnabled,
+      isRecordingOn,
       isScreenShareEnabled,
       isScreenShareButtonDisabled;
 
@@ -22,12 +23,14 @@ class MeetingActionBar extends StatelessWidget {
       onWebcamButtonPressed,
       onSwitchCameraButtonPressed,
       onMoreButtonPressed,
-      onScreenShareButtonPressed;
+      onScreenShareButtonPressed,
+      onRecordingShareButtonPressed;
 
   const MeetingActionBar({
     Key? key,
     required this.isMicEnabled,
     required this.isWebcamEnabled,
+    required this.isRecordingOn,
     required this.isScreenShareEnabled,
     required this.isScreenShareButtonDisabled,
     required this.onCallEndButtonPressed,
@@ -35,6 +38,7 @@ class MeetingActionBar extends StatelessWidget {
     required this.onWebcamButtonPressed,
     required this.onSwitchCameraButtonPressed,
     required this.onScreenShareButtonPressed,
+    required this.onRecordingShareButtonPressed,
     required this.onMoreButtonPressed,
   }) : super(key: key);
 
@@ -88,6 +92,17 @@ class MeetingActionBar extends StatelessWidget {
               backgroundColor: secondaryColor.withOpacity(0.8),
               onPressed: isWebcamEnabled ? onSwitchCameraButtonPressed : null,
               icon: Icons.cameraswitch,
+            ),
+          ),
+
+          // Recording Switch Control
+          Expanded(
+            child: MeetingActionButton(
+              backgroundColor: secondaryColor.withOpacity(0.8),
+              onPressed: onRecordingShareButtonPressed,
+              icon: isRecordingOn
+                  ? Icons.stop_circle_outlined
+                  : Icons.emergency_recording,
             ),
           ),
 
