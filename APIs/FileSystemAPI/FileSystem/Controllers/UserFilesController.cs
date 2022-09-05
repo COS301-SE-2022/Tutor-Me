@@ -54,31 +54,16 @@ namespace FileSystem.Controllers
             return Ok();
         }
 
-        [HttpPut("image/{id}")]
-        public IActionResult ModifyUserImage(Guid id, byte[] image) {
-            if (image == null) {
-                return BadRequest();
+        [HttpPut("{id}")]
+        public IActionResult ModifyUserFiles(Guid id, UserFiles userFiles) { 
+            if (id != userFiles.Id || userFiles == null) { 
+                return BadRequest("Invalid request sent");
             }
             try {
-                this.userFilesService.ModifyUserImageById(id, image);
+                this.userFilesService.ModifyUserFiles(userFiles);
                 return Ok();
             }
             catch(Exception exception) {
-                return NotFound(exception.Message);
-            }
-        }
-
-
-        [HttpPut("transcript/{id}")]
-        public IActionResult ModifyTranscriptImage(Guid id, byte[] file) {
-            if (file == null) {
-                return BadRequest();
-            }
-            try {
-                this.userFilesService.ModifyUserTranscriptById(id, file);
-                return Ok();
-            }
-            catch (Exception exception) {
                 return NotFound(exception.Message);
             }
         }
