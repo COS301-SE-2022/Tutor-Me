@@ -153,7 +153,7 @@ class TutorGroupsState extends State<TutorGroups> {
                 const Icon(Icons.circle, size: 7, color: colorOrange),
                 SizedBox(width: MediaQuery.of(context).size.width * 0.03),
                 const Text(
-                  '2' + " participants(s)",
+                   "2 participants(s)",
                   style: TextStyle(
                       color: Colors.white70, fontWeight: FontWeight.bold),
                 ),
