@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/pages/badges.dart';
+import 'package:tutor_me/src/pages/book_for_tutor.dart';
 import 'package:tutor_me/src/pages/calendar.dart';
 
+import '../../services/models/users.dart';
+
 class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+  final Users user;
+  const Home({Key? key, required this.user}) : super(key: key);
 
   @override
   State<Home> createState() => _HomeState();
@@ -209,6 +213,12 @@ class _HomeState extends State<Home> {
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (BuildContext context) =>
                                 const Calendar()));
+                      } else if (index == 4) {
+                        //render Book for a tutor Page
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (BuildContext context) => BookForTutor(
+                                  user: widget.user,
+                                )));
                       }
                     },
                     child: Card(
