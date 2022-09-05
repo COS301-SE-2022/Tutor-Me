@@ -22,17 +22,17 @@ class Tutor {
   Tutor(this.tutor, this.image, this.hasImage);
 }
 
-class TutorsList extends StatefulWidget {
+class TutorList extends StatefulWidget {
   final Users tutee;
-  const TutorsList({Key? key, required this.tutee}) : super(key: key);
+  const TutorList({Key? key, required this.tutee}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
-    return TutorsListState();
+    return TutorListState();
   }
 }
 
-class TutorsListState extends State<TutorsList> {
+class TutorListState extends State<TutorList> {
   String query = '';
   final textControl = TextEditingController();
   List<Users> tutorList = List<Users>.empty();
@@ -296,61 +296,41 @@ class TutorsListState extends State<TutorsList> {
         children: [
           Container(
             width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height * 0.3,
+            height: MediaQuery.of(context).size.height * 0.26,
             decoration: const BoxDecoration(
                 // borderRadius:
                 //     BorderRadius.vertical(botCentertom: Radius.circular(60)),
                 image: DecorationImage(
-              image: AssetImage("assets/Pictures/tutorus.jpg"),
+              image: AssetImage("assets/Pictures/book.jpg"),
               fit: BoxFit.fill,
             )),
             child: Column(children: <Widget>[
               Container(
-                  padding: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height * 0.03,
-                      bottom: MediaQuery.of(context).size.height * 0.1,
-                      right: MediaQuery.of(context).size.width * 0.8),
-                  child: GestureDetector(
-                    onTap: () => {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                TuteePage(user: widget.tutee)),
-                      ),
-                    },
-                    child: Icon(
-                      Icons.arrow_back,
-                      color: colorWhite,
-                      size: MediaQuery.of(context).size.width * 0.1,
+                padding: EdgeInsets.only(
+                    top: MediaQuery.of(context).size.height * 0.03,
+                    bottom: MediaQuery.of(context).size.height * 0.1,
+                    right: MediaQuery.of(context).size.width * 0.8),
+                child: GestureDetector(
+                  onTap: () => {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => TuteePage(user: widget.tutee)),
                     ),
-                  )),
+                  },
+                  child: Icon(
+                    Icons.arrow_back,
+                    color: colorWhite,
+                    size: MediaQuery.of(context).size.width * 0.1,
+                  ),
+                ),
+              ),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.02,
               ),
               Padding(
                 padding: EdgeInsets.only(
                     right: MediaQuery.of(context).size.width * 0.25),
-                child: Column(
-                  children: [
-                    Text(
-                      "Request For A Tutor",
-                      style: TextStyle(
-                        fontSize: MediaQuery.of(context).size.width * 0.070,
-                        fontWeight: FontWeight.bold,
-                        color: colorWhite,
-                      ),
-                      textAlign: TextAlign.left,
-                    ),
-                    Text(
-                      "     View & send a request to tutors...",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: MediaQuery.of(context).size.width * 0.046,
-                          color: const Color.fromARGB(255, 255, 153, 0)),
-                    )
-                  ],
-                ),
               ),
             ]),
           ),
@@ -358,6 +338,24 @@ class TutorsListState extends State<TutorsList> {
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.02,
+                ),
+                Padding(
+                  padding: EdgeInsets.only(
+                      left: MediaQuery.of(context).size.height * 0.02),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "Request for a Tutor",
+                      style: TextStyle(
+                          fontSize: MediaQuery.of(context).size.height * 0.035,
+                          fontWeight: FontWeight.w600,
+                          fontFamily: 'Montserrat',
+                          fontStyle: FontStyle.normal),
+                    ),
+                  ),
+                ),
                 Row(
                   children: <Widget>[
                     Container(
@@ -407,8 +405,8 @@ class TutorsListState extends State<TutorsList> {
                     IconButton(
                       icon: Icon(
                         Icons.filter_list,
-                        size: MediaQuery.of(context).size.width * 0.09,
-                        color: colorBlack,
+                        size: MediaQuery.of(context).size.width * 0.095,
+                        color: colorOrange,
                       ),
                       onPressed: () {
                         setState(() {

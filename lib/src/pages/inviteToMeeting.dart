@@ -89,7 +89,14 @@ class _InviteToMeetingState extends State<InviteToMeeting> {
                 color: colorOrange,
               ),
               child: TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pop(context);
+                    const snackBar = SnackBar(
+                      content: Text("Meeting Invite Sent"),
+                      backgroundColor: colorLightGreen,
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  },
                   child: Text(
                     "Invite",
                     style: TextStyle(

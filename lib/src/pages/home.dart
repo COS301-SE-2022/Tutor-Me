@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/pages/badges.dart';
+import 'package:tutor_me/src/pages/book_for_tutor.dart';
+import 'package:tutor_me/src/pages/calendar.dart';
+
+import '../../services/models/users.dart';
 
 class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+  final Users user;
+  const Home({Key? key, required this.user}) : super(key: key);
 
   @override
   State<Home> createState() => _HomeState();
@@ -13,20 +18,6 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        // appBar: AppBar(
-        //     // backgroundColor: const Color(0xffD6521B),
-        //     centerTitle: true,
-        //     title: const Text('Home'),
-        //     flexibleSpace: Container(
-        //       decoration: const BoxDecoration(
-        //           // borderRadius:
-        //           //     BorderRadius.vertical(bottom: Radius.circular(60)),
-        //           gradient: LinearGradient(
-        //               colors: <Color>[Colors.orange, Colors.red],
-        //               begin: Alignment.topCenter,
-        //               end: Alignment.bottomCenter)),
-        //     ),
-        //   ),
         body: ListView(
       padding: EdgeInsets.zero,
       children: <Widget>[
@@ -44,19 +35,16 @@ class _HomeState extends State<Home> {
       "assets/Pictures/groups.jpg",
       "assets/Pictures/badges.jpg",
       "assets/Pictures/calendar.jpg",
+      "assets/Pictures/book.jpg",
     ];
     final titles = [
       "Tutees",
       "Groups",
       "Badges",
       "Calendar",
+      "Book for a Tutor"
     ];
-    final numberStats = [
-      "4",
-      "4",
-      "2",
-      "more info",
-    ];
+    final numberStats = ["4", "4", "2", "more info", "more info"];
 
     // FilePickerResult? filePickerResult;
     // String? fileName;
@@ -75,7 +63,7 @@ class _HomeState extends State<Home> {
             width: MediaQuery.of(context).size.width * 0.8,
             height: MediaQuery.of(context).size.height * 0.09,
             decoration: const BoxDecoration(
-                color: Color.fromARGB(120, 250, 247, 247),
+                // color: Color.fromARGB(120, 250, 247, 247),
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(10),
                     topRight: Radius.circular(10))),
@@ -127,7 +115,9 @@ class _HomeState extends State<Home> {
             width: screenWidthSize * 0.8,
             height: screenHeightSize * 0.2,
             decoration: const BoxDecoration(
-                color: Color.fromARGB(50, 193, 193, 193),
+                image: DecorationImage(
+                    image: AssetImage("assets/Pictures/progressBar.jpg"),
+                    fit: BoxFit.cover),
                 borderRadius: BorderRadius.all(Radius.circular(10))),
           ),
         ),
@@ -138,7 +128,7 @@ class _HomeState extends State<Home> {
             children: <Widget>[
               Icon(
                 Icons.circle,
-                color: colorTurqoise,
+                color: colorLightGreen,
                 size: screenWidthSize * 0.03,
               ),
               SizedBox(width: screenWidthSize * 0.02),
@@ -164,7 +154,7 @@ class _HomeState extends State<Home> {
             children: <Widget>[
               Icon(
                 Icons.circle,
-                color: colorTurqoise,
+                color: colorLightGreen,
                 size: screenWidthSize * 0.03,
               ),
               SizedBox(width: screenWidthSize * 0.02),
@@ -202,13 +192,13 @@ class _HomeState extends State<Home> {
         Padding(
           padding: EdgeInsets.only(left: screenWidthSize * 0.1),
           child: SizedBox(
-            height: screenHeightSize * 0.4,
+            height: screenHeightSize * 0.6,
             width: screenWidthSize * 0.8,
             child: GridView.count(
               childAspectRatio: 1,
               physics: const NeverScrollableScrollPhysics(),
               crossAxisCount: 2,
-              children: List<Widget>.generate(4, (index) {
+              children: List<Widget>.generate(5, (index) {
                 return GridTile(
                   child: GestureDetector(
                     onTap: () {
@@ -222,6 +212,15 @@ class _HomeState extends State<Home> {
                             builder: (BuildContext context) => const Badges()));
                       } else if (index == 3) {
                         //render Calendar Page
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                const Calendar()));
+                      } else if (index == 4) {
+                        //render Book for a tutor Page
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (BuildContext context) => BookForTutor(
+                                  user: widget.user,
+                                )));
                       }
                     },
                     child: Card(
@@ -256,7 +255,7 @@ class _HomeState extends State<Home> {
                                 ),
                                 Padding(
                                   padding: EdgeInsets.only(
-                                      left: screenWidthSize * 0.02),
+                                      left: screenWidthSize * 0.01),
                                   // ignore: unnecessary_string_interpolations
                                   child: Text(
                                     titles[index],
@@ -267,13 +266,13 @@ class _HomeState extends State<Home> {
                                 ),
                                 Padding(
                                   padding: EdgeInsets.only(
-                                    left: screenWidthSize * 0.02,
+                                    left: screenWidthSize * 0.01,
                                   ),
                                   child: Row(
                                     children: <Widget>[
                                       Icon(
                                         Icons.circle,
-                                        color: Colors.green,
+                                        color: colorLightGreen,
                                         size: screenWidthSize * 0.025,
                                       ),
                                       SizedBox(width: screenWidthSize * 0.02),
