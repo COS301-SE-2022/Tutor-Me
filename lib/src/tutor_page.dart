@@ -28,7 +28,7 @@ class TutorPageState extends State<TutorPage> {
 
   getScreens() {
     return [
-      const Home(),
+      Home(user: widget.user,),
       Chats(user: widget.user),
       TutorGroups(tutor: widget.user),
       const Calls()

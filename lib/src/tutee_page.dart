@@ -27,7 +27,7 @@ class TuteePageState extends State<TuteePage> {
 
   getScreens() {
     return [
-      const Home(),
+      Home(user: widget.user),
       Chats(user: widget.user),
       TuteeGroups(tutee: widget.user),
       const Calls()
@@ -121,7 +121,7 @@ class TuteePageState extends State<TuteePage> {
           isExtended: false,
           onPressed: () {
             Navigator.of(context).push(MaterialPageRoute(
-                builder: (BuildContext context) => TutorsList(
+                builder: (BuildContext context) => TutorList(
                       tutee: widget.user,
                     )));
           },

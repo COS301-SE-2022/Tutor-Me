@@ -8,6 +8,7 @@ import '../../services/models/modules.dart';
 import '../../services/models/users.dart';
 import '../tutee_page.dart';
 import '../tutorProfilePages/tutor_profile_view.dart';
+import 'tutor_profile_booking_page.dart';
 // import 'package:tutor_me/services/models/tutors.dart';
 // import 'package:tutor_me/modules/api.services.dart';
 // import 'package:tutor_me/modules/tutors.dart';
@@ -22,17 +23,17 @@ class Tutor {
   Tutor(this.tutor, this.image, this.hasImage);
 }
 
-class TutorList extends StatefulWidget {
+class TutorExplore extends StatefulWidget {
   final Users tutee;
-  const TutorList({Key? key, required this.tutee}) : super(key: key);
+  const TutorExplore({Key? key, required this.tutee}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
-    return TutorListState();
+    return TutorExploreState();
   }
 }
 
-class TutorListState extends State<TutorList> {
+class TutorExploreState extends State<TutorExplore> {
   String query = '';
   final textControl = TextEditingController();
   List<Users> tutorList = List<Users>.empty();
@@ -347,7 +348,7 @@ class TutorListState extends State<TutorList> {
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      "Request for a Tutor",
+                      "Find a Tutor",
                       style: TextStyle(
                           fontSize: MediaQuery.of(context).size.height * 0.035,
                           fontWeight: FontWeight.w600,
@@ -861,7 +862,7 @@ class TutorListState extends State<TutorList> {
       ),
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
-            builder: (BuildContext context) => TutorProfilePageView(
+            builder: (BuildContext context) => TutorProfileBookingPage(
                   tutor: tutors[i].tutor,
                   tutee: widget.tutee,
                 )));
