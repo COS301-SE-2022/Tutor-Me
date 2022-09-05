@@ -154,14 +154,14 @@ class UserServices {
   acceptRequest(String requestId) async {
     try {
       final url = Uri.http('tutorme-dev.us-east-1.elasticbeanstalk.com',
-          'api/Requests/$requestId');
+          'api/Requests/accept/$requestId');
       final header = {
         "Accept": "application/json",
         "Content-Type": "application/json",
         "Access-Control-Allow-Origin": "*"
       };
-      final response = await http.put(url, headers: header);
-      if (response.statusCode == 204) {
+      final response = await http.get(url, headers: header);
+      if (response.statusCode == 200) {
         return true;
       } else {
         throw Exception(
@@ -799,18 +799,61 @@ class UserServices {
     }
   }
 
-  static uploadProfileImage(File? image, String id) async {
+  static updateProfileImage(File? image, String id) async {
     final imageByte = base64Encode(image!.readAsBytesSync());
-    String data = jsonEncode({'id': id, 'tuteeImage': imageByte});
+    String data =
+        jsonEncode({'id': id, 'userImage': imageByte, 'userTranscript': ''});
     final header = <String, String>{
       'Content-Type': 'application/json; charset=utf-8'
     };
     final url = Uri.parse(
-        'http://filesystem-prod.us-east-1.elasticbeanstalk.com/api/TuteeFiles/$id');
+        'http://tutorfilesystem-dev.us-east-1.elasticbeanstalk.com/api/UserFiles/$id');
     try {
       final response = await http.put(url, headers: header, body: data);
-      if (response.statusCode == 204) {
+      if (response.statusCode == 200) {
         return image;
+      } else {
+        throw "failed to upload ${response.body}";
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  static uploadProfileImage(File? image, String id) async {
+    final imageByte = base64Encode(image!.readAsBytesSync());
+    String data =
+        jsonEncode({'id': id, 'userImage': imageByte, 'userTranscript': ''});
+    final header = <String, String>{
+      'Content-Type': 'application/json; charset=utf-8'
+    };
+    final url = Uri.parse(
+        'http://tutorfilesystem-dev.us-east-1.elasticbeanstalk.com/api/UserFiles');
+    try {
+      final response = await http.post(url, headers: header, body: data);
+      if (response.statusCode == 200) {
+        return image;
+      } else {
+        throw "failed to upload ${response.body}";
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  static uploadTranscript(File? transcript, String id) async {
+    final transcriptByte = base64Encode(transcript!.readAsBytesSync());
+    String data = jsonEncode(
+        {'id': id, 'userImage': '', 'userTranscript': transcriptByte});
+    final header = <String, String>{
+      'Content-Type': 'application/json; charset=utf-8'
+    };
+    final url = Uri.parse(
+        'http://tutorfilesystem-dev.us-east-1.elasticbeanstalk.com/api/UserFiles/$id');
+    try {
+      final response = await http.post(url, headers: header, body: data);
+      if (response.statusCode == 200) {
+        return transcript;
       } else {
         throw "failed to upload";
       }
@@ -821,7 +864,7 @@ class UserServices {
 
   static Future getProfileImage(String id) async {
     Uri tuteeURL = Uri.parse(
-        'http://filesystem-prod.us-east-1.elasticbeanstalk.com/api/TuteeFiles/$id');
+        'http://tutorfilesystem-dev.us-east-1.elasticbeanstalk.com/api/UserFiles/image/$id');
     try {
       final response = await http.get(tuteeURL, headers: {
         "Accept": "application/json",
@@ -1007,36 +1050,59 @@ class UserServices {
   //   }
   // }
 
-  // static Future getTutorProfileImage(String id) async {
-  //   Uri tuteeURL = Uri.parse(
-  //       'http://filesystem-prod.us-east-1.elasticbeanstalk.com/api/TutorFiles/$id');
+  static Future getTutorProfileImage(String id) async {
+    Uri tuteeURL = Uri.parse(
+        'http://tutorfilesystem-dev.us-east-1.elasticbeanstalk.com/api/Userfiles/image/$id');
 
-  //   try {
-  //     final response = await http.get(tuteeURL, headers: {
-  //       "Accept": "application/json",
-  //       "Content-Type": "application/json",
-  //       "Access-Control-Allow-Origin": "*"
-  //     });
-  //     if (response.statusCode == 200) {
-  //       String j = "";
-  //       if (response.body[0] != "[") {
-  //         j = "[" + response.body + "]";
-  //       } else {
-  //         j = response.body;
-  //       }
-  //       final List list = json.decode(j);
-  //       String byteString = list[0]['tutorImage'];
-  //       if (byteString.isEmpty) {
-  //         throw Exception('No Image found');
-  //       }
+    try {
+      final response = await http.get(tuteeURL, headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*"
+      });
+      if (response.statusCode == 200) {
+        final image = response.body;
+        List<String> imageList = image.split('"');
 
-  //       Uint8List image = const Base64Codec().decode(byteString);
-  //       return image;
-  //     } else {
-  //       throw Exception('Failed to load' + response.statusCode.toString());
-  //     }
-  //   } catch (e) {
-  //     throw Exception(e);
-  //   }
-  // }
+        if (image.isEmpty) {
+          throw Exception('No Image found');
+        } else {
+          Uint8List bytes = base64Decode(imageList[1]);
+          return bytes;
+        }
+      } else {
+        throw Exception('Failed to load' + response.statusCode.toString());
+      }
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  static Future getTuteeProfileImage(String id) async {
+    Uri tuteeURL = Uri.parse(
+        'http://tutorfilesystem-dev.us-east-1.elasticbeanstalk.com/api/Userfiles/image/$id');
+
+    try {
+      final response = await http.get(tuteeURL, headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*"
+      });
+      if (response.statusCode == 200) {
+        final image = response.body;
+        List<String> imageList = image.split('"');
+
+        if (image.isEmpty) {
+          throw Exception('No Image found');
+        } else {
+          Uint8List bytes = base64Decode(imageList[1]);
+          return bytes;
+        }
+      } else {
+        throw Exception('Failed to load' + response.statusCode.toString());
+      }
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
 }

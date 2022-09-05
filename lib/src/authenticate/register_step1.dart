@@ -114,7 +114,7 @@ class _RegisterStep1State extends State<RegisterStep1> {
     double textBoxWidth = MediaQuery.of(context).size.width * 0.4 * 2;
     double buttonWidth = MediaQuery.of(context).size.width * 0.8;
     String welcome = "";
-    if (widthOfScreen < 400.0) {
+    if (widthOfScreen < 600.0) {
       welcome = "Hi, Welcome!";
     } else {
       stepperWidth = stepperWidth / 2;
@@ -179,6 +179,8 @@ class _RegisterStep1State extends State<RegisterStep1> {
                       colorScheme: ColorScheme.fromSwatch().copyWith(
                           secondary: colorOrange, primary: colorOrange)),
                   child: Stepper(
+                    onStepCancel: null,
+                    onStepContinue: null,
                     type: StepperType.horizontal,
                     steps: getSteps(),
                     currentStep: currentStep,

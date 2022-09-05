@@ -2,7 +2,6 @@ import 'dart:io';
 import 'dart:typed_data';
 // import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:tutor_me/services/services/tutee_services.dart';
 import 'package:tutor_me/services/services/user_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/components.dart';
@@ -129,19 +128,23 @@ class _TuteeProfileEditState extends State<TuteeProfileEdit> {
         OrangeButton(
             btnName: isSaveLoading ? 'Saving' : "Save",
             onPressed: () async {
+              setState(() {
+                isSaveLoading = true;
+              });
               if (image != null) {
-                setState(() {
-                  isSaveLoading = true;
-                });
-                await TuteeServices.uploadProfileImage(
-                    image, widget.user.getId);
-
-                final newImage =
-                    await TuteeServices.getTuteeProfileImage(widget.user.getId);
-
-                setState(() {
-                  widget.image = newImage;
-                });
+                try {
+                  await UserServices.updateProfileImage(
+                      image, widget.user.getId);
+                } catch (e) {
+                  try {
+                    await UserServices.uploadProfileImage(
+                        image, widget.user.getId);
+                  } catch (e) {
+                    const snack =
+                        SnackBar(content: Text("Error uploading image"));
+                    ScaffoldMessenger.of(context).showSnackBar(snack);
+                  }
+                }
               }
               if (nameController.text.isNotEmpty) {
                 List<String> name = nameController.text.split(' ');
@@ -156,7 +159,7 @@ class _TuteeProfileEditState extends State<TuteeProfileEdit> {
               }
               if (nameController.text.isNotEmpty ||
                   bioController.text.isNotEmpty) {
-                await UserServices.updateTutee(widget.user);
+                // await UserServices.updateTutee(widget.user);
               }
 
               setState(() {

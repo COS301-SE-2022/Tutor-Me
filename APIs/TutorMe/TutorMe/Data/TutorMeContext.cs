@@ -73,6 +73,12 @@ namespace TutorMe.Data
                     .HasForeignKey(d => d.ModuleId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("Group_Module_FK");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Group)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("Group_User_FK");
             });
 
             modelBuilder.Entity<GroupMember>(entity =>
