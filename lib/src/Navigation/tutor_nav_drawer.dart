@@ -30,7 +30,7 @@ class TutorNavigationDrawerState extends State<TutorNavigationDrawerWidget> {
 
   getTutorProfileImage() async {
     try {
-      final image = await UserServices.getProfileImage(widget.user.getId);
+      final image = await UserServices.getTutorProfileImage(widget.user.getId);
 
       setState(() {
         tutorImage = image;

@@ -13,6 +13,7 @@ import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/theme/themes.dart';
 import 'package:tutor_me/src/tutorAndTuteeCollaboration/tuteeGroups/tuteeGroupSettings.dart';
 import 'package:http/http.dart' as http;
+import '../../screens/join_screen.dart';
 import '../../services/models/groups.dart';
 import '../../services/models/modules.dart';
 import '../../services/services/user_services.dart';
@@ -77,7 +78,8 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
   getTuteeProfileImages() async {
     for (int i = 0; i < tuteeList.length; i++) {
       try {
-        final image = await UserServices.getProfileImage(tuteeList[i].getId);
+        final image =
+            await UserServices.getTuteeProfileImage(tuteeList[i].getId);
         setState(() {
           tuteeImages.add(image);
         });
@@ -125,7 +127,8 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
 
   getTutorImage() async {
     try {
-      final image = await UserServices.getProfileImage(widget.group.getUserId);
+      final image =
+          await UserServices.getTutorProfileImage(widget.group.getUserId);
 
       setState(() {
         tutorHasImage = true;
@@ -287,29 +290,35 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
                           ),
                           InkWell(
                             onTap: () async {
-                              final group = await GroupServices.getGroup(
-                                  widget.group.getId);
-
-                              setState(() {
-                                widget.group = group[0];
-                              });
                               try {
-                                //TODO: validate meeting
+                                final group = await GroupServices.getGroup(
+                                    widget.group.getId);
 
-                                // if (await validateMeeting(
-                                //     widget.group.getGroupLink)) {
-                                //   Navigator.push(
-                                //     context,
-                                //     MaterialPageRoute(
-                                //       builder: (context) => JoinScreen(
-                                //         meetingId: widget.group.getGroupLink,
-                                //         token: _token,
-                                //       ),
-                                //     ),
-                                //   );
-                                // } else {
-                                //   toastMsg("Invalid Meeting ID");
-                                // }
+                                setState(() {
+                                  widget.group = group;
+                                });
+                                try {
+                                  if (await validateMeeting(
+                                      widget.group.getVideoId)) {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => JoinScreen(
+                                          meetingId: widget.group.getVideoId,
+                                          token: _token,
+                                        ),
+                                      ),
+                                    );
+                                  } else {
+                                    toastMsg("Invalid Meeting ID");
+                                  }
+                                } catch (e) {
+                                  const snackBar = SnackBar(
+                                    content: Text('Failed to join live video'),
+                                  );
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(snackBar);
+                                }
                               } catch (e) {
                                 const snackBar = SnackBar(
                                   content: Text('Failed to join live video'),

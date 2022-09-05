@@ -40,19 +40,6 @@ class TuteeGroupsState extends State<TuteeGroups> {
         hasGroups = true;
       });
     }
-    // for (int i = 0; i < groups.length; i++) {
-    //   numOfTutees = 0;
-    //   if (groups[i].getTutees.length > 1) {
-    //     numOfTutees++;
-    //     break;
-    //   }
-    //   for (int t = 0; t < groups[i].getTutees.length; t++) {
-    //     if (groups[i].getTutees[t] == ',') {
-    //       numOfTutees++;
-    //     }
-    //   }
-    //   numTuteesForEachGroup.add(numOfTutees);
-    // }
 
     for (int k = 0; k < numTuteesForEachGroup.length; k++) {
       k.toString() + " 's # tutees " + numTuteesForEachGroup[k].toString();

@@ -37,7 +37,7 @@ class _LoginState extends State<Login> {
     double toggleWidth = MediaQuery.of(context).size.width * 0.4;
     double textBoxWidth = MediaQuery.of(context).size.width * 0.4 * 2;
     double buttonWidth = MediaQuery.of(context).size.width * 0.8;
-    if (widthOfScreen >= 400.0) {
+    if (widthOfScreen >= 600.0) {
       toggleWidth = toggleWidth / 2;
       buttonWidth = buttonWidth / 2;
       textBoxWidth = textBoxWidth / 2;

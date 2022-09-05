@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tutor_me/services/models/user_modules.dart';
 import 'package:tutor_me/services/services/group_services.dart';
 import 'package:tutor_me/services/services/module_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
@@ -25,7 +26,9 @@ class _EditModuleListState extends State<EditModuleList> {
   List<Modules> modulesToAdd = List<Modules>.empty(growable: true);
   List<Modules> confirmedModules = List<Modules>.empty();
   List<Groups> tutorGroups = List<Groups>.empty();
+  List<UserModules> userModules = List<UserModules>.empty();
   final textControl = TextEditingController();
+
   String query = '';
   bool isCurrentOpen = true;
   bool isAllOpen = false;
@@ -74,28 +77,23 @@ class _EditModuleListState extends State<EditModuleList> {
   //   });
   // }
 
-  // getModules() async {
-  //   final modules = await ModuleServices.getModules();
-  //   setState(() {
-  //     moduleList = modules;
-  //     saveModule = modules;
-  //   });
-  // }
+  getUserModules() async {
+    final userModules = await ModuleServices.getAllUserModules();
+
+    this.userModules = userModules;
+  }
 
   getTutorGroups() async {
-    final groups =
-        await GroupServices.getGroupByUserID(widget.user.getId);
+    final groups = await GroupServices.getGroupByUserID(widget.user.getId);
 
     tutorGroups = groups;
   }
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   getModules();
-
-  //   inputCurrent();
-  // }
+  @override
+  void initState() {
+    super.initState();
+    getUserModules();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -166,7 +164,6 @@ class _EditModuleListState extends State<EditModuleList> {
                                     isConfirming = true;
                                   });
                                   try {
-
                                     for (var module in widget.currentModules) {
                                       try {
                                         await ModuleServices.addUserModule(
@@ -323,7 +320,7 @@ class _EditModuleListState extends State<EditModuleList> {
             subtitle: Text(widget.currentModules[i].getCode),
             trailing: IconButton(
               onPressed: () {
-                deleteModule(i);
+                showDeleteDialog(context, i);
               },
               icon: const Icon(Icons.delete),
               color: Colors.red,
@@ -356,6 +353,47 @@ class _EditModuleListState extends State<EditModuleList> {
                         },
                         child: const Text(
                           'Continue',
+                          style: TextStyle(color: colorTurqoise),
+                        )),
+                  ]);
+            }),
+          );
+        });
+  }
+
+  showDeleteDialog(BuildContext context, int index) {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) {
+          return WillPopScope(
+            onWillPop: (() async => false),
+            child: StatefulBuilder(builder: (context, setState) {
+              return AlertDialog(
+                  title: const Text("Alert"),
+                  content:
+                      const Text('Are you sure you want to remove the module?'),
+                  actions: [
+                    OutlinedButton(
+                        style: OutlinedButton.styleFrom(
+                            side: const BorderSide(
+                                width: 2, color: colorTurqoise)),
+                        onPressed: () async {
+                          String userModuleId = '';
+                          for (var userMod in userModules) {
+                            if (userMod.getModuleId ==
+                                    widget.currentModules[index].getModuleId &&
+                                userMod.getUserId == widget.user.getId) {
+                              userModuleId = userMod.getUserModuleId;
+                              break;
+                            }
+                          }
+                          await ModuleServices.deleteUserModule(userModuleId);
+                          deleteModule(index);
+                          Navigator.pop(context);
+                        },
+                        child: const Text(
+                          'Confirm',
                           style: TextStyle(color: colorTurqoise),
                         )),
                   ]);

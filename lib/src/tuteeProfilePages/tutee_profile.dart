@@ -47,7 +47,7 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
 
   getCurrentModules() async {
     final currentModulesList =
-        await ModuleServices.getUsermodules(widget.user.getId);
+        await ModuleServices.getUserModules(widget.user.getId);
     setState(() {
       currentModules = currentModulesList;
     });
