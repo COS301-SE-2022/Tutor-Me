@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:table_calendar/table_calendar.dart';
 import 'package:tutor_me/src/colorpallete.dart';
-import 'package:tutor_me/src/models/event.dart';
 // import 'package:tutor_me/src/pages/badges.dart';
-import 'package:tutor_me/src/pages/inviteToMeeting.dart';
 import 'package:tutor_me/src/pages/tutor_explore.dart';
 
 import '../../services/models/users.dart';
@@ -81,7 +78,7 @@ class _BookForTutorState extends State<BookForTutor> {
                       height: MediaQuery.of(context).size.height * 0.001,
                       width: MediaQuery.of(context).size.width * 0.7,
                       decoration: BoxDecoration(
-                        color: Color.fromARGB(255, 36, 35, 35).withOpacity(0.2),
+                        color: const Color.fromARGB(255, 36, 35, 35).withOpacity(0.2),
                       ),
                     ),
                     SizedBox(

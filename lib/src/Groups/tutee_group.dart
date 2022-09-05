@@ -298,7 +298,6 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
                                 setState(() {
                                   widget.group = group;
                                 });
-                                print(widget.group.getVideoId);
                                 try {
                                   if (await validateMeeting(
                                       widget.group.getVideoId)) {

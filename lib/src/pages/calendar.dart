@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'package:toggle_switch/toggle_switch.dart';
 import 'package:tutor_me/src/colorpallete.dart';
-import 'package:tutor_me/src/models/event.dart';
 // import 'package:tutor_me/src/pages/badges.dart';
-import 'package:tutor_me/src/pages/inviteToMeeting.dart';
 import 'package:tutor_me/src/pages/upcoming.dart';
 
 import 'calendarScreen.dart';

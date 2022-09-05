@@ -82,10 +82,6 @@ class _PageState extends State<Badges> {
     final screenHeightSize = MediaQuery.of(context).size.height;
     final screenWidthSize = MediaQuery.of(context).size.width;
 
-    final images = [
-      // ignore: unnecessary_string_escapes
-      "assets/Pictures/badges/reg.png",
-    ];
     final titles = [
       "Registered",
       "Groups",

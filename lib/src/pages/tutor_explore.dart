@@ -7,7 +7,6 @@ import 'package:tutor_me/src/colorpallete.dart';
 import '../../services/models/modules.dart';
 import '../../services/models/users.dart';
 import '../tutee_page.dart';
-import '../tutorProfilePages/tutor_profile_view.dart';
 import 'tutor_profile_booking_page.dart';
 // import 'package:tutor_me/services/models/tutors.dart';
 // import 'package:tutor_me/modules/api.services.dart';
