@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
 import 'package:tutor_me/services/models/modules.dart';
+import 'package:tutor_me/services/models/user_modules.dart';
 
 class ModuleServices {
   static getModules() async {
@@ -33,7 +34,34 @@ class ModuleServices {
     }
   }
 
-  static Future getUsermodules(String id) async {
+  static getAllUserModules() async {
+    Uri modulesURL = Uri.http(
+        'tutorme-dev.us-east-1.elasticbeanstalk.com', '/api/UserModules');
+    try {
+      final response = await http.get(modulesURL, headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*"
+      });
+
+      if (response.statusCode == 200) {
+        String j = "";
+        if (response.body[0] != "[") {
+          j = "[" + response.body + "]";
+        } else {
+          j = response.body;
+        }
+        final List list = json.decode(j);
+        return list.map((json) => UserModules.fromObject(json)).toList();
+      } else {
+        throw Exception('Failed to load');
+      }
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  static Future getUserModules(String id) async {
     Uri url = Uri.http(
         'tutorme-dev.us-east-1.elasticbeanstalk.com', 'api/UserModules/$id');
     try {
@@ -79,6 +107,24 @@ class ModuleServices {
         return module;
       } else {
         throw Exception('Failed to upload ' + response.statusCode.toString());
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  static deleteUserModule(String id) async {
+    final header = <String, String>{
+      'Content-Type': 'application/json; charset=utf-8',
+    };
+    try {
+      final modulesURL = Uri.parse(
+          'http://tutorme-dev.us-east-1.elasticbeanstalk.com/api/UserModules/$id');
+      final response = await http.delete(modulesURL, headers: header);
+      if (response.statusCode == 200) {
+        return true;
+      } else {
+        throw Exception('Failed to delete ' + response.statusCode.toString());
       }
     } catch (e) {
       rethrow;
