@@ -3,6 +3,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using TutorMe.Data;
 using TutorMe.Services;
+using TutorMe.Entities;
 
 namespace TutorMe.Controllers
 {
@@ -23,29 +24,60 @@ namespace TutorMe.Controllers
         [HttpGet]
         public IActionResult GetAllGroups()
         {
-            var groups = groupService.GetAllGroups();
-            return Ok(groups);
+            try {
+                var groups = groupService.GetAllGroups();
+                return Ok(groups);
+            }
+            catch (Exception exception) {
+                return BadRequest(exception.Message);
+            }
+        }
+
+        [HttpGet("user/{id}")]
+        public IActionResult GetGroupsByUserId(Guid id) {
+            try {
+                var groups = groupService.GetGroupsByUserId(id);
+                return Ok(groups);
+            }
+            catch (Exception exception) {
+                return BadRequest(exception.Message);
+            }
         }
 
         [HttpGet("{id}")]
         public IActionResult GetGroupById(Guid id)
         {
-            var group = groupService.GetGroupById(id);
-            return Ok(group);
+            try {
+                var group = groupService.GetGroupById(id);
+                return Ok(group);
+            }
+            catch (Exception exception) {
+                return BadRequest(exception.Message);
+            }
         }
 
         [HttpPost]
-        public IActionResult createGroup(Group group)
+        public IActionResult createGroup(IGroup group)
         {
-            var groupId = groupService.createGroup(group);
-            return Ok(groupId);
+            try {
+                var groupId = groupService.createGroup(group);
+                return Ok(groupId);
+            }
+            catch (Exception exception) {
+                return BadRequest(exception.Message);
+            }
         }
 
         [HttpDelete("{id}")]
         public IActionResult DeleteGroup(Guid id)
         {
-            var group = groupService.deleteGroupById(id);
-            return Ok(group);
+            try {
+                var group = groupService.deleteGroupById(id);
+                return Ok(group);
+            }
+            catch (Exception exception) {
+                return BadRequest(exception.Message);
+            }
         }
     }
 }

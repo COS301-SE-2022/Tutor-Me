@@ -71,14 +71,8 @@ class GroupServices {
         "Access-Control-Allow-Origin": "*"
       });
       if (response.statusCode == 200) {
-        String j = "";
-        if (response.body[0] != "[") {
-          j = "[" + response.body + "]";
-        } else {
-          j = response.body;
-        }
-        final List list = json.decode(j);
-        return list.map((json) => Groups.fromObject(json)).toList();
+        final group = Groups.fromObject(json.decode(response.body));
+        return group;
       } else {
         throw Exception('Failed to load' + response.statusCode.toString());
       }
@@ -141,11 +135,11 @@ class GroupServices {
     }
   }
 
-  static updateGroup(Groups group) async {
-    String data = jsonEncode({
-      'id': group.getId,
-      'description': group.getDescription,
-    });
+  static updateGroupDescription(String description, Groups group) async {
+    // String data = jsonEncode({
+    //   'id': group.getId,
+    //   'description': group.getDescription,
+    // });
 
     final header = <String, String>{
       'Content-Type': 'application/json; charset=utf-8',
@@ -153,12 +147,38 @@ class GroupServices {
     try {
       final id = group.getId;
       final modulesURL = Uri.parse(
-          'http://tutorme-dev.us-east-1.elasticbeanstalk.com/api/Groups/$id');
-      final response = await http.put(modulesURL, headers: header, body: data);
+          'http://tutorme-dev.us-east-1.elasticbeanstalk.com/api/Groups/description/$id');
+      final response =
+          await http.put(modulesURL, headers: header, body: description);
       if (response.statusCode == 204) {
         return group;
       } else {
         throw Exception('Failed to update' + response.statusCode.toString());
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  static updateGroupVideoId(String videoId, Groups group) async {
+    // String data = jsonEncode({
+    //   'id': group.getId,
+    //   'description': group.getDescription,
+    // });
+
+    final header = <String, String>{
+      'Content-Type': 'application/json; charset=utf-8',
+    };
+    try {
+      final id = group.getId;
+      final modulesURL = Uri.parse(
+          'http://tutorme-dev.us-east-1.elasticbeanstalk.com/api/Groups/videoId/$id?videoId=$videoId');
+      final response =
+          await http.put(modulesURL, headers: header, body: videoId);
+      if (response.statusCode == 200) {
+        return group;
+      } else {
+        throw Exception('Failed to update' + response.body);
       }
     } catch (e) {
       rethrow;

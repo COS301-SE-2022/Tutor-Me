@@ -48,5 +48,27 @@ namespace TutorMe.Controllers
             var groupMember = groupMemberService.deleteGroupMemberById(id);
             return Ok(groupMember);
         }
+
+        [HttpGet("tutee/{id}")]
+        public IActionResult GetGroupTutees(Guid id) {
+            try {
+                var groupMembers = groupMemberService.GetGroupTutees(id);
+                return Ok(groupMembers);
+            }
+            catch (Exception exception) {
+                return BadRequest(exception.Message);
+            }
+        }
+
+        [HttpGet("group/{id}")]
+        public IActionResult getUserGroups(Guid id) {
+            try {
+                var groups = groupMemberService.GetUserGroups(id);
+                return Ok(groups);
+            }
+            catch (Exception exception) {
+                return BadRequest(exception.Message);
+            }
+        }
     }
 }

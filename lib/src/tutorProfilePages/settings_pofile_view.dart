@@ -48,7 +48,7 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
     numConnections = 3;
 
     final currentModulesList =
-        await ModuleServices.getUsermodules(widget.user.getId);
+        await ModuleServices.getUserModules(widget.user.getId);
 
     setState(() {
       currentModules = currentModulesList;
