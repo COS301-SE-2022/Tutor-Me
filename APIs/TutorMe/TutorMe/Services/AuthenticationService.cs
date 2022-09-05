@@ -61,14 +61,9 @@ namespace TutorMe.Services
             if (user == null) {
                 throw new KeyNotFoundException("User not found");
             }
-            if (user.Password == hashPassword(authPassword.OldPassword)) {
-                user.Password = hashPassword(authPassword.Password);
-                _context.SaveChanges();
-                return true;
-            }
-            else {
-                throw new KeyNotFoundException("Password or Email is incorrect");
-            }
+            user.Password = hashPassword(authPassword.Password);
+            _context.SaveChanges();
+            return true;
         }
 
         public string hashPassword(string password) {
