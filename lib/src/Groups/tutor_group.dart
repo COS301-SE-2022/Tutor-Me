@@ -74,7 +74,8 @@ class TutorGroupPageState extends State<TutorGroupPage> {
   getTuteeProfileImages() async {
     for (int i = 0; i < tuteeList.length; i++) {
       try {
-        final image = await UserServices.getTuteeProfileImage(tuteeList[i].getId);
+        final image =
+            await UserServices.getTuteeProfileImage(tuteeList[i].getId);
         setState(() {
           tuteeImages.add(image);
         });
@@ -217,7 +218,7 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                                   builder: (BuildContext context) => ChatPage(
                                         user: widget.tutor,
                                         group: widget.group,
-                                        moduleCode: widget.group.getDescription,
+                                        moduleCode: widget.module.getCode,
                                       )));
                             },
                             child: Card(
