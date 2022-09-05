@@ -246,9 +246,6 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                             onTap: () async {
                               try {
                                 _meetingID = await createMeeting();
-                                //TODO: add meeting to database
-
-                                // widget.group.setGroupLink = _meetingID;
                                 await GroupServices.updateGroupVideoId(
                                     _meetingID, widget.group);
                                 Navigator.push(
