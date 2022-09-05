@@ -1056,4 +1056,32 @@ class UserServices {
       throw Exception(e);
     }
   }
+
+  static Future getTuteeProfileImage(String id) async {
+    Uri tuteeURL = Uri.parse(
+        'http://tutorfilesystem-dev.us-east-1.elasticbeanstalk.com/api/Userfiles/image/$id');
+
+    try {
+      final response = await http.get(tuteeURL, headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*"
+      });
+      if (response.statusCode == 200) {
+        final image = response.body;
+        List<String> imageList = image.split('"');
+
+        if (image.isEmpty) {
+          throw Exception('No Image found');
+        } else {
+          Uint8List bytes = base64Decode(imageList[1]);
+          return bytes;
+        }
+      } else {
+        throw Exception('Failed to load' + response.statusCode.toString());
+      }
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
 }

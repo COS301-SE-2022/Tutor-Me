@@ -105,7 +105,7 @@ class TutorRequestsState extends State<TutorRequests> {
     for (int i = 0; i < tuteeList.length; i++) {
       try {
         final image =
-            await TuteeServices.getTuteeProfileImage(tuteeList[i].getId);
+            await UserServices.getTuteeProfileImage(tuteeList[i].getId);
         setState(() {
           tuteeImages.add(image);
         });

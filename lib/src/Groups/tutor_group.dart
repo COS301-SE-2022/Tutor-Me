@@ -74,7 +74,7 @@ class TutorGroupPageState extends State<TutorGroupPage> {
   getTuteeProfileImages() async {
     for (int i = 0; i < tuteeList.length; i++) {
       try {
-        final image = await UserServices.getProfileImage(tuteeList[i].getId);
+        final image = await UserServices.getTuteeProfileImage(tuteeList[i].getId);
         setState(() {
           tuteeImages.add(image);
         });
@@ -249,7 +249,8 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                                 //TODO: add meeting to database
 
                                 // widget.group.setGroupLink = _meetingID;
-                                await GroupServices.updateGroup(widget.group);
+                                await GroupServices.updateGroupVideoId(
+                                    _meetingID, widget.group);
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
