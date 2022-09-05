@@ -7,8 +7,7 @@ namespace FileSystem.Services {
 
         IEnumerable<byte[]> GetImageByUserId(Guid id);
         IEnumerable<byte[]> GetTranscriptByUserId(Guid id);
-        bool ModifyUserImageById(Guid id,byte[] userFiles);
-        bool ModifyUserTranscriptById(Guid id, byte[] userFiles);
+        bool ModifyUserFiles(UserFiles userFiles);
 
 
     }
@@ -36,24 +35,24 @@ namespace FileSystem.Services {
             return userFile.Id;
         }
 
-        public bool ModifyUserImageById(Guid id ,byte[] image) {
-            var userFile = _context.UserFiles.Find(id);
+        public bool ModifyUserFiles(UserFiles userFilesInput) {
+            var userFile = _context.UserFiles.Find(userFilesInput.Id);
             if (userFile == null) {
-                throw new KeyNotFoundException("This user files does not exist");
+                userFile.Id = userFilesInput.Id;
+                userFile.UserImage = userFilesInput.UserImage;
+                userFile.UserTranscript = userFile.UserTranscript;
+                _context.UserFiles.Add(userFile);
+                _context.SaveChanges();
+                return true;
             }
-            userFile.UserImage = image;
-            _context.SaveChanges();
-            return true;
-        }
+            else {
+                userFile.UserImage = userFilesInput.UserImage;
+                userFile.UserTranscript = userFile.UserTranscript;
+                _context.UserFiles.Update(userFile);
+                _context.SaveChanges();
+                return true;
 
-        public bool ModifyUserTranscriptById(Guid id, byte[] file) {
-            var userFile = _context.UserFiles.Find(id);
-            if (userFile == null) {
-                throw new KeyNotFoundException("This user files does not exist");
             }
-            userFile.UserTranscript = file;
-            _context.SaveChanges();
-            return true;
         }
 
         public bool DeleteUserFilesById(Guid id) {
