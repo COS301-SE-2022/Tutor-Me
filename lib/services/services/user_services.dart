@@ -636,6 +636,27 @@ class UserServices {
     }
   }
 
+  static changePassword(Users tutor, String password) async {
+    String data = jsonEncode({'userId': tutor.getId, 'password': password});
+
+    final header = <String, String>{
+      'Content-Type': 'application/json; charset=utf-8',
+    };
+    try {
+      final id = tutor.getId;
+      final passwordURL = Uri.parse(
+          'http://tutorme-dev.us-east-1.elasticbeanstalk.com/api/Authentication/password/$id');
+      final response = await http.put(passwordURL, headers: header, body: data);
+      if (response.statusCode == 200) {
+        return tutor;
+      } else {
+        throw Exception('Failed to update' + response.statusCode.toString());
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   static updateTutorByEmail(String oldEmail, String newEmail) async {
     Users tutor = await getTuteeByEmail(oldEmail);
     if (isThereTuteeByEmail(newEmail) == false) {

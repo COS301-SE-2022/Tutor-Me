@@ -27,7 +27,7 @@ class TuteePageState extends State<TuteePage> {
 
   getScreens() {
     return [
-      const Home(),
+      Home(user: widget.user),
       Chats(user: widget.user),
       TuteeGroups(tutee: widget.user),
       const Calls()
@@ -51,7 +51,7 @@ class TuteePageState extends State<TuteePage> {
       appBarColor2 = colorGrey;
       highlightColor = colorOrange;
     } else {
-      appBarColor1 = Colors.red;
+      appBarColor1 = const Color.fromRGBO(244, 67, 54, 1);
       appBarColor2 = Colors.orange;
       highlightColor = colorTurqoise;
     }
@@ -63,7 +63,7 @@ class TuteePageState extends State<TuteePage> {
           user: widget.user,
         ),
         appBar: AppBar(
-          toolbarHeight: 70,
+          toolbarHeight: MediaQuery.of(context).size.height * 0.09,
           centerTitle: true,
           title: const Text('Tutor Me'),
           flexibleSpace: Container(
@@ -121,7 +121,7 @@ class TuteePageState extends State<TuteePage> {
           isExtended: false,
           onPressed: () {
             Navigator.of(context).push(MaterialPageRoute(
-                builder: (BuildContext context) => TutorsList(
+                builder: (BuildContext context) => TutorList(
                       tutee: widget.user,
                     )));
           },

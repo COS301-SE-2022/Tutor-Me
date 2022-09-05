@@ -60,9 +60,10 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
   List<Uint8List> tuteeImages = List<Uint8List>.empty(growable: true);
   List<int> hasImage = List<int>.empty(growable: true);
   bool hasOnlyOneTutee = false;
-  final String _token = "";
+  String _token = "";
 
   getTutees() async {
+    fetchToken().then((token) => setState(() => _token = token));
     try {
       final tutees = await GroupServices.getGroupTutees(widget.group.getId);
       setState(() {

@@ -1,7 +1,15 @@
 class Event {
   final String title;
   final String description;
-  Event ({required this.title, required this.description});
+  DateTime date;
+  DateTime time;
+
+  Event({
+    required this.title,
+    required this.description,
+    required this.date,
+    required this.time,
+  });
   @override
   String toString() => title;
 }
