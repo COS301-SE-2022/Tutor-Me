@@ -63,7 +63,7 @@ class TuteePageState extends State<TuteePage> {
           user: widget.user,
         ),
         appBar: AppBar(
-          toolbarHeight: 70,
+          toolbarHeight: MediaQuery.of(context).size.height * 0.09,
           centerTitle: true,
           title: const Text('Tutor Me'),
           flexibleSpace: Container(

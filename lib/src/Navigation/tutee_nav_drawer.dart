@@ -137,12 +137,12 @@ class TuteeNavigationDrawerState extends State<TuteeNavigationDrawerWidget> {
       child: Container(
         padding: padding.add(EdgeInsets.symmetric(
             vertical: MediaQuery.of(context).size.width * 0.08)),
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/Pictures/profileBackground.jpg'),
-            fit: BoxFit.cover,
-          ),
-        ),
+        // decoration: const BoxDecoration(
+        //   image: DecorationImage(
+        //     image: AssetImage('assets/Pictures/profileBackground.jpg'),
+        //     fit: BoxFit.cover,
+        //   ),
+        // ),
         child: Row(children: <Widget>[
           CircleAvatar(
             backgroundColor: colorTurqoise,

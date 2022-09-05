@@ -63,7 +63,7 @@ class _HomeState extends State<Home> {
             width: MediaQuery.of(context).size.width * 0.8,
             height: MediaQuery.of(context).size.height * 0.09,
             decoration: const BoxDecoration(
-                color: Color.fromARGB(120, 250, 247, 247),
+                // color: Color.fromARGB(120, 250, 247, 247),
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(10),
                     topRight: Radius.circular(10))),
@@ -115,7 +115,9 @@ class _HomeState extends State<Home> {
             width: screenWidthSize * 0.8,
             height: screenHeightSize * 0.2,
             decoration: const BoxDecoration(
-                color: Color.fromARGB(50, 193, 193, 193),
+                image: DecorationImage(
+                    image: AssetImage("assets/Pictures/progressBar.jpg"),
+                    fit: BoxFit.cover),
                 borderRadius: BorderRadius.all(Radius.circular(10))),
           ),
         ),
