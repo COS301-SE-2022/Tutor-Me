@@ -33,6 +33,8 @@ dependencies:
   google_fonts: ^3.0.1
   grouped_list: ^4.2.0
   signalr_core: ^1.1.1
+  video_player: ^2.4.7
+  pigeon: ^1.0.7
 
   table_calendar: ^3.0.6
 
