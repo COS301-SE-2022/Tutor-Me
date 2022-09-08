@@ -63,22 +63,14 @@ class _RecordedVideosState extends State<RecordedVideos> {
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
                 color: getRandomColor(),
-                // image: DecorationImage(
-                //   image: AssetImage('assets/Pictures/tutorCover.jpg'),
-                //   fit: BoxFit.cover,
-                // ),
               ),
             ),
             ListTile(
-              // leading: const CircleAvatar(
-              //   radius: 30,
-              //   backgroundImage: AssetImage('assets/Pictures/video.jpg'),
-              // ),
               title: Text(
                 'Video' ' ' + (index + 1).toString(),
                 style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: MediaQuery.of(context).size.height * 0.05,
+                  fontWeight: FontWeight.w500,
+                  fontSize: MediaQuery.of(context).size.height * 0.028,
                 ),
               ),
               subtitle: const Text('Mathematics'),

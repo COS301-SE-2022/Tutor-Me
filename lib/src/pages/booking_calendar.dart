@@ -3,7 +3,7 @@ import 'package:table_calendar/table_calendar.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/models/event.dart';
 // import 'package:tutor_me/src/pages/badges.dart';
-import 'package:tutor_me/src/pages/inviteToMeeting.dart';
+import 'package:tutor_me/src/pages/invite_to_meeting.dart';
 
 class BookingCalender extends StatefulWidget {
   const BookingCalender({Key? key}) : super(key: key);

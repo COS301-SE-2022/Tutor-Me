@@ -4,7 +4,7 @@ import 'package:tutor_me/src/colorpallete.dart';
 // import 'package:tutor_me/src/pages/badges.dart';
 import 'package:tutor_me/src/pages/upcoming.dart';
 
-import 'calendarScreen.dart';
+import 'calendar_screen.dart';
 
 class Calendar extends StatefulWidget {
   const Calendar({Key? key}) : super(key: key);
