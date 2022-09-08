@@ -13,8 +13,6 @@ class BookingCalender extends StatefulWidget {
 }
 
 class _BookingCalenderState extends State<BookingCalender> {
-  // late CalendarController _controller;
-
   late Map<DateTime, List<dynamic>> scheduledSessions = {};
 
   List getScheduledSessions(DateTime date) {
