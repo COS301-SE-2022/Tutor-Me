@@ -132,7 +132,7 @@ public class ModulesControllerUnitTests
     public async Task DeleteModuleById_Returns_True()
     {
         //Arrange
-            var expectedTutor =  new Module
+            var expectedModule =  new Module
             {
                 ModuleId  = Guid.NewGuid(),
                 Code  = "COS 301",
@@ -146,20 +146,20 @@ public class ModulesControllerUnitTests
         var controller = new  ModulesController(_ModuleRepositoryMock.Object,_mapper.Object);
 
         //Act
-        var result = controller.DeleteModule(expectedTutor.ModuleId);
+        var result = controller.DeleteModule(expectedModule.ModuleId);
         // Assert
         Assert.NotNull(result);
         Assert.IsType<OkObjectResult>(result);
         var actual = (result as OkObjectResult).Value;
         Assert.IsType<Boolean>(actual);
         Assert.Equal(true, actual);
-
+    
     }
     [Fact]
     public async Task DeleteModuleById_Returns_False()
     {
         //Arrange
-        var expectedTutor =  new Module
+        var expectedModule =  new Module
         {
             ModuleId  = Guid.NewGuid(),
             Code  = "COS 301",
@@ -173,7 +173,7 @@ public class ModulesControllerUnitTests
         var controller = new  ModulesController(_ModuleRepositoryMock.Object,_mapper.Object);
 
         //Act
-        var result = controller.DeleteModule(expectedTutor.ModuleId);
+        var result = controller.DeleteModule(expectedModule.ModuleId);
         // Assert
         Assert.NotNull(result);
         Assert.IsType<OkObjectResult>(result);

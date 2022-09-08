@@ -6,6 +6,7 @@ using Moq;
 using NuGet.Versioning;
 using TutorMe.Controllers;
 using TutorMe.Data;
+using TutorMe.Entities;
 using TutorMe.Models;
 using TutorMe.Services;
 
@@ -98,14 +99,14 @@ public class UsersModuleControllerUnitTests
     public async  Task AddUserModule_UserModule_ReturnsUserModule()
     {
         //arrange
-        var UserModule = new UserModule
+        var UserModule = new IUserModule
         {
             UserModuleId = Guid.NewGuid(),
             ModuleId = Guid.NewGuid(),
             UserId = Guid.NewGuid(),
 
         };
-        _UserModuleRepositoryMock.Setup(u => u. createUserModule(It.IsAny<UserModule>())).Returns(UserModule.UserModuleId);
+        _UserModuleRepositoryMock.Setup(u => u. createUserModule(It.IsAny<IUserModule>())).Returns(UserModule.UserModuleId);
         
         var controller = new UserModulesController(_UserModuleRepositoryMock.Object,_mapper.Object);
         

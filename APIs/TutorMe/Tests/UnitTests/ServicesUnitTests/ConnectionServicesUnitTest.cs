@@ -38,7 +38,7 @@ public class ConnectionServicesUnitTests
             TutorId = Guid.NewGuid(),
             TuteeId = Guid.NewGuid(),
             ModuleId = Guid.NewGuid(),
-            TuteeUserId = Guid.NewGuid(),
+           
         };
         
         var Connection2 = new Connection
@@ -47,7 +47,7 @@ public class ConnectionServicesUnitTests
             TutorId = Guid.NewGuid(),
             TuteeId = Guid.NewGuid(),
             ModuleId = Guid.NewGuid(),
-            TuteeUserId = Guid.NewGuid(),
+           
         };
         
         using (TutorMeContext ctx = new(optionsBuilder.Options))
@@ -111,7 +111,7 @@ public class ConnectionServicesUnitTests
             TutorId = Guid.NewGuid(),
             TuteeId = Guid.NewGuid(),
             ModuleId = Guid.NewGuid(),
-            TuteeUserId = Guid.NewGuid(),
+           
         };
         
         DbContextOptionsBuilder<TutorMeContext> optionsBuilder = new();
@@ -151,7 +151,7 @@ public class ConnectionServicesUnitTests
             TutorId = Guid.NewGuid(),
             TuteeId = Guid.NewGuid(),
             ModuleId = Guid.NewGuid(),
-            TuteeUserId = Guid.NewGuid(),
+           
         };
         
         DbContextOptionsBuilder<TutorMeContext> optionsBuilder = new();
@@ -197,7 +197,7 @@ public class ConnectionServicesUnitTests
             TutorId = Guid.NewGuid(),
             TuteeId = Guid.NewGuid(),
             ModuleId = Guid.NewGuid(),
-            TuteeUserId = Guid.NewGuid(),
+           
         };
         
         var Connection2 = new Connection
@@ -206,7 +206,7 @@ public class ConnectionServicesUnitTests
             TutorId = Guid.NewGuid(),
             TuteeId = Guid.NewGuid(),
             ModuleId = Guid.NewGuid(),
-            TuteeUserId = Guid.NewGuid(),
+           
         };
         
         var Connection3 = new Connection
@@ -215,7 +215,7 @@ public class ConnectionServicesUnitTests
             TutorId = Guid.NewGuid(),
             TuteeId = Guid.NewGuid(),
             ModuleId = Guid.NewGuid(),
-            TuteeUserId = Guid.NewGuid(),
+           
         };
         
         using (TutorMeContext ctx = new(optionsBuilder.Options))
@@ -241,82 +241,6 @@ public class ConnectionServicesUnitTests
         Assert.Equal(Connection2.ConnectionId, Connections[1].ConnectionId);
 
     }
-
-
-    [Fact]
-    public async  Task CreateConnection_Connection_Returns_ConnectionId()
-    {
-        //arrange
-        var Connection = new Connection
-        {
-            ConnectionId = Guid.NewGuid(),
-            TutorId = Guid.NewGuid(),
-            TuteeId = Guid.NewGuid(),
-            ModuleId = Guid.NewGuid(),
-            TuteeUserId = Guid.NewGuid(),
-        };
-
-        DbContextOptionsBuilder<TutorMeContext> optionsBuilder = new();
-        var databaseName = MethodBase.GetCurrentMethod()?.Name;
-        if (databaseName != null)
-            optionsBuilder.UseInMemoryDatabase(databaseName);
-
-        using (TutorMeContext ctx = new(optionsBuilder.Options))
-        {
-            //Empty TutorMeContext
-        }
-
-        Guid result;
-        using (TutorMeContext ctx1 = new(optionsBuilder.Options))
-        {
-            result =new ConnectionServices(ctx1).createConnection(Connection);
-        }
-        
-        //act
-        Assert.NotNull(result);
-        Assert.IsType<Guid>(result);
-        Assert.Equal(Connection.ConnectionId, result);
-    }
-    
-    // test CreateConnection_Returns_createConnection()
-    [Fact]
-    public async  Task CreateConnection_Returns_Type_already_exists()
-    {
-        //arrange
-        var Connection = new Connection
-        {
-            ConnectionId = Guid.NewGuid(),
-            TutorId = Guid.NewGuid(),
-            TuteeId = Guid.NewGuid(),
-            ModuleId = Guid.NewGuid(),
-            TuteeUserId = Guid.NewGuid(),
-        };
-        
-        DbContextOptionsBuilder<TutorMeContext> optionsBuilder = new();
-        var databaseName = MethodBase.GetCurrentMethod()?.Name;
-        if (databaseName != null)
-            optionsBuilder.UseInMemoryDatabase(databaseName);
-        using (TutorMeContext ctx = new(optionsBuilder.Options))
-        {
-            ctx.Add(Connection);
-            ctx.SaveChanges();
-        }
-        Guid result;
-        try
-        {
-            using (TutorMeContext ctx1 = new(optionsBuilder.Options))
-            {
-                result =new ConnectionServices(ctx1).createConnection(Connection);
-            }
-        }
-        catch (Exception e)
-        {
-            Assert.Equal("This Connection already exists, Please log in", e.Message);
-        }
-
-    }
-    
-    
     
     [Fact]
     public async Task DeleteConnectionById_Returns_true()
@@ -328,7 +252,7 @@ public class ConnectionServicesUnitTests
             TutorId = Guid.NewGuid(),
             TuteeId = Guid.NewGuid(),
             ModuleId = Guid.NewGuid(),
-            TuteeUserId = Guid.NewGuid(),
+           
         };
         
         DbContextOptionsBuilder<TutorMeContext> optionsBuilder = new();
@@ -364,7 +288,7 @@ public class ConnectionServicesUnitTests
             TutorId = Guid.NewGuid(),
             TuteeId = Guid.NewGuid(),
             ModuleId = Guid.NewGuid(),
-            TuteeUserId = Guid.NewGuid(),
+           
         };
         
         DbContextOptionsBuilder<TutorMeContext> optionsBuilder = new();

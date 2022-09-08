@@ -6,6 +6,7 @@ using Moq;
 using NuGet.Versioning;
 using TutorMe.Controllers;
 using TutorMe.Data;
+using TutorMe.Entities;
 using TutorMe.Models;
 using TutorMe.Services;
 
@@ -95,13 +96,13 @@ public class GroupMembersControllerUnitTests
     public async  Task AddGroupMember_GroupMember_ReturnsGroupMember()
     {
         //arrange
-        var GroupMember = new GroupMember
+        var GroupMember = new IGroupMember
         {
             GroupMemberId = Guid.NewGuid(),
             GroupId= Guid.NewGuid(),
             UserId= Guid.NewGuid(),
         };
-        _GroupMemberRepositoryMock.Setup(u => u. createGroupMember(It.IsAny<GroupMember>())).Returns(GroupMember.GroupMemberId);
+        _GroupMemberRepositoryMock.Setup(u => u. createGroupMember(It.IsAny<IGroupMember>())).Returns(GroupMember.GroupMemberId);
         
         var controller = new GroupMembersController(_GroupMemberRepositoryMock.Object,_mapper.Object);
         
@@ -122,7 +123,7 @@ public class GroupMembersControllerUnitTests
     {
 
         //Arrange
-        var expectedTutor =  new GroupMember
+        var expectedTutor =  new IGroupMember
         {
             GroupMemberId = Guid.NewGuid(),
             GroupId= Guid.NewGuid(),
@@ -148,7 +149,7 @@ public class GroupMembersControllerUnitTests
     {
 
         //Arrange
-        var expectedTutor =  new GroupMember
+        var expectedTutor =  new IGroupMember
         {
             GroupMemberId = Guid.NewGuid(),
             GroupId= Guid.NewGuid(),

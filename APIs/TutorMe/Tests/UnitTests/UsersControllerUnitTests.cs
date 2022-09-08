@@ -374,5 +374,61 @@ public class UsersControllerUnitTests
         Assert.Equal(2, (actual as List<User>).Count);
 
     }
+    // Test DeleteUserById returns Ok if user is deleted
+    [Fact]
+    public async Task DeleteUserById_ReturnsOk()
+    {
+        //Arrange
+        var user = new User
+        {
+            UserId =Guid.NewGuid(),
+            FirstName ="Thabo",
+            LastName ="Maduna",
+            DateOfBirth ="02/04/2000",
+            Status = true,
+            Gender ="M",
+            Email ="thaboMaduna527@gmail.com",
+            Password ="24681012",
+            UserTypeId =Guid.NewGuid(),
+            InstitutionId =new Guid(),
+            Location ="1166 TMN, 0028",
+            Bio = "The boys",
+            Year ="3",
+            Rating =0
+        };
+        _userRepositoryMock.Setup(u => u.DeleteUserById(user.UserId)).Returns(true);
+        var controller = new UsersController(_userRepositoryMock.Object, _mapper.Object);
+        var result = controller.DeleteUserById(user.UserId);
+        
+        Assert.NotNull(result);
+        Assert.IsType<OkResult>(result);
+            
+    }
+    // Test DeleteUserById returns NotFound if user is not deleted
+    [Fact]
+    public async Task DeleteUserById_ReturnsNotFound()
+    {
+        //Arrange
+        var user = new User
+        {
+            UserId = Guid.NewGuid(),
+            FirstName = "Thabo",
+            LastName = "Maduna",
+            DateOfBirth = "02/04/2000",
+            Status = true,
+        };
+        
+        _userRepositoryMock.Setup(u => u.DeleteUserById(user.UserId)).Throws<Exception>();
+        
+        //Act
+        var controller = new UsersController(_userRepositoryMock.Object,_mapper.Object);
+        var result =controller.DeleteUserById(user.UserId);
     
+        //Assert
+        Assert.NotNull(result);
+        Assert.IsType<ConflictObjectResult>(result);
+    }
+
+
+
 }
