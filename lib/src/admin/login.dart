@@ -24,6 +24,13 @@ class LoginAdminState extends State<LoginAdmin> {
   int? initialIndex = 0;
   @override
   Widget build(BuildContext context) {
+    double widthOfScreen = MediaQuery.of(context).size.width;
+    double textBoxWidth = MediaQuery.of(context).size.width * 0.4 * 2;
+    double buttonWidth = MediaQuery.of(context).size.width * 0.8;
+    if (widthOfScreen >= 600.0) {
+      buttonWidth = buttonWidth / 2;
+      textBoxWidth = textBoxWidth / 2;
+    }
     return Scaffold(
       key: _scaffoldKey,
       body: Stack(
@@ -38,7 +45,7 @@ class LoginAdminState extends State<LoginAdmin> {
             child: Container(
               decoration: const BoxDecoration(
                   image: DecorationImage(
-                      image: AssetImage("assets/Pictures/Admin.jpg"),
+                      image: AssetImage("assets/Pictures/Admin_Background.jpg"),
                       fit: BoxFit.cover,
                       colorFilter: ColorFilter.mode(
                         Colors.black54,
@@ -73,28 +80,35 @@ class LoginAdminState extends State<LoginAdmin> {
                     ),
                   ),
                   Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
-                    TextInputField(
-                      icon: Icons.email_outlined,
-                      hint: 'Email',
-                      inputType: TextInputType.emailAddress,
-                      inputAction: TextInputAction.next,
-                      inputController: emailController,
-                      // inputFocus: emailFocusNode,
+                    SizedBox(
+                      width: textBoxWidth,
+                      child: TextInputField(
+                        icon: Icons.email_outlined,
+                        hint: 'Email',
+                        inputType: TextInputType.emailAddress,
+                        inputAction: TextInputAction.next,
+                        inputController: emailController,
+                        // inputFocus: emailFocusNode,
+                      ),
                     ),
-                    PasswordInput(
-                      icon: Icons.lock_clock_outlined,
-                      hint: 'Password',
-                      inputAction: TextInputAction.done,
-                      inputType: TextInputType.text,
-                      inputController: passwordController,
-                      inputFocus: passwordFocusNode,
+                    SizedBox(
+                      width: textBoxWidth,
+                      child: PasswordInput(
+                        icon: Icons.lock_clock_outlined,
+                        hint: 'Password',
+                        inputAction: TextInputAction.done,
+                        inputType: TextInputType.text,
+                        inputController: passwordController,
+                        inputFocus: passwordFocusNode,
+                      ),
                     ),
                     Container(
                       height: MediaQuery.of(context).size.height * 0.06,
-                      width: MediaQuery.of(context).size.width * 0.8,
+                      width: buttonWidth,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(16),
                         color: colorBlack,
+                        border: Border.all(color: colorWhite),
                       ),
                       child: TextButton(
                         onPressed: () async {
