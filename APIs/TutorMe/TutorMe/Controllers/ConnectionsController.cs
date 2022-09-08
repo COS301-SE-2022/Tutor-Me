@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using TutorMe.Data;
 using TutorMe.Services;
 using TutorMe.Entities;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TutorMe.Controllers
 {
@@ -20,7 +21,8 @@ namespace TutorMe.Controllers
             this.connectionService = connectionService;
             this.mapper = mapper;
         }
-
+        
+        [Authorize]
         [HttpGet]
         public IActionResult GetAllConnections()
         {
