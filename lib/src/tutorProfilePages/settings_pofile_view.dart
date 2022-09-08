@@ -1,25 +1,27 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:tutor_me/services/services/institution_services.dart';
+import 'package:tutor_me/services/services/module_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/tutorProfilePages/tutor_profile_edit.dart';
 import 'package:tutor_me/src/tutorProfilePages/user_stats.dart';
 
+import '../../services/models/intitutions.dart';
 import '../../services/models/modules.dart';
-import '../../services/models/tutors.dart';
-import '../../services/services/tutor_services.dart';
+import '../../services/models/users.dart';
 import '../components.dart';
 import '../tuteeProfilePages/edit_module_list.dart';
 
 class ToReturn {
   Uint8List image;
-  Tutors user;
+  Users user;
   ToReturn(this.image, this.user);
 }
 
 // ignore: must_be_immutable
 class TutorSettingsProfileView extends StatefulWidget {
-  Tutors user;
+  Users user;
   Uint8List image;
   bool imageExists;
   TutorSettingsProfileView(
@@ -36,36 +38,53 @@ class TutorSettingsProfileView extends StatefulWidget {
 
 class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
   List<Modules> currentModules = List<Modules>.empty();
+  late Institutions institution;
   late int numConnections;
   late int numTutees;
   bool _isLoading = true;
 
   getCurrentModules() async {
-    final current = await TutorServices.getTutorModules(widget.user.getId);
+    numTutees = 2;
+    numConnections = 3;
+
+    final currentModulesList =
+        await ModuleServices.getUserModules(widget.user.getId);
+
     setState(() {
-      currentModules = current;
+      currentModules = currentModulesList;
+    });
+
+    getInstitution();
+  }
+
+  getInstitution() async {
+    final tempInstitution = await InstitutionServices.getUserInstitution(
+        widget.user.getInstitutionID);
+    setState(() {
+      institution = tempInstitution;
       _isLoading = false;
     });
   }
+  //TODO: get numConnections and numTutees
 
-  int getNumConnections() {
-    var allConnections = widget.user.getConnections.split(',');
+  // int getNumConnections() {
+  //   var allConnections = widget.user.getConnections.split(',');
 
-    return allConnections.length;
-  }
+  //   return allConnections.length;
+  // }
 
-  int getNumTutees() {
-    var allTutees = widget.user.getTuteesCode.split(',');
+  // int getNumTutees() {
+  //   var allTutees = widget.user.getTuteesCode.split(',');
 
-    return allTutees.length;
-  }
+  //   return allTutees.length;
+  // }
 
   @override
   void initState() {
     super.initState();
     getCurrentModules();
-    numConnections = getNumConnections();
-    numTutees = getNumTutees();
+    // numConnections = getNumConnections();
+    // numTutees = getNumTutees();
   }
 
   @override
@@ -95,8 +114,7 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
     final screenWidthSize = MediaQuery.of(context).size.width;
     final screenHeightSize = MediaQuery.of(context).size.height;
     String userName = widget.user.getName + ' ' + widget.user.getLastName;
-    String courseInfo =
-        widget.user.getCourse + ' | ' + widget.user.getInstitution;
+    String courseInfo = institution.getName;
     String personalDets = userName + '(' + widget.user.getAge + ')';
     String gender = "";
     if (widget.user.getGender == "F") {
@@ -294,7 +312,9 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
                           imageExists: widget.imageExists)));
 
               setState(() {
-                widget.image = results.image;
+                if (results.image != null) {
+                  widget.image = results.image;
+                }
                 widget.user = results.user;
               });
             },

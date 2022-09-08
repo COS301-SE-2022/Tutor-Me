@@ -6,9 +6,8 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
-import 'package:tutor_me/services/models/tutees.dart';
 import 'package:tutor_me/services/services/group_services.dart';
-import 'package:tutor_me/services/services/tutor_services.dart';
+import 'package:tutor_me/services/models/users.dart';
 import 'package:tutor_me/src/chat/one_to_one_chat.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/theme/themes.dart';
@@ -16,14 +15,14 @@ import 'package:tutor_me/src/tutorAndTuteeCollaboration/tuteeGroups/tuteeGroupSe
 import 'package:http/http.dart' as http;
 import '../../screens/join_screen.dart';
 import '../../services/models/groups.dart';
-import '../../services/models/tutors.dart';
-import '../../services/services/tutee_services.dart';
+import '../../services/models/modules.dart';
+import '../../services/services/user_services.dart';
 import '../../utils/toast.dart';
 import '../pages/chat_page.dart';
 // import '../chat/group_chat.dart';
 
 class Tutee {
-  Tutees tutee;
+  Users tutee;
   Uint8List image;
   bool hasImage;
   Tutee(this.tutee, this.image, this.hasImage);
@@ -34,11 +33,13 @@ class TuteeGroupPage extends StatefulWidget {
   Groups group;
   final int numberOfParticipants;
   final dynamic tutee;
+  final Modules module;
   TuteeGroupPage(
       {Key? key,
       required this.group,
       required this.numberOfParticipants,
-      required this.tutee})
+      required this.tutee,
+      required this.module})
       : super(key: key);
 
   @override
@@ -48,13 +49,13 @@ class TuteeGroupPage extends StatefulWidget {
 }
 
 class TuteeGroupPageState extends State<TuteeGroupPage> {
-  late Tutors tutorObj;
-  final tuteeListObj = <Tutees>[];
+  late Users tutorObj;
+  final tuteeListObj = <Users>[];
   String name = '';
   bool _isLoading = true;
   late Uint8List tutorImage;
   bool tutorHasImage = false;
-  List<Tutees> tuteeList = List<Tutees>.empty();
+  List<Users> tuteeList = List<Users>.empty();
   List<Tutee> tutees = List<Tutee>.empty(growable: true);
   List<Uint8List> tuteeImages = List<Uint8List>.empty(growable: true);
   List<int> hasImage = List<int>.empty(growable: true);
@@ -62,24 +63,14 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
   String _token = "";
 
   getTutees() async {
+    fetchToken().then((token) => setState(() => _token = token));
     try {
-      if (widget.numberOfParticipants == 1) {
-        hasOnlyOneTutee = true;
-      }
-
-      List<String> tuteeIds = widget.group.getTutees.split(',');
-      int tuteeIndex = tuteeIds.indexOf(widget.tutee.getId);
-
-      tuteeIds.removeAt(tuteeIndex);
-
-      for (int i = 0; i < tuteeIds.length; i++) {
-        final tutee = await TuteeServices.getTutee(tuteeIds[i]);
-        tuteeList += tutee;
-      }
+      final tutees = await GroupServices.getGroupTutees(widget.group.getId);
+      setState(() {
+        tuteeList = tutees;
+      });
     } catch (e) {
-      const snackBar = SnackBar(
-        content: Text('Failed to load tutees'),
-      );
+      const snackBar = SnackBar(content: Text('Error getting tutees'));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
     getTuteeProfileImages();
@@ -89,7 +80,7 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
     for (int i = 0; i < tuteeList.length; i++) {
       try {
         final image =
-            await TuteeServices.getTuteeProfileImage(tuteeList[i].getId);
+            await UserServices.getTuteeProfileImage(tuteeList[i].getId);
         setState(() {
           tuteeImages.add(image);
         });
@@ -115,32 +106,39 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
     }
     setState(() {
       tutees = tutees;
-      _isLoading = false;
     });
+    getTutor();
   }
 
   getTutor() async {
-    final tutor = await TutorServices.getTutor(widget.group.getTutorId);
+    try {
+      final tutor = await UserServices.getTutor(widget.group.getUserId);
 
-    setState(() {
-      tutorObj = tutor[0];
-    });
-    fetchToken().then((token) => setState(() => _token = token));
+      setState(() {
+        tutorObj = tutor[0];
+      });
+    } catch (e) {
+      const snackBar = SnackBar(content: Text('Error getting tutor'));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
+
     getTutorImage();
-    getTutees();
+    // getTutees();
   }
 
   getTutorImage() async {
     try {
       final image =
-          await TutorServices.getTutorProfileImage(widget.group.getTutorId);
+          await UserServices.getTutorProfileImage(widget.group.getUserId);
 
       setState(() {
         tutorHasImage = true;
         tutorImage = image;
+        _isLoading = false;
       });
     } catch (e) {
       setState(() {
+        _isLoading = false;
         tutorHasImage = false;
       });
     }
@@ -149,28 +147,24 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
   @override
   void initState() {
     super.initState();
-    getTutor();
+    getTutees();
   }
 
   @override
   Widget build(BuildContext context) {
-       final provider = Provider.of<ThemeProvider>(context,listen: false);
-    Color textColor ;
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
+    Color textColor;
     Color highlightColor;
-    Color primaryColor; 
-    
-    if(provider.themeMode == ThemeMode.dark)
-    {
-      highlightColor = colorOrange;
-      textColor = colorWhite ;
-      primaryColor = colorGrey;
-    }
-    else
-    {
-      highlightColor = colorTurqoise;
-      textColor = Colors.black ;
-      primaryColor = colorOrange;
+    Color primaryColor;
 
+    if (provider.themeMode == ThemeMode.dark) {
+      highlightColor = colorOrange;
+      textColor = colorWhite;
+      primaryColor = colorGrey;
+    } else {
+      highlightColor = colorTurqoise;
+      textColor = Colors.black;
+      primaryColor = colorOrange;
     }
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.height;
@@ -178,7 +172,7 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(screenHeight * 0.08),
         child: AppBar(
-          title: Text(widget.group.getModuleCode + '- Group'),
+          title: Text(widget.module.getCode + '- Group'),
           backgroundColor: primaryColor,
           actions: [
             IconButton(
@@ -244,7 +238,7 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
                                 child: Scrollbar(
                                   child: Text(
                                     widget.group.getDescription,
-                                    style:  TextStyle(
+                                    style: TextStyle(
                                       color: textColor,
                                       fontSize: 16,
                                     ),
@@ -268,8 +262,10 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
                             onTap: () {
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (BuildContext context) => ChatPage(
-                                      user: widget.tutee,
-                                      group: widget.group)));
+                                        user: widget.tutee,
+                                        group: widget.group,
+                                        moduleCode: widget.group.getDescription,
+                                      )));
                             },
                             child: Card(
                               elevation: 0,
@@ -295,26 +291,34 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
                           ),
                           InkWell(
                             onTap: () async {
-                              final group = await GroupServices.getGroup(
-                                  widget.group.getId);
-
-                              setState(() {
-                                widget.group = group[0];
-                              });
                               try {
-                                if (await validateMeeting(
-                                    widget.group.getGroupLink)) {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => JoinScreen(
-                                        meetingId: widget.group.getGroupLink,
-                                        token: _token,
+                                final group = await GroupServices.getGroup(
+                                    widget.group.getId);
+
+                                setState(() {
+                                  widget.group = group;
+                                });
+                                try {
+                                  if (await validateMeeting(
+                                      widget.group.getVideoId)) {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => JoinScreen(
+                                          meetingId: widget.group.getVideoId,
+                                          token: _token,
+                                        ),
                                       ),
-                                    ),
+                                    );
+                                  } else {
+                                    toastMsg("Invalid Meeting ID");
+                                  }
+                                } catch (e) {
+                                  const snackBar = SnackBar(
+                                    content: Text('Failed to join live video'),
                                   );
-                                } else {
-                                  toastMsg("Invalid Meeting ID");
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(snackBar);
                                 }
                               } catch (e) {
                                 const snackBar = SnackBar(
@@ -430,7 +434,7 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
                                     height: screenHeight * 0.0001,
                                   );
                                 },
-                                itemCount: widget.numberOfParticipants),
+                                itemCount: tutees.length),
                           ),
                   ],
                 ),
@@ -440,17 +444,13 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
   }
 
   Widget tutorBuilder(BuildContext context, int i) {
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
 
-         final provider = Provider.of<ThemeProvider>(context,listen: false);
+    Color primaryColor;
 
-    Color primaryColor; 
-    
-    if(provider.themeMode == ThemeMode.dark)
-    {
+    if (provider.themeMode == ThemeMode.dark) {
       primaryColor = colorGrey;
-    }
-    else
-    {
+    } else {
       primaryColor = colorOrange;
     }
     //getTutees
@@ -496,7 +496,7 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
                 ),
               ),
               subtitle: Text(
-                tutorObj.getCourse,
+                tutorObj.getBio,
                 style: const TextStyle(
                     fontWeight: FontWeight.w500, color: colorOrange),
               ),
@@ -552,7 +552,7 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
                 ),
               ),
               subtitle: Text(
-                tutees[i].tutee.getCourse,
+                tutees[i].tutee.getBio,
                 style: const TextStyle(
                     fontWeight: FontWeight.w500, color: colorOrange),
               ),

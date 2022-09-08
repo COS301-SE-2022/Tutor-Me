@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tutor_me/services/models/tutees.dart';
+import 'package:tutor_me/services/models/users.dart';
 import 'package:tutor_me/src/colorpallete.dart';
-import 'package:tutor_me/src/pages/%20call_history.dart';
 import 'package:tutor_me/src/theme/themes.dart';
-import 'package:tutor_me/src/tutorAndTuteeCollaboration/tuteeGroups/tutee_groups.dart';
 import 'Navigation/tutee_nav_drawer.dart';
 // import 'theme/themes.dart';
+import 'notifications/tuteeNotifications/tutee_notifications.dart';
+import 'pages/calls_page.dart';
+import 'pages/home.dart';
 import 'pages/tutors_list.dart';
 import 'pages/chats_page.dart';
+import 'tutorAndTuteeCollaboration/tuteeGroups/tutee_groups.dart';
 
 class TuteePage extends StatefulWidget {
-  final Tutees user;
+  final Users user;
   const TuteePage({Key? key, required this.user}) : super(key: key);
 
   @override
@@ -21,6 +23,17 @@ class TuteePage extends StatefulWidget {
 }
 
 class TuteePageState extends State<TuteePage> {
+  int currentIndex = 0;
+
+  getScreens() {
+    return [
+      Home(user: widget.user),
+      Chats(user: widget.user),
+      TuteeGroups(tutee: widget.user),
+      const Calls()
+    ];
+  }
+
   @override
   void initState() {
     super.initState();
@@ -28,23 +41,21 @@ class TuteePageState extends State<TuteePage> {
 
   @override
   Widget build(BuildContext context) {
-     final provider = Provider.of<ThemeProvider>(context,listen: false);
-    Color appBarColor1 ;
+    final screens = getScreens();
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
+    Color appBarColor1;
     Color appBarColor2;
     Color highlightColor;
-    if(provider.themeMode == ThemeMode.dark)
-    {
+    if (provider.themeMode == ThemeMode.dark) {
       appBarColor1 = colorDarkGrey;
-      appBarColor2 = colorGrey ;
+      appBarColor2 = colorGrey;
       highlightColor = colorOrange;
-    }
-    else
-    {
-      appBarColor1 = Colors.red;
-      appBarColor2 = Colors.orange ;
+    } else {
+      appBarColor1 = const Color.fromRGBO(244, 67, 54, 1);
+      appBarColor2 = Colors.orange;
       highlightColor = colorTurqoise;
     }
-    
+
     return DefaultTabController(
       length: 3,
       child: Scaffold(
@@ -52,57 +63,57 @@ class TuteePageState extends State<TuteePage> {
           user: widget.user,
         ),
         appBar: AppBar(
-          toolbarHeight: 70,
-          // shape: const RoundedRectangleBorder(
-          //   borderRadius: BorderRadius.vertical(
-          //     bottom: Radius.circular(60),
-          //   ),
-          // ),
-          bottom: const TabBar(
-            indicatorColor: Colors.white,
-            tabs: [
-              Tab(
-                  icon: Icon(
-                    Icons.chat_bubble_rounded,
-                    color: Colors.white,
-                  ),
-                  text: 'Chat'),
-              Tab(
-                icon: Icon(
-                  Icons.person,
-                  color: Colors.white,
-                ),
-                text: 'Groups',
-              ),
-              Tab(
-                  icon: Icon(
-                    Icons.phone,
-                    color: Colors.white,
-                  ),
-                  text: 'Calls'),
-            ],
-          ),
-          // backgroundColor: const Color(0xffD6521B),
+          toolbarHeight: MediaQuery.of(context).size.height * 0.09,
           centerTitle: true,
           title: const Text('Tutor Me'),
           flexibleSpace: Container(
-            decoration:  BoxDecoration(
+            decoration: BoxDecoration(
                 // borderRadius:
                 //     BorderRadius.vertical(bottom: Radius.circular(60)),
                 gradient: LinearGradient(
-                    colors: <Color>[appBarColor1, appBarColor2 ],
+                    colors: <Color>[appBarColor1, appBarColor2],
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter)),
           ),
           actions: <Widget>[
-            IconButton(onPressed: () {}, icon: const Icon(Icons.notifications)),
+            IconButton(
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (BuildContext context) => TuteeNotifications(
+                            user: widget.user,
+                          )));
+                },
+                icon: const Icon(Icons.notifications)),
           ],
         ),
-        body: TabBarView(
-          children: <Widget>[
-            Chats(user: widget.user),
-            TuteeGroups(tutee: widget.user),
-            const CallHistory(),
+        body: screens[currentIndex],
+        bottomNavigationBar: BottomNavigationBar(
+          selectedItemColor: colorOrange,
+          unselectedItemColor: colorDarkGrey,
+          unselectedLabelStyle: const TextStyle(color: colorDarkGrey),
+          currentIndex: currentIndex,
+          onTap: (index) {
+            setState(() {
+              currentIndex = index;
+            });
+          },
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.chat),
+              label: 'Chat',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.people),
+              label: 'Groups',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person),
+              label: 'Calls',
+            ),
           ],
         ),
         floatingActionButton: FloatingActionButton.extended(
@@ -110,7 +121,7 @@ class TuteePageState extends State<TuteePage> {
           isExtended: false,
           onPressed: () {
             Navigator.of(context).push(MaterialPageRoute(
-                builder: (BuildContext context) => TutorsList(
+                builder: (BuildContext context) => TutorList(
                       tutee: widget.user,
                     )));
           },

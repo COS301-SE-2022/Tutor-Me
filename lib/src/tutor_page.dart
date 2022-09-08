@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:tutor_me/services/models/tutors.dart';
+import 'package:tutor_me/services/models/users.dart';
+import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/notifications/tutorNotifications/tutor_notifications.dart';
 import 'package:tutor_me/src/pages/chats_page.dart';
+import 'package:tutor_me/src/pages/home.dart';
 import 'package:tutor_me/src/tutorAndTuteeCollaboration/tutorGroups/tutor_groups.dart';
 // import 'package:tutor_me/modules/api.services.dart';
 // import 'package:tutor_me/modules/tutors.dart';
@@ -10,7 +12,7 @@ import 'Navigation/tutor_nav_drawer.dart';
 import 'pages/calls_page.dart';
 
 class TutorPage extends StatefulWidget {
-  final Tutors user;
+  final Users user;
 
   const TutorPage({Key? key, required this.user}) : super(key: key);
 
@@ -22,44 +24,31 @@ class TutorPage extends StatefulWidget {
 
 class TutorPageState extends State<TutorPage> {
   // var size = tutors.length;
+  int currentIndex = 0;
+
+  getScreens() {
+    return [
+      Home(user: widget.user,),
+      Chats(user: widget.user),
+      TutorGroups(tutor: widget.user),
+      const Calls()
+    ];
+  }
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    final screens = getScreens();
     return DefaultTabController(
       length: 3,
       child: Scaffold(
           drawer: TutorNavigationDrawerWidget(user: widget.user),
           appBar: AppBar(
             toolbarHeight: 70,
-            // shape: const RoundedRectangleBorder(
-            //   borderRadius: BorderRadius.vertical(
-            //     bottom: Radius.circular(60),
-            //   ),
-            // ),
-            bottom: const TabBar(
-              indicatorColor: Colors.white,
-              tabs: [
-                Tab(
-                    icon: Icon(
-                      Icons.chat_bubble_rounded,
-                      color: Colors.white,
-                    ),
-                    text: 'Chat'),
-                Tab(
-                  icon: Icon(
-                    Icons.person,
-                    color: Colors.white,
-                  ),
-                  text: 'Groups',
-                ),
-                Tab(
-                    icon: Icon(
-                      Icons.phone,
-                      color: Colors.white,
-                    ),
-                    text: 'Calls')
-              ],
-            ),
-            // backgroundColor: const Color(0xffD6521B),
             centerTitle: true,
             title: const Text('Tutor Me'),
             flexibleSpace: Container(
@@ -82,13 +71,35 @@ class TutorPageState extends State<TutorPage> {
                   icon: const Icon(Icons.notifications))
             ],
           ),
-          body: TabBarView(
-            children: <Widget>[
-              Chats(user: widget.user),
-              TutorGroups(
-                tutor: widget.user,
+          body: screens[currentIndex],
+          bottomNavigationBar: BottomNavigationBar(
+            selectedItemColor: colorOrange,
+            unselectedItemColor: colorDarkGrey,
+            showUnselectedLabels: true,
+            unselectedLabelStyle: const TextStyle(color: colorDarkGrey),
+            currentIndex: currentIndex,
+            onTap: (index) {
+              setState(() {
+                currentIndex = index;
+              });
+            },
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                label: 'Home',
               ),
-              const Calls()
+              BottomNavigationBarItem(
+                icon: Icon(Icons.chat),
+                label: 'Chat',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.people),
+                label: 'Groups',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.person),
+                label: 'Calls',
+              ),
             ],
           )),
     );

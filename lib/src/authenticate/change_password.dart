@@ -2,10 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:tutor_me/src/colorpallete.dart';
-import '../../services/models/tutees.dart';
-import '../../services/models/tutors.dart';
-import '../../services/services/tutee_services.dart';
-import '../../services/services/tutor_services.dart';
+import '../../services/models/users.dart';
+import '../../services/services/user_services.dart';
 import '../components.dart';
 import '../tutee_page.dart';
 import '../tutor_page.dart';
@@ -27,8 +25,8 @@ class ChangePasswordState extends State<ChangePassword> {
   final TextEditingController newpasswordController = TextEditingController();
   final TextEditingController newconfirmpasswordController =
       TextEditingController();
-  late Tutors tutor;
-  late Tutees tutee;
+  late Users tutor;
+  late Users tutee;
 
   bool isLoading = false;
   @override
@@ -173,9 +171,9 @@ class ChangePasswordState extends State<ChangePassword> {
                         try {
                           // TutorServices tutor = TutorServices.Login(
                           tutor =
-                              await TutorServices.getTutorByEmail(widget.email);
-                          tutor.setPassword = TutorServices.hashPassword(newpasswordController.text);
-                          await TutorServices.updateTutor(tutor);
+                              await UserServices.getTutorByEmail(widget.email);
+                          await UserServices.changePassword(
+                              tutor, newpasswordController.text);
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -218,9 +216,9 @@ class ChangePasswordState extends State<ChangePassword> {
                         try {
                           // TutorServices tutor = TutorServices.Login(
                           tutee =
-                              await TuteeServices.getTuteeByEmail(widget.email);
-                          tutee.setPassword = TuteeServices.hashPassword(newpasswordController.text);
-                          await TuteeServices.updateTutee(tutee);
+                              await UserServices.getTuteeByEmail(widget.email);
+                          await UserServices.changePassword(
+                              tutee, newpasswordController.text);
                           Navigator.push(
                             context,
                             MaterialPageRoute(

@@ -6,20 +6,21 @@ import 'package:flutter/material.dart';
 import 'package:tutor_me/services/services/group_services.dart';
 // import 'package:tutor_me/src/chat/group_chat.dart';
 import 'package:tutor_me/src/colorpallete.dart';
+import '../../services/models/modules.dart';
 import '../pages/chat_page.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import '../../screens/meeting_screen.dart';
 import '../../services/models/groups.dart';
-import '../../services/models/tutees.dart';
-import '../../services/models/tutors.dart';
-import '../../services/services/tutee_services.dart';
+// import '../../services/models/tutees.dart';
+import '../../services/models/users.dart';
+import '../../services/services/user_services.dart';
 import '../../utils/toast.dart';
 import '../chat/one_to_one_chat.dart';
 import 'package:http/http.dart' as http;
 
 class Tutee {
-  Tutees tutee;
+  Users tutee;
   Uint8List image;
   bool hasImage;
   Tutee(this.tutee, this.image, this.hasImage);
@@ -27,8 +28,13 @@ class Tutee {
 
 class TutorGroupPage extends StatefulWidget {
   final Groups group;
-  final Tutors tutor;
-  const TutorGroupPage({Key? key, required this.group, required this.tutor})
+  final Users tutor;
+  final Modules module;
+  const TutorGroupPage(
+      {Key? key,
+      required this.group,
+      required this.tutor,
+      required this.module})
       : super(key: key);
 
   @override
@@ -38,7 +44,7 @@ class TutorGroupPage extends StatefulWidget {
 }
 
 class TutorGroupPageState extends State<TutorGroupPage> {
-  List<Tutees> tuteeList = List<Tutees>.empty();
+  List<Users> tuteeList = List<Users>.empty();
   List<Tutee> tutees = List<Tutee>.empty(growable: true);
   List<Uint8List> tuteeImages = List<Uint8List>.empty(growable: true);
   List<int> hasImage = List<int>.empty(growable: true);
@@ -49,33 +55,26 @@ class TutorGroupPageState extends State<TutorGroupPage> {
   String _meetingID = "";
 
   getTutees() async {
-    if (widget.group.getTutees == '') {
+    fetchToken().then((token) => setState(() => _token = token));
+    try {
+      final tutees = await GroupServices.getGroupTutees(widget.group.getId);
       setState(() {
-        hasTutees = false;
-        _isLoading = false;
-      });
-    } else {
-      try {
-        List<String> tuteeIds = widget.group.getTutees.split(',');
-        for (int i = 0; i < tuteeIds.length; i++) {
-          final tutee = await TuteeServices.getTutee(tuteeIds[i]);
-          tuteeList += tutee;
+        tuteeList = tutees;
+        if (tuteeList.isNotEmpty) {
+          hasTutees = true;
         }
-      } catch (e) {
-        const snackBar = SnackBar(
-          content: Text('Failed to load tutees'),
-        );
-        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-      }
-      getTuteeProfileImages();
+      });
+    } catch (e) {
+      const snackBar = SnackBar(content: Text('Error getting tutees'));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
+    getTuteeProfileImages();
   }
 
   getTuteeProfileImages() async {
     for (int i = 0; i < tuteeList.length; i++) {
       try {
-        final image =
-            await TuteeServices.getTuteeProfileImage(tuteeList[i].getId);
+        final image = await UserServices.getTuteeProfileImage(tuteeList[i].getId);
         setState(() {
           tuteeImages.add(image);
         });
@@ -86,23 +85,21 @@ class TutorGroupPageState extends State<TutorGroupPage> {
       }
     }
     for (int i = 0; i < tuteeList.length; i++) {
-      setState(() {
-        bool val = true;
-        for (int j = 0; j < hasImage.length; j++) {
-          if (hasImage[j] == i) {
-            val = false;
-            break;
-          }
+      bool val = true;
+      for (int j = 0; j < hasImage.length; j++) {
+        if (hasImage[j] == i) {
+          val = false;
+          break;
         }
-        if (!val) {
-          tutees.add(Tutee(tuteeList[i], tuteeImages[i], false));
-        } else {
-          tutees.add(Tutee(tuteeList[i], tuteeImages[i], true));
-        }
-      });
+      }
+      if (!val) {
+        tutees.add(Tutee(tuteeList[i], tuteeImages[i], false));
+      } else {
+        tutees.add(Tutee(tuteeList[i], tuteeImages[i], true));
+      }
     }
     setState(() {
-      hasTutees = true;
+      tutees = tutees;
       _isLoading = false;
     });
   }
@@ -112,7 +109,6 @@ class TutorGroupPageState extends State<TutorGroupPage> {
     super.initState();
 
     getTutees();
-    fetchToken().then((token) => setState(() => _token = token));
   }
 
   @override
@@ -123,7 +119,7 @@ class TutorGroupPageState extends State<TutorGroupPage> {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(screenHeight * 0.08),
         child: AppBar(
-          title: Text(widget.group.getModuleCode + '- Group'),
+          title: Text(widget.module.getCode + '- Group'),
           backgroundColor: colorOrange,
           actions: [
             IconButton(onPressed: () {}, icon: const Icon(Icons.settings))
@@ -219,8 +215,10 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                             onTap: () {
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (BuildContext context) => ChatPage(
-                                      user: widget.tutor,
-                                      group: widget.group)));
+                                        user: widget.tutor,
+                                        group: widget.group,
+                                        moduleCode: widget.group.getDescription,
+                                      )));
                             },
                             child: Card(
                               elevation: 0,
@@ -246,29 +244,26 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                           ),
                           InkWell(
                             onTap: () async {
-                              try{
-                            
-                              _meetingID = await createMeeting();
-                              widget.group.setGroupLink = _meetingID;
-                              await GroupServices.updateGroup(widget.group);
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => MeetingScreen(
-                                    token: _token,
-                                    meetingId: _meetingID,
-                                    displayName: "Tutor",
+                              try {
+                                _meetingID = await createMeeting();
+                                await GroupServices.updateGroupVideoId(
+                                    _meetingID, widget.group);
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => MeetingScreen(
+                                      token: _token,
+                                      meetingId: _meetingID,
+                                      displayName: "Tutor",
+                                    ),
                                   ),
-                                ),
-                              );
-                              }
-                              catch(e)
-                              {
+                                );
+                              } catch (e) {
                                 const snackBar = SnackBar(
-                                        content: Text('Failed to start live video'),
-                                      );
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(snackBar);
+                                  content: Text('Failed to start live video'),
+                                );
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(snackBar);
                               }
                             },
                             child: Card(
@@ -444,7 +439,7 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                 ),
               ),
               subtitle: Text(
-                tutees[i].tutee.getCourse,
+                tutees[i].tutee.getBio,
                 style: const TextStyle(
                     fontWeight: FontWeight.w500, color: colorOrange),
               ),

@@ -1,4 +1,4 @@
-import 'package:tutor_me/services/models/tutees.dart';
+import 'package:tutor_me/services/models/users.dart';
 
 class Tutee {
   // ignore: prefer_typing_uninitialized_variables
@@ -13,7 +13,7 @@ class Tutee {
   var age;
   var connections=[];
 
-  Tutee(Tutees tuteeList, {this.bio, this.location, this.username, this.age, this.gender});
+  Tutee(Users tuteeList, {this.bio, this.location, this.username, this.age, this.gender});
 
   void setAttributes(bio, location, username, age, gender) {
     this.bio =

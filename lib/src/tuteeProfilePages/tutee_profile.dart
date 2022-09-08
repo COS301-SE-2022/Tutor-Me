@@ -7,22 +7,24 @@ import 'package:tutor_me/src/colorpallete.dart';
 
 // import 'package:tutor_me/src/tutorProfilePages/tutor_profile_edit.dart';
 import 'package:tutor_me/src/tutorProfilePages/user_stats.dart';
+import '../../services/models/intitutions.dart';
 import '../../services/models/modules.dart';
-import '../../services/models/tutees.dart';
-import '../../services/services/tutee_services.dart';
+import '../../services/models/users.dart';
+import '../../services/services/institution_services.dart';
+import '../../services/services/module_services.dart';
 import '../components.dart';
 import 'edit_module_list.dart';
 import 'tutee_profile_edit.dart';
 
 class ToReturn {
   Uint8List image;
-  Tutees user;
+  Users user;
   ToReturn(this.image, this.user);
 }
 
 // ignore: must_be_immutable
 class TuteeProfilePage extends StatefulWidget {
-  Tutees user;
+  Users user;
   Uint8List image;
   final bool imageExists;
   TuteeProfilePage(
@@ -38,36 +40,47 @@ class TuteeProfilePage extends StatefulWidget {
 
 class _TuteeProfilePageState extends State<TuteeProfilePage> {
   List<Modules> currentModules = List<Modules>.empty();
+  late Institutions institution;
   late int numConnections;
   late int numTutees;
   bool _isLoading = true;
 
   getCurrentModules() async {
-    final current = await TuteeServices.getTuteeModules(widget.user.getId);
+    final currentModulesList =
+        await ModuleServices.getUserModules(widget.user.getId);
     setState(() {
-      currentModules = current;
+      currentModules = currentModulesList;
+    });
+    getInstitution();
+  }
+
+  getInstitution() async {
+    final tempInstitution = await InstitutionServices.getUserInstitution(
+        widget.user.getInstitutionID);
+    setState(() {
+      institution = tempInstitution;
       _isLoading = false;
     });
   }
+//TODO: fix connection count
+  // int getNumConnections() {
+  //   var allConnections = widget.user.getConnections.split(',');
 
-  int getNumConnections() {
-    var allConnections = widget.user.getConnections.split(',');
+  //   return allConnections.length;
+  // }
 
-    return allConnections.length;
-  }
+  // int getNumTutees() {
+  //   var allTutees = widget.user.getTutorsCode.split(',');
 
-  int getNumTutees() {
-    var allTutees = widget.user.getTutorsCode.split(',');
-
-    return allTutees.length;
-  }
+  //   return allTutees.length;
+  // }
 
   @override
   void initState() {
     super.initState();
     getCurrentModules();
-    numConnections = getNumConnections();
-    numTutees = getNumTutees();
+    // numConnections = getNumConnections();
+    // numTutees = getNumTutees();
   }
 
   @override
@@ -177,8 +190,7 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
     final screenHeightSize = MediaQuery.of(context).size.height;
     String name = widget.user.getName + ' ' + widget.user.getLastName;
     String personalInfo = name + '(' + widget.user.getAge + ')';
-    String courseInfo =
-        widget.user.getCourse + ' | ' + widget.user.getInstitution;
+    String courseInfo = institution.getName;
     String gender = "";
     if (widget.user.getGender == "F") {
       gender = "Female";
@@ -210,7 +222,7 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
       ),
       SizedBox(height: screenHeightSize * 0.02),
       const UserStats(
-        rating: "1",
+        rating: 1,
         numTutees: 2,
         numConnections: 23,
       ),
@@ -398,7 +410,8 @@ class SmallTagBtn extends StatelessWidget {
         onPressed: funct,
         child: btnName == 'Confirm' ||
                 btnName == 'Edit Module list' ||
-                btnName == 'Cancel'
+                btnName == 'Cancel' ||
+                btnName == "Done"
             ? Text(
                 btnName,
                 style: const TextStyle(

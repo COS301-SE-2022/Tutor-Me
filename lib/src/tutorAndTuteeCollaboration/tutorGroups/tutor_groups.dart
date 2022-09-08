@@ -1,13 +1,15 @@
 // ignore_for_file: file_names
 import 'package:flutter/material.dart';
 import 'package:tutor_me/services/models/groups.dart';
-import 'package:tutor_me/services/services/group_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
-import '../../../services/models/tutors.dart';
+import '../../../services/models/modules.dart';
+import '../../../services/models/users.dart';
+import '../../../services/services/group_services.dart';
+import '../../../services/services/module_services.dart';
 import '../../Groups/tutor_group.dart';
 
 class TutorGroups extends StatefulWidget {
-  final Tutors tutor;
+  final Users tutor;
   const TutorGroups({Key? key, required this.tutor}) : super(key: key);
 
   @override
@@ -19,27 +21,47 @@ class TutorGroups extends StatefulWidget {
 class TutorGroupsState extends State<TutorGroups> {
   List<Groups> groups = List<Groups>.empty();
   List<int> numTutees = List<int>.empty(growable: true);
+  List<Modules> modules = List<Modules>.empty(growable: true);
+  String images =
+      'https://cdn.pixabay.com/photo/2018/09/27/09/22/artificial-intelligence-3706562_960_720.jpg';
   bool hasGroups = false;
   bool isLoading = true;
+  final numTuteesForEachGroup = <int>[];
 
+  int numOfTutees = 3;
   getGroupDetails() async {
     final incomingGroups =
-        await GroupServices.getGroupByUserID(widget.tutor.getId, 'tutor');
+        await GroupServices.getGroupByUserID(widget.tutor.getId);
     groups = incomingGroups;
-
     if (groups.isNotEmpty) {
       setState(() {
         hasGroups = true;
       });
     }
-    for (int i = 0; i < groups.length; i++) {
-      List<String> tutees = groups[i].getTutees.split(',');
-      numTutees.add(tutees.length);
-    }
 
+    for (int k = 0; k < numTuteesForEachGroup.length; k++) {
+      k.toString() + " 's # tutees " + numTuteesForEachGroup[k].toString();
+    }
+    setState(() {
+      groups = incomingGroups;
+      numOfTutees = numOfTutees;
+    });
+    getGroupModules();
+  }
+
+  getGroupModules() async {
+    try {
+      for (int i = 0; i < groups.length; i++) {
+        final incomingModules =
+            await ModuleServices.getModule(groups[i].getModuleId);
+        modules.add(incomingModules);
+      }
+    } catch (e) {
+      const snack = SnackBar(content: Text('Error loading modules'));
+      ScaffoldMessenger.of(context).showSnackBar(snack);
+    }
     setState(() {
       isLoading = false;
-      groups = incomingGroups;
     });
   }
 
@@ -94,6 +116,7 @@ class TutorGroupsState extends State<TutorGroups> {
             builder: (context) => TutorGroupPage(
                   group: groups[i],
                   tutor: widget.tutor,
+                  module: modules[i],
                 )));
       },
       child: Container(
@@ -120,7 +143,7 @@ class TutorGroupsState extends State<TutorGroups> {
             Row(
               children: [
                 SizedBox(height: MediaQuery.of(context).size.height * 0.04),
-                Text("  " + groups[i].getModuleCode,
+                Text("  " + modules[i].getCode,
                     style: TextStyle(
                       fontSize: MediaQuery.of(context).size.width * 0.06,
                       color: colorWhite,
@@ -129,9 +152,9 @@ class TutorGroupsState extends State<TutorGroups> {
                 SizedBox(width: MediaQuery.of(context).size.width * 0.110),
                 const Icon(Icons.circle, size: 7, color: colorOrange),
                 SizedBox(width: MediaQuery.of(context).size.width * 0.03),
-                Text(
-                  numTutees[i].toString() + " participants(s)",
-                  style: const TextStyle(
+                const Text(
+                   "2 participants(s)",
+                  style: TextStyle(
                       color: Colors.white70, fontWeight: FontWeight.bold),
                 ),
               ],
@@ -140,7 +163,7 @@ class TutorGroupsState extends State<TutorGroups> {
               height: MediaQuery.of(context).size.height * 0.01,
             ),
             Text(
-              "  " + groups[i].getModuleName,
+              "  " + modules[i].getModuleName,
               style: TextStyle(
                 fontSize: MediaQuery.of(context).size.width * 0.05,
                 color: colorWhite,

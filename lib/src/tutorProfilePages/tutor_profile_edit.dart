@@ -2,24 +2,24 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:tutor_me/services/services/tutor_services.dart';
+import 'package:tutor_me/services/services/user_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/components.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:open_file/open_file.dart';
 
-import '../../services/models/tutors.dart';
+import '../../services/models/users.dart';
 
 class ToReturn {
   Uint8List image;
-  Tutors user;
+  Users user;
 
   ToReturn(this.image, this.user);
 }
 
 // ignore: must_be_immutable
 class TutorProfileEdit extends StatefulWidget {
-  final Tutors user;
+  final Users user;
   Uint8List image;
   final bool imageExists;
 
@@ -151,15 +151,22 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
                 isSaveLoading = true;
               });
               if (image != null) {
-                await TutorServices.uploadProfileImage(
-                    image, widget.user.getId);
+                try {
+                  await UserServices.updateProfileImage(
+                      image, widget.user.getId);
+                } catch (e) {
+                  try{
+                    await UserServices.uploadProfileImage(
+                        image, widget.user.getId);
+                  }
+                  catch(e){
+                    const snack =
+                      SnackBar(content: Text("Error uploading image"));
+                  ScaffoldMessenger.of(context).showSnackBar(snack);
+                  }
 
-                final newImage =
-                    await TutorServices.getTutorProfileImage(widget.user.getId);
-
-                setState(() {
-                  widget.image = newImage;
-                });
+                  
+                }
               }
               if (nameController.text.isNotEmpty) {
                 List<String> name = nameController.text.split(' ');
@@ -174,7 +181,7 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
               }
               if (nameController.text.isNotEmpty ||
                   bioController.text.isNotEmpty) {
-                await TutorServices.updateTutor(widget.user);
+                // await UserServices.updateTutor(widget.user);
               }
               setState(() {
                 isSaveLoading = false;

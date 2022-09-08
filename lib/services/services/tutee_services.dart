@@ -15,7 +15,6 @@ import '../models/requests.dart';
 // import 'package:flutter_string_encryption/flutter_string_encryption.dart';
 
 class TuteeServices {
-  //TODO: undo a request
   sendRequest(String receiverId, String requesterId, String moduleCode) async {
     try {
       final url = Uri.http(
@@ -399,35 +398,24 @@ class TuteeServices {
 
   static Future getTuteeProfileImage(String id) async {
     Uri tuteeURL = Uri.parse(
-        'http://filesystem-prod.us-east-1.elasticbeanstalk.com/api/TuteeFiles/$id');
+        'http://tutorfilesystem-dev.us-east-1.elasticbeanstalk.com/api/Userfiles/image/$id');
+
     try {
       final response = await http.get(tuteeURL, headers: {
         "Accept": "application/json",
         "Content-Type": "application/json",
         "Access-Control-Allow-Origin": "*"
       });
-
       if (response.statusCode == 200) {
-        String j = "";
-        if (response.body[0] != "[") {
-          j = "[" + response.body + "]";
-        } else {
-          j = response.body;
-        }
+        final image = response.body;
+        List<String> imageList = image.split('"');
 
-        final List list = json.decode(j);
-        String byteString = list[0]['tuteeImage'];
-
-        if (byteString.isEmpty) {
+        if (image.isEmpty) {
           throw Exception('No Image found');
+        } else {
+          Uint8List bytes = base64Decode(imageList[1]);
+          return bytes;
         }
-        //covert to file from base64 bytes
-        // String image = base64Decode(byteString);
-
-        Uint8List image = const Base64Codec().decode(byteString);
-        return image;
-        // return Image.file(base64Decode(kk));
-        // return list.map((json) => Tutees.fromObject(json)).toList();
       } else {
         throw Exception('Failed to load' + response.statusCode.toString());
       }
