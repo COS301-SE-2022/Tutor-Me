@@ -146,7 +146,6 @@ class _TutorProfileBookingPageState extends State<TutorProfileBookingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
         body: isLoading
             ? const Center(
                 child: CircularProgressIndicator.adaptive(),
@@ -611,7 +610,7 @@ class _TutorProfileBookingPageState extends State<TutorProfileBookingPage> {
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
-              fontSize: MediaQuery.of(context).size.width * 0.05,
+              fontSize: MediaQuery.of(context).size.height * 0.05,
               color: textColor.withOpacity(0.8),
             ),
           ),

@@ -161,14 +161,14 @@ class TutorNavigationDrawerState extends State<TutorNavigationDrawerWidget> {
               Text(
                 fullName,
                 style: TextStyle(
-                    fontSize: MediaQuery.of(context).size.width * 0.055,
+                    fontSize: MediaQuery.of(context).size.height * 0.055,
                     color: colorWhite),
               ),
               SizedBox(height: MediaQuery.of(context).size.width * 0.01),
               Text(
                 widget.user.getEmail,
                 style: TextStyle(
-                    fontSize: MediaQuery.of(context).size.width * 0.03,
+                    fontSize: MediaQuery.of(context).size.height * 0.03,
                     color: colorWhite),
               )
             ],

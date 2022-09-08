@@ -102,7 +102,7 @@ class _RegisterStep2State extends State<RegisterStep2> {
                   'Lets Continue...',
                   style: TextStyle(
                     color: colorWhite,
-                    fontSize: MediaQuery.of(context).size.width * 0.12,
+                    fontSize: MediaQuery.of(context).size.height * 0.12,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -160,7 +160,7 @@ class _RegisterStep2State extends State<RegisterStep2> {
                       size: MediaQuery.of(context).size.width * 0.08),
                   style: TextStyle(
                     color: colorWhite,
-                    fontSize: MediaQuery.of(context).size.width * 0.06,
+                    fontSize: MediaQuery.of(context).size.height * 0.06,
                   ),
                   hint: gender == null
                       ? Row(

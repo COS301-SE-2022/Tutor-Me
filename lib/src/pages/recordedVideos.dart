@@ -78,7 +78,7 @@ class _RecordedVideosState extends State<RecordedVideos> {
                 'Video' ' ' + (index + 1).toString(),
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: MediaQuery.of(context).size.width * 0.05,
+                  fontSize: MediaQuery.of(context).size.height * 0.05,
                 ),
               ),
               subtitle: const Text('Mathematics'),
@@ -102,7 +102,7 @@ class _RecordedVideosState extends State<RecordedVideos> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Container(
+                SizedBox(
                   height: MediaQuery.of(context).size.height * 0.05,
                   width: MediaQuery.of(context).size.width * 0.3,
                   child: ElevatedButton(
@@ -113,7 +113,7 @@ class _RecordedVideosState extends State<RecordedVideos> {
                     ),
                   ),
                 ),
-                Container(
+                SizedBox(
                   height: MediaQuery.of(context).size.height * 0.05,
                   width: MediaQuery.of(context).size.width * 0.3,
                   child: ElevatedButton(

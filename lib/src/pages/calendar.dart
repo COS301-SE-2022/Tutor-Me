@@ -95,7 +95,7 @@ class _CalendarState extends State<Calendar> {
                   unselectedLabelColor: colorGrey,
                   labelColor: colorTurqoise,
                   unselectedLabelStyle: TextStyle(
-                    fontSize: MediaQuery.of(context).size.width * 0.04,
+                    fontSize: MediaQuery.of(context).size.height * 0.04,
                     fontWeight: FontWeight.w400,
                   ),
                   tabs: [
