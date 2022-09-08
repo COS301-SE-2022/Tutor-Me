@@ -28,7 +28,9 @@ class TutorPageState extends State<TutorPage> {
 
   getScreens() {
     return [
-      Home(user: widget.user,),
+      Home(
+        user: widget.user,
+      ),
       Chats(user: widget.user),
       TutorGroups(tutor: widget.user),
       const Calls()
@@ -43,9 +45,10 @@ class TutorPageState extends State<TutorPage> {
   @override
   Widget build(BuildContext context) {
     final screens = getScreens();
-    return DefaultTabController(
-      length: 3,
-      child: Scaffold(
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+    if (screenWidth < 1100) {
+      return Scaffold(
           drawer: TutorNavigationDrawerWidget(user: widget.user),
           appBar: AppBar(
             toolbarHeight: 70,
@@ -101,13 +104,47 @@ class TutorPageState extends State<TutorPage> {
                 label: 'Calls',
               ),
             ],
-          )),
-    );
-
-    // Widget _starBuilder(BuildContext context, int i) {
-    //   return const Material(
-    //     child: Icon(Icons.star),
-    //   );
-    // }
+          ));
+    } else {
+      return Scaffold(
+        // appBar: AppBar(
+        //   toolbarHeight: 70,
+        //   centerTitle: true,
+        //   title: const Text('Tutor Me'),
+        //   flexibleSpace: Container(
+        //     decoration: const BoxDecoration(
+        //         // borderRadius:
+        //         //     BorderRadius.vertical(bottom: Radius.circular(60)),
+        //         gradient: LinearGradient(
+        //             colors: <Color>[Colors.orange, Colors.red],
+        //             begin: Alignment.topCenter,
+        //             end: Alignment.bottomCenter)),
+        //   ),
+        //   actions: <Widget>[
+        //     IconButton(
+        //         onPressed: () {
+        //           Navigator.of(context).push(MaterialPageRoute(
+        //               builder: (BuildContext context) => TutorNotifications(
+        //                     user: widget.user,
+        //                   )));
+        //         },
+        //         icon: const Icon(Icons.notifications))
+        //   ],
+        // ),
+        body: Row(
+          mainAxisSize: MainAxisSize.max,
+          children: <Widget>[
+            Container(
+              width: screenWidth * 0.2,
+              child: TutorNavigationDrawerWidget(user: widget.user),
+            ),
+            Container(
+              width: screenWidth * 0.8,
+              child: screens[currentIndex],
+            ),
+          ],
+        ),
+      );
+    }
   }
 }

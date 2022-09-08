@@ -132,7 +132,7 @@ class TutorNavigationDrawerState extends State<TutorNavigationDrawerWidget> {
         child: Row(children: <Widget>[
           CircleAvatar(
             backgroundColor: colorTurqoise,
-            radius: MediaQuery.of(context).size.width * 0.08,
+            radius: MediaQuery.of(context).size.height * 0.06,
             child: isImageLoading
                 ? const CircularProgressIndicator.adaptive()
                 : doesUserImageExist
@@ -153,25 +153,31 @@ class TutorNavigationDrawerState extends State<TutorNavigationDrawerWidget> {
                       )),
           ),
           SizedBox(
-            width: MediaQuery.of(context).size.width * 0.05,
+            width: MediaQuery.of(context).size.height * 0.022,
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                fullName,
-                style: TextStyle(
-                    fontSize: MediaQuery.of(context).size.width * 0.055,
-                    color: colorWhite),
+          Expanded(
+            child: Container(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    fullName,
+                    style: TextStyle(
+                        fontSize: MediaQuery.of(context).size.height * 0.04,
+                        color: colorWhite),
+                    overflow: TextOverflow.fade,
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.width * 0.01),
+                  Text(
+                    widget.user.getEmail,
+                    style: TextStyle(
+                        fontSize: MediaQuery.of(context).size.height * 0.02,
+                        color: colorWhite),
+                    overflow: TextOverflow.ellipsis,
+                  )
+                ],
               ),
-              SizedBox(height: MediaQuery.of(context).size.width * 0.01),
-              Text(
-                widget.user.getEmail,
-                style: TextStyle(
-                    fontSize: MediaQuery.of(context).size.width * 0.03,
-                    color: colorWhite),
-              )
-            ],
+            ),
           )
         ]),
       ),

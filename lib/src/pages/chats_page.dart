@@ -39,6 +39,7 @@ class ChatsState extends State<Chats> {
     final type = await UserServices.getUserType(widget.user.getUserTypeID);
 
     userType = type;
+
     getConnections();
   }
 

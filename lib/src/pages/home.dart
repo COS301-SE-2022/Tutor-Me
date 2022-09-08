@@ -15,8 +15,18 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  var gridCount = 0;
   @override
   Widget build(BuildContext context) {
+    double screenHieght = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
+
+    if (screenWidth > 800) {
+      gridCount = 3;
+    } else {
+      gridCount = 2;
+    }
+
     return Scaffold(
         body: ListView(
       padding: EdgeInsets.zero,
@@ -112,7 +122,7 @@ class _HomeState extends State<Home> {
           padding: EdgeInsets.only(
               left: screenWidthSize * 0.1, top: screenHeightSize * 0.02),
           child: Container(
-            width: screenWidthSize * 0.8,
+            width: screenWidthSize > 800 ? 500 : screenWidthSize * 0.8,
             height: screenHeightSize * 0.2,
             decoration: const BoxDecoration(
                 image: DecorationImage(
@@ -129,12 +139,12 @@ class _HomeState extends State<Home> {
               Icon(
                 Icons.circle,
                 color: colorLightGreen,
-                size: screenWidthSize * 0.03,
+                size: screenHeightSize * 0.03,
               ),
               SizedBox(width: screenWidthSize * 0.02),
               Text(
                 "New meeting scheduled...",
-                style: TextStyle(fontSize: screenWidthSize * 0.05),
+                style: TextStyle(fontSize: screenHeightSize * 0.03),
               ),
             ],
           ),
@@ -155,16 +165,17 @@ class _HomeState extends State<Home> {
               Icon(
                 Icons.circle,
                 color: colorLightGreen,
-                size: screenWidthSize * 0.03,
+                size: screenHeightSize * 0.03,
               ),
               SizedBox(width: screenWidthSize * 0.02),
               Text(
                 "New meeting scheduled...",
-                style: TextStyle(fontSize: screenWidthSize * 0.05),
+                style: TextStyle(fontSize: screenHeightSize * 0.03),
               ),
               const Text(
                 "more updates",
                 style: TextStyle(color: colorOrange),
+                overflow: TextOverflow.ellipsis,
               ),
             ],
           ),
@@ -175,7 +186,8 @@ class _HomeState extends State<Home> {
           child: Text(
             "Dashboard",
             style: TextStyle(
-                fontSize: screenWidthSize * 0.055, fontWeight: FontWeight.bold),
+                fontSize: screenHeightSize * 0.039,
+                fontWeight: FontWeight.bold),
           ),
         ),
         Padding(
@@ -197,7 +209,7 @@ class _HomeState extends State<Home> {
             child: GridView.count(
               childAspectRatio: 1,
               physics: const NeverScrollableScrollPhysics(),
-              crossAxisCount: 2,
+              crossAxisCount: gridCount,
               children: List<Widget>.generate(5, (index) {
                 return GridTile(
                   child: GestureDetector(
@@ -260,7 +272,7 @@ class _HomeState extends State<Home> {
                                   child: Text(
                                     titles[index],
                                     style: TextStyle(
-                                        fontSize: screenWidthSize * 0.05,
+                                        fontSize: screenHeightSize * 0.03,
                                         fontWeight: FontWeight.w500),
                                   ),
                                 ),
@@ -273,13 +285,13 @@ class _HomeState extends State<Home> {
                                       Icon(
                                         Icons.circle,
                                         color: colorLightGreen,
-                                        size: screenWidthSize * 0.025,
+                                        size: screenHeightSize * 0.025,
                                       ),
                                       SizedBox(width: screenWidthSize * 0.02),
                                       Text(
                                         numberStats[index],
                                         style: TextStyle(
-                                            fontSize: screenWidthSize * 0.045,
+                                            fontSize: screenHeightSize * 0.03,
                                             fontWeight: FontWeight.w400),
                                       ),
                                     ],

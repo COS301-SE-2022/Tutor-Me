@@ -126,7 +126,7 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
       Text(
         personalDets,
         style: TextStyle(
-          fontSize: screenWidthSize * 0.08,
+          fontSize: screenHeightSize * 0.04,
           fontWeight: FontWeight.bold,
           color: Colors.black,
         ),
@@ -140,7 +140,7 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
       Text(
         courseInfo,
         style: TextStyle(
-          fontSize: screenWidthSize * 0.04,
+          fontSize: screenHeightSize * 0.04,
           fontWeight: FontWeight.normal,
           color: colorOrange,
         ),
@@ -163,7 +163,7 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
             "About Me",
             textAlign: TextAlign.left,
             style: TextStyle(
-              fontSize: screenWidthSize * 0.065,
+              fontSize: screenHeightSize * 0.04,
               fontWeight: FontWeight.bold,
               color: Colors.black,
             ),
@@ -180,7 +180,7 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
           ),
           child: Text(widget.user.getBio,
               style: TextStyle(
-                fontSize: screenWidthSize * 0.05,
+                fontSize: screenHeightSize * 0.033,
                 fontWeight: FontWeight.normal,
                 color: Colors.black,
               )),
@@ -195,7 +195,7 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
           child: Text("Gender",
               textAlign: TextAlign.left,
               style: TextStyle(
-                fontSize: screenWidthSize * 0.06,
+                fontSize: screenHeightSize * 0.04,
                 fontWeight: FontWeight.bold,
                 color: Colors.black,
               )),
@@ -212,7 +212,7 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
           ),
           child: Text(gender,
               style: TextStyle(
-                fontSize: screenWidthSize * 0.05,
+                fontSize: screenHeightSize * 0.033,
                 fontWeight: FontWeight.normal,
                 color: Colors.black,
               )),
@@ -228,7 +228,7 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
           child: Text("Modules I tutor",
               textAlign: TextAlign.left,
               style: TextStyle(
-                fontSize: screenWidthSize * 0.06,
+                fontSize: screenHeightSize * 0.04,
                 fontWeight: FontWeight.bold,
                 color: Colors.black,
               )),
@@ -299,8 +299,19 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
           child: buildProfileImage(),
         ),
         Positioned(
+          top: MediaQuery.of(context).size.height * 0.02,
+          left: MediaQuery.of(context).size.width * 0.05,
+          child: IconButton(
+              color: colorWhite,
+              iconSize: MediaQuery.of(context).size.height * 0.05,
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: const Icon(Icons.arrow_back)),
+        ),
+        Positioned(
           top: MediaQuery.of(context).size.height * 0.17,
-          left: MediaQuery.of(context).size.height * 0.42,
+          left: MediaQuery.of(context).size.width * 0.9,
           child: GestureDetector(
             onTap: () async {
               final results = await Navigator.push(
@@ -340,14 +351,14 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
       );
 
   Widget buildProfileImage() => CircleAvatar(
-        radius: MediaQuery.of(context).size.width * 0.127,
+        radius: MediaQuery.of(context).size.height * 0.06,
         child: widget.imageExists
             ? ClipOval(
                 child: Image.memory(
                   widget.image,
                   fit: BoxFit.cover,
                   width: MediaQuery.of(context).size.width * 0.253,
-                  height: MediaQuery.of(context).size.width * 0.253,
+                  height: MediaQuery.of(context).size.height * 0.253,
                 ),
               )
             : ClipOval(
@@ -355,7 +366,7 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
                 "assets/Pictures/penguin.png",
                 fit: BoxFit.cover,
                 width: MediaQuery.of(context).size.width * 0.253,
-                height: MediaQuery.of(context).size.width * 0.253,
+                height: MediaQuery.of(context).size.height * 0.253,
               )),
       );
 
@@ -384,7 +395,7 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
-              fontSize: MediaQuery.of(context).size.width * 0.05,
+              fontSize: MediaQuery.of(context).size.height * 0.03,
               color: Colors.black,
             ),
           ),
