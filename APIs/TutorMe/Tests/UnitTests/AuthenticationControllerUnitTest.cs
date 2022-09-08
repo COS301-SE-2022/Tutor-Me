@@ -147,7 +147,47 @@ public class AuthenticationControllerUnitTests
         
     }
     
-   
+    [Fact]
+    public async Task UpdateEmailByUserId_ReturnsBadRequest()
+    {
+        // Arrange
+        var user = new User
+        {
+            UserId = new Guid(),
+            FirstName = "Thabo",
+            LastName = "Maduna",
+            DateOfBirth = "02/04/2000",
+            Status = true,
+            Gender = "M",
+            Email = "simphiwendlovu527@gmail.com",
+            Password = "12345678",
+            UserTypeId = new Guid(),
+            InstitutionId = new Guid(),
+            Location = "1166 TMN, 0028",
+            Bio = "The boys",
+            Year = "3",
+            Rating = 0
+        };
+
+        var userEmail = new UserEmail
+        {
+            NewEmail ="newEmail@gmail.com",
+            OldEmail ="simphiwendlovu527@gmail.com",
+            UserId =user.UserId,
+            Password = "12345678"
+        };
+
+        _UserTypeRepositoryMock.Setup(x => x.UpdateEmailByUserId(user.UserId,userEmail)).Throws<Exception>();
+        
+        //Act
+        var controller = new AuthenticationController(_UserTypeRepositoryMock.Object,_mapper.Object);
+        var result =controller.UpdateEmailByUserId(user.UserId,userEmail);
+    
+        //Assert     
+        Assert.NotNull(result);
+        Assert.IsType< BadRequestObjectResult>(result);
+        
+    }
     
     
 }
