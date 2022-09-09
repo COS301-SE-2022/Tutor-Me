@@ -365,6 +365,7 @@ C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\bi
 C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\bin\Debug\net6.0\publish\Humanizer.dll
 C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\bin\Debug\net6.0\publish\MessagePack.dll
 C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\bin\Debug\net6.0\publish\MessagePack.Annotations.dll
+C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\bin\Debug\net6.0\publish\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\bin\Debug\net6.0\publish\Microsoft.AspNetCore.Razor.Language.dll
 C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\bin\Debug\net6.0\publish\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\bin\Debug\net6.0\publish\Microsoft.Build.Locator.dll
