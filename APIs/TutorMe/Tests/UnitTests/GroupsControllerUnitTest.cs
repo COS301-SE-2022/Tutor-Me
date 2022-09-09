@@ -14,12 +14,12 @@ namespace Tests.UnitTests;
 
 public class GroupControllerUnitTests
 {
-    private readonly Mock<IGroupService> _GroupRepositoryMock;
+    private readonly Mock<IGroupService> groupRepositoryMock;
     private static Mock<IMapper> _mapper;
 
     public GroupControllerUnitTests()
     {
-        _GroupRepositoryMock = new Mock<IGroupService>();
+        groupRepositoryMock = new Mock<IGroupService>();
         _mapper = new Mock<IMapper>();
     }
     
@@ -28,7 +28,7 @@ public class GroupControllerUnitTests
     {
     
         //arrange
-        List<Group> Groups = new List<Group>
+        List<Group> groups = new List<Group>
         {
             new Group
             {
@@ -54,9 +54,9 @@ public class GroupControllerUnitTests
         };
         
         
-        _GroupRepositoryMock.Setup(u => u.GetAllGroups()).Returns(Groups);
+        groupRepositoryMock.Setup(u => u.GetAllGroups()).Returns(groups);
 
-        var controller = new GroupsController(_GroupRepositoryMock.Object, _mapper.Object);
+        var controller = new GroupsController(groupRepositoryMock.Object, _mapper.Object);
         var result = controller.GetAllGroups();
 
 
@@ -73,7 +73,7 @@ public class GroupControllerUnitTests
     public async  Task GetGroupById_GroupId_ReturnsGroupOfId()
     {
         //arrange
-        var Group = new Group
+        var group = new Group
         {
             GroupId = Guid.NewGuid(), 
             ModuleId  = Guid.NewGuid(),
@@ -81,12 +81,12 @@ public class GroupControllerUnitTests
 
         };
         
-        _GroupRepositoryMock.Setup(u => u.GetGroupById(Group.GroupId)).Returns(Group);
+        groupRepositoryMock.Setup(u => u.GetGroupById(group.GroupId)).Returns(group);
         
-        var controller = new GroupsController(_GroupRepositoryMock.Object,_mapper.Object);
+        var controller = new GroupsController(groupRepositoryMock.Object,_mapper.Object);
         
         //act
-        var result = controller.GetGroupById(Group.GroupId);
+        var result = controller.GetGroupById(group.GroupId);
         
         Assert.NotNull(result);
         Assert.IsType<OkObjectResult>(result);
@@ -99,19 +99,19 @@ public class GroupControllerUnitTests
     public async  Task AddGroup_Group_ReturnsGroup()
     {
         //arrange
-        var Group = new IGroup
+        var group = new IGroup
         {
             GroupId = Guid.NewGuid(), 
             ModuleId  = Guid.NewGuid(),
             Description = "This is a group for students to learn about software development",
 
         };
-        _GroupRepositoryMock.Setup(u => u. createGroup(It.IsAny<IGroup>())).Returns(Group.GroupId);
+        groupRepositoryMock.Setup(u => u. createGroup(It.IsAny<IGroup>())).Returns(group.GroupId);
         
-        var controller = new GroupsController(_GroupRepositoryMock.Object,_mapper.Object);
+        var controller = new GroupsController(groupRepositoryMock.Object,_mapper.Object);
         
         //act
-        var result =  controller.createGroup(Group);
+        var result =  controller.createGroup(group);
         
         Assert.NotNull(result);
         Assert.IsType<OkObjectResult>(result);
@@ -135,8 +135,8 @@ public class GroupControllerUnitTests
 
         };
             
-        _GroupRepositoryMock.Setup(repo => repo.deleteGroupById(It.IsAny<Guid>())).Returns(true);
-        var controller = new  GroupsController(_GroupRepositoryMock.Object,_mapper.Object);
+        groupRepositoryMock.Setup(repo => repo.deleteGroupById(It.IsAny<Guid>())).Returns(true);
+        var controller = new  GroupsController(groupRepositoryMock.Object,_mapper.Object);
 
         //Act
         var result = controller.DeleteGroup(expectedTutor.GroupId);
@@ -162,8 +162,8 @@ public class GroupControllerUnitTests
 
         };
             
-        _GroupRepositoryMock.Setup(repo => repo.deleteGroupById(It.IsAny<Guid>())).Returns(false);
-        var controller = new  GroupsController(_GroupRepositoryMock.Object,_mapper.Object);
+        groupRepositoryMock.Setup(repo => repo.deleteGroupById(It.IsAny<Guid>())).Returns(false);
+        var controller = new  GroupsController(groupRepositoryMock.Object,_mapper.Object);
 
         //Act
         var result = controller.DeleteGroup(expectedTutor.GroupId);
