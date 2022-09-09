@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:tutor_me/services/models/globals.dart';
 import 'package:tutor_me/services/services/user_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/pages/tutors_list.dart';
@@ -16,9 +17,9 @@ import '../chat/one_to_one_chat.dart';
 // import 'theme/themes.dart';
 
 class Chats extends StatefulWidget {
-  const Chats({Key? key, required this.user}) : super(key: key);
+  const Chats({Key? key, required this.globals}) : super(key: key);
 
-  final Users user;
+  final Globals globals;
 
   @override
   State<StatefulWidget> createState() {
@@ -36,7 +37,7 @@ class ChatsState extends State<Chats> {
   List<Users> userChats = List<Users>.empty();
 
   getUserType() async {
-    final type = await UserServices.getUserType(widget.user.getUserTypeID);
+    final type = await UserServices.getUserType(widget.globals.getUser.getUserTypeID);
 
     userType = type;
 
@@ -45,7 +46,7 @@ class ChatsState extends State<Chats> {
 
   void getConnections() async {
     try {
-      userChats = await UserServices.getConnections(widget.user.getId);
+      userChats = await UserServices.getConnections(widget.globals.getUser.getId);
       setState(() {
         userChats = userChats;
       });
@@ -199,7 +200,7 @@ class ChatsState extends State<Chats> {
           Navigator.of(context).push(MaterialPageRoute(
               builder: (BuildContext context) => Chat(
                   reciever: userChats[i],
-                  user: widget.user,
+                  globals: widget.globals,
                   image: userType.getType == 'Tutors'
                       ? tuteeChats[i].image
                       : tutorChats[i].image,

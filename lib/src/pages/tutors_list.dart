@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:tutor_me/services/models/globals.dart';
 import 'package:tutor_me/services/services/module_services.dart';
 import 'package:tutor_me/services/services/user_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
@@ -23,8 +24,8 @@ class Tutor {
 }
 
 class TutorList extends StatefulWidget {
-  final Users tutee;
-  const TutorList({Key? key, required this.tutee}) : super(key: key);
+  final Globals globals;
+  const TutorList({Key? key, required this.globals}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -62,7 +63,7 @@ class TutorListState extends State<TutorList> {
       final nameToLower = tutor.tutor.getName.toLowerCase();
       final lastNameToLower = tutor.tutor.getLastName.toLowerCase();
       final lowerName = nameToLower + ' ' + lastNameToLower;
-      final query = search.toLowerCase();
+      final query = search.toLowerCase();  
 
       return lowerName.contains(query);
     }).toList();
@@ -163,7 +164,7 @@ class TutorListState extends State<TutorList> {
     try {
       List<int> indecies = List<int>.empty(growable: true);
       int tutorLength = tutorList.length;
-      final tutors = await UserServices.getConnections(widget.tutee.getId);
+      final tutors = await UserServices.getConnections(widget.globals.getUser.getId);
       setState(() {
         connectedTutors = tutors;
       });
@@ -177,7 +178,7 @@ class TutorListState extends State<TutorList> {
       }
       List<Modules> tuteeModules = List<Modules>.empty();
       final tuteeModuleList =
-          await ModuleServices.getUserModules(widget.tutee.getId);
+          await ModuleServices.getUserModules(widget.globals.getUser.getId);
       tuteeModules = tuteeModuleList;
       for (int i = 0; i < tutorLength; i++) {
         bool val = false;
@@ -315,7 +316,7 @@ class TutorListState extends State<TutorList> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => TuteePage(user: widget.tutee)),
+                          builder: (context) => TuteePage(globals: widget.globals)),
                     ),
                   },
                   child: Icon(
@@ -863,7 +864,7 @@ class TutorListState extends State<TutorList> {
         Navigator.of(context).push(MaterialPageRoute(
             builder: (BuildContext context) => TutorProfilePageView(
                   tutor: tutors[i].tutor,
-                  tutee: widget.tutee,
+                  globals: widget.globals,
                 )));
       },
     );

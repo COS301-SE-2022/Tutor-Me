@@ -5,6 +5,7 @@ import 'package:tutor_me/services/services/module_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/tuteeProfilePages/tutee_profile.dart';
 
+import '../../services/models/globals.dart';
 import '../../services/models/groups.dart';
 import '../../services/models/modules.dart';
 import '../../services/models/users.dart';
@@ -12,9 +13,9 @@ import 'add_modules.dart';
 
 // ignore: must_be_immutable
 class EditModuleList extends StatefulWidget {
-  final Users user;
+  final Globals globals;
   List<Modules> currentModules;
-  EditModuleList({Key? key, required this.user, required this.currentModules})
+  EditModuleList({Key? key, required this.globals, required this.currentModules})
       : super(key: key);
 
   @override
@@ -84,7 +85,7 @@ class _EditModuleListState extends State<EditModuleList> {
   }
 
   getTutorGroups() async {
-    final groups = await GroupServices.getGroupByUserID(widget.user.getId);
+    final groups = await GroupServices.getGroupByUserID(widget.globals.getUser.getId);
 
     tutorGroups = groups;
   }
@@ -167,7 +168,7 @@ class _EditModuleListState extends State<EditModuleList> {
                                     for (var module in widget.currentModules) {
                                       try {
                                         await ModuleServices.addUserModule(
-                                            widget.user.getId, module);
+                                            widget.globals.getUser.getId, module);
                                       } catch (e) {
                                         continue;
                                       }
@@ -383,7 +384,7 @@ class _EditModuleListState extends State<EditModuleList> {
                           for (var userMod in userModules) {
                             if (userMod.getModuleId ==
                                     widget.currentModules[index].getModuleId &&
-                                userMod.getUserId == widget.user.getId) {
+                                userMod.getUserId == widget.globals.getUser.getId) {
                               userModuleId = userMod.getUserModuleId;
                               break;
                             }
@@ -415,7 +416,7 @@ class _EditModuleListState extends State<EditModuleList> {
             context,
             MaterialPageRoute(
                 builder: (context) => AddModulesPage(
-                      user: widget.user,
+                      user: widget.globals.getUser,
                       currentModules: widget.currentModules,
                     )));
         setState(() {

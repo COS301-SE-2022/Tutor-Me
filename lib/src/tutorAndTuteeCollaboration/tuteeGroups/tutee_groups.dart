@@ -4,14 +4,15 @@ import 'package:tutor_me/services/models/groups.dart';
 import 'package:tutor_me/services/services/group_services.dart';
 import 'package:tutor_me/services/services/module_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
+import '../../../services/models/globals.dart';
 import '../../../services/models/modules.dart';
 import '../../../services/models/users.dart';
 import '../../Groups/tutee_group.dart';
 
 class TuteeGroups extends StatefulWidget {
-  final Users tutee;
+  final Globals globals;
 
-  const TuteeGroups({Key? key, required this.tutee}) : super(key: key);
+  const TuteeGroups({Key? key, required this.globals}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -33,7 +34,7 @@ class TuteeGroupsState extends State<TuteeGroups> {
   int numOfTutees = 3;
   getGroupDetails() async {
     final incomingGroups =
-        await GroupServices.getGroupByUserID(widget.tutee.getId);
+        await GroupServices.getGroupByUserID(widget.globals.getUser.getId);
     groups = incomingGroups;
     if (groups.isNotEmpty) {
       setState(() {
@@ -116,7 +117,7 @@ class TuteeGroupsState extends State<TuteeGroups> {
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => TuteeGroupPage(
-                tutee: widget.tutee,
+                globals: widget.globals,
                 group: groups[i],
                 numberOfParticipants: numOfTutees,
                 module: modules[i])));

@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
 
 import 'package:flutter/material.dart';
+import 'package:tutor_me/services/models/globals.dart';
 import 'package:tutor_me/services/models/intitutions.dart';
 // import 'package:tutor_me/services/models/tutors.dart';
 import 'package:tutor_me/services/models/users.dart';
@@ -47,15 +48,14 @@ class _RegisterStep3State extends State<RegisterStep3> {
   final TextEditingController institutionController = TextEditingController();
   final TextEditingController courseController = TextEditingController();
 
-  late Users tutor;
-  late Users tutee;
+  late Globals globals;
   int currentStep = 2;
   String institutionIdToPassIn = '';
 
   register(String passedinInstitution) async {
     if (widget.toRegister == "Tutor") {
       try {
-        tutor = await UserServices.registerTutor(
+        globals = await UserServices.registerTutor(
             widget.fullName,
             widget.lastName,
             widget.dob,
@@ -67,7 +67,7 @@ class _RegisterStep3State extends State<RegisterStep3> {
             yearLvl!);
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => TutorPage(user: tutor)),
+          MaterialPageRoute(builder: (context) => TutorPage(globals: globals)),
         );
       } catch (e) {
         showDialog(
@@ -96,7 +96,7 @@ class _RegisterStep3State extends State<RegisterStep3> {
       }
     } else {
       try {
-        tutee = await UserServices.registerTutee(
+        globals = await UserServices.registerTutee(
             widget.fullName,
             widget.lastName,
             widget.dob,
@@ -111,7 +111,7 @@ class _RegisterStep3State extends State<RegisterStep3> {
           context,
           MaterialPageRoute(
               builder: (context) => TuteePage(
-                    user: tutee,
+                    globals: globals,
                   )),
         );
       } catch (e) {

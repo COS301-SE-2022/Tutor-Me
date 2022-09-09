@@ -24,14 +24,14 @@ class Globals {
     };
   }
 
-  Users get user => _user;
+  Users get getUser => _user;
   String get getFilesUrl => _filesUrl;
   String get getTutorMeUrl => _tutorMeUrl;
   Map<String, String> get getHeader => header;
   String get getToken => _token;
   String get getRefreshToken => _refreshToken;
 
-  set user(Users user) {
+  set setUser(Users user) {
     _user = user;
   }
 

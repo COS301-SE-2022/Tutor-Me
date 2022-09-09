@@ -637,19 +637,19 @@ class UserServices {
     }
   }
 
-  static changePassword(Users tutor, String password) async {
-    String data = jsonEncode({'userId': tutor.getId, 'password': password});
+  static changePassword(Globals globals, String password) async {
+    String data = jsonEncode({'userId': globals.getUser.getId, 'password': password});
 
     final header = <String, String>{
       'Content-Type': 'application/json; charset=utf-8',
     };
     try {
-      final id = tutor.getId;
+      final id = globals.getUser.getId;
       final passwordURL = Uri.parse(
           'http://tutorme-dev.us-east-1.elasticbeanstalk.com/api/Authentication/password/$id');
       final response = await http.put(passwordURL, headers: header, body: data);
       if (response.statusCode == 200) {
-        return tutor;
+        return globals.getUser;
       } else {
         throw Exception('Failed to update' + response.statusCode.toString());
       }
@@ -769,6 +769,7 @@ class UserServices {
           'http://tutorme-dev.us-east-1.elasticbeanstalk.com/api/account/authtoken');
       final response = await http.post(modulesURL, headers: header, body: data);
       if (response.statusCode == 200) {
+        
         final Users tutor = Users.fromObject(jsonDecode(response.body)['user']);
         Globals global = Globals(
             tutor,
@@ -777,8 +778,7 @@ class UserServices {
             json.decode(response.body)['refreshToken']);
 
 
-        return tutor;
-        // return jsonDecode(response.body);
+        return global;
       } else {
         throw Exception('Failed to log in' + response.statusCode.toString());
       }
@@ -923,8 +923,16 @@ class UserServices {
           Uri.parse('http://tutorme-dev.us-east-1.elasticbeanstalk.com/Login');
       final response = await http.post(modulesURL, headers: header, body: data);
       if (response.statusCode == 200) {
-        final Users tutee = Users.fromObject(jsonDecode(response.body));
-        return tutee;
+
+       final Users tutor = Users.fromObject(jsonDecode(response.body)['user']);
+        Globals global = Globals(
+            tutor,
+            'tutorme-dev.us-east-1.elasticbeanstalk.com',
+            json.decode(response.body)['token'],
+            json.decode(response.body)['refreshToken']);
+
+
+        return global;
       } else {
         throw Exception('Failed to log in' + response.statusCode.toString());
       }

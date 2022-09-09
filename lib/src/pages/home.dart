@@ -4,11 +4,12 @@ import 'package:tutor_me/src/pages/badges.dart';
 import 'package:tutor_me/src/pages/book_for_tutor.dart';
 import 'package:tutor_me/src/pages/calendar.dart';
 
+import '../../services/models/globals.dart';
 import '../../services/models/users.dart';
 
 class Home extends StatefulWidget {
-  final Users user;
-  const Home({Key? key, required this.user}) : super(key: key);
+  final Globals globals;
+  const Home({Key? key, required this.globals}) : super(key: key);
 
   @override
   State<Home> createState() => _HomeState();
@@ -47,13 +48,7 @@ class _HomeState extends State<Home> {
       "assets/Pictures/calendar.jpg",
       "assets/Pictures/book.jpg",
     ];
-    final titles = [
-      "Tutees",
-      "Groups",
-      "Badges",
-      "Calendar",
-      "Book for a Tutor"
-    ];
+    final titles = ["Tutees", "Groups", "Badges", "Calendar", "Book a Tutor"];
     final numberStats = ["4", "4", "2", "more info", "more info"];
 
     // FilePickerResult? filePickerResult;
@@ -139,12 +134,12 @@ class _HomeState extends State<Home> {
               Icon(
                 Icons.circle,
                 color: colorLightGreen,
-                size: screenHeightSize * 0.03,
+                size: screenHeightSize * 0.025,
               ),
               SizedBox(width: screenWidthSize * 0.02),
               Text(
                 "New meeting scheduled...",
-                style: TextStyle(fontSize: screenHeightSize * 0.03),
+                style: TextStyle(fontSize: screenHeightSize * 0.025),
               ),
             ],
           ),
@@ -165,12 +160,12 @@ class _HomeState extends State<Home> {
               Icon(
                 Icons.circle,
                 color: colorLightGreen,
-                size: screenHeightSize * 0.03,
+                size: screenHeightSize * 0.025,
               ),
               SizedBox(width: screenWidthSize * 0.02),
               Text(
                 "New meeting scheduled...",
-                style: TextStyle(fontSize: screenHeightSize * 0.03),
+                style: TextStyle(fontSize: screenHeightSize * 0.025),
               ),
               const Text(
                 "more updates",
@@ -231,7 +226,7 @@ class _HomeState extends State<Home> {
                         //render Book for a tutor Page
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (BuildContext context) => BookForTutor(
-                                  user: widget.user,
+                                  globals: widget.globals,
                                 )));
                       }
                     },
@@ -272,7 +267,7 @@ class _HomeState extends State<Home> {
                                   child: Text(
                                     titles[index],
                                     style: TextStyle(
-                                        fontSize: screenHeightSize * 0.03,
+                                        fontSize: screenHeightSize * 0.025,
                                         fontWeight: FontWeight.w500),
                                   ),
                                 ),
@@ -285,13 +280,13 @@ class _HomeState extends State<Home> {
                                       Icon(
                                         Icons.circle,
                                         color: colorLightGreen,
-                                        size: screenHeightSize * 0.025,
+                                        size: screenHeightSize * 0.015,
                                       ),
                                       SizedBox(width: screenWidthSize * 0.02),
                                       Text(
                                         numberStats[index],
                                         style: TextStyle(
-                                            fontSize: screenHeightSize * 0.03,
+                                            fontSize: screenHeightSize * 0.025,
                                             fontWeight: FontWeight.w400),
                                       ),
                                     ],

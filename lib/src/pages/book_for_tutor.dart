@@ -3,11 +3,12 @@ import 'package:tutor_me/src/colorpallete.dart';
 // import 'package:tutor_me/src/pages/badges.dart';
 import 'package:tutor_me/src/pages/tutor_explore.dart';
 
+import '../../services/models/globals.dart';
 import '../../services/models/users.dart';
 
 class BookForTutor extends StatefulWidget {
-  final Users user;
-  const BookForTutor({Key? key, required this.user}) : super(key: key);
+  final Globals globals;
+  const BookForTutor({Key? key, required this.globals}) : super(key: key);
 
   @override
   State<BookForTutor> createState() => _BookForTutorState();
@@ -150,7 +151,7 @@ class _BookForTutorState extends State<BookForTutor> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => TutorExplore(
-                            tutee: widget.user,
+                            globals: widget.globals,
                           )),
                 );
               },

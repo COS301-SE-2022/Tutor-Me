@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:tutor_me/services/models/groups.dart';
 // import 'package:tutor_me/services/models/tutors.dart';
 
+import '../../services/models/globals.dart';
 import '../../services/models/modules.dart';
 import '../models/message_model.dart';
 import '../widgets/chat_appbar_widget.dart';
@@ -13,13 +14,13 @@ import 'package:flutter/material.dart';
 import 'package:signalr_core/signalr_core.dart';
 
 class ChatPage extends StatefulWidget {
-  final dynamic user;
+  final Globals globals;
   final Groups group;
   final String moduleCode;
   const ChatPage(
       {Key? key,
       required this.group,
-      required this.user,
+      required this.globals,
       required this.moduleCode})
       : super(key: key);
 
@@ -65,7 +66,7 @@ class _ChatPageState extends State<ChatPage> {
   submitMessageFunction() async {
     var messageText = removeMessageExtraChar(messageTextController.text);
     await connection.invoke('SendMessage',
-        args: [widget.user.getName, currentUserId, messageText]);
+        args: [widget.globals.getUser.getName, currentUserId, messageText]);
     messageTextController.text = "";
 
     Future.delayed(const Duration(milliseconds: 500), () {
@@ -111,7 +112,7 @@ class _ChatPageState extends State<ChatPage> {
       _handleIncommingDriverLocation(message);
     });
     await connection
-        .invoke('JoinUSer', args: [widget.user.getName, currentUserId]);
+        .invoke('JoinUSer', args: [widget.globals.getUser.getName, currentUserId]);
   }
 
   //get messages

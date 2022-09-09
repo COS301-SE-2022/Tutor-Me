@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:tutor_me/services/models/users.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/theme/themes.dart';
+import '../services/models/globals.dart';
 import 'Navigation/tutee_nav_drawer.dart';
 // import 'theme/themes.dart';
 import 'notifications/tuteeNotifications/tutee_notifications.dart';
@@ -13,8 +14,8 @@ import 'pages/chats_page.dart';
 import 'tutorAndTuteeCollaboration/tuteeGroups/tutee_groups.dart';
 
 class TuteePage extends StatefulWidget {
-  final Users user;
-  const TuteePage({Key? key, required this.user}) : super(key: key);
+  final Globals globals;
+  const TuteePage({Key? key, required this.globals}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -27,9 +28,9 @@ class TuteePageState extends State<TuteePage> {
 
   getScreens() {
     return [
-      Home(user: widget.user),
-      Chats(user: widget.user),
-      TuteeGroups(tutee: widget.user),
+      Home(globals: widget.globals),
+      Chats(globals: widget.globals),
+      TuteeGroups(globals: widget.globals),
       const Calls()
     ];
   }
@@ -60,7 +61,7 @@ class TuteePageState extends State<TuteePage> {
       length: 3,
       child: Scaffold(
         drawer: TuteeNavigationDrawerWidget(
-          user: widget.user,
+          globals: widget.globals,
         ),
         appBar: AppBar(
           toolbarHeight: MediaQuery.of(context).size.height * 0.09,
@@ -80,7 +81,7 @@ class TuteePageState extends State<TuteePage> {
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (BuildContext context) => TuteeNotifications(
-                            user: widget.user,
+                            globals: widget.globals,
                           )));
                 },
                 icon: const Icon(Icons.notifications)),
@@ -122,7 +123,7 @@ class TuteePageState extends State<TuteePage> {
           onPressed: () {
             Navigator.of(context).push(MaterialPageRoute(
                 builder: (BuildContext context) => TutorList(
-                      tutee: widget.user,
+                      globals: widget.globals,
                     )));
           },
           icon: const Icon(

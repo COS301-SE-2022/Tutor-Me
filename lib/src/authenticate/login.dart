@@ -4,6 +4,7 @@ import 'package:tutor_me/src/authenticate/register_step1.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 // import '../../services/models/tutees.dart';
 // import '../../services/models/tutors.dart';
+import '../../services/models/globals.dart';
 import '../../services/services/user_services.dart';
 import '../../services/models/users.dart';
 import '../components.dart';
@@ -25,8 +26,9 @@ class _LoginState extends State<Login> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  late Users tutor;
-  late Users tutee;
+  // late Users tutor;
+  // late Users tutee;
+ late Globals globals;
   String toRegister = 'Tutor';
 
   bool isLoading = false;
@@ -208,14 +210,14 @@ class _LoginState extends State<Login> {
                       if (toRegister == "Tutor") {
                         try {
                           // TutorServices tutor = TutorServices.Login(
-                          tutor = await UserServices.logInTutor(
+                          globals = await UserServices.logInTutor(
                               emailController.text, passwordController.text);
                           // tutor.setStatus = true;
                           // await UserServices.updateTutor(tutor);
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => TutorPage(user: tutor)),
+                                builder: (context) => TutorPage(globals: globals)),
                           );
 
                           setState(() {
@@ -257,12 +259,12 @@ class _LoginState extends State<Login> {
                       } else {
                         try {
                           // TutorServices tutor = TutorServices.Login(
-                          tutee = await UserServices.logInTutee(
+                          globals = await UserServices.logInTutee(
                               emailController.text, passwordController.text);
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => TuteePage(user: tutee)),
+                                builder: (context) => TuteePage(globals: globals)),
                           );
 
                           setState(() {

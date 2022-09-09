@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 import 'package:flutter/material.dart';
+import 'package:tutor_me/services/models/globals.dart';
 import 'package:tutor_me/services/models/groups.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import '../../../services/models/modules.dart';
@@ -9,8 +10,8 @@ import '../../../services/services/module_services.dart';
 import '../../Groups/tutor_group.dart';
 
 class TutorGroups extends StatefulWidget {
-  final Users tutor;
-  const TutorGroups({Key? key, required this.tutor}) : super(key: key);
+  final Globals globals;
+  const TutorGroups({Key? key, required this.globals}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -31,7 +32,7 @@ class TutorGroupsState extends State<TutorGroups> {
   int numOfTutees = 3;
   getGroupDetails() async {
     final incomingGroups =
-        await GroupServices.getGroupByUserID(widget.tutor.getId);
+        await GroupServices.getGroupByUserID(widget.globals.getUser.getId);
     groups = incomingGroups;
     if (groups.isNotEmpty) {
       setState(() {
@@ -115,7 +116,7 @@ class TutorGroupsState extends State<TutorGroups> {
         Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => TutorGroupPage(
                   group: groups[i],
-                  tutor: widget.tutor,
+                  globals: widget.globals,
                   module: modules[i],
                 )));
       },

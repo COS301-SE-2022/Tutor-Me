@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tutor_me/services/models/globals.dart';
 import 'package:tutor_me/services/models/users.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/notifications/tutorNotifications/tutor_notifications.dart';
@@ -12,9 +13,9 @@ import 'Navigation/tutor_nav_drawer.dart';
 import 'pages/calls_page.dart';
 
 class TutorPage extends StatefulWidget {
-  final Users user;
+  final Globals globals;
 
-  const TutorPage({Key? key, required this.user}) : super(key: key);
+  const TutorPage({Key? key, required this.globals}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -29,10 +30,10 @@ class TutorPageState extends State<TutorPage> {
   getScreens() {
     return [
       Home(
-        user: widget.user,
+        globals: widget.globals,
       ),
-      Chats(user: widget.user),
-      TutorGroups(tutor: widget.user),
+      Chats(globals: widget.globals),
+      TutorGroups(globals: widget.globals),
       const Calls()
     ];
   }
@@ -49,7 +50,7 @@ class TutorPageState extends State<TutorPage> {
     double screenHeight = MediaQuery.of(context).size.height;
     if (screenWidth < 1100) {
       return Scaffold(
-          drawer: TutorNavigationDrawerWidget(user: widget.user),
+          drawer: TutorNavigationDrawerWidget(globals: widget.globals),
           appBar: AppBar(
             toolbarHeight: 70,
             centerTitle: true,
@@ -68,7 +69,7 @@ class TutorPageState extends State<TutorPage> {
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (BuildContext context) => TutorNotifications(
-                              user: widget.user,
+                              user: widget.globals.getUser,
                             )));
                   },
                   icon: const Icon(Icons.notifications))
@@ -136,7 +137,7 @@ class TutorPageState extends State<TutorPage> {
           children: <Widget>[
             Container(
               width: screenWidth * 0.2,
-              child: TutorNavigationDrawerWidget(user: widget.user),
+              child: TutorNavigationDrawerWidget(globals: widget.globals),
             ),
             Container(
               width: screenWidth * 0.8,
