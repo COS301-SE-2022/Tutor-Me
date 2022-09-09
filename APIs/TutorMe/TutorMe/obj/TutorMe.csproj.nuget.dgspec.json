@@ -1,25 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "/home/musa/Desktop/COS 301/Capstone/Tutor-ME-1/APIs/TutorMe/TutorMe/TutorMe.csproj": {}
+    "C:\\Users\\madun\\Documents\\School\\COS301\\Capstone\\Tutor-ME\\APIs\\TutorMe\\TutorMe\\TutorMe.csproj": {}
   },
   "projects": {
-    "/home/musa/Desktop/COS 301/Capstone/Tutor-ME-1/APIs/TutorMe/TutorMe/TutorMe.csproj": {
+    "C:\\Users\\madun\\Documents\\School\\COS301\\Capstone\\Tutor-ME\\APIs\\TutorMe\\TutorMe\\TutorMe.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/musa/Desktop/COS 301/Capstone/Tutor-ME-1/APIs/TutorMe/TutorMe/TutorMe.csproj",
+        "projectUniqueName": "C:\\Users\\madun\\Documents\\School\\COS301\\Capstone\\Tutor-ME\\APIs\\TutorMe\\TutorMe\\TutorMe.csproj",
         "projectName": "TutorMe",
-        "projectPath": "/home/musa/Desktop/COS 301/Capstone/Tutor-ME-1/APIs/TutorMe/TutorMe/TutorMe.csproj",
-        "packagesPath": "/home/musa/.nuget/packages/",
-        "outputPath": "/home/musa/Desktop/COS 301/Capstone/Tutor-ME-1/APIs/TutorMe/TutorMe/obj/",
+        "projectPath": "C:\\Users\\madun\\Documents\\School\\COS301\\Capstone\\Tutor-ME\\APIs\\TutorMe\\TutorMe\\TutorMe.csproj",
+        "packagesPath": "C:\\Users\\madun\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\madun\\Documents\\School\\COS301\\Capstone\\Tutor-ME\\APIs\\TutorMe\\TutorMe\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/musa/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\madun\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
