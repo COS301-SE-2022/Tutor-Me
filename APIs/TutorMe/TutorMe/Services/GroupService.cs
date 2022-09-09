@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TutorMe.Data;
+using TutorMe.Entities;
 using TutorMe.Models;
 
 namespace TutorMe.Services
@@ -8,8 +9,11 @@ namespace TutorMe.Services
     {
         IEnumerable<Group> GetAllGroups();
         Group GetGroupById(Guid id);
-        Guid createGroup(Group group);
+        Guid createGroup(IGroup group);
         bool deleteGroupById(Guid id);
+        IEnumerable<Group> GetGroupsByUserId(Guid id);
+        bool updateGroupDescription(Guid id, string description);
+        bool updateGroupVideoId(Guid id, string videoId);
     }
     public class GroupServices : IGroupService
     {
@@ -25,6 +29,14 @@ namespace TutorMe.Services
             return _context.Group;
         }
 
+        public IEnumerable<Group> GetGroupsByUserId(Guid id) {
+            var groups = _context.Group.Where(e => e.UserId == id);
+            if (groups == null) {
+                throw new KeyNotFoundException("Groups not found");
+            }
+            return groups;
+        }
+
         public Group GetGroupById(Guid id)
         {
             var group = _context.Group.Find(id);
@@ -34,17 +46,26 @@ namespace TutorMe.Services
             }
             return group;
         }
-        public Guid createGroup(Group group)
+        public Guid createGroup(IGroup group)
         {
-            //TODO: will allow multiple instances of groups till I plan and see if the owner field willl work
-            //if (_context.Group.Where(e => e.ModuleId == group.ModuleId && e.TuteeId == group.TuteeId && e.TutorId == group.TutorId).Any())
-            //{
-            //    throw new KeyNotFoundException("This Group already exists, Please log in");
-            //}
-            //Group.Password = BCrypt.Net.BCrypt.HashPassword(Group.Password, "ThisWillBeAGoodPlatformForBothGroupsAndTuteesToConnectOnADailyBa5e5");
-            group.GroupId = Guid.NewGuid();
-            _context.Group.Add(group);
+            if (_context.Group.Where(e => e.ModuleId == group.ModuleId && e.UserId == group.UserId).Any()) {
+                throw new KeyNotFoundException("This Group already exists, Please log in");
+            }
+            var newGroup = new Group();
+            newGroup.GroupId = Guid.NewGuid();
+            newGroup.UserId = group.UserId;
+            newGroup.ModuleId = group.ModuleId;
+            newGroup.Description = group.Description;
+            newGroup.VideoId = group.VideoId;
+            _context.Group.Add(newGroup);
             _context.SaveChanges();
+            
+            //add user to Group Member
+            var newGroupMember = new GroupMember();
+            newGroupMember.GroupMemberId = Guid.NewGuid();
+            newGroupMember.GroupId = newGroup.GroupId;
+            newGroupMember.UserId = group.UserId;
+            _context.GroupMember.Add(newGroupMember);
             return group.GroupId;
         }
 
@@ -56,6 +77,26 @@ namespace TutorMe.Services
                 throw new KeyNotFoundException("Group not found");
             }
             _context.Group.Remove(group);
+            _context.SaveChanges();
+            return true;
+        }
+
+        public bool updateGroupDescription(Guid id, string description) {
+            var group = _context.Group.Find(id);
+            if (group == null) {
+                throw new KeyNotFoundException("Group not found");
+            }
+            group.Description = description;
+            _context.SaveChanges();
+            return true;
+        }
+
+        public bool updateGroupVideoId(Guid id, string videoId) {
+            var group = _context.Group.Find(id);
+            if (group == null) {
+                throw new KeyNotFoundException("Group not found");
+            }
+            group.VideoId = videoId;
             _context.SaveChanges();
             return true;
         }

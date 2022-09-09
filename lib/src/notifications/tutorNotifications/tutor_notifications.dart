@@ -3,8 +3,10 @@ import 'package:tutor_me/services/models/tutors.dart';
 import 'package:tutor_me/src/notifications/tutorNotifications/tutors_requests.dart';
 import 'package:tutor_me/src/notifications/tutorNotifications/tutors_activity.dart';
 
+import '../../../services/models/users.dart';
+
 class TutorNotifications extends StatefulWidget {
-  final Tutors user;
+  final Users user;
   const TutorNotifications({Key? key, required this.user}) : super(key: key);
 
   @override
@@ -31,7 +33,7 @@ class TutorNotificationsState extends State<TutorNotifications> {
                 tabs: [
                   Tab(
                       icon: Icon(
-                        Icons.chat_bubble_rounded,
+                        Icons.mail,
                         color: Colors.white,
                       ),
                       text: 'Requests'),

@@ -2,14 +2,16 @@
 import 'package:flutter/material.dart';
 import 'package:tutor_me/services/models/groups.dart';
 import 'package:tutor_me/services/services/group_services.dart';
+import 'package:tutor_me/services/services/module_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
-import '../../../services/models/tutees.dart';
+import '../../../services/models/globals.dart';
+import '../../../services/models/modules.dart';
 import '../../Groups/tutee_group.dart';
 
 class TuteeGroups extends StatefulWidget {
-  final Tutees tutee;
+  final Globals globals;
 
-  const TuteeGroups({Key? key, required this.tutee}) : super(key: key);
+  const TuteeGroups({Key? key, required this.globals}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -25,41 +27,43 @@ class TuteeGroupsState extends State<TuteeGroups> {
   bool isLoading = true;
 
   List<Groups> groups = List<Groups>.empty();
+  List<Modules> modules = List<Modules>.empty(growable: true);
   final numTuteesForEachGroup = <int>[];
 
-  int numOfTutees = 0;
+  int numOfTutees = 3;
   getGroupDetails() async {
     final incomingGroups =
-        await GroupServices.getGroupByUserID(widget.tutee.getId, 'tutee');
+        await GroupServices.getGroupByUserID(widget.globals.getUser.getId);
     groups = incomingGroups;
-
     if (groups.isNotEmpty) {
       setState(() {
         hasGroups = true;
       });
     }
 
-    for (int i = 0; i < groups.length; i++) {
-      numOfTutees = 0;
-      if (groups[i].getTutees.length > 1) {
-        numOfTutees++;
-        break;
-      }
-      for (int t = 0; t < groups[i].getTutees.length; t++) {
-        if (groups[i].getTutees[t] == ',') {
-          numOfTutees++;
-        }
-      }
-      numTuteesForEachGroup.add(numOfTutees);
-    }
-
     for (int k = 0; k < numTuteesForEachGroup.length; k++) {
       k.toString() + " 's # tutees " + numTuteesForEachGroup[k].toString();
     }
     setState(() {
-      isLoading = false;
       groups = incomingGroups;
       numOfTutees = numOfTutees;
+    });
+    getGroupModules();
+  }
+
+  getGroupModules() async {
+    try {
+      for (int i = 0; i < groups.length; i++) {
+        final incomingModules =
+            await ModuleServices.getModule(groups[i].getModuleId);
+        modules.add(incomingModules);
+      }
+    } catch (e) {
+      const snack = SnackBar(content: Text('Error loading modules'));
+      ScaffoldMessenger.of(context).showSnackBar(snack);
+    }
+    setState(() {
+      isLoading = false;
     });
   }
 
@@ -112,9 +116,10 @@ class TuteeGroupsState extends State<TuteeGroups> {
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => TuteeGroupPage(
-                tutee: widget.tutee,
+                globals: widget.globals,
                 group: groups[i],
-                numberOfParticipants: numOfTutees)));
+                numberOfParticipants: numOfTutees,
+                module: modules[i])));
       },
       child: Container(
         width: MediaQuery.of(context).size.width * 0.8,
@@ -140,9 +145,9 @@ class TuteeGroupsState extends State<TuteeGroups> {
             Row(
               children: [
                 SizedBox(height: MediaQuery.of(context).size.height * 0.04),
-                Text("  " + groups[i].getModuleCode,
+                Text("  " + modules[i].getCode,
                     style: TextStyle(
-                      fontSize: MediaQuery.of(context).size.width * 0.06,
+                      fontSize: MediaQuery.of(context).size.height * 0.06,
                       color: colorWhite,
                       fontWeight: FontWeight.bold,
                     )),
@@ -160,7 +165,7 @@ class TuteeGroupsState extends State<TuteeGroups> {
               height: MediaQuery.of(context).size.height * 0.01,
             ),
             Text(
-              "  " + groups[i].getModuleName,
+              "  " + modules[i].getModuleName,
               style: TextStyle(
                 fontSize: MediaQuery.of(context).size.width * 0.05,
                 color: colorWhite,

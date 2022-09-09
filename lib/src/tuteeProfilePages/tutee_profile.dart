@@ -1,33 +1,36 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:tutor_me/services/models/globals.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 // import 'package:tutor_me/src/colorPalette.dart';
 //import 'package:tutor_me/src/tuteeProfilePages/edit_tutee_profile_page.dart';
 
 // import 'package:tutor_me/src/tutorProfilePages/tutor_profile_edit.dart';
 import 'package:tutor_me/src/tutorProfilePages/user_stats.dart';
+import '../../services/models/intitutions.dart';
 import '../../services/models/modules.dart';
-import '../../services/models/tutees.dart';
-import '../../services/services/tutee_services.dart';
+import '../../services/models/users.dart';
+import '../../services/services/institution_services.dart';
+import '../../services/services/module_services.dart';
 import '../components.dart';
 import 'edit_module_list.dart';
 import 'tutee_profile_edit.dart';
 
 class ToReturn {
   Uint8List image;
-  Tutees user;
+  Users user;
   ToReturn(this.image, this.user);
 }
 
 // ignore: must_be_immutable
 class TuteeProfilePage extends StatefulWidget {
-  Tutees user;
+  Globals globals;
   Uint8List image;
   final bool imageExists;
   TuteeProfilePage(
       {Key? key,
-      required this.user,
+      required this.globals,
       required this.image,
       required this.imageExists})
       : super(key: key);
@@ -38,36 +41,47 @@ class TuteeProfilePage extends StatefulWidget {
 
 class _TuteeProfilePageState extends State<TuteeProfilePage> {
   List<Modules> currentModules = List<Modules>.empty();
+  late Institutions institution;
   late int numConnections;
   late int numTutees;
   bool _isLoading = true;
 
   getCurrentModules() async {
-    final current = await TuteeServices.getTuteeModules(widget.user.getId);
+    final currentModulesList =
+        await ModuleServices.getUserModules(widget.globals.getUser.getId);
     setState(() {
-      currentModules = current;
+      currentModules = currentModulesList;
+    });
+    getInstitution();
+  }
+
+  getInstitution() async {
+    final tempInstitution = await InstitutionServices.getUserInstitution(
+        widget.globals.getUser.getInstitutionID);
+    setState(() {
+      institution = tempInstitution;
       _isLoading = false;
     });
   }
+//TODO: fix connection count
+  // int getNumConnections() {
+  //   var allConnections = widget.user.getConnections.split(',');
 
-  int getNumConnections() {
-    var allConnections = widget.user.getConnections.split(',');
+  //   return allConnections.length;
+  // }
 
-    return allConnections.length;
-  }
+  // int getNumTutees() {
+  //   var allTutees = widget.user.getTutorsCode.split(',');
 
-  int getNumTutees() {
-    var allTutees = widget.user.getTutorsCode.split(',');
-
-    return allTutees.length;
-  }
+  //   return allTutees.length;
+  // }
 
   @override
   void initState() {
     super.initState();
     getCurrentModules();
-    numConnections = getNumConnections();
-    numTutees = getNumTutees();
+    // numConnections = getNumConnections();
+    // numTutees = getNumTutees();
   }
 
   @override
@@ -79,7 +93,7 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
               )
             : WillPopScope(
                 onWillPop: () async {
-                  Navigator.pop(context, ToReturn(widget.image, widget.user));
+                  Navigator.pop(context, ToReturn(widget.image, widget.globals.getUser));
                   return false;
                 },
                 child: ListView(
@@ -114,12 +128,12 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => TuteeProfileEdit(
-                          user: widget.user,
+                          globals: widget.globals,
                           image: widget.image,
                           imageExists: widget.imageExists)));
               setState(() {
                 widget.image = results.image;
-                widget.user = results.user;
+                widget.globals.setUser = results.user;
               });
             },
             child: Icon(
@@ -175,12 +189,11 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
   Widget buildBody() {
     final screenWidthSize = MediaQuery.of(context).size.width;
     final screenHeightSize = MediaQuery.of(context).size.height;
-    String name = widget.user.getName + ' ' + widget.user.getLastName;
-    String personalInfo = name + '(' + widget.user.getAge + ')';
-    String courseInfo =
-        widget.user.getCourse + ' | ' + widget.user.getInstitution;
+    String name = widget.globals.getUser.getName + ' ' + widget.globals.getUser.getLastName;
+    String personalInfo = name + '(' + widget.globals.getUser.getAge + ')';
+    String courseInfo = institution.getName;
     String gender = "";
-    if (widget.user.getGender == "F") {
+    if (widget.globals.getUser.getGender == "F") {
       gender = "Female";
     } else {
       gender = "Male";
@@ -210,7 +223,7 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
       ),
       SizedBox(height: screenHeightSize * 0.02),
       const UserStats(
-        rating: "1",
+        rating: 1,
         numTutees: 2,
         numConnections: 23,
       ),
@@ -241,7 +254,7 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
             top: screenHeightSize * 0.01,
             bottom: screenWidthSize * 0.06,
           ),
-          child: Text(widget.user.getBio,
+          child: Text(widget.globals.getUser.getBio,
               style: TextStyle(
                 fontSize: screenWidthSize * 0.05,
                 fontWeight: FontWeight.normal,
@@ -333,7 +346,7 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
                 final modules =
                     await Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => EditModuleList(
-                              user: widget.user,
+                              globals: widget.globals,
                               currentModules: currentModules,
                             )));
 
@@ -362,7 +375,7 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
-              fontSize: MediaQuery.of(context).size.width * 0.05,
+              fontSize: MediaQuery.of(context).size.height * 0.05,
               color: Colors.black,
             ),
           ),
@@ -398,7 +411,8 @@ class SmallTagBtn extends StatelessWidget {
         onPressed: funct,
         child: btnName == 'Confirm' ||
                 btnName == 'Edit Module list' ||
-                btnName == 'Cancel'
+                btnName == 'Cancel' ||
+                btnName == "Done"
             ? Text(
                 btnName,
                 style: const TextStyle(

@@ -1,25 +1,25 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:tutor_me/services/models/modules.dart';
 import 'package:tutor_me/services/models/requests.dart';
-import 'package:tutor_me/services/models/tutees.dart';
-import 'package:tutor_me/services/models/tutors.dart';
-import 'package:tutor_me/services/services/group_services.dart';
-import 'package:tutor_me/services/services/tutee_services.dart';
-import 'package:tutor_me/services/services/tutor_services.dart';
+import 'package:tutor_me/services/services/module_services.dart';
+import 'package:tutor_me/services/services/user_services.dart';
+// import 'package:tutor_me/services/services/tutor_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 
-import '../../../services/models/groups.dart';
+import '../../../services/models/users.dart';
 
 class Tutee {
-  Tutees tutee;
+  Users tutee;
   Uint8List image;
   bool hasImage;
-  Tutee(this.tutee, this.image, this.hasImage);
+  Modules module;
+  Tutee(this.tutee, this.image, this.hasImage, this.module);
 }
 
 class TutorRequests extends StatefulWidget {
-  final Tutors user;
+  final Users user;
   const TutorRequests({Key? key, required this.user}) : super(key: key);
 
   @override
@@ -29,11 +29,12 @@ class TutorRequests extends StatefulWidget {
 }
 
 class TutorRequestsState extends State<TutorRequests> {
-  List<Tutees> tuteeList = List<Tutees>.empty();
+  List<Users> tuteeList = List<Users>.empty();
   List<Tutee> tutees = List<Tutee>.empty(growable: true);
   List<Requests> requestList = List<Requests>.empty();
   List<Uint8List> tuteeImages = List<Uint8List>.empty(growable: true);
   List<int> hasImage = List<int>.empty(growable: true);
+  List<Modules> modules = List<Modules>.empty(growable: true);
 
   double screenHeight = 0.0;
   double screenWidth = 0.0;
@@ -45,19 +46,25 @@ class TutorRequestsState extends State<TutorRequests> {
   bool isLoading = true;
 
   getRequests() async {
-    final requests = await TutorServices().getRequests(widget.user.getId);
-    requestList = requests;
-    if (requestList.isEmpty) {
+    try {
+      final requests = await UserServices().getTutorRequests(widget.user.getId);
+      requestList = requests;
+      if (requestList.isEmpty) {
+        setState(() {
+          isLoading = false;
+        });
+      }
+      getTutees();
+    } catch (e) {
       setState(() {
         isLoading = false;
       });
     }
-    getTutees();
   }
 
   getTutees() async {
     for (int i = 0; i < requestList.length; i++) {
-      final tutee = await TuteeServices.getTutee(requestList[i].getRequesterId);
+      final tutee = await UserServices.getTutee(requestList[i].getTuteeId);
       tuteeList += tutee;
     }
     int requestLength = tuteeList.length;
@@ -68,6 +75,25 @@ class TutorRequestsState extends State<TutorRequests> {
       isDeclined = List<bool>.filled(requestLength, false);
       tuteeList = tuteeList;
     });
+    getTuteeModules();
+  }
+
+  getTuteeModules() async {
+    try {
+      for (int i = 0; i < requestList.length; i++) {
+        final module =
+            await ModuleServices.getModule(requestList[i].getModuleId);
+        setState(() {
+          modules.add(module);
+        });
+      }
+    } catch (e) {
+      const snackBar = SnackBar(
+        content: Text('Failed to load'),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
+
     getTuteeProfileImages();
   }
 
@@ -75,7 +101,7 @@ class TutorRequestsState extends State<TutorRequests> {
     for (int i = 0; i < tuteeList.length; i++) {
       try {
         final image =
-            await TuteeServices.getTuteeProfileImage(tuteeList[i].getId);
+            await UserServices.getTuteeProfileImage(tuteeList[i].getId);
         setState(() {
           tuteeImages.add(image);
         });
@@ -95,9 +121,9 @@ class TutorRequestsState extends State<TutorRequests> {
           }
         }
         if (!val) {
-          tutees.add(Tutee(tuteeList[i], tuteeImages[i], false));
+          tutees.add(Tutee(tuteeList[i], tuteeImages[i], false, modules[i]));
         } else {
-          tutees.add(Tutee(tuteeList[i], tuteeImages[i], true));
+          tutees.add(Tutee(tuteeList[i], tuteeImages[i], true, modules[i]));
         }
       });
     }
@@ -194,11 +220,9 @@ class TutorRequestsState extends State<TutorRequests> {
   Widget _cardBuilder(BuildContext context, int i) {
     String name = tuteeList[i].getName + ' ' + tuteeList[i].getLastName;
     String howLongAgo = getRequestDate(requestList[i].getDateCreated);
-    List<String> moduleList = requestList[i].getModuleCode.split(',');
-    String modules = '';
-    for (int i = 0; i < moduleList.length; i++) {
-      modules += moduleList[i] + '\n';
-    }
+
+    String module = tutees[i].module.getCode;
+
     return Column(
       children: <Widget>[
         Card(
@@ -240,14 +264,14 @@ class TutorRequestsState extends State<TutorRequests> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   Tooltip(
-                    message: modules,
+                    message: module,
                     showDuration: const Duration(seconds: 4),
                     preferBelow: false,
                     padding: EdgeInsets.all(
                         MediaQuery.of(context).size.width * 0.01),
                     triggerMode: TooltipTriggerMode.tap,
                     child: const Text(
-                      'View modules',
+                      'View module',
                       style: TextStyle(
                           fontWeight: FontWeight.bold, color: colorTurqoise),
                     ),
@@ -271,57 +295,16 @@ class TutorRequestsState extends State<TutorRequests> {
                                     });
 
                                     try {
-                                      List<Groups> groupList =
-                                          List<Groups>.empty();
+                                      // Groups moduleRequestedGroup;
 
-                                      final groups =
-                                          await GroupServices.getGroupByUserID(
-                                              widget.user.getId, 'tutor');
+                                      // final group =
+                                      //     await GroupServices.getGroupByUserID(
+                                      //         widget.user.getId);
+                                      // moduleRequestedGroup = group;
+                                      // await GroupServices.updateGroup(
+                                      //     moduleRequestedGroup);
 
-                                      groupList = groups;
-
-                                      List<Groups> moduleRequestedGroups =
-                                          List<Groups>.empty(growable: true);
-
-                                      List<String> modules = requestList[i]
-                                          .getModuleCode
-                                          .split(',');
-
-                                      for (int j = 0;
-                                          j < groupList.length;
-                                          j++) {
-                                        for (int k = 0;
-                                            k < modules.length;
-                                            k++) {
-                                          if (groupList[j]
-                                              .getModuleCode
-                                              .contains(modules[k])) {
-                                            moduleRequestedGroups
-                                                .add(groupList[j]);
-                                          }
-                                        }
-                                      }
-                                      for (int j = 0;
-                                          j < moduleRequestedGroups.length;
-                                          j++) {
-                                        String tutees =
-                                            moduleRequestedGroups[j].getTutees;
-
-                                        if (tutees.isEmpty) {
-                                          tutees =
-                                              requestList[i].getRequesterId;
-                                        } else {
-                                          tutees += ',' +
-                                              requestList[i].getRequesterId;
-                                        }
-                                        // moduleRequestedGroups[j].setTutees =
-                                        //     tutees;
-
-                                        await GroupServices.updateGroup(
-                                            moduleRequestedGroups[j]);
-                                      }
-
-                                      await TutorServices()
+                                      await UserServices()
                                           .acceptRequest(requestList[i].getId);
 
                                       setState(() {
@@ -359,12 +342,21 @@ class TutorRequestsState extends State<TutorRequests> {
                                 setState(() {
                                   isDeclining[i] = true;
                                 });
-                                await TutorServices()
-                                    .declineRequest(requestList[i].getId);
-                                setState(() {
-                                  isDeclining[i] = false;
-                                  isDeclined[i] = true;
-                                });
+                                try {
+                                  await UserServices()
+                                      .declineRequest(requestList[i].getId);
+
+                                  setState(() {
+                                    isDeclining[i] = false;
+                                    isDeclined[i] = true;
+                                  });
+                                } catch (e) {
+                                  const snackBar = SnackBar(
+                                    content: Text('Failed to decline'),
+                                  );
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(snackBar);
+                                }
                               },
                               child: const Text("Reject"),
                               style: ButtonStyle(

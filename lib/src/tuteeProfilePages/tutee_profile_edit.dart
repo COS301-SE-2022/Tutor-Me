@@ -2,28 +2,29 @@ import 'dart:io';
 import 'dart:typed_data';
 // import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:tutor_me/services/services/tutee_services.dart';
+import 'package:tutor_me/services/models/globals.dart';
+import 'package:tutor_me/services/services/user_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/components.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../services/models/tutees.dart';
+import '../../services/models/users.dart';
 
 class ToReturn {
   Uint8List image;
-  Tutees user;
+  Users user;
 
   ToReturn(this.image, this.user);
 }
 
 // ignore: must_be_immutable
 class TuteeProfileEdit extends StatefulWidget {
-  final Tutees user;
+  final Globals globals;
   Uint8List image;
   final bool imageExists;
   TuteeProfileEdit(
       {Key? key,
-      required this.user,
+      required this.globals,
       required this.image,
       required this.imageExists})
       : super(key: key);
@@ -79,7 +80,7 @@ class _TuteeProfileEditState extends State<TuteeProfileEdit> {
   Widget buildBody() {
     final screenWidthSize = MediaQuery.of(context).size.width;
     final screenHeightSize = MediaQuery.of(context).size.height;
-    String nameToEdit = widget.user.getName + ' ' + widget.user.getLastName;
+    String nameToEdit = widget.globals.getUser.getName + ' ' + widget.globals.getUser.getLastName;
     // FilePickerResult? filePickerResult;
     // String? fileName;
     // PlatformFile? file;
@@ -112,7 +113,7 @@ class _TuteeProfileEditState extends State<TuteeProfileEdit> {
             maxLines: null,
             decoration: InputDecoration(
               hintText: "Change To:",
-              labelText: widget.user.getBio,
+              labelText: widget.globals.getUser.getBio,
               labelStyle: TextStyle(
                 color: colorTurqoise,
                 overflow: TextOverflow.visible,
@@ -128,41 +129,45 @@ class _TuteeProfileEditState extends State<TuteeProfileEdit> {
         OrangeButton(
             btnName: isSaveLoading ? 'Saving' : "Save",
             onPressed: () async {
+              setState(() {
+                isSaveLoading = true;
+              });
               if (image != null) {
-                setState(() {
-                  isSaveLoading = true;
-                });
-                await TuteeServices.uploadProfileImage(
-                    image, widget.user.getId);
-
-                final newImage =
-                    await TuteeServices.getTuteeProfileImage(widget.user.getId);
-
-                setState(() {
-                  widget.image = newImage;
-                });
+                try {
+                  await UserServices.updateProfileImage(
+                      image, widget.globals.getUser.getId);
+                } catch (e) {
+                  try {
+                    await UserServices.uploadProfileImage(
+                        image, widget.globals.getUser.getId);
+                  } catch (e) {
+                    const snack =
+                        SnackBar(content: Text("Error uploading image"));
+                    ScaffoldMessenger.of(context).showSnackBar(snack);
+                  }
+                }
               }
               if (nameController.text.isNotEmpty) {
                 List<String> name = nameController.text.split(' ');
                 String firstName = name[0];
                 String lastName = name[1];
 
-                widget.user.setFirstName = firstName;
-                widget.user.setLastName = lastName;
+                widget.globals.getUser.setFirstName = firstName;
+                widget.globals.getUser.setLastName = lastName;
               }
               if (bioController.text.isNotEmpty) {
-                widget.user.setBio = bioController.text;
+                widget.globals.getUser.setBio = bioController.text;
               }
               if (nameController.text.isNotEmpty ||
                   bioController.text.isNotEmpty) {
-                await TuteeServices.updateTutee(widget.user);
+                // await UserServices.updateTutee(widget.user);
               }
 
               setState(() {
                 isSaveLoading = false;
               });
 
-              Navigator.pop(context, ToReturn(widget.image, widget.user));
+              Navigator.pop(context, ToReturn(widget.image, widget.globals.getUser));
             })
       ],
     );

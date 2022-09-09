@@ -34,14 +34,12 @@ namespace TutorMe.Services
             }
             return module;
         }
-
         public Guid createModule(Module module)
         {
             if (_context.Module.Where(e => e.ModuleName == module.ModuleName && e.InstitutionId == module.InstitutionId).Any())
             {
                 throw new KeyNotFoundException("This Module already exists, Please log in");
             }
-            //Module.Password = BCrypt.Net.BCrypt.HashPassword(Module.Password, "ThisWillBeAGoodPlatformForBothModulesAndTuteesToConnectOnADailyBa5e5");
             module.ModuleId = Guid.NewGuid();
             _context.Module.Add(module);
             _context.SaveChanges();

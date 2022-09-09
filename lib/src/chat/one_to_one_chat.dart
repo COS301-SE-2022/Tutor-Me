@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:grouped_list/grouped_list.dart';
 import 'package:tutor_me/src/tutorProfilePages/tutor_profile_view.dart';
-import '../../services/models/tutors.dart';
+import '../../services/models/globals.dart';
+import '../../services/models/users.dart';
 import '../chat/message.dart';
 import 'package:intl/intl.dart';
 
@@ -18,13 +19,13 @@ import '../tuteeProfilePages/tutee_profile_view.dart';
 
 class Chat extends StatefulWidget {
   final dynamic reciever;
-  final dynamic user;
+  final Globals globals;
   final Uint8List image;
   final bool hasImage;
   const Chat(
       {Key? key,
       required this.reciever,
-      required this.user,
+      required this.globals,
       required this.image,
       required this.hasImage})
       : super(key: key);
@@ -59,12 +60,12 @@ class ChatState extends State<Chat> {
         appBar: AppBar(
           backgroundColor: colorOrange,
           title: InkWell(
-            onTap: widget.reciever is Tutors
+            onTap: widget.reciever is Users
                 ? () {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (BuildContext context) => TutorProfilePageView(
                               tutor: widget.reciever,
-                              tutee: widget.user,
+                              globals: widget.globals,
                             )));
                   }
                 : () {

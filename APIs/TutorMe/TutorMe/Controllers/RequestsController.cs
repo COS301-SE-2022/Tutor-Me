@@ -68,7 +68,7 @@ namespace TutorMe.Controllers
             }
         }
 
-        [HttpGet("tutor/{id}")]
+        [HttpGet("/tutor/{id}")]
         public IActionResult GetRequestByTutorById(Guid id)
         {
             try {
@@ -80,7 +80,7 @@ namespace TutorMe.Controllers
             }
         }
 
-        [HttpGet("tutee/{id}")]
+        [HttpGet("/tutee/{id}")]
         public IActionResult GetRequestByTuteeById(Guid id)
         {
             try {
@@ -92,7 +92,7 @@ namespace TutorMe.Controllers
             }
         }
 
-        [HttpGet("accept/{id}")]
+        [HttpGet("/accept/{id}")]
         public IActionResult AcceptRequestById(Guid id) {
             try {
                 var request = requestService.AcceptRequestById(id);

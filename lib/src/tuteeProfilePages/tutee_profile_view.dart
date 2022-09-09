@@ -4,19 +4,19 @@ import 'package:flutter/material.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/tutorProfilePages/user_stats.dart';
 import '../../services/models/modules.dart';
-import '../../services/models/tutees.dart';
+import '../../services/models/users.dart';
 import '../../services/services/tutee_services.dart';
 import '../components.dart';
 
 class ToReturn {
   Uint8List image;
-  Tutees user;
+  Users user;
   ToReturn(this.image, this.user);
 }
 
 // ignore: must_be_immutable
 class TuteeProfilePageView extends StatefulWidget {
-  Tutees user;
+  Users user;
   Uint8List image;
   final bool imageExists;
   TuteeProfilePageView(
@@ -43,25 +43,26 @@ class _TuteeProfilePageState extends State<TuteeProfilePageView> {
       _isLoading = false;
     });
   }
+  //TODO: Add in the number of connections and number of tutees
+  
+  // int getNumConnections() {
+  //   var allConnections = widget.user.getConnections.split(',');
 
-  int getNumConnections() {
-    var allConnections = widget.user.getConnections.split(',');
+  //   return allConnections.length;
+  // }
 
-    return allConnections.length;
-  }
+  // int getNumTutees() {
+  //   var allTutees = widget.user.getTutorsCode.split(',');
 
-  int getNumTutees() {
-    var allTutees = widget.user.getTutorsCode.split(',');
-
-    return allTutees.length;
-  }
+  //   return allTutees.length;
+  // }
 
   @override
   void initState() {
     super.initState();
     getCurrentModules();
-    numConnections = getNumConnections();
-    numTutees = getNumTutees();
+    // numConnections = getNumConnections();
+    // numTutees = getNumTutees();
   }
 
   @override
@@ -148,7 +149,7 @@ class _TuteeProfilePageState extends State<TuteeProfilePageView> {
     String name = widget.user.getName + ' ' + widget.user.getLastName;
     String personalInfo = name + '(' + widget.user.getAge + ')';
     String courseInfo =
-        widget.user.getCourse + ' | ' + widget.user.getInstitution;
+        widget.user.getInstitutionID + ' | ' + widget.user.getInstitutionID;
     String gender = "";
     if (widget.user.getGender == "F") {
       gender = "Female";
@@ -180,7 +181,7 @@ class _TuteeProfilePageState extends State<TuteeProfilePageView> {
       ),
       SizedBox(height: screenHeightSize * 0.02),
       const UserStats(
-        rating: "1",
+        rating: 1,
         numTutees: 2,
         numConnections: 23,
       ),
@@ -306,7 +307,7 @@ class _TuteeProfilePageState extends State<TuteeProfilePageView> {
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
-              fontSize: MediaQuery.of(context).size.width * 0.05,
+              fontSize: MediaQuery.of(context).size.height * 0.05,
               color: Colors.black,
             ),
           ),

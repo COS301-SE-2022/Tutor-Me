@@ -2,24 +2,26 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tutor_me/services/models/tutors.dart';
-import 'package:tutor_me/services/models/tutees.dart';
-import 'package:tutor_me/services/services/tutee_services.dart';
+import 'package:tutor_me/services/models/globals.dart';
+import 'package:tutor_me/services/models/users.dart';
 import 'package:tutor_me/src/theme/themes.dart';
 // import 'package:tutor_me/src/colorPalette.dart';
 
+import '../../services/models/intitutions.dart';
 import '../../services/models/modules.dart';
-import '../../services/services/tutor_services.dart';
+import '../../services/services/institution_services.dart';
+import '../../services/services/module_services.dart';
+import '../../services/services/user_services.dart';
 import '../colorpallete.dart';
 import '../components.dart';
 import 'user_stats.dart';
 
 class TutorProfilePageView extends StatefulWidget {
   // ignore: prefer_const_constructors_in_immutables
-  TutorProfilePageView({Key? key, required this.tutor, required this.tutee})
+  TutorProfilePageView({Key? key, required this.tutor, required this.globals})
       : super(key: key);
-  final Tutors tutor;
-  final Tutees tutee;
+  final Users tutor;
+  final Globals globals;
 
   static const String route = '/tutor_profile_view';
 
@@ -29,12 +31,14 @@ class TutorProfilePageView extends StatefulWidget {
 
 class _TutorProfilePageViewState extends State<TutorProfilePageView> {
   List<Modules> currentModules = List<Modules>.empty();
+  List<Modules> modulesToRequest = List<Modules>.empty(growable: true);
   List<bool> isChecked = List<bool>.empty();
+  late Institutions institution;
   late int numConnections;
   late int numTutees;
   bool isRequestLoading = false;
   bool isRequestDone = false;
-  List<Tutors> tutors = List<Tutors>.empty();
+  List<Users> tutors = List<Users>.empty();
   bool isConnected = false;
   int rating = 0;
   Color colorOne = Colors.yellow;
@@ -51,61 +55,61 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
   bool isLoading = true;
 
   getCurrentModules() async {
-    final current = await TutorServices.getTutorModules(widget.tutor.getId);
+    numTutees = 2;
+    numConnections = 3;
+    final current = await ModuleServices.getUserModules(widget.tutor.getId);
     setState(() {
       currentModules = current;
     });
+    getInstitution();
 
-    getConnections();
+    // getConnections();
   }
+  //TODO: Add a function to get the number of connections and tutees
 
-  int getNumConnections() {
-    var allConnections = widget.tutor.getConnections.split(',');
+  // int getNumConnections() {
+  //   var allConnections = widget.tutor.getConnections.split(',');
 
-    return allConnections.length;
-  }
+  //   return allConnections.length;
+  // }
 
-  int getNumTutees() {
-    var allTutees = widget.tutor.getTuteesCode.split(',');
+  // int getNumTutees() {
+  //   var allTutees = widget.tutor.getTuteesCode.split(',');
 
-    return allTutees.length;
-  }
+  //   return allTutees.length;
+  // }
 
   getProfileImage() async {
     try {
-      final image =
-          await TutorServices.getTutorProfileImage(widget.tutor.getId);
-      setState(() {
-        isLoading = false;
-        bytes = image;
-        isImageDisplayed = true;
-      });
+      final image = await UserServices.getProfileImage(widget.tutor.getId);
+      bytes = image;
+      isImageDisplayed = true;
+      getInstitution();
     } catch (e) {
       doesImageExist = false;
-      setState(() {
-        isLoading = false;
-      });
+      getInstitution();
     }
   }
+  //TODO; fix getConnections
 
-  getConnections() async {
-    if (!widget.tutee.getConnections.contains('No connections added')) {
-      List<String> connections = widget.tutee.getConnections.split(',');
-      int conLength = connections.length;
-      for (int i = 0; i < conLength; i++) {
-        final tutor = await TutorServices.getTutor(connections[i]);
+  // getConnections() async {
+  //   if (!widget.tutee.getConnections.contains('No connections added')) {
+  //     List<String> connections = widget.tutee.getConnections.split(',');
+  //     int conLength = connections.length;
+  //     for (int i = 0; i < conLength; i++) {
+  //       final tutor = await UserServices.getTutor(connections[i]);
 
-        tutors += tutor;
-        isConnected = checkConnection();
-      }
-      setState(() {
-        tutors = tutors;
-      });
+  //       tutors += tutor;
+  //       isConnected = checkConnection();
+  //     }
+  //     setState(() {
+  //       tutors = tutors;
+  //     });
 
-      getProfileImage();
-    }
-    getProfileImage();
-  }
+  //     getProfileImage();
+  //   }
+  //   getProfileImage();
+  // }
 
   bool checkConnection() {
     bool val = false;
@@ -119,17 +123,26 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
     return val;
   }
 
+  getInstitution() async {
+    final tempInstitution = await InstitutionServices.getUserInstitution(
+        widget.tutor.getInstitutionID);
+    setState(() {
+      institution = tempInstitution;
+      isLoading = false;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
+    // getConnections();
     getCurrentModules();
-    numConnections = getNumConnections();
-    numTutees = getNumTutees();
+    // numConnections = getNumConnections();
+    // numTutees = getNumTutees();
   }
 
   @override
   Widget build(BuildContext context) {
-  
     return Scaffold(
         body: isLoading
             ? const Center(
@@ -146,27 +159,22 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
   }
 
   Widget buildBody() {
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
+    Color textColor;
+    Color secondaryTextColor;
 
-       final provider = Provider.of<ThemeProvider>(context,listen: false);
-    Color textColor ;
-    Color secondaryTextColor ;
-    
-    if(provider.themeMode == ThemeMode.dark)
-    {
-      textColor = colorWhite ;
+    if (provider.themeMode == ThemeMode.dark) {
+      textColor = colorWhite;
       secondaryTextColor = colorGrey;
-    }
-    else
-    {
-      textColor = Colors.black ;
+    } else {
+      textColor = Colors.black;
       secondaryTextColor = colorTurqoise;
     }
 
     final screenWidthSize = MediaQuery.of(context).size.width;
     final screenHeightSize = MediaQuery.of(context).size.height;
     String tutorName = widget.tutor.getName + ' ' + widget.tutor.getLastName;
-    String courseInfo =
-        widget.tutor.getCourse + ' | ' + widget.tutor.getInstitution;
+    String courseInfo = institution.getName;
     String personalDets = tutorName + '(' + widget.tutor.getAge + ')';
     String gender = "";
     if (widget.tutor.getGender == "F") {
@@ -329,19 +337,16 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
   }
 
   Widget topDesign() {
-     final provider = Provider.of<ThemeProvider>(context,listen: false);
-    Color textColor ;
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
+    Color textColor;
     Color highlightColor;
-    
-    if(provider.themeMode == ThemeMode.dark)
-    {
+
+    if (provider.themeMode == ThemeMode.dark) {
       highlightColor = colorOrange;
-      textColor = colorWhite ;
-    }
-    else
-    {
+      textColor = colorWhite;
+    } else {
       highlightColor = colorTurqoise;
-      textColor = Colors.black ;
+      textColor = Colors.black;
     }
     return Stack(
       clipBehavior: Clip.none,
@@ -361,8 +366,8 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
                 left: MediaQuery.of(context).size.height * 0.01,
                 child: ElevatedButton(
                     child: Row(
-                      children:  <Widget>[
-                        Text('Rate' , style: TextStyle(color: textColor)),
+                      children: <Widget>[
+                        Text('Rate', style: TextStyle(color: textColor)),
                         const Icon(
                           Icons.star,
                           color: Colors.yellow,
@@ -384,22 +389,17 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
   }
 
   void popUpDialog(BuildContext context) => showDialog(
-    
       barrierDismissible: false,
       context: context,
       builder: (context) {
-         final provider = Provider.of<ThemeProvider>(context,listen: false);
-    Color highlightColor;
-    
-    if(provider.themeMode == ThemeMode.dark)
-    {
-      highlightColor = colorOrange;
-    
-    }
-    else
-    {
-      highlightColor = colorTurqoise;
-    }
+        final provider = Provider.of<ThemeProvider>(context, listen: false);
+        Color highlightColor;
+
+        if (provider.themeMode == ThemeMode.dark) {
+          highlightColor = colorOrange;
+        } else {
+          highlightColor = colorTurqoise;
+        }
         return StatefulBuilder(builder: (context, setState) {
           return SimpleDialog(
             title: Row(
@@ -512,21 +512,18 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
                     style: OutlinedButton.styleFrom(
                         side: const BorderSide(width: 2, color: colorTurqoise)),
                     onPressed: () async {
-                      List<String> splitRating =
-                          widget.tutor.getRating.split(',');
-                      int tutorRating = int.parse(splitRating[0]);
-                      int numRatings = int.parse(splitRating[1]);
+                      int tutorRating = widget.tutor.getRating;
+                      int numRatings = widget.tutor.getNumberOfReviews;
                       numRatings++;
                       double updatedRating =
                           ((tutorRating + rating) / numRatings);
                       int asInt = updatedRating.round();
-                      String ratingFormat =
-                          asInt.toString() + ',' + numRatings.toString();
                       setState(() {
-                        widget.tutor.setRating = ratingFormat;
+                        widget.tutor.setRating = asInt;
+                        widget.tutor.setNumberOfReviews = numRatings;
                       });
                       try {
-                        await TutorServices.updateTutor(widget.tutor);
+                        await UserServices.updateTutor(widget.tutor);
                       } catch (e) {
                         const snackBar = SnackBar(
                           content: Text('Failed to upload rating'),
@@ -536,7 +533,7 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
 
                       Navigator.of(context).pop();
                     },
-                    child:  Text(
+                    child: Text(
                       'Save',
                       style: TextStyle(color: highlightColor),
                     )),
@@ -596,19 +593,16 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
       );
 
   Widget _moduleListBuilder(BuildContext context, int i) {
-      final provider = Provider.of<ThemeProvider>(context,listen: false);
-    Color textColor ;
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
+    Color textColor;
     Color highlightColor;
-    
-    if(provider.themeMode == ThemeMode.dark)
-    {
+
+    if (provider.themeMode == ThemeMode.dark) {
       highlightColor = colorOrange;
-      textColor = colorWhite ;
-    }
-    else
-    {
+      textColor = colorWhite;
+    } else {
       highlightColor = colorTurqoise;
-      textColor = Colors.black ;
+      textColor = Colors.black;
     }
     String moduleDescription =
         currentModules[i].getModuleName + '(' + currentModules[i].getCode + ')';
@@ -625,8 +619,8 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
-              fontSize: MediaQuery.of(context).size.width * 0.05,
-              color:textColor.withOpacity(0.8) ,
+              fontSize: MediaQuery.of(context).size.height * 0.05,
+              color: textColor.withOpacity(0.8),
             ),
           ),
         ),
@@ -669,8 +663,15 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
                                         title: Text(currentModules[i].getCode),
                                         activeColor: colorOrange,
                                         onChanged: (newValue) {
+                                          if (newValue!) {
+                                            modulesToRequest
+                                                .add(currentModules[i]);
+                                          } else {
+                                            modulesToRequest
+                                                .remove(currentModules[i]);
+                                          }
                                           setState(() {
-                                            isChecked[i] = newValue!;
+                                            isChecked[i] = newValue;
                                           });
                                         });
                                   },
@@ -703,19 +704,7 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
         widget.tutor.getName +
         " " +
         widget.tutor.getLastName;
-    List<String> modulesToRequest = List.empty(growable: true);
-    for (int i = 0; i < currentModules.length; i++) {
-      if (isChecked[i]) {
-        modulesToRequest.add(currentModules[i].getCode);
-      }
-    }
-    String modulesRequested = '';
-    for (int i = 0; i < modulesToRequest.length; i++) {
-      modulesRequested += modulesToRequest[i];
-      if (i < modulesToRequest.length - 1) {
-        modulesRequested += ',';
-      }
-    }
+
     showDialog(
         barrierDismissible: false,
         context: context,
@@ -745,29 +734,38 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
                                       isRequestLoading = true;
                                     });
 
-                                    bool val = await TuteeServices()
-                                        .sendRequest(
+                                    for (var module in modulesToRequest) {
+                                      try {
+                                        await UserServices().sendRequest(
                                             widget.tutor.getId,
-                                            widget.tutee.getId,
-                                            modulesRequested);
-
-                                    if (val) {
-                                      setState(() {
-                                        isRequestLoading = false;
-                                        isRequestDone = true;
-                                      });
+                                             widget.globals.getUser.getId,
+                                            module.getModuleId);
+                                      } catch (e) {
+                                        const snackBar = SnackBar(
+                                          content:
+                                              Text('Failed to send request.'),
+                                        );
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(snackBar);
+                                        break;
+                                      }
                                     }
+
+                                    setState(() {
+                                      isRequestLoading = false;
+                                      isRequestDone = true;
+                                    });
 
                                     Future.delayed(
                                         const Duration(milliseconds: 1000), () {
                                       Navigator.of(context).pop();
                                     });
                                   } catch (e) {
-                                     const snackBar = SnackBar(
-                                        content: Text('Failed to send request.'),
-                                      );
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(snackBar);
+                                    const snackBar = SnackBar(
+                                      content: Text('Failed to send request.'),
+                                    );
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(snackBar);
                                   }
                                 },
                                 child: const Text(

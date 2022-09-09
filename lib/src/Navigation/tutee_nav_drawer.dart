@@ -2,7 +2,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tutor_me/services/models/tutees.dart';
+import 'package:tutor_me/services/models/globals.dart';
 import 'package:tutor_me/src/Navigation/switch_change_theme.dart';
 import 'package:tutor_me/src/theme/themes.dart';
 import '../../services/services/tutee_services.dart';
@@ -12,11 +12,11 @@ import 'package:tutor_me/src/authenticate/register_or_login.dart';
 
 // ignore: must_be_immutable
 class TuteeNavigationDrawerWidget extends StatefulWidget {
-  Tutees user;
+  Globals globals;
 
   TuteeNavigationDrawerWidget({
     Key? key,
-    required this.user,
+    required this.globals,
   }) : super(key: key);
 
   @override
@@ -34,7 +34,8 @@ class TuteeNavigationDrawerState extends State<TuteeNavigationDrawerWidget> {
 
   getTuteeProfileImage() async {
     try {
-      final image = await TuteeServices.getTuteeProfileImage(widget.user.getId);
+      final image = await TuteeServices.getTuteeProfileImage(
+          widget.globals.getUser.getId);
 
       setState(() {
         tuteeImage = image;
@@ -57,31 +58,26 @@ class TuteeNavigationDrawerState extends State<TuteeNavigationDrawerWidget> {
 
   @override
   Widget build(BuildContext context) {
-      // final text = MediaQuery.of(context).platformBrightness == Brightness.dark;
-    final provider = Provider.of<ThemeProvider>(context,listen: false);
-    Color drawerColor ;
-    if(provider.themeMode == ThemeMode.dark)
-    {
+    // final text = MediaQuery.of(context).platformBrightness == Brightness.dark;
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
+    Color drawerColor;
+    if (provider.themeMode == ThemeMode.dark) {
       drawerColor = colorDarkGrey;
-    }
-    else
-    {
+    } else {
       drawerColor = colorOrange;
     }
-
 
     return Drawer(
       child: Material(
           color: drawerColor,
-          
           child: ListView(
               // padding: const EdgeInsets.symmetric(horizontal: 20),
               children: <Widget>[
                 buildNavHeader(context),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-                const Divider(
-                  color: colorWhite,
-                ),
+                // const Divider(
+                //   color: colorWhite,
+                // ),
                 buildMenu(
                   text: 'My Account',
                   icon: Icons.account_circle_outlined,
@@ -94,16 +90,14 @@ class TuteeNavigationDrawerState extends State<TuteeNavigationDrawerWidget> {
                     //     ));
                   },
                 ),
-
                 buildMenu(
                     text: 'Settings',
                     icon: Icons.settings,
                     onClicked: () => selected(context, 1)),
                 const ChangeThemeButtonWidget(),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height *0.4,
+                  height: MediaQuery.of(context).size.height * 0.4,
                 ),
-                 
                 buildMenu(
                   text: 'Logout',
                   icon: Icons.logout,
@@ -120,8 +114,8 @@ class TuteeNavigationDrawerState extends State<TuteeNavigationDrawerWidget> {
   }
 
   Widget buildNavHeader(BuildContext context) {
-    String name = widget.user.getName;
-    String fullName = name + ' ' + widget.user.getLastName;
+    String name = widget.globals.getUser.getName;
+    String fullName = name + ' ' + widget.globals.getUser.getLastName;
     return InkWell(
       onTap: isImageLoading
           ? () {}
@@ -130,24 +124,30 @@ class TuteeNavigationDrawerState extends State<TuteeNavigationDrawerWidget> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => TuteeProfilePage(
-                        user: widget.user,
+                        globals: widget.globals,
                         image: tuteeImage,
                         imageExists: doesUserImageExist),
                   ));
 
               setState(() {
-                widget.user = result.user;
+                widget.globals.setUser = result.user;
               });
 
               getTuteeProfileImage();
             },
       child: Container(
         padding: padding.add(EdgeInsets.symmetric(
-            vertical: MediaQuery.of(context).size.width * 0.05)),
+            vertical: MediaQuery.of(context).size.width * 0.08)),
+        // decoration: const BoxDecoration(
+        //   image: DecorationImage(
+        //     image: AssetImage('assets/Pictures/profileBackground.jpg'),
+        //     fit: BoxFit.cover,
+        //   ),
+        // ),
         child: Row(children: <Widget>[
           CircleAvatar(
             backgroundColor: colorTurqoise,
-            radius: MediaQuery.of(context).size.width * 0.08,
+            radius: MediaQuery.of(context).size.width * 0.45,
             child: isImageLoading
                 ? const CircularProgressIndicator.adaptive()
                 : doesUserImageExist
@@ -176,14 +176,14 @@ class TuteeNavigationDrawerState extends State<TuteeNavigationDrawerWidget> {
               Text(
                 fullName,
                 style: TextStyle(
-                    fontSize: MediaQuery.of(context).size.width * 0.055,
+                    fontSize: MediaQuery.of(context).size.height * 0.055,
                     color: colorWhite),
               ),
               SizedBox(height: MediaQuery.of(context).size.width * 0.01),
               Text(
-                widget.user.getEmail,
+                widget.globals.getUser.getEmail,
                 style: TextStyle(
-                    fontSize: MediaQuery.of(context).size.width * 0.03,
+                    fontSize: MediaQuery.of(context).size.height * 0.03,
                     color: colorWhite),
               )
             ],

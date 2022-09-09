@@ -1,13 +1,14 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
 
 import 'package:flutter/material.dart';
-import 'package:tutor_me/services/models/tutors.dart';
-import 'package:tutor_me/services/services/tutor_services.dart';
+import 'package:tutor_me/services/models/globals.dart';
+import 'package:tutor_me/services/models/intitutions.dart';
+// import 'package:tutor_me/services/models/tutors.dart';
+import 'package:tutor_me/services/services/institution_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/tutor_page.dart';
-import '../../services/models/tutees.dart';
-import '../../services/services/module_services.dart';
-import '../../services/services/tutee_services.dart';
+// import '../../services/models/tutees.dart';
+import '../../services/services/user_services.dart';
 import '../components.dart';
 import '../tutee_page.dart';
 import 'register_step1.dart';
@@ -46,29 +47,26 @@ class _RegisterStep3State extends State<RegisterStep3> {
   final TextEditingController institutionController = TextEditingController();
   final TextEditingController courseController = TextEditingController();
 
-  late Tutors tutor;
-  late Tutees tutee;
+  late Globals globals;
   int currentStep = 2;
+  String institutionIdToPassIn = '';
 
   register(String passedinInstitution) async {
     if (widget.toRegister == "Tutor") {
       try {
-        tutor = await TutorServices.registerTutor(
+        globals = await UserServices.registerTutor(
             widget.fullName,
             widget.lastName,
             widget.dob,
             widget.gender,
-            passedinInstitution,
             widget.email,
             widget.password,
-            // courseController.text,
-            //yearLvl
+            passedinInstitution,
             widget.confirmPassword,
-            '1',
-            'Bsc Computer Sciences');
+            yearLvl!);
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => TutorPage(user: tutor)),
+          MaterialPageRoute(builder: (context) => TutorPage(globals: globals)),
         );
       } catch (e) {
         showDialog(
@@ -97,26 +95,22 @@ class _RegisterStep3State extends State<RegisterStep3> {
       }
     } else {
       try {
-        tutee = await TuteeServices.registerTutee(
+        globals = await UserServices.registerTutee(
             widget.fullName,
             widget.lastName,
             widget.dob,
             widget.gender,
-            institutionController.text,
             widget.email,
             widget.password,
-            // courseController.text,
-            //yearLvl
+            passedinInstitution,
             widget.confirmPassword,
-            '1', //TODO: Change to actual value
-            'Bsc Computer Sciences' //TODO: change to actual value
-            );
+            yearLvl!);
 
         Navigator.push(
           context,
           MaterialPageRoute(
               builder: (context) => TuteePage(
-                    user: tutee,
+                    globals: globals,
                   )),
         );
       } catch (e) {
@@ -147,13 +141,24 @@ class _RegisterStep3State extends State<RegisterStep3> {
     }
   }
 
-  List items = List<String>.empty();
+  List items = List<String>.empty(growable: true);
+  List<Institutions> institutions = List<Institutions>.empty();
 
   getInstitutions() async {
-    final insitutions = await ModuleServices.getInstitutions();
-    setState(() {
-      items = insitutions;
-    });
+    try {
+      final insitutionlist = await InstitutionServices.getInstitutions();
+      institutions = insitutionlist;
+      for (var i = 0; i < institutions.length; i++) {
+        items.add(institutions[i].getName);
+      }
+      setState(() {
+        items = items;
+      });
+    } catch (e) {
+      const snackBar = SnackBar(content: Text('Failed to load'));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      getInstitutions();
+    }
   }
 
   List<String> yearlevels = [
@@ -168,10 +173,15 @@ class _RegisterStep3State extends State<RegisterStep3> {
   String? yearLvl;
 
   bool isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    getInstitutions();
+  }
+
   @override
   Widget build(BuildContext context) {
-    getInstitutions();
-
     return Scaffold(
       // key: _scaffoldKey,
       resizeToAvoidBottomInset: false,
@@ -208,7 +218,7 @@ class _RegisterStep3State extends State<RegisterStep3> {
                   'Lets Continue...',
                   style: TextStyle(
                     color: colorWhite,
-                    fontSize: MediaQuery.of(context).size.width * 0.12,
+                    fontSize: MediaQuery.of(context).size.height * 0.12,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -258,7 +268,7 @@ class _RegisterStep3State extends State<RegisterStep3> {
                       size: MediaQuery.of(context).size.width * 0.08),
                   style: TextStyle(
                     color: colorWhite,
-                    fontSize: MediaQuery.of(context).size.width * 0.05,
+                    fontSize: MediaQuery.of(context).size.height * 0.05,
                   ),
                   hint: institution == null
                       ? Row(
@@ -344,7 +354,7 @@ class _RegisterStep3State extends State<RegisterStep3> {
                       size: MediaQuery.of(context).size.width * 0.08),
                   style: TextStyle(
                     color: colorWhite,
-                    fontSize: MediaQuery.of(context).size.width * 0.05,
+                    fontSize: MediaQuery.of(context).size.height * 0.05,
                   ),
                   hint: institution == null
                       ? Row(
@@ -402,6 +412,11 @@ class _RegisterStep3State extends State<RegisterStep3> {
                         institution = val;
                       },
                     );
+                    for (int i = 0; i < institutions.length; i++) {
+                      if (institutions[i].getName == val) {
+                        institutionIdToPassIn = institutions[i].getId;
+                      }
+                    }
                   },
                 ),
                 decoration: BoxDecoration(
@@ -418,7 +433,7 @@ class _RegisterStep3State extends State<RegisterStep3> {
                   '',
                   style: TextStyle(
                     color: colorWhite,
-                    fontSize: MediaQuery.of(context).size.width * 0.03,
+                    fontSize: MediaQuery.of(context).size.height * 0.03,
                     fontWeight: FontWeight.normal,
                   ),
                 ),
@@ -490,14 +505,14 @@ class _RegisterStep3State extends State<RegisterStep3> {
                         },
                       );
                     } else {
-                      register(institution!);
+                      register(institutionIdToPassIn);
                     }
                   },
                   child: isLoading
                       ? const CircularProgressIndicator(color: Colors.white)
                       : Text("Register",
                           style: TextStyle(
-                            fontSize: MediaQuery.of(context).size.width * 0.06,
+                            fontSize: MediaQuery.of(context).size.height * 0.06,
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
                           )),

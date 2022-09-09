@@ -48,8 +48,7 @@ class LandingPageState extends State<LandingPage> {
             controller: pageController,
             children: [
               buildPage(
-                description:
-                    "Learn and connect with peers",
+                description: "Learn and connect with peers",
                 urlImage:
                     'assets/Pictures/undraw_visionary_technology_re_jfp7.svg',
                 color: colorOrange,
@@ -58,23 +57,20 @@ class LandingPageState extends State<LandingPage> {
               buildPage(
                 description:
                     "Connect to tutors or tutees. Join groups and request for tutors",
-                urlImage:
-                    'assets/Pictures/undraw_online_connection_6778.svg',
+                urlImage: 'assets/Pictures/undraw_online_connection_6778.svg',
                 color: colorTurqoise,
                 index: 0,
               ),
               buildPage(
                 description:
                     "Set up a profile and get ready to interact with your peers and tutors.",
-                urlImage:
-                    'assets/Pictures/undraw_account_re_o7id.svg',
+                urlImage: 'assets/Pictures/undraw_account_re_o7id.svg',
                 color: colorOrange,
                 index: 0,
               ),
               buildPage(
                 description: "Let's begin our learning journey",
-                urlImage:
-                    'assets/Pictures/undraw_maker_launch_re_rq81.svg',
+                urlImage: 'assets/Pictures/undraw_maker_launch_re_rq81.svg',
                 color: colorTurqoise,
                 index: 0,
               ),
@@ -91,8 +87,8 @@ class LandingPageState extends State<LandingPage> {
                   ),
                 ),
                 style: TextButton.styleFrom(
-                    backgroundColor: colorWhite,
-                    foregroundColor: colorOrange,
+                    foregroundColor: colorWhite,
+                    backgroundColor: colorOrange,
                     minimumSize: Size.fromHeight(screenSize.height * 0.08)),
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
@@ -100,7 +96,7 @@ class LandingPageState extends State<LandingPage> {
                 })
             : SizedBox(
                 // padding: EdgeInsets.symmetric(horizontal: screenSize.height * 0.9),
-                
+
                 height: screenSize.height * 0.08,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -147,6 +143,7 @@ class LandingPageState extends State<LandingPage> {
       required String description,
       required Color color,
       required int index}) {
+    double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     return Stack(children: [
       ClipPath(
@@ -162,6 +159,7 @@ class LandingPageState extends State<LandingPage> {
           SizedBox(
             child: SvgPicture.asset(urlImage),
             height: screenHeight * 0.25,
+            width: screenWidth * 0.7,
           ),
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.05,

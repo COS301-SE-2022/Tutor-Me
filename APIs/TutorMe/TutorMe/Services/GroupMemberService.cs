@@ -11,6 +11,8 @@ namespace TutorMe.Services
         GroupMember GetGroupMemberById(Guid id);
         Guid createGroupMember(IGroupMember groupMember);
         bool deleteGroupMemberById(Guid id);
+        IEnumerable<User> GetGroupTutees(Guid id);
+        IEnumerable<Group> GetUserGroups(Guid id);
     }
     public class GroupMemberServices : IGroupMemberService
     {
@@ -60,6 +62,33 @@ namespace TutorMe.Services
             _context.GroupMember.Remove(groupMember);
             _context.SaveChanges();
             return true;
+        }
+
+        public IEnumerable<User> GetGroupTutees(Guid id) {
+            var tuteeId = _context.UserType.FirstOrDefault(e => e.Type == "Tutee").UserTypeId;
+            if (tuteeId == null) {
+                throw new KeyNotFoundException("Tutee User type not found");
+            }
+            var groupMembers = _context.GroupMember.Include(e=>e.User).Where(e => e.GroupId == id);
+            var tutees = new List<User>();
+            foreach(GroupMember user in groupMembers) {
+                if (user.User.UserTypeId == tuteeId) {
+                    tutees.Add(user.User);
+                }
+            }
+            return tutees;
+        }
+
+        public IEnumerable<Group> GetUserGroups(Guid id) {
+            var groupMembers = _context.GroupMember.Include(e=>e.Group).Where(e => e.UserId == id);
+            if (groupMembers == null) {
+                throw new KeyNotFoundException("User Module Record not found.");
+            }
+            var users = new List<Group>();
+            foreach (GroupMember item in groupMembers) {
+                users.Add(item.Group);
+            }
+            return users;
         }
     }
 }

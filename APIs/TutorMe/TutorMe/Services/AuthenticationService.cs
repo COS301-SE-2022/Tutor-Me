@@ -10,6 +10,7 @@ namespace TutorMe.Services
         User LogInUser(UserLogIn user);
         string hashPassword(string password);
         bool UpdateEmailByUserId(Guid id, UserEmail emailEntity);
+        bool UpdatePassword(Guid id, IAuthPassword authPass);
     }
     public class UserAuthenticationServices : IUserAuthenticationService
     {
@@ -54,7 +55,17 @@ namespace TutorMe.Services
                 throw new KeyNotFoundException("Password or Email is incorrect");
             }
         }
-        
+
+        public bool UpdatePassword(Guid id, IAuthPassword authPassword) {
+            var user = _context.User.Find(id);
+            if (user == null) {
+                throw new KeyNotFoundException("User not found");
+            }
+            user.Password = hashPassword(authPassword.Password);
+            _context.SaveChanges();
+            return true;
+        }
+
         public string hashPassword(string password) {
             return encrypter.HashString(password);
         }

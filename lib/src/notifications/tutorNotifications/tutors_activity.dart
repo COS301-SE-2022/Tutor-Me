@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:tutor_me/services/models/tutors.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 
+import '../../../services/models/users.dart';
+
 class TutorActivity extends StatefulWidget {
-  final Tutors user;
+  final Users user;
   const TutorActivity({Key? key, required this.user}) : super(key: key);
 
   @override

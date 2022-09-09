@@ -28,6 +28,7 @@ namespace TutorMe.Data
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<UserType> UserType { get; set; }
         public virtual DbSet<UserModule> UserModule { get; set; }
+        public virtual DbSet<UserRefreshToken> UserRefreshToken { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -73,6 +74,12 @@ namespace TutorMe.Data
                     .HasForeignKey(d => d.ModuleId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("Group_Module_FK");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Group)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("Group_User_FK");
             });
 
             modelBuilder.Entity<GroupMember>(entity =>

@@ -1,9 +1,8 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
 import 'package:flutter/material.dart';
-import 'package:tutor_me/services/models/tutors.dart';
 import 'package:tutor_me/src/authenticate/register_step3.dart';
 import 'package:tutor_me/src/colorpallete.dart';
-import '../../services/models/tutees.dart';
+import '../../services/models/users.dart';
 import '../components.dart';
 import 'register_step1.dart';
 import 'package:intl/intl.dart';
@@ -49,8 +48,8 @@ class _RegisterStep2State extends State<RegisterStep2> {
   String formattedDate = "Date Of Birth";
   DateTime dateOver = DateTime.now().subtract(const Duration(days: 36500));
 
-  late Tutors tutor;
-  late Tutees tutee;
+  late Users tutor;
+  late Users tutee;
 
   List<IconData> iconsgender = [Icons.female, Icons.male, Icons.man];
 
@@ -103,7 +102,7 @@ class _RegisterStep2State extends State<RegisterStep2> {
                   'Lets Continue...',
                   style: TextStyle(
                     color: colorWhite,
-                    fontSize: MediaQuery.of(context).size.width * 0.12,
+                    fontSize: MediaQuery.of(context).size.height * 0.12,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -161,7 +160,7 @@ class _RegisterStep2State extends State<RegisterStep2> {
                       size: MediaQuery.of(context).size.width * 0.08),
                   style: TextStyle(
                     color: colorWhite,
-                    fontSize: MediaQuery.of(context).size.width * 0.06,
+                    fontSize: MediaQuery.of(context).size.height * 0.06,
                   ),
                   hint: gender == null
                       ? Row(
