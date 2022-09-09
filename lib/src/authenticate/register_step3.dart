@@ -218,7 +218,7 @@ class _RegisterStep3State extends State<RegisterStep3> {
                   'Lets Continue...',
                   style: TextStyle(
                     color: colorWhite,
-                    fontSize: MediaQuery.of(context).size.width * 0.12,
+                    fontSize: MediaQuery.of(context).size.height * 0.12,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -268,7 +268,7 @@ class _RegisterStep3State extends State<RegisterStep3> {
                       size: MediaQuery.of(context).size.width * 0.08),
                   style: TextStyle(
                     color: colorWhite,
-                    fontSize: MediaQuery.of(context).size.width * 0.05,
+                    fontSize: MediaQuery.of(context).size.height * 0.05,
                   ),
                   hint: institution == null
                       ? Row(
@@ -354,7 +354,7 @@ class _RegisterStep3State extends State<RegisterStep3> {
                       size: MediaQuery.of(context).size.width * 0.08),
                   style: TextStyle(
                     color: colorWhite,
-                    fontSize: MediaQuery.of(context).size.width * 0.05,
+                    fontSize: MediaQuery.of(context).size.height * 0.05,
                   ),
                   hint: institution == null
                       ? Row(
@@ -433,7 +433,7 @@ class _RegisterStep3State extends State<RegisterStep3> {
                   '',
                   style: TextStyle(
                     color: colorWhite,
-                    fontSize: MediaQuery.of(context).size.width * 0.03,
+                    fontSize: MediaQuery.of(context).size.height * 0.03,
                     fontWeight: FontWeight.normal,
                   ),
                 ),
@@ -512,7 +512,7 @@ class _RegisterStep3State extends State<RegisterStep3> {
                       ? const CircularProgressIndicator(color: Colors.white)
                       : Text("Register",
                           style: TextStyle(
-                            fontSize: MediaQuery.of(context).size.width * 0.06,
+                            fontSize: MediaQuery.of(context).size.height * 0.06,
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
                           )),

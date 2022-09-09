@@ -158,7 +158,7 @@ class _RegisterStep1State extends State<RegisterStep1> {
                   welcome,
                   style: TextStyle(
                     color: colorWhite,
-                    fontSize: MediaQuery.of(context).size.width * 0.12,
+                    fontSize: MediaQuery.of(context).size.height * 0.12,
                     fontWeight: FontWeight.bold,
                   ),
                 ),

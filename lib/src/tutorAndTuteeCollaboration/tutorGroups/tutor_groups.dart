@@ -145,7 +145,7 @@ class TutorGroupsState extends State<TutorGroups> {
                 SizedBox(height: MediaQuery.of(context).size.height * 0.04),
                 Text("  " + modules[i].getCode,
                     style: TextStyle(
-                      fontSize: MediaQuery.of(context).size.width * 0.06,
+                      fontSize: MediaQuery.of(context).size.height * 0.06,
                       color: colorWhite,
                       fontWeight: FontWeight.bold,
                     )),
@@ -153,7 +153,7 @@ class TutorGroupsState extends State<TutorGroups> {
                 const Icon(Icons.circle, size: 7, color: colorOrange),
                 SizedBox(width: MediaQuery.of(context).size.width * 0.03),
                 const Text(
-                   "2 participants(s)",
+                  "2 participants(s)",
                   style: TextStyle(
                       color: Colors.white70, fontWeight: FontWeight.bold),
                 ),
@@ -165,7 +165,7 @@ class TutorGroupsState extends State<TutorGroups> {
             Text(
               "  " + modules[i].getModuleName,
               style: TextStyle(
-                fontSize: MediaQuery.of(context).size.width * 0.05,
+                fontSize: MediaQuery.of(context).size.height * 0.05,
                 color: colorWhite,
               ),
             )

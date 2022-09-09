@@ -619,7 +619,7 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
-              fontSize: MediaQuery.of(context).size.width * 0.05,
+              fontSize: MediaQuery.of(context).size.height * 0.05,
               color: textColor.withOpacity(0.8),
             ),
           ),

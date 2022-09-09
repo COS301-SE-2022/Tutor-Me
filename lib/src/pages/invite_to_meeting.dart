@@ -48,7 +48,7 @@ class _InviteToMeetingState extends State<InviteToMeeting> {
               allChecked.name,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: MediaQuery.of(context).size.width * 0.05,
+                fontSize: MediaQuery.of(context).size.height * 0.05,
               ),
             ),
           ),
@@ -71,7 +71,7 @@ class _InviteToMeetingState extends State<InviteToMeeting> {
                 checkBox.name,
                 style: TextStyle(
                   fontWeight: FontWeight.normal,
-                  fontSize: MediaQuery.of(context).size.width * 0.05,
+                  fontSize: MediaQuery.of(context).size.height * 0.05,
                 ),
               ),
             ),
@@ -100,7 +100,7 @@ class _InviteToMeetingState extends State<InviteToMeeting> {
                   child: Text(
                     "Invite",
                     style: TextStyle(
-                      fontSize: MediaQuery.of(context).size.width * 0.05,
+                      fontSize: MediaQuery.of(context).size.height * 0.05,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
                     ),
