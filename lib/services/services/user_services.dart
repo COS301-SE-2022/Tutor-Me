@@ -360,8 +360,8 @@ class UserServices {
   }
 
   static Future getConnections(String id) async {
-    Uri connectionsURL = Uri.http(
-        'tutorme-dev.us-east-1.elasticbeanstalk.com', '/api/Connections/$id');
+    Uri connectionsURL = Uri.http('tutorme-dev.us-east-1.elasticbeanstalk.com',
+        '/api/Connections/users/$id');
     try {
       final response = await http.get(connectionsURL, headers: {
         "Accept": "application/json",

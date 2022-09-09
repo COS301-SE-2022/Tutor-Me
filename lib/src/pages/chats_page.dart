@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -37,7 +38,8 @@ class ChatsState extends State<Chats> {
   List<Users> userChats = List<Users>.empty();
 
   getUserType() async {
-    final type = await UserServices.getUserType(widget.globals.getUser.getUserTypeID);
+    final type =
+        await UserServices.getUserType(widget.globals.getUser.getUserTypeID);
 
     userType = type;
 
@@ -46,7 +48,9 @@ class ChatsState extends State<Chats> {
 
   void getConnections() async {
     try {
-      userChats = await UserServices.getConnections(widget.globals.getUser.getId);
+      userChats =
+          await UserServices.getConnections(widget.globals.getUser.getId);
+
       setState(() {
         userChats = userChats;
       });
@@ -93,11 +97,13 @@ class ChatsState extends State<Chats> {
   @override
   void initState() {
     super.initState();
+
     getUserType();
   }
 
   @override
   Widget build(BuildContext context) {
+    getUserType();
     return Scaffold(
       body: _isLoading
           ? const Center(child: CircularProgressIndicator.adaptive())
