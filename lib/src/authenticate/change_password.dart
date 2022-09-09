@@ -1,8 +1,8 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
 
 import 'package:flutter/material.dart';
+import 'package:tutor_me/services/models/globals.dart';
 import 'package:tutor_me/src/colorpallete.dart';
-import '../../services/models/users.dart';
 import '../../services/services/user_services.dart';
 import '../components.dart';
 import '../tutee_page.dart';
@@ -25,8 +25,7 @@ class ChangePasswordState extends State<ChangePassword> {
   final TextEditingController newpasswordController = TextEditingController();
   final TextEditingController newconfirmpasswordController =
       TextEditingController();
-  late Users tutor;
-  late Users tutee;
+  late Globals globals;
 
   bool isLoading = false;
   @override
@@ -170,14 +169,14 @@ class ChangePasswordState extends State<ChangePassword> {
                       if (widget.toRegister == "Tutor") {
                         try {
                           // TutorServices tutor = TutorServices.Login(
-                          tutor =
+                          globals =
                               await UserServices.getTutorByEmail(widget.email);
                           await UserServices.changePassword(
-                              tutor, newpasswordController.text);
+                              globals, newpasswordController.text);
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => TutorPage(user: tutor)),
+                                builder: (context) => TutorPage(globals: globals)),
                           );
                         } catch (e) {
                           setState(() {
@@ -215,14 +214,14 @@ class ChangePasswordState extends State<ChangePassword> {
                       } else {
                         try {
                           // TutorServices tutor = TutorServices.Login(
-                          tutee =
+                          globals =
                               await UserServices.getTuteeByEmail(widget.email);
                           await UserServices.changePassword(
-                              tutee, newpasswordController.text);
+                              globals, newpasswordController.text);
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => TuteePage(user: tutee)),
+                                builder: (context) => TuteePage(globals: globals)),
                           );
                         } catch (e) {
                           setState(() {

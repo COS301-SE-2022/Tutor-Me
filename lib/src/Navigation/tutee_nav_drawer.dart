@@ -2,7 +2,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tutor_me/services/models/users.dart';
+import 'package:tutor_me/services/models/globals.dart';
 import 'package:tutor_me/src/Navigation/switch_change_theme.dart';
 import 'package:tutor_me/src/theme/themes.dart';
 import '../../services/services/tutee_services.dart';
@@ -12,11 +12,11 @@ import 'package:tutor_me/src/authenticate/register_or_login.dart';
 
 // ignore: must_be_immutable
 class TuteeNavigationDrawerWidget extends StatefulWidget {
-  Users user;
+  Globals globals;
 
   TuteeNavigationDrawerWidget({
     Key? key,
-    required this.user,
+    required this.globals,
   }) : super(key: key);
 
   @override
@@ -34,7 +34,8 @@ class TuteeNavigationDrawerState extends State<TuteeNavigationDrawerWidget> {
 
   getTuteeProfileImage() async {
     try {
-      final image = await TuteeServices.getTuteeProfileImage(widget.user.getId);
+      final image = await TuteeServices.getTuteeProfileImage(
+          widget.globals.getUser.getId);
 
       setState(() {
         tuteeImage = image;
@@ -113,8 +114,8 @@ class TuteeNavigationDrawerState extends State<TuteeNavigationDrawerWidget> {
   }
 
   Widget buildNavHeader(BuildContext context) {
-    String name = widget.user.getName;
-    String fullName = name + ' ' + widget.user.getLastName;
+    String name = widget.globals.getUser.getName;
+    String fullName = name + ' ' + widget.globals.getUser.getLastName;
     return InkWell(
       onTap: isImageLoading
           ? () {}
@@ -123,13 +124,13 @@ class TuteeNavigationDrawerState extends State<TuteeNavigationDrawerWidget> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => TuteeProfilePage(
-                        user: widget.user,
+                        globals: widget.globals,
                         image: tuteeImage,
                         imageExists: doesUserImageExist),
                   ));
 
               setState(() {
-                widget.user = result.user;
+                widget.globals.setUser = result.user;
               });
 
               getTuteeProfileImage();
@@ -146,7 +147,7 @@ class TuteeNavigationDrawerState extends State<TuteeNavigationDrawerWidget> {
         child: Row(children: <Widget>[
           CircleAvatar(
             backgroundColor: colorTurqoise,
-            radius: MediaQuery.of(context).size.width * 0.08,
+            radius: MediaQuery.of(context).size.width * 0.45,
             child: isImageLoading
                 ? const CircularProgressIndicator.adaptive()
                 : doesUserImageExist
@@ -180,7 +181,7 @@ class TuteeNavigationDrawerState extends State<TuteeNavigationDrawerWidget> {
               ),
               SizedBox(height: MediaQuery.of(context).size.width * 0.01),
               Text(
-                widget.user.getEmail,
+                widget.globals.getUser.getEmail,
                 style: TextStyle(
                     fontSize: MediaQuery.of(context).size.width * 0.03,
                     color: colorWhite),

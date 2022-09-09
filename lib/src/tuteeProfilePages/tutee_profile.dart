@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:tutor_me/services/models/globals.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 // import 'package:tutor_me/src/colorPalette.dart';
 //import 'package:tutor_me/src/tuteeProfilePages/edit_tutee_profile_page.dart';
@@ -24,12 +25,12 @@ class ToReturn {
 
 // ignore: must_be_immutable
 class TuteeProfilePage extends StatefulWidget {
-  Users user;
+  Globals globals;
   Uint8List image;
   final bool imageExists;
   TuteeProfilePage(
       {Key? key,
-      required this.user,
+      required this.globals,
       required this.image,
       required this.imageExists})
       : super(key: key);
@@ -47,7 +48,7 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
 
   getCurrentModules() async {
     final currentModulesList =
-        await ModuleServices.getUserModules(widget.user.getId);
+        await ModuleServices.getUserModules(widget.globals.getUser.getId);
     setState(() {
       currentModules = currentModulesList;
     });
@@ -56,7 +57,7 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
 
   getInstitution() async {
     final tempInstitution = await InstitutionServices.getUserInstitution(
-        widget.user.getInstitutionID);
+        widget.globals.getUser.getInstitutionID);
     setState(() {
       institution = tempInstitution;
       _isLoading = false;
@@ -92,7 +93,7 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
               )
             : WillPopScope(
                 onWillPop: () async {
-                  Navigator.pop(context, ToReturn(widget.image, widget.user));
+                  Navigator.pop(context, ToReturn(widget.image, widget.globals.getUser));
                   return false;
                 },
                 child: ListView(
@@ -127,12 +128,12 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => TuteeProfileEdit(
-                          user: widget.user,
+                          globals: widget.globals,
                           image: widget.image,
                           imageExists: widget.imageExists)));
               setState(() {
                 widget.image = results.image;
-                widget.user = results.user;
+                widget.globals.setUser = results.user;
               });
             },
             child: Icon(
@@ -188,11 +189,11 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
   Widget buildBody() {
     final screenWidthSize = MediaQuery.of(context).size.width;
     final screenHeightSize = MediaQuery.of(context).size.height;
-    String name = widget.user.getName + ' ' + widget.user.getLastName;
-    String personalInfo = name + '(' + widget.user.getAge + ')';
+    String name = widget.globals.getUser.getName + ' ' + widget.globals.getUser.getLastName;
+    String personalInfo = name + '(' + widget.globals.getUser.getAge + ')';
     String courseInfo = institution.getName;
     String gender = "";
-    if (widget.user.getGender == "F") {
+    if (widget.globals.getUser.getGender == "F") {
       gender = "Female";
     } else {
       gender = "Male";
@@ -253,7 +254,7 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
             top: screenHeightSize * 0.01,
             bottom: screenWidthSize * 0.06,
           ),
-          child: Text(widget.user.getBio,
+          child: Text(widget.globals.getUser.getBio,
               style: TextStyle(
                 fontSize: screenWidthSize * 0.05,
                 fontWeight: FontWeight.normal,
@@ -345,7 +346,7 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
                 final modules =
                     await Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => EditModuleList(
-                              user: widget.user,
+                              globals: widget.globals,
                               currentModules: currentModules,
                             )));
 

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import '../../../services/models/users.dart';
+import 'package:tutor_me/services/models/globals.dart';
 import 'tutee_activity.dart';
 import 'tutee_pending_requests.dart';
 
 class TuteeNotifications extends StatefulWidget {
-  final Users user;
-  const TuteeNotifications({Key? key, required this.user}) : super(key: key);
+  final Globals globals;
+  const TuteeNotifications({Key? key, required this.globals}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -51,8 +51,8 @@ class TuteeNotificationsState extends State<TuteeNotifications> {
           ),
           body: TabBarView(
             children: <Widget>[
-              TuteePendingRequests(user: widget.user),
-              TuteeActivity(user: widget.user)
+              TuteePendingRequests(globals: widget.globals),
+              TuteeActivity(globals: widget.globals)
             ],
           )),
     );

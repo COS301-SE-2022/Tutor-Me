@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:tutor_me/services/models/globals.dart';
 import 'package:tutor_me/services/services/institution_services.dart';
 import 'package:tutor_me/services/services/module_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
@@ -21,12 +22,12 @@ class ToReturn {
 
 // ignore: must_be_immutable
 class TutorSettingsProfileView extends StatefulWidget {
-  Users user;
+  Globals globals;
   Uint8List image;
   bool imageExists;
   TutorSettingsProfileView(
       {Key? key,
-      required this.user,
+      required this.globals,
       required this.image,
       required this.imageExists})
       : super(key: key);
@@ -48,7 +49,7 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
     numConnections = 3;
 
     final currentModulesList =
-        await ModuleServices.getUserModules(widget.user.getId);
+        await ModuleServices.getUserModules(widget.globals.getUser.getId);
 
     setState(() {
       currentModules = currentModulesList;
@@ -59,7 +60,7 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
 
   getInstitution() async {
     final tempInstitution = await InstitutionServices.getUserInstitution(
-        widget.user.getInstitutionID);
+        widget.globals.getUser.getInstitutionID);
     setState(() {
       institution = tempInstitution;
       _isLoading = false;
@@ -96,7 +97,7 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
               )
             : WillPopScope(
                 onWillPop: () async {
-                  Navigator.pop(context, ToReturn(widget.image, widget.user));
+                  Navigator.pop(context, ToReturn(widget.image, widget.globals.getUser));
                   return false;
                 },
                 child: ListView(
@@ -113,11 +114,11 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
   Widget buildBody() {
     final screenWidthSize = MediaQuery.of(context).size.width;
     final screenHeightSize = MediaQuery.of(context).size.height;
-    String userName = widget.user.getName + ' ' + widget.user.getLastName;
+    String userName = widget.globals.getUser.getName + ' ' + widget.globals.getUser.getLastName;
     String courseInfo = institution.getName;
-    String personalDets = userName + '(' + widget.user.getAge + ')';
+    String personalDets = userName + '(' + widget.globals.getUser.getAge + ')';
     String gender = "";
-    if (widget.user.getGender == "F") {
+    if (widget.globals.getUser.getGender == "F") {
       gender = "Female";
     } else {
       gender = "Male";
@@ -126,7 +127,7 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
       Text(
         personalDets,
         style: TextStyle(
-          fontSize: screenWidthSize * 0.08,
+          fontSize: screenHeightSize * 0.04,
           fontWeight: FontWeight.bold,
           color: Colors.black,
         ),
@@ -140,14 +141,14 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
       Text(
         courseInfo,
         style: TextStyle(
-          fontSize: screenWidthSize * 0.04,
+          fontSize: screenHeightSize * 0.04,
           fontWeight: FontWeight.normal,
           color: colorOrange,
         ),
       ),
       SizedBox(height: screenHeightSize * 0.02),
       UserStats(
-        rating: widget.user.getRating,
+        rating: widget.globals.getUser.getRating,
         numTutees: numTutees,
         numConnections: numConnections,
       ),
@@ -163,7 +164,7 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
             "About Me",
             textAlign: TextAlign.left,
             style: TextStyle(
-              fontSize: screenWidthSize * 0.065,
+              fontSize: screenHeightSize * 0.04,
               fontWeight: FontWeight.bold,
               color: Colors.black,
             ),
@@ -178,9 +179,9 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
             top: screenHeightSize * 0.01,
             bottom: screenWidthSize * 0.06,
           ),
-          child: Text(widget.user.getBio,
+          child: Text(widget.globals.getUser.getBio,
               style: TextStyle(
-                fontSize: screenWidthSize * 0.05,
+                fontSize: screenHeightSize * 0.033,
                 fontWeight: FontWeight.normal,
                 color: Colors.black,
               )),
@@ -195,7 +196,7 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
           child: Text("Gender",
               textAlign: TextAlign.left,
               style: TextStyle(
-                fontSize: screenWidthSize * 0.06,
+                fontSize: screenHeightSize * 0.04,
                 fontWeight: FontWeight.bold,
                 color: Colors.black,
               )),
@@ -212,7 +213,7 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
           ),
           child: Text(gender,
               style: TextStyle(
-                fontSize: screenWidthSize * 0.05,
+                fontSize: screenHeightSize * 0.033,
                 fontWeight: FontWeight.normal,
                 color: Colors.black,
               )),
@@ -228,7 +229,7 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
           child: Text("Modules I tutor",
               textAlign: TextAlign.left,
               style: TextStyle(
-                fontSize: screenWidthSize * 0.06,
+                fontSize: screenHeightSize * 0.04,
                 fontWeight: FontWeight.bold,
                 color: Colors.black,
               )),
@@ -271,7 +272,7 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => EditModuleList(
-                            user: widget.user,
+                            globals: widget.globals,
                             currentModules: currentModules,
                           )),
                 );
@@ -299,15 +300,26 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
           child: buildProfileImage(),
         ),
         Positioned(
+          top: MediaQuery.of(context).size.height * 0.02,
+          left: MediaQuery.of(context).size.width * 0.05,
+          child: IconButton(
+              color: colorWhite,
+              iconSize: MediaQuery.of(context).size.height * 0.05,
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: const Icon(Icons.arrow_back)),
+        ),
+        Positioned(
           top: MediaQuery.of(context).size.height * 0.17,
-          left: MediaQuery.of(context).size.height * 0.42,
+          left: MediaQuery.of(context).size.width * 0.9,
           child: GestureDetector(
             onTap: () async {
               final results = await Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (context) => TutorProfileEdit(
-                          user: widget.user,
+                          user: widget.globals.getUser,
                           image: widget.image,
                           imageExists: widget.imageExists)));
 
@@ -315,7 +327,7 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
                 if (results.image != null) {
                   widget.image = results.image;
                 }
-                widget.user = results.user;
+                widget.globals.setUser = results.user;
               });
             },
             child: Icon(
@@ -340,14 +352,14 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
       );
 
   Widget buildProfileImage() => CircleAvatar(
-        radius: MediaQuery.of(context).size.width * 0.127,
+        radius: MediaQuery.of(context).size.height * 0.06,
         child: widget.imageExists
             ? ClipOval(
                 child: Image.memory(
                   widget.image,
                   fit: BoxFit.cover,
                   width: MediaQuery.of(context).size.width * 0.253,
-                  height: MediaQuery.of(context).size.width * 0.253,
+                  height: MediaQuery.of(context).size.height * 0.253,
                 ),
               )
             : ClipOval(
@@ -355,7 +367,7 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
                 "assets/Pictures/penguin.png",
                 fit: BoxFit.cover,
                 width: MediaQuery.of(context).size.width * 0.253,
-                height: MediaQuery.of(context).size.width * 0.253,
+                height: MediaQuery.of(context).size.height * 0.253,
               )),
       );
 
@@ -384,7 +396,7 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
-              fontSize: MediaQuery.of(context).size.width * 0.05,
+              fontSize: MediaQuery.of(context).size.height * 0.03,
               color: Colors.black,
             ),
           ),

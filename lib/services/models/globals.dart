@@ -1,39 +1,36 @@
-import 'package:tutor_me/services/models/modules.dart';
-import 'package:tutor_me/services/models/requests.dart';
 import 'package:tutor_me/services/models/users.dart';
 
 class Globals {
-  late Users _tutors;
-  late Users _tutees;
-  late Modules _modules;
-  late Requests _requests;
+  late Users _user;
   String _filesUrl = '';
   String _tutorMeUrl = '';
+  String _token = 'Bearer ';
+  String _refreshToken = '';
 
-  Globals(Users? tutors, Users? tutees, Modules? modules, Requests? requests,
-      String? filesUrl, String? tutorMeUrl);
+  late Map<String, String> header;
 
-  Users get getTutors => _tutors;
-  Users get getTutees => _tutees;
-  Modules get getModules => _modules;
-  Requests get getRequests => _requests;
+  Globals(Users? user, String? tutorMeUrl, String token, String refreshToken) {
+    _user = user!;
+    _tutorMeUrl = tutorMeUrl!;
+    _token += token;
+    _refreshToken = refreshToken;
+    header = {
+      "Accept": "application/json",
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+      'Authorization': _token,
+    };
+  }
+
+  Users get getUser => _user;
   String get getFilesUrl => _filesUrl;
   String get getTutorMeUrl => _tutorMeUrl;
+  Map<String, String> get getHeader => header;
+  String get getToken => _token;
+  String get getRefreshToken => _refreshToken;
 
-  set setTutor(Users tutors) {
-    _tutors = tutors;
-  }
-
-  set setTutee(Users tutees) {
-    _tutees = tutees;
-  }
-
-  set setModules(Modules modules) {
-    _modules = modules;
-  }
-
-  set setRequests(Requests requests) {
-    _requests = requests;
+  set setUser(Users user) {
+    _user = user;
   }
 
   set setGetFilesUrl(String filesUrl) {
@@ -42,5 +39,13 @@ class Globals {
 
   set setTutorMeUrl(String tutorMeUrl) {
     _tutorMeUrl = tutorMeUrl;
+  }
+
+  set setHeader(Map<String, String> header) {
+    this.header = header;
+  }
+
+  set setToken(String token) {
+    _token = token;
   }
 }

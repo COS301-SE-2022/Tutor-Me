@@ -4,16 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/theme/themes.dart';
+import '../../services/models/globals.dart';
 import '../../services/services/user_services.dart';
-import '../../services/models/users.dart';
 import '../tutorProfilePages/settings_pofile_view.dart';
 import 'package:tutor_me/src/authenticate/register_or_login.dart';
 
 // ignore: must_be_immutable
 class TutorNavigationDrawerWidget extends StatefulWidget {
-  Users user;
+  Globals globals;
 
-  TutorNavigationDrawerWidget({Key? key, required this.user}) : super(key: key);
+  TutorNavigationDrawerWidget({Key? key, required this.globals})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -30,7 +31,8 @@ class TutorNavigationDrawerState extends State<TutorNavigationDrawerWidget> {
 
   getTutorProfileImage() async {
     try {
-      final image = await UserServices.getTutorProfileImage(widget.user.getId);
+      final image =
+          await UserServices.getTutorProfileImage(widget.globals.getUser.getId);
 
       setState(() {
         tutorImage = image;
@@ -105,8 +107,8 @@ class TutorNavigationDrawerState extends State<TutorNavigationDrawerWidget> {
   }
 
   Widget buildNavHeader(BuildContext context) {
-    String name = widget.user.getName;
-    String fullName = name + ' ' + widget.user.getLastName;
+    String name = widget.globals.getUser.getName;
+    String fullName = name + ' ' + widget.globals.getUser.getLastName;
     return InkWell(
       onTap: isImageLoading
           ? () {}
@@ -115,13 +117,13 @@ class TutorNavigationDrawerState extends State<TutorNavigationDrawerWidget> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => TutorSettingsProfileView(
-                        user: widget.user,
+                        globals: widget.globals,
                         image: tutorImage,
                         imageExists: doesUserImageExist),
                   ));
               Navigator.pop(context);
               setState(() {
-                widget.user = result.user;
+                widget.globals.setUser = result.user;
               });
 
               getTutorProfileImage();
@@ -132,7 +134,7 @@ class TutorNavigationDrawerState extends State<TutorNavigationDrawerWidget> {
         child: Row(children: <Widget>[
           CircleAvatar(
             backgroundColor: colorTurqoise,
-            radius: MediaQuery.of(context).size.width * 0.08,
+            radius: MediaQuery.of(context).size.height * 0.045,
             child: isImageLoading
                 ? const CircularProgressIndicator.adaptive()
                 : doesUserImageExist
@@ -153,25 +155,29 @@ class TutorNavigationDrawerState extends State<TutorNavigationDrawerWidget> {
                       )),
           ),
           SizedBox(
-            width: MediaQuery.of(context).size.width * 0.05,
+            width: MediaQuery.of(context).size.height * 0.022,
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                fullName,
-                style: TextStyle(
-                    fontSize: MediaQuery.of(context).size.width * 0.055,
-                    color: colorWhite),
-              ),
-              SizedBox(height: MediaQuery.of(context).size.width * 0.01),
-              Text(
-                widget.user.getEmail,
-                style: TextStyle(
-                    fontSize: MediaQuery.of(context).size.width * 0.03,
-                    color: colorWhite),
-              )
-            ],
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  fullName,
+                  style: TextStyle(
+                      fontSize: MediaQuery.of(context).size.height * 0.04,
+                      color: colorWhite),
+                  overflow: TextOverflow.fade,
+                ),
+                SizedBox(height: MediaQuery.of(context).size.width * 0.01),
+                Text(
+                  widget.globals.getUser.getEmail,
+                  style: TextStyle(
+                      fontSize: MediaQuery.of(context).size.height * 0.02,
+                      color: colorWhite),
+                  overflow: TextOverflow.ellipsis,
+                )
+              ],
+            ),
           )
         ]),
       ),

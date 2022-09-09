@@ -14,6 +14,7 @@ import 'package:tutor_me/src/theme/themes.dart';
 import 'package:tutor_me/src/tutorAndTuteeCollaboration/tuteeGroups/tuteeGroupSettings.dart';
 import 'package:http/http.dart' as http;
 import '../../screens/join_screen.dart';
+import '../../services/models/globals.dart';
 import '../../services/models/groups.dart';
 import '../../services/models/modules.dart';
 import '../../services/services/user_services.dart';
@@ -32,13 +33,13 @@ class Tutee {
 class TuteeGroupPage extends StatefulWidget {
   Groups group;
   final int numberOfParticipants;
-  final dynamic tutee;
+  final Globals globals;
   final Modules module;
   TuteeGroupPage(
       {Key? key,
       required this.group,
       required this.numberOfParticipants,
-      required this.tutee,
+      required this.globals,
       required this.module})
       : super(key: key);
 
@@ -262,7 +263,7 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
                             onTap: () {
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (BuildContext context) => ChatPage(
-                                        user: widget.tutee,
+                                        globals: widget.globals,
                                         group: widget.group,
                                         moduleCode: widget.group.getDescription,
                                       )));
@@ -460,7 +461,7 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
           Navigator.of(context).push(MaterialPageRoute(
               builder: (BuildContext context) => Chat(
                     reciever: tutorObj,
-                    user: widget.tutee,
+                    globals: widget.globals,
                     image: tutorImage,
                     hasImage: tutorHasImage,
                   )));
@@ -516,7 +517,7 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
           Navigator.of(context).push(MaterialPageRoute(
               builder: (BuildContext context) => Chat(
                     reciever: tutees[i].tutee,
-                    user: tutees[i].tutee,
+                    globals: widget.globals,
                     image: tutees[i].image,
                     hasImage: tutees[i].hasImage,
                   )));
