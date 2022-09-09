@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tutor_me/src/authenticate/register_step1.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/theme/themes.dart';
 import '../../services/models/globals.dart';
@@ -98,7 +99,7 @@ class TutorNavigationDrawerState extends State<TutorNavigationDrawerWidget> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const RegisterOrLogin()),
+                          builder: (context) => const RegisterStep1()),
                     );
                   },
                 ),

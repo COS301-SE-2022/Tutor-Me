@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tutor_me/services/models/globals.dart';
 import 'package:tutor_me/src/Navigation/switch_change_theme.dart';
+import 'package:tutor_me/src/authenticate/register_step1.dart';
 import 'package:tutor_me/src/theme/themes.dart';
 import '../../services/services/tutee_services.dart';
 import '../tuteeProfilePages/tutee_profile.dart';
@@ -105,7 +106,7 @@ class TuteeNavigationDrawerState extends State<TuteeNavigationDrawerWidget> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const RegisterOrLogin()),
+                          builder: (context) => const RegisterStep1()),
                     );
                   },
                 ),

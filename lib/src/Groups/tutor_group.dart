@@ -7,6 +7,7 @@ import 'package:tutor_me/services/models/globals.dart';
 import 'package:tutor_me/services/services/group_services.dart';
 // import 'package:tutor_me/src/chat/group_chat.dart';
 import 'package:tutor_me/src/colorpallete.dart';
+import '../../constants/colors.dart';
 import '../../services/models/modules.dart';
 import '../pages/chat_page.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -19,6 +20,8 @@ import '../../services/services/user_services.dart';
 import '../../utils/toast.dart';
 import '../chat/one_to_one_chat.dart';
 import 'package:http/http.dart' as http;
+
+import '../pages/recorded_videos.dart';
 
 class Tutee {
   Users tutee;
@@ -208,7 +211,7 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                       height: screenHeight * 0.03,
                     ),
                     SizedBox(
-                      height: screenHeight * 0.23,
+                      height: screenHeight * 0.28,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
@@ -289,6 +292,42 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                                 ]),
                                 title: Text(
                                   'Start Live Video Call',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w800,
+                                      fontSize:
+                                          MediaQuery.of(context).size.height *
+                                              0.025),
+                                ),
+                              ),
+                            ),
+                          ),
+                          InkWell(
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                      const RecordedVideos()));
+                            },
+                            child: Card(
+                              elevation: 0,
+                              color: Colors.transparent,
+                              child: ListTile(
+                                horizontalTitleGap: screenHeight * 0.04,
+                                leading: Stack(children: [
+                                  Icon(
+                                    Icons.chat_bubble,
+                                    size: screenHeight * 0.06,
+                                    color: primaryColor,
+                                  ),
+                                  Positioned(
+                                      top: screenHeight * 0.01,
+                                      left: screenWidth * 0.014,
+                                      child: const Icon(
+                                        Icons.video_library,
+                                        color: colorWhite,
+                                      ))
+                                ]),
+                                title: Text(
+                                  'Recorded Meetings',
                                   style: TextStyle(
                                       fontWeight: FontWeight.w800,
                                       fontSize:
