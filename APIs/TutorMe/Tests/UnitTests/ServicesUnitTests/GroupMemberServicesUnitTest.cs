@@ -1,15 +1,10 @@
 using System.Reflection;
-using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using Moq;
-using NuGet.ContentModel;
 using TutorMe.Data;
 using TutorMe.Entities;
 using TutorMe.Services;
 using TutorMe.Models;
-using TutorMe.Services;
 
 
 namespace Tests.UnitTests;
