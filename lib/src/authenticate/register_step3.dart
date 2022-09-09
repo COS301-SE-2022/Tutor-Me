@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:tutor_me/services/models/globals.dart';
 import 'package:tutor_me/services/models/intitutions.dart';
 // import 'package:tutor_me/services/models/tutors.dart';
-import 'package:tutor_me/services/models/users.dart';
 import 'package:tutor_me/services/services/institution_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/tutor_page.dart';

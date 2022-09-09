@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:tutor_me/services/models/globals.dart';
-import '../../../services/models/users.dart';
 import 'tutee_activity.dart';
 import 'tutee_pending_requests.dart';
 

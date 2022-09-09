@@ -4,7 +4,6 @@ import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/pages/tutor_explore.dart';
 
 import '../../services/models/globals.dart';
-import '../../services/models/users.dart';
 
 class BookForTutor extends StatefulWidget {
   final Globals globals;

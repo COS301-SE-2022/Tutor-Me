@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tutor_me/services/models/users.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/theme/themes.dart';
 import '../services/models/globals.dart';

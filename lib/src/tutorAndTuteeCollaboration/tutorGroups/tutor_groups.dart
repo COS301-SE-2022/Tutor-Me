@@ -4,7 +4,6 @@ import 'package:tutor_me/services/models/globals.dart';
 import 'package:tutor_me/services/models/groups.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import '../../../services/models/modules.dart';
-import '../../../services/models/users.dart';
 import '../../../services/services/group_services.dart';
 import '../../../services/services/module_services.dart';
 import '../../Groups/tutor_group.dart';

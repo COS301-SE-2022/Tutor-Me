@@ -6,7 +6,6 @@ import 'package:tutor_me/src/colorpallete.dart';
 // import '../../services/models/tutors.dart';
 import '../../services/models/globals.dart';
 import '../../services/services/user_services.dart';
-import '../../services/models/users.dart';
 import '../components.dart';
 import '../tutor_page.dart';
 import '../tutee_page.dart';

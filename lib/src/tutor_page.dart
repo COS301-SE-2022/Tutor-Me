@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:tutor_me/services/models/globals.dart';
-import 'package:tutor_me/services/models/users.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/notifications/tutorNotifications/tutor_notifications.dart';
 import 'package:tutor_me/src/pages/chats_page.dart';
@@ -47,7 +46,6 @@ class TutorPageState extends State<TutorPage> {
   Widget build(BuildContext context) {
     final screens = getScreens();
     double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
     if (screenWidth < 1100) {
       return Scaffold(
           drawer: TutorNavigationDrawerWidget(globals: widget.globals),
@@ -135,11 +133,11 @@ class TutorPageState extends State<TutorPage> {
         body: Row(
           mainAxisSize: MainAxisSize.max,
           children: <Widget>[
-            Container(
+            SizedBox(
               width: screenWidth * 0.2,
               child: TutorNavigationDrawerWidget(globals: widget.globals),
             ),
-            Container(
+            SizedBox(
               width: screenWidth * 0.8,
               child: screens[currentIndex],
             ),

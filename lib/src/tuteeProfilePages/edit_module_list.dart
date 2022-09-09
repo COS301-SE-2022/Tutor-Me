@@ -8,7 +8,6 @@ import 'package:tutor_me/src/tuteeProfilePages/tutee_profile.dart';
 import '../../services/models/globals.dart';
 import '../../services/models/groups.dart';
 import '../../services/models/modules.dart';
-import '../../services/models/users.dart';
 import 'add_modules.dart';
 
 // ignore: must_be_immutable

@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:tutor_me/services/models/globals.dart';
 import 'package:tutor_me/src/colorpallete.dart';
-import '../../services/models/users.dart';
 import '../../services/services/user_services.dart';
 import '../components.dart';
 import '../tutee_page.dart';

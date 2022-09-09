@@ -3,9 +3,7 @@ import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/pages/badges.dart';
 import 'package:tutor_me/src/pages/book_for_tutor.dart';
 import 'package:tutor_me/src/pages/calendar.dart';
-
 import '../../services/models/globals.dart';
-import '../../services/models/users.dart';
 
 class Home extends StatefulWidget {
   final Globals globals;
@@ -19,7 +17,6 @@ class _HomeState extends State<Home> {
   var gridCount = 0;
   @override
   Widget build(BuildContext context) {
-    double screenHieght = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
 
     if (screenWidth > 800) {

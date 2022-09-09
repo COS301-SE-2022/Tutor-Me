@@ -1,5 +1,3 @@
-import 'package:tutor_me/services/models/modules.dart';
-import 'package:tutor_me/services/models/requests.dart';
 import 'package:tutor_me/services/models/users.dart';
 
 class Globals {

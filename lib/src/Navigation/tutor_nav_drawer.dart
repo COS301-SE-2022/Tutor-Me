@@ -158,27 +158,25 @@ class TutorNavigationDrawerState extends State<TutorNavigationDrawerWidget> {
             width: MediaQuery.of(context).size.height * 0.022,
           ),
           Expanded(
-            child: Container(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    fullName,
-                    style: TextStyle(
-                        fontSize: MediaQuery.of(context).size.height * 0.04,
-                        color: colorWhite),
-                    overflow: TextOverflow.fade,
-                  ),
-                  SizedBox(height: MediaQuery.of(context).size.width * 0.01),
-                  Text(
-                    widget.globals.getUser.getEmail,
-                    style: TextStyle(
-                        fontSize: MediaQuery.of(context).size.height * 0.02,
-                        color: colorWhite),
-                    overflow: TextOverflow.ellipsis,
-                  )
-                ],
-              ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  fullName,
+                  style: TextStyle(
+                      fontSize: MediaQuery.of(context).size.height * 0.04,
+                      color: colorWhite),
+                  overflow: TextOverflow.fade,
+                ),
+                SizedBox(height: MediaQuery.of(context).size.width * 0.01),
+                Text(
+                  widget.globals.getUser.getEmail,
+                  style: TextStyle(
+                      fontSize: MediaQuery.of(context).size.height * 0.02,
+                      color: colorWhite),
+                  overflow: TextOverflow.ellipsis,
+                )
+              ],
             ),
           )
         ]),
