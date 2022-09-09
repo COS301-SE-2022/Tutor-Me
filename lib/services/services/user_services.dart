@@ -638,7 +638,8 @@ class UserServices {
   }
 
   static changePassword(Globals globals, String password) async {
-    String data = jsonEncode({'userId': globals.getUser.getId, 'password': password});
+    String data =
+        jsonEncode({'userId': globals.getUser.getId, 'password': password});
 
     final header = <String, String>{
       'Content-Type': 'application/json; charset=utf-8',
@@ -769,14 +770,12 @@ class UserServices {
           'http://tutorme-dev.us-east-1.elasticbeanstalk.com/api/account/authtoken');
       final response = await http.post(modulesURL, headers: header, body: data);
       if (response.statusCode == 200) {
-        
         final Users tutor = Users.fromObject(jsonDecode(response.body)['user']);
         Globals global = Globals(
             tutor,
             'tutorme-dev.us-east-1.elasticbeanstalk.com',
             json.decode(response.body)['token'],
             json.decode(response.body)['refreshToken']);
-
 
         return global;
       } else {
@@ -919,18 +918,16 @@ class UserServices {
       'Content-Type': 'application/json; charset=utf-8',
     };
     try {
-      final modulesURL =
-          Uri.parse('http://tutorme-dev.us-east-1.elasticbeanstalk.com/Login');
+      final modulesURL = Uri.parse(
+          'http://tutorme-dev.us-east-1.elasticbeanstalk.com/api/account/authtoken');
       final response = await http.post(modulesURL, headers: header, body: data);
       if (response.statusCode == 200) {
-
-       final Users tutor = Users.fromObject(jsonDecode(response.body)['user']);
+        final Users tutor = Users.fromObject(jsonDecode(response.body)['user']);
         Globals global = Globals(
             tutor,
             'tutorme-dev.us-east-1.elasticbeanstalk.com',
             json.decode(response.body)['token'],
             json.decode(response.body)['refreshToken']);
-
 
         return global;
       } else {
