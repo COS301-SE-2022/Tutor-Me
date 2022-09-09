@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
 import 'package:tutor_me/src/landingPages/landing_page.dart';
-import 'package:tutor_me/src/pages/recorded_videos.dart';
+// import 'package:tutor_me/src/pages/recorded_videos.dart';
 import 'package:tutor_me/src/theme/themes.dart';
 
 //import 'src/authenticate/register_or_login.dart';
@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
           themeMode: themeProvider.themeMode,
           theme: Themes.lightTheme,
           darkTheme: Themes.darkTheme,
-          home: const RecordedVideos(),
+          home: const LandingPage(),
         );
       });
 }
