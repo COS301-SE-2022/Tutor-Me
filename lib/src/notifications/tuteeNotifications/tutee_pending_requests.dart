@@ -9,6 +9,7 @@ import 'package:tutor_me/services/services/user_services.dart';
 // import 'package:tutor_me/services/services/tutor_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 
+import '../../../services/models/globals.dart';
 import '../../../services/models/users.dart';
 
 class Tutor {
@@ -20,8 +21,8 @@ class Tutor {
 }
 
 class TuteePendingRequests extends StatefulWidget {
-  final Users user;
-  const TuteePendingRequests({Key? key, required this.user}) : super(key: key);
+  final Globals globals;
+  const TuteePendingRequests({Key? key, required this.globals}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -47,7 +48,7 @@ class TuteePendingRequestsState extends State<TuteePendingRequests> {
   bool isLoading = true;
 
   getRequests() async {
-    final requests = await UserServices().getTuteeRequests(widget.user.getId);
+    final requests = await UserServices().getTuteeRequests(widget.globals.getUser.getId);
     requestList = requests;
     if (requestList.isEmpty) {
       setState(() {

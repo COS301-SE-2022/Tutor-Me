@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:tutor_me/services/models/globals.dart';
 import 'package:tutor_me/services/services/group_services.dart';
 // import 'package:tutor_me/src/chat/group_chat.dart';
 import 'package:tutor_me/src/colorpallete.dart';
@@ -28,12 +29,12 @@ class Tutee {
 
 class TutorGroupPage extends StatefulWidget {
   final Groups group;
-  final Users tutor;
+  final Globals globals;
   final Modules module;
   const TutorGroupPage(
       {Key? key,
       required this.group,
-      required this.tutor,
+      required this.globals,
       required this.module})
       : super(key: key);
 
@@ -74,7 +75,8 @@ class TutorGroupPageState extends State<TutorGroupPage> {
   getTuteeProfileImages() async {
     for (int i = 0; i < tuteeList.length; i++) {
       try {
-        final image = await UserServices.getTuteeProfileImage(tuteeList[i].getId);
+        final image =
+            await UserServices.getTuteeProfileImage(tuteeList[i].getId);
         setState(() {
           tuteeImages.add(image);
         });
@@ -215,9 +217,9 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                             onTap: () {
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (BuildContext context) => ChatPage(
-                                        user: widget.tutor,
+                                        globals: widget.globals,
                                         group: widget.group,
-                                        moduleCode: widget.group.getDescription,
+                                        moduleCode: widget.module.getCode,
                                       )));
                             },
                             child: Card(
@@ -404,7 +406,7 @@ class TutorGroupPageState extends State<TutorGroupPage> {
           Navigator.of(context).push(MaterialPageRoute(
               builder: (BuildContext context) => Chat(
                     reciever: tutees[i].tutee,
-                    user: widget.tutor,
+                    globals: widget.globals,
                     image: tutees[i].image,
                     hasImage: tutees[i].hasImage,
                   )));

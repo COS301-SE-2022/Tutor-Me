@@ -268,6 +268,74 @@ namespace TutorMe.Migrations
                     b.ToTable("User");
                 });
 
+            modelBuilder.Entity("TutorMe.Models.UserModule", b =>
+                {
+                    b.Property<Guid>("UserModuleId")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(36)
+                        .HasColumnType("uniqueidentifier")
+                        .HasDefaultValueSql("(newid())");
+
+                    b.Property<Guid>("ModuleId")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(36)
+                        .HasColumnType("uniqueidentifier")
+                        .HasDefaultValueSql("(newid())");
+
+                    b.Property<Guid>("UserId")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(36)
+                        .HasColumnType("uniqueidentifier")
+                        .HasDefaultValueSql("(newid())");
+
+                    b.HasKey("UserModuleId");
+
+                    b.HasIndex("ModuleId");
+
+                    b.HasIndex(new[] { "UserId" }, "IX_UserModule_UserId");
+
+                    b.ToTable("UserModule");
+                });
+
+            modelBuilder.Entity("TutorMe.Models.UserRefreshToken", b =>
+                {
+                    b.Property<int>("UserRefreshTokenId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserRefreshTokenId"), 1L, 1);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("ExpirationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("IpAddress")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsInvalidated")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("RefreshToken")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Token")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("UserRefreshTokenId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserRefreshToken");
+                });
+
             modelBuilder.Entity("TutorMe.Models.UserType", b =>
                 {
                     b.Property<Guid>("UserTypeId")
@@ -403,6 +471,36 @@ namespace TutorMe.Migrations
                     b.Navigation("Institution");
 
                     b.Navigation("UserType");
+                });
+
+            modelBuilder.Entity("TutorMe.Models.UserModule", b =>
+                {
+                    b.HasOne("TutorMe.Models.Module", "Module")
+                        .WithMany("UserModule")
+                        .HasForeignKey("ModuleId")
+                        .IsRequired()
+                        .HasConstraintName("UserModule_Group_FK");
+
+                    b.HasOne("TutorMe.Models.User", "User")
+                        .WithMany("UserModule")
+                        .HasForeignKey("UserId")
+                        .IsRequired()
+                        .HasConstraintName("UserModule_User_FK");
+
+                    b.Navigation("Module");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("TutorMe.Models.UserRefreshToken", b =>
+                {
+                    b.HasOne("TutorMe.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("TutorMe.Models.Group", b =>

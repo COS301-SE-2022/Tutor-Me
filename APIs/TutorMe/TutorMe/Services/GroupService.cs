@@ -12,6 +12,8 @@ namespace TutorMe.Services
         Guid createGroup(IGroup group);
         bool deleteGroupById(Guid id);
         IEnumerable<Group> GetGroupsByUserId(Guid id);
+        bool updateGroupDescription(Guid id, string description);
+        bool updateGroupVideoId(Guid id, string videoId);
     }
     public class GroupServices : IGroupService
     {
@@ -35,7 +37,6 @@ namespace TutorMe.Services
             return groups;
         }
 
-
         public Group GetGroupById(Guid id)
         {
             var group = _context.Group.Find(id);
@@ -55,9 +56,10 @@ namespace TutorMe.Services
             newGroup.UserId = group.UserId;
             newGroup.ModuleId = group.ModuleId;
             newGroup.Description = group.Description;
-            
+            newGroup.VideoId = group.VideoId;
             _context.Group.Add(newGroup);
             _context.SaveChanges();
+            
             //add user to Group Member
             var newGroupMember = new GroupMember();
             newGroupMember.GroupMemberId = Guid.NewGuid();
@@ -75,6 +77,26 @@ namespace TutorMe.Services
                 throw new KeyNotFoundException("Group not found");
             }
             _context.Group.Remove(group);
+            _context.SaveChanges();
+            return true;
+        }
+
+        public bool updateGroupDescription(Guid id, string description) {
+            var group = _context.Group.Find(id);
+            if (group == null) {
+                throw new KeyNotFoundException("Group not found");
+            }
+            group.Description = description;
+            _context.SaveChanges();
+            return true;
+        }
+
+        public bool updateGroupVideoId(Guid id, string videoId) {
+            var group = _context.Group.Find(id);
+            if (group == null) {
+                throw new KeyNotFoundException("Group not found");
+            }
+            group.VideoId = videoId;
             _context.SaveChanges();
             return true;
         }

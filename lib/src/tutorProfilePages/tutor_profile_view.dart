@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tutor_me/services/models/globals.dart';
 import 'package:tutor_me/services/models/users.dart';
 import 'package:tutor_me/src/theme/themes.dart';
 // import 'package:tutor_me/src/colorPalette.dart';
@@ -17,10 +18,10 @@ import 'user_stats.dart';
 
 class TutorProfilePageView extends StatefulWidget {
   // ignore: prefer_const_constructors_in_immutables
-  TutorProfilePageView({Key? key, required this.tutor, required this.tutee})
+  TutorProfilePageView({Key? key, required this.tutor, required this.globals})
       : super(key: key);
   final Users tutor;
-  final Users tutee;
+  final Globals globals;
 
   static const String route = '/tutor_profile_view';
 
@@ -737,7 +738,7 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
                                       try {
                                         await UserServices().sendRequest(
                                             widget.tutor.getId,
-                                            widget.tutee.getId,
+                                             widget.globals.getUser.getId,
                                             module.getModuleId);
                                       } catch (e) {
                                         const snackBar = SnackBar(
