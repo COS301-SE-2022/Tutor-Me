@@ -268,7 +268,6 @@ namespace TutorMe.Migrations
                     b.ToTable("User");
                 });
 
-<<<<<<< HEAD
             modelBuilder.Entity("TutorMe.Models.UserModule", b =>
                 {
                     b.Property<Guid>("UserModuleId")
@@ -337,8 +336,6 @@ namespace TutorMe.Migrations
                     b.ToTable("UserRefreshToken");
                 });
 
-=======
->>>>>>> ce65c7ca0f90a095dccb95423e8d41cce086355c
             modelBuilder.Entity("TutorMe.Models.UserType", b =>
                 {
                     b.Property<Guid>("UserTypeId")
@@ -476,7 +473,6 @@ namespace TutorMe.Migrations
                     b.Navigation("UserType");
                 });
 
-<<<<<<< HEAD
             modelBuilder.Entity("TutorMe.Models.UserModule", b =>
                 {
                     b.HasOne("TutorMe.Models.Module", "Module")
@@ -507,8 +503,6 @@ namespace TutorMe.Migrations
                     b.Navigation("User");
                 });
 
-=======
->>>>>>> ce65c7ca0f90a095dccb95423e8d41cce086355c
             modelBuilder.Entity("TutorMe.Models.Group", b =>
                 {
                     b.Navigation("GroupMembers");
