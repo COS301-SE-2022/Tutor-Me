@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using Moq;
 using NuGet.ContentModel;
 using TutorMe.Data;
+using TutorMe.Entities;
 using TutorMe.Services;
 using TutorMe.Models;
 using TutorMe.Services;
@@ -182,7 +183,7 @@ public class GroupServicesUnitTests
     public async  Task CreateGroup_Group_Returns_GroupId()
     {
         //arrange
-        var Group = new Group
+        var Group = new IGroup
         {
             GroupId = Guid.NewGuid(), 
             ModuleId  = Guid.NewGuid(),
@@ -216,7 +217,7 @@ public class GroupServicesUnitTests
     public async  Task CreateGroup_Returns_Type_already_exists()
     {
         //arrange
-        var Group = new Group
+        var Group = new IGroup
         {
             GroupId = Guid.NewGuid(), 
             ModuleId  = Guid.NewGuid(),

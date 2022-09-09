@@ -6,6 +6,7 @@ using Moq;
 using NuGet.Versioning;
 using TutorMe.Controllers;
 using TutorMe.Data;
+using TutorMe.Entities;
 using TutorMe.Models;
 using TutorMe.Services;
 
@@ -98,14 +99,14 @@ public class GroupControllerUnitTests
     public async  Task AddGroup_Group_ReturnsGroup()
     {
         //arrange
-        var Group = new Group
+        var Group = new IGroup
         {
             GroupId = Guid.NewGuid(), 
             ModuleId  = Guid.NewGuid(),
             Description = "This is a group for students to learn about software development",
 
         };
-        _GroupRepositoryMock.Setup(u => u. createGroup(It.IsAny<Group>())).Returns(Group.GroupId);
+        _GroupRepositoryMock.Setup(u => u. createGroup(It.IsAny<IGroup>())).Returns(Group.GroupId);
         
         var controller = new GroupsController(_GroupRepositoryMock.Object,_mapper.Object);
         
