@@ -119,7 +119,7 @@ class _RegisterStep2State extends State<RegisterStep2> {
                       primarySwatch: Colors.green,
                       canvasColor: Colors.transparent,
                       colorScheme: ColorScheme.fromSwatch().copyWith(
-                          secondary: colorOrange, primary: colorOrange)),
+                          secondary: colorBlueTeal, primary: colorBlueTeal)),
                   child: Stepper(
                     type: StepperType.horizontal,
                     steps: getSteps(),
@@ -154,7 +154,7 @@ class _RegisterStep2State extends State<RegisterStep2> {
                     left: MediaQuery.of(context).size.width * 0.06,
                     right: MediaQuery.of(context).size.width * 0.01),
                 child: DropdownButton<String>(
-                  dropdownColor: colorOrange,
+                  dropdownColor: colorBlueTeal,
                   icon: Icon(Icons.arrow_drop_down,
                       color: colorWhite,
                       size: MediaQuery.of(context).size.width * 0.08),
@@ -225,7 +225,7 @@ class _RegisterStep2State extends State<RegisterStep2> {
                   color: Colors.grey[500]!.withOpacity(0.3),
                   borderRadius: BorderRadius.circular(16),
                   border: Border.all(
-                    color: colorOrange,
+                    color: colorBlueTeal,
                     width: 1,
                   ),
                 ),
@@ -244,7 +244,7 @@ class _RegisterStep2State extends State<RegisterStep2> {
                   color: Colors.grey[500]!.withOpacity(0.3),
                   borderRadius: BorderRadius.circular(16),
                   border: Border.all(
-                    color: colorOrange,
+                    color: colorBlueTeal,
                     width: 1,
                   ),
                 ),
@@ -264,14 +264,14 @@ class _RegisterStep2State extends State<RegisterStep2> {
                           return Theme(
                             data: Theme.of(context).copyWith(
                               colorScheme: const ColorScheme.light(
-                                primary: colorTurqoise,
+                                primary: colorOrange,
                                 onPrimary: Colors.white,
                                 onSurface: Colors.black,
                               ),
                               textButtonTheme: TextButtonThemeData(
                                 style: TextButton.styleFrom(
                                   foregroundColor: Colors.white,
-                                  backgroundColor: colorTurqoise,
+                                  backgroundColor: colorOrange,
                                   textStyle: const TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,
@@ -305,7 +305,7 @@ class _RegisterStep2State extends State<RegisterStep2> {
                 width: MediaQuery.of(context).size.width * 0.8,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(16),
-                  color: colorOrange,
+                  color: colorBlueTeal,
                 ),
                 child: TextButton(
                   onPressed: () async {
@@ -336,7 +336,7 @@ class _RegisterStep2State extends State<RegisterStep2> {
                             content: Text(errMsg),
                             backgroundColor: colorWhite,
                             titleTextStyle: TextStyle(
-                              color: colorOrange,
+                              color: colorBlueTeal,
                               fontSize:
                                   MediaQuery.of(context).size.height * 0.03,
                               fontWeight: FontWeight.bold,
@@ -345,7 +345,7 @@ class _RegisterStep2State extends State<RegisterStep2> {
                               TextButton(
                                 child: const Text(
                                   "Retry",
-                                  style: TextStyle(color: colorWhite),
+                                  style: TextStyle(color: colorDarkGrey),
                                 ),
                                 onPressed: () {
                                   Navigator.push(

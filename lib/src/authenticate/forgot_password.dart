@@ -115,7 +115,7 @@ class ForgotPasswordState extends State<ForgotPassword> {
                   cornerRadius: MediaQuery.of(context).size.height * 0.07,
                   fontSize: MediaQuery.of(context).size.height * 0.02,
                   iconSize: MediaQuery.of(context).size.height * 0.05,
-                  activeBgColor: const [colorOrange],
+                  activeBgColor: const [colorBlueTeal],
                   activeFgColor: colorWhite,
                   inactiveBgColor: colorGrey,
                   inactiveFgColor: colorWhite,
@@ -162,7 +162,7 @@ class ForgotPasswordState extends State<ForgotPassword> {
                 width: MediaQuery.of(context).size.width * 0.8,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(16),
-                  color: colorOrange,
+                  color: colorBlueTeal,
                 ),
                 child: TextButton(
                   onPressed: () async {
@@ -187,7 +187,7 @@ class ForgotPasswordState extends State<ForgotPassword> {
                             content: Text(errMsg),
                             backgroundColor: colorWhite,
                             titleTextStyle: TextStyle(
-                              color: colorOrange,
+                              color: colorBlueTeal,
                               fontSize:
                                   MediaQuery.of(context).size.height * 0.03,
                               fontWeight: FontWeight.bold,

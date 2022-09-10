@@ -33,7 +33,7 @@ class _RecordedVideosState extends State<RecordedVideos> {
           onPressed: () => Navigator.of(context).pop(),
         ),
         centerTitle: true,
-        backgroundColor: colorOrange,
+        backgroundColor: colorBlueTeal,
         title: const Center(child: Text('Recorded Videos')),
       ),
       body: SizedBox(
@@ -101,7 +101,7 @@ class _RecordedVideosState extends State<RecordedVideos> {
                     onPressed: () {},
                     child: const Text('View'),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: colorTurqoise,
+                      backgroundColor: colorOrange,
                     ),
                   ),
                 ),

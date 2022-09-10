@@ -158,7 +158,7 @@ class _RegisterStep1State extends State<RegisterStep1> {
                   welcome,
                   style: TextStyle(
                     color: colorWhite,
-                    fontSize: MediaQuery.of(context).size.height * 0.12,
+                    fontSize: MediaQuery.of(context).size.height * 0.05,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -177,7 +177,7 @@ class _RegisterStep1State extends State<RegisterStep1> {
                       primarySwatch: Colors.green,
                       canvasColor: Colors.transparent,
                       colorScheme: ColorScheme.fromSwatch().copyWith(
-                          secondary: colorOrange, primary: colorOrange)),
+                          secondary: colorBlueTeal, primary: colorOrange)),
                   child: Stepper(
                     onStepCancel: null,
                     onStepContinue: null,
@@ -257,7 +257,7 @@ class _RegisterStep1State extends State<RegisterStep1> {
                 height: MediaQuery.of(context).size.height * 0.03,
               ),
               Container(
-                height: MediaQuery.of(context).size.height * 0.06,
+                height: MediaQuery.of(context).size.height * 0.07,
                 width: buttonWidth,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(16),

@@ -159,13 +159,13 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
     Color primaryColor;
 
     if (provider.themeMode == ThemeMode.dark) {
-      highlightColor = colorOrange;
+      highlightColor = colorBlueTeal;
       textColor = colorWhite;
       primaryColor = colorGrey;
     } else {
-      highlightColor = colorTurqoise;
+      highlightColor = colorOrange;
       textColor = Colors.black;
-      primaryColor = colorOrange;
+      primaryColor = colorBlueTeal;
     }
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.height;
@@ -235,7 +235,7 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
                                 data: Theme.of(context).copyWith(
                                     scrollbarTheme: ScrollbarThemeData(
                                         thumbColor: MaterialStateProperty.all(
-                                            colorTurqoise))),
+                                            colorOrange))),
                                 child: Scrollbar(
                                   child: Text(
                                     widget.group.getDescription,
@@ -452,7 +452,7 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
     if (provider.themeMode == ThemeMode.dark) {
       primaryColor = colorGrey;
     } else {
-      primaryColor = colorOrange;
+      primaryColor = colorBlueTeal;
     }
     //getTutees
     String name = tutorObj.getName + ' ' + tutorObj.getLastName;
@@ -499,7 +499,7 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
               subtitle: Text(
                 tutorObj.getBio,
                 style: const TextStyle(
-                    fontWeight: FontWeight.w500, color: colorOrange),
+                    fontWeight: FontWeight.w500, color: colorBlueTeal),
               ),
               trailing: Icon(
                 Icons.chat_bubble,
@@ -555,12 +555,12 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
               subtitle: Text(
                 tutees[i].tutee.getBio,
                 style: const TextStyle(
-                    fontWeight: FontWeight.w500, color: colorOrange),
+                    fontWeight: FontWeight.w500, color: colorBlueTeal),
               ),
               trailing: Icon(
                 Icons.chat_bubble,
                 size: MediaQuery.of(context).size.aspectRatio * 80,
-                color: colorOrange,
+                color: colorBlueTeal,
               ),
             )));
   }

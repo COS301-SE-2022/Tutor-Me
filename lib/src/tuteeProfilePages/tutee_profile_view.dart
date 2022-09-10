@@ -44,7 +44,7 @@ class _TuteeProfilePageState extends State<TuteeProfilePageView> {
     });
   }
   //TODO: Add in the number of connections and number of tutees
-  
+
   // int getNumConnections() {
   //   var allConnections = widget.user.getConnections.split(',');
 
@@ -136,7 +136,7 @@ class _TuteeProfilePageState extends State<TuteeProfilePageView> {
 
   Widget buildEditImageIcon() => const CircleAvatar(
         radius: 18,
-        backgroundColor: colorOrange,
+        backgroundColor: colorBlueTeal,
         child: Icon(
           Icons.camera_enhance,
           color: Colors.white,
@@ -168,7 +168,7 @@ class _TuteeProfilePageState extends State<TuteeProfilePageView> {
       SmallTagButton(
         btnName: "Tutee",
         onPressed: () {},
-        backColor: colorOrange,
+        backColor: colorBlueTeal,
       ),
       SizedBox(height: screenHeightSize * 0.01),
       Text(
@@ -176,7 +176,7 @@ class _TuteeProfilePageState extends State<TuteeProfilePageView> {
         style: TextStyle(
           fontSize: screenWidthSize * 0.04,
           fontWeight: FontWeight.normal,
-          color: colorTurqoise,
+          color: colorOrange,
         ),
       ),
       SizedBox(height: screenHeightSize * 0.02),
@@ -299,7 +299,7 @@ class _TuteeProfilePageState extends State<TuteeProfilePageView> {
         Icon(
           Icons.book,
           size: MediaQuery.of(context).size.height * 0.02,
-          color: colorTurqoise,
+          color: colorOrange,
         ),
         Expanded(
           child: Text(

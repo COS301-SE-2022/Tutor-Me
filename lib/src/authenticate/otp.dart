@@ -134,7 +134,7 @@ class OTPState extends State<OTP> {
                 width: MediaQuery.of(context).size.width * 0.8,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(16),
-                  color: colorOrange,
+                  color: colorBlueTeal,
                 ),
                 child: TextButton(
                   onPressed: () async {
@@ -159,7 +159,7 @@ class OTPState extends State<OTP> {
                             content: Text(errMsg),
                             backgroundColor: colorWhite,
                             titleTextStyle: TextStyle(
-                              color: colorOrange,
+                              color: colorBlueTeal,
                               fontSize:
                                   MediaQuery.of(context).size.height * 0.03,
                               fontWeight: FontWeight.bold,

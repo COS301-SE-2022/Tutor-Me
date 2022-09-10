@@ -93,7 +93,8 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
               )
             : WillPopScope(
                 onWillPop: () async {
-                  Navigator.pop(context, ToReturn(widget.image, widget.globals.getUser));
+                  Navigator.pop(
+                      context, ToReturn(widget.image, widget.globals.getUser));
                   return false;
                 },
                 child: ListView(
@@ -138,7 +139,7 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
             },
             child: Icon(
               Icons.edit,
-              color: colorOrange,
+              color: colorBlueTeal,
               size: MediaQuery.of(context).size.height * 0.05,
             ),
           ),
@@ -179,7 +180,7 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
 
   Widget buildEditImageIcon() => const CircleAvatar(
         radius: 18,
-        backgroundColor: colorOrange,
+        backgroundColor: colorBlueTeal,
         child: Icon(
           Icons.camera_enhance,
           color: Colors.white,
@@ -189,7 +190,9 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
   Widget buildBody() {
     final screenWidthSize = MediaQuery.of(context).size.width;
     final screenHeightSize = MediaQuery.of(context).size.height;
-    String name = widget.globals.getUser.getName + ' ' + widget.globals.getUser.getLastName;
+    String name = widget.globals.getUser.getName +
+        ' ' +
+        widget.globals.getUser.getLastName;
     String personalInfo = name + '(' + widget.globals.getUser.getAge + ')';
     String courseInfo = institution.getName;
     String gender = "";
@@ -210,7 +213,7 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
       SmallTagButton(
         btnName: "Tutee",
         onPressed: () {},
-        backColor: colorOrange,
+        backColor: colorBlueTeal,
       ),
       SizedBox(height: screenHeightSize * 0.01),
       Text(
@@ -218,7 +221,7 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
         style: TextStyle(
           fontSize: screenWidthSize * 0.04,
           fontWeight: FontWeight.normal,
-          color: colorTurqoise,
+          color: colorOrange,
         ),
       ),
       SizedBox(height: screenHeightSize * 0.02),
@@ -341,7 +344,7 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
             ),
             child: SmallTagBtn(
               btnName: "Edit Module list",
-              backColor: colorOrange,
+              backColor: colorBlueTeal,
               funct: () async {
                 final modules =
                     await Navigator.of(context).push(MaterialPageRoute(
@@ -367,7 +370,7 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
         Icon(
           Icons.book,
           size: MediaQuery.of(context).size.height * 0.02,
-          color: colorTurqoise,
+          color: colorOrange,
         ),
         Expanded(
           child: Text(
