@@ -65,8 +65,12 @@ class _ChatPageState extends State<ChatPage> {
   TextEditingController messageTextController = TextEditingController();
   submitMessageFunction() async {
     var messageText = removeMessageExtraChar(messageTextController.text);
-    await connection.invoke('SendMessage',
-        args: [widget.globals.getUser.getName, currentUserId, messageText]);
+    await connection.invoke('SendMessageToGroup', args: [
+      widget.group.getId,
+      widget.globals.getUser.getName,
+      currentUserId,
+      messageText
+    ]);
     messageTextController.text = "";
 
     Future.delayed(const Duration(milliseconds: 500), () {
@@ -87,7 +91,7 @@ class _ChatPageState extends State<ChatPage> {
         width: size.width,
         child: Column(
           children: [
-            chatAppbarWidget(size, context, widget.moduleCode),
+            chatAppbarWidget(size, context, "widget.moduleCode"),
             chatMessageWidget(
                 chatListScrollController, messageModel, currentUserId),
             chatTypeMessageWidget(messageTextController, submitMessageFunction)
@@ -111,8 +115,12 @@ class _ChatPageState extends State<ChatPage> {
     connection.on('ReceiveMessage', (message) {
       _handleIncommingDriverLocation(message);
     });
-    await connection
-        .invoke('JoinUSer', args: [widget.globals.getUser.getName, currentUserId]);
+    await connection.invoke('JoinGroup', args: [
+      widget.moduleCode,
+      widget.group.getId,
+      widget.globals.getUser.getName,
+      currentUserId
+    ]);
   }
 
   //get messages

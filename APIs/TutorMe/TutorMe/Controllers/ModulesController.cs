@@ -3,6 +3,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using TutorMe.Data;
 using TutorMe.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TutorMe.Controllers
 {
@@ -20,6 +21,7 @@ namespace TutorMe.Controllers
             this.mapper = mapper;
         }
 
+        [Authorize]
         [HttpGet]
         public IActionResult GetAllModules()
         {
@@ -32,6 +34,7 @@ namespace TutorMe.Controllers
             }
         }
 
+        [Authorize]
         [HttpGet("{id}")]
         public IActionResult GetModuleById(Guid id)
         {
@@ -44,6 +47,7 @@ namespace TutorMe.Controllers
             }
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult createModule(Module module)
         {
@@ -56,6 +60,7 @@ namespace TutorMe.Controllers
             }
         }
 
+        [Authorize]
         [HttpDelete("{id}")]
         public IActionResult DeleteModule(Guid id)
         {
