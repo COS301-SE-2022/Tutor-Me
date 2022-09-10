@@ -17,15 +17,79 @@ class CalendarScreen extends StatefulWidget {
 class _CalendarScreenState extends State<CalendarScreen> {
   // late CalendarController _controller;
 
-  late Map<DateTime, List<dynamic>> scheduledSessions = {};
+  final Map<DateTime, List<dynamic>> scheduledSessions ={};
+
+  
+  //   DateTime(2022, 9, 12): [
+  //     Event(
+  //       title: 'Session 1',
+  //       description: 'Session 1',
+  //       date: DateTime(2021, 9, 12),
+  //       time: DateTime(2021, 9, 1, 10, 0),
+  //       owner: 'Owner 1',
+  //     ),
+  //     Event(
+  //       title: 'Session 2',
+  //       description: 'Session 2',
+  //       date: DateTime(2021, 9, 12),
+  //       time: DateTime(2021, 9, 12, 11, 0),
+  //       owner: 'Owner 2',
+  //     ),
+  //   ],
+  //   DateTime(2022, 9, 22): [
+  //     Event(
+  //       title: 'Session 3',
+  //       description: 'Session 3',
+  //       date: DateTime(2021, 9, 22),
+  //       time: DateTime(2021, 9, 22, 10, 0),
+  //       owner: 'Owner 3',
+  //     ),
+  //     Event(
+  //       title: 'Session 4',
+  //       description: 'Session 4',
+  //       date: DateTime(2021, 9, 22),
+  //       time: DateTime(2021, 9, 22, 11, 0),
+  //       owner: 'Owner 4',
+  //     ),
+  //   ],
+  //   DateTime(2022, 9, 23): [
+  //     Event(
+  //       title: 'Session 5',
+  //       description: 'Session 5',
+  //       date: DateTime(2021, 9, 23),
+  //       time: DateTime(2021, 9, 23, 10, 0),
+  //       owner: 'Owner 5',
+  //     ),
+  //     Event(
+  //       title: 'Session 6',
+  //       description: 'Session 6',
+  //       date: DateTime(2021, 9, 23),
+  //       time: DateTime(2021, 9, 23, 11, 0),
+  //       owner: 'Owner 6',
+  //     ),
+  //   ],
+  //   DateTime(2022, 9, 24): [
+  //     Event(
+  //       title: 'Session 7',
+  //       description: 'Session 7',
+  //       date: DateTime(2021, 9, 24),
+  //       time: DateTime(2021, 9, 24, 10, 0),
+  //       owner: 'Owner 7',
+  //     ),
+  //   ],
+  // };
 
   List getScheduledSessions(DateTime date) {
+    print(date);
+    print("hiiiiii ");
+    print(scheduledSessions[1]);
     return scheduledSessions[date] ?? [];
   }
 
-  void iniState() {
-    scheduledSessions = {};
+  @override
+  void initState() {
     super.initState();
+
     // _controller = CalendarController();
   }
 
@@ -67,22 +131,26 @@ class _CalendarScreenState extends State<CalendarScreen> {
               TableCalendar(
                 startingDayOfWeek: StartingDayOfWeek.sunday,
                 eventLoader: scheduledSessions.isNotEmpty
-                    ? (date) => getScheduledSessions(date)
+                    ? (date) {
+                        return getScheduledSessions(date);
+
+                        // return getScheduledSessions(date);
+                      }
                     : null,
                 calendarStyle: CalendarStyle(
                   selectedDecoration: BoxDecoration(
                     color: colorWhite,
                     shape: BoxShape.circle,
                     border: Border.all(
-                      color: colorOrange,
+                      color: colorBlueTeal,
                       width: 1.0,
                     ),
                   ),
                   todayDecoration: BoxDecoration(
-                    color: colorOrange,
+                    color: colorBlueTeal,
                     shape: BoxShape.circle,
                     border: Border.all(
-                      color: colorOrange,
+                      color: colorBlueTeal,
                       width: 1.0,
                     ),
                   ),
@@ -115,18 +183,18 @@ class _CalendarScreenState extends State<CalendarScreen> {
                   formatButtonVisible: false,
                   titleCentered: true,
                   titleTextStyle: const TextStyle(
-                    color: colorTurqoise,
+                    color: colorBlueTeal,
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
                   leftChevronIcon: Icon(
                     Icons.chevron_left,
-                    color: colorTurqoise,
+                    color: colorBlueTeal,
                     size: MediaQuery.of(context).size.width * 0.085,
                   ),
                   rightChevronIcon: Icon(
                     Icons.chevron_right,
-                    color: colorTurqoise,
+                    color: colorBlueTeal,
                     size: MediaQuery.of(context).size.width * 0.085,
                   ),
                 ),
@@ -142,7 +210,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                             border: Border(
                                 bottom: BorderSide(
                                     width: 1.0,
-                                    color: colorTurqoise.withOpacity(0.2)))),
+                                    color: colorLightGrey.withOpacity(0.6)))),
                         child: Padding(
                           padding: EdgeInsets.only(
                               top: MediaQuery.of(context).size.height * 0.03,
@@ -161,7 +229,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                     child: Text(
                                       e.title,
                                       style: TextStyle(
-                                          color: colorOrange,
+                                          color: colorBlueTeal,
                                           fontSize: MediaQuery.of(context)
                                                   .size
                                                   .width *
@@ -174,7 +242,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                     child: Text(
                                       e.description,
                                       style: TextStyle(
-                                          color: colorTurqoise,
+                                          color: colorOrange,
                                           fontSize: MediaQuery.of(context)
                                                   .size
                                                   .width *
@@ -249,14 +317,16 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                 title: meetingController.text,
                                 description: descriptionController.text,
                                 date: mySelectedDay,
-                                time: time));
+                                time: time,
+                                owner: "Me"));
                           } else {
                             scheduledSessions[mySelectedDay] = [
                               Event(
                                   title: meetingController.text,
                                   description: descriptionController.text,
                                   date: mySelectedDay,
-                                  time: time)
+                                  time: time,
+                                  owner: "Me")
                             ];
                           }
                           // }
@@ -289,7 +359,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
     return TextStyle(
       // fontSize: 18,
       fontWeight: bold,
-      color: colorTurqoise,
+      color: colorOrange,
     );
   }
 }

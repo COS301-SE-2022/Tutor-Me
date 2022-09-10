@@ -22,7 +22,7 @@ class _BookForTutorState extends State<BookForTutor> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Book for Tutor"),
-        backgroundColor: colorOrange,
+        backgroundColor: colorBlueTeal,
       ),
       body: Column(children: [
         SizedBox(
@@ -67,7 +67,7 @@ class _BookForTutorState extends State<BookForTutor> {
                         style: TextStyle(
                           fontSize: widthOfScreen * 0.05,
                           fontWeight: FontWeight.bold,
-                          color: colorTurqoise,
+                          color: colorOrange,
                         ),
                       ),
                     ),
@@ -78,7 +78,8 @@ class _BookForTutorState extends State<BookForTutor> {
                       height: MediaQuery.of(context).size.height * 0.001,
                       width: MediaQuery.of(context).size.width * 0.7,
                       decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 36, 35, 35).withOpacity(0.2),
+                        color: const Color.fromARGB(255, 36, 35, 35)
+                            .withOpacity(0.2),
                       ),
                     ),
                     SizedBox(
@@ -109,7 +110,7 @@ class _BookForTutorState extends State<BookForTutor> {
           child: Row(
             children: [
               Icon(Icons.info_outline,
-                  size: widthOfScreen * 0.08, color: colorTurqoise),
+                  size: widthOfScreen * 0.08, color: colorOrange),
               Flexible(
                 child: Text(
                     "Explore the available tutors and book for One time sessions.",
@@ -134,7 +135,7 @@ class _BookForTutorState extends State<BookForTutor> {
               style: TextStyle(
                 fontSize: widthOfScreen * 0.05,
                 fontWeight: FontWeight.normal,
-                color: colorOrange,
+                color: colorBlueTeal,
               ),
             ),
           ),
@@ -158,7 +159,7 @@ class _BookForTutorState extends State<BookForTutor> {
                 width: widthOfScreen * 0.6,
                 height: heightOfScreen * 0.065,
                 decoration: BoxDecoration(
-                  color: colorTurqoise,
+                  color: colorOrange,
                   borderRadius: BorderRadius.circular(5),
                 ),
                 child: Align(

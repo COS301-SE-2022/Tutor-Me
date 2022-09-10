@@ -30,7 +30,7 @@ class LandingPageState extends State<LandingPage> {
     return Container(
       color: colorWhite,
       child: Scaffold(
-        backgroundColor: colorTurqoise.withOpacity(0.2),
+        backgroundColor: colorOrange.withOpacity(0.2),
         body: Container(
           padding: EdgeInsets.only(bottom: screenSize.height * 0.08),
           child: PageView(
@@ -51,14 +51,14 @@ class LandingPageState extends State<LandingPage> {
                 description: "Learn and connect with peers",
                 urlImage:
                     'assets/Pictures/undraw_visionary_technology_re_jfp7.svg',
-                color: colorOrange,
+                color: colorBlueTeal,
                 index: 0,
               ),
               buildPage(
                 description:
                     "Connect to tutors or tutees. Join groups and request for tutors",
                 urlImage: 'assets/Pictures/undraw_online_connection_6778.svg',
-                color: colorTurqoise,
+                color: colorOrange,
                 index: 0,
               ),
               buildPage(
@@ -71,7 +71,7 @@ class LandingPageState extends State<LandingPage> {
               buildPage(
                 description: "Let's begin our learning journey",
                 urlImage: 'assets/Pictures/undraw_maker_launch_re_rq81.svg',
-                color: colorTurqoise,
+                color: colorOrange,
                 index: 0,
               ),
             ],
@@ -108,7 +108,7 @@ class LandingPageState extends State<LandingPage> {
                       count: 4,
                       effect: const ScrollingDotsEffect(
                         radius: 14,
-                        activeDotColor: colorOrange,
+                        activeDotColor: colorBlueTeal,
                         spacing: 15,
                       ),
                     )),
@@ -127,7 +127,7 @@ class LandingPageState extends State<LandingPage> {
                           },
                           icon: const Icon(Icons.arrow_circle_right),
                           iconSize: screenSize.height * 0.05,
-                          color: colorOrange,
+                          color: colorBlueTeal,
                         )
                       ],
                     ),
@@ -149,7 +149,7 @@ class LandingPageState extends State<LandingPage> {
       ClipPath(
         clipper: OrangeClipper(),
         child: Container(
-          color: colorOrange,
+          color: colorBlueTeal,
           height: screenHeight * 0.45,
         ),
       ),
@@ -169,7 +169,7 @@ class LandingPageState extends State<LandingPage> {
               description,
               style: const TextStyle(
                   fontSize: 18,
-                  color: colorTurqoise,
+                  color: colorOrange,
                   fontWeight: FontWeight.w600),
             ),
             padding: EdgeInsets.symmetric(
@@ -182,7 +182,7 @@ class LandingPageState extends State<LandingPage> {
         child: ClipPath(
           clipper: TurqoiseClipper(),
           child: Container(
-            color: colorTurqoise,
+            color: colorOrange,
             height: screenHeight * 0.5,
           ),
         ),

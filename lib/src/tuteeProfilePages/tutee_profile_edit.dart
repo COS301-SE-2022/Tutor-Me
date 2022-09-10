@@ -80,7 +80,9 @@ class _TuteeProfileEditState extends State<TuteeProfileEdit> {
   Widget buildBody() {
     final screenWidthSize = MediaQuery.of(context).size.width;
     final screenHeightSize = MediaQuery.of(context).size.height;
-    String nameToEdit = widget.globals.getUser.getName + ' ' + widget.globals.getUser.getLastName;
+    String nameToEdit = widget.globals.getUser.getName +
+        ' ' +
+        widget.globals.getUser.getLastName;
     // FilePickerResult? filePickerResult;
     // String? fileName;
     // PlatformFile? file;
@@ -98,7 +100,7 @@ class _TuteeProfileEditState extends State<TuteeProfileEdit> {
               hintText: "Change to: ",
               labelText: nameToEdit,
               labelStyle: TextStyle(
-                color: colorTurqoise,
+                color: colorOrange,
                 fontSize: screenWidthSize * 0.05,
               ),
             ),
@@ -115,7 +117,7 @@ class _TuteeProfileEditState extends State<TuteeProfileEdit> {
               hintText: "Change To:",
               labelText: widget.globals.getUser.getBio,
               labelStyle: TextStyle(
-                color: colorTurqoise,
+                color: colorOrange,
                 overflow: TextOverflow.visible,
                 fontSize: screenWidthSize * 0.05,
               ),
@@ -167,7 +169,8 @@ class _TuteeProfileEditState extends State<TuteeProfileEdit> {
                 isSaveLoading = false;
               });
 
-              Navigator.pop(context, ToReturn(widget.image, widget.globals.getUser));
+              Navigator.pop(
+                  context, ToReturn(widget.image, widget.globals.getUser));
             })
       ],
     );
@@ -230,7 +233,7 @@ class _TuteeProfileEditState extends State<TuteeProfileEdit> {
 
   Widget buildEditImageIcon() => ElevatedButton(
         style: ElevatedButton.styleFrom(
-            backgroundColor: colorOrange,
+            backgroundColor: colorBlueTeal,
             shape: const CircleBorder(),
             padding: const EdgeInsets.all(8)),
         child: const Icon(
@@ -285,7 +288,7 @@ class TextInputFieldEdit extends StatelessWidget {
           color: colorWhite,
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
-            color: colorOrange,
+            color: colorBlueTeal,
             width: 1,
           ),
         ),
@@ -298,7 +301,7 @@ class TextInputFieldEdit extends StatelessWidget {
                   child: Icon(
                     icon,
                     size: 24,
-                    color: colorTurqoise,
+                    color: colorOrange,
                   ),
                 ),
                 hintText: hint,
@@ -306,7 +309,7 @@ class TextInputFieldEdit extends StatelessWidget {
             style: const TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.normal,
-                color: colorTurqoise),
+                color: colorOrange),
             keyboardType: inputType,
             textInputAction: inputAction,
           ),

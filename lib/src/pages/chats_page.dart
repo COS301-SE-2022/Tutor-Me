@@ -37,7 +37,8 @@ class ChatsState extends State<Chats> {
   List<Users> userChats = List<Users>.empty();
 
   getUserType() async {
-    final type = await UserServices.getUserType(widget.globals.getUser.getUserTypeID);
+    final type =
+        await UserServices.getUserType(widget.globals.getUser.getUserTypeID);
 
     userType = type;
 
@@ -46,7 +47,8 @@ class ChatsState extends State<Chats> {
 
   void getConnections() async {
     try {
-      userChats = await UserServices.getConnections(widget.globals.getUser.getId);
+      userChats =
+          await UserServices.getConnections(widget.globals.getUser.getId);
       setState(() {
         userChats = userChats;
       });
@@ -119,7 +121,7 @@ class ChatsState extends State<Chats> {
                       Icon(
                         Icons.chat,
                         size: MediaQuery.of(context).size.height * 0.09,
-                        color: colorTurqoise,
+                        color: colorOrange,
                       ),
                       const Text('No Chats found')
                     ],

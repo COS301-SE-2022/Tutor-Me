@@ -80,15 +80,15 @@ class _BookingCalenderState extends State<BookingCalender> {
                     color: colorWhite,
                     shape: BoxShape.circle,
                     border: Border.all(
-                      color: colorOrange,
+                      color: colorBlueTeal,
                       width: 1.0,
                     ),
                   ),
                   todayDecoration: BoxDecoration(
-                    color: colorOrange,
+                    color: colorBlueTeal,
                     shape: BoxShape.circle,
                     border: Border.all(
-                      color: colorOrange,
+                      color: colorBlueTeal,
                       width: 1.0,
                     ),
                   ),
@@ -115,24 +115,24 @@ class _BookingCalenderState extends State<BookingCalender> {
                 headerStyle: HeaderStyle(
                   // centerHeaderTitle: true,
                   formatButtonDecoration: BoxDecoration(
-                    color: colorOrange,
+                    color: colorBlueTeal,
                     borderRadius: BorderRadius.circular(20),
                   ),
                   formatButtonVisible: false,
                   titleCentered: true,
                   titleTextStyle: const TextStyle(
-                    color: colorTurqoise,
+                    color: colorOrange,
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
                   leftChevronIcon: Icon(
                     Icons.chevron_left,
-                    color: colorTurqoise,
+                    color: colorOrange,
                     size: MediaQuery.of(context).size.width * 0.085,
                   ),
                   rightChevronIcon: Icon(
                     Icons.chevron_right,
-                    color: colorTurqoise,
+                    color: colorOrange,
                     size: MediaQuery.of(context).size.width * 0.085,
                   ),
                 ),
@@ -148,7 +148,7 @@ class _BookingCalenderState extends State<BookingCalender> {
                             border: Border(
                                 bottom: BorderSide(
                                     width: 1.0,
-                                    color: colorTurqoise.withOpacity(0.2)))),
+                                    color: colorOrange.withOpacity(0.2)))),
                         child: Padding(
                           padding: EdgeInsets.only(
                               top: MediaQuery.of(context).size.height * 0.03,
@@ -167,7 +167,7 @@ class _BookingCalenderState extends State<BookingCalender> {
                                     child: Text(
                                       e.title,
                                       style: TextStyle(
-                                          color: colorOrange,
+                                          color: colorBlueTeal,
                                           fontSize: MediaQuery.of(context)
                                                   .size
                                                   .width *
@@ -180,7 +180,7 @@ class _BookingCalenderState extends State<BookingCalender> {
                                     child: Text(
                                       e.description,
                                       style: TextStyle(
-                                          color: colorTurqoise,
+                                          color: colorOrange,
                                           fontSize: MediaQuery.of(context)
                                                   .size
                                                   .width *
@@ -191,7 +191,7 @@ class _BookingCalenderState extends State<BookingCalender> {
                               ),
                               TextButton(
                                 child: const Text("Send Invitation",
-                                    style: TextStyle(color: colorOrange)),
+                                    style: TextStyle(color: colorBlueTeal)),
                                 onPressed: () {
                                   Navigator.push(
                                     context,
@@ -255,14 +255,16 @@ class _BookingCalenderState extends State<BookingCalender> {
                                 title: meetingController.text,
                                 description: descriptionController.text,
                                 date: mySelectedDay,
-                                time: time));
+                                time: time,
+                                owner: "Me"));
                           } else {
                             scheduledSessions[mySelectedDay] = [
                               Event(
                                   title: meetingController.text,
                                   description: descriptionController.text,
                                   date: mySelectedDay,
-                                  time: time)
+                                  time: time,
+                                  owner: "Me")
                             ];
                           }
                           // }
@@ -276,7 +278,7 @@ class _BookingCalenderState extends State<BookingCalender> {
                       ),
                     ],
                   )),
-          backgroundColor: colorOrange,
+          backgroundColor: colorBlueTeal,
           child: const Icon(Icons.bookmark_add_outlined),
         ),
       ),
@@ -295,7 +297,7 @@ class _BookingCalenderState extends State<BookingCalender> {
     return TextStyle(
       // fontSize: 18,
       fontWeight: bold,
-      color: colorTurqoise,
+      color: colorOrange,
     );
   }
 }
