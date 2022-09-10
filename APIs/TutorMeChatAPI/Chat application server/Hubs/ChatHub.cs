@@ -33,10 +33,6 @@ namespace Chat_application_server.Hubs
 
         public Task JoinGroup(string groupName, string groupId, string userName,int userId)
         {
-            //if(groupID does not exist in the database){ 
-            //    do some action to save groupID
-            //}
-
             MessageModel MessageModel = new MessageModel
             {
                 CreateDate = DateTime.Now,
