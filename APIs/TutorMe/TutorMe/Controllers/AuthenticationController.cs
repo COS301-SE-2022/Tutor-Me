@@ -45,5 +45,19 @@ namespace TutorMe.Controllers
                 return BadRequest(e.Message);
             }
         }
+
+        [HttpPut("password/{id}")]
+        public IActionResult UpdatePassword(Guid id, IAuthPassword passedObject) {
+            if (id != passedObject.UserId) {
+                return BadRequest("Id's do not match");
+            }
+            try {
+                var user = userService.UpdatePassword(id, passedObject);
+                return Ok(user);
+            }
+            catch (Exception e) {
+                return BadRequest(e.Message);
+            }
+        }
     }
 }

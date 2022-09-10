@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using TutorMe.Data;
 using TutorMe.Services;
 using TutorMe.Entities;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TutorMe.Controllers
 {
@@ -20,7 +21,8 @@ namespace TutorMe.Controllers
             this.connectionService = connectionService;
             this.mapper = mapper;
         }
-
+        
+        [Authorize]
         [HttpGet]
         public IActionResult GetAllConnections()
         {
@@ -33,6 +35,7 @@ namespace TutorMe.Controllers
             }
         }
 
+        [Authorize]
         [HttpGet("{id}")]
         public IActionResult GetConnectionById(Guid id)
         {
@@ -47,7 +50,8 @@ namespace TutorMe.Controllers
                 return BadRequest(exception.Message);
             }
         }
-
+        
+        [Authorize]
         [HttpDelete("{id}")]
         public IActionResult DeleteConnection(Guid id)
         {
@@ -59,5 +63,18 @@ namespace TutorMe.Controllers
                 return BadRequest(exception.Message);
             }
         }
+        
+        [Authorize]
+        [HttpGet("users/{id}")]
+        public IActionResult GetUserConnectionObjectsById(Guid id, Guid userType) { 
+            try {
+                var connections = connectionService.GetUserConnectionObjectById(id, userType);
+                return Ok(connections);
+            }
+            catch (Exception exception) {
+                return BadRequest(exception.Message);
+            }
+        }
+
     }
 }

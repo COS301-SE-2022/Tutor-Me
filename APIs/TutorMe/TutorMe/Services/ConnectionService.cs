@@ -9,6 +9,7 @@ namespace TutorMe.Services
     {
         IEnumerable<Connection> GetAllConnections();
         IEnumerable<Connection> GetConnectionsByUserId(Guid id);
+        IEnumerable<User> GetUserConnectionObjectById(Guid id, Guid userType);
         Connection GetConnectionById(Guid id);
         Guid createConnection(IConnection connection);
         bool deleteConnectionById(Guid id);
@@ -64,5 +65,41 @@ namespace TutorMe.Services
             _context.SaveChanges();
             return true;
         }
+
+        public IEnumerable<User> GetUserConnectionObjectById(Guid id, Guid userType) {
+            var userTypeObject = _context.UserType.FirstOrDefault(e => e.UserTypeId == userType);
+            if (userTypeObject == null) {
+                throw new KeyNotFoundException("User Type not found");
+            }
+            
+            if (userTypeObject.Type == "Tutor") {
+                var connections = _context.Connection.Include(e=>e.Tutee).Where(e => e.TutorId == id).ToArray();
+                var users = connections.Select(e => e.Tutee);
+                //get unique users
+                var uniqueUser = new List<User>();
+                foreach(User item in users) {
+                    if (!uniqueUser.Contains(item)) {
+                        uniqueUser.Add(item);
+                    }
+                }
+                return uniqueUser;
+            }
+            else if (userTypeObject.Type == "Tutee") {
+                var connections = _context.Connection.Include(e => e.Tutor).Where(e => e.TuteeId == id);
+                var users = connections.Select(e => e.Tutor);
+                var uniqueUser = new List<User>();
+                foreach (User item in users) {
+                    if (!uniqueUser.Contains(item)) {
+                        uniqueUser.Add(item);
+                    }
+                }
+                return uniqueUser;
+            }
+            else {
+                throw new KeyNotFoundException("User Type not found");
+
+            }
+        }
+
     }
 }

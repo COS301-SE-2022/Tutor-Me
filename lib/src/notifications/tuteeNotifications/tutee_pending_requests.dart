@@ -21,7 +21,8 @@ class Tutor {
 
 class TuteePendingRequests extends StatefulWidget {
   final Globals globals;
-  const TuteePendingRequests({Key? key, required this.globals}) : super(key: key);
+  const TuteePendingRequests({Key? key, required this.globals})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -47,7 +48,9 @@ class TuteePendingRequestsState extends State<TuteePendingRequests> {
   bool isLoading = true;
 
   getRequests() async {
+
     final requests = await UserServices().getTuteeRequests(widget.globals.getUser.getId, widget.globals);
+
     requestList = requests;
     if (requestList.isEmpty) {
       setState(() {
@@ -158,7 +161,7 @@ class TuteePendingRequestsState extends State<TuteePendingRequests> {
                       Icon(
                         Icons.notifications_off,
                         size: MediaQuery.of(context).size.height * 0.15,
-                        color: colorTurqoise,
+                        color: colorOrange,
                       ),
                       const Text('No new requests')
                     ],
@@ -268,7 +271,7 @@ class TuteePendingRequestsState extends State<TuteePendingRequests> {
                     child: const Text(
                       'View module',
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: colorTurqoise),
+                          fontWeight: FontWeight.bold, color: colorOrange),
                     ),
                   ),
                   SizedBox(
@@ -311,8 +314,8 @@ class TuteePendingRequestsState extends State<TuteePendingRequests> {
                                   },
                                   child: const Text("Cancel"),
                                   style: ButtonStyle(
-                                    backgroundColor: MaterialStateProperty.all(
-                                        colorTurqoise),
+                                    backgroundColor:
+                                        MaterialStateProperty.all(colorOrange),
                                   ),
                                 ),
                 ],

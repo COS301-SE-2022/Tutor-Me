@@ -122,7 +122,7 @@ class TutorGroupPageState extends State<TutorGroupPage> {
         preferredSize: Size.fromHeight(screenHeight * 0.08),
         child: AppBar(
           title: Text(widget.module.getCode + '- Group'),
-          backgroundColor: colorOrange,
+          backgroundColor: colorBlueTeal,
           actions: [
             IconButton(onPressed: () {}, icon: const Icon(Icons.settings))
           ],
@@ -171,7 +171,7 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                                 onPressed: () {},
                                 icon: Icon(
                                   Icons.edit,
-                                  color: colorTurqoise,
+                                  color: colorOrange,
                                   size: screenHeight * 0.045,
                                 ),
                               )
@@ -187,7 +187,7 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                                   data: Theme.of(context).copyWith(
                                       scrollbarTheme: ScrollbarThemeData(
                                           thumbColor: MaterialStateProperty.all(
-                                              colorTurqoise))),
+                                              colorOrange))),
                                   child: Scrollbar(
                                     child: ListView.separated(
                                         physics: const BouncingScrollPhysics(),
@@ -230,7 +230,7 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                                 leading: Icon(
                                   Icons.chat,
                                   size: screenHeight * 0.06,
-                                  color: colorOrange,
+                                  color: colorBlueTeal,
                                 ),
                                 title: Text(
                                   'Group Chat',
@@ -277,7 +277,7 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                                   Icon(
                                     Icons.chat_bubble,
                                     size: screenHeight * 0.06,
-                                    color: colorOrange,
+                                    color: colorBlueTeal,
                                   ),
                                   Positioned(
                                       top: screenHeight * 0.01,
@@ -443,12 +443,12 @@ class TutorGroupPageState extends State<TutorGroupPage> {
               subtitle: Text(
                 tutees[i].tutee.getBio,
                 style: const TextStyle(
-                    fontWeight: FontWeight.w500, color: colorOrange),
+                    fontWeight: FontWeight.w500, color: colorBlueTeal),
               ),
               trailing: Icon(
                 Icons.chat_bubble,
                 size: MediaQuery.of(context).size.aspectRatio * 80,
-                color: colorOrange,
+                color: colorBlueTeal,
               ),
             )));
   }

@@ -64,7 +64,7 @@ class TuteeNavigationDrawerState extends State<TuteeNavigationDrawerWidget> {
     if (provider.themeMode == ThemeMode.dark) {
       drawerColor = colorDarkGrey;
     } else {
-      drawerColor = colorOrange;
+      drawerColor = colorBlueTeal;
     }
 
     return Drawer(
@@ -146,8 +146,8 @@ class TuteeNavigationDrawerState extends State<TuteeNavigationDrawerWidget> {
         // ),
         child: Row(children: <Widget>[
           CircleAvatar(
-            backgroundColor: colorTurqoise,
-            radius: MediaQuery.of(context).size.width * 0.45,
+            backgroundColor: colorOrange,
+            radius: MediaQuery.of(context).size.width * 0.08,
             child: isImageLoading
                 ? const CircularProgressIndicator.adaptive()
                 : doesUserImageExist
@@ -176,14 +176,14 @@ class TuteeNavigationDrawerState extends State<TuteeNavigationDrawerWidget> {
               Text(
                 fullName,
                 style: TextStyle(
-                    fontSize: MediaQuery.of(context).size.width * 0.055,
+                    fontSize: MediaQuery.of(context).size.height * 0.03,
                     color: colorWhite),
               ),
               SizedBox(height: MediaQuery.of(context).size.width * 0.01),
               Text(
                 widget.globals.getUser.getEmail,
                 style: TextStyle(
-                    fontSize: MediaQuery.of(context).size.width * 0.03,
+                    fontSize: MediaQuery.of(context).size.height * 0.028,
                     color: colorWhite),
               )
             ],

@@ -112,7 +112,7 @@ class ChangePasswordState extends State<ChangePassword> {
                 width: MediaQuery.of(context).size.width * 0.8,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(16),
-                  color: colorOrange,
+                  color: colorBlueTeal,
                 ),
                 child: TextButton(
                   onPressed: () async {
@@ -146,7 +146,7 @@ class ChangePasswordState extends State<ChangePassword> {
                             content: Text(errMsg),
                             backgroundColor: colorWhite,
                             titleTextStyle: TextStyle(
-                              color: colorOrange,
+                              color: colorBlueTeal,
                               fontSize:
                                   MediaQuery.of(context).size.height * 0.03,
                               fontWeight: FontWeight.bold,
@@ -175,7 +175,8 @@ class ChangePasswordState extends State<ChangePassword> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => TutorPage(globals: globals)),
+                                builder: (context) =>
+                                    TutorPage(globals: globals)),
                           );
                         } catch (e) {
                           setState(() {
@@ -190,7 +191,7 @@ class ChangePasswordState extends State<ChangePassword> {
                                     const Text("Invalid Password or Email"),
                                 backgroundColor: colorWhite,
                                 titleTextStyle: TextStyle(
-                                  color: colorOrange,
+                                  color: colorBlueTeal,
                                   fontSize:
                                       MediaQuery.of(context).size.height * 0.03,
                                   fontWeight: FontWeight.bold,
@@ -219,7 +220,8 @@ class ChangePasswordState extends State<ChangePassword> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => TuteePage(globals: globals)),
+                                builder: (context) =>
+                                    TuteePage(globals: globals)),
                           );
                         } catch (e) {
                           setState(() {
@@ -234,7 +236,7 @@ class ChangePasswordState extends State<ChangePassword> {
                                     const Text("Invalid Password or Email"),
                                 backgroundColor: colorWhite,
                                 titleTextStyle: TextStyle(
-                                  color: colorOrange,
+                                  color: colorBlueTeal,
                                   fontSize:
                                       MediaQuery.of(context).size.height * 0.03,
                                   fontWeight: FontWeight.bold,

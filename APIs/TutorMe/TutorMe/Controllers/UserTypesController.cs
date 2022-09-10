@@ -3,6 +3,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using TutorMe.Data;
 using TutorMe.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TutorMe.Controllers
 {
@@ -20,6 +21,7 @@ namespace TutorMe.Controllers
             this.mapper = mapper;
         }
 
+        [Authorize]
         [HttpGet]
         public IActionResult GetAllUserTypes()
         {
@@ -32,6 +34,7 @@ namespace TutorMe.Controllers
             }
         }
 
+        [Authorize]
         [HttpGet("{id}")]
         public IActionResult GetUserTypeById(Guid id)
         {
@@ -44,6 +47,7 @@ namespace TutorMe.Controllers
             }
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult createUserType(UserType userType)
         {
@@ -54,8 +58,9 @@ namespace TutorMe.Controllers
             catch (Exception exception) {
                 return BadRequest(exception.Message);
             }
-        }  
+        }
 
+        [Authorize]
         [HttpDelete("{id}")]
         public IActionResult DeleteUserType(Guid id)
         {

@@ -110,7 +110,8 @@ class UpcomingState extends State<Upcoming> {
                         color: Colors.grey.withOpacity(0.3),
                         spreadRadius: 5,
                         blurRadius: 7,
-                        offset: const Offset(0, 3), // changes position of shadow
+                        offset:
+                            const Offset(0, 3), // changes position of shadow
                       ),
                     ],
                   ),
@@ -140,7 +141,8 @@ class UpcomingState extends State<Upcoming> {
                       height: MediaQuery.of(context).size.height * 0.001,
                       width: MediaQuery.of(context).size.width * 0.7,
                       decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 36, 35, 35).withOpacity(0.2),
+                        color: const Color.fromARGB(255, 36, 35, 35)
+                            .withOpacity(0.2),
                       ),
                     ),
                     SizedBox(
@@ -168,7 +170,7 @@ class UpcomingState extends State<Upcoming> {
                       Text(
                         "Created by - Tutor: ",
                         style: TextStyle(
-                          color: colorOrange,
+                          color: colorBlueTeal,
                           fontWeight: FontWeight.w500,
                           fontSize: MediaQuery.of(context).size.height * 0.018,
                         ),

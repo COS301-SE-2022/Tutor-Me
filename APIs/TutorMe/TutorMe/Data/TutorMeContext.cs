@@ -28,6 +28,7 @@ namespace TutorMe.Data
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<UserType> UserType { get; set; }
         public virtual DbSet<UserModule> UserModule { get; set; }
+        public virtual DbSet<UserRefreshToken> UserRefreshToken { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

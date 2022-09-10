@@ -54,7 +54,7 @@ class ChatState extends State<Chat> {
     String name = widget.globals.getUser.getName + ' ' + widget.globals.getUser.getLastName;
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: colorOrange,
+          backgroundColor: colorBlueTeal,
           title: InkWell(
             onTap: widget.globals.getUser.getStatus 
                 ? () {
@@ -143,7 +143,7 @@ class ChatState extends State<Chat> {
                       : Alignment.topLeft,
                   child: Card(
                     color: message.isSentByMe
-                        ? colorOrange.withOpacity(0.8)
+                        ? colorBlueTeal.withOpacity(0.8)
                         : Colors.grey[300],
                     elevation: 8,
                     child: Padding(
@@ -198,13 +198,13 @@ class ChatState extends State<Chat> {
                           )
                         : Icon(
                             Icons.mail,
-                            color: colorTurqoise,
+                            color: colorOrange,
                             size: MediaQuery.of(context).size.height * 0.045,
                           ),
                     suffixIcon: IconButton(
                       icon: Icon(
                         Icons.send,
-                        color: colorTurqoise,
+                        color: colorOrange,
                         size: MediaQuery.of(context).size.height * 0.045,
                       ),
                       onPressed: () {},

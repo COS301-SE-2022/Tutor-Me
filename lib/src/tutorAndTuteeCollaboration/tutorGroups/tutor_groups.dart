@@ -95,7 +95,7 @@ class TutorGroupsState extends State<TutorGroups> {
                             Icon(
                               Icons.people,
                               size: MediaQuery.of(context).size.height * 0.1,
-                              color: colorTurqoise,
+                              color: colorOrange,
                             ),
                             const Text("No Groups Found")
                           ])
@@ -132,7 +132,7 @@ class TutorGroupsState extends State<TutorGroups> {
         width: MediaQuery.of(context).size.width * 0.8,
         height: MediaQuery.of(context).size.height * 0.25,
         decoration: BoxDecoration(
-          color: colorTurqoise,
+          color: colorOrange,
           borderRadius: BorderRadius.circular(15),
         ),
         child: Column(
@@ -154,12 +154,12 @@ class TutorGroupsState extends State<TutorGroups> {
                 SizedBox(height: MediaQuery.of(context).size.height * 0.04),
                 Text("  " + modules[i].getCode,
                     style: TextStyle(
-                      fontSize: MediaQuery.of(context).size.width * 0.06,
+                      fontSize: MediaQuery.of(context).size.height * 0.06,
                       color: colorWhite,
                       fontWeight: FontWeight.bold,
                     )),
                 SizedBox(width: MediaQuery.of(context).size.width * 0.110),
-                const Icon(Icons.circle, size: 7, color: colorOrange),
+                const Icon(Icons.circle, size: 7, color: colorBlueTeal),
                 SizedBox(width: MediaQuery.of(context).size.width * 0.03),
                 const Text(
                   "2 participants(s)",
@@ -174,7 +174,7 @@ class TutorGroupsState extends State<TutorGroups> {
             Text(
               "  " + modules[i].getModuleName,
               style: TextStyle(
-                fontSize: MediaQuery.of(context).size.width * 0.05,
+                fontSize: MediaQuery.of(context).size.height * 0.05,
                 color: colorWhite,
               ),
             )

@@ -3,6 +3,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using TutorMe.Data;
 using TutorMe.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TutorMe.Controllers
 {
@@ -20,6 +21,7 @@ namespace TutorMe.Controllers
             this.mapper = mapper;
         }
 
+        [Authorize]
         [HttpGet]
         public IActionResult GetAllRequests()
         {
@@ -32,6 +34,7 @@ namespace TutorMe.Controllers
             }
         }
 
+        [Authorize]
         [HttpGet("{id}")]
         public IActionResult GetRequestById(Guid id)
         {
@@ -44,6 +47,7 @@ namespace TutorMe.Controllers
             }
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult createRequest(Request request)
         {
@@ -56,6 +60,7 @@ namespace TutorMe.Controllers
             }
         }
 
+        [Authorize]
         [HttpDelete("{id}")]
         public IActionResult DeleteRequest(Guid id)
         {
@@ -68,6 +73,7 @@ namespace TutorMe.Controllers
             }
         }
 
+        [Authorize]
         [HttpGet("/tutor/{id}")]
         public IActionResult GetRequestByTutorById(Guid id)
         {
@@ -80,6 +86,7 @@ namespace TutorMe.Controllers
             }
         }
 
+        [Authorize]
         [HttpGet("/tutee/{id}")]
         public IActionResult GetRequestByTuteeById(Guid id)
         {
@@ -92,6 +99,7 @@ namespace TutorMe.Controllers
             }
         }
 
+        [Authorize]
         [HttpGet("/accept/{id}")]
         public IActionResult AcceptRequestById(Guid id) {
             try {
@@ -103,6 +111,7 @@ namespace TutorMe.Controllers
             }
         }
 
+        [Authorize]
         [HttpGet("reject/{id}")]
         public IActionResult RejectRequestById(Guid id) {
             try { 
