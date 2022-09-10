@@ -1,12 +1,14 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
 
 import 'package:flutter/material.dart';
+import 'package:tutor_me/services/models/globals.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import '../../services/services/user_services.dart';
 import '../components.dart';
 
 class DeleteTutor extends StatefulWidget {
-  const DeleteTutor({Key? key}) : super(key: key);
+  final Globals globals;
+  const DeleteTutor({Key? key, required this.globals}) : super(key: key);
 
   @override
   DeleteTutorState createState() => DeleteTutorState();
@@ -145,7 +147,7 @@ class DeleteTutorState extends State<DeleteTutor> {
                         },
                       );
                     }
-                    UserServices.deleteUser(idcontroller.text);
+                    UserServices.deleteUser(idcontroller.text, widget.globals);
                   },
                   child: isLoading
                       ? const CircularProgressIndicator(color: Colors.white)

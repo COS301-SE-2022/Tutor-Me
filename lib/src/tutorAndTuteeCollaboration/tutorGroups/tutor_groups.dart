@@ -30,30 +30,39 @@ class TutorGroupsState extends State<TutorGroups> {
 
   int numOfTutees = 3;
   getGroupDetails() async {
-    final incomingGroups =
-        await GroupServices.getGroupByUserID(widget.globals.getUser.getId);
-    groups = incomingGroups;
-    if (groups.isNotEmpty) {
-      setState(() {
+    try {
+      final incomingGroups = await GroupServices.getGroupByUserID(
+          widget.globals.getUser.getId, widget.globals);
+
+      groups = incomingGroups;
+      if (groups.isNotEmpty) {
         hasGroups = true;
+
+        for (int k = 0; k < numTuteesForEachGroup.length; k++) {
+          k.toString() + " 's # tutees " + numTuteesForEachGroup[k].toString();
+        }
+        setState(() {
+          groups = incomingGroups;
+          numOfTutees = numOfTutees;
+        });
+        getGroupModules();
+      } else {
+        setState(() {
+          isLoading = false;
+        });
+      }
+    } catch (e) {
+      setState(() {
+        isLoading = false;
       });
     }
-
-    for (int k = 0; k < numTuteesForEachGroup.length; k++) {
-      k.toString() + " 's # tutees " + numTuteesForEachGroup[k].toString();
-    }
-    setState(() {
-      groups = incomingGroups;
-      numOfTutees = numOfTutees;
-    });
-    getGroupModules();
   }
 
   getGroupModules() async {
     try {
       for (int i = 0; i < groups.length; i++) {
-        final incomingModules =
-            await ModuleServices.getModule(groups[i].getModuleId);
+        final incomingModules = await ModuleServices.getModule(
+            groups[i].getModuleId, widget.globals);
         modules.add(incomingModules);
       }
     } catch (e) {

@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tutor_me/services/models/globals.dart';
 import 'package:tutor_me/services/models/users.dart';
 import 'package:tutor_me/src/pages/booking_calendar.dart';
 import 'package:tutor_me/src/theme/themes.dart';
@@ -19,10 +20,10 @@ import '../tutorProfilePages/user_stats.dart';
 
 class TutorProfileBookingPage extends StatefulWidget {
   // ignore: prefer_const_constructors_in_immutables
-  TutorProfileBookingPage({Key? key, required this.tutor, required this.tutee})
+  TutorProfileBookingPage({Key? key, required this.tutor, required this.globals})
       : super(key: key);
   final Users tutor;
-  final Users tutee;
+  final Globals globals;
 
   static const String route = '/tutor_profile_view';
 
@@ -59,7 +60,7 @@ class _TutorProfileBookingPageState extends State<TutorProfileBookingPage> {
   getCurrentModules() async {
     numTutees = 2;
     numConnections = 3;
-    final current = await ModuleServices.getUserModules(widget.tutor.getId);
+    final current = await ModuleServices.getUserModules(widget.tutor.getId, widget.globals);
     setState(() {
       currentModules = current;
     });
@@ -83,7 +84,7 @@ class _TutorProfileBookingPageState extends State<TutorProfileBookingPage> {
 
   getProfileImage() async {
     try {
-      final image = await UserServices.getProfileImage(widget.tutor.getId);
+      final image = await UserServices.getProfileImage(widget.tutor.getId, widget.globals);
       bytes = image;
       isImageDisplayed = true;
       getInstitution();
@@ -127,7 +128,7 @@ class _TutorProfileBookingPageState extends State<TutorProfileBookingPage> {
 
   getInstitution() async {
     final tempInstitution = await InstitutionServices.getUserInstitution(
-        widget.tutor.getInstitutionID);
+        widget.tutor.getInstitutionID, widget.globals);
     setState(() {
       institution = tempInstitution;
       isLoading = false;
@@ -525,7 +526,7 @@ class _TutorProfileBookingPageState extends State<TutorProfileBookingPage> {
                         widget.tutor.setNumberOfReviews = numRatings;
                       });
                       try {
-                        await UserServices.updateTutor(widget.tutor);
+                        await UserServices.updateTutor(widget.tutor, widget.globals);
                       } catch (e) {
                         const snackBar = SnackBar(
                           content: Text('Failed to upload rating'),
@@ -736,8 +737,8 @@ class _TutorProfileBookingPageState extends State<TutorProfileBookingPage> {
                                       try {
                                         await UserServices().sendRequest(
                                             widget.tutor.getId,
-                                            widget.tutee.getId,
-                                            module.getModuleId);
+                                            widget.globals.getUser.getId,
+                                            module.getModuleId, widget.globals);
                                       } catch (e) {
                                         const snackBar = SnackBar(
                                           content:
