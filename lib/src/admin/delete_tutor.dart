@@ -52,6 +52,10 @@ class DeleteTutorState extends State<DeleteTutor> {
             ),
           ),
           Scaffold(
+            appBar: AppBar(
+              elevation: 0,
+              backgroundColor: Colors.transparent,
+            ),
             backgroundColor: Colors.transparent,
             body: Column(children: [
               const Flexible(

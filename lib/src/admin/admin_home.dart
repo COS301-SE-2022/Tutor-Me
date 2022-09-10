@@ -19,7 +19,7 @@ class AdminHomeState extends State<AdminHome> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        title: const Text('Admin'),
+        title: const Text("Admin", textAlign: TextAlign.center),
         backgroundColor: const Color.fromRGBO(10, 13, 44, 1),
         actions: [
           IconButton(
