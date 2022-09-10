@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable
+
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -84,18 +86,18 @@ class _HomeState extends State<Home> {
 
   Widget buildBody() {
     final provider = Provider.of<ThemeProvider>(context, listen: false);
-    Color appBarColor1;
-    Color appBarColor2;
+    // Color appBarColor1;
+    // Color appBarColor2;
     Color highlightColor;
     Color textColor;
     if (provider.themeMode == ThemeMode.dark) {
-      appBarColor1 = colorDarkGrey;
-      appBarColor2 = colorGrey;
+      // appBarColor1 = colorDarkGrey;
+      // appBarColor2 = colorGrey;
       highlightColor = colorOrange;
       textColor = colorWhite;
     } else {
-      appBarColor1 = colorLightBlueTeal;
-      appBarColor2 = colorBlueTeal;
+      // appBarColor1 = colorLightBlueTeal;
+      // appBarColor2 = colorBlueTeal;
       highlightColor = colorOrange;
       textColor = colorBlack;
     }

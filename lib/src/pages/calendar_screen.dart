@@ -17,79 +17,80 @@ class CalendarScreen extends StatefulWidget {
 class _CalendarScreenState extends State<CalendarScreen> {
   // late CalendarController _controller;
 
-  final Map<DateTime, List<dynamic>> scheduledSessions ={};
-
-  
-  //   DateTime(2022, 9, 12): [
-  //     Event(
-  //       title: 'Session 1',
-  //       description: 'Session 1',
-  //       date: DateTime(2021, 9, 12),
-  //       time: DateTime(2021, 9, 1, 10, 0),
-  //       owner: 'Owner 1',
-  //     ),
-  //     Event(
-  //       title: 'Session 2',
-  //       description: 'Session 2',
-  //       date: DateTime(2021, 9, 12),
-  //       time: DateTime(2021, 9, 12, 11, 0),
-  //       owner: 'Owner 2',
-  //     ),
-  //   ],
-  //   DateTime(2022, 9, 22): [
-  //     Event(
-  //       title: 'Session 3',
-  //       description: 'Session 3',
-  //       date: DateTime(2021, 9, 22),
-  //       time: DateTime(2021, 9, 22, 10, 0),
-  //       owner: 'Owner 3',
-  //     ),
-  //     Event(
-  //       title: 'Session 4',
-  //       description: 'Session 4',
-  //       date: DateTime(2021, 9, 22),
-  //       time: DateTime(2021, 9, 22, 11, 0),
-  //       owner: 'Owner 4',
-  //     ),
-  //   ],
-  //   DateTime(2022, 9, 23): [
-  //     Event(
-  //       title: 'Session 5',
-  //       description: 'Session 5',
-  //       date: DateTime(2021, 9, 23),
-  //       time: DateTime(2021, 9, 23, 10, 0),
-  //       owner: 'Owner 5',
-  //     ),
-  //     Event(
-  //       title: 'Session 6',
-  //       description: 'Session 6',
-  //       date: DateTime(2021, 9, 23),
-  //       time: DateTime(2021, 9, 23, 11, 0),
-  //       owner: 'Owner 6',
-  //     ),
-  //   ],
-  //   DateTime(2022, 9, 24): [
-  //     Event(
-  //       title: 'Session 7',
-  //       description: 'Session 7',
-  //       date: DateTime(2021, 9, 24),
-  //       time: DateTime(2021, 9, 24, 10, 0),
-  //       owner: 'Owner 7',
-  //     ),
-  //   ],
-  // };
+  late Map<DateTime, List<dynamic>> scheduledSessions = {
+    DateTime(2022, 9, 21): [
+      Event(
+        title: 'Meeting 1',
+        description: 'Meeting 1 description',
+        date: DateTime(2022, 9, 21),
+        time: DateTime(2022, 9, 21, 10, 30),
+        owner: 'Owner 1',
+      ),
+      Event(
+        title: 'Meeting 2',
+        description: 'Meeting 2 description',
+        date: DateTime(2022, 9, 21),
+        time: DateTime(2022, 9, 21, 11, 30),
+        owner: 'Owner 2',
+      ),
+    ],
+    DateTime(2022, 9, 22): [
+      Event(
+        title: 'Meeting 3',
+        description: 'Meeting 3 description',
+        date: DateTime(2022, 9, 22),
+        time: DateTime(2022, 9, 22, 10, 30),
+        owner: 'Owner 3',
+      ),
+      Event(
+        title: 'Meeting 4',
+        description: 'Meeting 4 description',
+        date: DateTime(2022, 9, 22),
+        time: DateTime(2022, 9, 22, 11, 30),
+        owner: 'Owner 4',
+      ),
+    ],
+    DateTime(2022, 9, 23): [
+      Event(
+        title: 'Meeting 5',
+        description: 'Meeting 5 description',
+        date: DateTime(2022, 9, 23),
+        time: DateTime(2022, 9, 23, 10, 30),
+        owner: 'Owner 5',
+      ),
+      Event(
+        title: 'Meeting 6',
+        description: 'Meeting 6 description',
+        date: DateTime(2022, 9, 23),
+        time: DateTime(2022, 9, 23, 11, 30),
+        owner: 'Owner 6',
+      ),
+    ],
+  };
 
   List getScheduledSessions(DateTime date) {
-    print(date);
-    print("hiiiiii ");
-    print(scheduledSessions[1]);
+    // print("================================");
+    // print(date);
+    // // print(scheduledSessions.isEmpty);
+    // print(scheduledSessions[date]);
+    // print(scheduledSessions);
+    // // print(DateTime(2022, 09, 22) == date);
+    // print("================================");
+
     return scheduledSessions[date] ?? [];
+  }
+
+  List printResults(date) {
+    // print("================================");
+    // print(date);
+    // print("Yes empty");
+    // print("================================");
+    return [];
   }
 
   @override
   void initState() {
     super.initState();
-
     // _controller = CalendarController();
   }
 
@@ -131,11 +132,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
               TableCalendar(
                 startingDayOfWeek: StartingDayOfWeek.sunday,
                 eventLoader: scheduledSessions.isNotEmpty
-                    ? (date) {
-                        return getScheduledSessions(date);
-
-                        // return getScheduledSessions(date);
-                      }
+                    ? (date) => getScheduledSessions(date)
                     : null,
                 calendarStyle: CalendarStyle(
                   selectedDecoration: BoxDecoration(
