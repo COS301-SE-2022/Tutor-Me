@@ -4,6 +4,7 @@ import 'package:tutor_me/services/services/module_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/tuteeProfilePages/tutee_profile.dart';
 
+import '../../services/models/globals.dart';
 import '../../services/models/groups.dart';
 import '../../services/models/modules.dart';
 import '../../services/models/users.dart';
@@ -19,9 +20,9 @@ class Module {
 
 // ignore: must_be_immutable
 class AddModulesPage extends StatefulWidget {
-  final Users user;
+  final Globals globals;
   List<Modules> currentModules;
-  AddModulesPage({Key? key, required this.user, required this.currentModules})
+  AddModulesPage({Key? key, required this.globals, required this.currentModules})
       : super(key: key);
 
   @override
@@ -92,7 +93,7 @@ class _AddModulesPageState extends State<AddModulesPage> {
   }
 
   getModules() async {
-    final fetchedModules = await ModuleServices.getModules();
+    final fetchedModules = await ModuleServices.getModules(widget.globals);
 
     moduleList = fetchedModules;
 
@@ -110,7 +111,7 @@ class _AddModulesPageState extends State<AddModulesPage> {
 
   getTutorGroups() async {
     final groups =
-        await GroupServices.getGroupByUserID(widget.user.getId);
+        await GroupServices.getGroupByUserID(widget.globals.getUser.getId, widget.globals);
 
     tutorGroups = groups;
     setState(() {
@@ -305,7 +306,7 @@ class _AddModulesPageState extends State<AddModulesPage> {
             context,
             MaterialPageRoute(
                 builder: (context) => AddModulesPage(
-                      user: widget.user,
+                      globals: widget.globals,
                       currentModules: widget.currentModules,
                     ))).then((value) {
           if (value != null) {

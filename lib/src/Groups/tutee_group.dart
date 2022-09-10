@@ -66,7 +66,7 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
   getTutees() async {
     fetchToken().then((token) => setState(() => _token = token));
     try {
-      final tutees = await GroupServices.getGroupTutees(widget.group.getId);
+      final tutees = await GroupServices.getGroupTutees(widget.group.getId, widget.globals);
       setState(() {
         tuteeList = tutees;
       });
@@ -81,7 +81,7 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
     for (int i = 0; i < tuteeList.length; i++) {
       try {
         final image =
-            await UserServices.getTuteeProfileImage(tuteeList[i].getId);
+            await UserServices.getTuteeProfileImage(tuteeList[i].getId,widget.globals);
         setState(() {
           tuteeImages.add(image);
         });
@@ -113,7 +113,7 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
 
   getTutor() async {
     try {
-      final tutor = await UserServices.getTutor(widget.group.getUserId);
+      final tutor = await UserServices.getTutor(widget.group.getUserId, widget.globals);
 
       setState(() {
         tutorObj = tutor[0];
@@ -130,7 +130,7 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
   getTutorImage() async {
     try {
       final image =
-          await UserServices.getTutorProfileImage(widget.group.getUserId);
+          await UserServices.getTutorProfileImage(widget.group.getUserId, widget.globals);
 
       setState(() {
         tutorHasImage = true;
@@ -294,7 +294,7 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
                             onTap: () async {
                               try {
                                 final group = await GroupServices.getGroup(
-                                    widget.group.getId);
+                                    widget.group.getId, widget.globals);
 
                                 setState(() {
                                   widget.group = group;

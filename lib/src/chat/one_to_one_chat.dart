@@ -18,7 +18,7 @@ import '../tuteeProfilePages/tutee_profile_view.dart';
 // import 'theme/themes.dart';
 
 class Chat extends StatefulWidget {
-  final dynamic reciever;
+  final Users reciever;
   final Globals globals;
   final Uint8List image;
   final bool hasImage;
@@ -50,17 +50,13 @@ class ChatState extends State<Chat> {
   @override
   Widget build(BuildContext context) {
     String status = "";
-    if (widget.reciever.getStatus == "F") {
-      status = "Offline";
-    } else {
-      status = "Online";
-    }
-    String name = widget.reciever.getName + ' ' + widget.reciever.getLastName;
+   
+    String name = widget.globals.getUser.getName + ' ' + widget.globals.getUser.getLastName;
     return Scaffold(
         appBar: AppBar(
           backgroundColor: colorOrange,
           title: InkWell(
-            onTap: widget.reciever is Users
+            onTap: widget.globals.getUser.getStatus 
                 ? () {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (BuildContext context) => TutorProfilePageView(
@@ -71,7 +67,7 @@ class ChatState extends State<Chat> {
                 : () {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (BuildContext context) => TuteeProfilePageView(
-                              user: widget.reciever,
+                              global: widget.globals,
                               image: widget.image,
                               imageExists: widget.hasImage,
                             )));

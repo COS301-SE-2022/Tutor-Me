@@ -8,6 +8,7 @@ import 'package:tutor_me/src/components.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:open_file/open_file.dart';
 
+import '../../services/models/globals.dart';
 import '../../services/models/users.dart';
 
 class ToReturn {
@@ -19,13 +20,13 @@ class ToReturn {
 
 // ignore: must_be_immutable
 class TutorProfileEdit extends StatefulWidget {
-  final Users user;
+  final Globals globals;
   Uint8List image;
   final bool imageExists;
 
   TutorProfileEdit(
       {Key? key,
-      required this.user,
+      required this.globals,
       required this.image,
       required this.imageExists})
       : super(key: key);
@@ -77,7 +78,7 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
   Widget buildBody() {
     final screenWidthSize = MediaQuery.of(context).size.width;
     final screenHeightSize = MediaQuery.of(context).size.height;
-    String nameToEdit = widget.user.getName + ' ' + widget.user.getLastName;
+    String nameToEdit = widget.globals.getUser.getName + ' ' + widget.globals.getUser.getLastName;
     // FilePickerResult? filePickerResult;
     // String? fileName;
     // PlatformFile? file;
@@ -110,7 +111,7 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
             controller: bioController,
             decoration: InputDecoration(
               hintText: "Change To:",
-              labelText: widget.user.getBio,
+              labelText: widget.globals.getUser.getBio,
               labelStyle: TextStyle(
                 color: colorTurqoise,
                 overflow: TextOverflow.visible,
@@ -153,11 +154,11 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
               if (image != null) {
                 try {
                   await UserServices.updateProfileImage(
-                      image, widget.user.getId);
+                      image, widget.globals.getUser.getId, widget.globals);
                 } catch (e) {
                   try{
                     await UserServices.uploadProfileImage(
-                        image, widget.user.getId);
+                        image, widget.globals.getUser.getId, widget.globals);
                   }
                   catch(e){
                     const snack =
@@ -170,14 +171,10 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
               }
               if (nameController.text.isNotEmpty) {
                 List<String> name = nameController.text.split(' ');
-                String firstName = name[0];
-                String lastName = name[1];
 
-                widget.user.setFirstName = firstName;
-                widget.user.setLastName = lastName;
               }
               if (bioController.text.isNotEmpty) {
-                widget.user.setBio = bioController.text;
+                widget.globals.getUser.setBio = bioController.text;
               }
               if (nameController.text.isNotEmpty ||
                   bioController.text.isNotEmpty) {
@@ -187,7 +184,7 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
                 isSaveLoading = false;
               });
 
-              Navigator.pop(context, ToReturn(widget.image, widget.user));
+              Navigator.pop(context, ToReturn(widget.image, widget.globals.getUser));
             })
       ],
     );

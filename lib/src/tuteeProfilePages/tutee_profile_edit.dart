@@ -135,11 +135,11 @@ class _TuteeProfileEditState extends State<TuteeProfileEdit> {
               if (image != null) {
                 try {
                   await UserServices.updateProfileImage(
-                      image, widget.globals.getUser.getId);
+                      image, widget.globals.getUser.getId, widget.globals);
                 } catch (e) {
                   try {
                     await UserServices.uploadProfileImage(
-                        image, widget.globals.getUser.getId);
+                        image, widget.globals.getUser.getId, widget.globals);
                   } catch (e) {
                     const snack =
                         SnackBar(content: Text("Error uploading image"));

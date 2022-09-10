@@ -17,16 +17,11 @@ import '../models/requests.dart';
 
 class UserServices {
   //
-  sendRequest(String receiverId, String requesterId, String moduleId) async {
+  sendRequest(String receiverId, String requesterId, String moduleId,
+      Globals global) async {
     try {
       final url = Uri.http(
           'tutorme-dev.us-east-1.elasticbeanstalk.com', 'api/Requests');
-
-      final header = {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*"
-      };
 
       var now = DateTime.now();
       var changeFormat = DateFormat('dd/MM/yyyy');
@@ -38,7 +33,8 @@ class UserServices {
         'dateCreated': dateCreated,
         'moduleId': moduleId
       });
-      final response = await http.post(url, body: data, headers: header);
+      final response =
+          await http.post(url, body: data, headers: global.getHeader);
       if (response.statusCode == 201) {
         return true;
       } else {
@@ -51,15 +47,11 @@ class UserServices {
     }
   }
 
-  getTutorRequests(String id) async {
+  getTutorRequests(String id, Globals global) async {
     final url = Uri.http(
         'tutorme-dev.us-east-1.elasticbeanstalk.com', 'api/Requests/Tutor/$id');
     try {
-      final response = await http.get(url, headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*"
-      });
+      final response = await http.get(url, headers: global.getHeader);
       if (response.statusCode == 200) {
         String j = "";
         if (response.body[0] != "[") {
@@ -77,15 +69,11 @@ class UserServices {
     }
   }
 
-  getTuteeRequests(String id) async {
+  getTuteeRequests(String id, Globals global) async {
     final url = Uri.http(
         'tutorme-dev.us-east-1.elasticbeanstalk.com', 'api/Requests/Tutee/$id');
     try {
-      final response = await http.get(url, headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*"
-      });
+      final response = await http.get(url, headers: global.getHeader);
       if (response.statusCode == 200) {
         String j = "";
         if (response.body[0] != "[") {
@@ -103,15 +91,11 @@ class UserServices {
     }
   }
 
-  getRequest(String id) async {
+  getRequest(String id, Globals global) async {
     Uri url = Uri.http(
         'tutorme-dev.us-east-1.elasticbeanstalk.com', '/api/Requests/$id');
     try {
-      final response = await http.get(url, headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*"
-      });
+      final response = await http.get(url, headers: global.getHeader);
       if (response.statusCode == 200) {
         String j = "";
         if (response.body[0] != "[") {
@@ -129,7 +113,7 @@ class UserServices {
     }
   }
 
-  declineRequest(String id) async {
+  declineRequest(String id, Globals global) async {
     try {
       final url = Uri.http(
           'tutorme-dev.us-east-1.elasticbeanstalk.com', 'api/Requests/$id');
@@ -138,7 +122,7 @@ class UserServices {
         "Content-Type": "application/json",
         "Access-Control-Allow-Origin": "*"
       };
-      final response = await http.delete(url, headers: header);
+      final response = await http.delete(url, headers: global.getHeader);
       if (response.statusCode == 204) {
         return true;
       } else {
@@ -152,16 +136,11 @@ class UserServices {
 
   //
 
-  acceptRequest(String requestId) async {
+  acceptRequest(String requestId, Globals global) async {
     try {
       final url = Uri.http('tutorme-dev.us-east-1.elasticbeanstalk.com',
           'api/Requests/accept/$requestId');
-      final header = {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*"
-      };
-      final response = await http.get(url, headers: header);
+      final response = await http.get(url, headers: global.getHeader);
       if (response.statusCode == 200) {
         return true;
       } else {
@@ -173,14 +152,11 @@ class UserServices {
     }
   }
 
-  static deleteUser(String id) async {
-    final header = <String, String>{
-      'Content-Type': 'application/json; charset=utf-8',
-    };
+  static deleteUser(String id, Globals global) async {
     try {
       final usersURL = Uri.parse(
           'http://tutorme-dev.us-east-1.elasticbeanstalk.com/api/Users/$id');
-      final response = await http.delete(usersURL, headers: header);
+      final response = await http.delete(usersURL, headers: global.getHeader);
       if (response.statusCode == 200 ||
           response.statusCode == 202 ||
           response.statusCode == 204) {
@@ -209,15 +185,11 @@ class UserServices {
     }
   }
 
-  static Future getTutor(String id) async {
+  static Future getTutor(String id, Globals globals) async {
     Uri tuteeURL = Uri.http(
         'tutorme-dev.us-east-1.elasticbeanstalk.com', '/api/Users/$id');
     try {
-      final response = await http.get(tuteeURL, headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*"
-      });
+      final response = await http.get(tuteeURL, headers: globals.getHeader);
       if (response.statusCode == 200) {
         String j = "";
         if (response.body[0] != "[") {
@@ -235,15 +207,11 @@ class UserServices {
     }
   }
 
-  static Future getTutee(String id) async {
+  static Future getTutee(String id, Globals global) async {
     Uri tuteeURL = Uri.http(
         'tutorme-dev.us-east-1.elasticbeanstalk.com', '/api/Users/$id');
     try {
-      final response = await http.get(tuteeURL, headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*"
-      });
+      final response = await http.get(tuteeURL, headers: global.getHeader);
       if (response.statusCode == 200) {
         String j = "";
         if (response.body[0] != "[") {
@@ -261,15 +229,11 @@ class UserServices {
     }
   }
 
-  static getTutees() async {
+  static getTutees(Globals global) async {
     Uri tuteeURL = Uri.http(
         'tutorme-dev.us-east-1.elasticbeanstalk.com', '/api/Users/tutees');
     try {
-      final response = await http.get(tuteeURL, headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*"
-      });
+      final response = await http.get(tuteeURL, headers: global.getHeader);
       if (response.statusCode == 200) {
         String j = "";
         if (response.body[0] != "[") {
@@ -287,15 +251,11 @@ class UserServices {
     }
   }
 
-  static Future getUser(String id) async {
+  static Future getUser(String id, Globals global) async {
     Uri userURL = Uri.http(
         'tutorme-dev.us-east-1.elasticbeanstalk.com', '/api/Users/$id');
     try {
-      final response = await http.get(userURL, headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*"
-      });
+      final response = await http.get(userURL, headers: global.getHeader);
       if (response.statusCode == 200) {
         String j = "";
         if (response.body[0] != "[") {
@@ -313,15 +273,11 @@ class UserServices {
     }
   }
 
-  static Future getUserType(String userTypeId) async {
+  static Future getUserType(String userTypeId, Globals global) async {
     Uri userURL = Uri.http('tutorme-dev.us-east-1.elasticbeanstalk.com',
         '/api/UserTypes/$userTypeId');
     try {
-      final response = await http.get(userURL, headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*"
-      });
+      final response = await http.get(userURL, headers: global.getHeader);
       if (response.statusCode == 200) {
         final UserType type = UserType.fromObject(json.decode(response.body));
         return type;
@@ -333,15 +289,11 @@ class UserServices {
     }
   }
 
-  static getTutors() async {
+  static getTutors(Globals global) async {
     Uri tutorURL = Uri.http(
         'tutorme-dev.us-east-1.elasticbeanstalk.com', '/api/Users/tutors');
     try {
-      final response = await http.get(tutorURL, headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*"
-      });
+      final response = await http.get(tutorURL, headers: global.getHeader);
       if (response.statusCode == 200) {
         String j = "";
         if (response.body[0] != "[") {
@@ -359,15 +311,12 @@ class UserServices {
     }
   }
 
-  static Future getConnections(String id) async {
+  static Future getConnections(String id, Globals global) async {
     Uri connectionsURL = Uri.http('tutorme-dev.us-east-1.elasticbeanstalk.com',
         '/api/Connections/users/$id');
     try {
-      final response = await http.get(connectionsURL, headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*"
-      });
+      final response =
+          await http.get(connectionsURL, headers: global.getHeader);
       if (response.statusCode == 200) {
         String j = "";
         if (response.body[0] != "[") {
@@ -427,9 +376,15 @@ class UserServices {
     try {
       final response = await http.post(modulesURL, headers: header, body: data);
       if (response.statusCode == 200) {
-        final Users user = Users.fromObject(response.body);
+        final Users tutor = Users.fromObject(jsonDecode(response.body)['user']);
+        Globals global = Globals(
+            tutor,
+            'tutorme-dev.us-east-1.elasticbeanstalk.com',
+            json.decode(response.body)['token'],
+            json.decode(response.body)['refreshToken']);
+
         // await createFileRecord(tutors[0].getId);
-        return user;
+        return global;
       } else {
         throw Exception('Failed to upload ' + response.statusCode.toString());
       }
@@ -448,12 +403,6 @@ class UserServices {
       String institution,
       String confirmPassword,
       String year) async {
-    List<Users> tutees = await getTutees();
-    for (int i = 0; i < tutees.length; i++) {
-      if (tutees[i].getEmail == email) {
-        throw Exception("Email already exists");
-      }
-    }
     final modulesURL =
         Uri.http('tutorme-dev.us-east-1.elasticbeanstalk.com', '/api/Users/');
     //source: https://protocoderspoint.com/flutter-encryption-decryption-using-flutter-string-encryption/#:~:text=open%20your%20flutter%20project%20that,IDE(android%2Dstudio).&text=Then%20after%20you%20have%20added,the%20password%20the%20user%20enter.
@@ -481,19 +430,15 @@ class UserServices {
     };
     try {
       final response = await http.post(modulesURL, headers: header, body: data);
-      if (response.statusCode == 201) {
-        String j = "";
-        if (response.body[0] != "[") {
-          j = "[" + response.body + "]";
-        } else {
-          j = response.body;
-        }
-        final List list = json.decode(j);
-        List<Users> tutees =
-            list.map((json) => Users.fromObject(json)).toList();
-        //initialize the files record too
-        await createFileRecord(tutees[0].getId);
-        return tutees[0];
+      if (response.statusCode == 200) {
+        final Users tutor = Users.fromObject(jsonDecode(response.body)['user']);
+        Globals global = Globals(
+            tutor,
+            'tutorme-dev.us-east-1.elasticbeanstalk.com',
+            json.decode(response.body)['token'],
+            json.decode(response.body)['refreshToken']);
+
+        return global;
       } else {
         throw Exception('Failed to upload ' + response.statusCode.toString());
       }
@@ -502,14 +447,7 @@ class UserServices {
     }
   }
 
-  static updateTutee(Users tutee) async {
-    List<Users> tutees = await getTutees();
-    for (int i = 0; i < tutees.length; i++) {
-      if (tutees[i].getEmail == tutee.getEmail &&
-          tutees[i].getId != tutee.getId) {
-        throw Exception("Email already exists");
-      }
-    }
+  static updateTutee(Users tutee, Globals global) async {
     String data = jsonEncode({
       'id': tutee.getId,
       'firstName': tutee.getName,
@@ -526,14 +464,12 @@ class UserServices {
       'year': tutee.getYear,
       'rating': tutee.getRating
     });
-    final header = <String, String>{
-      'Content-Type': 'application/json; charset=utf-8',
-    };
     try {
       final id = tutee.getId;
       final modulesURL = Uri.parse(
           'http://tutorme-dev.us-east-1.elasticbeanstalk.com/api/Users/Tutees/$id');
-      final response = await http.put(modulesURL, headers: header, body: data);
+      final response =
+          await http.put(modulesURL, headers: global.getHeader, body: data);
       if (response.statusCode == 204) {
         return tutee;
       } else {
@@ -544,64 +480,68 @@ class UserServices {
     }
   }
 
-  static updateTuteeByEmail(String oldEmail, String newEmail) async {
-    Users tutee = await getTuteeByEmail(oldEmail);
-    if (isThereTuteeByEmail(newEmail) == false) {
-      tutee.setEmail = newEmail;
-      await UserServices.updateTutee(tutee);
-    }
+  //TODO fix this
 
-    String data = jsonEncode({
-      'id': tutee.getId,
-      'firstName': tutee.getName,
-      'lastName': tutee.getLastName,
-      'dateOfBirth': tutee.getDateOfBirth,
-      'status': tutee.getStatus,
-      'gender': tutee.getGender,
-      'email': tutee.getEmail,
-      'password': tutee.getPassword,
-      'userTypeID': tutee.getUserTypeID,
-      'institutionId': tutee.getInstitutionID,
-      'location': tutee.getLocation,
-      'bio': tutee.getBio,
-      'year': tutee.getYear,
-      'rating': tutee.getRating
-    });
-    final header = <String, String>{
-      'Content-Type': 'application/json; charset=utf-8',
-    };
-    try {
-      final id = tutee.getId;
-      final modulesURL = Uri.parse(
-          'http://tutorme-dev.us-east-1.elasticbeanstalk.com/api/Users/Tutees/$id');
-      final response = await http.put(modulesURL, headers: header, body: data);
-      if (response.statusCode == 204) {
-        Fluttertoast.showToast(
-            msg: "Tutee Email Updated",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.CENTER,
-            timeInSecForIosWeb: 1,
-            backgroundColor: Colors.green,
-            textColor: Colors.white,
-            fontSize: 16.0);
-        return tutee;
-      } else {
-        Fluttertoast.showToast(
-            msg: "Failed To Update Tutee Email",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.CENTER,
-            timeInSecForIosWeb: 1,
-            backgroundColor: Colors.grey,
-            textColor: Colors.white,
-            fontSize: 16.0);
-        throw Exception('Failed to update' + response.statusCode.toString());
-      }
-    } catch (e) {
-      rethrow;
-    }
-  }
+  // static updateTuteeByEmail(
+  //     String oldEmail, String newEmail, Globals global) async {
+  //   Users tutee = await getTuteeByEmail(oldEmail, global);
+  //   if (isThereTuteeByEmail(newEmail, global) == false) {
+  //     tutee.setEmail = newEmail;
+  //     await UserServices.updateTutee(tutee, global);
+  //   }
 
-  static updateTutor(Users tutor) async {
+  //   String data = jsonEncode({
+  //     'id': tutee.getId,
+  //     'firstName': tutee.getName,
+  //     'lastName': tutee.getLastName,
+  //     'dateOfBirth': tutee.getDateOfBirth,
+  //     'status': tutee.getStatus,
+  //     'gender': tutee.getGender,
+  //     'email': tutee.getEmail,
+  //     'password': tutee.getPassword,
+  //     'userTypeID': tutee.getUserTypeID,
+  //     'institutionId': tutee.getInstitutionID,
+  //     'location': tutee.getLocation,
+  //     'bio': tutee.getBio,
+  //     'year': tutee.getYear,
+  //     'rating': tutee.getRating
+  //   });
+  //   final header = <String, String>{
+  //     'Content-Type': 'application/json; charset=utf-8',
+  //   };
+  //   try {
+  //     final id = tutee.getId;
+  //     final modulesURL = Uri.parse(
+  //         'http://tutorme-dev.us-east-1.elasticbeanstalk.com/api/Users/Tutees/$id');
+  //     final response =
+  //         await http.put(modulesURL, headers: global.getHeader, body: data);
+  //     if (response.statusCode == 204) {
+  //       Fluttertoast.showToast(
+  //           msg: "Tutee Email Updated",
+  //           toastLength: Toast.LENGTH_SHORT,
+  //           gravity: ToastGravity.CENTER,
+  //           timeInSecForIosWeb: 1,
+  //           backgroundColor: Colors.green,
+  //           textColor: Colors.white,
+  //           fontSize: 16.0);
+  //       return tutee;
+  //     } else {
+  //       Fluttertoast.showToast(
+  //           msg: "Failed To Update Tutee Email",
+  //           toastLength: Toast.LENGTH_SHORT,
+  //           gravity: ToastGravity.CENTER,
+  //           timeInSecForIosWeb: 1,
+  //           backgroundColor: Colors.grey,
+  //           textColor: Colors.white,
+  //           fontSize: 16.0);
+  //       throw Exception('Failed to update' + response.statusCode.toString());
+  //     }
+  //   } catch (e) {
+  //     rethrow;
+  //   }
+  // }
+
+  static updateTutor(Users tutor, Globals global) async {
     String data = jsonEncode({
       'userId': tutor.getId,
       'firstName': tutor.getName,
@@ -619,14 +559,13 @@ class UserServices {
       'rating': tutor.getRating,
       'numberOfReviews': tutor.getNumberOfReviews,
     });
-    final header = <String, String>{
-      'Content-Type': 'application/json; charset=utf-8',
-    };
+
     try {
       final id = tutor.getId;
       final modulesURL = Uri.parse(
           'http://tutorme-dev.us-east-1.elasticbeanstalk.com/api/Users/$id');
-      final response = await http.put(modulesURL, headers: header, body: data);
+      final response =
+          await http.put(modulesURL, headers: global.getHeader, body: data);
       if (response.statusCode == 200) {
         return tutor;
       } else {
@@ -637,18 +576,16 @@ class UserServices {
     }
   }
 
-  static changePassword(Globals globals, String password) async {
+  static changePassword(String password, Globals globals) async {
     String data =
         jsonEncode({'userId': globals.getUser.getId, 'password': password});
 
-    final header = <String, String>{
-      'Content-Type': 'application/json; charset=utf-8',
-    };
     try {
       final id = globals.getUser.getId;
       final passwordURL = Uri.parse(
           'http://tutorme-dev.us-east-1.elasticbeanstalk.com/api/Authentication/password/$id');
-      final response = await http.put(passwordURL, headers: header, body: data);
+      final response =
+          await http.put(passwordURL, headers: globals.getHeader, body: data);
       if (response.statusCode == 200) {
         return globals.getUser;
       } else {
@@ -659,102 +596,66 @@ class UserServices {
     }
   }
 
-  static updateTutorByEmail(String oldEmail, String newEmail) async {
-    Users tutor = await getTuteeByEmail(oldEmail);
-    if (isThereTuteeByEmail(newEmail) == false) {
-      tutor.setEmail = newEmail;
-      await UserServices.updateTutee(tutor);
-    }
+  //TODO fix this
 
-    String data = jsonEncode({
-      'id': tutor.getId,
-      'firstName': tutor.getName,
-      'lastName': tutor.getLastName,
-      'dateOfBirth': tutor.getDateOfBirth,
-      'status': tutor.getStatus,
-      'gender': tutor.getGender,
-      'email': tutor.getEmail,
-      'password': tutor.getPassword,
-      'userTypeID': tutor.getUserTypeID,
-      'institutionId': tutor.getInstitutionID,
-      'location': tutor.getLocation,
-      'bio': tutor.getBio,
-      'year': tutor.getYear,
-      'rating': tutor.getRating
-    });
-    final header = <String, String>{
-      'Content-Type': 'application/json; charset=utf-8',
-    };
-    try {
-      final id = tutor.getId;
-      final modulesURL = Uri.parse(
-          'http://tutorme-dev.us-east-1.elasticbeanstalk.com/api/Users/Tutors/$id');
-      final response = await http.put(modulesURL, headers: header, body: data);
-      if (response.statusCode == 204) {
-        Fluttertoast.showToast(
-            msg: "Tutee Email Updated",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.CENTER,
-            timeInSecForIosWeb: 1,
-            backgroundColor: Colors.green,
-            textColor: Colors.white,
-            fontSize: 16.0);
-        return tutor;
-      } else {
-        Fluttertoast.showToast(
-            msg: "Failed To Update Tutee Email",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.CENTER,
-            timeInSecForIosWeb: 1,
-            backgroundColor: Colors.grey,
-            textColor: Colors.white,
-            fontSize: 16.0);
-        throw Exception('Failed to update' + response.statusCode.toString());
-      }
-    } catch (e) {
-      rethrow;
-    }
-  }
+  // static updateTutorByEmail(
+  //     String oldEmail, String newEmail, Globals global) async {
+  //   Users tutor = await getTuteeByEmail(oldEmail, global);
+  //   if (isThereTuteeByEmail(newEmail, global) == false) {
+  //     tutor.setEmail = newEmail;
+  //     await UserServices.updateTutee(tutor, global);
+  //   }
 
-  static getTutorModules(String id) async {
-    try {
-      List tutor = await getTutor(id);
-      List moduleList = tutor[0].getModules.split(',');
-      final allModules = await ModuleServices.getModules();
-      List<Modules> modules = [];
-      for (int i = 0; i < moduleList.length; i++) {
-        for (int j = 0; j < allModules.length; j++) {
-          if (moduleList[i] == allModules[j].getCode) {
-            modules.add(allModules[j]);
-          }
-        }
-      }
-
-      return modules;
-    } catch (e) {
-      throw Exception(e);
-    }
-  }
-
-  static getTuteeModules(String id) async {
-    try {
-      List tutee = await getUser(id);
-      List moduleList = tutee[0].getModules.split(',');
-      final allModules = await ModuleServices.getModules();
-      List<Modules> modules = [];
-      for (int i = 0; i < moduleList.length; i++) {
-        for (int j = 0; j < allModules.length; j++) {
-          if (moduleList[i] == allModules[j].getCode) {
-            modules.add(allModules[j]);
-          }
-        }
-      }
-
-      return modules;
-    } catch (e) {
-      throw Exception(e);
-    }
-  }
+  //   String data = jsonEncode({
+  //     'id': tutor.getId,
+  //     'firstName': tutor.getName,
+  //     'lastName': tutor.getLastName,
+  //     'dateOfBirth': tutor.getDateOfBirth,
+  //     'status': tutor.getStatus,
+  //     'gender': tutor.getGender,
+  //     'email': tutor.getEmail,
+  //     'password': tutor.getPassword,
+  //     'userTypeID': tutor.getUserTypeID,
+  //     'institutionId': tutor.getInstitutionID,
+  //     'location': tutor.getLocation,
+  //     'bio': tutor.getBio,
+  //     'year': tutor.getYear,
+  //     'rating': tutor.getRating
+  //   });
+  //   final header = <String, String>{
+  //     'Content-Type': 'application/json; charset=utf-8',
+  //   };
+  //   try {
+  //     final id = tutor.getId;
+  //     final modulesURL = Uri.parse(
+  //         'http://tutorme-dev.us-east-1.elasticbeanstalk.com/api/Users/Tutors/$id');
+  //     final response =
+  //         await http.put(modulesURL, headers: global.getHeader, body: data);
+  //     if (response.statusCode == 204) {
+  //       Fluttertoast.showToast(
+  //           msg: "Tutee Email Updated",
+  //           toastLength: Toast.LENGTH_SHORT,
+  //           gravity: ToastGravity.CENTER,
+  //           timeInSecForIosWeb: 1,
+  //           backgroundColor: Colors.green,
+  //           textColor: Colors.white,
+  //           fontSize: 16.0);
+  //       return tutor;
+  //     } else {
+  //       Fluttertoast.showToast(
+  //           msg: "Failed To Update Tutee Email",
+  //           toastLength: Toast.LENGTH_SHORT,
+  //           gravity: ToastGravity.CENTER,
+  //           timeInSecForIosWeb: 1,
+  //           backgroundColor: Colors.grey,
+  //           textColor: Colors.white,
+  //           fontSize: 16.0);
+  //       throw Exception('Failed to update' + response.statusCode.toString());
+  //     }
+  //   } catch (e) {
+  //     rethrow;
+  //   }
+  // }
 
   static logInTutor(String email, String password) async {
     String data = jsonEncode({
@@ -806,17 +707,16 @@ class UserServices {
     }
   }
 
-  static updateProfileImage(File? image, String id) async {
+  static updateProfileImage(File? image, String id, Globals global) async {
     final imageByte = base64Encode(image!.readAsBytesSync());
     String data =
         jsonEncode({'id': id, 'userImage': imageByte, 'userTranscript': ''});
-    final header = <String, String>{
-      'Content-Type': 'application/json; charset=utf-8'
-    };
+
     final url = Uri.parse(
         'http://tutorfilesystem-dev.us-east-1.elasticbeanstalk.com/api/UserFiles/$id');
     try {
-      final response = await http.put(url, headers: header, body: data);
+      final response =
+          await http.put(url, headers: global.getHeader, body: data);
       if (response.statusCode == 200) {
         return image;
       } else {
@@ -827,17 +727,16 @@ class UserServices {
     }
   }
 
-  static uploadProfileImage(File? image, String id) async {
+  static uploadProfileImage(File? image, String id, Globals global) async {
     final imageByte = base64Encode(image!.readAsBytesSync());
     String data =
         jsonEncode({'id': id, 'userImage': imageByte, 'userTranscript': ''});
-    final header = <String, String>{
-      'Content-Type': 'application/json; charset=utf-8'
-    };
+
     final url = Uri.parse(
         'http://tutorfilesystem-dev.us-east-1.elasticbeanstalk.com/api/UserFiles');
     try {
-      final response = await http.post(url, headers: header, body: data);
+      final response =
+          await http.post(url, headers: global.getHeader, body: data);
       if (response.statusCode == 200) {
         return image;
       } else {
@@ -848,17 +747,16 @@ class UserServices {
     }
   }
 
-  static uploadTranscript(File? transcript, String id) async {
+  static uploadTranscript(File? transcript, String id, Globals global) async {
     final transcriptByte = base64Encode(transcript!.readAsBytesSync());
     String data = jsonEncode(
         {'id': id, 'userImage': '', 'userTranscript': transcriptByte});
-    final header = <String, String>{
-      'Content-Type': 'application/json; charset=utf-8'
-    };
+
     final url = Uri.parse(
         'http://tutorfilesystem-dev.us-east-1.elasticbeanstalk.com/api/UserFiles/$id');
     try {
-      final response = await http.post(url, headers: header, body: data);
+      final response =
+          await http.post(url, headers: global.getHeader, body: data);
       if (response.statusCode == 200) {
         return transcript;
       } else {
@@ -869,15 +767,11 @@ class UserServices {
     }
   }
 
-  static Future getProfileImage(String id) async {
+  static Future getProfileImage(String id, Globals globals) async {
     Uri tuteeURL = Uri.parse(
         'http://tutorfilesystem-dev.us-east-1.elasticbeanstalk.com/api/UserFiles/image/$id');
     try {
-      final response = await http.get(tuteeURL, headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*"
-      });
+      final response = await http.get(tuteeURL, headers: globals.getHeader);
 
       if (response.statusCode == 200) {
         String j = "";
@@ -938,8 +832,8 @@ class UserServices {
     }
   }
 
-  static getTutorByEmail(String email) async {
-    List<Users> tutors = await getTutors();
+  static getTutorByEmail(String email, Globals global) async {
+    List<Users> tutors = await getTutors(global);
     late Users tutor;
     bool got = false;
     for (int i = 0; i < tutors.length; i++) {
@@ -956,8 +850,8 @@ class UserServices {
     }
   }
 
-  static getTuteeByEmail(String email) async {
-    List<Users> tutees = await getTutees();
+  static getTuteeByEmail(String email, Globals global) async {
+    List<Users> tutees = await getTutees(global);
     late Users tutee;
     bool got = false;
     for (int i = 0; i < tutees.length; i++) {
@@ -982,37 +876,43 @@ class UserServices {
     }
   }
 
-  static isThereTutorByEmail(String email) async {
-    List<Users> tutors = await getTutors();
-    bool got = false;
-    for (int i = 0; i < tutors.length; i++) {
-      if (tutors[i].getEmail == email) {
-        got = true;
-        break;
-      }
-    }
-    if (got == false) {
-      return false;
-    } else {
-      return true;
-    }
-  }
+  //TODO: is there tutor by email
 
-  static isThereTuteeByEmail(String email) async {
-    List<Users> tutees = await getTutees();
-    bool got = false;
-    for (int i = 0; i < tutees.length; i++) {
-      if (tutees[i].getEmail == email) {
-        got = true;
-        break;
-      }
-    }
-    if (got == false) {
-      return false;
-    } else {
-      return true;
-    }
-  }
+  // static isThereTutorByEmail(String email) async {
+  //  late Globals global;
+
+  //   List<Users> tutors = await getTutors();
+  //   bool got = false;
+  //   for (int i = 0; i < tutors.length; i++) {
+  //     if (tutors[i].getEmail == email) {
+  //       got = true;
+  //       break;
+  //     }
+  //   }
+  //   if (got == false) {
+  //     return false;
+  //   } else {
+  //     return true;
+  //   }
+  // }
+
+  //TODO: is there tutee by email
+
+  // static isThereTuteeByEmail(String email, Globals global) async {
+  //   List<Users> tutees = await getTutees(global);
+  //   bool got = false;
+  //   for (int i = 0; i < tutees.length; i++) {
+  //     if (tutees[i].getEmail == email) {
+  //       got = true;
+  //       break;
+  //     }
+  //   }
+  //   if (got == false) {
+  //     return false;
+  //   } else {
+  //     return true;
+  //   }
+  // }
 
   static hashPassword(String password) {
     String hashedPassword =
@@ -1032,7 +932,7 @@ class UserServices {
   //   final url = Uri.parse(
   //       'http://filesystem-prod.us-east-1.elasticbeanstalk.com/api/TutorFiles');
   //   try {
-  //     final response = await http.post(url, headers: header, body: data);
+  //     final response = await http.post(url, headers: global.getHeader, body: data);
   //     if (response.statusCode == 201) {
   //       return true;
   //     } else {
@@ -1052,7 +952,7 @@ class UserServices {
   //   final url = Uri.parse(
   //       'http://filesystem-prod.us-east-1.elasticbeanstalk.com/api/TutorFiles/$id');
   //   try {
-  //     final response = await http.put(url, headers: header, body: data);
+  //     final response = await http.put(url, headers: global.getHeader, body: data);
   //     if (response.statusCode == 204) {
   //       return image;
   //     } else {
@@ -1063,16 +963,12 @@ class UserServices {
   //   }
   // }
 
-  static Future getTutorProfileImage(String id) async {
+  static Future getTutorProfileImage(String id, Globals global) async {
     Uri tuteeURL = Uri.parse(
         'http://tutorfilesystem-dev.us-east-1.elasticbeanstalk.com/api/Userfiles/image/$id');
 
     try {
-      final response = await http.get(tuteeURL, headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*"
-      });
+      final response = await http.get(tuteeURL, headers: global.getHeader);
       if (response.statusCode == 200) {
         final image = response.body;
         List<String> imageList = image.split('"');
@@ -1091,16 +987,12 @@ class UserServices {
     }
   }
 
-  static Future getTuteeProfileImage(String id) async {
+  static Future getTuteeProfileImage(String id, Globals global) async {
     Uri tuteeURL = Uri.parse(
         'http://tutorfilesystem-dev.us-east-1.elasticbeanstalk.com/api/Userfiles/image/$id');
 
     try {
-      final response = await http.get(tuteeURL, headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*"
-      });
+      final response = await http.get(tuteeURL, headers: global.getHeader);
       if (response.statusCode == 200) {
         final image = response.body;
         List<String> imageList = image.split('"');

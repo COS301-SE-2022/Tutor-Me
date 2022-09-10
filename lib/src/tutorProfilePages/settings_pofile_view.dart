@@ -47,20 +47,24 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
   getCurrentModules() async {
     numTutees = 2;
     numConnections = 3;
+    try {
+      final currentModulesList = await ModuleServices.getUserModules(
+          widget.globals.getUser.getId, widget.globals);
 
-    final currentModulesList =
-        await ModuleServices.getUserModules(widget.globals.getUser.getId);
-
-    setState(() {
-      currentModules = currentModulesList;
-    });
+      setState(() {
+        currentModules = currentModulesList;
+      });
+    } catch (e) {
+      const snackBar = SnackBar(content: Text('Error loading'));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
 
     getInstitution();
   }
 
   getInstitution() async {
     final tempInstitution = await InstitutionServices.getUserInstitution(
-        widget.globals.getUser.getInstitutionID);
+        widget.globals.getUser.getInstitutionID, widget.globals);
     setState(() {
       institution = tempInstitution;
       _isLoading = false;
@@ -97,7 +101,8 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
               )
             : WillPopScope(
                 onWillPop: () async {
-                  Navigator.pop(context, ToReturn(widget.image, widget.globals.getUser));
+                  Navigator.pop(
+                      context, ToReturn(widget.image, widget.globals.getUser));
                   return false;
                 },
                 child: ListView(
@@ -114,7 +119,9 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
   Widget buildBody() {
     final screenWidthSize = MediaQuery.of(context).size.width;
     final screenHeightSize = MediaQuery.of(context).size.height;
-    String userName = widget.globals.getUser.getName + ' ' + widget.globals.getUser.getLastName;
+    String userName = widget.globals.getUser.getName +
+        ' ' +
+        widget.globals.getUser.getLastName;
     String courseInfo = institution.getName;
     String personalDets = userName + '(' + widget.globals.getUser.getAge + ')';
     String gender = "";
@@ -319,7 +326,7 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => TutorProfileEdit(
-                          user: widget.globals.getUser,
+                          globals: widget.globals,
                           image: widget.image,
                           imageExists: widget.imageExists)));
 

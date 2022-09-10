@@ -162,8 +162,11 @@ class UpdateTutorState extends State<UpdateTutor> {
                         },
                       );
                     }
-                    UserServices.updateTutorByEmail(
-                        oldemailcontroller.text, newemailcontroller.text);
+
+                    //TODO fix this
+                    
+                    // UserServices.updateTutorByEmail(
+                    //     oldemailcontroller.text, newemailcontroller.text);
                   },
                   child: isLoading
                       ? const CircularProgressIndicator(color: Colors.white)

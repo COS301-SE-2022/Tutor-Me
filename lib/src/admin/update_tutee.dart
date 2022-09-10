@@ -162,8 +162,10 @@ class UpdateTuteeState extends State<UpdateTutee> {
                         },
                       );
                     }
-                    UserServices.updateTuteeByEmail(
-                        oldemailcontroller.text, newemailcontroller.text);
+
+                    //TODO fix this
+                    // UserServices.updateTuteeByEmail(
+                    //     oldemailcontroller.text, newemailcontroller.text);
                   },
                   child: isLoading
                       ? const CircularProgressIndicator(color: Colors.white)

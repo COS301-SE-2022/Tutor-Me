@@ -6,8 +6,10 @@ import 'dart:convert';
 import 'package:tutor_me/services/models/modules.dart';
 import 'package:tutor_me/services/models/user_modules.dart';
 
+import '../models/globals.dart';
+
 class ModuleServices {
-  static getModules() async {
+  static getModules(Globals global) async {
     Uri modulesURL =
         Uri.http('tutorme-dev.us-east-1.elasticbeanstalk.com', '/api/Modules');
     try {
@@ -34,15 +36,11 @@ class ModuleServices {
     }
   }
 
-  static getAllUserModules() async {
+  static getAllUserModules(Globals global) async {
     Uri modulesURL = Uri.http(
         'tutorme-dev.us-east-1.elasticbeanstalk.com', '/api/UserModules');
     try {
-      final response = await http.get(modulesURL, headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*"
-      });
+      final response = await http.get(modulesURL, headers: global.getHeader);
 
       if (response.statusCode == 200) {
         String j = "";
@@ -61,15 +59,12 @@ class ModuleServices {
     }
   }
 
-  static Future getUserModules(String id) async {
+  static Future getUserModules(String id, Globals global) async {
     Uri url = Uri.http(
         'tutorme-dev.us-east-1.elasticbeanstalk.com', 'api/UserModules/$id');
+    
     try {
-      final response = await http.get(url, headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*"
-      });
+      final response = await http.get(url, headers: global.getHeader);
       if (response.statusCode == 200) {
         String j = "";
         if (response.body[0] != "[") {
@@ -87,7 +82,7 @@ class ModuleServices {
     }
   }
 
-  static updateModule(Modules module) async {
+  static updateModule(Modules module, Globals global) async {
     String data = jsonEncode({
       'code': module.getCode,
       'moduleName': module.getModuleName,
@@ -95,14 +90,13 @@ class ModuleServices {
       'faculty': module.getFaculty,
       'year': module.getYear,
     });
-    final header = <String, String>{
-      'Content-Type': 'application/json; charset=utf-8',
-    };
+
     try {
       final code = module.getCode;
       final modulesURL = Uri.parse(
           'http://tutorme-dev.us-east-1.elasticbeanstalk.com/api/Modules/$code');
-      final response = await http.put(modulesURL, headers: header, body: data);
+      final response =
+          await http.put(modulesURL, headers: global.getHeader, body: data);
       if (response.statusCode == 204) {
         return module;
       } else {
@@ -113,14 +107,14 @@ class ModuleServices {
     }
   }
 
-  static deleteUserModule(String id) async {
+  static deleteUserModule(String id, Globals global) async {
     final header = <String, String>{
       'Content-Type': 'application/json; charset=utf-8',
     };
     try {
       final modulesURL = Uri.parse(
           'http://tutorme-dev.us-east-1.elasticbeanstalk.com/api/UserModules/$id');
-      final response = await http.delete(modulesURL, headers: header);
+      final response = await http.delete(modulesURL, headers: global.getHeader);
       if (response.statusCode == 200) {
         return true;
       } else {
@@ -131,14 +125,14 @@ class ModuleServices {
     }
   }
 
-  static deleteModule(String id) async {
+  static deleteModule(String id, Globals global) async {
     final header = <String, String>{
       'Content-Type': 'application/json; charset=utf-8',
     };
     try {
       final modulesURL = Uri.parse(
           'http://tutorme-dev.us-east-1.elasticbeanstalk.com/api/Modules/$id');
-      final response = await http.delete(modulesURL, headers: header);
+      final response = await http.delete(modulesURL, headers: global.getHeader);
       if (response.statusCode == 200 ||
           response.statusCode == 202 ||
           response.statusCode == 204) {
@@ -167,15 +161,11 @@ class ModuleServices {
     }
   }
 
-  static Future getModule(String id) async {
+  static Future getModule(String id, Globals globals) async {
     Uri tutorURL = Uri.http(
         'tutorme-dev.us-east-1.elasticbeanstalk.com', '/api/Modules/$id');
     try {
-      final response = await http.get(tutorURL, headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*"
-      });
+      final response = await http.get(tutorURL, headers: globals.getHeader);
       if (response.statusCode == 200) {
         final module = Modules.fromObject(json.decode(response.body));
         return module;
@@ -187,8 +177,8 @@ class ModuleServices {
     }
   }
 
-  static getModulesByInstitution(String institution) async {
-    List<Modules> modules = await getModules();
+  static getModulesByInstitution(String institution, Globals globals) async {
+    List<Modules> modules = await getModules(globals);
     List<Modules> modulesByInstitution = [];
     for (int i = 0; i < modules.length; i++) {
       if (modules[i].getInstitution == institution) {
@@ -198,7 +188,7 @@ class ModuleServices {
     return modulesByInstitution;
   }
 
-  static addUserModule(String userId, Modules module) async {
+  static addUserModule(String userId, Modules module, Globals globals) async {
     String data = jsonEncode({
       'userModuleId': userId,
       'moduleId': module.getModuleId,
@@ -212,7 +202,8 @@ class ModuleServices {
     Uri url = Uri.http(
         'tutorme-dev.us-east-1.elasticbeanstalk.com', '/api/UserModules');
     try {
-      final response = await http.post(url, headers: header, body: data);
+      final response =
+          await http.post(url, headers: globals.getHeader, body: data);
       if (response.statusCode == 200) {
         return true;
       } else {

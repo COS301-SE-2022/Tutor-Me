@@ -33,7 +33,7 @@ class TuteeGroupsState extends State<TuteeGroups> {
   int numOfTutees = 3;
   getGroupDetails() async {
     final incomingGroups =
-        await GroupServices.getGroupByUserID(widget.globals.getUser.getId);
+        await GroupServices.getGroupByUserID(widget.globals.getUser.getId, widget.globals);
     groups = incomingGroups;
     if (groups.isNotEmpty) {
       setState(() {
@@ -55,7 +55,7 @@ class TuteeGroupsState extends State<TuteeGroups> {
     try {
       for (int i = 0; i < groups.length; i++) {
         final incomingModules =
-            await ModuleServices.getModule(groups[i].getModuleId);
+            await ModuleServices.getModule(groups[i].getModuleId, widget.globals);
         modules.add(incomingModules);
       }
     } catch (e) {

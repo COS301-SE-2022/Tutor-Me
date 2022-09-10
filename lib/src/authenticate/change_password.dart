@@ -170,9 +170,8 @@ class ChangePasswordState extends State<ChangePassword> {
                         try {
                           // TutorServices tutor = TutorServices.Login(
                           globals =
-                              await UserServices.getTutorByEmail(widget.email);
-                          await UserServices.changePassword(
-                              globals, newpasswordController.text);
+                              await UserServices.getTutorByEmail(widget.email, globals);
+                          await UserServices.changePassword(newpasswordController.text, globals);
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -215,9 +214,8 @@ class ChangePasswordState extends State<ChangePassword> {
                         try {
                           // TutorServices tutor = TutorServices.Login(
                           globals =
-                              await UserServices.getTuteeByEmail(widget.email);
-                          await UserServices.changePassword(
-                              globals, newpasswordController.text);
+                              await UserServices.getTuteeByEmail(widget.email, globals);
+                          await UserServices.changePassword(newpasswordController.text, globals);
                           Navigator.push(
                             context,
                             MaterialPageRoute(

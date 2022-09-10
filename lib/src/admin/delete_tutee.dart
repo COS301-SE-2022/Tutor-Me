@@ -2,11 +2,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:tutor_me/src/colorpallete.dart';
+import '../../services/models/globals.dart';
 import '../../services/services/user_services.dart';
 import '../components.dart';
 
 class DeleteTutee extends StatefulWidget {
-  const DeleteTutee({Key? key}) : super(key: key);
+  final Globals global;
+
+  const DeleteTutee({Key? key, required this.global}) : super(key: key);
 
   @override
   DeleteTuteeState createState() => DeleteTuteeState();
@@ -145,7 +148,7 @@ class DeleteTuteeState extends State<DeleteTutee> {
                         },
                       );
                     }
-                    UserServices.deleteUser(idcontroller.text);
+                    UserServices.deleteUser(idcontroller.text, widget.global);
                   },
                   child: isLoading
                       ? const CircularProgressIndicator(color: Colors.white)
