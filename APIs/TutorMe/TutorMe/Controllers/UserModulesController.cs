@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using TutorMe.Data;
 using TutorMe.Services;
 using TutorMe.Entities;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TutorMe.Controllers {
     [Route("api/[controller]")]
@@ -18,6 +19,7 @@ namespace TutorMe.Controllers {
             this.mapper = mapper;
         }
 
+        [Authorize]
         [HttpGet]
         public IActionResult GetAllUserModules() {
             Console.WriteLine("this is what we got");
@@ -30,6 +32,7 @@ namespace TutorMe.Controllers {
             }
         }
 
+        [Authorize]
         [HttpGet("{id}")]
         public IActionResult GetUserModulesByUserId(Guid id) {
             try {
@@ -44,6 +47,7 @@ namespace TutorMe.Controllers {
             }
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult createUserModule(IUserModule userModule) {
             try {
@@ -56,6 +60,7 @@ namespace TutorMe.Controllers {
             
         }
 
+        [Authorize]
         [HttpDelete("{id}")]
         public IActionResult DeleteUserModule(Guid id) {
             try {

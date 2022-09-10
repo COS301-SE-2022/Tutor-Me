@@ -35,6 +35,7 @@ namespace TutorMe.Controllers
             }
         }
 
+        [Authorize]
         [HttpGet("{id}")]
         public IActionResult GetConnectionById(Guid id)
         {
@@ -49,7 +50,8 @@ namespace TutorMe.Controllers
                 return BadRequest(exception.Message);
             }
         }
-
+        
+        [Authorize]
         [HttpDelete("{id}")]
         public IActionResult DeleteConnection(Guid id)
         {
@@ -61,7 +63,8 @@ namespace TutorMe.Controllers
                 return BadRequest(exception.Message);
             }
         }
-
+        
+        [Authorize]
         [HttpGet("users/{id}")]
         public IActionResult GetUserConnectionObjectsById(Guid id, Guid userType) { 
             try {

@@ -79,14 +79,15 @@ class _EditModuleListState extends State<EditModuleList> {
   // }
 
   getUserModules() async {
-    final userModules = await ModuleServices.getAllUserModules();
+    final userModules = await ModuleServices.getAllUserModules(widget.globals);
 
     this.userModules = userModules;
   }
 
   getTutorGroups() async {
-    final groups =
-        await GroupServices.getGroupByUserID(widget.globals.getUser.getId);
+
+    final groups = await GroupServices.getGroupByUserID(widget.globals.getUser.getId, widget.globals);
+
 
     tutorGroups = groups;
   }
@@ -169,8 +170,9 @@ class _EditModuleListState extends State<EditModuleList> {
                                     for (var module in widget.currentModules) {
                                       try {
                                         await ModuleServices.addUserModule(
-                                            widget.globals.getUser.getId,
-                                            module);
+
+                                            widget.globals.getUser.getId, module, widget.globals);
+
                                       } catch (e) {
                                         continue;
                                       }
@@ -392,7 +394,7 @@ class _EditModuleListState extends State<EditModuleList> {
                               break;
                             }
                           }
-                          await ModuleServices.deleteUserModule(userModuleId);
+                          await ModuleServices.deleteUserModule(userModuleId, widget.globals);
                           deleteModule(index);
                           Navigator.pop(context);
                         },
@@ -419,7 +421,7 @@ class _EditModuleListState extends State<EditModuleList> {
             context,
             MaterialPageRoute(
                 builder: (context) => AddModulesPage(
-                      user: widget.globals.getUser,
+                      globals: widget.globals,
                       currentModules: widget.currentModules,
                     )));
         setState(() {

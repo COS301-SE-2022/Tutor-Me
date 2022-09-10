@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using TutorMe.Data;
 using TutorMe.Services;
 using TutorMe.Entities;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TutorMe.Controllers
 {
@@ -21,6 +22,7 @@ namespace TutorMe.Controllers
             this.mapper = mapper;
         }
 
+        [Authorize]
         [HttpGet]
         public IActionResult GetAllUsers()
         {
@@ -33,6 +35,7 @@ namespace TutorMe.Controllers
             }
         }
 
+        [Authorize]
         [HttpGet("tutors")]
         public IActionResult GetAllTutors() {
             try {
@@ -44,6 +47,7 @@ namespace TutorMe.Controllers
             }
         }
 
+        [Authorize]
         [HttpGet("tutees")]
         public IActionResult GetAllTutees() {
             try {
@@ -55,6 +59,7 @@ namespace TutorMe.Controllers
             }
         }
 
+        [Authorize]
         [HttpGet("admins")]
         public IActionResult GetAllAdmins() {
             try {
@@ -66,6 +71,7 @@ namespace TutorMe.Controllers
             }
         }
 
+        [Authorize]
         [HttpGet("{id}")]
         public IActionResult GetUserById(Guid id)
         {
@@ -78,6 +84,7 @@ namespace TutorMe.Controllers
             }
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult RegisterUser(User user)
         {
@@ -89,7 +96,8 @@ namespace TutorMe.Controllers
                 return BadRequest(exception.Message);
             }
         }
-        
+
+        [Authorize]
         [HttpPut("bio/{id}")]
         public IActionResult UpdateBioByUserId(Guid id, string bio) {
             try {
@@ -101,7 +109,7 @@ namespace TutorMe.Controllers
             }
         }
 
-        
+        [Authorize]
         [HttpPut("{id}")]
         public IActionResult UpdateUser(Guid id, User user)
         {
@@ -120,6 +128,7 @@ namespace TutorMe.Controllers
             }
         }
 
+        [Authorize]
         [HttpDelete("{id}")]
         public IActionResult DeleteUserById(Guid id) {
             try {

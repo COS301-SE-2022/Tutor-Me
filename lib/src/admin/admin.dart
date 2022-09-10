@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tutor_me/services/models/globals.dart';
 import './delete_tutor.dart';
 import './delete_tutee.dart';
 import './update_tutor.dart';
@@ -7,7 +8,8 @@ import './update_tutee.dart';
 import './delete_module.dart';
 
 class Admin extends StatelessWidget {
-  const Admin({Key? key}) : super(key: key);
+  final Globals global;
+  const Admin({Key? key, required this.global}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +33,10 @@ class Admin extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const DeleteTutor()),
+                MaterialPageRoute(
+                    builder: (context) => DeleteTutor(
+                          globals: global,
+                        )),
               );
             },
             child: Container(
@@ -86,7 +91,8 @@ class Admin extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const DeleteTutee()),
+                MaterialPageRoute(
+                    builder: (context) => DeleteTutee(global: global)),
               );
             },
             child: Container(
@@ -251,7 +257,7 @@ class Admin extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const DeleteModule()),
+                MaterialPageRoute(builder: (context) => DeleteModule(global: global,)),
               );
             },
             child: Container(

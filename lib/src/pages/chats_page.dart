@@ -38,7 +38,9 @@ class ChatsState extends State<Chats> {
 
   getUserType() async {
     final type =
-        await UserServices.getUserType(widget.globals.getUser.getUserTypeID);
+
+        await UserServices.getUserType(widget.globals.getUser.getUserTypeID, widget.globals);
+
 
     userType = type;
 
@@ -48,7 +50,9 @@ class ChatsState extends State<Chats> {
   void getConnections() async {
     try {
       userChats =
-          await UserServices.getConnections(widget.globals.getUser.getId);
+
+          await UserServices.getConnections(widget.globals.getUser.getId, widget.globals);
+
       setState(() {
         userChats = userChats;
       });
@@ -61,7 +65,7 @@ class ChatsState extends State<Chats> {
   getChatsProfileImages() async {
     for (int i = 0; i < userChats.length; i++) {
       try {
-        final image = await UserServices.getProfileImage(userChats[i].getId);
+        final image = await UserServices.getProfileImage(userChats[i].getId, widget.globals);
         setState(() {
           images.add(image);
         });
@@ -95,11 +99,13 @@ class ChatsState extends State<Chats> {
   @override
   void initState() {
     super.initState();
+
     getUserType();
   }
 
   @override
   Widget build(BuildContext context) {
+    getUserType();
     return Scaffold(
       body: _isLoading
           ? const Center(child: CircularProgressIndicator.adaptive())

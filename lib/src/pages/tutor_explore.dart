@@ -150,7 +150,7 @@ class TutorExploreState extends State<TutorExplore> {
 
   getTutors() async {
     try {
-      final tutors = await UserServices.getTutors();
+      final tutors = await UserServices.getTutors(widget.globals);
       tutorList = tutors;
       getConnections();
     } catch (e) {
@@ -164,8 +164,9 @@ class TutorExploreState extends State<TutorExplore> {
     try {
       List<int> indecies = List<int>.empty(growable: true);
       int tutorLength = tutorList.length;
-      final tutors =
-          await UserServices.getConnections(widget.globals.getUser.getId);
+
+      final tutors = await UserServices.getConnections(widget.globals.getUser.getId, widget.globals);
+
       setState(() {
         connectedTutors = tutors;
       });
@@ -179,14 +180,14 @@ class TutorExploreState extends State<TutorExplore> {
       }
       List<Modules> tuteeModules = List<Modules>.empty();
       final tuteeModuleList =
-          await ModuleServices.getUserModules(widget.globals.getUser.getId);
+          await ModuleServices.getUserModules(widget.globals.getUser.getId, widget.globals);
       tuteeModules = tuteeModuleList;
       for (int i = 0; i < tutorLength; i++) {
         bool val = false;
         if (tuteeModules.isNotEmpty) {
           List<Modules> tutorModules = List<Modules>.empty();
           final tutorModuleList =
-              await ModuleServices.getUserModules(tutorList[i].getId);
+              await ModuleServices.getUserModules(tutorList[i].getId, widget.globals);
           tutorModules = tutorModuleList;
 
           for (int k = 0; k < tutorModules.length; k++) {
@@ -244,7 +245,7 @@ class TutorExploreState extends State<TutorExplore> {
     try {
       for (int i = 0; i < tutorList.length; i++) {
         try {
-          final image = await UserServices.getProfileImage(tutorList[i].getId);
+          final image = await UserServices.getProfileImage(tutorList[i].getId, widget.globals);
           setState(() {
             tutorImages.add(image);
           });
@@ -866,7 +867,7 @@ class TutorExploreState extends State<TutorExplore> {
         Navigator.of(context).push(MaterialPageRoute(
             builder: (BuildContext context) => TutorProfileBookingPage(
                   tutor: tutors[i].tutor,
-                  tutee: widget.globals.getUser,
+                  globals: widget.globals,
                 )));
       },
     );

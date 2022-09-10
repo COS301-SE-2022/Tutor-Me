@@ -3,13 +3,11 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:tutor_me/services/models/groups.dart';
 
+import '../models/globals.dart';
 import '../models/users.dart';
 
 class GroupServices {
-  static createGroup(
-    String moduleId,
-    String tutorId,
-  ) async {
+  static createGroup(String moduleId, String tutorId, Globals global) async {
     final groupsURL =
         Uri.http('tutorme-dev.us-east-1.elasticbeanstalk.com', '/api/Groups');
 
@@ -19,11 +17,9 @@ class GroupServices {
       'userId': tutorId,
     });
 
-    final header = <String, String>{
-      'Content-Type': 'application/json; charset=utf-8',
-    };
     try {
-      final response = await http.post(groupsURL, headers: header, body: data);
+      final response =
+          await http.post(groupsURL, headers: global.getHeader, body: data);
       if (response.statusCode == 201) {
         return true;
       } else {
@@ -34,15 +30,11 @@ class GroupServices {
     }
   }
 
-  static getGroups() async {
+  static getGroups(Globals globals) async {
     Uri groupsURL =
         Uri.http('tutorme-dev.us-east-1.elasticbeanstalk.com', '/api/Groups');
     try {
-      final response = await http.get(groupsURL, headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*"
-      });
+      final response = await http.get(groupsURL, headers: globals.getHeader);
 
       if (response.statusCode == 200) {
         String j = "";
@@ -61,15 +53,11 @@ class GroupServices {
     }
   }
 
-  static Future getGroup(String id) async {
+  static Future getGroup(String id, Globals globals) async {
     Uri url = Uri.http(
         'tutorme-dev.us-east-1.elasticbeanstalk.com', 'api/Groups/$id');
     try {
-      final response = await http.get(url, headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*"
-      });
+      final response = await http.get(url, headers: globals.getHeader);
       if (response.statusCode == 200) {
         final group = Groups.fromObject(json.decode(response.body));
         return group;
@@ -81,16 +69,11 @@ class GroupServices {
     }
   }
 
-  static Future getGroupByUserID(String userId) async {
+  static Future getGroupByUserID(String userId, Globals global) async {
     Uri url = Uri.http('tutorme-dev.us-east-1.elasticbeanstalk.com',
         'api/GroupMembers/group/$userId');
-
     try {
-      final response = await http.get(url, headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*"
-      });
+      final response = await http.get(url, headers: global.getHeader);
       if (response.statusCode == 200) {
         String j = "";
         if (response.body[0] != "[") {
@@ -108,16 +91,12 @@ class GroupServices {
     }
   }
 
-  static getGroupTutees(String groupId) async {
+  static getGroupTutees(String groupId, Globals global) async {
     Uri url = Uri.http('tutorme-dev.us-east-1.elasticbeanstalk.com',
         'api/GroupMembers/tutee/$groupId');
 
     try {
-      final response = await http.get(url, headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*"
-      });
+      final response = await http.get(url, headers: global.getHeader);
       if (response.statusCode == 200) {
         String j = "";
         if (response.body[0] != "[") {
@@ -135,21 +114,19 @@ class GroupServices {
     }
   }
 
-  static updateGroupDescription(String description, Groups group) async {
+  static updateGroupDescription(
+      String description, Groups group, Globals global) async {
     // String data = jsonEncode({
     //   'id': group.getId,
     //   'description': group.getDescription,
     // });
 
-    final header = <String, String>{
-      'Content-Type': 'application/json; charset=utf-8',
-    };
     try {
       final id = group.getId;
       final modulesURL = Uri.parse(
           'http://tutorme-dev.us-east-1.elasticbeanstalk.com/api/Groups/description/$id');
       final response =
-          await http.put(modulesURL, headers: header, body: description);
+          await http.put(modulesURL, headers: global.header, body: description);
       if (response.statusCode == 204) {
         return group;
       } else {
@@ -160,21 +137,19 @@ class GroupServices {
     }
   }
 
-  static updateGroupVideoId(String videoId, Groups group) async {
+  static updateGroupVideoId(
+      String videoId, Groups group, Globals global) async {
     // String data = jsonEncode({
     //   'id': group.getId,
     //   'description': group.getDescription,
     // });
 
-    final header = <String, String>{
-      'Content-Type': 'application/json; charset=utf-8',
-    };
     try {
       final id = group.getId;
       final modulesURL = Uri.parse(
           'http://tutorme-dev.us-east-1.elasticbeanstalk.com/api/Groups/videoId/$id?videoId=$videoId');
       final response =
-          await http.put(modulesURL, headers: header, body: videoId);
+          await http.put(modulesURL, headers: global.getHeader, body: videoId);
       if (response.statusCode == 200) {
         return group;
       } else {
@@ -185,16 +160,12 @@ class GroupServices {
     }
   }
 
-  static deleteGroup(String id) async {
+  static deleteGroup(String id, Globals global) async {
     try {
       final url = Uri.http(
           'tutorme-dev.us-east-1.elasticbeanstalk.com', 'api/Groups/$id');
-      final header = {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*"
-      };
-      final response = await http.delete(url, headers: header);
+
+      final response = await http.delete(url, headers: global.getHeader);
       if (response.statusCode == 204) {
         return true;
       } else {
