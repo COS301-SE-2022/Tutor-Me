@@ -163,7 +163,7 @@ class TutorRequestsState extends State<TutorRequests> {
                       Icon(
                         Icons.notifications_off,
                         size: MediaQuery.of(context).size.height * 0.15,
-                        color: colorTurqoise,
+                        color: colorOrange,
                       ),
                       const Text('No new requests')
                     ],
@@ -273,7 +273,7 @@ class TutorRequestsState extends State<TutorRequests> {
                     child: const Text(
                       'View module',
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: colorTurqoise),
+                          fontWeight: FontWeight.bold, color: colorOrange),
                     ),
                   ),
                   SizedBox(
@@ -325,8 +325,8 @@ class TutorRequestsState extends State<TutorRequests> {
                                   },
                                   child: const Text("Accept"),
                                   style: ButtonStyle(
-                                    backgroundColor: MaterialStateProperty.all(
-                                        colorTurqoise),
+                                    backgroundColor:
+                                        MaterialStateProperty.all(colorOrange),
                                   ),
                                 ),
                   SizedBox(width: MediaQuery.of(context).size.width * 0.05),
@@ -361,7 +361,7 @@ class TutorRequestsState extends State<TutorRequests> {
                               child: const Text("Reject"),
                               style: ButtonStyle(
                                 backgroundColor:
-                                    MaterialStateProperty.all(colorOrange),
+                                    MaterialStateProperty.all(colorBlueTeal),
                               ),
                             )
                 ],

@@ -49,11 +49,11 @@ class TuteePageState extends State<TuteePage> {
     if (provider.themeMode == ThemeMode.dark) {
       appBarColor1 = colorDarkGrey;
       appBarColor2 = colorGrey;
-      highlightColor = colorOrange;
+      highlightColor = colorBlueTeal;
     } else {
-      appBarColor1 = const Color.fromRGBO(244, 67, 54, 1);
-      appBarColor2 = Colors.orange;
-      highlightColor = colorTurqoise;
+      appBarColor1 = colorLightBlueTeal;
+      appBarColor2 = colorBlueTeal;
+      highlightColor = colorOrange;
     }
 
     return DefaultTabController(
@@ -131,7 +131,7 @@ class TuteePageState extends State<TuteePage> {
           ),
           label: const Text('Request Tutor'),
           backgroundColor: highlightColor.withOpacity(0.8),
-          splashColor: colorOrange,
+          splashColor: colorBlueTeal,
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
       ),

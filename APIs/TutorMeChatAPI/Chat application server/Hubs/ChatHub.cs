@@ -30,5 +30,31 @@ namespace Chat_application_server.Hubs
             };
             await Clients.All.SendAsync("ReceiveMessage", MessageModel);
         }
+
+        public Task JoinGroup(string groupName, string groupId, string userName,int userId)
+        {
+            MessageModel MessageModel = new MessageModel
+            {
+                CreateDate = DateTime.Now,
+                MessageText = userName + " joined " + groupName,
+                UserId = 0,
+                UserName = "system"
+            };
+            Clients.Group(groupId).SendAsync("ReceiveMessage", MessageModel);
+
+            return Groups.AddToGroupAsync(Context.ConnectionId, groupId);
+        }
+    
+        public Task SendMessageToGroup(string groupId, string UserName, int RandomUserId, string Message)
+        {
+            MessageModel MessageModel = new MessageModel
+            {
+                CreateDate = DateTime.Now,
+                MessageText = Message,
+                UserId = RandomUserId,
+                UserName = UserName
+            };
+            return Clients.Group(groupId).SendAsync("ReceiveMessage", MessageModel);
+        }
     }
 }

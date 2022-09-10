@@ -97,7 +97,8 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
               )
             : WillPopScope(
                 onWillPop: () async {
-                  Navigator.pop(context, ToReturn(widget.image, widget.globals.getUser));
+                  Navigator.pop(
+                      context, ToReturn(widget.image, widget.globals.getUser));
                   return false;
                 },
                 child: ListView(
@@ -114,7 +115,9 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
   Widget buildBody() {
     final screenWidthSize = MediaQuery.of(context).size.width;
     final screenHeightSize = MediaQuery.of(context).size.height;
-    String userName = widget.globals.getUser.getName + ' ' + widget.globals.getUser.getLastName;
+    String userName = widget.globals.getUser.getName +
+        ' ' +
+        widget.globals.getUser.getLastName;
     String courseInfo = institution.getName;
     String personalDets = userName + '(' + widget.globals.getUser.getAge + ')';
     String gender = "";
@@ -135,7 +138,7 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
       SmallTagButton(
         btnName: "Tutor",
         onPressed: () {},
-        backColor: colorTurqoise,
+        backColor: colorOrange,
       ),
       SizedBox(height: screenHeightSize * 0.01),
       Text(
@@ -143,7 +146,7 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
         style: TextStyle(
           fontSize: screenHeightSize * 0.04,
           fontWeight: FontWeight.normal,
-          color: colorOrange,
+          color: colorBlueTeal,
         ),
       ),
       SizedBox(height: screenHeightSize * 0.02),
@@ -266,7 +269,7 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
             ),
             child: SmallTagBtn(
               btnName: "Edit Module list",
-              backColor: colorOrange,
+              backColor: colorBlueTeal,
               funct: () async {
                 final modules = await Navigator.push(
                   context,
@@ -332,7 +335,7 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
             },
             child: Icon(
               Icons.edit,
-              color: colorOrange,
+              color: colorBlueTeal,
               size: MediaQuery.of(context).size.height * 0.05,
             ),
           ),
@@ -373,7 +376,7 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
 
   Widget buildEditImageIcon() => const CircleAvatar(
         radius: 18,
-        backgroundColor: colorOrange,
+        backgroundColor: colorBlueTeal,
         child: Icon(
           Icons.camera_enhance,
           color: Colors.white,
@@ -388,7 +391,7 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
         Icon(
           Icons.book,
           size: MediaQuery.of(context).size.height * 0.02,
-          color: colorTurqoise,
+          color: colorOrange,
         ),
         Expanded(
           child: Text(

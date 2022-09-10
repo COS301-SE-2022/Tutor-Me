@@ -20,7 +20,7 @@ class UploadButton extends StatelessWidget {
       width: size.width * 0.8,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        color: colorTurqoise,
+        color: colorOrange,
       ),
       child: TextButton(
         onPressed: onPressed,
@@ -70,7 +70,7 @@ class DowloadLinkButton extends StatelessWidget {
           children: [
             const Icon(
               Icons.download,
-              color: colorOrange,
+              color: colorBlueTeal,
             ),
             Text(
               btnName,
@@ -78,7 +78,7 @@ class DowloadLinkButton extends StatelessWidget {
               style: const TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.bold,
-                color: colorOrange,
+                color: colorBlueTeal,
               ),
             ),
           ],
@@ -279,7 +279,7 @@ class OrangeButton extends StatelessWidget {
       width: size.width * 0.8,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
-        color: colorOrange,
+        color: colorBlueTeal,
       ),
       child: TextButton(
         onPressed: onPressed,

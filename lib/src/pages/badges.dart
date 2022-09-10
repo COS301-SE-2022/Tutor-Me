@@ -57,7 +57,7 @@ class _PageState extends State<Badges> {
         //         height: MediaQuery.of(context).size.width * 0.253,
         //       )),
         radius: MediaQuery.of(context).size.width * 0.139,
-        backgroundColor: colorOrange,
+        backgroundColor: colorBlueTeal,
         child: ClipOval(
           child: Image.asset(
             "assets/Pictures/student.jpg",
@@ -115,7 +115,7 @@ class _PageState extends State<Badges> {
                 style: TextStyle(
                     fontSize: screenWidthSize * 0.06,
                     fontWeight: FontWeight.bold,
-                    color: colorTurqoise),
+                    color: colorOrange),
               ),
             ),
             Padding(
@@ -125,7 +125,7 @@ class _PageState extends State<Badges> {
                 style: TextStyle(
                     fontSize: screenWidthSize * 0.05,
                     fontWeight: FontWeight.bold,
-                    color: colorOrange),
+                    color: colorBlueTeal),
               ),
             ),
           ],

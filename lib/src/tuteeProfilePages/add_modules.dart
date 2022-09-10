@@ -109,8 +109,7 @@ class _AddModulesPageState extends State<AddModulesPage> {
   }
 
   getTutorGroups() async {
-    final groups =
-        await GroupServices.getGroupByUserID(widget.user.getId);
+    final groups = await GroupServices.getGroupByUserID(widget.user.getId);
 
     tutorGroups = groups;
     setState(() {
@@ -129,7 +128,7 @@ class _AddModulesPageState extends State<AddModulesPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Available Modules"),
-        backgroundColor: colorOrange,
+        backgroundColor: colorBlueTeal,
       ),
       body: _isLoading
           ? const Center(
@@ -143,7 +142,7 @@ class _AddModulesPageState extends State<AddModulesPage> {
                       Icon(
                         Icons.book,
                         size: MediaQuery.of(context).size.height * 0.09,
-                        color: colorTurqoise,
+                        color: colorOrange,
                       ),
                       const Text('No Modules Available')
                     ],
@@ -184,7 +183,7 @@ class _AddModulesPageState extends State<AddModulesPage> {
                                     : null,
                                 border: OutlineInputBorder(
                                   borderSide: const BorderSide(
-                                      color: colorOrange, width: 1.0),
+                                      color: colorBlueTeal, width: 1.0),
                                   borderRadius: BorderRadius.circular(50),
                                 ),
                                 hintStyle: const TextStyle(
@@ -214,7 +213,7 @@ class _AddModulesPageState extends State<AddModulesPage> {
                           ),
                           child: SmallTagBtn(
                               btnName: "Done",
-                              backColor: colorTurqoise,
+                              backColor: colorOrange,
                               funct: () {
                                 Navigator.pop(context, modulesToAdd);
                               }),
@@ -239,7 +238,7 @@ class _AddModulesPageState extends State<AddModulesPage> {
           ListTile(
             leading: const Icon(
               Icons.book,
-              color: colorTurqoise,
+              color: colorOrange,
             ),
             title: Text(name),
             subtitle: Text(modules[i].module.getCode),
@@ -277,14 +276,14 @@ class _AddModulesPageState extends State<AddModulesPage> {
                   actions: [
                     OutlinedButton(
                         style: OutlinedButton.styleFrom(
-                            side: const BorderSide(
-                                width: 2, color: colorTurqoise)),
+                            side:
+                                const BorderSide(width: 2, color: colorOrange)),
                         onPressed: () async {
                           Navigator.pop(context);
                         },
                         child: const Text(
                           'Continue',
-                          style: TextStyle(color: colorTurqoise),
+                          style: TextStyle(color: colorOrange),
                         )),
                   ]);
             }),
@@ -317,7 +316,7 @@ class _AddModulesPageState extends State<AddModulesPage> {
       },
       icon: const Icon(Icons.add),
       label: const Text('Add Modules'),
-      backgroundColor: colorTurqoise,
+      backgroundColor: colorOrange,
     );
   }
 }

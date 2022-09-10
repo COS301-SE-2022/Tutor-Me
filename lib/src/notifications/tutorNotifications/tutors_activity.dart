@@ -24,7 +24,7 @@ class TutorActivityState extends State<TutorActivity> {
             Icon(
               Icons.notifications_off,
               size: MediaQuery.of(context).size.height * 0.15,
-              color: colorTurqoise,
+              color: colorOrange,
             ),
             const Text('No Activity found')
           ],

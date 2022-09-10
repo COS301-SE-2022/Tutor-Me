@@ -62,7 +62,7 @@ class TutorNavigationDrawerState extends State<TutorNavigationDrawerWidget> {
     if (provider.themeMode == ThemeMode.dark) {
       drawerColor = colorDarkGrey;
     } else {
-      drawerColor = colorOrange;
+      drawerColor = colorBlueTeal;
     }
 
     return Drawer(
@@ -134,7 +134,7 @@ class TutorNavigationDrawerState extends State<TutorNavigationDrawerWidget> {
             vertical: MediaQuery.of(context).size.width * 0.05)),
         child: Row(children: <Widget>[
           CircleAvatar(
-            backgroundColor: colorTurqoise,
+            backgroundColor: colorOrange,
             radius: MediaQuery.of(context).size.height * 0.045,
             child: isImageLoading
                 ? const CircularProgressIndicator.adaptive()
