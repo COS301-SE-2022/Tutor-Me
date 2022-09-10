@@ -10,7 +10,6 @@ import 'package:tutor_me/src/pages/book_for_tutor.dart';
 import 'package:tutor_me/src/pages/calendar.dart';
 import '../../services/models/globals.dart';
 import '../../services/models/users.dart';
-import '../../services/services/tutee_services.dart';
 import '../../services/services/user_services.dart';
 import '../theme/themes.dart';
 
@@ -52,8 +51,8 @@ class _HomeState extends State<Home> {
 
   getTuteeProfileImage() async {
     try {
-      final image = await TuteeServices.getTuteeProfileImage(
-          widget.globals.getUser.getId);
+      final image = await UserServices.getTuteeProfileImage(
+          widget.globals.getUser.getId, widget.globals);
 
       setState(() {
         tuteeImage = image;
@@ -70,7 +69,7 @@ class _HomeState extends State<Home> {
 
   getUserType() async {
     final type =
-        await UserServices.getUserType(widget.globals.getUser.getUserTypeID);
+        await UserServices.getUserType(widget.globals.getUser.getUserTypeID, widget.globals);
 
     userType = type;
 

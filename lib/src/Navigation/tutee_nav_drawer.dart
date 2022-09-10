@@ -3,9 +3,9 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tutor_me/services/models/globals.dart';
+import 'package:tutor_me/services/services/user_services.dart';
 import 'package:tutor_me/src/Navigation/switch_change_theme.dart';
 import 'package:tutor_me/src/theme/themes.dart';
-import '../../services/services/tutee_services.dart';
 import '../tuteeProfilePages/tutee_profile.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/authenticate/register_or_login.dart';
@@ -34,8 +34,8 @@ class TuteeNavigationDrawerState extends State<TuteeNavigationDrawerWidget> {
 
   getTuteeProfileImage() async {
     try {
-      final image = await TuteeServices.getTuteeProfileImage(
-          widget.globals.getUser.getId);
+      final image = await UserServices.getTuteeProfileImage(
+          widget.globals.getUser.getId, widget.globals);
 
       setState(() {
         tuteeImage = image;

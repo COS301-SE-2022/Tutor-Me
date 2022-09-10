@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tutor_me/src/authenticate/register_or_login.dart';
-import '../../services/models/users.dart';
+import '../../services/models/globals.dart';
 import 'admin.dart';
 
-void main() => runApp(const MaterialApp(home: Admin()));
-
 class AdminHome extends StatefulWidget {
-  final Users user;
-  const AdminHome({Key? key, required this.user}) : super(key: key);
+  final Globals global;
+  const AdminHome({Key? key, required this.global}) : super(key: key);
 
   @override
   AdminHomeState createState() => AdminHomeState();
@@ -73,7 +71,7 @@ class AdminHomeState extends State<AdminHome> {
           const SizedBox(
             height: 40,
           ),
-          const Admin()
+          Admin(global: widget.global,)
         ],
       ),
     );

@@ -57,7 +57,7 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
   getCurrentModules() async {
     numTutees = 2;
     numConnections = 3;
-    final current = await ModuleServices.getUserModules(widget.tutor.getId);
+    final current = await ModuleServices.getUserModules(widget.tutor.getId, widget.globals);
     setState(() {
       currentModules = current;
     });
@@ -81,7 +81,7 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
 
   getProfileImage() async {
     try {
-      final image = await UserServices.getProfileImage(widget.tutor.getId);
+      final image = await UserServices.getProfileImage(widget.tutor.getId, widget.globals);
       bytes = image;
       isImageDisplayed = true;
       getInstitution();
@@ -125,7 +125,7 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
 
   getInstitution() async {
     final tempInstitution = await InstitutionServices.getUserInstitution(
-        widget.tutor.getInstitutionID);
+        widget.tutor.getInstitutionID, widget.globals);
     setState(() {
       institution = tempInstitution;
       isLoading = false;
@@ -523,7 +523,7 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
                         widget.tutor.setNumberOfReviews = numRatings;
                       });
                       try {
-                        await UserServices.updateTutor(widget.tutor);
+                        await UserServices.updateTutor(widget.tutor, widget.globals);
                       } catch (e) {
                         const snackBar = SnackBar(
                           content: Text('Failed to upload rating'),
@@ -738,8 +738,10 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
                                       try {
                                         await UserServices().sendRequest(
                                             widget.tutor.getId,
-                                            widget.globals.getUser.getId,
-                                            module.getModuleId);
+
+                                             widget.globals.getUser.getId,
+                                            module.getModuleId, widget.globals);
+
                                       } catch (e) {
                                         const snackBar = SnackBar(
                                           content:

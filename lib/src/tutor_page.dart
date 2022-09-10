@@ -67,7 +67,7 @@ class TutorPageState extends State<TutorPage> {
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (BuildContext context) => TutorNotifications(
-                              user: widget.globals.getUser,
+                              globals: widget.globals,
                             )));
                   },
                   icon: const Icon(Icons.notifications))

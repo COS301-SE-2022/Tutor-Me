@@ -58,7 +58,7 @@ class TutorGroupPageState extends State<TutorGroupPage> {
   getTutees() async {
     fetchToken().then((token) => setState(() => _token = token));
     try {
-      final tutees = await GroupServices.getGroupTutees(widget.group.getId);
+      final tutees = await GroupServices.getGroupTutees(widget.group.getId, widget.globals);
       setState(() {
         tuteeList = tutees;
         if (tuteeList.isNotEmpty) {
@@ -76,7 +76,7 @@ class TutorGroupPageState extends State<TutorGroupPage> {
     for (int i = 0; i < tuteeList.length; i++) {
       try {
         final image =
-            await UserServices.getTuteeProfileImage(tuteeList[i].getId);
+            await UserServices.getTuteeProfileImage(tuteeList[i].getId, widget.globals);
         setState(() {
           tuteeImages.add(image);
         });
@@ -249,7 +249,7 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                               try {
                                 _meetingID = await createMeeting();
                                 await GroupServices.updateGroupVideoId(
-                                    _meetingID, widget.group);
+                                    _meetingID, widget.group, widget.globals);
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
