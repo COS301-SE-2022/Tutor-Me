@@ -4,8 +4,6 @@ import 'package:tutor_me/services/models/tutors.dart';
 import 'package:tutor_me/src/notifications/tutorNotifications/tutors_requests.dart';
 import 'package:tutor_me/src/notifications/tutorNotifications/tutors_activity.dart';
 
-import '../../../services/models/users.dart';
-
 class TutorNotifications extends StatefulWidget {
   final Globals globals;
   const TutorNotifications({Key? key, required this.globals}) : super(key: key);

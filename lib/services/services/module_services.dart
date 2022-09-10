@@ -108,9 +108,6 @@ class ModuleServices {
   }
 
   static deleteUserModule(String id, Globals global) async {
-    final header = <String, String>{
-      'Content-Type': 'application/json; charset=utf-8',
-    };
     try {
       final modulesURL = Uri.parse(
           'http://tutorme-dev.us-east-1.elasticbeanstalk.com/api/UserModules/$id');
@@ -126,9 +123,7 @@ class ModuleServices {
   }
 
   static deleteModule(String id, Globals global) async {
-    final header = <String, String>{
-      'Content-Type': 'application/json; charset=utf-8',
-    };
+    
     try {
       final modulesURL = Uri.parse(
           'http://tutorme-dev.us-east-1.elasticbeanstalk.com/api/Modules/$id');
@@ -195,9 +190,6 @@ class ModuleServices {
       'userId': userId
     });
 
-    final header = <String, String>{
-      'Content-Type': 'application/json; charset=utf-8',
-    };
 
     Uri url = Uri.http(
         'tutorme-dev.us-east-1.elasticbeanstalk.com', '/api/UserModules');

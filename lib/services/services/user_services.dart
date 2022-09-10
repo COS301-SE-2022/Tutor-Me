@@ -5,11 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
-import 'package:tutor_me/services/models/modules.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:tutor_me/services/models/users.dart';
-import 'package:tutor_me/services/services/module_services.dart';
 
 import '../models/globals.dart';
 import '../models/requests.dart';
@@ -117,11 +115,7 @@ class UserServices {
     try {
       final url = Uri.http(
           'tutorme-dev.us-east-1.elasticbeanstalk.com', 'api/Requests/$id');
-      final header = {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*"
-      };
+      
       final response = await http.delete(url, headers: global.getHeader);
       if (response.statusCode == 204) {
         return true;

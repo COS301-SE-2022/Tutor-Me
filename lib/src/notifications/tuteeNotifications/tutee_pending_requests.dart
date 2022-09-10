@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:tutor_me/services/models/modules.dart';
 import 'package:tutor_me/services/models/requests.dart';
 import 'package:tutor_me/services/services/module_services.dart';
-import 'package:tutor_me/services/services/tutee_services.dart';
 import 'package:tutor_me/services/services/user_services.dart';
 // import 'package:tutor_me/services/services/tutor_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';

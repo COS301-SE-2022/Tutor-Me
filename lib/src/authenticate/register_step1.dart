@@ -3,7 +3,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import 'package:tutor_me/src/authenticate/login.dart';
 import 'package:tutor_me/src/colorpallete.dart';
-import '../../services/services/user_services.dart';
 import '../components.dart';
 import 'register_step2.dart';
 import 'package:email_auth/email_auth.dart';

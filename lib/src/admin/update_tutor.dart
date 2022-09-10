@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:tutor_me/src/colorpallete.dart';
-import '../../services/services/user_services.dart';
 import '../components.dart';
 
 class UpdateTutor extends StatefulWidget {

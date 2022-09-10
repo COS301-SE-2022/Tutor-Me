@@ -169,10 +169,6 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
                   
                 }
               }
-              if (nameController.text.isNotEmpty) {
-                List<String> name = nameController.text.split(' ');
-
-              }
               if (bioController.text.isNotEmpty) {
                 widget.globals.getUser.setBio = bioController.text;
               }

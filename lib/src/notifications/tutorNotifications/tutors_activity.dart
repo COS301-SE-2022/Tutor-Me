@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:tutor_me/services/models/globals.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 
-import '../../../services/models/users.dart';
-
 class TutorActivity extends StatefulWidget {
   final Globals globals;
   const TutorActivity({Key? key, required this.globals}) : super(key: key);
