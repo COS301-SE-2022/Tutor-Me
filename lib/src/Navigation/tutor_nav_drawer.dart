@@ -8,7 +8,6 @@ import 'package:tutor_me/src/theme/themes.dart';
 import '../../services/models/globals.dart';
 import '../../services/services/user_services.dart';
 import '../tutorProfilePages/settings_pofile_view.dart';
-import 'package:tutor_me/src/authenticate/register_or_login.dart';
 
 // ignore: must_be_immutable
 class TutorNavigationDrawerWidget extends StatefulWidget {

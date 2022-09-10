@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:tutor_me/src/authenticate/register_or_login.dart';
 import 'package:tutor_me/src/authenticate/register_step1.dart';
 import '../../services/models/globals.dart';
 import 'admin.dart';

@@ -9,7 +9,6 @@ import 'package:tutor_me/src/authenticate/register_step1.dart';
 import 'package:tutor_me/src/theme/themes.dart';
 import '../tuteeProfilePages/tutee_profile.dart';
 import 'package:tutor_me/src/colorpallete.dart';
-import 'package:tutor_me/src/authenticate/register_or_login.dart';
 
 // ignore: must_be_immutable
 class TuteeNavigationDrawerWidget extends StatefulWidget {
