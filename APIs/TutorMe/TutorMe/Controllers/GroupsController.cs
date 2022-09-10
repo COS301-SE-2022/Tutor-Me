@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using TutorMe.Data;
 using TutorMe.Services;
 using TutorMe.Entities;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TutorMe.Controllers
 {
@@ -20,7 +21,8 @@ namespace TutorMe.Controllers
             this.groupService = groupService;
             this.mapper = mapper;
         }
-
+        
+        [Authorize]
         [HttpGet]
         public IActionResult GetAllGroups()
         {
@@ -33,6 +35,7 @@ namespace TutorMe.Controllers
             }
         }
 
+        [Authorize]
         [HttpGet("user/{id}")]
         public IActionResult GetGroupsByUserId(Guid id) {
             try {
@@ -44,6 +47,7 @@ namespace TutorMe.Controllers
             }
         }
 
+        [Authorize]
         [HttpGet("{id}")]
         public IActionResult GetGroupById(Guid id)
         {
@@ -56,6 +60,7 @@ namespace TutorMe.Controllers
             }
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult createGroup(IGroup group)
         {
@@ -68,6 +73,7 @@ namespace TutorMe.Controllers
             }
         }
 
+        [Authorize]
         [HttpDelete("{id}")]
         public IActionResult DeleteGroup(Guid id)
         {
@@ -80,6 +86,7 @@ namespace TutorMe.Controllers
             }
         }
 
+        [Authorize]
         [HttpPut("description/{id}")]
         public IActionResult UpdateGroupDescription(Guid id, string description) {
             try {
@@ -91,6 +98,7 @@ namespace TutorMe.Controllers
             }
         }
 
+        [Authorize]
         [HttpPut("videoId/{id}")]
         public IActionResult UpdateGroupVideoId(Guid id, string videoId) {
             try {
