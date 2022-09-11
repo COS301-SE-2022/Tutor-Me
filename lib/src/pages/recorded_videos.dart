@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tutor_me/screens/recording_screen.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 
 class RecordedVideos extends StatefulWidget {
@@ -98,7 +99,14 @@ class _RecordedVideosState extends State<RecordedVideos> {
                   height: MediaQuery.of(context).size.height * 0.05,
                   width: MediaQuery.of(context).size.width * 0.3,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const RecordingScreen(
+                                  videoURL:
+                                      "https://cdn.videosdk.live/encoded/videos/63161d681d5e14bac5db733a.mp4")));
+                    },
                     child: const Text('View'),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: colorOrange,
@@ -109,7 +117,12 @@ class _RecordedVideosState extends State<RecordedVideos> {
                   height: MediaQuery.of(context).size.height * 0.05,
                   width: MediaQuery.of(context).size.width * 0.3,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const RecordingScreen(
+                                  videoURL:
+                                      "https://cdn.videosdk.live/encoded/videos/63161d681d5e14bac5db733a.mp4")));},
                     child: const Text(
                       'Download',
                       style: TextStyle(color: colorWhite),

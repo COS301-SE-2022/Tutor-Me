@@ -180,6 +180,8 @@ class _RegisterStep1State extends State<RegisterStep1> {
                   child: Stepper(
                     onStepCancel: null,
                     onStepContinue: null,
+                    controlsBuilder: (context, details) =>
+                        const SizedBox.shrink(),
                     type: StepperType.horizontal,
                     steps: getSteps(),
                     currentStep: currentStep,
