@@ -8,7 +8,7 @@ import '../../services/services/module_services.dart';
 
 class DeleteModule extends StatefulWidget {
   final Globals global;
-  const DeleteModule({Key? key,required this.global}) : super(key: key);
+  const DeleteModule({Key? key, required this.global}) : super(key: key);
 
   @override
   DeleteModuleState createState() => DeleteModuleState();
@@ -52,6 +52,10 @@ class DeleteModuleState extends State<DeleteModule> {
             ),
           ),
           Scaffold(
+            appBar: AppBar(
+              elevation: 0,
+              backgroundColor: Colors.transparent,
+            ),
             backgroundColor: Colors.transparent,
             body: Column(children: [
               const Flexible(
@@ -147,7 +151,8 @@ class DeleteModuleState extends State<DeleteModule> {
                         },
                       );
                     }
-                    ModuleServices.deleteModule(idcontroller.text, widget.global);
+                    ModuleServices.deleteModule(
+                        idcontroller.text, widget.global);
                   },
                   child: isLoading
                       ? const CircularProgressIndicator(color: Colors.white)

@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
+import '../src/colorpallete.dart';
 import '../utils/spacer.dart';
 import '../utils/toast.dart';
 import 'join_screen.dart';
@@ -34,7 +35,7 @@ class _StartupScreenState extends State<StartupScreen> {
   Widget build(BuildContext context) {
     final ButtonStyle _buttonStyle = TextButton.styleFrom(
       foregroundColor: Colors.white,
-      backgroundColor: Colors.red,
+      backgroundColor: colorBlueTeal,
       textStyle: const TextStyle(
         fontWeight: FontWeight.bold,
       ),
@@ -57,8 +58,10 @@ class _StartupScreenState extends State<StartupScreen> {
             : Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  TextButton(
+                  TextButton.icon(
                     style: _buttonStyle,
+                    icon: const Icon(Icons.video_call),
+                    label: const Text("CREATE MEETING"),
                     onPressed: () async {
                       _meetingID = await createMeeting();
                       Navigator.push(
@@ -72,7 +75,6 @@ class _StartupScreenState extends State<StartupScreen> {
                         ),
                       );
                     },
-                    child: const Text("CREATE MEETING"),
                   ),
                   verticalSpacer(20),
                   const Text(
@@ -101,7 +103,9 @@ class _StartupScreenState extends State<StartupScreen> {
                     ),
                   ),
                   verticalSpacer(20),
-                  TextButton(
+                  TextButton.icon(
+                    icon: const Icon(Icons.join_full_rounded),
+                    label: const Text("JOIN MEETING"),
                     onPressed: () async {
                       if (_meetingID.isEmpty) {
                         toastMsg("Please, Enter Valid Meeting ID");
@@ -122,7 +126,6 @@ class _StartupScreenState extends State<StartupScreen> {
                       }
                     },
                     style: _buttonStyle,
-                    child: const Text("JOIN MEETING"),
                   )
                 ],
               ),

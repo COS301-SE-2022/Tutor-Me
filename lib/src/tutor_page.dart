@@ -58,7 +58,7 @@ class TutorPageState extends State<TutorPage> {
                   // borderRadius:
                   //     BorderRadius.vertical(bottom: Radius.circular(60)),
                   gradient: LinearGradient(
-                      colors: <Color>[Colors.orange, Colors.red],
+                      colors: <Color>[colorLightBlueTeal, colorBlueTeal],
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter)),
             ),

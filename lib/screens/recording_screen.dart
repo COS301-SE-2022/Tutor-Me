@@ -9,11 +9,10 @@ import 'package:http/http.dart' as http;
 
 import '../utils/toast.dart';
 
-void main() => runApp(const RecordingScreen());
-
 /// Stateful widget to fetch and then display video content.
 class RecordingScreen extends StatefulWidget {
-  const RecordingScreen({Key? key}) : super(key: key);
+  final String videoURL;
+  const RecordingScreen({Key? key, required this.videoURL}) : super(key: key);
 
   @override
   RecordingScreenState createState() => RecordingScreenState();
@@ -27,8 +26,7 @@ class RecordingScreenState extends State<RecordingScreen> {
   void initState() {
     super.initState();
     // createMeeting();
-    _controller = VideoPlayerController.network(
-        'https://cdn.videosdk.live/encoded/videos/63161d681d5e14bac5db733a.mp4')
+    _controller = VideoPlayerController.network(widget.videoURL)
       ..initialize().then((_) {
         // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
         setState(() {});
