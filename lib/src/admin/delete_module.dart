@@ -2,11 +2,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:tutor_me/src/colorpallete.dart';
+import '../../services/models/globals.dart';
 import '../components.dart';
 import '../../services/services/module_services.dart';
 
 class DeleteModule extends StatefulWidget {
-  const DeleteModule({Key? key}) : super(key: key);
+  final Globals global;
+  const DeleteModule({Key? key, required this.global}) : super(key: key);
 
   @override
   DeleteModuleState createState() => DeleteModuleState();
@@ -50,6 +52,10 @@ class DeleteModuleState extends State<DeleteModule> {
             ),
           ),
           Scaffold(
+            appBar: AppBar(
+              elevation: 0,
+              backgroundColor: Colors.transparent,
+            ),
             backgroundColor: Colors.transparent,
             body: Column(children: [
               const Flexible(
@@ -145,7 +151,8 @@ class DeleteModuleState extends State<DeleteModule> {
                         },
                       );
                     }
-                    ModuleServices.deleteModule(idcontroller.text);
+                    ModuleServices.deleteModule(
+                        idcontroller.text, widget.global);
                   },
                   child: isLoading
                       ? const CircularProgressIndicator(color: Colors.white)

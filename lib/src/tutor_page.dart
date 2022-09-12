@@ -58,7 +58,7 @@ class TutorPageState extends State<TutorPage> {
                   // borderRadius:
                   //     BorderRadius.vertical(bottom: Radius.circular(60)),
                   gradient: LinearGradient(
-                      colors: <Color>[Colors.orange, Colors.red],
+                      colors: <Color>[colorLightBlueTeal, colorBlueTeal],
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter)),
             ),
@@ -67,7 +67,7 @@ class TutorPageState extends State<TutorPage> {
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (BuildContext context) => TutorNotifications(
-                              user: widget.globals.getUser,
+                              globals: widget.globals,
                             )));
                   },
                   icon: const Icon(Icons.notifications))
@@ -75,7 +75,7 @@ class TutorPageState extends State<TutorPage> {
           ),
           body: screens[currentIndex],
           bottomNavigationBar: BottomNavigationBar(
-            selectedItemColor: colorOrange,
+            selectedItemColor: colorBlueTeal,
             unselectedItemColor: colorDarkGrey,
             showUnselectedLabels: true,
             unselectedLabelStyle: const TextStyle(color: colorDarkGrey),

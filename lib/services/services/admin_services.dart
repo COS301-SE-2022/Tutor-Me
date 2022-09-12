@@ -5,16 +5,14 @@ import 'dart:convert';
 import 'package:crypt/crypt.dart';
 import 'package:tutor_me/services/models/users.dart';
 
+import '../models/globals.dart';
+
 class AdminServices {
-  static getAdmins() async {
+  static getAdmins(Globals global) async {
     Uri adminsURL =
         Uri.http('tutorme-dev.us-east-1.elasticbeanstalk.com', '/api/Admins');
     try {
-      final response = await http.get(adminsURL, headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*"
-      });
+      final response = await http.get(adminsURL, headers: global.getHeader);
 
       if (response.statusCode == 200) {
         String j = "";
@@ -33,21 +31,19 @@ class AdminServices {
     }
   }
 
-  static updateAdmin(Users admin) async {
+  static updateAdmin(Users admin, Globals global) async {
     String data = jsonEncode({
       'id': admin.getId,
       'name': admin.getName,
       'email': admin.getEmail,
       'password': admin.getPassword,
     });
-    final header = <String, String>{
-      'Content-Type': 'application/json; charset=utf-8',
-    };
     try {
       final id = admin.getId;
       final adminsURL = Uri.parse(
           'http://tutorme-dev.us-east-1.elasticbeanstalk.com/api/Admins/$id');
-      final response = await http.put(adminsURL, headers: header, body: data);
+      final response =
+          await http.put(adminsURL, headers: global.getHeader, body: data);
       if (response.statusCode == 204) {
         return admin;
       } else {
@@ -58,15 +54,11 @@ class AdminServices {
     }
   }
 
-  static Future getAdmin(String id) async {
+  static Future getAdmin(String id, Globals global) async {
     Uri tutorURL = Uri.http(
         'tutorme-dev.us-east-1.elasticbeanstalk.com', '/api/Admins/$id');
     try {
-      final response = await http.get(tutorURL, headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*"
-      });
+      final response = await http.get(tutorURL, headers: global.getHeader);
       if (response.statusCode == 200) {
         String j = "";
         if (response.body[0] != "[") {
@@ -101,12 +93,18 @@ class AdminServices {
       'Content-Type': 'application/json; charset=utf-8',
     };
     try {
-      final modulesURL =
-          Uri.parse('http://tutorme-dev.us-east-1.elasticbeanstalk.com/Login');
+      final modulesURL = Uri.parse(
+          'http://tutorme-dev.us-east-1.elasticbeanstalk.com/api/account/authtoken');
       final response = await http.post(modulesURL, headers: header, body: data);
       if (response.statusCode == 200) {
-        final Users admin = Users.fromObject(jsonDecode(response.body));
-        return admin;
+        final Users admin = Users.fromObject(jsonDecode(response.body)['user']);
+        Globals global = Globals(
+            admin,
+            'tutorme-dev.us-east-1.elasticbeanstalk.com',
+            json.decode(response.body)['token'],
+            json.decode(response.body)['refreshToken']);
+
+        return global;
       } else {
         throw Exception('Failed to log in' + response.statusCode.toString());
       }

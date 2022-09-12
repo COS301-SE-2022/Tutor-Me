@@ -20,6 +20,7 @@ import '../../services/models/modules.dart';
 import '../../services/services/user_services.dart';
 import '../../utils/toast.dart';
 import '../pages/chat_page.dart';
+import '../pages/recorded_videos.dart';
 // import '../chat/group_chat.dart';
 
 class Tutee {
@@ -66,7 +67,7 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
   getTutees() async {
     fetchToken().then((token) => setState(() => _token = token));
     try {
-      final tutees = await GroupServices.getGroupTutees(widget.group.getId);
+      final tutees = await GroupServices.getGroupTutees(widget.group.getId, widget.globals);
       setState(() {
         tuteeList = tutees;
       });
@@ -81,7 +82,7 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
     for (int i = 0; i < tuteeList.length; i++) {
       try {
         final image =
-            await UserServices.getTuteeProfileImage(tuteeList[i].getId);
+            await UserServices.getTuteeProfileImage(tuteeList[i].getId,widget.globals);
         setState(() {
           tuteeImages.add(image);
         });
@@ -113,7 +114,7 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
 
   getTutor() async {
     try {
-      final tutor = await UserServices.getTutor(widget.group.getUserId);
+      final tutor = await UserServices.getTutor(widget.group.getUserId, widget.globals);
 
       setState(() {
         tutorObj = tutor[0];
@@ -130,7 +131,7 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
   getTutorImage() async {
     try {
       final image =
-          await UserServices.getTutorProfileImage(widget.group.getUserId);
+          await UserServices.getTutorProfileImage(widget.group.getUserId, widget.globals);
 
       setState(() {
         tutorHasImage = true;
@@ -159,13 +160,13 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
     Color primaryColor;
 
     if (provider.themeMode == ThemeMode.dark) {
-      highlightColor = colorOrange;
+      highlightColor = colorBlueTeal;
       textColor = colorWhite;
       primaryColor = colorGrey;
     } else {
-      highlightColor = colorTurqoise;
+      highlightColor = colorOrange;
       textColor = Colors.black;
-      primaryColor = colorOrange;
+      primaryColor = colorBlueTeal;
     }
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.height;
@@ -235,7 +236,7 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
                                 data: Theme.of(context).copyWith(
                                     scrollbarTheme: ScrollbarThemeData(
                                         thumbColor: MaterialStateProperty.all(
-                                            colorTurqoise))),
+                                            colorOrange))),
                                 child: Scrollbar(
                                   child: Text(
                                     widget.group.getDescription,
@@ -255,7 +256,7 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
                       height: screenHeight * 0.03,
                     ),
                     SizedBox(
-                      height: screenHeight * 0.24,
+                      height: screenHeight * 0.28,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
@@ -294,7 +295,7 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
                             onTap: () async {
                               try {
                                 final group = await GroupServices.getGroup(
-                                    widget.group.getId);
+                                    widget.group.getId, widget.globals);
 
                                 setState(() {
                                   widget.group = group;
@@ -359,12 +360,48 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
                               ),
                             ),
                           ),
-                          // SizedBox(
-                          //   height: screenHeight * 0.05,
-                          // ),
+                          InkWell(
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                      const RecordedVideos()));
+                            },
+                            child: Card(
+                              elevation: 0,
+                              color: Colors.transparent,
+                              child: ListTile(
+                                horizontalTitleGap: screenHeight * 0.04,
+                                leading: Stack(children: [
+                                  Icon(
+                                    Icons.chat_bubble,
+                                    size: screenHeight * 0.06,
+                                    color: primaryColor,
+                                  ),
+                                  Positioned(
+                                      top: screenHeight * 0.01,
+                                      left: screenWidth * 0.014,
+                                      child: const Icon(
+                                        Icons.video_library,
+                                        color: colorWhite,
+                                      ))
+                                ]),
+                                title: Text(
+                                  'Recorded Meetings',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w800,
+                                      fontSize:
+                                          MediaQuery.of(context).size.height *
+                                              0.025),
+                                ),
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ),
+                    // SizedBox(
+                    //   height: screenHeight * 0.05,
+                    // ),
                     SizedBox(
                       width: screenWidth * 0.5,
                       child: Padding(
@@ -424,7 +461,7 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
                             ),
                           )
                         : SizedBox(
-                            height: screenHeight * 0.2,
+                            height: screenHeight * 0.3,
                             width: screenWidth * 0.5,
                             child: ListView.separated(
                                 controller: ScrollController(),
@@ -452,7 +489,7 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
     if (provider.themeMode == ThemeMode.dark) {
       primaryColor = colorGrey;
     } else {
-      primaryColor = colorOrange;
+      primaryColor = colorBlueTeal;
     }
     //getTutees
     String name = tutorObj.getName + ' ' + tutorObj.getLastName;
@@ -499,7 +536,7 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
               subtitle: Text(
                 tutorObj.getBio,
                 style: const TextStyle(
-                    fontWeight: FontWeight.w500, color: colorOrange),
+                    fontWeight: FontWeight.w500, color: colorBlueTeal),
               ),
               trailing: Icon(
                 Icons.chat_bubble,
@@ -555,12 +592,12 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
               subtitle: Text(
                 tutees[i].tutee.getBio,
                 style: const TextStyle(
-                    fontWeight: FontWeight.w500, color: colorOrange),
+                    fontWeight: FontWeight.w500, color: colorBlueTeal),
               ),
               trailing: Icon(
                 Icons.chat_bubble,
                 size: MediaQuery.of(context).size.aspectRatio * 80,
-                color: colorOrange,
+                color: colorBlueTeal,
               ),
             )));
   }

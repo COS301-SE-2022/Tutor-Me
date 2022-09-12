@@ -30,7 +30,7 @@ class UserStats extends StatelessWidget {
     if (provider.themeMode == ThemeMode.dark) {
       secondaryTextColor = colorGrey;
     } else {
-      secondaryTextColor = colorTurqoise;
+      secondaryTextColor = colorOrange;
     }
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -79,7 +79,7 @@ class UserStats extends StatelessWidget {
             style: const TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.normal,
-              color: colorOrange,
+              color: colorBlueTeal,
             ),
           ),
         ],

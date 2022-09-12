@@ -32,7 +32,7 @@ class _InviteToMeetingState extends State<InviteToMeeting> {
         child: Scaffold(
       appBar: AppBar(
         title: const Text("Invite To Meeting"),
-        backgroundColor: colorOrange,
+        backgroundColor: colorBlueTeal,
       ),
       body: ListView(
         children: [
@@ -40,7 +40,7 @@ class _InviteToMeetingState extends State<InviteToMeeting> {
             onTap: () => allCheck(allChecked),
             trailing: Checkbox(
               checkColor: colorWhite,
-              activeColor: colorOrange,
+              activeColor: colorBlueTeal,
               value: allChecked.isChecked,
               onChanged: (value) => allCheck(allChecked),
             ),
@@ -48,7 +48,7 @@ class _InviteToMeetingState extends State<InviteToMeeting> {
               allChecked.name,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: MediaQuery.of(context).size.width * 0.05,
+                fontSize: MediaQuery.of(context).size.height * 0.05,
               ),
             ),
           ),
@@ -63,7 +63,7 @@ class _InviteToMeetingState extends State<InviteToMeeting> {
               ),
               trailing: Checkbox(
                 checkColor: colorWhite,
-                activeColor: colorOrange,
+                activeColor: colorBlueTeal,
                 value: checkBox.isChecked,
                 onChanged: (value) => oneClicked(checkBox),
               ),
@@ -71,7 +71,7 @@ class _InviteToMeetingState extends State<InviteToMeeting> {
                 checkBox.name,
                 style: TextStyle(
                   fontWeight: FontWeight.normal,
-                  fontSize: MediaQuery.of(context).size.width * 0.05,
+                  fontSize: MediaQuery.of(context).size.height * 0.05,
                 ),
               ),
             ),
@@ -86,7 +86,7 @@ class _InviteToMeetingState extends State<InviteToMeeting> {
               height: MediaQuery.of(context).size.height * 0.06,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(16),
-                color: colorOrange,
+                color: colorBlueTeal,
               ),
               child: TextButton(
                   onPressed: () {
@@ -100,7 +100,7 @@ class _InviteToMeetingState extends State<InviteToMeeting> {
                   child: Text(
                     "Invite",
                     style: TextStyle(
-                      fontSize: MediaQuery.of(context).size.width * 0.05,
+                      fontSize: MediaQuery.of(context).size.height * 0.05,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
                     ),

@@ -1,4 +1,5 @@
 import 'package:http/http.dart' as http;
+import 'package:tutor_me/services/models/globals.dart';
 import 'dart:async';
 import 'dart:convert';
 
@@ -8,12 +9,15 @@ class InstitutionServices {
   static getInstitutions() async {
     Uri institutionsURL = Uri.http(
         'tutorme-dev.us-east-1.elasticbeanstalk.com', '/api/Institutions');
+
+        final header = {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*"
+        };
+
     try {
-      final response = await http.get(institutionsURL, headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*"
-      });
+      final response = await http.get(institutionsURL, headers: header);
 
       if (response.statusCode == 200) {
         String j = "";
@@ -32,11 +36,11 @@ class InstitutionServices {
     }
   }
 
-  static Future getUserInstitution(String id) async {
+  static Future getUserInstitution(String id, Globals global) async {
     Uri url = Uri.parse(
         'http://tutorme-dev.us-east-1.elasticbeanstalk.com/api/Institutions/$id');
     try {
-      final response = await http.get(url);
+      final response = await http.get(url, headers: global.getHeader);
       if (response.statusCode == 200) {
         final Institutions institution =
             Institutions.fromObject(json.decode(response.body));

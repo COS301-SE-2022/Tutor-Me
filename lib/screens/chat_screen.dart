@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tutor_me/src/colorpallete.dart';
 import 'package:videosdk/rtc.dart';
 import '../widgets/chat/chat_widget.dart';
 
@@ -41,7 +42,7 @@ class _ChatScreenState extends State<ChatScreen> {
     if (provider.themeMode == ThemeMode.dark) {
       appBarColor = Colors.grey;
     } else {
-      appBarColor = const Color(0xffD6521B);
+      appBarColor = colorBlueTeal;
     }
     return Scaffold(
       appBar: AppBar(
@@ -101,6 +102,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     ),
                     IconButton(
                       icon: const Icon(Icons.send),
+                      color: colorBlueTeal,
                       onPressed: msgTextController.text.trim().isEmpty
                           ? null
                           : () => widget.meeting.pubSub
