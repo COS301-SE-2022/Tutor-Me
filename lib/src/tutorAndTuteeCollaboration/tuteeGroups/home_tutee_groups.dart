@@ -8,18 +8,17 @@ import '../../../services/models/globals.dart';
 import '../../../services/models/modules.dart';
 import '../../Groups/tutee_group.dart';
 
-class TuteeGroups extends StatefulWidget {
+class HomeTuteeGroups extends StatefulWidget {
   final Globals globals;
-
-  const TuteeGroups({Key? key, required this.globals}) : super(key: key);
+  const HomeTuteeGroups({Key? key, required this.globals}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
-    return TuteeGroupsState();
+    return _HomeTuteeGroupsState();
   }
 }
 
-class TuteeGroupsState extends State<TuteeGroups> {
+class _HomeTuteeGroupsState extends State<HomeTuteeGroups> {
   String images =
       'https://cdn.pixabay.com/photo/2018/09/27/09/22/artificial-intelligence-3706562_960_720.jpg';
 
@@ -78,6 +77,11 @@ class TuteeGroupsState extends State<TuteeGroups> {
     return DefaultTabController(
         length: 3,
         child: Scaffold(
+          appBar: AppBar(
+            backgroundColor: colorBlueTeal,
+            title: const Text(' My Groups'),
+            centerTitle: true,
+          ),
           body: Center(
             child: isLoading
                 ? const CircularProgressIndicator.adaptive()
