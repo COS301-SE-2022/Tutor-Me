@@ -104,6 +104,7 @@ class _PageState extends State<Badges> {
       "50 Consecutive Days",
     ];
 
+    // ignore: unused_local_variable
     final descriptions = [
       "You have registered with TutorMe",
       "You have attended 10 consecutive days",
