@@ -1,5 +1,6 @@
 C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\bin\Debug\net6.0\win-x64\appsettings.Development.json
 C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\bin\Debug\net6.0\win-x64\appsettings.json
+C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\bin\Debug\net6.0\win-x64\aws-beanstalk-tools-defaults.json
 C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\bin\Debug\net6.0\win-x64\efpt.config.json
 C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\bin\Debug\net6.0\win-x64\TutorMe.exe
 C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\bin\Debug\net6.0\win-x64\TutorMe.deps.json
@@ -11,6 +12,7 @@ C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\bi
 C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\bin\Debug\net6.0\win-x64\Humanizer.dll
 C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\bin\Debug\net6.0\win-x64\MessagePack.dll
 C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\bin\Debug\net6.0\win-x64\MessagePack.Annotations.dll
+C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\bin\Debug\net6.0\win-x64\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\bin\Debug\net6.0\win-x64\Microsoft.AspNetCore.Razor.Language.dll
 C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\bin\Debug\net6.0\win-x64\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\bin\Debug\net6.0\win-x64\Microsoft.Build.Locator.dll
@@ -602,5 +604,3 @@ C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\ob
 C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\obj\Debug\net6.0\win-x64\TutorMe.pdb
 C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\obj\Debug\net6.0\win-x64\TutorMe.genruntimeconfig.cache
 C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\obj\Debug\net6.0\win-x64\ref\TutorMe.dll
-C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\bin\Debug\net6.0\win-x64\aws-beanstalk-tools-defaults.json
-C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\bin\Debug\net6.0\win-x64\Microsoft.AspNetCore.Authentication.JwtBearer.dll
