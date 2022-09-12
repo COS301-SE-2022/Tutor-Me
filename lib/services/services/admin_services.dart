@@ -42,7 +42,8 @@ class AdminServices {
       final id = admin.getId;
       final adminsURL = Uri.parse(
           'http://tutorme-dev.us-east-1.elasticbeanstalk.com/api/Admins/$id');
-      final response = await http.put(adminsURL, headers: global.getHeader, body: data);
+      final response =
+          await http.put(adminsURL, headers: global.getHeader, body: data);
       if (response.statusCode == 204) {
         return admin;
       } else {
@@ -92,8 +93,8 @@ class AdminServices {
       'Content-Type': 'application/json; charset=utf-8',
     };
     try {
-      final modulesURL =
-          Uri.parse('http://tutorme-dev.us-east-1.elasticbeanstalk.com/Login');
+      final modulesURL = Uri.parse(
+          'http://tutorme-dev.us-east-1.elasticbeanstalk.com/api/account/authtoken');
       final response = await http.post(modulesURL, headers: header, body: data);
       if (response.statusCode == 200) {
         final Users admin = Users.fromObject(jsonDecode(response.body)['user']);

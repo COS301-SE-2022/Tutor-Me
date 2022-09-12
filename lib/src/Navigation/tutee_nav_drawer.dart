@@ -5,10 +5,10 @@ import 'package:provider/provider.dart';
 import 'package:tutor_me/services/models/globals.dart';
 import 'package:tutor_me/services/services/user_services.dart';
 import 'package:tutor_me/src/Navigation/switch_change_theme.dart';
+import 'package:tutor_me/src/authenticate/register_step1.dart';
 import 'package:tutor_me/src/theme/themes.dart';
 import '../tuteeProfilePages/tutee_profile.dart';
 import 'package:tutor_me/src/colorpallete.dart';
-import 'package:tutor_me/src/authenticate/register_or_login.dart';
 
 // ignore: must_be_immutable
 class TuteeNavigationDrawerWidget extends StatefulWidget {
@@ -105,7 +105,7 @@ class TuteeNavigationDrawerState extends State<TuteeNavigationDrawerWidget> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const RegisterOrLogin()),
+                          builder: (context) => const RegisterStep1()),
                     );
                   },
                 ),

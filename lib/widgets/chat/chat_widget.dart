@@ -1,5 +1,6 @@
 import 'package:date_time_format/date_time_format.dart';
 import 'package:flutter/material.dart';
+import 'package:tutor_me/src/colorpallete.dart';
 import 'package:videosdk/rtc.dart';
 
 import 'package:provider/provider.dart';
@@ -19,7 +20,7 @@ class ChatWidget extends StatelessWidget {
     if (provider.themeMode == ThemeMode.dark) {
       appBarColor = Colors.grey;
     } else {
-      appBarColor = Colors.orange.shade900;
+      appBarColor = colorBlueTeal;
     }
     return Align(
       alignment:

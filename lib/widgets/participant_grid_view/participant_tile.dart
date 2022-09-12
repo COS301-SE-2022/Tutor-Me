@@ -51,7 +51,7 @@ class _ParticipantTileState extends State<ParticipantTile> {
     if (provider.themeMode == ThemeMode.dark) {
       participantColor = Colors.grey;
     } else {
-      participantColor = Colors.orange.shade200;
+      participantColor = Colors.blue.shade100;
     }
     return VisibilityDetector(
       key: Key("tile_${widget.participant.id}"),

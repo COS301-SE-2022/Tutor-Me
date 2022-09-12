@@ -36,7 +36,10 @@ dependencies:
   signalr_core: ^1.1.1
   video_player: ^2.4.7
   pigeon: ^1.0.7
-  
+
+  url_launcher: ^6.0.17
+
+
   table_calendar: ^3.0.6
   smooth_page_indicator: ^1.0.0+2
   provider: ^6.0.3

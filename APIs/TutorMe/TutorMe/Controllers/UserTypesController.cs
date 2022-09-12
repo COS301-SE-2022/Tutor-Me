@@ -34,7 +34,7 @@ namespace TutorMe.Controllers
             }
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpGet("{id}")]
         public IActionResult GetUserTypeById(Guid id)
         {

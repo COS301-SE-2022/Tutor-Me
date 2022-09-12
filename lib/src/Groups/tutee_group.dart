@@ -20,6 +20,7 @@ import '../../services/models/modules.dart';
 import '../../services/services/user_services.dart';
 import '../../utils/toast.dart';
 import '../pages/chat_page.dart';
+import '../pages/recorded_videos.dart';
 // import '../chat/group_chat.dart';
 
 class Tutee {
@@ -284,8 +285,10 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
                       height: screenHeight * 0.03,
                     ),
                     SizedBox(
+
                       width: screenWidth * 0.8,
                       height: screenHeight * 0.24,
+
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
@@ -388,12 +391,48 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
                               ),
                             ),
                           ),
-                          // SizedBox(
-                          //   height: screenHeight * 0.05,
-                          // ),
+                          InkWell(
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                      const RecordedVideos()));
+                            },
+                            child: Card(
+                              elevation: 0,
+                              color: Colors.transparent,
+                              child: ListTile(
+                                horizontalTitleGap: screenHeight * 0.04,
+                                leading: Stack(children: [
+                                  Icon(
+                                    Icons.chat_bubble,
+                                    size: screenHeight * 0.06,
+                                    color: primaryColor,
+                                  ),
+                                  Positioned(
+                                      top: screenHeight * 0.01,
+                                      left: screenWidth * 0.014,
+                                      child: const Icon(
+                                        Icons.video_library,
+                                        color: colorWhite,
+                                      ))
+                                ]),
+                                title: Text(
+                                  'Recorded Meetings',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w800,
+                                      fontSize:
+                                          MediaQuery.of(context).size.height *
+                                              0.025),
+                                ),
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ),
+                    // SizedBox(
+                    //   height: screenHeight * 0.05,
+                    // ),
                     SizedBox(
                       width: screenWidth * 0.5,
                       child: Padding(
@@ -453,7 +492,7 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
                             ),
                           )
                         : SizedBox(
-                            height: screenHeight * 0.2,
+                            height: screenHeight * 0.3,
                             width: screenWidth * 0.5,
                             child: ListView.separated(
                                 controller: ScrollController(),
