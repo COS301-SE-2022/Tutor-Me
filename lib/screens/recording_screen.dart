@@ -36,7 +36,7 @@ class RecordingScreenState extends State<RecordingScreen> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Video Demo',
+      title: 'Recorded Video',
       home: Scaffold(
         body: Center(
           child: _controller.value.isInitialized
@@ -116,18 +116,5 @@ class RecordingScreenState extends State<RecordingScreen> {
     log("Meeting ID: $meetingId");
 
     return meetingId;
-  }
-
-  Future<bool> validateMeeting(String _meetingId) async {
-    final String? _VIDEOSDK_API_ENDPOINT = dotenv.env['VIDEOSDK_API_ENDPOINT'];
-
-    final Uri validateMeetingUrl =
-        Uri.parse('$_VIDEOSDK_API_ENDPOINT/meetings/$_meetingId');
-    final http.Response validateMeetingResponse =
-        await http.post(validateMeetingUrl, headers: {
-      "Authorization": _token,
-    });
-
-    return validateMeetingResponse.statusCode == 200;
   }
 }
