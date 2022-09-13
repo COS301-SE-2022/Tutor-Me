@@ -1,7 +1,7 @@
 // ignore_for_file: dead_code, non_constant_identifier_names
 
 import 'dart:convert';
-import 'dart:developer';
+// import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -23,13 +23,14 @@ class _RecordedVideosState extends State<RecordedVideos> {
   List<String> _meetingIdList = List<String>.empty(growable: true);
 
   int currentIndex = 0;
-  String _token = "";
+  // String _token = "";
   int numVideos = 0;
 
   @override
   void initState() {
     super.initState();
-    fetchToken().then((token) => setState(() => _token = token));
+    // fetchToken().then((token) => setState(() => _token = token));
+    getRecordings();
   }
 
   List<Color> colors = [
@@ -122,10 +123,10 @@ class _RecordedVideosState extends State<RecordedVideos> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const RecordingScreen(
-                                  videoURL:
-                                      // _meetingIdList[index]
-                                      "https://cdn.videosdk.live/encoded/videos/63161d681d5e14bac5db733a.mp4")));
+                              builder: (context) => RecordingScreen(
+                                  videoURL: _meetingIdList[index]
+                                  // "https://cdn.videosdk.live/encoded/videos/63161d681d5e14bac5db733a.mp4"
+                                  )));
                     },
                     child: const Text('View'),
                     style: ElevatedButton.styleFrom(
@@ -138,10 +139,8 @@ class _RecordedVideosState extends State<RecordedVideos> {
                   width: MediaQuery.of(context).size.width * 0.3,
                   child: ElevatedButton(
                     onPressed: () async {
-                      if (await canLaunchUrlString(
-                          "https://cdn.videosdk.live/encoded/videos/63161d681d5e14bac5db733a.mp4")) {
-                        await launchUrlString(
-                            "https://cdn.videosdk.live/encoded/videos/63161d681d5e14bac5db733a.mp4",
+                      if (await canLaunchUrlString(_meetingIdList[index])) {
+                        await launchUrlString(_meetingIdList[index],
                             mode: LaunchMode.externalApplication);
                       }
                     },
@@ -188,31 +187,64 @@ class _RecordedVideosState extends State<RecordedVideos> {
       _AUTH_TOKEN = json.decode(tokenResponse.body)['token'];
     }
 
-    // log("Auth Token: $_AUTH_TOKEN");
+    // log("Auth Token here: $_AUTH_TOKEN");
     getRecordings();
 
     return _AUTH_TOKEN ?? "";
   }
 
   Future<List<String>> getRecordings() async {
+    final String? _AUTH_URL = dotenv.env['AUTH_URL'];
+    String? _AUTH_TOKEN = dotenv.env['AUTH_TOKEN'];
+
+    if ((_AUTH_TOKEN?.isEmpty ?? true) && (_AUTH_URL?.isEmpty ?? true)) {
+      toastMsg("Please set the environment variables");
+      throw Exception("Either AUTH_TOKEN or AUTH_URL is not set in .env file");
+      // return "";
+    }
+
+    if ((_AUTH_TOKEN?.isNotEmpty ?? false) &&
+        (_AUTH_URL?.isNotEmpty ?? false)) {
+      toastMsg("Please set only one environment variable");
+      throw Exception("Either AUTH_TOKEN or AUTH_URL can be set in .env file");
+      // return "";
+    }
+
+    if (_AUTH_URL?.isNotEmpty ?? false) {
+      final Uri getTokenUrl = Uri.parse('$_AUTH_URL/get-token');
+      final http.Response tokenResponse = await http.get(getTokenUrl);
+      _AUTH_TOKEN = json.decode(tokenResponse.body)['token'];
+    }
+
+    // log("Auth Token here: $_AUTH_TOKEN");
+
+    ///////////////////
+    ////
+    ////
+    //////
+    /////
+    /////
+    ////
+    ////
+    //////
+
     // final String? _VIDEOSDK_API_ENDPOINT = dotenv.env['VIDEOSDK_API_ENDPOINT'];
     final String? _VIDEOSDK_API_ENDPOINTV2 =
         dotenv.env['VIDEOSDK_API_ENDPOINTV2'];
 
     // final Uri getMeetingIdUrl = Uri.parse('$_VIDEOSDK_API_ENDPOINT/meetings');
     final Uri getMeetingIdUrl = Uri.parse('$_VIDEOSDK_API_ENDPOINTV2');
-    final http.Response meetingIdResponse =
-        await http.get(getMeetingIdUrl, headers: {
-      "Authorization": _token,
-    });
+    // log("but   Auth Token here: $_token");
+    final http.Response meetingIdResponse = await http
+        .get(getMeetingIdUrl, headers: {"Authorization": _AUTH_TOKEN!});
 
     // final List<String> _meetingIdList = List<String>.empty(growable: true);
-    int length = json.decode(meetingIdResponse.body).length;
+    int length = json.decode(meetingIdResponse.body)['data'].length;
     setState(() {
       numVideos = length;
     });
     // log("Length of array: $length");
-    for (int i = 0; i < length; i++) {
+    for (int i = 0; i < 2; i++) {
       _meetingIdList.add(
           json.decode(meetingIdResponse.body)['data'][i]['file']['fileUrl']);
     }
@@ -220,11 +252,10 @@ class _RecordedVideosState extends State<RecordedVideos> {
     setState(() {
       _meetingIdList = _meetingIdList;
     });
-    // final meetingId =
-    //     json.decode(meetingIdResponse.body)['data'][0]['file']['fileUrl'];
+    // final meetingId = json.decode(meetingIdResponse.body)['data'];
 
     // log("Meeting ID: $meetingId");
-    log("Meeting ID: $_meetingIdList");
+    // log("Meeting ID: $_meetingIdList");
 
     return _meetingIdList;
   }
