@@ -22,6 +22,25 @@ class GroupServices {
           await http.post(groupsURL, headers: global.getHeader, body: data);
       if (response.statusCode == 201) {
         return true;
+      } else if (response.statusCode == 401) {
+        final refreshUrl = Uri.http(
+            'tutorme-dev.us-east-1.elasticbeanstalk.com',
+            'api/account/authtoken');
+
+        final data = jsonEncode({
+          'expiredToken': global.getToken,
+          'refqreshToken': global.getRefreshToken
+        });
+
+        final refreshResponse =
+            await http.post(refreshUrl, body: data, headers: global.getHeader);
+
+        if (refreshResponse.statusCode == 200) {
+          final refreshData = jsonDecode(refreshResponse.body);
+          global.setToken = refreshData['token'];
+          global.setRefreshToken = refreshData['refreshToken'];
+          createGroup(moduleId, tutorId, global);
+        }
       } else {
         throw Exception('Failed to create ' + response.statusCode.toString());
       }
@@ -45,6 +64,25 @@ class GroupServices {
         }
         final List list = json.decode(j);
         return list.map((json) => Groups.fromObject(json)).toList();
+      } else if (response.statusCode == 401) {
+        final refreshUrl = Uri.http(
+            'tutorme-dev.us-east-1.elasticbeanstalk.com',
+            'api/account/authtoken');
+
+        final data = jsonEncode({
+          'expiredToken': globals.getToken,
+          'refqreshToken': globals.getRefreshToken
+        });
+
+        final refreshResponse =
+            await http.post(refreshUrl, body: data, headers: globals.getHeader);
+
+        if (refreshResponse.statusCode == 200) {
+          final refreshData = jsonDecode(refreshResponse.body);
+          globals.setToken = refreshData['token'];
+          globals.setRefreshToken = refreshData['refreshToken'];
+          getGroups(globals);
+        }
       } else {
         throw Exception('Failed to load');
       }
@@ -61,6 +99,25 @@ class GroupServices {
       if (response.statusCode == 200) {
         final group = Groups.fromObject(json.decode(response.body));
         return group;
+      } else if (response.statusCode == 401) {
+        final refreshUrl = Uri.http(
+            'tutorme-dev.us-east-1.elasticbeanstalk.com',
+            'api/account/authtoken');
+
+        final data = jsonEncode({
+          'expiredToken': globals.getToken,
+          'refqreshToken': globals.getRefreshToken
+        });
+
+        final refreshResponse =
+            await http.post(refreshUrl, body: data, headers: globals.getHeader);
+
+        if (refreshResponse.statusCode == 200) {
+          final refreshData = jsonDecode(refreshResponse.body);
+          globals.setToken = refreshData['token'];
+          globals.setRefreshToken = refreshData['refreshToken'];
+          getGroup(id, globals);
+        }
       } else {
         throw Exception('Failed to load' + response.statusCode.toString());
       }
@@ -74,6 +131,7 @@ class GroupServices {
         'api/GroupMembers/group/$userId');
     try {
       final response = await http.get(url, headers: global.getHeader);
+      print('fdffffffffffff' + response.statusCode.toString());
       if (response.statusCode == 200) {
         String j = "";
         if (response.body[0] != "[") {
@@ -83,6 +141,25 @@ class GroupServices {
         }
         final List list = json.decode(j);
         return list.map((json) => Groups.fromObject(json)).toList();
+      } else if (response.statusCode == 401) {
+        final refreshUrl = Uri.http(
+            'tutorme-dev.us-east-1.elasticbeanstalk.com',
+            'api/account/authtoken');
+
+        final data = jsonEncode({
+          'expiredToken': global.getToken,
+          'refqreshToken': global.getRefreshToken
+        });
+
+        final refreshResponse =
+            await http.post(refreshUrl, body: data, headers: global.getHeader);
+
+        if (refreshResponse.statusCode == 200) {
+          final refreshData = jsonDecode(refreshResponse.body);
+          global.setToken = refreshData['token'];
+          global.setRefreshToken = refreshData['refreshToken'];
+          getGroupByUserID(userId, global);
+        }
       } else {
         throw Exception('Failed to load' + response.body);
       }
@@ -106,6 +183,25 @@ class GroupServices {
         }
         final List list = json.decode(j);
         return list.map((json) => Users.fromObject(json)).toList();
+      } else if (response.statusCode == 401) {
+        final refreshUrl = Uri.http(
+            'tutorme-dev.us-east-1.elasticbeanstalk.com',
+            'api/account/authtoken');
+
+        final data = jsonEncode({
+          'expiredToken': global.getToken,
+          'refqreshToken': global.getRefreshToken
+        });
+
+        final refreshResponse =
+            await http.post(refreshUrl, body: data, headers: global.getHeader);
+
+        if (refreshResponse.statusCode == 200) {
+          final refreshData = jsonDecode(refreshResponse.body);
+          global.setToken = refreshData['token'];
+          global.setRefreshToken = refreshData['refreshToken'];
+          getGroupTutees(groupId, global);
+        }
       } else {
         throw Exception('Failed to load' + response.body);
       }
@@ -129,6 +225,25 @@ class GroupServices {
           await http.put(modulesURL, headers: global.header, body: description);
       if (response.statusCode == 204) {
         return group;
+      } else if (response.statusCode == 401) {
+        final refreshUrl = Uri.http(
+            'tutorme-dev.us-east-1.elasticbeanstalk.com',
+            'api/account/authtoken');
+
+        final data = jsonEncode({
+          'expiredToken': global.getToken,
+          'refqreshToken': global.getRefreshToken
+        });
+
+        final refreshResponse =
+            await http.post(refreshUrl, body: data, headers: global.getHeader);
+
+        if (refreshResponse.statusCode == 200) {
+          final refreshData = jsonDecode(refreshResponse.body);
+          global.setToken = refreshData['token'];
+          global.setRefreshToken = refreshData['refreshToken'];
+          updateGroupDescription(description, group, global);
+        }
       } else {
         throw Exception('Failed to update' + response.statusCode.toString());
       }
@@ -152,6 +267,25 @@ class GroupServices {
           await http.put(modulesURL, headers: global.getHeader, body: videoId);
       if (response.statusCode == 200) {
         return group;
+      } else if (response.statusCode == 401) {
+        final refreshUrl = Uri.http(
+            'tutorme-dev.us-east-1.elasticbeanstalk.com',
+            'api/account/authtoken');
+
+        final data = jsonEncode({
+          'expiredToken': global.getToken,
+          'refqreshToken': global.getRefreshToken
+        });
+
+        final refreshResponse =
+            await http.post(refreshUrl, body: data, headers: global.getHeader);
+
+        if (refreshResponse.statusCode == 200) {
+          final refreshData = jsonDecode(refreshResponse.body);
+          global.setToken = refreshData['token'];
+          global.setRefreshToken = refreshData['refreshToken'];
+          updateGroupVideoId(videoId, group, global);
+        }
       } else {
         throw Exception('Failed to update' + response.body);
       }
@@ -168,6 +302,25 @@ class GroupServices {
       final response = await http.delete(url, headers: global.getHeader);
       if (response.statusCode == 204) {
         return true;
+      } else if (response.statusCode == 401) {
+        final refreshUrl = Uri.http(
+            'tutorme-dev.us-east-1.elasticbeanstalk.com',
+            'api/account/authtoken');
+
+        final data = jsonEncode({
+          'expiredToken': global.getToken,
+          'refqreshToken': global.getRefreshToken
+        });
+
+        final refreshResponse =
+            await http.post(refreshUrl, body: data, headers: global.getHeader);
+
+        if (refreshResponse.statusCode == 200) {
+          final refreshData = jsonDecode(refreshResponse.body);
+          global.setToken = refreshData['token'];
+          global.setRefreshToken = refreshData['refreshToken'];
+          deleteGroup(id, global);
+        }
       } else {
         throw Exception(
             'Failed to decline. Please make sure your internet connect is on and try again');

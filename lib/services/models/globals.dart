@@ -48,4 +48,8 @@ class Globals {
   set setToken(String token) {
     _token = token;
   }
+  
+  set setRefreshToken(String refreshToken){
+    _refreshToken = refreshToken;
+  }
 }

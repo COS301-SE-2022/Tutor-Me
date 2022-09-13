@@ -165,7 +165,7 @@ class TutorExploreState extends State<TutorExplore> {
       List<int> indecies = List<int>.empty(growable: true);
       int tutorLength = tutorList.length;
 
-      final tutors = await UserServices.getConnections(widget.globals.getUser.getId, widget.globals);
+      final tutors = await UserServices.getConnections(widget.globals.getUser.getId,widget.globals.getUser.getUserTypeID, widget.globals);
 
       setState(() {
         connectedTutors = tutors;

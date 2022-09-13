@@ -35,6 +35,25 @@ class UserServices {
           await http.post(url, body: data, headers: global.getHeader);
       if (response.statusCode == 201) {
         return true;
+      } else if (response.statusCode == 401) {
+        final refreshUrl = Uri.http(
+            'tutorme-dev.us-east-1.elasticbeanstalk.com',
+            'api/account/refreshToken');
+
+        final data = jsonEncode({
+          'expiredToken': global.getToken,
+          'refreshToken': global.getRefreshToken
+        });
+
+        final refreshResponse =
+            await http.post(refreshUrl, body: data, headers: global.getHeader);
+
+        if (refreshResponse.statusCode == 200) {
+          final refreshData = jsonDecode(refreshResponse.body);
+          global.setToken = refreshData['token'];
+          global.setRefreshToken = refreshData['refreshToken'];
+          sendRequest(receiverId, requesterId, moduleId, global);
+        }
       } else {
         throw Exception(
             'Failed to send request. Please make sure your internet connect is on and try again ' +
@@ -59,6 +78,25 @@ class UserServices {
         }
         final List list = json.decode(j);
         return list.map((json) => Requests.fromObject(json)).toList();
+      } else if (response.statusCode == 401) {
+        final refreshUrl = Uri.http(
+            'tutorme-dev.us-east-1.elasticbeanstalk.com',
+            'api/account/refreshToken');
+
+        final data = jsonEncode({
+          'expiredToken': global.getToken,
+          'refreshToken': global.getRefreshToken
+        });
+
+        final refreshResponse =
+            await http.post(refreshUrl, body: data, headers: global.getHeader);
+
+        if (refreshResponse.statusCode == 200) {
+          final refreshData = jsonDecode(refreshResponse.body);
+          global.setToken = refreshData['token'];
+          global.setRefreshToken = refreshData['refreshToken'];
+          getTutorRequests(id, global);
+        }
       } else {
         throw Exception('Failed to load' + response.statusCode.toString());
       }
@@ -81,6 +119,25 @@ class UserServices {
         }
         final List list = json.decode(j);
         return list.map((json) => Requests.fromObject(json)).toList();
+      } else if (response.statusCode == 401) {
+        final refreshUrl = Uri.http(
+            'tutorme-dev.us-east-1.elasticbeanstalk.com',
+            'api/account/refreshToken');
+
+        final data = jsonEncode({
+          'expiredToken': global.getToken,
+          'refreshToken': global.getRefreshToken
+        });
+
+        final refreshResponse =
+            await http.post(refreshUrl, body: data, headers: global.getHeader);
+
+        if (refreshResponse.statusCode == 200) {
+          final refreshData = jsonDecode(refreshResponse.body);
+          global.setToken = refreshData['token'];
+          global.setRefreshToken = refreshData['refreshToken'];
+          getTuteeRequests(id, global);
+        }
       } else {
         throw Exception('Failed to load' + response.statusCode.toString());
       }
@@ -103,6 +160,25 @@ class UserServices {
         }
         final List list = json.decode(j);
         return list.map((json) => Requests.fromObject(json)).toList();
+      } else if (response.statusCode == 401) {
+        final refreshUrl = Uri.http(
+            'tutorme-dev.us-east-1.elasticbeanstalk.com',
+            'api/account/refreshToken');
+
+        final data = jsonEncode({
+          'expiredToken': global.getToken,
+          'refreshToken': global.getRefreshToken
+        });
+
+        final refreshResponse =
+            await http.post(refreshUrl, body: data, headers: global.getHeader);
+
+        if (refreshResponse.statusCode == 200) {
+          final refreshData = jsonDecode(refreshResponse.body);
+          global.setToken = refreshData['token'];
+          global.setRefreshToken = refreshData['refreshToken'];
+          getRequest(id, global);
+        }
       } else {
         throw Exception('Failed to load' + response.statusCode.toString());
       }
@@ -115,10 +191,29 @@ class UserServices {
     try {
       final url = Uri.http(
           'tutorme-dev.us-east-1.elasticbeanstalk.com', 'api/Requests/$id');
-      
+
       final response = await http.delete(url, headers: global.getHeader);
       if (response.statusCode == 204) {
         return true;
+      } else if (response.statusCode == 401) {
+        final refreshUrl = Uri.http(
+            'tutorme-dev.us-east-1.elasticbeanstalk.com',
+            'api/account/refreshToken');
+
+        final data = jsonEncode({
+          'expiredToken': global.getToken,
+          'refreshToken': global.getRefreshToken
+        });
+
+        final refreshResponse =
+            await http.post(refreshUrl, body: data, headers: global.getHeader);
+
+        if (refreshResponse.statusCode == 200) {
+          final refreshData = jsonDecode(refreshResponse.body);
+          global.setToken = refreshData['token'];
+          global.setRefreshToken = refreshData['refreshToken'];
+          declineRequest(id, global);
+        }
       } else {
         throw Exception(
             'Failed to decline. Please make sure your internet connect is on and try again');
@@ -137,6 +232,25 @@ class UserServices {
       final response = await http.get(url, headers: global.getHeader);
       if (response.statusCode == 200) {
         return true;
+      } else if (response.statusCode == 401) {
+        final refreshUrl = Uri.http(
+            'tutorme-dev.us-east-1.elasticbeanstalk.com',
+            'api/account/refreshToken');
+
+        final data = jsonEncode({
+          'expiredToken': global.getToken,
+          'refreshToken': global.getRefreshToken
+        });
+
+        final refreshResponse =
+            await http.post(refreshUrl, body: data, headers: global.getHeader);
+
+        if (refreshResponse.statusCode == 200) {
+          final refreshData = jsonDecode(refreshResponse.body);
+          global.setToken = refreshData['token'];
+          global.setRefreshToken = refreshData['refreshToken'];
+          acceptRequest(requestId, global);
+        }
       } else {
         throw Exception(
             'Failed to accept. Please make sure your internet connect is on and try again');
@@ -162,6 +276,25 @@ class UserServices {
             backgroundColor: Colors.orange,
             textColor: Colors.white,
             fontSize: 16.0);
+      } else if (response.statusCode == 401) {
+        final refreshUrl = Uri.http(
+            'tutorme-dev.us-east-1.elasticbeanstalk.com',
+            'api/account/refreshToken');
+
+        final data = jsonEncode({
+          'expiredToken': global.getToken,
+          'refreshToken': global.getRefreshToken
+        });
+
+        final refreshResponse =
+            await http.post(refreshUrl, body: data, headers: global.getHeader);
+
+        if (refreshResponse.statusCode == 200) {
+          final refreshData = jsonDecode(refreshResponse.body);
+          global.setToken = refreshData['token'];
+          global.setRefreshToken = refreshData['refreshToken'];
+          deleteUser(id, global);
+        }
       } else {
         Fluttertoast.showToast(
             msg: "Failed to delete User",
@@ -193,6 +326,25 @@ class UserServices {
         }
         final List list = json.decode(j);
         return list.map((json) => Users.fromObject(json)).toList();
+      } else if (response.statusCode == 401) {
+        final refreshUrl = Uri.http(
+            'tutorme-dev.us-east-1.elasticbeanstalk.com',
+            'api/account/refreshToken');
+
+        final data = jsonEncode({
+          'expiredToken': globals.getToken,
+          'refreshToken': globals.getRefreshToken
+        });
+
+        final refreshResponse =
+            await http.post(refreshUrl, body: data, headers: globals.getHeader);
+
+        if (refreshResponse.statusCode == 200) {
+          final refreshData = jsonDecode(refreshResponse.body);
+          globals.setToken = refreshData['token'];
+          globals.setRefreshToken = refreshData['refreshToken'];
+          getTutor(id, globals);
+        }
       } else {
         throw Exception('Failed to load' + response.statusCode.toString());
       }
@@ -215,6 +367,25 @@ class UserServices {
         }
         final List list = json.decode(j);
         return list.map((json) => Users.fromObject(json)).toList();
+      } else if (response.statusCode == 401) {
+        final refreshUrl = Uri.http(
+            'tutorme-dev.us-east-1.elasticbeanstalk.com',
+            'api/account/refreshToken');
+
+        final data = jsonEncode({
+          'expiredToken': global.getToken,
+          'refreshToken': global.getRefreshToken
+        });
+
+        final refreshResponse =
+            await http.post(refreshUrl, body: data, headers: global.getHeader);
+
+        if (refreshResponse.statusCode == 200) {
+          final refreshData = jsonDecode(refreshResponse.body);
+          global.setToken = refreshData['token'];
+          global.setRefreshToken = refreshData['refreshToken'];
+          getTutee(id, global);
+        }
       } else {
         throw Exception('Failed to load' + response.statusCode.toString());
       }
@@ -237,6 +408,25 @@ class UserServices {
         }
         final List list = json.decode(j);
         return list.map((json) => Users.fromObject(json)).toList();
+      } else if (response.statusCode == 401) {
+        final refreshUrl = Uri.http(
+            'tutorme-dev.us-east-1.elasticbeanstalk.com',
+            'api/account/refreshToken');
+
+        final data = jsonEncode({
+          'expiredToken': global.getToken,
+          'refreshToken': global.getRefreshToken
+        });
+
+        final refreshResponse =
+            await http.post(refreshUrl, body: data, headers: global.getHeader);
+
+        if (refreshResponse.statusCode == 200) {
+          final refreshData = jsonDecode(refreshResponse.body);
+          global.setToken = refreshData['token'];
+          global.setRefreshToken = refreshData['refreshToken'];
+          getTutees(global);
+        }
       } else {
         throw Exception('Failed to load' + response.statusCode.toString());
       }
@@ -259,6 +449,25 @@ class UserServices {
         }
         final List list = json.decode(j);
         return list.map((json) => Users.fromObject(json)).toList();
+      } else if (response.statusCode == 401) {
+        final refreshUrl = Uri.http(
+            'tutorme-dev.us-east-1.elasticbeanstalk.com',
+            'api/account/refreshToken');
+
+        final data = jsonEncode({
+          'expiredToken': global.getToken,
+          'refreshToken': global.getRefreshToken
+        });
+
+        final refreshResponse =
+            await http.post(refreshUrl, body: data, headers: global.getHeader);
+
+        if (refreshResponse.statusCode == 200) {
+          final refreshData = jsonDecode(refreshResponse.body);
+          global.setToken = refreshData['token'];
+          global.setRefreshToken = refreshData['refreshToken'];
+          getUser(id, global);
+        }
       } else {
         throw Exception('Failed to load' + response.statusCode.toString());
       }
@@ -275,6 +484,25 @@ class UserServices {
       if (response.statusCode == 200) {
         final UserType type = UserType.fromObject(json.decode(response.body));
         return type;
+      } else if (response.statusCode == 401) {
+        final refreshUrl = Uri.http(
+            'tutorme-dev.us-east-1.elasticbeanstalk.com',
+            'api/account/refreshToken');
+
+        final data = jsonEncode({
+          'expiredToken': global.getToken,
+          'refreshToken': global.getRefreshToken
+        });
+
+        final refreshResponse =
+            await http.post(refreshUrl, body: data, headers: global.getHeader);
+
+        if (refreshResponse.statusCode == 200) {
+          final refreshData = jsonDecode(refreshResponse.body);
+          global.setToken = refreshData['token'];
+          global.setRefreshToken = refreshData['refreshToken'];
+          getUserType(userTypeId, global);
+        }
       } else {
         throw Exception('Failed to load' + response.statusCode.toString());
       }
@@ -297,6 +525,25 @@ class UserServices {
         }
         final List list = json.decode(j);
         return list.map((json) => Users.fromObject(json)).toList();
+      } else if (response.statusCode == 401) {
+        final refreshUrl = Uri.http(
+            'tutorme-dev.us-east-1.elasticbeanstalk.com',
+            'api/account/refreshToken');
+
+        final data = jsonEncode({
+          'expiredToken': global.getToken,
+          'refreshToken': global.getRefreshToken
+        });
+
+        final refreshResponse =
+            await http.post(refreshUrl, body: data, headers: global.getHeader);
+
+        if (refreshResponse.statusCode == 200) {
+          final refreshData = jsonDecode(refreshResponse.body);
+          global.setToken = refreshData['token'];
+          global.setRefreshToken = refreshData['refreshToken'];
+          getTutors(global);
+        }
       } else {
         throw Exception('Failed to load' + response.statusCode.toString());
       }
@@ -305,9 +552,10 @@ class UserServices {
     }
   }
 
-  static Future getConnections(String id, Globals global) async {
+  static Future getConnections(
+      String userId, String userTypeId, Globals global) async {
     Uri connectionsURL = Uri.http('tutorme-dev.us-east-1.elasticbeanstalk.com',
-        '/api/Connections/users/$id');
+        '/api/Connections/users/$userId?userType=$userTypeId');
     try {
       final response =
           await http.get(connectionsURL, headers: global.getHeader);
@@ -320,8 +568,27 @@ class UserServices {
         }
         final List list = json.decode(j);
         return list.map((json) => Users.fromObject(json)).toList();
+      } else if (response.statusCode == 401) {
+        final refreshUrl = Uri.http(
+            'tutorme-dev.us-east-1.elasticbeanstalk.com',
+            'api/account/refreshToken');
+
+        final data = jsonEncode({
+          'expiredToken': global.getToken,
+          'refreshToken': global.getRefreshToken
+        });
+
+        final refreshResponse =
+            await http.post(refreshUrl, body: data, headers: global.getHeader);
+
+        if (refreshResponse.statusCode == 200) {
+          final refreshData = jsonDecode(refreshResponse.body);
+          global.setToken = refreshData['token'];
+          global.setRefreshToken = refreshData['refreshToken'];
+          getConnections(userId, userTypeId, global);
+        }
       } else {
-        throw Exception('Failed to load' + response.statusCode.toString());
+        throw Exception('Failed to load' + response.body);
       }
     } catch (e) {
       throw Exception(e);
@@ -466,6 +733,25 @@ class UserServices {
           await http.put(modulesURL, headers: global.getHeader, body: data);
       if (response.statusCode == 204) {
         return tutee;
+      } else if (response.statusCode == 401) {
+        final refreshUrl = Uri.http(
+            'tutorme-dev.us-east-1.elasticbeanstalk.com',
+            'api/account/refreshToken');
+
+        final data = jsonEncode({
+          'expiredToken': global.getToken,
+          'refreshToken': global.getRefreshToken
+        });
+
+        final refreshResponse =
+            await http.post(refreshUrl, body: data, headers: global.getHeader);
+
+        if (refreshResponse.statusCode == 200) {
+          final refreshData = jsonDecode(refreshResponse.body);
+          global.setToken = refreshData['token'];
+          global.setRefreshToken = refreshData['refreshToken'];
+          updateTutee(tutee, global);
+        }
       } else {
         throw Exception('Failed to update' + response.statusCode.toString());
       }
@@ -582,6 +868,25 @@ class UserServices {
           await http.put(passwordURL, headers: globals.getHeader, body: data);
       if (response.statusCode == 200) {
         return globals.getUser;
+      } else if (response.statusCode == 401) {
+        final refreshUrl = Uri.http(
+            'tutorme-dev.us-east-1.elasticbeanstalk.com',
+            'api/account/refreshToken');
+
+        final data = jsonEncode({
+          'expiredToken': globals.getToken,
+          'refreshToken': globals.getRefreshToken
+        });
+
+        final refreshResponse =
+            await http.post(refreshUrl, body: data, headers: globals.getHeader);
+
+        if (refreshResponse.statusCode == 200) {
+          final refreshData = jsonDecode(refreshResponse.body);
+          globals.setToken = refreshData['token'];
+          globals.setRefreshToken = refreshData['refreshToken'];
+          changePassword(password, globals);
+        }
       } else {
         throw Exception('Failed to update' + response.statusCode.toString());
       }
@@ -713,6 +1018,25 @@ class UserServices {
           await http.put(url, headers: global.getHeader, body: data);
       if (response.statusCode == 200) {
         return image;
+      } else if (response.statusCode == 401) {
+        final refreshUrl = Uri.http(
+            'tutorme-dev.us-east-1.elasticbeanstalk.com',
+            'api/account/refreshToken');
+
+        final data = jsonEncode({
+          'expiredToken': global.getToken,
+          'refreshToken': global.getRefreshToken
+        });
+
+        final refreshResponse =
+            await http.post(refreshUrl, body: data, headers: global.getHeader);
+
+        if (refreshResponse.statusCode == 200) {
+          final refreshData = jsonDecode(refreshResponse.body);
+          global.setToken = refreshData['token'];
+          global.setRefreshToken = refreshData['refreshToken'];
+          updateProfileImage(image, id, global);
+        }
       } else {
         throw "failed to upload ${response.body}";
       }
@@ -733,6 +1057,25 @@ class UserServices {
           await http.post(url, headers: global.getHeader, body: data);
       if (response.statusCode == 200) {
         return image;
+      } else if (response.statusCode == 401) {
+        final refreshUrl = Uri.http(
+            'tutorme-dev.us-east-1.elasticbeanstalk.com',
+            'api/account/refreshToken');
+
+        final data = jsonEncode({
+          'expiredToken': global.getToken,
+          'refreshToken': global.getRefreshToken
+        });
+
+        final refreshResponse =
+            await http.post(refreshUrl, body: data, headers: global.getHeader);
+
+        if (refreshResponse.statusCode == 200) {
+          final refreshData = jsonDecode(refreshResponse.body);
+          global.setToken = refreshData['token'];
+          global.setRefreshToken = refreshData['refreshToken'];
+          uploadProfileImage(image, id, global);
+        }
       } else {
         throw "failed to upload ${response.body}";
       }
@@ -753,6 +1096,25 @@ class UserServices {
           await http.post(url, headers: global.getHeader, body: data);
       if (response.statusCode == 200) {
         return transcript;
+      } else if (response.statusCode == 401) {
+        final refreshUrl = Uri.http(
+            'tutorme-dev.us-east-1.elasticbeanstalk.com',
+            'api/account/refreshToken');
+
+        final data = jsonEncode({
+          'expiredToken': global.getToken,
+          'refreshToken': global.getRefreshToken
+        });
+
+        final refreshResponse =
+            await http.post(refreshUrl, body: data, headers: global.getHeader);
+
+        if (refreshResponse.statusCode == 200) {
+          final refreshData = jsonDecode(refreshResponse.body);
+          global.setToken = refreshData['token'];
+          global.setRefreshToken = refreshData['refreshToken'];
+          uploadTranscript(transcript, id, global);
+        }
       } else {
         throw "failed to upload";
       }
@@ -788,6 +1150,25 @@ class UserServices {
         return image;
         // return Image.file(base64Decode(kk));
         // return list.map((json) => Tutees.fromObject(json)).toList();
+      } else if (response.statusCode == 401) {
+        final refreshUrl = Uri.http(
+            'tutorme-dev.us-east-1.elasticbeanstalk.com',
+            'api/account/refreshToken');
+
+        final data = jsonEncode({
+          'expiredToken': globals.getToken,
+          'refreshToken': globals.getRefreshToken
+        });
+
+        final refreshResponse =
+            await http.post(refreshUrl, body: data, headers: globals.getHeader);
+
+        if (refreshResponse.statusCode == 200) {
+          final refreshData = jsonDecode(refreshResponse.body);
+          globals.setToken = refreshData['token'];
+          globals.setRefreshToken = refreshData['refreshToken'];
+          getProfileImage(id, globals);
+        }
       } else {
         throw Exception('Failed to load' + response.statusCode.toString());
       }
@@ -973,6 +1354,25 @@ class UserServices {
           Uint8List bytes = base64Decode(imageList[1]);
           return bytes;
         }
+      } else if (response.statusCode == 401) {
+        final refreshUrl = Uri.http(
+            'tutorme-dev.us-east-1.elasticbeanstalk.com',
+            'api/account/refreshToken');
+
+        final data = jsonEncode({
+          'expiredToken': global.getToken,
+          'refreshToken': global.getRefreshToken
+        });
+
+        final refreshResponse =
+            await http.post(refreshUrl, body: data, headers: global.getHeader);
+
+        if (refreshResponse.statusCode == 200) {
+          final refreshData = jsonDecode(refreshResponse.body);
+          global.setToken = refreshData['token'];
+          global.setRefreshToken = refreshData['refreshToken'];
+          return getTutorProfileImage(id, global);
+        }
       } else {
         throw Exception('Failed to load' + response.statusCode.toString());
       }
@@ -996,6 +1396,25 @@ class UserServices {
         } else {
           Uint8List bytes = base64Decode(imageList[1]);
           return bytes;
+        }
+      } else if (response.statusCode == 401) {
+        final refreshUrl = Uri.http(
+            'tutorme-dev.us-east-1.elasticbeanstalk.com',
+            'api/account/refreshToken');
+
+        final data = jsonEncode({
+          'expiredToken': global.getToken,
+          'refreshToken': global.getRefreshToken
+        });
+
+        final refreshResponse =
+            await http.post(refreshUrl, body: data, headers: global.getHeader);
+
+        if (refreshResponse.statusCode == 200) {
+          final refreshData = jsonDecode(refreshResponse.body);
+          global.setToken = refreshData['token'];
+          global.setRefreshToken = refreshData['refreshToken'];
+          return getTuteeProfileImage(id, global);
         }
       } else {
         throw Exception('Failed to load' + response.statusCode.toString());

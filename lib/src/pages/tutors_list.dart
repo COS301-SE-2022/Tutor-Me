@@ -165,7 +165,10 @@ class TutorListState extends State<TutorList> {
       List<int> indecies = List<int>.empty(growable: true);
       int tutorLength = tutorList.length;
 
-      final tutors = await UserServices.getConnections(widget.globals.getUser.getId, widget.globals);
+      final tutors = await UserServices.getConnections(
+          widget.globals.getUser.getId,
+          widget.globals.getUser.getUserTypeID,
+          widget.globals);
 
       setState(() {
         connectedTutors = tutors;
@@ -179,15 +182,15 @@ class TutorListState extends State<TutorList> {
         }
       }
       List<Modules> tuteeModules = List<Modules>.empty();
-      final tuteeModuleList =
-          await ModuleServices.getUserModules(widget.globals.getUser.getId, widget.globals);
+      final tuteeModuleList = await ModuleServices.getUserModules(
+          widget.globals.getUser.getId, widget.globals);
       tuteeModules = tuteeModuleList;
       for (int i = 0; i < tutorLength; i++) {
         bool val = false;
         if (tuteeModules.isNotEmpty) {
           List<Modules> tutorModules = List<Modules>.empty();
-          final tutorModuleList =
-              await ModuleServices.getUserModules(tutorList[i].getId, widget.globals);
+          final tutorModuleList = await ModuleServices.getUserModules(
+              tutorList[i].getId, widget.globals);
           tutorModules = tutorModuleList;
 
           for (int k = 0; k < tutorModules.length; k++) {
@@ -245,7 +248,8 @@ class TutorListState extends State<TutorList> {
     try {
       for (int i = 0; i < tutorList.length; i++) {
         try {
-          final image = await UserServices.getProfileImage(tutorList[i].getId, widget.globals);
+          final image = await UserServices.getProfileImage(
+              tutorList[i].getId, widget.globals);
           setState(() {
             tutorImages.add(image);
           });

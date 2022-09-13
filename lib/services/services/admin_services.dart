@@ -23,6 +23,31 @@ class AdminServices {
         }
         final List list = json.decode(j);
         return list.map((json) => Users.fromObject(json)).toList();
+      } else if (response.statusCode == 401) {
+        final refreshUrl = Uri.http(
+            'tutorme-dev.us-east-1.elasticbeanstalk.com',
+            'api/account/authtoken');
+
+        final data = jsonEncode({
+          'expiredToken': global.getToken,
+          'refqreshToken': global.getRefreshToken
+        });
+
+        final refreshResponse =
+            await http.post(refreshUrl, body: data, headers: global.getHeader);
+
+        if (refreshResponse.statusCode == 200) {
+          final refreshData = jsonDecode(refreshResponse.body);
+          global.setToken = refreshData['token'];
+          global.setRefreshToken = refreshData['refreshToken'];
+          global.setHeader = {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            'Authorization': global.getToken,
+          };
+          getAdmins(global);
+        }
       } else {
         throw Exception('Failed to load');
       }
@@ -46,6 +71,25 @@ class AdminServices {
           await http.put(adminsURL, headers: global.getHeader, body: data);
       if (response.statusCode == 204) {
         return admin;
+      } else if (response.statusCode == 401) {
+        final refreshUrl = Uri.http(
+            'tutorme-dev.us-east-1.elasticbeanstalk.com',
+            'api/account/authtoken');
+
+        final data = jsonEncode({
+          'expiredToken': global.getToken,
+          'refqreshToken': global.getRefreshToken
+        });
+
+        final refreshResponse =
+            await http.post(refreshUrl, body: data, headers: global.getHeader);
+
+        if (refreshResponse.statusCode == 200) {
+          final refreshData = jsonDecode(refreshResponse.body);
+          global.setToken = refreshData['token'];
+          global.setRefreshToken = refreshData['refreshToken'];
+          updateAdmin(admin, global);
+        }
       } else {
         throw Exception('Failed to upload ' + response.statusCode.toString());
       }
@@ -68,6 +112,25 @@ class AdminServices {
         }
         final List list = json.decode(j);
         return list.map((json) => Users.fromObject(json)).toList();
+      } else if (response.statusCode == 401) {
+        final refreshUrl = Uri.http(
+            'tutorme-dev.us-east-1.elasticbeanstalk.com',
+            'api/account/authtoken');
+
+        final data = jsonEncode({
+          'expiredToken': global.getToken,
+          'refqreshToken': global.getRefreshToken
+        });
+
+        final refreshResponse =
+            await http.post(refreshUrl, body: data, headers: global.getHeader);
+
+        if (refreshResponse.statusCode == 200) {
+          final refreshData = jsonDecode(refreshResponse.body);
+          global.setToken = refreshData['token'];
+          global.setRefreshToken = refreshData['refreshToken'];
+          getAdmin(id, global);
+        }
       } else {
         throw Exception('Failed to load');
       }

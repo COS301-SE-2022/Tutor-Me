@@ -10,11 +10,11 @@ class InstitutionServices {
     Uri institutionsURL = Uri.http(
         'tutorme-dev.us-east-1.elasticbeanstalk.com', '/api/Institutions');
 
-        final header = {
-          "Accept": "application/json",
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*"
-        };
+    final header = {
+      "Accept": "application/json",
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*"
+    };
 
     try {
       final response = await http.get(institutionsURL, headers: header);
@@ -46,6 +46,25 @@ class InstitutionServices {
             Institutions.fromObject(json.decode(response.body));
 
         return institution;
+      } else if (response.statusCode == 401) {
+        final refreshUrl = Uri.http(
+            'tutorme-dev.us-east-1.elasticbeanstalk.com',
+            'api/account/authtoken');
+
+        final data = jsonEncode({
+          'expiredToken': global.getToken,
+          'refqreshToken': global.getRefreshToken
+        });
+
+        final refreshResponse =
+            await http.post(refreshUrl, body: data, headers: global.getHeader);
+
+        if (refreshResponse.statusCode == 200) {
+          final refreshData = jsonDecode(refreshResponse.body);
+          global.setToken = refreshData['token'];
+          global.setRefreshToken = refreshData['refreshToken'];
+          getUserInstitution(id, global);
+        }
       } else {
         throw Exception('Failed to load' + response.statusCode.toString());
       }

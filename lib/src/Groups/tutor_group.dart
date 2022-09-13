@@ -61,7 +61,8 @@ class TutorGroupPageState extends State<TutorGroupPage> {
   getTutees() async {
     fetchToken().then((token) => setState(() => _token = token));
     try {
-      final tutees = await GroupServices.getGroupTutees(widget.group.getId, widget.globals);
+      final tutees = await GroupServices.getGroupTutees(
+          widget.group.getId, widget.globals);
       setState(() {
         tuteeList = tutees;
         if (tuteeList.isNotEmpty) {
@@ -78,8 +79,8 @@ class TutorGroupPageState extends State<TutorGroupPage> {
   getTuteeProfileImages() async {
     for (int i = 0; i < tuteeList.length; i++) {
       try {
-        final image =
-            await UserServices.getTuteeProfileImage(tuteeList[i].getId, widget.globals);
+        final image = await UserServices.getTuteeProfileImage(
+            tuteeList[i].getId, widget.globals);
         setState(() {
           tuteeImages.add(image);
         });
@@ -211,7 +212,7 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                       height: screenHeight * 0.03,
                     ),
                     SizedBox(
-                      height: screenHeight * 0.28,
+                      height: screenHeight * 0.50,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
@@ -338,7 +339,7 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                             ),
                           ),
                           SizedBox(
-                            height: screenHeight * 0.05,
+                            height: screenHeight * 0.06,
                           ),
                         ],
                       ),
