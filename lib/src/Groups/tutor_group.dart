@@ -7,6 +7,7 @@ import 'package:tutor_me/services/models/globals.dart';
 import 'package:tutor_me/services/services/group_services.dart';
 // import 'package:tutor_me/src/chat/group_chat.dart';
 import 'package:tutor_me/src/colorpallete.dart';
+import '../../constants/colors.dart';
 import '../../services/models/modules.dart';
 import '../pages/chat_page.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -19,6 +20,8 @@ import '../../services/services/user_services.dart';
 import '../../utils/toast.dart';
 import '../chat/one_to_one_chat.dart';
 import 'package:http/http.dart' as http;
+
+import '../pages/recorded_videos.dart';
 
 class Tutee {
   Users tutee;
@@ -58,7 +61,7 @@ class TutorGroupPageState extends State<TutorGroupPage> {
   getTutees() async {
     fetchToken().then((token) => setState(() => _token = token));
     try {
-      final tutees = await GroupServices.getGroupTutees(widget.group.getId);
+      final tutees = await GroupServices.getGroupTutees(widget.group.getId, widget.globals);
       setState(() {
         tuteeList = tutees;
         if (tuteeList.isNotEmpty) {
@@ -76,7 +79,7 @@ class TutorGroupPageState extends State<TutorGroupPage> {
     for (int i = 0; i < tuteeList.length; i++) {
       try {
         final image =
-            await UserServices.getTuteeProfileImage(tuteeList[i].getId);
+            await UserServices.getTuteeProfileImage(tuteeList[i].getId, widget.globals);
         setState(() {
           tuteeImages.add(image);
         });
@@ -122,7 +125,7 @@ class TutorGroupPageState extends State<TutorGroupPage> {
         preferredSize: Size.fromHeight(screenHeight * 0.08),
         child: AppBar(
           title: Text(widget.module.getCode + '- Group'),
-          backgroundColor: colorOrange,
+          backgroundColor: colorBlueTeal,
           actions: [
             IconButton(onPressed: () {}, icon: const Icon(Icons.settings))
           ],
@@ -171,7 +174,7 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                                 onPressed: () {},
                                 icon: Icon(
                                   Icons.edit,
-                                  color: colorTurqoise,
+                                  color: colorOrange,
                                   size: screenHeight * 0.045,
                                 ),
                               )
@@ -187,7 +190,7 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                                   data: Theme.of(context).copyWith(
                                       scrollbarTheme: ScrollbarThemeData(
                                           thumbColor: MaterialStateProperty.all(
-                                              colorTurqoise))),
+                                              colorOrange))),
                                   child: Scrollbar(
                                     child: ListView.separated(
                                         physics: const BouncingScrollPhysics(),
@@ -208,7 +211,7 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                       height: screenHeight * 0.03,
                     ),
                     SizedBox(
-                      height: screenHeight * 0.23,
+                      height: screenHeight * 0.28,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
@@ -230,7 +233,7 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                                 leading: Icon(
                                   Icons.chat,
                                   size: screenHeight * 0.06,
-                                  color: colorOrange,
+                                  color: colorBlueTeal,
                                 ),
                                 title: Text(
                                   'Group Chat',
@@ -249,7 +252,7 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                               try {
                                 _meetingID = await createMeeting();
                                 await GroupServices.updateGroupVideoId(
-                                    _meetingID, widget.group);
+                                    _meetingID, widget.group, widget.globals);
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -277,7 +280,7 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                                   Icon(
                                     Icons.chat_bubble,
                                     size: screenHeight * 0.06,
-                                    color: colorOrange,
+                                    color: colorBlueTeal,
                                   ),
                                   Positioned(
                                       top: screenHeight * 0.01,
@@ -289,6 +292,42 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                                 ]),
                                 title: Text(
                                   'Start Live Video Call',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w800,
+                                      fontSize:
+                                          MediaQuery.of(context).size.height *
+                                              0.025),
+                                ),
+                              ),
+                            ),
+                          ),
+                          InkWell(
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                      const RecordedVideos()));
+                            },
+                            child: Card(
+                              elevation: 0,
+                              color: Colors.transparent,
+                              child: ListTile(
+                                horizontalTitleGap: screenHeight * 0.04,
+                                leading: Stack(children: [
+                                  Icon(
+                                    Icons.chat_bubble,
+                                    size: screenHeight * 0.06,
+                                    color: primaryColor,
+                                  ),
+                                  Positioned(
+                                      top: screenHeight * 0.01,
+                                      left: screenWidth * 0.014,
+                                      child: const Icon(
+                                        Icons.video_library,
+                                        color: colorWhite,
+                                      ))
+                                ]),
+                                title: Text(
+                                  'Recorded Meetings',
                                   style: TextStyle(
                                       fontWeight: FontWeight.w800,
                                       fontSize:
@@ -443,12 +482,12 @@ class TutorGroupPageState extends State<TutorGroupPage> {
               subtitle: Text(
                 tutees[i].tutee.getBio,
                 style: const TextStyle(
-                    fontWeight: FontWeight.w500, color: colorOrange),
+                    fontWeight: FontWeight.w500, color: colorBlueTeal),
               ),
               trailing: Icon(
                 Icons.chat_bubble,
                 size: MediaQuery.of(context).size.aspectRatio * 80,
-                color: colorOrange,
+                color: colorBlueTeal,
               ),
             )));
   }

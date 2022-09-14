@@ -67,7 +67,7 @@ class _CalendarState extends State<Calendar> {
             // backgroundColor: const Color(0xffD6521B),
             centerTitle: true,
             title: const Text('Calendar'),
-            backgroundColor: colorOrange,
+            backgroundColor: colorBlueTeal,
             // flexibleSpace: Container(
             //   decoration: const BoxDecoration(
             //       // borderRadius:
@@ -91,11 +91,11 @@ class _CalendarState extends State<Calendar> {
                       currentIndex = index;
                     });
                   },
-                  indicatorColor: colorTurqoise,
+                  indicatorColor: colorOrange,
                   unselectedLabelColor: colorGrey,
-                  labelColor: colorTurqoise,
+                  labelColor: colorOrange,
                   unselectedLabelStyle: TextStyle(
-                    fontSize: MediaQuery.of(context).size.height * 0.04,
+                    fontSize: MediaQuery.of(context).size.height * 0.02,
                     fontWeight: FontWeight.w400,
                   ),
                   tabs: [

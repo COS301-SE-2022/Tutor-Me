@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:tutor_me/src/colorpallete.dart';
 import 'package:videosdk/rtc.dart';
 import '../src/authenticate/register_step1.dart';
 import '/screens/chat_screen.dart';
@@ -123,7 +124,7 @@ class _MeetingScreenState extends State<MeetingScreen> {
           if (provider.themeMode == ThemeMode.dark) {
             themeColor = Colors.grey.shade800;
           } else {
-            themeColor = Colors.grey;
+            themeColor = Colors.grey.shade100;
           }
           return Scaffold(
             backgroundColor: themeColor,
@@ -201,6 +202,7 @@ class _MeetingScreenState extends State<MeetingScreen> {
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerFloat,
             appBar: AppBar(
+              backgroundColor: colorBlueTeal,
               title: Text(widget.meetingId),
               actions: [
                 // Recording status

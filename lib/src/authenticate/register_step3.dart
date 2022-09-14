@@ -77,7 +77,7 @@ class _RegisterStep3State extends State<RegisterStep3> {
               content: Text(e.toString()),
               backgroundColor: colorWhite,
               titleTextStyle: TextStyle(
-                color: colorOrange,
+                color: colorBlueTeal,
                 fontSize: MediaQuery.of(context).size.height * 0.03,
                 fontWeight: FontWeight.bold,
               ),
@@ -122,7 +122,7 @@ class _RegisterStep3State extends State<RegisterStep3> {
               content: Text(e.toString()),
               backgroundColor: colorWhite,
               titleTextStyle: TextStyle(
-                color: colorOrange,
+                color: colorBlueTeal,
                 fontSize: MediaQuery.of(context).size.height * 0.03,
                 fontWeight: FontWeight.bold,
               ),
@@ -235,7 +235,7 @@ class _RegisterStep3State extends State<RegisterStep3> {
                       primarySwatch: Colors.green,
                       canvasColor: Colors.transparent,
                       colorScheme: ColorScheme.fromSwatch().copyWith(
-                          secondary: colorOrange, primary: colorOrange)),
+                          secondary: colorBlueTeal, primary: colorBlueTeal)),
                   child: Stepper(
                     type: StepperType.horizontal,
                     steps: getSteps(),
@@ -262,7 +262,7 @@ class _RegisterStep3State extends State<RegisterStep3> {
                     left: MediaQuery.of(context).size.width * 0.06,
                     right: MediaQuery.of(context).size.width * 0.01),
                 child: DropdownButton<String>(
-                  dropdownColor: colorOrange,
+                  dropdownColor: colorBlueTeal,
                   icon: Icon(Icons.arrow_drop_down,
                       color: colorWhite,
                       size: MediaQuery.of(context).size.width * 0.08),
@@ -332,7 +332,7 @@ class _RegisterStep3State extends State<RegisterStep3> {
                   color: Colors.grey[500]!.withOpacity(0.3),
                   borderRadius: BorderRadius.circular(16),
                   border: Border.all(
-                    color: colorOrange,
+                    color: colorBlueTeal,
                     width: 1,
                   ),
                 ),
@@ -348,7 +348,7 @@ class _RegisterStep3State extends State<RegisterStep3> {
                     left: MediaQuery.of(context).size.width * 0.06,
                     right: MediaQuery.of(context).size.width * 0.01),
                 child: DropdownButton<String>(
-                  dropdownColor: colorOrange,
+                  dropdownColor: colorBlueTeal,
                   icon: Icon(Icons.arrow_drop_down,
                       color: colorWhite,
                       size: MediaQuery.of(context).size.width * 0.08),
@@ -423,7 +423,7 @@ class _RegisterStep3State extends State<RegisterStep3> {
                   color: Colors.grey[500]!.withOpacity(0.3),
                   borderRadius: BorderRadius.circular(16),
                   border: Border.all(
-                    color: colorOrange,
+                    color: colorBlueTeal,
                     width: 1,
                   ),
                 ),
@@ -451,7 +451,7 @@ class _RegisterStep3State extends State<RegisterStep3> {
                 width: MediaQuery.of(context).size.width * 0.8,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(16),
-                  color: colorOrange,
+                  color: colorBlueTeal,
                 ),
                 child: TextButton(
                   onPressed: () async {
@@ -477,7 +477,7 @@ class _RegisterStep3State extends State<RegisterStep3> {
                             content: Text(errMsg),
                             backgroundColor: colorWhite,
                             titleTextStyle: TextStyle(
-                              color: colorOrange,
+                              color: colorBlueTeal,
                               fontSize:
                                   MediaQuery.of(context).size.height * 0.03,
                               fontWeight: FontWeight.bold,

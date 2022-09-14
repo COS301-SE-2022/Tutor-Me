@@ -3,7 +3,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import 'package:tutor_me/src/authenticate/login.dart';
 import 'package:tutor_me/src/colorpallete.dart';
-import '../../services/services/user_services.dart';
 import '../components.dart';
 import 'register_step2.dart';
 import 'package:email_auth/email_auth.dart';
@@ -158,7 +157,7 @@ class _RegisterStep1State extends State<RegisterStep1> {
                   welcome,
                   style: TextStyle(
                     color: colorWhite,
-                    fontSize: MediaQuery.of(context).size.height * 0.12,
+                    fontSize: MediaQuery.of(context).size.height * 0.05,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -177,10 +176,12 @@ class _RegisterStep1State extends State<RegisterStep1> {
                       primarySwatch: Colors.green,
                       canvasColor: Colors.transparent,
                       colorScheme: ColorScheme.fromSwatch().copyWith(
-                          secondary: colorOrange, primary: colorOrange)),
+                          secondary: colorBlueTeal, primary: colorOrange)),
                   child: Stepper(
                     onStepCancel: null,
                     onStepContinue: null,
+                    controlsBuilder: (context, details) =>
+                        const SizedBox.shrink(),
                     type: StepperType.horizontal,
                     steps: getSteps(),
                     currentStep: currentStep,
@@ -257,7 +258,7 @@ class _RegisterStep1State extends State<RegisterStep1> {
                 height: MediaQuery.of(context).size.height * 0.03,
               ),
               Container(
-                height: MediaQuery.of(context).size.height * 0.06,
+                height: MediaQuery.of(context).size.height * 0.07,
                 width: buttonWidth,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(16),
@@ -292,18 +293,22 @@ class _RegisterStep1State extends State<RegisterStep1> {
                     }
 
                     if (toRegister == "Tutor") {
-                      bool isThereTutorWithEmail =
-                          await UserServices.isThereTutorByEmail(
-                              emailController.text);
+                      // bool isThereTutorWithEmail =
+                      //     await UserServices.isThereTutorByEmail(
+                      //         emailController.text, );
+
+                      bool isThereTutorWithEmail = true;
 
                       if (isThereTutorWithEmail) {
                         errMsg +=
                             "ERROR: A Tutor is registered with this email\n";
                       }
                     } else {
-                      bool isThereTuteeWithEmail =
-                          await UserServices.isThereTuteeByEmail(
-                              emailController.text);
+                      // bool isThereTuteeWithEmail =
+                      //     await UserServices.isThereTuteeByEmail(
+                      //         emailController.text);
+
+                      bool isThereTuteeWithEmail = true;
 
                       if (isThereTuteeWithEmail) {
                         errMsg +=

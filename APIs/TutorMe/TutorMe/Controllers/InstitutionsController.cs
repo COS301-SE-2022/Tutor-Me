@@ -21,7 +21,6 @@ namespace TutorMe.Controllers
             this.mapper = mapper;
         }
 
-        [Authorize]
         [HttpGet]
         public IActionResult GetAllInstitutions()
         {
@@ -29,7 +28,6 @@ namespace TutorMe.Controllers
             return Ok(institutions);
         }
 
-        [Authorize]
         [HttpGet("{id}")]
         public IActionResult GetInstitutionById(Guid id)
         {

@@ -57,7 +57,7 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
   getCurrentModules() async {
     numTutees = 2;
     numConnections = 3;
-    final current = await ModuleServices.getUserModules(widget.tutor.getId);
+    final current = await ModuleServices.getUserModules(widget.tutor.getId, widget.globals);
     setState(() {
       currentModules = current;
     });
@@ -81,7 +81,7 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
 
   getProfileImage() async {
     try {
-      final image = await UserServices.getProfileImage(widget.tutor.getId);
+      final image = await UserServices.getProfileImage(widget.tutor.getId, widget.globals);
       bytes = image;
       isImageDisplayed = true;
       getInstitution();
@@ -125,7 +125,7 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
 
   getInstitution() async {
     final tempInstitution = await InstitutionServices.getUserInstitution(
-        widget.tutor.getInstitutionID);
+        widget.tutor.getInstitutionID, widget.globals);
     setState(() {
       institution = tempInstitution;
       isLoading = false;
@@ -168,7 +168,7 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
       secondaryTextColor = colorGrey;
     } else {
       textColor = Colors.black;
-      secondaryTextColor = colorTurqoise;
+      secondaryTextColor = colorOrange;
     }
 
     final screenWidthSize = MediaQuery.of(context).size.width;
@@ -202,7 +202,7 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
         style: TextStyle(
           fontSize: screenWidthSize * 0.04,
           fontWeight: FontWeight.normal,
-          color: colorOrange,
+          color: colorBlueTeal,
         ),
       ),
       SizedBox(height: screenHeightSize * 0.02),
@@ -342,10 +342,10 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
     Color highlightColor;
 
     if (provider.themeMode == ThemeMode.dark) {
-      highlightColor = colorOrange;
+      highlightColor = colorBlueTeal;
       textColor = colorWhite;
     } else {
-      highlightColor = colorTurqoise;
+      highlightColor = colorOrange;
       textColor = Colors.black;
     }
     return Stack(
@@ -396,9 +396,9 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
         Color highlightColor;
 
         if (provider.themeMode == ThemeMode.dark) {
-          highlightColor = colorOrange;
+          highlightColor = colorBlueTeal;
         } else {
-          highlightColor = colorTurqoise;
+          highlightColor = colorOrange;
         }
         return StatefulBuilder(builder: (context, setState) {
           return SimpleDialog(
@@ -510,7 +510,7 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
               Center(
                 child: OutlinedButton(
                     style: OutlinedButton.styleFrom(
-                        side: const BorderSide(width: 2, color: colorTurqoise)),
+                        side: const BorderSide(width: 2, color: colorOrange)),
                     onPressed: () async {
                       int tutorRating = widget.tutor.getRating;
                       int numRatings = widget.tutor.getNumberOfReviews;
@@ -523,7 +523,7 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
                         widget.tutor.setNumberOfReviews = numRatings;
                       });
                       try {
-                        await UserServices.updateTutor(widget.tutor);
+                        await UserServices.updateTutor(widget.tutor, widget.globals);
                       } catch (e) {
                         const snackBar = SnackBar(
                           content: Text('Failed to upload rating'),
@@ -585,7 +585,7 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
 
   Widget buildEditImageIcon() => const CircleAvatar(
         radius: 18,
-        backgroundColor: colorOrange,
+        backgroundColor: colorBlueTeal,
         child: Icon(
           Icons.camera_enhance,
           color: Colors.white,
@@ -598,10 +598,10 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
     Color highlightColor;
 
     if (provider.themeMode == ThemeMode.dark) {
-      highlightColor = colorOrange;
+      highlightColor = colorBlueTeal;
       textColor = colorWhite;
     } else {
-      highlightColor = colorTurqoise;
+      highlightColor = colorOrange;
       textColor = Colors.black;
     }
     String moduleDescription =
@@ -650,7 +650,7 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
                               data: Theme.of(context).copyWith(
                                   scrollbarTheme: ScrollbarThemeData(
                                       thumbColor: MaterialStateProperty.all(
-                                          colorTurqoise))),
+                                          colorOrange))),
                               child: Scrollbar(
                                 // thumbVisibility: true,
                                 child: ListView.builder(
@@ -661,7 +661,7 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
                                             ListTileControlAffinity.leading,
                                         value: isChecked[i],
                                         title: Text(currentModules[i].getCode),
-                                        activeColor: colorOrange,
+                                        activeColor: colorBlueTeal,
                                         onChanged: (newValue) {
                                           if (newValue!) {
                                             modulesToRequest
@@ -683,14 +683,14 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
                           child: OutlinedButton(
                               style: OutlinedButton.styleFrom(
                                   side: const BorderSide(
-                                      width: 2, color: colorTurqoise)),
+                                      width: 2, color: colorOrange)),
                               onPressed: () {
                                 Navigator.pop(context);
                                 showConfirmRequest(context);
                               },
                               child: const Text(
                                 'Next',
-                                style: TextStyle(color: colorTurqoise),
+                                style: TextStyle(color: colorOrange),
                               )),
                         ),
                       ],
@@ -721,13 +721,13 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
                         : isRequestDone
                             ? Icon(
                                 Icons.done,
-                                color: colorTurqoise,
+                                color: colorOrange,
                                 size: MediaQuery.of(context).size.width * 0.1,
                               )
                             : OutlinedButton(
                                 style: OutlinedButton.styleFrom(
                                     side: const BorderSide(
-                                        width: 2, color: colorTurqoise)),
+                                        width: 2, color: colorOrange)),
                                 onPressed: () async {
                                   try {
                                     setState(() {
@@ -738,8 +738,10 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
                                       try {
                                         await UserServices().sendRequest(
                                             widget.tutor.getId,
+
                                              widget.globals.getUser.getId,
-                                            module.getModuleId);
+                                            module.getModuleId, widget.globals);
+
                                       } catch (e) {
                                         const snackBar = SnackBar(
                                           content:
@@ -770,19 +772,19 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
                                 },
                                 child: const Text(
                                   'Confirm',
-                                  style: TextStyle(color: colorTurqoise),
+                                  style: TextStyle(color: colorOrange),
                                 )),
                     !isRequestLoading && !isRequestDone
                         ? OutlinedButton(
                             style: OutlinedButton.styleFrom(
                                 side: const BorderSide(
-                                    width: 2, color: colorOrange)),
+                                    width: 2, color: colorBlueTeal)),
                             onPressed: () {
                               Navigator.of(context).pop();
                             },
                             child: const Text(
                               'Cancel',
-                              style: TextStyle(color: colorOrange),
+                              style: TextStyle(color: colorBlueTeal),
                             ))
                         : Container(),
                   ]);

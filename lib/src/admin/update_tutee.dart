@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:tutor_me/src/colorpallete.dart';
-import '../../services/services/user_services.dart';
 import '../components.dart';
 
 class UpdateTutee extends StatefulWidget {
@@ -51,6 +50,10 @@ class UpdateTuteeState extends State<UpdateTutee> {
             ),
           ),
           Scaffold(
+            appBar: AppBar(
+              elevation: 0,
+              backgroundColor: Colors.transparent,
+            ),
             backgroundColor: Colors.transparent,
             body: Column(children: [
               const Flexible(
@@ -162,8 +165,10 @@ class UpdateTuteeState extends State<UpdateTutee> {
                         },
                       );
                     }
-                    UserServices.updateTuteeByEmail(
-                        oldemailcontroller.text, newemailcontroller.text);
+
+                    //TODO fix this
+                    // UserServices.updateTuteeByEmail(
+                    //     oldemailcontroller.text, newemailcontroller.text);
                   },
                   child: isLoading
                       ? const CircularProgressIndicator(color: Colors.white)

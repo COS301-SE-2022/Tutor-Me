@@ -91,7 +91,7 @@ class _ChatPageState extends State<ChatPage> {
         width: size.width,
         child: Column(
           children: [
-            chatAppbarWidget(size, context, "widget.moduleCode"),
+            chatAppbarWidget(size, context, widget.moduleCode),
             chatMessageWidget(
                 chatListScrollController, messageModel, currentUserId),
             chatTypeMessageWidget(messageTextController, submitMessageFunction)

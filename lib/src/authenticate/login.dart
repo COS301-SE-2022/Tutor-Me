@@ -27,7 +27,7 @@ class _LoginState extends State<Login> {
   final TextEditingController passwordController = TextEditingController();
   // late Users tutor;
   // late Users tutee;
- late Globals globals;
+  late Globals globals;
   String toRegister = 'Tutor';
 
   bool isLoading = false;
@@ -153,7 +153,7 @@ class _LoginState extends State<Login> {
                 height: 10,
               ),
               Container(
-                height: MediaQuery.of(context).size.height * 0.06,
+                height: MediaQuery.of(context).size.height * 0.07,
                 width: buttonWidth,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(16),
@@ -186,7 +186,7 @@ class _LoginState extends State<Login> {
                             content: Text(errMsg),
                             backgroundColor: colorWhite,
                             titleTextStyle: TextStyle(
-                              color: colorOrange,
+                              color: colorBlueTeal,
                               fontSize:
                                   MediaQuery.of(context).size.height * 0.03,
                               fontWeight: FontWeight.bold,
@@ -195,7 +195,7 @@ class _LoginState extends State<Login> {
                               TextButton(
                                 child: const Text(
                                   "Retry",
-                                  style: TextStyle(color: colorOrange),
+                                  style: TextStyle(color: colorBlueTeal),
                                 ),
                                 onPressed: () {
                                   Navigator.of(context).pop();
@@ -216,7 +216,8 @@ class _LoginState extends State<Login> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => TutorPage(globals: globals)),
+                                builder: (context) =>
+                                    TutorPage(globals: globals)),
                           );
 
                           setState(() {
@@ -235,7 +236,7 @@ class _LoginState extends State<Login> {
                                     const Text("Invalid Password or Email"),
                                 backgroundColor: colorWhite,
                                 titleTextStyle: TextStyle(
-                                  color: colorOrange,
+                                  color: colorBlueTeal,
                                   fontSize:
                                       MediaQuery.of(context).size.height * 0.03,
                                   fontWeight: FontWeight.bold,
@@ -263,7 +264,8 @@ class _LoginState extends State<Login> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => TuteePage(globals: globals)),
+                                builder: (context) =>
+                                    TuteePage(globals: globals)),
                           );
 
                           setState(() {
@@ -282,7 +284,7 @@ class _LoginState extends State<Login> {
                                     "Invalid Password, Email or Network Connection"),
                                 backgroundColor: colorWhite,
                                 titleTextStyle: TextStyle(
-                                  color: colorOrange,
+                                  color: colorBlueTeal,
                                   fontSize:
                                       MediaQuery.of(context).size.height * 0.03,
                                   fontWeight: FontWeight.bold,
@@ -291,7 +293,7 @@ class _LoginState extends State<Login> {
                                   TextButton(
                                     child: const Text(
                                       "Retry",
-                                      style: TextStyle(color: colorWhite),
+                                      style: TextStyle(color: colorDarkGrey),
                                     ),
                                     onPressed: () {
                                       Navigator.of(context).pop();

@@ -2,12 +2,12 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tutor_me/src/authenticate/register_step1.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/theme/themes.dart';
 import '../../services/models/globals.dart';
 import '../../services/services/user_services.dart';
 import '../tutorProfilePages/settings_pofile_view.dart';
-import 'package:tutor_me/src/authenticate/register_or_login.dart';
 
 // ignore: must_be_immutable
 class TutorNavigationDrawerWidget extends StatefulWidget {
@@ -32,7 +32,7 @@ class TutorNavigationDrawerState extends State<TutorNavigationDrawerWidget> {
   getTutorProfileImage() async {
     try {
       final image =
-          await UserServices.getTutorProfileImage(widget.globals.getUser.getId);
+          await UserServices.getTutorProfileImage(widget.globals.getUser.getId, widget.globals);
 
       setState(() {
         tutorImage = image;
@@ -61,7 +61,7 @@ class TutorNavigationDrawerState extends State<TutorNavigationDrawerWidget> {
     if (provider.themeMode == ThemeMode.dark) {
       drawerColor = colorDarkGrey;
     } else {
-      drawerColor = colorOrange;
+      drawerColor = colorBlueTeal;
     }
 
     return Drawer(
@@ -98,7 +98,7 @@ class TutorNavigationDrawerState extends State<TutorNavigationDrawerWidget> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const RegisterOrLogin()),
+                          builder: (context) => const RegisterStep1()),
                     );
                   },
                 ),
@@ -133,7 +133,7 @@ class TutorNavigationDrawerState extends State<TutorNavigationDrawerWidget> {
             vertical: MediaQuery.of(context).size.width * 0.05)),
         child: Row(children: <Widget>[
           CircleAvatar(
-            backgroundColor: colorTurqoise,
+            backgroundColor: colorOrange,
             radius: MediaQuery.of(context).size.height * 0.045,
             child: isImageLoading
                 ? const CircularProgressIndicator.adaptive()

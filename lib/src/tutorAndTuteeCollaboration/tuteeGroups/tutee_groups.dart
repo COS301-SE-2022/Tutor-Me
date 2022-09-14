@@ -32,8 +32,8 @@ class TuteeGroupsState extends State<TuteeGroups> {
 
   int numOfTutees = 3;
   getGroupDetails() async {
-    final incomingGroups =
-        await GroupServices.getGroupByUserID(widget.globals.getUser.getId);
+    final incomingGroups = await GroupServices.getGroupByUserID(
+        widget.globals.getUser.getId, widget.globals);
     groups = incomingGroups;
     if (groups.isNotEmpty) {
       setState(() {
@@ -54,8 +54,8 @@ class TuteeGroupsState extends State<TuteeGroups> {
   getGroupModules() async {
     try {
       for (int i = 0; i < groups.length; i++) {
-        final incomingModules =
-            await ModuleServices.getModule(groups[i].getModuleId);
+        final incomingModules = await ModuleServices.getModule(
+            groups[i].getModuleId, widget.globals);
         modules.add(incomingModules);
       }
     } catch (e) {
@@ -88,7 +88,7 @@ class TuteeGroupsState extends State<TuteeGroups> {
                             Icon(
                               Icons.people,
                               size: MediaQuery.of(context).size.height * 0.1,
-                              color: colorTurqoise,
+                              color: colorOrange,
                             ),
                             const Text("No Groups Found")
                           ])
@@ -125,7 +125,7 @@ class TuteeGroupsState extends State<TuteeGroups> {
         width: MediaQuery.of(context).size.width * 0.8,
         height: MediaQuery.of(context).size.height * 0.25,
         decoration: BoxDecoration(
-          color: colorTurqoise,
+          color: colorOrange,
           borderRadius: BorderRadius.circular(15),
         ),
         child: Column(
@@ -147,15 +147,15 @@ class TuteeGroupsState extends State<TuteeGroups> {
                 SizedBox(height: MediaQuery.of(context).size.height * 0.04),
                 Text("  " + modules[i].getCode,
                     style: TextStyle(
-                      fontSize: MediaQuery.of(context).size.height * 0.06,
+                      fontSize: MediaQuery.of(context).size.height * 0.03,
                       color: colorWhite,
                       fontWeight: FontWeight.bold,
                     )),
                 SizedBox(width: MediaQuery.of(context).size.width * 0.110),
-                const Icon(Icons.circle, size: 7, color: colorOrange),
+                const Icon(Icons.circle, size: 7, color: colorLightGreen),
                 SizedBox(width: MediaQuery.of(context).size.width * 0.03),
                 Text(
-                  numOfTutees.toString() + " participant(s)",
+                  " " + numOfTutees.toString() + " participant(s)",
                   style: const TextStyle(
                       color: Colors.white70, fontWeight: FontWeight.bold),
                 ),
@@ -165,7 +165,7 @@ class TuteeGroupsState extends State<TuteeGroups> {
               height: MediaQuery.of(context).size.height * 0.01,
             ),
             Text(
-              "  " + modules[i].getModuleName,
+              "   " + modules[i].getModuleName,
               style: TextStyle(
                 fontSize: MediaQuery.of(context).size.width * 0.05,
                 color: colorWhite,

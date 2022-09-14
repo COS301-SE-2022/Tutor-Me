@@ -1,4 +1,3 @@
-
 // ignore_for_file: file_names
 
 import 'dart:io';
@@ -176,7 +175,7 @@ class _TuteeGroupsSettingsState extends State<TuteeGroupsSettings> {
         height: MediaQuery.of(context).size.height * 0.2,
         width: MediaQuery.of(context).size.width * 0.43,
         decoration: const BoxDecoration(
-            color: colorTurqoise,
+            color: colorOrange,
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(15),
                 topRight: Radius.circular(15),
@@ -190,7 +189,7 @@ class _TuteeGroupsSettingsState extends State<TuteeGroupsSettings> {
 
   Widget buildEditImageIcon() => ElevatedButton(
         style: ElevatedButton.styleFrom(
-            backgroundColor: colorOrange,
+            backgroundColor: colorBlueTeal,
             shape: const CircleBorder(),
             padding: const EdgeInsets.all(8)),
         child: const Icon(
@@ -245,7 +244,7 @@ class TextInputFieldEdit extends StatelessWidget {
           color: colorWhite,
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
-            color: colorOrange,
+            color: colorBlueTeal,
             width: 1,
           ),
         ),
@@ -258,7 +257,7 @@ class TextInputFieldEdit extends StatelessWidget {
                   child: Icon(
                     icon,
                     size: 24,
-                    color: colorTurqoise,
+                    color: colorOrange,
                   ),
                 ),
                 hintText: hint,
@@ -266,7 +265,7 @@ class TextInputFieldEdit extends StatelessWidget {
             style: const TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.normal,
-                color: colorTurqoise),
+                color: colorOrange),
             keyboardType: inputType,
             textInputAction: inputAction,
           ),

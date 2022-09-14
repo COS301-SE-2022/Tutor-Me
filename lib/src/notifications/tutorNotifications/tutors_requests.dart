@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:tutor_me/services/models/globals.dart';
 import 'package:tutor_me/services/models/modules.dart';
 import 'package:tutor_me/services/models/requests.dart';
 import 'package:tutor_me/services/services/module_services.dart';
@@ -19,8 +20,8 @@ class Tutee {
 }
 
 class TutorRequests extends StatefulWidget {
-  final Users user;
-  const TutorRequests({Key? key, required this.user}) : super(key: key);
+  final Globals globals;
+  const TutorRequests({Key? key, required this.globals}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -47,7 +48,7 @@ class TutorRequestsState extends State<TutorRequests> {
 
   getRequests() async {
     try {
-      final requests = await UserServices().getTutorRequests(widget.user.getId);
+      final requests = await UserServices().getTutorRequests(widget.globals.getUser.getId, widget.globals);
       requestList = requests;
       if (requestList.isEmpty) {
         setState(() {
@@ -64,7 +65,7 @@ class TutorRequestsState extends State<TutorRequests> {
 
   getTutees() async {
     for (int i = 0; i < requestList.length; i++) {
-      final tutee = await UserServices.getTutee(requestList[i].getTuteeId);
+      final tutee = await UserServices.getTutee(requestList[i].getTuteeId, widget.globals);
       tuteeList += tutee;
     }
     int requestLength = tuteeList.length;
@@ -82,7 +83,7 @@ class TutorRequestsState extends State<TutorRequests> {
     try {
       for (int i = 0; i < requestList.length; i++) {
         final module =
-            await ModuleServices.getModule(requestList[i].getModuleId);
+            await ModuleServices.getModule(requestList[i].getModuleId, widget.globals);
         setState(() {
           modules.add(module);
         });
@@ -101,7 +102,7 @@ class TutorRequestsState extends State<TutorRequests> {
     for (int i = 0; i < tuteeList.length; i++) {
       try {
         final image =
-            await UserServices.getTuteeProfileImage(tuteeList[i].getId);
+            await UserServices.getTuteeProfileImage(tuteeList[i].getId, widget.globals);
         setState(() {
           tuteeImages.add(image);
         });
@@ -163,7 +164,7 @@ class TutorRequestsState extends State<TutorRequests> {
                       Icon(
                         Icons.notifications_off,
                         size: MediaQuery.of(context).size.height * 0.15,
-                        color: colorTurqoise,
+                        color: colorOrange,
                       ),
                       const Text('No new requests')
                     ],
@@ -273,7 +274,7 @@ class TutorRequestsState extends State<TutorRequests> {
                     child: const Text(
                       'View module',
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, color: colorTurqoise),
+                          fontWeight: FontWeight.bold, color: colorOrange),
                     ),
                   ),
                   SizedBox(
@@ -305,7 +306,7 @@ class TutorRequestsState extends State<TutorRequests> {
                                       //     moduleRequestedGroup);
 
                                       await UserServices()
-                                          .acceptRequest(requestList[i].getId);
+                                          .acceptRequest(requestList[i].getId, widget.globals);
 
                                       setState(() {
                                         isExcepting[i] = false;
@@ -325,8 +326,8 @@ class TutorRequestsState extends State<TutorRequests> {
                                   },
                                   child: const Text("Accept"),
                                   style: ButtonStyle(
-                                    backgroundColor: MaterialStateProperty.all(
-                                        colorTurqoise),
+                                    backgroundColor:
+                                        MaterialStateProperty.all(colorOrange),
                                   ),
                                 ),
                   SizedBox(width: MediaQuery.of(context).size.width * 0.05),
@@ -344,7 +345,7 @@ class TutorRequestsState extends State<TutorRequests> {
                                 });
                                 try {
                                   await UserServices()
-                                      .declineRequest(requestList[i].getId);
+                                      .declineRequest(requestList[i].getId,widget.globals);
 
                                   setState(() {
                                     isDeclining[i] = false;
@@ -361,7 +362,7 @@ class TutorRequestsState extends State<TutorRequests> {
                               child: const Text("Reject"),
                               style: ButtonStyle(
                                 backgroundColor:
-                                    MaterialStateProperty.all(colorOrange),
+                                    MaterialStateProperty.all(colorBlueTeal),
                               ),
                             )
                 ],

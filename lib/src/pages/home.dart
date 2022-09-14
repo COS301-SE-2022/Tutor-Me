@@ -1,9 +1,21 @@
+// ignore_for_file: unused_local_variable
+
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
+// ignore: import_of_legacy_library_into_null_safe
+import 'package:pie_chart/pie_chart.dart';
+import 'package:provider/provider.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/pages/badges.dart';
 import 'package:tutor_me/src/pages/book_for_tutor.dart';
 import 'package:tutor_me/src/pages/calendar.dart';
 import '../../services/models/globals.dart';
+import '../../services/models/users.dart';
+import '../../services/services/user_services.dart';
+import '../theme/themes.dart';
+import '../tutorAndTuteeCollaboration/tuteeGroups/home_tutee_groups.dart';
+
 
 class Home extends StatefulWidget {
   final Globals globals;
@@ -15,6 +27,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   var gridCount = 0;
+
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -35,7 +48,130 @@ class _HomeState extends State<Home> {
     ));
   }
 
+  late Uint8List tuteeImage;
+  bool doesUserImageExist = false;
+  bool isImageLoading = true;
+  late UserType userType;
+
+  getTuteeProfileImage() async {
+    try {
+      final image = await UserServices.getTuteeProfileImage(
+          widget.globals.getUser.getId, widget.globals);
+
+      setState(() {
+        tuteeImage = image;
+        doesUserImageExist = true;
+        isImageLoading = false;
+      });
+    } catch (e) {
+      setState(() {
+        isImageLoading = false;
+        tuteeImage = Uint8List(128);
+      });
+    }
+  }
+
+  getUserType() async {
+    final type = await UserServices.getUserType(
+        widget.globals.getUser.getUserTypeID, widget.globals);
+
+    userType = type;
+
+    // getConnections();
+    getTuteeProfileImage();
+  }
+
+  int key = 0;
+
+  Map<String, double> dataMap = {
+    "Meetings": 5,
+    "Connections": 3,
+    "Interactions": 2,
+    "Ratings": 2,
+  };
+
+  List<Color> chartColorList = [
+    Colors.blue,
+    colorLightGreen,
+    Colors.orange,
+    Colors.yellow,
+  ];
+
+  Widget buildChart() {
+    return PieChart(
+      key: ValueKey(key),
+      dataMap: dataMap,
+      initialAngleInDegree: 0,
+      animationDuration: const Duration(milliseconds: 3500),
+      chartType: ChartType.ring,
+      ringStrokeWidth: 12,
+      colorList: chartColorList,
+      chartLegendSpacing: 34,
+      chartRadius: MediaQuery.of(context).size.width / 4.2,
+      chartValuesOptions: ChartValuesOptions(
+        showChartValueBackground: true,
+        showChartValues: true,
+        showChartValuesInPercentage: true,
+        showChartValuesOutside: true,
+        decimalPlaces: 1,
+        chartValueStyle: TextStyle(
+          color: const Color.fromARGB(255, 49, 47, 47),
+          fontWeight: FontWeight.normal,
+          fontSize: MediaQuery.of(context).size.width * 0.04,
+        ),
+      ),
+      // centerText: 'Progress',
+      legendOptions: LegendOptions(
+        showLegendsInRow: false,
+        legendPosition: LegendPosition.right,
+        showLegends: true,
+        legendShape: BoxShape.circle,
+        legendTextStyle: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: colorDarkGrey,
+            fontSize: MediaQuery.of(context).size.width * 0.03),
+      ),
+    );
+  }
+  // List<
+
+  // _generateData() {
+  //   var data = [
+  //     Task(
+  //       task: 'Meetings',
+  //       taskValue: 35.8,
+  //       color: const Color(0xff3366cc),
+  //     ),
+  //     Task(task: 'Connections', taskValue: 4, color: colorOrange),
+  //     Task(task: 'Badges', taskValue: 1, color: colorLightGreen),
+  //     Task(task: 'OverAll', taskValue: 32, color: colorBlueTeal),
+  //   ];
+  // }
+
+  @override
+  void initState() {
+    super.initState();
+    getUserType();
+    // _generateData();
+  }
+
   Widget buildBody() {
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
+    // Color appBarColor1;
+    // Color appBarColor2;
+    Color highlightColor;
+    Color textColor;
+    if (provider.themeMode == ThemeMode.dark) {
+      // appBarColor1 = colorDarkGrey;
+      // appBarColor2 = colorGrey;
+      highlightColor = colorOrange;
+      textColor = colorWhite;
+    } else {
+      // appBarColor1 = colorLightBlueTeal;
+      // appBarColor2 = colorBlueTeal;
+      highlightColor = colorOrange;
+      textColor = colorBlack;
+    }
     final screenHeightSize = MediaQuery.of(context).size.height;
     final screenWidthSize = MediaQuery.of(context).size.width;
     final images = [
@@ -47,12 +183,8 @@ class _HomeState extends State<Home> {
     ];
     final titles = ["Tutees", "Groups", "Badges", "Calendar", "Book a Tutor"];
     final numberStats = ["4", "4", "2", "more info", "more info"];
-
-    // FilePickerResult? filePickerResult;
-    // String? fileName;
-    // PlatformFile? file;
-    // bool isUploading = false;
-    // File? fileToUpload;
+    String name = widget.globals.getUser.getName;
+    String fullName = name + ' ' + widget.globals.getUser.getLastName;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -72,40 +204,60 @@ class _HomeState extends State<Home> {
             child: Row(
               children: <Widget>[
                 SizedBox(width: screenWidthSize * 0.02),
-                const CircleAvatar(
-                  radius: 24.0,
-                  backgroundImage: NetworkImage(
-                      'https://images.unsplash.com/photo-1529470839332-78ad660a6a82?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTl8fHN0dWRlbnR8ZW58MHx8MHx8&auto=format&fit=crop&w=600&q=60'),
-                  backgroundColor: Colors.transparent,
+                CircleAvatar(
+                  backgroundColor: colorOrange,
+                  radius: MediaQuery.of(context).size.width * 0.08,
+                  child: isImageLoading
+                      ? const CircularProgressIndicator.adaptive()
+                      : doesUserImageExist
+                          ? ClipOval(
+                              child: Image.memory(
+                                tuteeImage,
+                                fit: BoxFit.cover,
+                                width: MediaQuery.of(context).size.width * 0.2,
+                                height: MediaQuery.of(context).size.width * 0.2,
+                              ),
+                            )
+                          : ClipOval(
+                              child: Image.asset(
+                              "assets/Pictures/penguin.png",
+                              fit: BoxFit.cover,
+                              width: MediaQuery.of(context).size.width * 0.253,
+                              height: MediaQuery.of(context).size.width * 0.253,
+                            )),
                 ),
                 SizedBox(width: screenWidthSize * 0.02),
                 Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Padding(
                       padding: EdgeInsets.all(
                           MediaQuery.of(context).size.height * 0.01),
                       child: Text(
-                        "Kuda Christine",
+                        fullName,
                         style: TextStyle(
-                            color: colorBlack,
+                            color: textColor,
                             fontWeight: FontWeight.bold,
                             fontSize: screenHeightSize * 0.025),
                       ),
                     ),
                     Row(
-                      children: const <Widget>[
-                        Icon(
-                          Icons.run_circle_rounded,
-                          color: colorOrange,
-                        ),
-                        Icon(
-                          Icons.school_rounded,
-                          color: colorOrange,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          "  Tutee",
+                          style: TextStyle(
+                            color: colorOrange,
+                            fontSize: MediaQuery.of(context).size.height * 0.02,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                       ],
                     )
                   ],
-                )
+                ),
               ],
             ),
           ),
@@ -116,11 +268,11 @@ class _HomeState extends State<Home> {
           child: Container(
             width: screenWidthSize > 800 ? 500 : screenWidthSize * 0.8,
             height: screenHeightSize * 0.2,
-            decoration: const BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage("assets/Pictures/progressBar.jpg"),
-                    fit: BoxFit.cover),
-                borderRadius: BorderRadius.all(Radius.circular(10))),
+            decoration: BoxDecoration(
+                // color: Colors.black38,
+                border: Border.all(color: colorLightGrey.withOpacity(0.6)),
+                borderRadius: const BorderRadius.all(Radius.circular(10))),
+            child: buildChart(),
           ),
         ),
         SizedBox(height: screenHeightSize * 0.02),
@@ -130,12 +282,12 @@ class _HomeState extends State<Home> {
             children: <Widget>[
               Icon(
                 Icons.circle,
-                color: colorLightGreen,
-                size: screenHeightSize * 0.025,
+                color: colorOrange,
+                size: screenHeightSize * 0.017,
               ),
               SizedBox(width: screenWidthSize * 0.02),
               Text(
-                "New meeting scheduled...",
+                "How to increase your stats...",
                 style: TextStyle(fontSize: screenHeightSize * 0.025),
               ),
             ],
@@ -156,17 +308,17 @@ class _HomeState extends State<Home> {
             children: <Widget>[
               Icon(
                 Icons.circle,
-                color: colorLightGreen,
-                size: screenHeightSize * 0.025,
+                color: colorOrange,
+                size: screenHeightSize * 0.017,
               ),
               SizedBox(width: screenWidthSize * 0.02),
               Text(
-                "New meeting scheduled...",
+                "What do the stats mean ?...",
                 style: TextStyle(fontSize: screenHeightSize * 0.025),
               ),
-              const Text(
-                "more updates",
-                style: TextStyle(color: colorOrange),
+              Text(
+                "more info",
+                style: TextStyle(color: highlightColor),
                 overflow: TextOverflow.ellipsis,
               ),
             ],
@@ -210,6 +362,11 @@ class _HomeState extends State<Home> {
                         //render Tutees Page
                       } else if (index == 1) {
                         //render Groups Page
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    HomeTuteeGroups(globals: widget.globals)));
                       } else if (index == 2) {
                         //render Badges Page
                         Navigator.of(context).push(MaterialPageRoute(
@@ -265,7 +422,8 @@ class _HomeState extends State<Home> {
                                     titles[index],
                                     style: TextStyle(
                                         fontSize: screenHeightSize * 0.025,
-                                        fontWeight: FontWeight.w500),
+                                        fontWeight: FontWeight.w500,
+                                        color: textColor),
                                   ),
                                 ),
                                 Padding(
@@ -284,7 +442,8 @@ class _HomeState extends State<Home> {
                                         numberStats[index],
                                         style: TextStyle(
                                             fontSize: screenHeightSize * 0.025,
-                                            fontWeight: FontWeight.w400),
+                                            fontWeight: FontWeight.w400,
+                                            color: textColor),
                                       ),
                                     ],
                                   ),
@@ -302,4 +461,12 @@ class _HomeState extends State<Home> {
       ],
     );
   }
+}
+
+class Task {
+  String task;
+  double taskValue;
+  Color color;
+
+  Task({required this.task, required this.taskValue, required this.color});
 }

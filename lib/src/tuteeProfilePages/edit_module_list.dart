@@ -14,7 +14,8 @@ import 'add_modules.dart';
 class EditModuleList extends StatefulWidget {
   final Globals globals;
   List<Modules> currentModules;
-  EditModuleList({Key? key, required this.globals, required this.currentModules})
+  EditModuleList(
+      {Key? key, required this.globals, required this.currentModules})
       : super(key: key);
 
   @override
@@ -78,13 +79,15 @@ class _EditModuleListState extends State<EditModuleList> {
   // }
 
   getUserModules() async {
-    final userModules = await ModuleServices.getAllUserModules();
+    final userModules = await ModuleServices.getAllUserModules(widget.globals);
 
     this.userModules = userModules;
   }
 
   getTutorGroups() async {
-    final groups = await GroupServices.getGroupByUserID(widget.globals.getUser.getId);
+
+    final groups = await GroupServices.getGroupByUserID(widget.globals.getUser.getId, widget.globals);
+
 
     tutorGroups = groups;
   }
@@ -102,7 +105,7 @@ class _EditModuleListState extends State<EditModuleList> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       appBar: AppBar(
         title: const Text('Current Modules'),
-        backgroundColor: colorOrange,
+        backgroundColor: colorBlueTeal,
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -135,7 +138,7 @@ class _EditModuleListState extends State<EditModuleList> {
                       ),
                       child: SmallTagBtn(
                           btnName: "Cancel",
-                          backColor: colorOrange,
+                          backColor: colorBlueTeal,
                           funct: isConfirming
                               ? () {}
                               : () {
@@ -156,7 +159,7 @@ class _EditModuleListState extends State<EditModuleList> {
                       ),
                       child: SmallTagBtn(
                           btnName: !isConfirming ? "Confirm" : 'Confirming',
-                          backColor: colorTurqoise,
+                          backColor: colorOrange,
                           funct: isConfirming
                               ? () {}
                               : () async {
@@ -167,7 +170,9 @@ class _EditModuleListState extends State<EditModuleList> {
                                     for (var module in widget.currentModules) {
                                       try {
                                         await ModuleServices.addUserModule(
-                                            widget.globals.getUser.getId, module);
+
+                                            widget.globals.getUser.getId, module, widget.globals);
+
                                       } catch (e) {
                                         continue;
                                       }
@@ -265,7 +270,7 @@ class _EditModuleListState extends State<EditModuleList> {
         //                 : null,
         //             border: OutlineInputBorder(
         //               borderSide: const BorderSide(
-        //                   color: colorOrange, width: 1.0),
+        //                   color: colorBlueTeal, width: 1.0),
         //               borderRadius: BorderRadius.circular(50),
         //             ),
         //             hintStyle: const TextStyle(
@@ -314,7 +319,7 @@ class _EditModuleListState extends State<EditModuleList> {
           ListTile(
             leading: const Icon(
               Icons.book,
-              color: colorTurqoise,
+              color: colorOrange,
             ),
             title: Text(widget.currentModules[i].getModuleName),
             subtitle: Text(widget.currentModules[i].getCode),
@@ -346,14 +351,14 @@ class _EditModuleListState extends State<EditModuleList> {
                   actions: [
                     OutlinedButton(
                         style: OutlinedButton.styleFrom(
-                            side: const BorderSide(
-                                width: 2, color: colorTurqoise)),
+                            side:
+                                const BorderSide(width: 2, color: colorOrange)),
                         onPressed: () async {
                           Navigator.pop(context);
                         },
                         child: const Text(
                           'Continue',
-                          style: TextStyle(color: colorTurqoise),
+                          style: TextStyle(color: colorOrange),
                         )),
                   ]);
             }),
@@ -376,25 +381,26 @@ class _EditModuleListState extends State<EditModuleList> {
                   actions: [
                     OutlinedButton(
                         style: OutlinedButton.styleFrom(
-                            side: const BorderSide(
-                                width: 2, color: colorTurqoise)),
+                            side:
+                                const BorderSide(width: 2, color: colorOrange)),
                         onPressed: () async {
                           String userModuleId = '';
                           for (var userMod in userModules) {
                             if (userMod.getModuleId ==
                                     widget.currentModules[index].getModuleId &&
-                                userMod.getUserId == widget.globals.getUser.getId) {
+                                userMod.getUserId ==
+                                    widget.globals.getUser.getId) {
                               userModuleId = userMod.getUserModuleId;
                               break;
                             }
                           }
-                          await ModuleServices.deleteUserModule(userModuleId);
+                          await ModuleServices.deleteUserModule(userModuleId, widget.globals);
                           deleteModule(index);
                           Navigator.pop(context);
                         },
                         child: const Text(
                           'Confirm',
-                          style: TextStyle(color: colorTurqoise),
+                          style: TextStyle(color: colorOrange),
                         )),
                   ]);
             }),
@@ -415,7 +421,7 @@ class _EditModuleListState extends State<EditModuleList> {
             context,
             MaterialPageRoute(
                 builder: (context) => AddModulesPage(
-                      user: widget.globals.getUser,
+                      globals: widget.globals,
                       currentModules: widget.currentModules,
                     )));
         setState(() {
@@ -424,7 +430,7 @@ class _EditModuleListState extends State<EditModuleList> {
       },
       icon: const Icon(Icons.add),
       label: const Text('Add Modules'),
-      backgroundColor: colorTurqoise,
+      backgroundColor: colorOrange,
     );
   }
 }

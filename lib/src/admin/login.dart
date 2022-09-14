@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tutor_me/services/models/users.dart';
 import 'package:tutor_me/src/colorpallete.dart';
+import '../../services/models/globals.dart';
 import '../components.dart';
 import './admin_home.dart';
 import '../../services/services/admin_services.dart';
@@ -18,7 +18,7 @@ class LoginAdminState extends State<LoginAdmin> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  late Users admin;
+  late Globals global;
 
   bool isLoading = false;
   int? initialIndex = 0;
@@ -160,14 +160,14 @@ class LoginAdminState extends State<LoginAdmin> {
                             );
                           } else {
                             try {
-                              admin = await AdminServices.logInAdmin(
+                              global = await AdminServices.logInAdmin(
                                   emailController.text,
                                   passwordController.text);
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        AdminHome(user: admin)),
+                                        AdminHome(global: global)),
                               );
                             } catch (e) {
                               setState(() {

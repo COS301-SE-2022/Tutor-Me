@@ -9,11 +9,10 @@ import 'package:http/http.dart' as http;
 
 import '../utils/toast.dart';
 
-void main() => runApp(const RecordingScreen());
-
 /// Stateful widget to fetch and then display video content.
 class RecordingScreen extends StatefulWidget {
-  const RecordingScreen({Key? key}) : super(key: key);
+  final String videoURL;
+  const RecordingScreen({Key? key, required this.videoURL}) : super(key: key);
 
   @override
   RecordingScreenState createState() => RecordingScreenState();
@@ -27,8 +26,7 @@ class RecordingScreenState extends State<RecordingScreen> {
   void initState() {
     super.initState();
     // createMeeting();
-    _controller = VideoPlayerController.network(
-        'https://cdn.videosdk.live/encoded/videos/63161d681d5e14bac5db733a.mp4')
+    _controller = VideoPlayerController.network(widget.videoURL)
       ..initialize().then((_) {
         // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
         setState(() {});
@@ -38,7 +36,7 @@ class RecordingScreenState extends State<RecordingScreen> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Video Demo',
+      title: 'Recorded Video',
       home: Scaffold(
         body: Center(
           child: _controller.value.isInitialized
@@ -118,18 +116,5 @@ class RecordingScreenState extends State<RecordingScreen> {
     log("Meeting ID: $meetingId");
 
     return meetingId;
-  }
-
-  Future<bool> validateMeeting(String _meetingId) async {
-    final String? _VIDEOSDK_API_ENDPOINT = dotenv.env['VIDEOSDK_API_ENDPOINT'];
-
-    final Uri validateMeetingUrl =
-        Uri.parse('$_VIDEOSDK_API_ENDPOINT/meetings/$_meetingId');
-    final http.Response validateMeetingResponse =
-        await http.post(validateMeetingUrl, headers: {
-      "Authorization": _token,
-    });
-
-    return validateMeetingResponse.statusCode == 200;
   }
 }

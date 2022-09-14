@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tutor_me/services/models/globals.dart';
 import 'package:tutor_me/services/models/users.dart';
 import 'package:tutor_me/src/pages/booking_calendar.dart';
 import 'package:tutor_me/src/theme/themes.dart';
@@ -19,10 +20,10 @@ import '../tutorProfilePages/user_stats.dart';
 
 class TutorProfileBookingPage extends StatefulWidget {
   // ignore: prefer_const_constructors_in_immutables
-  TutorProfileBookingPage({Key? key, required this.tutor, required this.tutee})
+  TutorProfileBookingPage({Key? key, required this.tutor, required this.globals})
       : super(key: key);
   final Users tutor;
-  final Users tutee;
+  final Globals globals;
 
   static const String route = '/tutor_profile_view';
 
@@ -59,7 +60,7 @@ class _TutorProfileBookingPageState extends State<TutorProfileBookingPage> {
   getCurrentModules() async {
     numTutees = 2;
     numConnections = 3;
-    final current = await ModuleServices.getUserModules(widget.tutor.getId);
+    final current = await ModuleServices.getUserModules(widget.tutor.getId, widget.globals);
     setState(() {
       currentModules = current;
     });
@@ -83,7 +84,7 @@ class _TutorProfileBookingPageState extends State<TutorProfileBookingPage> {
 
   getProfileImage() async {
     try {
-      final image = await UserServices.getProfileImage(widget.tutor.getId);
+      final image = await UserServices.getProfileImage(widget.tutor.getId, widget.globals);
       bytes = image;
       isImageDisplayed = true;
       getInstitution();
@@ -127,7 +128,7 @@ class _TutorProfileBookingPageState extends State<TutorProfileBookingPage> {
 
   getInstitution() async {
     final tempInstitution = await InstitutionServices.getUserInstitution(
-        widget.tutor.getInstitutionID);
+        widget.tutor.getInstitutionID, widget.globals);
     setState(() {
       institution = tempInstitution;
       isLoading = false;
@@ -170,7 +171,7 @@ class _TutorProfileBookingPageState extends State<TutorProfileBookingPage> {
       secondaryTextColor = colorGrey;
     } else {
       textColor = Colors.black;
-      secondaryTextColor = colorTurqoise;
+      secondaryTextColor = colorOrange;
     }
 
     final screenWidthSize = MediaQuery.of(context).size.width;
@@ -204,7 +205,7 @@ class _TutorProfileBookingPageState extends State<TutorProfileBookingPage> {
         style: TextStyle(
           fontSize: screenWidthSize * 0.04,
           fontWeight: FontWeight.normal,
-          color: colorOrange,
+          color: colorBlueTeal,
         ),
       ),
       SizedBox(height: screenHeightSize * 0.02),
@@ -344,10 +345,10 @@ class _TutorProfileBookingPageState extends State<TutorProfileBookingPage> {
     Color highlightColor;
 
     if (provider.themeMode == ThemeMode.dark) {
-      highlightColor = colorOrange;
+      highlightColor = colorBlueTeal;
       textColor = colorWhite;
     } else {
-      highlightColor = colorTurqoise;
+      highlightColor = colorOrange;
       textColor = Colors.black;
     }
     return Stack(
@@ -398,9 +399,9 @@ class _TutorProfileBookingPageState extends State<TutorProfileBookingPage> {
         Color highlightColor;
 
         if (provider.themeMode == ThemeMode.dark) {
-          highlightColor = colorOrange;
+          highlightColor = colorBlueTeal;
         } else {
-          highlightColor = colorTurqoise;
+          highlightColor = colorOrange;
         }
         return StatefulBuilder(builder: (context, setState) {
           return SimpleDialog(
@@ -512,7 +513,7 @@ class _TutorProfileBookingPageState extends State<TutorProfileBookingPage> {
               Center(
                 child: OutlinedButton(
                     style: OutlinedButton.styleFrom(
-                        side: const BorderSide(width: 2, color: colorTurqoise)),
+                        side: const BorderSide(width: 2, color: colorOrange)),
                     onPressed: () async {
                       int tutorRating = widget.tutor.getRating;
                       int numRatings = widget.tutor.getNumberOfReviews;
@@ -525,7 +526,7 @@ class _TutorProfileBookingPageState extends State<TutorProfileBookingPage> {
                         widget.tutor.setNumberOfReviews = numRatings;
                       });
                       try {
-                        await UserServices.updateTutor(widget.tutor);
+                        await UserServices.updateTutor(widget.tutor, widget.globals);
                       } catch (e) {
                         const snackBar = SnackBar(
                           content: Text('Failed to upload rating'),
@@ -576,7 +577,7 @@ class _TutorProfileBookingPageState extends State<TutorProfileBookingPage> {
 
   Widget buildEditImageIcon() => const CircleAvatar(
         radius: 18,
-        backgroundColor: colorOrange,
+        backgroundColor: colorBlueTeal,
         child: Icon(
           Icons.camera_enhance,
           color: Colors.white,
@@ -589,10 +590,10 @@ class _TutorProfileBookingPageState extends State<TutorProfileBookingPage> {
     Color highlightColor;
 
     if (provider.themeMode == ThemeMode.dark) {
-      highlightColor = colorOrange;
+      highlightColor = colorBlueTeal;
       textColor = colorWhite;
     } else {
-      highlightColor = colorTurqoise;
+      highlightColor = colorOrange;
       textColor = Colors.black;
     }
     String moduleDescription =
@@ -641,7 +642,7 @@ class _TutorProfileBookingPageState extends State<TutorProfileBookingPage> {
                               data: Theme.of(context).copyWith(
                                   scrollbarTheme: ScrollbarThemeData(
                                       thumbColor: MaterialStateProperty.all(
-                                          colorTurqoise))),
+                                          colorOrange))),
                               child: Scrollbar(
                                 // thumbVisibility: true,
                                 child: ListView.builder(
@@ -652,7 +653,7 @@ class _TutorProfileBookingPageState extends State<TutorProfileBookingPage> {
                                             ListTileControlAffinity.leading,
                                         value: isChecked[i],
                                         title: Text(currentModules[i].getCode),
-                                        activeColor: colorOrange,
+                                        activeColor: colorBlueTeal,
                                         onChanged: (newValue) {
                                           if (newValue!) {
                                             modulesToRequest
@@ -674,7 +675,7 @@ class _TutorProfileBookingPageState extends State<TutorProfileBookingPage> {
                           child: OutlinedButton(
                               style: OutlinedButton.styleFrom(
                                   side: const BorderSide(
-                                      width: 2, color: colorTurqoise)),
+                                      width: 2, color: colorOrange)),
                               onPressed: () {
                                 Navigator.pop(context);
                                 Navigator.of(context).push(
@@ -688,7 +689,7 @@ class _TutorProfileBookingPageState extends State<TutorProfileBookingPage> {
                               },
                               child: const Text(
                                 'Next',
-                                style: TextStyle(color: colorTurqoise),
+                                style: TextStyle(color: colorOrange),
                               )),
                         ),
                       ],
@@ -719,13 +720,13 @@ class _TutorProfileBookingPageState extends State<TutorProfileBookingPage> {
                         : isRequestDone
                             ? Icon(
                                 Icons.done,
-                                color: colorTurqoise,
+                                color: colorOrange,
                                 size: MediaQuery.of(context).size.width * 0.1,
                               )
                             : OutlinedButton(
                                 style: OutlinedButton.styleFrom(
                                     side: const BorderSide(
-                                        width: 2, color: colorTurqoise)),
+                                        width: 2, color: colorOrange)),
                                 onPressed: () async {
                                   try {
                                     setState(() {
@@ -736,8 +737,8 @@ class _TutorProfileBookingPageState extends State<TutorProfileBookingPage> {
                                       try {
                                         await UserServices().sendRequest(
                                             widget.tutor.getId,
-                                            widget.tutee.getId,
-                                            module.getModuleId);
+                                            widget.globals.getUser.getId,
+                                            module.getModuleId, widget.globals);
                                       } catch (e) {
                                         const snackBar = SnackBar(
                                           content:
@@ -768,19 +769,19 @@ class _TutorProfileBookingPageState extends State<TutorProfileBookingPage> {
                                 },
                                 child: const Text(
                                   'Confirm',
-                                  style: TextStyle(color: colorTurqoise),
+                                  style: TextStyle(color: colorOrange),
                                 )),
                     !isRequestLoading && !isRequestDone
                         ? OutlinedButton(
                             style: OutlinedButton.styleFrom(
                                 side: const BorderSide(
-                                    width: 2, color: colorOrange)),
+                                    width: 2, color: colorBlueTeal)),
                             onPressed: () {
                               Navigator.of(context).pop();
                             },
                             child: const Text(
                               'Cancel',
-                              style: TextStyle(color: colorOrange),
+                              style: TextStyle(color: colorBlueTeal),
                             ))
                         : Container(),
                   ]);

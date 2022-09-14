@@ -84,7 +84,6 @@ namespace TutorMe.Controllers
             }
         }
 
-        [Authorize]
         [HttpPost]
         public IActionResult RegisterUser(User user)
         {
