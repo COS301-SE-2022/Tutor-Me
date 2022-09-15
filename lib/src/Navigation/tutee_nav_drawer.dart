@@ -64,7 +64,7 @@ class TuteeNavigationDrawerState extends State<TuteeNavigationDrawerWidget> {
     if (provider.themeMode == ThemeMode.dark) {
       drawerColor = colorDarkGrey;
     } else {
-      drawerColor = colorBlueTeal;
+      drawerColor = colorBlueTeal.withOpacity(0.6);
     }
 
     return Drawer(
@@ -78,6 +78,10 @@ class TuteeNavigationDrawerState extends State<TuteeNavigationDrawerWidget> {
                 // const Divider(
                 //   color: colorWhite,
                 // ),
+                buildMenu(
+                    text: 'My Stats report',
+                    icon: Icons.info_outline,
+                    onClicked: () => selected(context, 3)),
                 buildMenu(
                   text: 'My Account',
                   icon: Icons.account_circle_outlined,
@@ -96,9 +100,37 @@ class TuteeNavigationDrawerState extends State<TuteeNavigationDrawerWidget> {
                     onClicked: () => selected(context, 1)),
                 const ChangeThemeButtonWidget(),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.4,
+                  height: MediaQuery.of(context).size.height * 0.02,
+                ),
+                Padding(
+                  padding: EdgeInsets.only(
+                      left: MediaQuery.of(context).size.width * 0.06),
+                  child: Text(
+                    "Help?",
+                    style: TextStyle(
+                      color: colorDarkGrey.withOpacity(0.3),
+                      fontSize: MediaQuery.of(context).size.height * 0.025,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.01,
                 ),
                 buildMenu(
+                    text: 'Contact Us',
+                    icon: Icons.contact_support_outlined,
+                    onClicked: () => selected(context, 2)),
+                buildMenu(
+                    text: 'About Us',
+                    icon: Icons.info_outline,
+                    onClicked: () => selected(context, 3)),
+                buildMenu(
+                    text: 'Terms and Conditions',
+                    icon: Icons.description_outlined,
+                    onClicked: () => selected(context, 4)),
+
+                buildMenuNoArrow(
                   text: 'Logout',
                   icon: Icons.logout,
                   onClicked: () {
@@ -135,65 +167,96 @@ class TuteeNavigationDrawerState extends State<TuteeNavigationDrawerWidget> {
 
               getTuteeProfileImage();
             },
-      child: Container(
-        padding: padding.add(EdgeInsets.symmetric(
-            vertical: MediaQuery.of(context).size.width * 0.08)),
-        // decoration: const BoxDecoration(
-        //   image: DecorationImage(
-        //     image: AssetImage('assets/Pictures/profileBackground.jpg'),
-        //     fit: BoxFit.cover,
-        //   ),
-        // ),
-        child: Row(children: <Widget>[
-          CircleAvatar(
-            backgroundColor: colorOrange,
-            radius: MediaQuery.of(context).size.width * 0.08,
-            child: isImageLoading
-                ? const CircularProgressIndicator.adaptive()
-                : doesUserImageExist
-                    ? ClipOval(
-                        child: Image.memory(
-                          tuteeImage,
-                          fit: BoxFit.cover,
-                          width: MediaQuery.of(context).size.width * 0.2,
-                          height: MediaQuery.of(context).size.width * 0.2,
-                        ),
-                      )
-                    : ClipOval(
-                        child: Image.asset(
-                        "assets/Pictures/penguin.png",
-                        fit: BoxFit.cover,
-                        width: MediaQuery.of(context).size.width * 0.253,
-                        height: MediaQuery.of(context).size.width * 0.253,
-                      )),
-          ),
-          SizedBox(
-            width: MediaQuery.of(context).size.width * 0.05,
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                fullName,
-                style: TextStyle(
-                    fontSize: MediaQuery.of(context).size.height * 0.03,
-                    color: colorWhite),
+      child: Column(
+        children: [
+          Container(
+            padding: padding.add(EdgeInsets.symmetric(
+                vertical: MediaQuery.of(context).size.width * 0.08)),
+            // decoration: const BoxDecoration(
+            //   image: DecorationImage(
+            //     image: AssetImage('assets/Pictures/profileBackground.jpg'),
+            //     fit: BoxFit.cover,
+            //   ),
+            // ),
+            child: Row(children: <Widget>[
+              CircleAvatar(
+                backgroundColor: colorOrange,
+                radius: MediaQuery.of(context).size.width * 0.08,
+                child: isImageLoading
+                    ? const CircularProgressIndicator.adaptive()
+                    : doesUserImageExist
+                        ? ClipOval(
+                            child: Image.memory(
+                              tuteeImage,
+                              fit: BoxFit.cover,
+                              width: MediaQuery.of(context).size.width * 0.2,
+                              height: MediaQuery.of(context).size.width * 0.2,
+                            ),
+                          )
+                        : ClipOval(
+                            child: Image.asset(
+                            "assets/Pictures/penguin.png",
+                            fit: BoxFit.cover,
+                            width: MediaQuery.of(context).size.width * 0.253,
+                            height: MediaQuery.of(context).size.width * 0.253,
+                          )),
               ),
-              SizedBox(height: MediaQuery.of(context).size.width * 0.01),
-              Text(
-                widget.globals.getUser.getEmail,
-                style: TextStyle(
-                    fontSize: MediaQuery.of(context).size.height * 0.028,
-                    color: colorWhite),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.05,
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    fullName,
+                    style: TextStyle(
+                        fontSize: MediaQuery.of(context).size.height * 0.03,
+                        color: colorWhite),
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.width * 0.01),
+                  Text(
+                    widget.globals.getUser.getEmail,
+                    style: TextStyle(
+                        fontSize: MediaQuery.of(context).size.height * 0.026,
+                        color: colorWhite),
+                  ),
+                ],
               )
-            ],
-          )
-        ]),
+            ]),
+          ),
+          Divider(
+            color: colorLightGrey.withOpacity(0.5),
+            thickness: 1,
+            endIndent: MediaQuery.of(context).size.width * 0.08,
+            indent: MediaQuery.of(context).size.width * 0.08,
+          ),
+        ],
       ),
     );
   }
 
   Widget buildMenu({
+    required String text,
+    required IconData icon,
+    VoidCallback? onClicked,
+  }) {
+    return ListTile(
+      contentPadding: padding,
+      leading: Icon(
+        icon,
+        color: const Color(0xffFFFFFF),
+      ),
+      title: Text(text, style: const TextStyle(color: Color(0xffFFFFFF))),
+      trailing: Icon(
+        Icons.arrow_forward_ios,
+        color: const Color(0xffFFFFFF),
+        size: MediaQuery.of(context).size.width * 0.04,
+      ),
+      onTap: onClicked,
+    );
+  }
+
+  Widget buildMenuNoArrow({
     required String text,
     required IconData icon,
     VoidCallback? onClicked,
