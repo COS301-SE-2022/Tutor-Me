@@ -613,7 +613,6 @@ class UserServices {
     };
     try {
       final response = await http.post(modulesURL, headers: header, body: data);
-      print('here ' + response.body);
       if (response.statusCode == 200) {
         final Users tutor = Users.fromObject(jsonDecode(response.body)['user']);
         Globals global = Globals(tutor, json.decode(response.body)['token'],
@@ -1023,7 +1022,6 @@ class UserServices {
     try {
       final response =
           await http.post(url, headers: global.getHeader, body: data);
-      print(response.statusCode);
       if (response.statusCode == 200) {
         return image;
       } else if (response.statusCode == 401) {

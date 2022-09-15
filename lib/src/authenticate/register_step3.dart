@@ -182,7 +182,6 @@ class _RegisterStep3State extends State<RegisterStep3> {
 
   @override
   Widget build(BuildContext context) {
-    print('whyyy');
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Stack(

@@ -57,7 +57,6 @@ class ChatsState extends State<Chats> {
       });
       getChatsProfileImages();
     } catch (e) {
-      print(e);
       getChatsProfileImages();
     }
   }

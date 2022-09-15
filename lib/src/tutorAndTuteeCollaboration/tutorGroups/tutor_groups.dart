@@ -36,7 +36,6 @@ class TutorGroupsState extends State<TutorGroups> {
 
       groups = incomingGroups;
       if (groups.isNotEmpty) {
-        print('hdfghghfghjghjgdjfd');
         hasGroups = true;
 
         for (int k = 0; k < numTuteesForEachGroup.length; k++) {
@@ -63,7 +62,6 @@ class TutorGroupsState extends State<TutorGroups> {
             groups[i].getModuleId, widget.globals);
         modules.add(incomingModules);
       }
-      print(modules.length);
     } catch (e) {
       const snack = SnackBar(content: Text('Error loading modules'));
       ScaffoldMessenger.of(context).showSnackBar(snack);

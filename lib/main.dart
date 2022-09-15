@@ -14,8 +14,6 @@ import 'package:tutor_me/src/theme/themes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tutor_me/src/tutor_page.dart';
 
-import 'services/models/users.dart';
-
 //import 'src/authenticate/register_or_login.dart';
 // import 'src/tutorAndTuteeCollaboration/tutorGroups/tutor_remove_participants.dart';
 
@@ -53,8 +51,6 @@ class MyAppState extends State<MyApp> {
 
   initPreferences() async {
     preferences = await SharedPreferences.getInstance();
-    final globalsJson = preferences!.getString('globals');
-    print(globalsJson);
   }
 
   @override

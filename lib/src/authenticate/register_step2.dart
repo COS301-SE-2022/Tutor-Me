@@ -309,7 +309,6 @@ class _RegisterStep2State extends State<RegisterStep2> {
                 ),
                 child: TextButton(
                   onPressed: () async {
-                    print('we are here');
                     String errMsg = "";
 
                     if (gender == "") {
@@ -329,7 +328,6 @@ class _RegisterStep2State extends State<RegisterStep2> {
                     }
 
                     if (errMsg != "") {
-                      print('if');
                       showDialog(
                         context: context,
                         builder: (context) {

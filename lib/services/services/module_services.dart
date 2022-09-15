@@ -283,7 +283,6 @@ class ModuleServices {
         final refreshResponse =
             await http.post(refreshUrl,headers: globals.getHeader, body: data );
 
-        print(refreshResponse.statusCode);
         if (refreshResponse.statusCode == 200) {
           final refreshData = jsonDecode(refreshResponse.body);
           globals.setToken = refreshData['token'];

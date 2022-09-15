@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tutor_me/src/authenticate/login.dart';
-import 'package:tutor_me/src/authenticate/register_step1.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/theme/themes.dart';
 import '../../services/models/globals.dart';

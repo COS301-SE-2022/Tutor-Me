@@ -131,7 +131,6 @@ class GroupServices {
         'api/GroupMembers/group/$userId');
     try {
       final response = await http.get(url, headers: global.getHeader);
-      print('fdffffffffffff' + response.statusCode.toString());
       if (response.statusCode == 200) {
         String j = "";
         if (response.body[0] != "[") {

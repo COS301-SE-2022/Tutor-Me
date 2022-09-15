@@ -158,14 +158,10 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
                   await UserServices.updateProfileImage(
                       image, widget.globals.getUser.getId, widget.globals);
                 } catch (e) {
-                  print(e);
-                  print('now upoading');
                   try {
                     await UserServices.uploadProfileImage(
                         image, widget.globals.getUser.getId, widget.globals);
                   } catch (e) {
-                    print(e);
-                    print('failed to upload');
                     const snack =
                         SnackBar(content: Text("Error uploading image"));
                     ScaffoldMessenger.of(context).showSnackBar(snack);
