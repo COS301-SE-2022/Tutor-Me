@@ -85,7 +85,7 @@ namespace TutorMe.Controllers
         }
 
         [HttpPost]
-        public IActionResult RegisterUser(User user)
+        public IActionResult RegisterUser(IUser user)
         {
             try {
                 var userId = userService.RegisterUser(user);
@@ -110,7 +110,7 @@ namespace TutorMe.Controllers
 
         [Authorize]
         [HttpPut("{id}")]
-        public IActionResult UpdateUser(Guid id, User user)
+        public IActionResult UpdateUser(Guid id, IUser user)
         {
             if (id != user.UserId)
             {

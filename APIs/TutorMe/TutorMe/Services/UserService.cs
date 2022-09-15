@@ -12,10 +12,10 @@ namespace TutorMe.Services {
         IEnumerable<User> GetAllTutees();
         IEnumerable<User> GetAllAdmins();
         User GetUserById(Guid id);
-        Guid RegisterUser(User user);
+        Guid RegisterUser(IUser user);
         bool DeleteUserById(Guid id);
         bool updateUserBio(Guid id, string bio);
-        User UpdateUser(User user);
+        User UpdateUser(IUser user);
     }
     public class UserServices : IUserService
     {
@@ -31,7 +31,7 @@ namespace TutorMe.Services {
 
         public IEnumerable<User> GetAllUsers()
         {
-            return _context.User;
+            return _context.User.ToList();
         }
 
         public IEnumerable<User> GetAllTutors() {
@@ -75,20 +75,33 @@ namespace TutorMe.Services {
             return user;
         }
         
-        public Guid RegisterUser(User user)
+        public Guid RegisterUser(IUser user)
         {
             if (_context.User.Where(e => e.Email == user.Email).Any())
             {
                 throw new KeyNotFoundException("This User already exists, Please log in");
             }
-            user.Password = encrypter.HashString(user.Password);
-            user.UserId = Guid.NewGuid();
-            _context.User.Add(user);
+            var newUser = new User();
+            newUser.UserId = Guid.NewGuid();
+            newUser.FirstName = user.FirstName;
+            newUser.LastName = user.LastName;
+            newUser.DateOfBirth = user.DateOfBirth;
+            newUser.Gender = user.Gender;
+            newUser.Email = user.Email;
+            newUser.Password = encrypter.HashString(user.Password);
+            newUser.UserTypeId = user.UserTypeId;
+            newUser.InstitutionId = user.InstitutionId;
+            newUser.Location = user.Location;
+            newUser.Bio = user.Bio;
+            newUser.Year = user.Year;
+            newUser.Rating = user.Rating;
+            newUser.NumberOfReviews = user.NumberOfReviews;
+            _context.User.Add(newUser);
             _context.SaveChanges();
             return user.UserId;
         }
 
-        public User UpdateUser(User user)
+        public User UpdateUser(IUser user)
         {
 
             try

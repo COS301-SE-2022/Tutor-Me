@@ -89,6 +89,7 @@ builder.Services.AddScoped<IGroupMemberService, GroupMemberServices>();
 builder.Services.AddScoped<IGroupService, GroupServices>();
 builder.Services.AddScoped<IUserModuleService, UserModuleServices>();
 builder.Services.AddScoped<IUserAuthenticationService, UserAuthenticationServices>();
+builder.Services.AddScoped<IEventService, EventService>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 //builder.Services.AddSwaggerGen();
@@ -115,3 +116,6 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+// Make the implicit Program class public so test projects can access it
+public partial class Program { }
