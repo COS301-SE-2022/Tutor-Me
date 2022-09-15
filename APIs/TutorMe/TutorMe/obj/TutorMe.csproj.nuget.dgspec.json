@@ -1,20 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "/home/simphiwe/Desktop/updated_CapsOn/Tutor-ME/APIs/TutorMe/TutorMe/TutorMe.csproj": {}
+    "C:\\Users\\Dell\\Documents\\School\\COS301\\Capstone\\Tutor-ME\\APIs\\TutorMe\\TutorMe\\TutorMe.csproj": {}
   },
   "projects": {
-    "/home/simphiwe/Desktop/updated_CapsOn/Tutor-ME/APIs/TutorMe/TutorMe/TutorMe.csproj": {
+    "C:\\Users\\Dell\\Documents\\School\\COS301\\Capstone\\Tutor-ME\\APIs\\TutorMe\\TutorMe\\TutorMe.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/simphiwe/Desktop/updated_CapsOn/Tutor-ME/APIs/TutorMe/TutorMe/TutorMe.csproj",
+        "projectUniqueName": "C:\\Users\\Dell\\Documents\\School\\COS301\\Capstone\\Tutor-ME\\APIs\\TutorMe\\TutorMe\\TutorMe.csproj",
         "projectName": "TutorMe",
-        "projectPath": "/home/simphiwe/Desktop/updated_CapsOn/Tutor-ME/APIs/TutorMe/TutorMe/TutorMe.csproj",
-        "packagesPath": "/home/simphiwe/.nuget/packages/",
-        "outputPath": "/home/simphiwe/Desktop/updated_CapsOn/Tutor-ME/APIs/TutorMe/TutorMe/obj/",
+        "projectPath": "C:\\Users\\Dell\\Documents\\School\\COS301\\Capstone\\Tutor-ME\\APIs\\TutorMe\\TutorMe\\TutorMe.csproj",
+        "packagesPath": "C:\\Users\\Dell\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Dell\\Documents\\School\\COS301\\Capstone\\Tutor-ME\\APIs\\TutorMe\\TutorMe\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "/home/simphiwe/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\Dell\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -53,7 +58,7 @@
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[6.0.8, )"
+              "version": "[6.0.9, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
@@ -80,25 +85,10 @@
             "net47",
             "net471",
             "net472",
-            "net48",
-            "net481"
+            "net48"
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Runtime.win-x64",
-              "version": "[6.0.7, 6.0.7]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Runtime.win-x64",
-              "version": "[6.0.7, 6.0.7]"
-            },
-            {
-              "name": "Microsoft.WindowsDesktop.App.Runtime.win-x64",
-              "version": "[6.0.7, 6.0.7]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -107,12 +97,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/6.0.400/RuntimeIdentifierGraph.json"
-        }
-      },
-      "runtimes": {
-        "win-x64": {
-          "#import": []
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.301\\RuntimeIdentifierGraph.json"
         }
       }
     }

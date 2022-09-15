@@ -11,6 +11,7 @@ namespace TutorMe.Models
         public Group()
         {
             GroupMembers = new HashSet<GroupMember>();
+            Events = new HashSet<Event>();
         }
 
         public Guid GroupId { get; set; }
@@ -25,5 +26,7 @@ namespace TutorMe.Models
         public virtual User User { get; set; }
         [JsonIgnore]
         public virtual ICollection<GroupMember> GroupMembers { get; set; }
+        [JsonIgnore]
+        public virtual ICollection<Event> Events { get; set; }
     }
 }

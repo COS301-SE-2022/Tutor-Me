@@ -6,6 +6,7 @@ using Moq;
 using NuGet.Versioning;
 using TutorMe.Controllers;
 using TutorMe.Data;
+using TutorMe.Entities;
 using TutorMe.Models;
 using TutorMe.Services;
 
@@ -138,7 +139,7 @@ public class UsersControllerUnitTests
     public async  Task AddUser_User_ReturnsUser()
     {
         //arrange
-        var user = new User
+        var user = new IUser
         {
             UserId =new Guid(),
             FirstName ="Thabo",
@@ -155,7 +156,7 @@ public class UsersControllerUnitTests
             Year ="3",
             Rating =0
         };
-        _userRepositoryMock.Setup(u => u. RegisterUser(It.IsAny<User>())).Returns(user.UserId);
+        _userRepositoryMock.Setup(u => u. RegisterUser(It.IsAny<IUser>())).Returns(user.UserId);
         
         var controller = new UsersController(_userRepositoryMock.Object,_mapper.Object);
         
@@ -173,6 +174,23 @@ public class UsersControllerUnitTests
     public async Task UpdateUser_User_ReturnsUser()
     {
         //arrange
+        var iuser = new IUser
+        {
+            UserId =new Guid(),
+            FirstName ="Thabo",
+            LastName ="Maduna",
+            DateOfBirth ="02/04/2000",
+            Status = true,
+            Gender ="M",
+            Email ="thaboMaduna527@gmail.com",
+            Password ="24681012",
+            UserTypeId =new Guid(),
+            InstitutionId =new Guid(),
+            Location ="1166 TMN, 0028",
+            Bio = "The boys",
+            Year ="3",
+            Rating =0
+        };
         var user = new User
         {
             UserId =new Guid(),
@@ -191,12 +209,12 @@ public class UsersControllerUnitTests
             Rating =0
         };
 
-        _userRepositoryMock.Setup(u => u.UpdateUser(It.IsAny<User>())).Returns(user);
+        _userRepositoryMock.Setup(u => u.UpdateUser(It.IsAny<IUser>())).Returns(user);
 
         var controller = new UsersController(_userRepositoryMock.Object,_mapper.Object);
 
         //act
-        var result =  controller.UpdateUser(user.UserId,user);
+        var result =  controller.UpdateUser(user.UserId,iuser);
 
         Assert.NotNull(result);
         Assert.IsType<OkObjectResult>(result);
@@ -208,7 +226,7 @@ public class UsersControllerUnitTests
     public async Task UpdateUser_WithUnExistingId_NotFound()
     {
         //Arrange
-        var user = new User
+        var user = new IUser
         {
             UserId =new Guid(),
             FirstName ="Thabo",
@@ -238,7 +256,7 @@ public class UsersControllerUnitTests
     public async Task UpdateUser_With_An_UnExistingTutor_Conflict()
     {
         //Arrange
-        var user = new User
+        var user = new IUser
         {
             UserId =new Guid(),
             FirstName ="Thabo",
