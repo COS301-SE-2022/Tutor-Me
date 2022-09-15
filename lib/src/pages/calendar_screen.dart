@@ -90,8 +90,10 @@ class _CalendarScreenState extends State<CalendarScreen> {
 
   @override
   void initState() {
+    // TODO: implement initState
     super.initState();
-    // _controller = CalendarController();
+    // print("now");
+    // print(scheduledSessions);
   }
 
   CalendarFormat format = CalendarFormat.month;
@@ -133,7 +135,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                 startingDayOfWeek: StartingDayOfWeek.sunday,
                 eventLoader: scheduledSessions.isNotEmpty
                     ? (date) => getScheduledSessions(date)
-                    : null,
+                    : (date) => printResults(date),
                 calendarStyle: CalendarStyle(
                   selectedDecoration: BoxDecoration(
                     color: colorWhite,

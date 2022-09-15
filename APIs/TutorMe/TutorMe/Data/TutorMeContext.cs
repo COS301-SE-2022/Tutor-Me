@@ -29,6 +29,7 @@ namespace TutorMe.Data
         public virtual DbSet<UserType> UserType { get; set; }
         public virtual DbSet<UserModule> UserModule { get; set; }
         public virtual DbSet<UserRefreshToken> UserRefreshToken { get; set; }
+        public virtual DbSet<Event> Event { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -105,6 +106,31 @@ namespace TutorMe.Data
                     .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("GroupMembers_User_FK");
+            });
+
+            modelBuilder.Entity<Event>(entity => {
+                entity.HasKey(e => e.EventId);
+
+                entity.HasIndex(e => e.UserId, "IX_Event_UserId");
+                entity.HasIndex(e => e.UserId, "IX_Event_GroupId");
+
+                entity.Property(e => e.EventId).HasDefaultValueSql("(newid())").HasMaxLength(36); ;
+
+                entity.Property(e => e.GroupId).HasDefaultValueSql("(newid())").HasMaxLength(36); ;
+
+                entity.Property(e => e.UserId).HasDefaultValueSql("(newid())").HasMaxLength(36); ;
+
+                entity.HasOne(d => d.Group)
+                    .WithMany(p => p.Events)
+                    .HasForeignKey(d => d.GroupId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("Events_Group_FK");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Events)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("Events_User_FK");
             });
 
             modelBuilder.Entity<UserModule>(entity => {
