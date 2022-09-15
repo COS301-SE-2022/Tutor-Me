@@ -180,39 +180,39 @@ public class InstitutionServicesUnitTests
     }
 
     
-    [Fact]
-    public async  Task CreateInstitution_Institution_Returns_InstitutionId()
-    {
-        //arrange
-        var institution = new Institution
-        {
-            InstitutionId = Guid.NewGuid(),
-            Name ="University Of Pretoria",
-            // Faculty 
-            Location ="Hatfield"
-        };
+    // [Fact]
+    // public async  Task CreateInstitution_Institution_Returns_InstitutionId()
+    // {
+    //     //arrange
+    //     var institution = new Institution
+    //     {
+    //         InstitutionId = Guid.NewGuid(),
+    //         Name ="University Of Pretoria",
+    //         // Faculty 
+    //         Location ="Hatfield"
+    //     };
 
-        DbContextOptionsBuilder<TutorMeContext> optionsBuilder = new();
-        var databaseName = MethodBase.GetCurrentMethod()?.Name;
-        if (databaseName != null)
-            optionsBuilder.UseInMemoryDatabase(databaseName);
+    //     DbContextOptionsBuilder<TutorMeContext> optionsBuilder = new();
+    //     var databaseName = MethodBase.GetCurrentMethod()?.Name;
+    //     if (databaseName != null)
+    //         optionsBuilder.UseInMemoryDatabase(databaseName);
 
-        using (TutorMeContext ctx = new(optionsBuilder.Options))
-        {
-            //Empty TutorMeContext
-        }
+    //     using (TutorMeContext ctx = new(optionsBuilder.Options))
+    //     {
+    //         //Empty TutorMeContext
+    //     }
 
-        Guid result;
-        using (TutorMeContext ctx1 = new(optionsBuilder.Options))
-        {
-            result =new InstitutionServices(ctx1).createInstitution(institution);
-        }
+    //     Guid result;
+    //     using (TutorMeContext ctx1 = new(optionsBuilder.Options))
+    //     {
+    //         result =new InstitutionServices(ctx1).createInstitution(institution);
+    //     }
         
-        //act
-        Assert.NotNull(result);
-        Assert.IsType<Guid>(result);
-        Assert.Equal(institution.InstitutionId, result);
-    }
+    //     //act
+    //     Assert.NotNull(result);
+    //     Assert.IsType<Guid>(result);
+    //     Assert.Equal(institution.InstitutionId, result);
+    // }
     
     // test CreateInstitution_Returns_createInstitution()
     [Fact]
