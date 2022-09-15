@@ -43,6 +43,7 @@ dependencies:
   table_calendar: ^3.0.6
   smooth_page_indicator: ^1.0.0+2
   provider: ^6.0.3
+  shared_preferences: ^2.0.15
 
   
 dev_dependencies:

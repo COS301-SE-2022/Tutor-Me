@@ -7,8 +7,11 @@ import '../models/intitutions.dart';
 
 class InstitutionServices {
   static getInstitutions() async {
-    Uri institutionsURL = Uri.http(
-        'tutorme-dev.us-east-1.elasticbeanstalk.com', '/api/Institutions');
+    print('print man');
+    Globals tempGlobals = Globals(null, '', '');
+    print(tempGlobals.getTutorMeUrl);
+    Uri institutionsURL =
+        Uri.http(tempGlobals.getTutorMeUrl, '/api/Institutions');
 
     final header = {
       "Accept": "application/json",
@@ -17,8 +20,9 @@ class InstitutionServices {
     };
 
     try {
+      print('before');
       final response = await http.get(institutionsURL, headers: header);
-
+      print('code ' + response.statusCode.toString());
       if (response.statusCode == 200) {
         String j = "";
         if (response.body[0] != "[") {
@@ -37,8 +41,7 @@ class InstitutionServices {
   }
 
   static Future getUserInstitution(String id, Globals global) async {
-    Uri url = Uri.parse(
-        'http://tutorme-dev.us-east-1.elasticbeanstalk.com/api/Institutions/$id');
+    Uri url = Uri.parse('http://${global.getTutorMeUrl}/api/Institutions/$id');
     try {
       final response = await http.get(url, headers: global.getHeader);
       if (response.statusCode == 200) {
@@ -47,9 +50,8 @@ class InstitutionServices {
 
         return institution;
       } else if (response.statusCode == 401) {
-        final refreshUrl = Uri.http(
-            'tutorme-dev.us-east-1.elasticbeanstalk.com',
-            'api/account/authtoken');
+        final refreshUrl =
+            Uri.http(global.getTutorMeUrl, 'api/account/authtoken');
 
         final data = jsonEncode({
           'expiredToken': global.getToken,

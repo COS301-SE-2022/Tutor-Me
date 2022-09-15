@@ -165,7 +165,7 @@ class Users {
     _numberOfReviews = o["numberOfReviews"];
   }
 
-  static fromJson(model) {}
+
 }
 
 class UserType {

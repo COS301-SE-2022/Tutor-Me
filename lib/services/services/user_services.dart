@@ -18,8 +18,7 @@ class UserServices {
   sendRequest(String receiverId, String requesterId, String moduleId,
       Globals global) async {
     try {
-      final url = Uri.http(
-          'tutorme-dev.us-east-1.elasticbeanstalk.com', 'api/Requests');
+      final url = Uri.http(global.getTutorMeUrl, 'api/Requests');
 
       var now = DateTime.now();
       var changeFormat = DateFormat('dd/MM/yyyy');
@@ -36,9 +35,8 @@ class UserServices {
       if (response.statusCode == 201) {
         return true;
       } else if (response.statusCode == 401) {
-        final refreshUrl = Uri.http(
-            'tutorme-dev.us-east-1.elasticbeanstalk.com',
-            'api/account/refreshToken');
+        final refreshUrl =
+            Uri.http(global.getTutorMeUrl, 'api/account/refreshToken');
 
         final data = jsonEncode({
           'expiredToken': global.getToken,
@@ -65,8 +63,7 @@ class UserServices {
   }
 
   getTutorRequests(String id, Globals global) async {
-    final url = Uri.http(
-        'tutorme-dev.us-east-1.elasticbeanstalk.com', 'api/Requests/Tutor/$id');
+    final url = Uri.http(global.getTutorMeUrl, 'api/Requests/Tutor/$id');
     try {
       final response = await http.get(url, headers: global.getHeader);
       if (response.statusCode == 200) {
@@ -79,9 +76,8 @@ class UserServices {
         final List list = json.decode(j);
         return list.map((json) => Requests.fromObject(json)).toList();
       } else if (response.statusCode == 401) {
-        final refreshUrl = Uri.http(
-            'tutorme-dev.us-east-1.elasticbeanstalk.com',
-            'api/account/refreshToken');
+        final refreshUrl =
+            Uri.http(global.getTutorMeUrl, 'api/account/refreshToken');
 
         final data = jsonEncode({
           'expiredToken': global.getToken,
@@ -106,8 +102,7 @@ class UserServices {
   }
 
   getTuteeRequests(String id, Globals global) async {
-    final url = Uri.http(
-        'tutorme-dev.us-east-1.elasticbeanstalk.com', 'api/Requests/Tutee/$id');
+    final url = Uri.http(global.getTutorMeUrl, 'api/Requests/Tutee/$id');
     try {
       final response = await http.get(url, headers: global.getHeader);
       if (response.statusCode == 200) {
@@ -120,9 +115,8 @@ class UserServices {
         final List list = json.decode(j);
         return list.map((json) => Requests.fromObject(json)).toList();
       } else if (response.statusCode == 401) {
-        final refreshUrl = Uri.http(
-            'tutorme-dev.us-east-1.elasticbeanstalk.com',
-            'api/account/refreshToken');
+        final refreshUrl =
+            Uri.http(global.getTutorMeUrl, 'api/account/refreshToken');
 
         final data = jsonEncode({
           'expiredToken': global.getToken,
@@ -147,8 +141,7 @@ class UserServices {
   }
 
   getRequest(String id, Globals global) async {
-    Uri url = Uri.http(
-        'tutorme-dev.us-east-1.elasticbeanstalk.com', '/api/Requests/$id');
+    Uri url = Uri.http(global.getTutorMeUrl, '/api/Requests/$id');
     try {
       final response = await http.get(url, headers: global.getHeader);
       if (response.statusCode == 200) {
@@ -161,9 +154,8 @@ class UserServices {
         final List list = json.decode(j);
         return list.map((json) => Requests.fromObject(json)).toList();
       } else if (response.statusCode == 401) {
-        final refreshUrl = Uri.http(
-            'tutorme-dev.us-east-1.elasticbeanstalk.com',
-            'api/account/refreshToken');
+        final refreshUrl =
+            Uri.http(global.getTutorMeUrl, 'api/account/refreshToken');
 
         final data = jsonEncode({
           'expiredToken': global.getToken,
@@ -189,16 +181,14 @@ class UserServices {
 
   declineRequest(String id, Globals global) async {
     try {
-      final url = Uri.http(
-          'tutorme-dev.us-east-1.elasticbeanstalk.com', 'api/Requests/$id');
+      final url = Uri.http(global.getTutorMeUrl, 'api/Requests/$id');
 
       final response = await http.delete(url, headers: global.getHeader);
       if (response.statusCode == 204) {
         return true;
       } else if (response.statusCode == 401) {
-        final refreshUrl = Uri.http(
-            'tutorme-dev.us-east-1.elasticbeanstalk.com',
-            'api/account/refreshToken');
+        final refreshUrl =
+            Uri.http(global.getTutorMeUrl, 'api/account/refreshToken');
 
         final data = jsonEncode({
           'expiredToken': global.getToken,
@@ -227,15 +217,14 @@ class UserServices {
 
   acceptRequest(String requestId, Globals global) async {
     try {
-      final url = Uri.http('tutorme-dev.us-east-1.elasticbeanstalk.com',
-          'api/Requests/accept/$requestId');
+      final url =
+          Uri.http(global.getTutorMeUrl, 'api/Requests/accept/$requestId');
       final response = await http.get(url, headers: global.getHeader);
       if (response.statusCode == 200) {
         return true;
       } else if (response.statusCode == 401) {
-        final refreshUrl = Uri.http(
-            'tutorme-dev.us-east-1.elasticbeanstalk.com',
-            'api/account/refreshToken');
+        final refreshUrl =
+            Uri.http(global.getTutorMeUrl, 'api/account/refreshToken');
 
         final data = jsonEncode({
           'expiredToken': global.getToken,
@@ -262,8 +251,8 @@ class UserServices {
 
   static deleteUser(String id, Globals global) async {
     try {
-      final usersURL = Uri.parse(
-          'http://tutorme-dev.us-east-1.elasticbeanstalk.com/api/Users/$id');
+      final usersURL =
+          Uri.parse('http://${global.getTutorMeUrl}/api/Users/$id');
       final response = await http.delete(usersURL, headers: global.getHeader);
       if (response.statusCode == 200 ||
           response.statusCode == 202 ||
@@ -277,9 +266,8 @@ class UserServices {
             textColor: Colors.white,
             fontSize: 16.0);
       } else if (response.statusCode == 401) {
-        final refreshUrl = Uri.http(
-            'tutorme-dev.us-east-1.elasticbeanstalk.com',
-            'api/account/refreshToken');
+        final refreshUrl =
+            Uri.http(global.getTutorMeUrl, 'api/account/refreshToken');
 
         final data = jsonEncode({
           'expiredToken': global.getToken,
@@ -313,8 +301,7 @@ class UserServices {
   }
 
   static Future getTutor(String id, Globals globals) async {
-    Uri tuteeURL = Uri.http(
-        'tutorme-dev.us-east-1.elasticbeanstalk.com', '/api/Users/$id');
+    Uri tuteeURL = Uri.http(globals.getTutorMeUrl, '/api/Users/$id');
     try {
       final response = await http.get(tuteeURL, headers: globals.getHeader);
       if (response.statusCode == 200) {
@@ -327,9 +314,8 @@ class UserServices {
         final List list = json.decode(j);
         return list.map((json) => Users.fromObject(json)).toList();
       } else if (response.statusCode == 401) {
-        final refreshUrl = Uri.http(
-            'tutorme-dev.us-east-1.elasticbeanstalk.com',
-            'api/account/refreshToken');
+        final refreshUrl =
+            Uri.http(globals.getTutorMeUrl, 'api/account/refreshToken');
 
         final data = jsonEncode({
           'expiredToken': globals.getToken,
@@ -354,8 +340,7 @@ class UserServices {
   }
 
   static Future getTutee(String id, Globals global) async {
-    Uri tuteeURL = Uri.http(
-        'tutorme-dev.us-east-1.elasticbeanstalk.com', '/api/Users/$id');
+    Uri tuteeURL = Uri.http(global.getTutorMeUrl, '/api/Users/$id');
     try {
       final response = await http.get(tuteeURL, headers: global.getHeader);
       if (response.statusCode == 200) {
@@ -368,9 +353,8 @@ class UserServices {
         final List list = json.decode(j);
         return list.map((json) => Users.fromObject(json)).toList();
       } else if (response.statusCode == 401) {
-        final refreshUrl = Uri.http(
-            'tutorme-dev.us-east-1.elasticbeanstalk.com',
-            'api/account/refreshToken');
+        final refreshUrl =
+            Uri.http(global.getTutorMeUrl, 'api/account/refreshToken');
 
         final data = jsonEncode({
           'expiredToken': global.getToken,
@@ -395,8 +379,7 @@ class UserServices {
   }
 
   static getTutees(Globals global) async {
-    Uri tuteeURL = Uri.http(
-        'tutorme-dev.us-east-1.elasticbeanstalk.com', '/api/Users/tutees');
+    Uri tuteeURL = Uri.http(global.getTutorMeUrl, '/api/Users/tutees');
     try {
       final response = await http.get(tuteeURL, headers: global.getHeader);
       if (response.statusCode == 200) {
@@ -409,9 +392,8 @@ class UserServices {
         final List list = json.decode(j);
         return list.map((json) => Users.fromObject(json)).toList();
       } else if (response.statusCode == 401) {
-        final refreshUrl = Uri.http(
-            'tutorme-dev.us-east-1.elasticbeanstalk.com',
-            'api/account/refreshToken');
+        final refreshUrl =
+            Uri.http(global.getTutorMeUrl, 'api/account/refreshToken');
 
         final data = jsonEncode({
           'expiredToken': global.getToken,
@@ -436,8 +418,7 @@ class UserServices {
   }
 
   static Future getUser(String id, Globals global) async {
-    Uri userURL = Uri.http(
-        'tutorme-dev.us-east-1.elasticbeanstalk.com', '/api/Users/$id');
+    Uri userURL = Uri.http(global.getTutorMeUrl, '/api/Users/$id');
     try {
       final response = await http.get(userURL, headers: global.getHeader);
       if (response.statusCode == 200) {
@@ -450,9 +431,8 @@ class UserServices {
         final List list = json.decode(j);
         return list.map((json) => Users.fromObject(json)).toList();
       } else if (response.statusCode == 401) {
-        final refreshUrl = Uri.http(
-            'tutorme-dev.us-east-1.elasticbeanstalk.com',
-            'api/account/refreshToken');
+        final refreshUrl =
+            Uri.http(global.getTutorMeUrl, 'api/account/refreshToken');
 
         final data = jsonEncode({
           'expiredToken': global.getToken,
@@ -477,17 +457,15 @@ class UserServices {
   }
 
   static Future getUserType(String userTypeId, Globals global) async {
-    Uri userURL = Uri.http('tutorme-dev.us-east-1.elasticbeanstalk.com',
-        '/api/UserTypes/$userTypeId');
+    Uri userURL = Uri.http(global.getTutorMeUrl, '/api/UserTypes/$userTypeId');
     try {
       final response = await http.get(userURL, headers: global.getHeader);
       if (response.statusCode == 200) {
         final UserType type = UserType.fromObject(json.decode(response.body));
         return type;
       } else if (response.statusCode == 401) {
-        final refreshUrl = Uri.http(
-            'tutorme-dev.us-east-1.elasticbeanstalk.com',
-            'api/account/refreshToken');
+        final refreshUrl =
+            Uri.http(global.getTutorMeUrl, 'api/account/refreshToken');
 
         final data = jsonEncode({
           'expiredToken': global.getToken,
@@ -512,8 +490,7 @@ class UserServices {
   }
 
   static getTutors(Globals global) async {
-    Uri tutorURL = Uri.http(
-        'tutorme-dev.us-east-1.elasticbeanstalk.com', '/api/Users/tutors');
+    Uri tutorURL = Uri.http(global.getTutorMeUrl, '/api/Users/tutors');
     try {
       final response = await http.get(tutorURL, headers: global.getHeader);
       if (response.statusCode == 200) {
@@ -526,9 +503,8 @@ class UserServices {
         final List list = json.decode(j);
         return list.map((json) => Users.fromObject(json)).toList();
       } else if (response.statusCode == 401) {
-        final refreshUrl = Uri.http(
-            'tutorme-dev.us-east-1.elasticbeanstalk.com',
-            'api/account/refreshToken');
+        final refreshUrl =
+            Uri.http(global.getTutorMeUrl, 'api/account/refreshToken');
 
         final data = jsonEncode({
           'expiredToken': global.getToken,
@@ -554,7 +530,7 @@ class UserServices {
 
   static Future getConnections(
       String userId, String userTypeId, Globals global) async {
-    Uri connectionsURL = Uri.http('tutorme-dev.us-east-1.elasticbeanstalk.com',
+    Uri connectionsURL = Uri.http(global.getTutorMeUrl,
         '/api/Connections/users/$userId?userType=$userTypeId');
     try {
       final response =
@@ -569,9 +545,8 @@ class UserServices {
         final List list = json.decode(j);
         return list.map((json) => Users.fromObject(json)).toList();
       } else if (response.statusCode == 401) {
-        final refreshUrl = Uri.http(
-            'tutorme-dev.us-east-1.elasticbeanstalk.com',
-            'api/account/refreshToken');
+        final refreshUrl =
+            Uri.http(global.getTutorMeUrl, 'api/account/refreshToken');
 
         final data = jsonEncode({
           'expiredToken': global.getToken,
@@ -605,12 +580,14 @@ class UserServices {
       String institution,
       String confirmPassword,
       String year) async {
-    final modulesURL = Uri.parse(
-        'http://tutorme-dev.us-east-1.elasticbeanstalk.com/api/Users/');
+    Globals tempGlobals = Globals(null, '', '');
+
+    final modulesURL =
+        Uri.parse('http://${tempGlobals.getTutorMeUrl}/api/Users/');
 
     //source: https://protocoderspoint.com/flutter-encryption-decryption-using-flutter-string-encryption/#:~:text=open%20your%20flutter%20project%20that,IDE(android%2Dstudio).&text=Then%20after%20you%20have%20added,the%20password%20the%20user%20enter.
 
-    password = hashPassword(password);
+    // password = hashPassword(password);
     String data = jsonEncode({
       'userId': institution,
       'firstName': name,
@@ -636,12 +613,10 @@ class UserServices {
     };
     try {
       final response = await http.post(modulesURL, headers: header, body: data);
+      print('here ' + response.body);
       if (response.statusCode == 200) {
         final Users tutor = Users.fromObject(jsonDecode(response.body)['user']);
-        Globals global = Globals(
-            tutor,
-            'tutorme-dev.us-east-1.elasticbeanstalk.com',
-            json.decode(response.body)['token'],
+        Globals global = Globals(tutor, json.decode(response.body)['token'],
             json.decode(response.body)['refreshToken']);
 
         // await createFileRecord(tutors[0].getId);
@@ -664,10 +639,11 @@ class UserServices {
       String institution,
       String confirmPassword,
       String year) async {
-    final modulesURL =
-        Uri.http('tutorme-dev.us-east-1.elasticbeanstalk.com', '/api/Users/');
+    Globals tempGlobals = Globals(null, '', '');
+
+    final modulesURL = Uri.http(tempGlobals.getTutorMeUrl, '/api/Users/');
     //source: https://protocoderspoint.com/flutter-encryption-decryption-using-flutter-string-encryption/#:~:text=open%20your%20flutter%20project%20that,IDE(android%2Dstudio).&text=Then%20after%20you%20have%20added,the%20password%20the%20user%20enter.
-    password = hashPassword(password);
+    // password = hashPassword(password);
 
     String data = jsonEncode({
       'firstName': name,
@@ -693,10 +669,7 @@ class UserServices {
       final response = await http.post(modulesURL, headers: header, body: data);
       if (response.statusCode == 200) {
         final Users tutor = Users.fromObject(jsonDecode(response.body)['user']);
-        Globals global = Globals(
-            tutor,
-            'tutorme-dev.us-east-1.elasticbeanstalk.com',
-            json.decode(response.body)['token'],
+        Globals global = Globals(tutor, json.decode(response.body)['token'],
             json.decode(response.body)['refreshToken']);
 
         return global;
@@ -727,16 +700,15 @@ class UserServices {
     });
     try {
       final id = tutee.getId;
-      final modulesURL = Uri.parse(
-          'http://tutorme-dev.us-east-1.elasticbeanstalk.com/api/Users/Tutees/$id');
+      final modulesURL =
+          Uri.parse('http://${global.getTutorMeUrl}/api/Users/Tutees/$id');
       final response =
           await http.put(modulesURL, headers: global.getHeader, body: data);
       if (response.statusCode == 204) {
         return tutee;
       } else if (response.statusCode == 401) {
-        final refreshUrl = Uri.http(
-            'tutorme-dev.us-east-1.elasticbeanstalk.com',
-            'api/account/refreshToken');
+        final refreshUrl =
+            Uri.http(global.getTutorMeUrl, 'api/account/refreshToken');
 
         final data = jsonEncode({
           'expiredToken': global.getToken,
@@ -792,7 +764,7 @@ class UserServices {
   //   try {
   //     final id = tutee.getId;
   //     final modulesURL = Uri.parse(
-  //         'http://tutorme-dev.us-east-1.elasticbeanstalk.com/api/Users/Tutees/$id');
+  //         'http://${globals.getTutorMeUrl}/api/Users/Tutees/$id');
   //     final response =
   //         await http.put(modulesURL, headers: global.getHeader, body: data);
   //     if (response.statusCode == 204) {
@@ -842,8 +814,8 @@ class UserServices {
 
     try {
       final id = tutor.getId;
-      final modulesURL = Uri.parse(
-          'http://tutorme-dev.us-east-1.elasticbeanstalk.com/api/Users/$id');
+      final modulesURL =
+          Uri.parse('http://${global.getTutorMeUrl}/api/Users/$id');
       final response =
           await http.put(modulesURL, headers: global.getHeader, body: data);
       if (response.statusCode == 200) {
@@ -863,15 +835,14 @@ class UserServices {
     try {
       final id = globals.getUser.getId;
       final passwordURL = Uri.parse(
-          'http://tutorme-dev.us-east-1.elasticbeanstalk.com/api/Authentication/password/$id');
+          'http://${globals.getTutorMeUrl}/api/Authentication/password/$id');
       final response =
           await http.put(passwordURL, headers: globals.getHeader, body: data);
       if (response.statusCode == 200) {
         return globals.getUser;
       } else if (response.statusCode == 401) {
-        final refreshUrl = Uri.http(
-            'tutorme-dev.us-east-1.elasticbeanstalk.com',
-            'api/account/refreshToken');
+        final refreshUrl =
+            Uri.http(globals.getTutorMeUrl, 'api/account/refreshToken');
 
         final data = jsonEncode({
           'expiredToken': globals.getToken,
@@ -927,7 +898,7 @@ class UserServices {
   //   try {
   //     final id = tutor.getId;
   //     final modulesURL = Uri.parse(
-  //         'http://tutorme-dev.us-east-1.elasticbeanstalk.com/api/Users/Tutors/$id');
+  //         'http://${globals.getTutorMeUrl}/api/Users/Tutors/$id');
   //     final response =
   //         await http.put(modulesURL, headers: global.getHeader, body: data);
   //     if (response.statusCode == 204) {
@@ -957,6 +928,7 @@ class UserServices {
   // }
 
   static logInTutor(String email, String password) async {
+    // password = hashPassword(password);
     String data = jsonEncode({
       'email': email,
       'password': password,
@@ -965,16 +937,14 @@ class UserServices {
     final header = <String, String>{
       'Content-Type': 'application/json; charset=utf-8',
     };
+    Globals tempGlobals = Globals(null, '', '');
     try {
       final modulesURL = Uri.parse(
-          'http://tutorme-dev.us-east-1.elasticbeanstalk.com/api/account/authtoken');
+          'http://${tempGlobals.getTutorMeUrl}/api/account/authtoken');
       final response = await http.post(modulesURL, headers: header, body: data);
       if (response.statusCode == 200) {
         final Users tutor = Users.fromObject(jsonDecode(response.body)['user']);
-        Globals global = Globals(
-            tutor,
-            'tutorme-dev.us-east-1.elasticbeanstalk.com',
-            json.decode(response.body)['token'],
+        Globals global = Globals(tutor, json.decode(response.body)['token'],
             json.decode(response.body)['refreshToken']);
 
         return global;
@@ -986,42 +956,42 @@ class UserServices {
     }
   }
 
-  static createFileRecord(String id) async {
-    String data =
-        jsonEncode({'id': id, 'tuteeImage': '', 'tuteeTranscript': ''});
-    final header = <String, String>{
-      'Content-Type': 'application/json; charset=utf-8'
-    };
-    final url = Uri.parse(
-        'http://filesystem-prod.us-east-1.elasticbeanstalk.com/api/TuteeFiles');
-    try {
-      final response = await http.post(url, headers: header, body: data);
-      if (response.statusCode == 201) {
-        return true;
-      } else {
-        throw "failed to upload";
-      }
-    } catch (e) {
-      rethrow;
-    }
-  }
+  // static createFileRecord(String id) async {
+  //   String data =
+  //       jsonEncode({'id': id, 'tuteeImage': '', 'tuteeTranscript': ''});
+  //   final header = <String, String>{
+  //     'Content-Type': 'application/json; charset=utf-8'
+  //   };
+  //   final url = Uri.parse(
+  //       'http://filesystem-prod.us-east-1.elasticbeanstalk.com/api/TuteeFiles');
+  //   try {
+  //     final response = await http.post(url, headers: header, body: data);
+  //     if (response.statusCode == 201) {
+  //       return true;
+  //     } else {
+  //       throw "failed to upload";
+  //     }
+  //   } catch (e) {
+  //     rethrow;
+  //   }
+  // }
 
   static updateProfileImage(File? image, String id, Globals global) async {
     final imageByte = base64Encode(image!.readAsBytesSync());
-    String data =
-        jsonEncode({'id': id, 'userImage': imageByte, 'userTranscript': ''});
+    String data = jsonEncode({'userId': id, 'image': imageByte});
 
-    final url = Uri.parse(
-        'http://tutorfilesystem-dev.us-east-1.elasticbeanstalk.com/api/UserFiles/$id');
+    final url = Uri.parse('http://${global.getFilesUrl}/api/UserFiles/image/$id');
+    final header = <String, String>{
+      'Content-Type': 'application/json; charset=utf-8',
+    };
     try {
       final response =
-          await http.put(url, headers: global.getHeader, body: data);
+          await http.put(url, headers: header, body: data);
       if (response.statusCode == 200) {
         return image;
       } else if (response.statusCode == 401) {
-        final refreshUrl = Uri.http(
-            'tutorme-dev.us-east-1.elasticbeanstalk.com',
-            'api/account/refreshToken');
+        final refreshUrl =
+            Uri.http(global.getTutorMeUrl, 'api/account/refreshToken');
 
         final data = jsonEncode({
           'expiredToken': global.getToken,
@@ -1047,20 +1017,18 @@ class UserServices {
 
   static uploadProfileImage(File? image, String id, Globals global) async {
     final imageByte = base64Encode(image!.readAsBytesSync());
-    String data =
-        jsonEncode({'id': id, 'userImage': imageByte, 'userTranscript': ''});
+    String data = jsonEncode({'userId': id, 'image': imageByte});
 
-    final url = Uri.parse(
-        'http://tutorfilesystem-dev.us-east-1.elasticbeanstalk.com/api/UserFiles');
+    final url = Uri.parse('http://${global.getFilesUrl}/api/UserFiles');
     try {
       final response =
           await http.post(url, headers: global.getHeader, body: data);
+      print(response.statusCode);
       if (response.statusCode == 200) {
         return image;
       } else if (response.statusCode == 401) {
-        final refreshUrl = Uri.http(
-            'tutorme-dev.us-east-1.elasticbeanstalk.com',
-            'api/account/refreshToken');
+        final refreshUrl =
+            Uri.http(global.getTutorMeUrl, 'api/account/refreshToken');
 
         final data = jsonEncode({
           'expiredToken': global.getToken,
@@ -1077,7 +1045,7 @@ class UserServices {
           uploadProfileImage(image, id, global);
         }
       } else {
-        throw "failed to upload ${response.body}";
+        throw "failed to upload ${response.statusCode}";
       }
     } catch (e) {
       rethrow;
@@ -1086,20 +1054,17 @@ class UserServices {
 
   static uploadTranscript(File? transcript, String id, Globals global) async {
     final transcriptByte = base64Encode(transcript!.readAsBytesSync());
-    String data = jsonEncode(
-        {'id': id, 'userImage': '', 'userTranscript': transcriptByte});
+    String data = jsonEncode({'userId': id, 'transcript': transcriptByte});
 
-    final url = Uri.parse(
-        'http://tutorfilesystem-dev.us-east-1.elasticbeanstalk.com/api/UserFiles/$id');
+    final url = Uri.parse('http://${global.getFilesUrl}/api/UserFiles/$id');
     try {
       final response =
           await http.post(url, headers: global.getHeader, body: data);
       if (response.statusCode == 200) {
         return transcript;
       } else if (response.statusCode == 401) {
-        final refreshUrl = Uri.http(
-            'tutorme-dev.us-east-1.elasticbeanstalk.com',
-            'api/account/refreshToken');
+        final refreshUrl =
+            Uri.http(global.getTutorMeUrl, 'api/account/refreshToken');
 
         final data = jsonEncode({
           'expiredToken': global.getToken,
@@ -1124,8 +1089,8 @@ class UserServices {
   }
 
   static Future getProfileImage(String id, Globals globals) async {
-    Uri tuteeURL = Uri.parse(
-        'http://tutorfilesystem-dev.us-east-1.elasticbeanstalk.com/api/UserFiles/image/$id');
+    Uri tuteeURL =
+        Uri.parse('http://${globals.getFilesUrl}/api/UserFiles/image/$id');
     try {
       final response = await http.get(tuteeURL, headers: globals.getHeader);
 
@@ -1151,9 +1116,8 @@ class UserServices {
         // return Image.file(base64Decode(kk));
         // return list.map((json) => Tutees.fromObject(json)).toList();
       } else if (response.statusCode == 401) {
-        final refreshUrl = Uri.http(
-            'tutorme-dev.us-east-1.elasticbeanstalk.com',
-            'api/account/refreshToken');
+        final refreshUrl =
+            Uri.http(globals.getTutorMeUrl, 'api/account/refreshToken');
 
         final data = jsonEncode({
           'expiredToken': globals.getToken,
@@ -1186,16 +1150,14 @@ class UserServices {
     final header = <String, String>{
       'Content-Type': 'application/json; charset=utf-8',
     };
+    Globals tempGlobals = Globals(null, '', '');
     try {
       final modulesURL = Uri.parse(
-          'http://tutorme-dev.us-east-1.elasticbeanstalk.com/api/account/authtoken');
+          'http://${tempGlobals.getTutorMeUrl}/api/account/authtoken');
       final response = await http.post(modulesURL, headers: header, body: data);
       if (response.statusCode == 200) {
         final Users tutor = Users.fromObject(jsonDecode(response.body)['user']);
-        Globals global = Globals(
-            tutor,
-            'tutorme-dev.us-east-1.elasticbeanstalk.com',
-            json.decode(response.body)['token'],
+        Globals global = Globals(tutor, json.decode(response.body)['token'],
             json.decode(response.body)['refreshToken']);
 
         return global;
@@ -1355,9 +1317,8 @@ class UserServices {
           return bytes;
         }
       } else if (response.statusCode == 401) {
-        final refreshUrl = Uri.http(
-            'tutorme-dev.us-east-1.elasticbeanstalk.com',
-            'api/account/refreshToken');
+        final refreshUrl =
+            Uri.http(global.getTutorMeUrl, 'api/account/refreshToken');
 
         final data = jsonEncode({
           'expiredToken': global.getToken,
@@ -1398,9 +1359,8 @@ class UserServices {
           return bytes;
         }
       } else if (response.statusCode == 401) {
-        final refreshUrl = Uri.http(
-            'tutorme-dev.us-east-1.elasticbeanstalk.com',
-            'api/account/refreshToken');
+        final refreshUrl =
+            Uri.http(global.getTutorMeUrl, 'api/account/refreshToken');
 
         final data = jsonEncode({
           'expiredToken': global.getToken,
