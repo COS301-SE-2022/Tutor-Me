@@ -151,7 +151,7 @@ class TutorGroupsState extends State<TutorGroups> {
                 SizedBox(height: MediaQuery.of(context).size.height * 0.04),
                 Text("  " + modules[i].getCode,
                     style: TextStyle(
-                      fontSize: MediaQuery.of(context).size.height * 0.06,
+                      fontSize: MediaQuery.of(context).size.height * 0.03,
                       color: colorWhite,
                       fontWeight: FontWeight.bold,
                     )),
@@ -171,7 +171,7 @@ class TutorGroupsState extends State<TutorGroups> {
             Text(
               "  " + modules[i].getModuleName,
               style: TextStyle(
-                fontSize: MediaQuery.of(context).size.height * 0.05,
+                fontSize: MediaQuery.of(context).size.height * 0.025,
                 color: colorWhite,
               ),
             )

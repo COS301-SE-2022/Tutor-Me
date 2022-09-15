@@ -57,7 +57,7 @@ class MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-     setState(() {
+      setState(() {
         initPreferences();
       });
     });
@@ -69,36 +69,44 @@ class MyAppState extends State<MyApp> {
       builder: (context, _) {
         final themeProvider = Provider.of<ThemeProvider>(context, listen: true);
         if (preferences != null) {
-          final globalsJson = preferences!.getString('globals');
-          if (globalsJson == null) {
+          final isFirstTime = preferences!.getBool('isFirstTime');
+          if (isFirstTime == null) {
             return MaterialApp(
               themeMode: themeProvider.themeMode,
               debugShowCheckedModeBanner: false,
               theme: Themes.lightTheme,
               darkTheme: Themes.darkTheme,
-              home: const Login(),
+              home: const LandingPage(),
             );
           } else {
-            final globals = Globals.fromJson(jsonDecode(globalsJson));
-            return MaterialApp(
-              themeMode: themeProvider.themeMode,
-              debugShowCheckedModeBanner: false,
-              theme: Themes.lightTheme,
-              darkTheme: Themes.darkTheme,
-              home: TutorPage(globals: globals),
-            );
+            final globalsJson = preferences!.getString('globals');
+            if (globalsJson == null) {
+              return MaterialApp(
+                themeMode: themeProvider.themeMode,
+                debugShowCheckedModeBanner: false,
+                theme: Themes.lightTheme,
+                darkTheme: Themes.darkTheme,
+                home: const Login(),
+              );
+            } else {
+              final globals = Globals.fromJson(jsonDecode(globalsJson));
+              return MaterialApp(
+                themeMode: themeProvider.themeMode,
+                debugShowCheckedModeBanner: false,
+                theme: Themes.lightTheme,
+                darkTheme: Themes.darkTheme,
+                home: TutorPage(globals: globals),
+              );
+            }
           }
         }
-        else
-        {
-          return MaterialApp(
-            themeMode: themeProvider.themeMode,
-            debugShowCheckedModeBanner: false,
-            theme: Themes.lightTheme,
-            darkTheme: Themes.darkTheme,
-            home: const LandingPage(),
-          );
-        }
-
+        return const MaterialApp(
+          debugShowCheckedModeBanner: false,
+          home: Scaffold(
+            body: Center(
+              child: CircularProgressIndicator(),
+            ),
+          ),
+        );
       });
 }

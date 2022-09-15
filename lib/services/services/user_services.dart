@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:crypt/crypt.dart';
@@ -978,14 +979,18 @@ class UserServices {
   static updateProfileImage(File? image, String id, Globals global) async {
     final imageByte = base64Encode(image!.readAsBytesSync());
     String data = jsonEncode({'userId': id, 'image': imageByte});
+    // data += '"}';
+    log(data);
 
-    final url = Uri.parse('http://${global.getFilesUrl}/api/UserFiles/image/$id');
+    final url =
+        Uri.parse('http://${global.getFilesUrl}/api/UserFiles/image/$id');
     final header = <String, String>{
       'Content-Type': 'application/json; charset=utf-8',
     };
     try {
-      final response =
-          await http.put(url, headers: header, body: data);
+      final response = await http.put(url, headers: header, body: data);
+      print(response.statusCode);
+      print(response.body);
       if (response.statusCode == 200) {
         return image;
       } else if (response.statusCode == 401) {

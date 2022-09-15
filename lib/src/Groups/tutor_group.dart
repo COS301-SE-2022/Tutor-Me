@@ -212,7 +212,8 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                       height: screenHeight * 0.03,
                     ),
                     SizedBox(
-                      height: screenHeight * 0.50,
+                      width: screenWidth * 0.8,
+                      height: screenHeight * 0.35,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
@@ -234,7 +235,7 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                                 leading: Icon(
                                   Icons.chat,
                                   size: screenHeight * 0.06,
-                                  color: colorBlueTeal,
+                                  color: colorOrange,
                                 ),
                                 title: Text(
                                   'Group Chat',
@@ -281,7 +282,7 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                                   Icon(
                                     Icons.chat_bubble,
                                     size: screenHeight * 0.06,
-                                    color: colorBlueTeal,
+                                    color: colorOrange,
                                   ),
                                   Positioned(
                                       top: screenHeight * 0.01,
@@ -317,7 +318,7 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                                   Icon(
                                     Icons.chat_bubble,
                                     size: screenHeight * 0.06,
-                                    color: primaryColor,
+                                    color: colorOrange,
                                   ),
                                   Positioned(
                                       top: screenHeight * 0.01,
