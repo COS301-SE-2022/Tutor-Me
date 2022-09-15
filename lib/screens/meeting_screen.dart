@@ -267,7 +267,7 @@ class _MeetingScreenState extends State<MeetingScreen> {
     meeting.on(Events.meetingLeft, () {
       Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (context) => const StartupScreen()),
+          MaterialPageRoute(builder: (context) => StartupScreen(globals: widget.globals, group: widget.group,)),
           (route) => false);
     });
 
