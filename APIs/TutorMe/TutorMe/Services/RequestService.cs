@@ -25,7 +25,7 @@ namespace TutorMe.Services
 
         public IEnumerable<Request> GetAllRequests()
         {
-            return _context.Request;
+            return _context.Request.ToList();
         }
 
         public Request GetRequestById(Guid id)

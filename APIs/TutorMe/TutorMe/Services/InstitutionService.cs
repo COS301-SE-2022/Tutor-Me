@@ -22,7 +22,7 @@ namespace TutorMe.Services
 
         public IEnumerable<Institution> GetAllInstitutions()
         {
-            return _context.Institution;
+            return _context.Institution.ToList();
         }
 
         public Institution GetInstitutionById(Guid id)
