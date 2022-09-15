@@ -22,7 +22,7 @@ namespace TutorMe.Services
 
         public IEnumerable<UserType> GetAllUserTypes()
         {
-            return _context.UserType;
+            return _context.UserType.ToList();
         }
 
         public UserType GetUserTypeById(Guid id)
@@ -38,7 +38,7 @@ namespace TutorMe.Services
         {
             if (_context.UserType.Where(e => e.Type == userType.Type).Any())
             {
-                throw new KeyNotFoundException("This sser type already exists, Please log in");
+                throw new KeyNotFoundException("This user type already exists, Please log in");
             }
             //UserType.Password = BCrypt.Net.BCrypt.HashPassword(UserType.Password, "ThisWillBeAGoodPlatformForBothUserTypesAndTuteesToConnectOnADailyBa5e5");
             userType.UserTypeId = Guid.NewGuid();

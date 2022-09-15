@@ -19,7 +19,7 @@ namespace TutorMe.Services {
         }
 
         public IEnumerable<UserModule> GetAllUserModules() {
-            return _context.UserModule;
+            return _context.UserModule.ToList();
         }
 
         public UserModule GetUserModuleById(Guid id) {
