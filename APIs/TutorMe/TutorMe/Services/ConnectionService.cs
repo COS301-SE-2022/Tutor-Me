@@ -25,7 +25,7 @@ namespace TutorMe.Services
 
         public IEnumerable<Connection> GetAllConnections()
         {
-            return _context.Connection;
+            return _context.Connection.ToList();
         }
 
         public Connection GetConnectionById(Guid id)
@@ -36,7 +36,7 @@ namespace TutorMe.Services
 
         public IEnumerable<Connection> GetConnectionsByUserId(Guid id) {
             var connections = _context.Connection.Where(e => e.TuteeId == id || e.TutorId == id);
-            return connections;
+            return connections.ToList();
         }
         public Guid createConnection(IConnection connection)
         {

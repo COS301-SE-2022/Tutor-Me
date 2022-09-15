@@ -70,34 +70,34 @@ public class ConnectionsControllerUnitTests
         Assert.Equal(3, (actual as List<Connection>).Count);
 
     }
-      [Fact]
-    public async  Task GetConnectionById_ConnectionId_ReturnsConnectionOfId()
-    {
-        //arrange
-        var Connection = new Connection
-        {
-            ConnectionId = Guid.NewGuid(),
-            TutorId = Guid.NewGuid(),
-            TuteeId = Guid.NewGuid(),
-            ModuleId = Guid.NewGuid(),
-          
-        };
-        
-        _ConnectionRepositoryMock.Setup(u => u.GetConnectionById(Connection.ConnectionId)).Returns(Connection);
-        
-        var controller = new ConnectionsController(_ConnectionRepositoryMock.Object,_mapper.Object);
-        
-        //act
-        var result = controller.GetConnectionById(Connection.ConnectionId);
-        
-        Assert.NotNull(result);
-        Assert.IsType<OkObjectResult>(result);
-
-        var actual = (result as OkObjectResult).Value;
-        Assert.IsType<Connection>(actual);
-    }
-    
-     
+    //   [Fact]
+    // public async  Task GetConnectionById_ConnectionId_ReturnsConnectionOfId()
+    // {
+    //     //arrange
+    //     var Connection = new Connection
+    //     {
+    //         ConnectionId = Guid.NewGuid(),
+    //         TutorId = Guid.NewGuid(),
+    //         TuteeId = Guid.NewGuid(),
+    //         ModuleId = Guid.NewGuid(),
+    //       
+    //     };
+    //     
+    //     _ConnectionRepositoryMock.Setup(u => u.GetConnectionById(Connection.ConnectionId)).Returns(Connection);
+    //     
+    //     var controller = new ConnectionsController(_ConnectionRepositoryMock.Object,_mapper.Object);
+    //     
+    //     //act
+    //     var result = controller.GetConnectionById(Connection.ConnectionId);
+    //     
+    //     Assert.NotNull(result);
+    //     Assert.IsType<OkObjectResult>(result);
+    //
+    //     var actual = (result as OkObjectResult).Value;
+    //     Assert.IsType<Connection>(actual);
+    // }
+    //
+    //  
       [Fact]
     public async Task DeleteConnectionById_Returns_true()
     {

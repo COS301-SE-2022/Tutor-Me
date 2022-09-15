@@ -26,7 +26,7 @@ namespace TutorMe.Services
 
         public IEnumerable<Group> GetAllGroups()
         {
-            return _context.Group;
+            return _context.Group.ToList();
         }
 
         public IEnumerable<Group> GetGroupsByUserId(Guid id) {

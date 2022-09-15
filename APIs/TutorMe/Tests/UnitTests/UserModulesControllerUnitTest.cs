@@ -9,6 +9,7 @@ using TutorMe.Data;
 using TutorMe.Entities;
 using TutorMe.Models;
 using TutorMe.Services;
+using Module = TutorMe.Models.Module;
 
 namespace Tests.UnitTests;
 
@@ -80,8 +81,22 @@ public class UsersModuleControllerUnitTests
             UserId = Guid.NewGuid(),
 
         };
+        List<Module> UsersModules = new List<Module>
+        {
+             new Module
+            {
+                ModuleId  = Guid.NewGuid(),
+                Code  = "COS 301",
+                ModuleName ="Software Engineering",
+                InstitutionId = Guid.NewGuid(),
+                Faculty ="Faculty of Engineering and Built Environment",
+                Year = "3",
+            }
         
-        _UserModuleRepositoryMock.Setup(u => u.GetUserModuleById(UserModule.UserModuleId)).Returns(UserModule);
+        };
+
+        
+        _UserModuleRepositoryMock.Setup(u => u.GetUserModulesByUserId(UserModule.UserModuleId)).Returns(UsersModules);
         
         var controller = new UserModulesController(_UserModuleRepositoryMock.Object,_mapper.Object);
         
@@ -90,9 +105,11 @@ public class UsersModuleControllerUnitTests
         
         Assert.NotNull(result);
         Assert.IsType<OkObjectResult>(result);
+        
 
         var actual = (result as OkObjectResult).Value;
-        Assert.IsType<UserModule>(actual);
+        Assert.IsType<List<Module>>(actual);
+        Assert.Equal(1, (actual as List<Module>).Count);
     }
     
     [Fact]

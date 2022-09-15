@@ -22,7 +22,7 @@ namespace TutorMe.Services
 
         public IEnumerable<Module> GetAllModules()
         {
-            return _context.Module;
+            return _context.Module.ToList();
         }
 
         public Module GetModuleById(Guid id)

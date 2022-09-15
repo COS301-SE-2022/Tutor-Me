@@ -59,7 +59,7 @@ public class InstitutionServicesUnitTests
         using (TutorMeContext ctx1 = new(optionsBuilder.Options))
         {
             result =new InstitutionServices(ctx1).GetAllInstitutions();
-            //ToDo: Must change all getALL FUNCTIONS to return a list of objects
+           
         }
         
         Assert.NotNull(result);
@@ -184,7 +184,7 @@ public class InstitutionServicesUnitTests
     public async  Task CreateInstitution_Institution_Returns_InstitutionId()
     {
         //arrange
-        var Institution = new Institution
+        var institution = new Institution
         {
             InstitutionId = Guid.NewGuid(),
             Name ="University Of Pretoria",
@@ -205,13 +205,13 @@ public class InstitutionServicesUnitTests
         Guid result;
         using (TutorMeContext ctx1 = new(optionsBuilder.Options))
         {
-            result =new InstitutionServices(ctx1).createInstitution(Institution);
+            result =new InstitutionServices(ctx1).createInstitution(institution);
         }
         
         //act
         Assert.NotNull(result);
         Assert.IsType<Guid>(result);
-        Assert.Equal(Institution.InstitutionId, result);
+        Assert.Equal(institution.InstitutionId, result);
     }
     
     // test CreateInstitution_Returns_createInstitution()
@@ -234,6 +234,7 @@ public class InstitutionServicesUnitTests
         using (TutorMeContext ctx = new(optionsBuilder.Options))
         {
             ctx.Add(Institution);
+            ctx.SaveChanges();
         }
         Guid result;
         try
@@ -245,7 +246,7 @@ public class InstitutionServicesUnitTests
         }
         catch (Exception e)
         {
-            Assert.Equal("This user type already exists, Please log in", e.Message);
+            Assert.Equal("This Institution already exists", e.Message);
         }
 
     }

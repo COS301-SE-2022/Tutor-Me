@@ -31,7 +31,7 @@ namespace TutorMe.Services {
 
         public IEnumerable<User> GetAllUsers()
         {
-            return _context.User;
+            return _context.User.ToList();
         }
 
         public IEnumerable<User> GetAllTutors() {

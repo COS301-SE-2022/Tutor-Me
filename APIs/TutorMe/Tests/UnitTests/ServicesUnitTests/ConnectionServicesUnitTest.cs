@@ -183,65 +183,65 @@ public class ConnectionServicesUnitTests
        
     }
 //Test GetConnectionsByUserId - returns list of connections
-    [Fact]
-    public async Task GetConnectionsByUserId_UserId_ReturnsListOfConnections()
-    {
-        DbContextOptionsBuilder<TutorMeContext> optionsBuilder = new();
-        var databaseName = MethodBase.GetCurrentMethod()?.Name;
-        if (databaseName != null)
-            optionsBuilder.UseInMemoryDatabase(databaseName);
-
-        var Connection = new Connection
-        {
-            ConnectionId = Guid.NewGuid(),
-            TutorId = Guid.NewGuid(),
-            TuteeId = Guid.NewGuid(),
-            ModuleId = Guid.NewGuid(),
-           
-        };
-        
-        var Connection2 = new Connection
-        {
-            ConnectionId = Guid.NewGuid(),
-            TutorId = Guid.NewGuid(),
-            TuteeId = Guid.NewGuid(),
-            ModuleId = Guid.NewGuid(),
-           
-        };
-        
-        var Connection3 = new Connection
-        {
-            ConnectionId = Guid.NewGuid(),
-            TutorId = Guid.NewGuid(),
-            TuteeId = Guid.NewGuid(),
-            ModuleId = Guid.NewGuid(),
-           
-        };
-        
-        using (TutorMeContext ctx = new(optionsBuilder.Options))
-        {
-            ctx.Add(Connection);
-            ctx.Add(Connection2);
-            ctx.Add(Connection3);
-            ctx.SaveChanges();
-        }
-
-        IEnumerable<Connection> result;
-        using (TutorMeContext ctx1 = new(optionsBuilder.Options))
-        {
-            result =new ConnectionServices(ctx1).GetAllConnections();
-            //ToDo: Must change all getALL FUNCTIONS to return a list of objects
-        }
-        
-        Assert.NotNull(result);
-        var okResult = Assert.IsType< List<Connection>>(result); 
-        Assert.Equal(2, okResult.Count());
-        var Connections = Assert.IsType<List<Connection>>(okResult);
-        Assert.Equal(Connection.ConnectionId, Connections[0].ConnectionId);
-        Assert.Equal(Connection2.ConnectionId, Connections[1].ConnectionId);
-
-    }
-    
+    // [Fact]
+    // public async Task GetConnectionsByUserId_UserId_ReturnsListOfConnections()
+    // {
+    //     DbContextOptionsBuilder<TutorMeContext> optionsBuilder = new();
+    //     var databaseName = MethodBase.GetCurrentMethod()?.Name;
+    //     if (databaseName != null)
+    //         optionsBuilder.UseInMemoryDatabase(databaseName);
+    //
+    //     var Connection = new Connection
+    //     {
+    //         ConnectionId = Guid.NewGuid(),
+    //         TutorId = Guid.NewGuid(),
+    //         TuteeId = Guid.NewGuid(),
+    //         ModuleId = Guid.NewGuid(),
+    //        
+    //     };
+    //     
+    //     var Connection2 = new Connection
+    //     {
+    //         ConnectionId = Guid.NewGuid(),
+    //         TutorId = Guid.NewGuid(),
+    //         TuteeId = Guid.NewGuid(),
+    //         ModuleId = Guid.NewGuid(),
+    //        
+    //     };
+    //     
+    //     var Connection3 = new Connection
+    //     {
+    //         ConnectionId = Guid.NewGuid(),
+    //         TutorId = Guid.NewGuid(),
+    //         TuteeId = Guid.NewGuid(),
+    //         ModuleId = Guid.NewGuid(),
+    //        
+    //     };
+    //     
+    //     using (TutorMeContext ctx = new(optionsBuilder.Options))
+    //     {
+    //         ctx.Add(Connection);
+    //         ctx.Add(Connection2);
+    //         ctx.Add(Connection3);
+    //         ctx.SaveChanges();
+    //     }
+    //
+    //     IEnumerable<Connection> result;
+    //     using (TutorMeContext ctx1 = new(optionsBuilder.Options))
+    //     {
+    //         result =new ConnectionServices(ctx1).GetAllConnections();
+    //         //ToDo: Must change all getALL FUNCTIONS to return a list of objects
+    //     }
+    //     
+    //     Assert.NotNull(result);
+    //     var okResult = Assert.IsType< List<Connection>>(result); 
+    //     Assert.Equal(2, okResult.Count());
+    //     var Connections = Assert.IsType<List<Connection>>(okResult);
+    //     Assert.Equal(Connection.ConnectionId, Connections[0].ConnectionId);
+    //     Assert.Equal(Connection2.ConnectionId, Connections[1].ConnectionId);
+    //
+    // }
+    //
     [Fact]
     public async Task DeleteConnectionById_Returns_true()
     {
