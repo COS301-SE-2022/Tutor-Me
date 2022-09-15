@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:tutor_me/services/models/globals.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 // import 'package:tutor_me/src/pages/badges.dart';
 import 'package:tutor_me/src/pages/upcoming.dart';
@@ -7,7 +8,8 @@ import 'package:tutor_me/src/pages/upcoming.dart';
 import 'calendar_screen.dart';
 
 class Calendar extends StatefulWidget {
-  const Calendar({Key? key}) : super(key: key);
+  final Globals globals;
+  const Calendar({Key? key, required this.globals}) : super(key: key);
 
   @override
   State<Calendar> createState() => _CalendarState();
@@ -17,7 +19,7 @@ class _CalendarState extends State<Calendar> {
   int currentIndex = 0;
 
   getScreens() {
-    return [const Upcoming(), const CalendarScreen()];
+    return [const Upcoming(), CalendarScreen(globals: widget.globals)];
   }
   // late CalendarController _controller;
 
@@ -64,20 +66,9 @@ class _CalendarState extends State<Calendar> {
         length: 2,
         child: Scaffold(
           appBar: AppBar(
-            // backgroundColor: const Color(0xffD6521B),
             centerTitle: true,
             title: const Text('Calendar'),
             backgroundColor: colorBlueTeal,
-            // flexibleSpace: Container(
-            //   decoration: const BoxDecoration(
-            //       // borderRadius:
-            //       //     BorderRadius.vertical(bottom: Radius.circular(60)),
-            //       gradient: LinearGradient(
-            //           colors: <Color>[Colors.orange, Colors.red],
-            //           begin: Alignment.topCenter,
-            //           end: Alignment.bottomCenter)),
-            // ),
-
             bottom: PreferredSize(
               preferredSize: const Size.fromHeight(50.0),
               child: Container(
