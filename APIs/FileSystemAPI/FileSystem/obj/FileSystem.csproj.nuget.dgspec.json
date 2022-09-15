@@ -1,25 +1,31 @@
 {
   "format": 1,
   "restore": {
-    "/home/simphiwe/Desktop/updated_CapsOn/Tutor-ME/APIs/FileSystemAPI/FileSystem/FileSystem.csproj": {}
+    "C:\\Users\\Dell\\Documents\\School\\COS301\\Capstone\\Tutor-ME\\APIs\\FileSystemAPI\\FileSystem\\FileSystem.csproj": {}
   },
   "projects": {
-    "/home/simphiwe/Desktop/updated_CapsOn/Tutor-ME/APIs/FileSystemAPI/FileSystem/FileSystem.csproj": {
+    "C:\\Users\\Dell\\Documents\\School\\COS301\\Capstone\\Tutor-ME\\APIs\\FileSystemAPI\\FileSystem\\FileSystem.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/simphiwe/Desktop/updated_CapsOn/Tutor-ME/APIs/FileSystemAPI/FileSystem/FileSystem.csproj",
+        "projectUniqueName": "C:\\Users\\Dell\\Documents\\School\\COS301\\Capstone\\Tutor-ME\\APIs\\FileSystemAPI\\FileSystem\\FileSystem.csproj",
         "projectName": "FileSystem",
-        "projectPath": "/home/simphiwe/Desktop/updated_CapsOn/Tutor-ME/APIs/FileSystemAPI/FileSystem/FileSystem.csproj",
-        "packagesPath": "/home/simphiwe/.nuget/packages/",
-        "outputPath": "/home/simphiwe/Desktop/updated_CapsOn/Tutor-ME/APIs/FileSystemAPI/FileSystem/obj/",
+        "projectPath": "C:\\Users\\Dell\\Documents\\School\\COS301\\Capstone\\Tutor-ME\\APIs\\FileSystemAPI\\FileSystem\\FileSystem.csproj",
+        "packagesPath": "C:\\Users\\Dell\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Dell\\Documents\\School\\COS301\\Capstone\\Tutor-ME\\APIs\\FileSystemAPI\\FileSystem\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "/home/simphiwe/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\Dell\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -83,7 +89,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/6.0.300/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.301\\RuntimeIdentifierGraph.json"
         }
       }
     }
