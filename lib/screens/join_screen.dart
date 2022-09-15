@@ -2,6 +2,8 @@ import 'dart:developer';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import '../services/models/globals.dart';
+import '../services/models/groups.dart';
 import '../utils/spacer.dart';
 
 import '../widgets/meeting_controls/meeting_action_button.dart';
@@ -11,11 +13,15 @@ import 'meeting_screen.dart';
 class JoinScreen extends StatefulWidget {
   final String meetingId;
   final String token;
+  final Groups group;
+  final Globals globals;
 
   const JoinScreen({
     Key? key,
     required this.meetingId,
     required this.token,
+    required this.group,
+    required this.globals,
   }) : super(key: key);
 
   @override
@@ -190,6 +196,8 @@ class _JoinScreenState extends State<JoinScreen> {
                               displayName: displayName,
                               micEnabled: isMicOn,
                               webcamEnabled: isWebcamOn,
+                              globals: widget.globals,
+                              group: widget.group,
                             ),
                           ),
                         );

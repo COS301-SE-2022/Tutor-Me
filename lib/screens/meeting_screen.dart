@@ -4,6 +4,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:videosdk/rtc.dart';
+import '../services/models/globals.dart';
+import '../services/models/groups.dart';
+// import '../services/services/group_services.dart';
 import '../src/authenticate/register_step1.dart';
 import '/screens/chat_screen.dart';
 
@@ -21,6 +24,8 @@ import 'package:tutor_me/src/theme/themes.dart';
 class MeetingScreen extends StatefulWidget {
   final String meetingId, token, displayName;
   final bool micEnabled, webcamEnabled, chatEnabled;
+  final Groups group;
+  final Globals globals;
   const MeetingScreen({
     Key? key,
     required this.meetingId,
@@ -29,6 +34,8 @@ class MeetingScreen extends StatefulWidget {
     this.micEnabled = true,
     this.webcamEnabled = true,
     this.chatEnabled = true,
+    required this.group,
+    required this.globals,
   }) : super(key: key);
 
   @override
@@ -264,9 +271,14 @@ class _MeetingScreenState extends State<MeetingScreen> {
           (route) => false);
     });
 
+    //TODO save meeting id to database
+
     // Called when recording is started
     meeting.on(Events.recordingStarted, () {
       toastMsg("Meeting recording started.");
+
+      // await GroupServices.saveMeetingIdForGroup(
+      //                               widget.meetingId, widget.group.getId, widget.globals);
 
       setState(() {
         isRecordingOn = true;
