@@ -1,12 +1,18 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 // import 'package:tutor_me/src/authenticate/register_or_login.dart';
 // import 'src/settings/settings_controller.dart';
 // import 'src/settings/settings_service.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
+import 'package:tutor_me/services/models/globals.dart';
+import 'package:tutor_me/src/authenticate/login.dart';
 import 'package:tutor_me/src/landingPages/landing_page.dart';
 // import 'package:tutor_me/src/pages/recorded_videos.dart';
 import 'package:tutor_me/src/theme/themes.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tutor_me/src/tutor_page.dart';
 
 //import 'src/authenticate/register_or_login.dart';
 // import 'src/tutorAndTuteeCollaboration/tutorGroups/tutor_remove_participants.dart';
@@ -32,19 +38,67 @@ void main() async {
 // }));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
+
+  @override
+  MyAppState createState() => MyAppState();
+}
+
+// ignore: must_be_immutable
+class MyAppState extends State<MyApp> {
+  SharedPreferences? preferences;
+
+  initPreferences() async {
+    preferences = await SharedPreferences.getInstance();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+     setState(() {
+        initPreferences();
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) => ChangeNotifierProvider(
       create: (context) => ThemeProvider(),
       builder: (context, _) {
         final themeProvider = Provider.of<ThemeProvider>(context, listen: true);
-        return MaterialApp(
-          themeMode: themeProvider.themeMode,
-          theme: Themes.lightTheme,
-          darkTheme: Themes.darkTheme,
-          home: const LandingPage(),
-        );
+        if (preferences != null) {
+          final globalsJson = preferences!.getString('globals');
+          if (globalsJson == null) {
+            return MaterialApp(
+              themeMode: themeProvider.themeMode,
+              debugShowCheckedModeBanner: false,
+              theme: Themes.lightTheme,
+              darkTheme: Themes.darkTheme,
+              home: const Login(),
+            );
+          } else {
+            final globals = Globals.fromJson(jsonDecode(globalsJson));
+            return MaterialApp(
+              themeMode: themeProvider.themeMode,
+              debugShowCheckedModeBanner: false,
+              theme: Themes.lightTheme,
+              darkTheme: Themes.darkTheme,
+              home: TutorPage(globals: globals),
+            );
+          }
+        }
+        else
+        {
+          return MaterialApp(
+            themeMode: themeProvider.themeMode,
+            debugShowCheckedModeBanner: false,
+            theme: Themes.lightTheme,
+            darkTheme: Themes.darkTheme,
+            home: const LandingPage(),
+          );
+        }
+
       });
 }

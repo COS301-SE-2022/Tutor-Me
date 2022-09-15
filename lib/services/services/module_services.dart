@@ -11,14 +11,9 @@ import '../models/globals.dart';
 class ModuleServices {
   static getModules(Globals global) async {
     Uri modulesURL =
-        Uri.http('tutorme-dev.us-east-1.elasticbeanstalk.com', '/api/Modules');
+        Uri.http(global.getTutorMeUrl, '/api/Modules');
     try {
-      final response = await http.get(modulesURL, headers: {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*"
-      });
-
+      final response = await http.get(modulesURL, headers: global.getHeader);
       if (response.statusCode == 200) {
         String j = "";
         if (response.body[0] != "[") {
@@ -28,8 +23,27 @@ class ModuleServices {
         }
         final List list = json.decode(j);
         return list.map((json) => Modules.fromObject(json)).toList();
+      } else if (response.statusCode == 401) {
+        final refreshUrl = Uri.http(
+            global.getTutorMeUrl,
+            'api/accoun/refreshToken');
+
+        final data = jsonEncode({
+          'expiredToken': global.getToken,
+          'refreshToken': global.getRefreshToken
+        });
+
+        final refreshResponse =
+            await http.post(refreshUrl, body: data, headers: global.getHeader);
+
+        if (refreshResponse.statusCode == 200) {
+          final refreshData = jsonDecode(refreshResponse.body);
+          global.setToken = refreshData['token'];
+          global.setRefreshToken = refreshData['refreshToken'];
+          getModules(global);
+        }
       } else {
-        throw Exception('Failed to load');
+        throw Exception('Failed to load' + response.statusCode.toString());
       }
     } catch (e) {
       throw Exception(e);
@@ -38,7 +52,7 @@ class ModuleServices {
 
   static getAllUserModules(Globals global) async {
     Uri modulesURL = Uri.http(
-        'tutorme-dev.us-east-1.elasticbeanstalk.com', '/api/UserModules');
+        global.getTutorMeUrl, '/api/UserModules');
     try {
       final response = await http.get(modulesURL, headers: global.getHeader);
 
@@ -51,6 +65,25 @@ class ModuleServices {
         }
         final List list = json.decode(j);
         return list.map((json) => UserModules.fromObject(json)).toList();
+      } else if (response.statusCode == 401) {
+        final refreshUrl = Uri.http(
+            global.getTutorMeUrl,
+            'api/accoun/refreshToken');
+
+        final data = jsonEncode({
+          'expiredToken': global.getToken,
+          'refreshToken': global.getRefreshToken
+        });
+
+        final refreshResponse =
+            await http.post(refreshUrl, body: data, headers: global.getHeader);
+
+        if (refreshResponse.statusCode == 200) {
+          final refreshData = jsonDecode(refreshResponse.body);
+          global.setToken = refreshData['token'];
+          global.setRefreshToken = refreshData['refreshToken'];
+          getAllUserModules(global);
+        }
       } else {
         throw Exception('Failed to load');
       }
@@ -61,8 +94,8 @@ class ModuleServices {
 
   static Future getUserModules(String id, Globals global) async {
     Uri url = Uri.http(
-        'tutorme-dev.us-east-1.elasticbeanstalk.com', 'api/UserModules/$id');
-    
+        global.getTutorMeUrl, 'api/UserModules/$id');
+
     try {
       final response = await http.get(url, headers: global.getHeader);
       if (response.statusCode == 200) {
@@ -74,6 +107,25 @@ class ModuleServices {
         }
         final List list = json.decode(j);
         return list.map((json) => Modules.fromObject(json)).toList();
+      } else if (response.statusCode == 401) {
+        final refreshUrl = Uri.http(
+            global.getTutorMeUrl,
+            'api/accoun/refreshToken');
+
+        final data = jsonEncode({
+          'expiredToken': global.getToken,
+          'refreshToken': global.getRefreshToken
+        });
+
+        final refreshResponse =
+            await http.post(refreshUrl, body: data, headers: global.getHeader);
+
+        if (refreshResponse.statusCode == 200) {
+          final refreshData = jsonDecode(refreshResponse.body);
+          global.setToken = refreshData['token'];
+          global.setRefreshToken = refreshData['refreshToken'];
+          getUserModules(id, global);
+        }
       } else {
         throw Exception('Failed to load' + response.statusCode.toString());
       }
@@ -94,11 +146,30 @@ class ModuleServices {
     try {
       final code = module.getCode;
       final modulesURL = Uri.parse(
-          'http://tutorme-dev.us-east-1.elasticbeanstalk.com/api/Modules/$code');
+          'http://${global.getTutorMeUrl}/api/Modules/$code');
       final response =
           await http.put(modulesURL, headers: global.getHeader, body: data);
       if (response.statusCode == 204) {
         return module;
+      } else if (response.statusCode == 401) {
+        final refreshUrl = Uri.http(
+            global.getTutorMeUrl,
+            'api/accoun/refreshToken');
+
+        final data = jsonEncode({
+          'expiredToken': global.getToken,
+          'refreshToken': global.getRefreshToken
+        });
+
+        final refreshResponse =
+            await http.post(refreshUrl, body: data, headers: global.getHeader);
+
+        if (refreshResponse.statusCode == 200) {
+          final refreshData = jsonDecode(refreshResponse.body);
+          global.setToken = refreshData['token'];
+          global.setRefreshToken = refreshData['refreshToken'];
+          updateModule(module, global);
+        }
       } else {
         throw Exception('Failed to upload ' + response.statusCode.toString());
       }
@@ -110,10 +181,29 @@ class ModuleServices {
   static deleteUserModule(String id, Globals global) async {
     try {
       final modulesURL = Uri.parse(
-          'http://tutorme-dev.us-east-1.elasticbeanstalk.com/api/UserModules/$id');
+          'http://${global.getTutorMeUrl}/api/UserModules/$id');
       final response = await http.delete(modulesURL, headers: global.getHeader);
       if (response.statusCode == 200) {
         return true;
+      } else if (response.statusCode == 401) {
+        final refreshUrl = Uri.http(
+            global.getTutorMeUrl,
+            'api/accoun/refreshToken');
+
+        final data = jsonEncode({
+          'expiredToken': global.getToken,
+          'refreshToken': global.getRefreshToken
+        });
+
+        final refreshResponse =
+            await http.post(refreshUrl, body: data, headers: global.getHeader);
+
+        if (refreshResponse.statusCode == 200) {
+          final refreshData = jsonDecode(refreshResponse.body);
+          global.setToken = refreshData['token'];
+          global.setRefreshToken = refreshData['refreshToken'];
+          deleteUserModule(id, global);
+        }
       } else {
         throw Exception('Failed to delete ' + response.statusCode.toString());
       }
@@ -123,10 +213,9 @@ class ModuleServices {
   }
 
   static deleteModule(String id, Globals global) async {
-    
     try {
       final modulesURL = Uri.parse(
-          'http://tutorme-dev.us-east-1.elasticbeanstalk.com/api/Modules/$id');
+          'http://${global.getTutorMeUrl}/api/Modules/$id');
       final response = await http.delete(modulesURL, headers: global.getHeader);
       if (response.statusCode == 200 ||
           response.statusCode == 202 ||
@@ -139,6 +228,25 @@ class ModuleServices {
             backgroundColor: Colors.orange,
             textColor: Colors.white,
             fontSize: 16.0);
+      } else if (response.statusCode == 401) {
+        final refreshUrl = Uri.http(
+            global.getTutorMeUrl,
+            'api/accoun/refreshToken');
+
+        final data = jsonEncode({
+          'expiredToken': global.getToken,
+          'refreshToken': global.getRefreshToken
+        });
+
+        final refreshResponse =
+            await http.post(refreshUrl, body: data, headers: global.getHeader);
+
+        if (refreshResponse.statusCode == 200) {
+          final refreshData = jsonDecode(refreshResponse.body);
+          global.setToken = refreshData['token'];
+          global.setRefreshToken = refreshData['refreshToken'];
+          deleteModule(id, global);
+        }
       } else {
         Fluttertoast.showToast(
             msg: "Failed to delete module",
@@ -158,12 +266,34 @@ class ModuleServices {
 
   static Future getModule(String id, Globals globals) async {
     Uri tutorURL = Uri.http(
-        'tutorme-dev.us-east-1.elasticbeanstalk.com', '/api/Modules/$id');
+        globals.getTutorMeUrl, '/api/Modules/$id');
     try {
       final response = await http.get(tutorURL, headers: globals.getHeader);
       if (response.statusCode == 200) {
         final module = Modules.fromObject(json.decode(response.body));
         return module;
+      } else if (response.statusCode == 401) {
+        final refreshUrl = Uri.parse(
+            'http://${globals.getTutorMeUrl}/api/account/refreshToken');
+
+        final data = jsonEncode({
+          'expiredToken': globals.getToken,
+          'refreshToken': globals.getRefreshToken
+        });
+        final refreshResponse =
+            await http.post(refreshUrl,headers: globals.getHeader, body: data );
+
+        if (refreshResponse.statusCode == 200) {
+          final refreshData = jsonDecode(refreshResponse.body);
+          globals.setToken = refreshData['token'];
+          globals.setRefreshToken = refreshData['refreshToken'];
+          getModule(id, globals);
+        }
+        else
+        {
+          throw Exception('Failed to get module ' + response.statusCode.toString());
+          
+        }
       } else {
         throw Exception('Failed to load');
       }
@@ -190,14 +320,32 @@ class ModuleServices {
       'userId': userId
     });
 
-
     Uri url = Uri.http(
-        'tutorme-dev.us-east-1.elasticbeanstalk.com', '/api/UserModules');
+        globals.getTutorMeUrl, '/api/UserModules');
     try {
       final response =
           await http.post(url, headers: globals.getHeader, body: data);
       if (response.statusCode == 200) {
         return true;
+      } else if (response.statusCode == 401) {
+        final refreshUrl = Uri.http(
+            globals.getTutorMeUrl,
+            'api/accoun/refreshToken');
+
+        final data = jsonEncode({
+          'expiredToken': globals.getToken,
+          'refreshToken': globals.getRefreshToken
+        });
+
+        final refreshResponse =
+            await http.post(refreshUrl, body: data, headers: globals.getHeader);
+
+        if (refreshResponse.statusCode == 200) {
+          final refreshData = jsonDecode(refreshResponse.body);
+          globals.setToken = refreshData['token'];
+          globals.setRefreshToken = refreshData['refreshToken'];
+          addUserModule(userId, module, globals);
+        }
       } else {
         throw Exception('Failed to load' + response.body);
       }

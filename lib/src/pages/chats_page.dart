@@ -37,10 +37,8 @@ class ChatsState extends State<Chats> {
   List<Users> userChats = List<Users>.empty();
 
   getUserType() async {
-    final type =
-
-        await UserServices.getUserType(widget.globals.getUser.getUserTypeID, widget.globals);
-
+    final type = await UserServices.getUserType(
+        widget.globals.getUser.getUserTypeID, widget.globals);
 
     userType = type;
 
@@ -49,9 +47,10 @@ class ChatsState extends State<Chats> {
 
   void getConnections() async {
     try {
-      userChats =
-
-          await UserServices.getConnections(widget.globals.getUser.getId, widget.globals);
+      userChats = await UserServices.getConnections(
+          widget.globals.getUser.getId,
+          widget.globals.getUser.getUserTypeID,
+          widget.globals);
 
       setState(() {
         userChats = userChats;
@@ -65,7 +64,8 @@ class ChatsState extends State<Chats> {
   getChatsProfileImages() async {
     for (int i = 0; i < userChats.length; i++) {
       try {
-        final image = await UserServices.getProfileImage(userChats[i].getId, widget.globals);
+        final image = await UserServices.getProfileImage(
+            userChats[i].getId, widget.globals);
         setState(() {
           images.add(image);
         });
@@ -101,11 +101,11 @@ class ChatsState extends State<Chats> {
     super.initState();
 
     getUserType();
+    // getConnections();
   }
 
   @override
   Widget build(BuildContext context) {
-    getUserType();
     return Scaffold(
       body: _isLoading
           ? const Center(child: CircularProgressIndicator.adaptive())

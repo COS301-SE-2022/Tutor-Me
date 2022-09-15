@@ -2,16 +2,17 @@ import 'package:tutor_me/services/models/users.dart';
 
 class Globals {
   late Users _user;
-  String _filesUrl = '';
-  String _tutorMeUrl = '';
+  String _filesUrl = 'tutormefilesystem-dev.us-east-1.elasticbeanstalk.com';
+  String _tutorMeUrl = 'tutormeapi-dev.us-east-1.elasticbeanstalk.com';
   String _token = 'Bearer ';
   String _refreshToken = '';
 
   late Map<String, String> header;
 
-  Globals(Users? user, String? tutorMeUrl, String token, String refreshToken) {
-    _user = user!;
-    _tutorMeUrl = tutorMeUrl!;
+  Globals(Users? user, String token, String refreshToken) {
+    if(user!=null){
+      _user = user;
+    }
     _token += token;
     _refreshToken = refreshToken;
     header = {
@@ -47,5 +48,23 @@ class Globals {
 
   set setToken(String token) {
     _token = token;
+  }
+  
+  set setRefreshToken(String refreshToken){
+    _refreshToken = refreshToken;
+  }
+
+  Globals.fromJson(Map<String, dynamic> json) {
+    _user = Users.fromObject(json['user']);
+    _token = json['token'];
+    _refreshToken = json['refreshToken'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['user'] = _user.toMap();
+    data['token'] = _token;
+    data['refreshToken'] = _refreshToken;
+    return data;
   }
 }

@@ -2,7 +2,8 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tutor_me/src/authenticate/register_step1.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tutor_me/src/authenticate/login.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/theme/themes.dart';
 import '../../services/models/globals.dart';
@@ -95,11 +96,13 @@ class TutorNavigationDrawerState extends State<TutorNavigationDrawerWidget> {
                   text: 'Logout',
                   icon: Icons.logout,
                   onClicked: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const RegisterStep1()),
-                    );
+                    SharedPreferences.getInstance().then((prefs) {
+                      prefs.clear();
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const Login()));
+                    });
                   },
                 ),
               ])),

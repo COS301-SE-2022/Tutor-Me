@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import 'package:tutor_me/src/authenticate/register_step1.dart';
@@ -11,6 +13,7 @@ import '../tutor_page.dart';
 import '../tutee_page.dart';
 import 'forgot_password.dart';
 import '../admin/login.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -213,6 +216,11 @@ class _LoginState extends State<Login> {
                               emailController.text, passwordController.text);
                           // tutor.setStatus = true;
                           // await UserServices.updateTutor(tutor);
+                          final globalJson = json.encode(globals.toJson());
+                          SharedPreferences preferences =
+                              await SharedPreferences.getInstance();
+
+                          preferences.setString('globals', globalJson);
                           Navigator.push(
                             context,
                             MaterialPageRoute(

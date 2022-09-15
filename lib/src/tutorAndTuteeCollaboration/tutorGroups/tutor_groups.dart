@@ -41,10 +41,7 @@ class TutorGroupsState extends State<TutorGroups> {
         for (int k = 0; k < numTuteesForEachGroup.length; k++) {
           k.toString() + " 's # tutees " + numTuteesForEachGroup[k].toString();
         }
-        setState(() {
-          groups = incomingGroups;
-          numOfTutees = numOfTutees;
-        });
+        numOfTutees = numOfTutees;
         getGroupModules();
       } else {
         setState(() {

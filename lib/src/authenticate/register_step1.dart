@@ -297,23 +297,15 @@ class _RegisterStep1State extends State<RegisterStep1> {
                       //     await UserServices.isThereTutorByEmail(
                       //         emailController.text, );
 
-                      bool isThereTutorWithEmail = true;
+                  
 
-                      if (isThereTutorWithEmail) {
-                        errMsg +=
-                            "ERROR: A Tutor is registered with this email\n";
-                      }
+                      
                     } else {
                       // bool isThereTuteeWithEmail =
                       //     await UserServices.isThereTuteeByEmail(
                       //         emailController.text);
 
-                      bool isThereTuteeWithEmail = true;
-
-                      if (isThereTuteeWithEmail) {
-                        errMsg +=
-                            "ERROR: A Tutee is registered with this email\n";
-                      }
+                     
                     }
 
                     sendOTP();

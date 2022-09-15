@@ -73,7 +73,7 @@ class _RegisterStep3State extends State<RegisterStep3> {
           context: context,
           builder: (context) {
             return AlertDialog(
-              title: const Text("One Or More Errors Occured"),
+              title: const Text("Failed to register"),
               content: Text(e.toString()),
               backgroundColor: colorWhite,
               titleTextStyle: TextStyle(
@@ -155,9 +155,9 @@ class _RegisterStep3State extends State<RegisterStep3> {
         items = items;
       });
     } catch (e) {
-      const snackBar = SnackBar(content: Text('Failed to load'));
+      const snackBar = SnackBar(content: Text('Failed to load, retrying'));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
-      getInstitutions();
+      
     }
   }
 
@@ -183,7 +183,6 @@ class _RegisterStep3State extends State<RegisterStep3> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // key: _scaffoldKey,
       resizeToAvoidBottomInset: false,
       body: Stack(
         children: [

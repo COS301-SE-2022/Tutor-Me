@@ -10,7 +10,7 @@ import '../models/globals.dart';
 class AdminServices {
   static getAdmins(Globals global) async {
     Uri adminsURL =
-        Uri.http('tutorme-dev.us-east-1.elasticbeanstalk.com', '/api/Admins');
+        Uri.http(global.getTutorMeUrl, '/api/Admins');
     try {
       final response = await http.get(adminsURL, headers: global.getHeader);
 
@@ -23,6 +23,31 @@ class AdminServices {
         }
         final List list = json.decode(j);
         return list.map((json) => Users.fromObject(json)).toList();
+      } else if (response.statusCode == 401) {
+        final refreshUrl = Uri.http(
+            global.getTutorMeUrl,
+            'api/account/authtoken');
+
+        final data = jsonEncode({
+          'expiredToken': global.getToken,
+          'refqreshToken': global.getRefreshToken
+        });
+
+        final refreshResponse =
+            await http.post(refreshUrl, body: data, headers: global.getHeader);
+
+        if (refreshResponse.statusCode == 200) {
+          final refreshData = jsonDecode(refreshResponse.body);
+          global.setToken = refreshData['token'];
+          global.setRefreshToken = refreshData['refreshToken'];
+          global.setHeader = {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            'Authorization': global.getToken,
+          };
+          getAdmins(global);
+        }
       } else {
         throw Exception('Failed to load');
       }
@@ -41,11 +66,30 @@ class AdminServices {
     try {
       final id = admin.getId;
       final adminsURL = Uri.parse(
-          'http://tutorme-dev.us-east-1.elasticbeanstalk.com/api/Admins/$id');
+          'http://${global.getTutorMeUrl}/api/Admins/$id');
       final response =
           await http.put(adminsURL, headers: global.getHeader, body: data);
       if (response.statusCode == 204) {
         return admin;
+      } else if (response.statusCode == 401) {
+        final refreshUrl = Uri.http(
+            global.getTutorMeUrl,
+            'api/account/authtoken');
+
+        final data = jsonEncode({
+          'expiredToken': global.getToken,
+          'refqreshToken': global.getRefreshToken
+        });
+
+        final refreshResponse =
+            await http.post(refreshUrl, body: data, headers: global.getHeader);
+
+        if (refreshResponse.statusCode == 200) {
+          final refreshData = jsonDecode(refreshResponse.body);
+          global.setToken = refreshData['token'];
+          global.setRefreshToken = refreshData['refreshToken'];
+          updateAdmin(admin, global);
+        }
       } else {
         throw Exception('Failed to upload ' + response.statusCode.toString());
       }
@@ -56,7 +100,7 @@ class AdminServices {
 
   static Future getAdmin(String id, Globals global) async {
     Uri tutorURL = Uri.http(
-        'tutorme-dev.us-east-1.elasticbeanstalk.com', '/api/Admins/$id');
+        global.getTutorMeUrl, '/api/Admins/$id');
     try {
       final response = await http.get(tutorURL, headers: global.getHeader);
       if (response.statusCode == 200) {
@@ -68,6 +112,25 @@ class AdminServices {
         }
         final List list = json.decode(j);
         return list.map((json) => Users.fromObject(json)).toList();
+      } else if (response.statusCode == 401) {
+        final refreshUrl = Uri.http(
+            global.getTutorMeUrl,
+            'api/account/authtoken');
+
+        final data = jsonEncode({
+          'expiredToken': global.getToken,
+          'refqreshToken': global.getRefreshToken
+        });
+
+        final refreshResponse =
+            await http.post(refreshUrl, body: data, headers: global.getHeader);
+
+        if (refreshResponse.statusCode == 200) {
+          final refreshData = jsonDecode(refreshResponse.body);
+          global.setToken = refreshData['token'];
+          global.setRefreshToken = refreshData['refreshToken'];
+          getAdmin(id, global);
+        }
       } else {
         throw Exception('Failed to load');
       }
@@ -92,15 +155,15 @@ class AdminServices {
     final header = <String, String>{
       'Content-Type': 'application/json; charset=utf-8',
     };
+    Globals tempGlobals = Globals(null, '', '');
     try {
       final modulesURL = Uri.parse(
-          'http://tutorme-dev.us-east-1.elasticbeanstalk.com/api/account/authtoken');
+          'http://${tempGlobals.getTutorMeUrl}/api/account/authtoken');
       final response = await http.post(modulesURL, headers: header, body: data);
       if (response.statusCode == 200) {
         final Users admin = Users.fromObject(jsonDecode(response.body)['user']);
         Globals global = Globals(
             admin,
-            'tutorme-dev.us-east-1.elasticbeanstalk.com',
             json.decode(response.body)['token'],
             json.decode(response.body)['refreshToken']);
 
