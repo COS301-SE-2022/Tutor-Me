@@ -1,4 +1,4 @@
-// ignore_for_file: sort_child_properties_last, file_names
+// ignore_for_file: sort_child_properties_last, file_names, prefer_adjacent_string_concatenation
 
 import 'package:flutter/material.dart';
 
@@ -56,10 +56,10 @@ class _AboutState extends State<About> {
                     left: MediaQuery.of(context).size.width * 0.05,
                     right: MediaQuery.of(context).size.width * 0.05),
                 child: Text(
-                  "The Tutor Me project is an idea that aims to provide a platform where students that " +
-                      " need help academically can easily find a tutor that can help them with specific modules." +
-                      "This project will be useful especially now that the covid-19 pandemic has made it much " +
-                      " difficult to have face-to-face conversations, ask for help with their studies from fellow" +
+                  "The Tutor Me project is an idea that aims to provide a platform where students that "
+                          " need help academically can easily find a tutor that can help them with specific modules."
+                          "This project will be useful especially now that the covid-19 pandemic has made it much "
+                          " difficult to have face-to-face conversations, ask for help with their studies from fellow" +
                       " students, and interact with lecturers for additional assistance. As with the rest of the" +
                       "world, every matter related to students is moving towards being digital and virtual." +
                       " This project focuses on providing a platform to ease the process of: Registering as " +
