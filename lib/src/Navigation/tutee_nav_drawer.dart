@@ -4,11 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tutor_me/services/models/globals.dart';
 import 'package:tutor_me/services/services/user_services.dart';
+import 'package:tutor_me/src/Navigation/about.dart';
 import 'package:tutor_me/src/Navigation/switch_change_theme.dart';
 import 'package:tutor_me/src/authenticate/register_step1.dart';
 import 'package:tutor_me/src/theme/themes.dart';
 import '../tuteeProfilePages/tutee_profile.dart';
 import 'package:tutor_me/src/colorpallete.dart';
+
+import 'contact_us.dart';
 
 // ignore: must_be_immutable
 class TuteeNavigationDrawerWidget extends StatefulWidget {
@@ -117,14 +120,27 @@ class TuteeNavigationDrawerState extends State<TuteeNavigationDrawerWidget> {
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.01,
                 ),
+
                 buildMenu(
-                    text: 'Contact Us',
-                    icon: Icons.contact_support_outlined,
-                    onClicked: () => selected(context, 2)),
-                buildMenu(
-                    text: 'About Us',
+                    text: 'About ',
                     icon: Icons.info_outline,
-                    onClicked: () => selected(context, 3)),
+                    onClicked: () => {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const About(),
+                              ))
+                        }),
+                buildMenu(
+                    text: 'About Us & Contact Us ',
+                    icon: Icons.contact_support_outlined,
+                    onClicked: () => {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const ContactUs(),
+                              ))
+                        }),
                 buildMenu(
                     text: 'Terms and Conditions',
                     icon: Icons.description_outlined,
