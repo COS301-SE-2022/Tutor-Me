@@ -157,7 +157,6 @@ class _RegisterStep3State extends State<RegisterStep3> {
     } catch (e) {
       const snackBar = SnackBar(content: Text('Failed to load, retrying'));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
-      
     }
   }
 
@@ -217,7 +216,7 @@ class _RegisterStep3State extends State<RegisterStep3> {
                   'Lets Continue...',
                   style: TextStyle(
                     color: colorWhite,
-                    fontSize: MediaQuery.of(context).size.height * 0.12,
+                    fontSize: MediaQuery.of(context).size.height * 0.05,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -231,10 +230,11 @@ class _RegisterStep3State extends State<RegisterStep3> {
                 height: MediaQuery.of(context).size.height * 0.15,
                 child: Theme(
                   data: ThemeData(
-                      primarySwatch: Colors.green,
-                      canvasColor: Colors.transparent,
-                      colorScheme: ColorScheme.fromSwatch().copyWith(
-                          secondary: colorBlueTeal, primary: colorBlueTeal)),
+                    primarySwatch: Colors.green,
+                    canvasColor: Colors.transparent,
+                    colorScheme: ColorScheme.fromSwatch().copyWith(
+                        secondary: colorDarkGrey, primary: colorOrange),
+                  ),
                   child: Stepper(
                     type: StepperType.horizontal,
                     steps: getSteps(),
@@ -261,7 +261,7 @@ class _RegisterStep3State extends State<RegisterStep3> {
                     left: MediaQuery.of(context).size.width * 0.06,
                     right: MediaQuery.of(context).size.width * 0.01),
                 child: DropdownButton<String>(
-                  dropdownColor: colorBlueTeal,
+                  dropdownColor: colorOrange,
                   icon: Icon(Icons.arrow_drop_down,
                       color: colorWhite,
                       size: MediaQuery.of(context).size.width * 0.08),
@@ -279,8 +279,14 @@ class _RegisterStep3State extends State<RegisterStep3> {
                             SizedBox(
                               width: MediaQuery.of(context).size.width * 0.04,
                             ),
-                            const Text('Select Year Level',
-                                style: TextStyle(color: colorWhite)),
+                            Text(
+                              'Select Year Level',
+                              style: TextStyle(
+                                color: colorWhite,
+                                fontSize:
+                                    MediaQuery.of(context).size.height * 0.03,
+                              ),
+                            ),
                           ],
                         )
                       : Row(
@@ -313,7 +319,12 @@ class _RegisterStep3State extends State<RegisterStep3> {
                             SizedBox(
                               width: MediaQuery.of(context).size.width * 0.04,
                             ),
-                            Text(val),
+                            Text(val,
+                                style: TextStyle(
+                                  color: colorWhite,
+                                  fontSize:
+                                      MediaQuery.of(context).size.height * 0.03,
+                                )),
                           ],
                         ),
                       );
@@ -331,7 +342,7 @@ class _RegisterStep3State extends State<RegisterStep3> {
                   color: Colors.grey[500]!.withOpacity(0.3),
                   borderRadius: BorderRadius.circular(16),
                   border: Border.all(
-                    color: colorBlueTeal,
+                    color: colorOrange,
                     width: 1,
                   ),
                 ),
@@ -347,7 +358,7 @@ class _RegisterStep3State extends State<RegisterStep3> {
                     left: MediaQuery.of(context).size.width * 0.06,
                     right: MediaQuery.of(context).size.width * 0.01),
                 child: DropdownButton<String>(
-                  dropdownColor: colorBlueTeal,
+                  dropdownColor: colorOrange,
                   icon: Icon(Icons.arrow_drop_down,
                       color: colorWhite,
                       size: MediaQuery.of(context).size.width * 0.08),
@@ -365,8 +376,14 @@ class _RegisterStep3State extends State<RegisterStep3> {
                             SizedBox(
                               width: MediaQuery.of(context).size.width * 0.04,
                             ),
-                            const Text('Select Institution',
-                                style: TextStyle(color: colorWhite)),
+                            Text(
+                              'Select Institution',
+                              style: TextStyle(
+                                color: colorWhite,
+                                fontSize:
+                                    MediaQuery.of(context).size.height * 0.03,
+                              ),
+                            ),
                           ],
                         )
                       : Row(
@@ -380,7 +397,11 @@ class _RegisterStep3State extends State<RegisterStep3> {
                             ),
                             Text(
                               institution!,
-                              style: const TextStyle(color: colorWhite),
+                              style: TextStyle(
+                                color: colorWhite,
+                                fontSize:
+                                    MediaQuery.of(context).size.height * 0.03,
+                              ),
                             ),
                           ],
                         ),
@@ -397,9 +418,14 @@ class _RegisterStep3State extends State<RegisterStep3> {
                               color: colorWhite,
                             ),
                             SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.04,
+                              width: MediaQuery.of(context).size.width * 0.03,
                             ),
-                            Text(val),
+                            Text(val,
+                                style: TextStyle(
+                                  color: colorWhite,
+                                  fontSize: MediaQuery.of(context).size.height *
+                                      0.028,
+                                )),
                           ],
                         ),
                       );
@@ -422,7 +448,7 @@ class _RegisterStep3State extends State<RegisterStep3> {
                   color: Colors.grey[500]!.withOpacity(0.3),
                   borderRadius: BorderRadius.circular(16),
                   border: Border.all(
-                    color: colorBlueTeal,
+                    color: colorOrange,
                     width: 1,
                   ),
                 ),
@@ -450,7 +476,7 @@ class _RegisterStep3State extends State<RegisterStep3> {
                 width: MediaQuery.of(context).size.width * 0.8,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(16),
-                  color: colorBlueTeal,
+                  color: colorOrange,
                 ),
                 child: TextButton(
                   onPressed: () async {
@@ -461,7 +487,7 @@ class _RegisterStep3State extends State<RegisterStep3> {
                     institution ??= "";
 
                     if (institution == "" || courseController.text == "") {
-                      errMsg += "ERROR: One or more parametres missing\n";
+                      errMsg += "One or more parametres missing\n";
                     } else {}
 
                     if (errMsg != "") {
@@ -511,7 +537,7 @@ class _RegisterStep3State extends State<RegisterStep3> {
                       ? const CircularProgressIndicator(color: Colors.white)
                       : Text("Register",
                           style: TextStyle(
-                            fontSize: MediaQuery.of(context).size.height * 0.06,
+                            fontSize: MediaQuery.of(context).size.height * 0.03,
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
                           )),

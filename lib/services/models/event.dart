@@ -43,13 +43,13 @@ class Event {
 
   Map<String, dynamic> toMap() {
     var data = <String, dynamic>{};
-    data['title'] = this._title;
-    data['description'] = this._description;
-    data['dateOfEvent'] = this._dateOfEvent;
-    data['timeOfEvent'] = this._timeOfEvent;
-    data['userId'] = this._userId;
-    data['groupId'] = this._groupId;
-    data['videoLink'] = this._videoLink;
+    data['title'] = _title;
+    data['description'] = _description;
+    data['dateOfEvent'] = _dateOfEvent;
+    data['timeOfEvent'] = _timeOfEvent;
+    data['userId'] = _userId;
+    data['groupId'] = _groupId;
+    data['videoLink'] = _videoLink;
     return data;
   }
 
