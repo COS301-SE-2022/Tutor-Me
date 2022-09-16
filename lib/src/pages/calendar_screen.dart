@@ -27,6 +27,8 @@ class _CalendarScreenState extends State<CalendarScreen> {
         DateTime(2022, 9, 21),
         DateTime(2022, 9, 21, 10, 30),
         'Owner 1',
+        'group id',
+        'meeting id',
       ),
       Event(
         'Meeting 2',
@@ -34,6 +36,8 @@ class _CalendarScreenState extends State<CalendarScreen> {
         DateTime(2022, 9, 21),
         DateTime(2022, 9, 21, 11, 30),
         'Owner 2',
+        'group id',
+        'meeting id',
       ),
     ],
     DateTime(2022, 9, 29): [
@@ -43,6 +47,8 @@ class _CalendarScreenState extends State<CalendarScreen> {
         DateTime(2022, 9, 29),
         DateTime(2022, 9, 29, 10, 30),
         'Owner 3',
+        'group id',
+        'meeting id',
       ),
       Event(
         'Meeting 4',
@@ -50,6 +56,8 @@ class _CalendarScreenState extends State<CalendarScreen> {
         DateTime(2022, 9, 29),
         DateTime(2022, 9, 29, 11, 30),
         'Owner 4',
+        'group id',
+        'meeting id',
       ),
     ],
     DateTime(2022, 9, 23): [
@@ -59,6 +67,8 @@ class _CalendarScreenState extends State<CalendarScreen> {
         DateTime(2022, 9, 23),
         DateTime(2022, 9, 23, 10, 30),
         'Owner 5',
+        'group id',
+        'meeting id',
       ),
       Event(
         'Meeting 6',
@@ -66,6 +76,8 @@ class _CalendarScreenState extends State<CalendarScreen> {
         DateTime(2022, 9, 23),
         DateTime(2022, 9, 23, 11, 30),
         'Owner 6',
+        'group id',
+        'meeting id',
       ),
     ],
   };
@@ -308,7 +320,9 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                 descriptionController.text,
                                 mySelectedDay,
                                 time,
-                                "Me"));
+                                "Me",
+                                "n",
+                                "hjh"));
                           } else {
                             scheduledSessions[mySelectedDay] = [
                               Event(
@@ -316,7 +330,9 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                   descriptionController.text,
                                   mySelectedDay,
                                   time,
-                                  "Me")
+                                  "Me",
+                                  "jgj",
+                                  "hg")
                             ];
                           }
                           // }

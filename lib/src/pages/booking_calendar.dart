@@ -258,7 +258,9 @@ class _BookingCalenderState extends State<BookingCalender> {
                                 descriptionController.text,
                                 mySelectedDay,
                                 time,
-                                "Me"));
+                                "Me",
+                                "k",
+                                ""));
                           } else {
                             scheduledSessions[mySelectedDay] = [
                               Event(
@@ -266,7 +268,9 @@ class _BookingCalenderState extends State<BookingCalender> {
                                   descriptionController.text,
                                   mySelectedDay,
                                   time,
-                                  "Me")
+                                  "Me",
+                                  "",
+                                  "")
                             ];
                           }
                           // }
