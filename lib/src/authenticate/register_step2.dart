@@ -172,8 +172,14 @@ class _RegisterStep2State extends State<RegisterStep2> {
                             SizedBox(
                               width: MediaQuery.of(context).size.width * 0.04,
                             ),
-                            const Text('Select Gender',
-                                style: TextStyle(color: colorWhite)),
+                            Text(
+                              'Select Gender',
+                              style: TextStyle(
+                                color: colorWhite,
+                                fontSize:
+                                    MediaQuery.of(context).size.height * 0.03,
+                              ),
+                            ),
                           ],
                         )
                       : Row(
@@ -206,7 +212,14 @@ class _RegisterStep2State extends State<RegisterStep2> {
                             SizedBox(
                               width: MediaQuery.of(context).size.width * 0.04,
                             ),
-                            Text(val),
+                            Text(
+                              val,
+                              style: TextStyle(
+                                color: colorWhite,
+                                fontSize:
+                                    MediaQuery.of(context).size.height * 0.03,
+                              ),
+                            ),
                           ],
                         ),
                       );
@@ -264,7 +277,7 @@ class _RegisterStep2State extends State<RegisterStep2> {
                           return Theme(
                             data: Theme.of(context).copyWith(
                               colorScheme: const ColorScheme.light(
-                                primary: colorOrange,
+                                primary: colorBlueTeal,
                                 onPrimary: Colors.white,
                                 onSurface: Colors.black,
                               ),
@@ -320,11 +333,11 @@ class _RegisterStep2State extends State<RegisterStep2> {
                     if (firstNameController.text == "" ||
                         lastNameController.text == "" ||
                         gender == "") {
-                      errMsg += "ERROR: One or more parametres missing\n";
+                      errMsg += "One or more parametres missing\n";
                     }
 
                     if (formattedDate == "Date Of Birth") {
-                      errMsg += "ERROR: Your Date of birth is missing\n";
+                      errMsg += "Your Date of birth is missing\n";
                     }
 
                     if (errMsg != "") {
@@ -373,7 +386,6 @@ class _RegisterStep2State extends State<RegisterStep2> {
                                 dob: formattedDate,
                                 gender: gender,
                                 toRegister: widget.toRegister)),
-                               
                       );
                     }
                   },

@@ -103,10 +103,10 @@ class _HomeState extends State<Home> {
       initialAngleInDegree: 0,
       animationDuration: const Duration(milliseconds: 3500),
       chartType: ChartType.ring,
-      ringStrokeWidth: 12,
+      ringStrokeWidth: 15,
       colorList: chartColorList,
       chartLegendSpacing: 34,
-      chartRadius: MediaQuery.of(context).size.width / 4.2,
+      chartRadius: MediaQuery.of(context).size.width / 3.2,
       chartValuesOptions: ChartValuesOptions(
         showChartValueBackground: true,
         showChartValues: true,
@@ -124,7 +124,7 @@ class _HomeState extends State<Home> {
         showLegendsInRow: false,
         legendPosition: LegendPosition.right,
         showLegends: true,
-        legendShape: BoxShape.circle,
+        legendShape: BoxShape.rectangle,
         legendTextStyle: TextStyle(
             fontWeight: FontWeight.bold,
             color: colorDarkGrey,
@@ -266,7 +266,7 @@ class _HomeState extends State<Home> {
               left: screenWidthSize * 0.1, top: screenHeightSize * 0.02),
           child: Container(
             width: screenWidthSize > 800 ? 500 : screenWidthSize * 0.8,
-            height: screenHeightSize * 0.2,
+            height: screenHeightSize * 0.25,
             decoration: BoxDecoration(
                 // color: Colors.black38,
                 border: Border.all(color: colorLightGrey.withOpacity(0.6)),
@@ -374,7 +374,7 @@ class _HomeState extends State<Home> {
                         //render Calendar Page
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (BuildContext context) =>
-                                const Calendar()));
+                                 Calendar(globals: widget.globals)));
                       } else if (index == 4) {
                         //render Book for a tutor Page
                         Navigator.of(context).push(MaterialPageRoute(

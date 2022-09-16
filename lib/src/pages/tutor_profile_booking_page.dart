@@ -20,7 +20,8 @@ import '../tutorProfilePages/user_stats.dart';
 
 class TutorProfileBookingPage extends StatefulWidget {
   // ignore: prefer_const_constructors_in_immutables
-  TutorProfileBookingPage({Key? key, required this.tutor, required this.globals})
+  TutorProfileBookingPage(
+      {Key? key, required this.tutor, required this.globals})
       : super(key: key);
   final Users tutor;
   final Globals globals;
@@ -60,7 +61,8 @@ class _TutorProfileBookingPageState extends State<TutorProfileBookingPage> {
   getCurrentModules() async {
     numTutees = 2;
     numConnections = 3;
-    final current = await ModuleServices.getUserModules(widget.tutor.getId, widget.globals);
+    final current =
+        await ModuleServices.getUserModules(widget.tutor.getId, widget.globals);
     setState(() {
       currentModules = current;
     });
@@ -84,7 +86,8 @@ class _TutorProfileBookingPageState extends State<TutorProfileBookingPage> {
 
   getProfileImage() async {
     try {
-      final image = await UserServices.getProfileImage(widget.tutor.getId, widget.globals);
+      final image = await UserServices.getProfileImage(
+          widget.tutor.getId, widget.globals);
       bytes = image;
       isImageDisplayed = true;
       getInstitution();
@@ -526,7 +529,8 @@ class _TutorProfileBookingPageState extends State<TutorProfileBookingPage> {
                         widget.tutor.setNumberOfReviews = numRatings;
                       });
                       try {
-                        await UserServices.updateTutor(widget.tutor, widget.globals);
+                        await UserServices.updateTutor(
+                            widget.tutor, widget.globals);
                       } catch (e) {
                         const snackBar = SnackBar(
                           content: Text('Failed to upload rating'),
@@ -681,9 +685,10 @@ class _TutorProfileBookingPageState extends State<TutorProfileBookingPage> {
                                 Navigator.of(context).push(
                                   MaterialPageRoute(
                                     builder: (BuildContext context) =>
-                                        const BookingCalender(
-                                            // user: widget.user,
-                                            ),
+                                        BookingCalender(
+                                      globals: widget.globals,
+                                      // user: widget.user,
+                                    ),
                                   ),
                                 );
                               },
@@ -738,7 +743,8 @@ class _TutorProfileBookingPageState extends State<TutorProfileBookingPage> {
                                         await UserServices().sendRequest(
                                             widget.tutor.getId,
                                             widget.globals.getUser.getId,
-                                            module.getModuleId, widget.globals);
+                                            module.getModuleId,
+                                            widget.globals);
                                       } catch (e) {
                                         const snackBar = SnackBar(
                                           content:
