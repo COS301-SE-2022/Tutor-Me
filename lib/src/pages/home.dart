@@ -16,7 +16,6 @@ import '../../services/services/user_services.dart';
 import '../theme/themes.dart';
 import '../tutorAndTuteeCollaboration/tuteeGroups/home_tutee_groups.dart';
 
-
 class Home extends StatefulWidget {
   final Globals globals;
   const Home({Key? key, required this.globals}) : super(key: key);

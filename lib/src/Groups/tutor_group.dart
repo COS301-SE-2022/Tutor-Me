@@ -1,5 +1,6 @@
 // ignore_for_file: non_constant_identifier_names, dead_code
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -266,6 +267,7 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                                   ),
                                 );
                               } catch (e) {
+                                print(e);
                                 const snackBar = SnackBar(
                                   content: Text('Failed to start live video'),
                                 );
@@ -425,7 +427,6 @@ class TutorGroupPageState extends State<TutorGroupPage> {
         await http.post(getMeetingIdUrl, headers: {
       "Authorization": _token,
     });
-
     final meetingId = json.decode(meetingIdResponse.body)['meetingId'];
 
     // log("Meeting ID: $meetingId");

@@ -90,6 +90,12 @@ class MyAppState extends State<MyApp> {
               );
             } else {
               final globals = Globals.fromJson(jsonDecode(globalsJson));
+              globals.setHeader = {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*",
+                'Authorization': globals.getToken,
+              };
               return MaterialApp(
                 themeMode: themeProvider.themeMode,
                 debugShowCheckedModeBanner: false,
