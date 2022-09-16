@@ -263,6 +263,8 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                                       token: _token,
                                       meetingId: _meetingID,
                                       displayName: "Tutor",
+                                      group: widget.group,
+                                      globals: widget.globals,
                                     ),
                                   ),
                                 );
