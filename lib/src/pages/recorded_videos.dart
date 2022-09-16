@@ -21,6 +21,7 @@ class RecordedVideos extends StatefulWidget {
 
 class _RecordedVideosState extends State<RecordedVideos> {
   List<String> _meetingIdList = List<String>.empty(growable: true);
+  List<String> _meetingDateList = List<String>.empty(growable: true);
 
   int currentIndex = 0;
   // String _token = "";
@@ -89,21 +90,22 @@ class _RecordedVideosState extends State<RecordedVideos> {
             ListTile(
               title: Text(
                 'Video' ' ' + (index + 1).toString(),
+                textAlign: TextAlign.center,
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
                   fontSize: MediaQuery.of(context).size.height * 0.028,
                 ),
               ),
-              subtitle: const Text('Mathematics'),
+              // subtitle: const Text(""),
             ),
-            const SizedBox(
-              height: 10,
-            ),
+            // const SizedBox(
+            //   height: 5,
+            // ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: const <Widget>[
-                Text('Date: 12/12/2021'),
-                Text('Duration: 12:00'),
+              children: <Widget>[
+                Text("Date: " +
+                    _meetingDateList[index].characters.take(10).toString()),
               ],
             ),
             const SizedBox(
@@ -241,16 +243,23 @@ class _RecordedVideosState extends State<RecordedVideos> {
     // final List<String> _meetingIdList = List<String>.empty(growable: true);
     int length = json.decode(meetingIdResponse.body)['data'].length;
     setState(() {
-      numVideos = length;
+      numVideos = length - 1;
     });
     // log("Length of array: $length");
-    for (int i = 0; i < 2; i++) {
+    //TODO: Check if meetingIdResponse is in group
+    for (int i = 0; i < length; i++) {
+      // if (checkIfMeetingIdIsInGroup(
+      //     json.decode(meetingIdResponse.body)['data'][i]['roomId'])) {
       _meetingIdList.add(
           json.decode(meetingIdResponse.body)['data'][i]['file']['fileUrl']);
+      _meetingDateList
+          .add(json.decode(meetingIdResponse.body)['data'][i]['createdAt']);
+      // }
     }
 
     setState(() {
       _meetingIdList = _meetingIdList;
+      _meetingDateList = _meetingDateList;
     });
     // final meetingId = json.decode(meetingIdResponse.body)['data'];
 
