@@ -78,12 +78,10 @@ class UpdateTutorState extends State<UpdateTutor> {
                   ),
                 ),
               ),
-
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.04,
                 width: MediaQuery.of(context).size.height,
               ),
-
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
@@ -180,7 +178,10 @@ class UpdateTutorState extends State<UpdateTutor> {
                             color: Colors.white,
                           )),
                 ),
-              ), //second input
+              ),
+              const SizedBox(
+                height: 200,
+              ),
             ]),
           )
         ],

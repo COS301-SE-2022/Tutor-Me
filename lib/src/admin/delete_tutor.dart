@@ -80,12 +80,10 @@ class DeleteTutorState extends State<DeleteTutor> {
                   ),
                 ),
               ),
-
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.04,
                 width: MediaQuery.of(context).size.height,
               ),
-
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
@@ -162,7 +160,10 @@ class DeleteTutorState extends State<DeleteTutor> {
                             color: Colors.white,
                           )),
                 ),
-              ), //second input
+              ),
+              const SizedBox(
+                height: 200,
+              ),
             ]),
           )
         ],

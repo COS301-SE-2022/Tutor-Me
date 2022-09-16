@@ -78,12 +78,10 @@ class UpdateTuteeState extends State<UpdateTutee> {
                   ),
                 ),
               ),
-
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.04,
                 width: MediaQuery.of(context).size.height,
               ),
-
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
@@ -167,6 +165,7 @@ class UpdateTuteeState extends State<UpdateTutee> {
                     }
 
                     //TODO fix this
+
                     // UserServices.updateTuteeByEmail(
                     //     oldemailcontroller.text, newemailcontroller.text);
                   },
@@ -179,7 +178,10 @@ class UpdateTuteeState extends State<UpdateTutee> {
                             color: Colors.white,
                           )),
                 ),
-              ), //second input
+              ),
+              const SizedBox(
+                height: 200,
+              ),
             ]),
           )
         ],
