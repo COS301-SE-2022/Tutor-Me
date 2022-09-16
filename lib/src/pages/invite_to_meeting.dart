@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:tutor_me/src/colorpallete.dart';
-import 'package:tutor_me/src/components.dart';
 import 'package:tutor_me/src/pages/calendar.dart';
 
 import '../../services/models/globals.dart';
@@ -76,7 +75,6 @@ class _InviteToMeetingState extends State<InviteToMeeting> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     isLoading = true;
     getGroupDetails();
