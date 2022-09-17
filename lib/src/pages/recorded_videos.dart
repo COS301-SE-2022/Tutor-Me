@@ -136,7 +136,10 @@ class _RecordedVideosState extends State<RecordedVideos> {
                                   // "https://cdn.videosdk.live/encoded/videos/63161d681d5e14bac5db733a.mp4"
                                   )));
                     },
-                    child: const Text('View'),
+                    child: Row(children: const [
+                      Icon(Icons.open_in_new),
+                      Text(' View')
+                    ]),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: colorOrange,
                     ),
@@ -144,7 +147,7 @@ class _RecordedVideosState extends State<RecordedVideos> {
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.05,
-                  width: MediaQuery.of(context).size.width * 0.3,
+                  width: MediaQuery.of(context).size.width * 0.35,
                   child: ElevatedButton(
                     onPressed: () async {
                       if (await canLaunchUrlString(_meetingIdList[index])) {
@@ -152,10 +155,10 @@ class _RecordedVideosState extends State<RecordedVideos> {
                             mode: LaunchMode.externalApplication);
                       }
                     },
-                    child: const Text(
-                      'Download',
-                      style: TextStyle(color: colorWhite),
-                    ),
+                    child: Row(children: const [
+                      Icon(Icons.download_outlined),
+                      Text(' Download')
+                    ]),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: colorBlue,
                     ),
