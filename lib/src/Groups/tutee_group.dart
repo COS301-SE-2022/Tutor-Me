@@ -195,7 +195,7 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
             )
           : SingleChildScrollView(
               child: SizedBox(
-                height: screenHeight * 0.9,
+                // height: screenHeight * 0.9,
                 width: screenWidth * 1,
                 child: Column(
                   children: <Widget>[
@@ -286,7 +286,7 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
                     ),
                     SizedBox(
                       width: screenWidth * 0.8,
-                      height: screenHeight * 0.24,
+                      height: screenHeight * 0.27,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[

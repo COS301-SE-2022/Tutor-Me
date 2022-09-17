@@ -56,6 +56,8 @@ class Globals {
 
   Globals.fromJson(Map<String, dynamic> json) {
     _user = Users.fromObject(json['user']);
+    _tutorMeUrl = json['tutorMeUrl'];
+    _filesUrl = json['filesUrl'];
     _token = json['token'];
     _refreshToken = json['refreshToken'];
   }
@@ -63,8 +65,11 @@ class Globals {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['user'] = _user.toMap();
+    data['tutorMeUrl'] = _tutorMeUrl;
+    data['filesUrl'] = _filesUrl;
     data['token'] = _token;
     data['refreshToken'] = _refreshToken;
+   
     return data;
   }
 }

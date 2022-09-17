@@ -63,6 +63,9 @@ class TutorGroupsState extends State<TutorGroups> {
         modules.add(incomingModules);
       }
     } catch (e) {
+      setState(() {
+        groups.clear();
+      });
       const snack = SnackBar(content: Text('Error loading modules'));
       ScaffoldMessenger.of(context).showSnackBar(snack);
     }
@@ -74,7 +77,11 @@ class TutorGroupsState extends State<TutorGroups> {
   @override
   void initState() {
     super.initState();
-    getGroupDetails();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      setState(() {
+        getGroupDetails();
+      });
+    });
   }
 
   @override
@@ -151,7 +158,7 @@ class TutorGroupsState extends State<TutorGroups> {
                 SizedBox(height: MediaQuery.of(context).size.height * 0.04),
                 Text("  " + modules[i].getCode,
                     style: TextStyle(
-                      fontSize: MediaQuery.of(context).size.height * 0.06,
+                      fontSize: MediaQuery.of(context).size.height * 0.03,
                       color: colorWhite,
                       fontWeight: FontWeight.bold,
                     )),
@@ -171,7 +178,7 @@ class TutorGroupsState extends State<TutorGroups> {
             Text(
               "  " + modules[i].getModuleName,
               style: TextStyle(
-                fontSize: MediaQuery.of(context).size.height * 0.05,
+                fontSize: MediaQuery.of(context).size.height * 0.025,
                 color: colorWhite,
               ),
             )

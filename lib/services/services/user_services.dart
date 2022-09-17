@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:crypt/crypt.dart';
@@ -977,15 +978,18 @@ class UserServices {
 
   static updateProfileImage(File? image, String id, Globals global) async {
     final imageByte = base64Encode(image!.readAsBytesSync());
-    String data = jsonEncode({'userId': id, 'image': imageByte});
+    String data =
+        jsonEncode({'id': id, 'userImage': imageByte, 'userTranscript': ''});
+    // data += '"}';
+    log(data);
 
-    final url = Uri.parse('http://${global.getFilesUrl}/api/UserFiles/image/$id');
+    final url =
+        Uri.parse('http://${global.getFilesUrl}/api/UserFiles/image/$id');
     final header = <String, String>{
       'Content-Type': 'application/json; charset=utf-8',
     };
     try {
-      final response =
-          await http.put(url, headers: header, body: data);
+      final response = await http.put(url, headers: header, body: data);
       if (response.statusCode == 200) {
         return image;
       } else if (response.statusCode == 401) {
@@ -1016,9 +1020,11 @@ class UserServices {
 
   static uploadProfileImage(File? image, String id, Globals global) async {
     final imageByte = base64Encode(image!.readAsBytesSync());
-    String data = jsonEncode({'userId': id, 'image': imageByte});
+    String data =
+        jsonEncode({'id': id, 'userImage': imageByte, 'userTranscript': ''});
 
-    final url = Uri.parse('http://${global.getFilesUrl}/api/UserFiles');
+    final url =
+        Uri.parse('http://${global.getFilesUrl}/api/UserFiles/image/$id');
     try {
       final response =
           await http.post(url, headers: global.getHeader, body: data);
@@ -1299,8 +1305,8 @@ class UserServices {
   // }
 
   static Future getTutorProfileImage(String id, Globals global) async {
-    Uri tuteeURL = Uri.parse(
-        'http://tutorfilesystem-dev.us-east-1.elasticbeanstalk.com/api/Userfiles/image/$id');
+    Uri tuteeURL =
+        Uri.parse('http://${global.getFilesUrl}/api/Userfiles/image/$id');
 
     try {
       final response = await http.get(tuteeURL, headers: global.getHeader);
@@ -1341,8 +1347,8 @@ class UserServices {
   }
 
   static Future getTuteeProfileImage(String id, Globals global) async {
-    Uri tuteeURL = Uri.parse(
-        'http://tutorfilesystem-dev.us-east-1.elasticbeanstalk.com/api/Userfiles/image/$id');
+    Uri tuteeURL =
+        Uri.parse('http://${global.getFilesUrl}/api/Userfiles/image/$id');
 
     try {
       final response = await http.get(tuteeURL, headers: global.getHeader);

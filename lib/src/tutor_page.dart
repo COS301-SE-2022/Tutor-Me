@@ -75,7 +75,7 @@ class TutorPageState extends State<TutorPage> {
           ),
           body: screens[currentIndex],
           bottomNavigationBar: BottomNavigationBar(
-            selectedItemColor: colorBlueTeal,
+            selectedItemColor: colorOrange,
             unselectedItemColor: colorDarkGrey,
             showUnselectedLabels: true,
             unselectedLabelStyle: const TextStyle(color: colorDarkGrey),
