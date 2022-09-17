@@ -27,7 +27,7 @@ class MeetingActionButton extends StatelessWidget {
       rippleColor: backgroundColor,
       onTap: onPressed,
       child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 8),
+        margin: const EdgeInsets.all(1),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(radius),
           border: Border.all(color: Colors.white30),
