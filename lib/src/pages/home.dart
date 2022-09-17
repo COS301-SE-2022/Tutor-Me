@@ -71,13 +71,15 @@ class _HomeState extends State<Home> {
   }
 
   getUserType() async {
-    final type = await UserServices.getUserType(
-        widget.globals.getUser.getUserTypeID, widget.globals);
+    try {
+      final type = await UserServices.getUserType(
+          widget.globals.getUser.getUserTypeID, widget.globals);
 
-    userType = type;
-
-    // getConnections();
-    getTuteeProfileImage();
+      userType = type;
+      getTuteeProfileImage();
+    } catch (e) {
+      getTuteeProfileImage();
+    }
   }
 
   int key = 0;

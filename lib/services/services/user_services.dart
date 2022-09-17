@@ -461,7 +461,6 @@ class UserServices {
     Uri userURL = Uri.http(global.getTutorMeUrl, '/api/UserTypes/$userTypeId');
     try {
       final response = await http.get(userURL, headers: global.getHeader);
-      print('after');
       if (response.statusCode == 200) {
         final UserType type = UserType.fromObject(json.decode(response.body));
         return type;
@@ -991,8 +990,6 @@ class UserServices {
     };
     try {
       final response = await http.put(url, headers: header, body: data);
-      print(response.statusCode);
-      print(response.body);
       if (response.statusCode == 200) {
         return image;
       } else if (response.statusCode == 401) {
@@ -1031,7 +1028,6 @@ class UserServices {
     try {
       final response =
           await http.post(url, headers: global.getHeader, body: data);
-      print(response.body);
       if (response.statusCode == 200) {
         return image;
       } else if (response.statusCode == 401) {

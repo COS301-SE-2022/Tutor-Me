@@ -1,6 +1,5 @@
 // ignore_for_file: non_constant_identifier_names, dead_code
 import 'dart:convert';
-import 'dart:developer';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -8,7 +7,6 @@ import 'package:tutor_me/services/models/globals.dart';
 import 'package:tutor_me/services/services/group_services.dart';
 // import 'package:tutor_me/src/chat/group_chat.dart';
 import 'package:tutor_me/src/colorpallete.dart';
-import '../../constants/colors.dart';
 import '../../services/models/modules.dart';
 import '../pages/chat_page.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -269,7 +267,6 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                                   ),
                                 );
                               } catch (e) {
-                                print(e);
                                 const snackBar = SnackBar(
                                   content: Text('Failed to start live video'),
                                 );

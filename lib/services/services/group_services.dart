@@ -29,7 +29,7 @@ class GroupServices {
 
         final data = jsonEncode({
           'expiredToken': global.getToken,
-          'refqreshToken': global.getRefreshToken
+          'refreshToken': global.getRefreshToken
         });
 
         final refreshResponse =
@@ -71,7 +71,7 @@ class GroupServices {
 
         final data = jsonEncode({
           'expiredToken': globals.getToken,
-          'refqreshToken': globals.getRefreshToken
+          'refreshToken': globals.getRefreshToken
         });
 
         final refreshResponse =
@@ -106,7 +106,7 @@ class GroupServices {
 
         final data = jsonEncode({
           'expiredToken': globals.getToken,
-          'refqreshToken': globals.getRefreshToken
+          'refreshToken': globals.getRefreshToken
         });
 
         final refreshResponse =
@@ -147,7 +147,7 @@ class GroupServices {
 
         final data = jsonEncode({
           'expiredToken': global.getToken,
-          'refqreshToken': global.getRefreshToken
+          'refreshToken': global.getRefreshToken
         });
 
         final refreshResponse =
@@ -189,7 +189,7 @@ class GroupServices {
 
         final data = jsonEncode({
           'expiredToken': global.getToken,
-          'refqreshToken': global.getRefreshToken
+          'refreshToken': global.getRefreshToken
         });
 
         final refreshResponse =
@@ -231,7 +231,7 @@ class GroupServices {
 
         final data = jsonEncode({
           'expiredToken': global.getToken,
-          'refqreshToken': global.getRefreshToken
+          'refreshToken': global.getRefreshToken
         });
 
         final refreshResponse =
@@ -273,7 +273,7 @@ class GroupServices {
 
         final data = jsonEncode({
           'expiredToken': global.getToken,
-          'refqreshToken': global.getRefreshToken
+          'refreshToken': global.getRefreshToken
         });
 
         final refreshResponse =
@@ -308,7 +308,7 @@ class GroupServices {
 
         final data = jsonEncode({
           'expiredToken': global.getToken,
-          'refqreshToken': global.getRefreshToken
+          'refreshToken': global.getRefreshToken
         });
 
         final refreshResponse =

@@ -63,6 +63,9 @@ class TutorGroupsState extends State<TutorGroups> {
         modules.add(incomingModules);
       }
     } catch (e) {
+      setState(() {
+        groups.clear();
+      });
       const snack = SnackBar(content: Text('Error loading modules'));
       ScaffoldMessenger.of(context).showSnackBar(snack);
     }
@@ -74,7 +77,11 @@ class TutorGroupsState extends State<TutorGroups> {
   @override
   void initState() {
     super.initState();
-    getGroupDetails();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      setState(() {
+        getGroupDetails();
+      });
+    });
   }
 
   @override
