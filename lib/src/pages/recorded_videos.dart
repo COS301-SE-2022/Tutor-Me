@@ -157,7 +157,7 @@ class _RecordedVideosState extends State<RecordedVideos> {
                       style: TextStyle(color: colorWhite),
                     ),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromARGB(255, 184, 180, 180),
+                      backgroundColor: colorBlue,
                     ),
                   ),
                 ),
