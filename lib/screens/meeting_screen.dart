@@ -6,7 +6,7 @@ import 'package:tutor_me/src/colorpallete.dart';
 import 'package:videosdk/rtc.dart';
 import '../services/models/globals.dart';
 import '../services/models/groups.dart';
-// import '../services/services/group_services.dart';
+import '../services/services/group_services.dart';
 import '../src/authenticate/register_step1.dart';
 import '/screens/chat_screen.dart';
 
@@ -377,11 +377,11 @@ class _MeetingScreenState extends State<MeetingScreen> {
     //TODO save meeting id to database
 
     // Called when recording is started
-    meeting.on(Events.recordingStarted, () {
+    meeting.on(Events.recordingStarted, () async {
       toastMsg("Meeting recording started.");
 
-      // await GroupServices.saveMeetingIdForGroup(
-      //                               widget.meetingId, widget.group.getId, widget.globals);
+      await GroupServices.saveMeetingIdForGroup(
+          widget.meetingId, widget.group.getId, widget.globals);
 
       setState(() {
         isRecordingOn = true;
