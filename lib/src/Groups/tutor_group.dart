@@ -7,7 +7,6 @@ import 'package:tutor_me/services/models/globals.dart';
 import 'package:tutor_me/services/services/group_services.dart';
 // import 'package:tutor_me/src/chat/group_chat.dart';
 import 'package:tutor_me/src/colorpallete.dart';
-import '../../constants/colors.dart';
 import '../../services/models/modules.dart';
 import '../pages/chat_page.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -212,7 +211,8 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                       height: screenHeight * 0.03,
                     ),
                     SizedBox(
-                      height: screenHeight * 0.50,
+                      width: screenWidth * 0.8,
+                      height: screenHeight * 0.35,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
@@ -234,7 +234,7 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                                 leading: Icon(
                                   Icons.chat,
                                   size: screenHeight * 0.06,
-                                  color: colorBlueTeal,
+                                  color: colorOrange,
                                 ),
                                 title: Text(
                                   'Group Chat',
@@ -283,7 +283,7 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                                   Icon(
                                     Icons.chat_bubble,
                                     size: screenHeight * 0.06,
-                                    color: colorBlueTeal,
+                                    color: colorOrange,
                                   ),
                                   Positioned(
                                       top: screenHeight * 0.01,
@@ -319,7 +319,7 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                                   Icon(
                                     Icons.chat_bubble,
                                     size: screenHeight * 0.06,
-                                    color: primaryColor,
+                                    color: colorOrange,
                                   ),
                                   Positioned(
                                       top: screenHeight * 0.01,
@@ -426,7 +426,6 @@ class TutorGroupPageState extends State<TutorGroupPage> {
         await http.post(getMeetingIdUrl, headers: {
       "Authorization": _token,
     });
-
     final meetingId = json.decode(meetingIdResponse.body)['meetingId'];
 
     // log("Meeting ID: $meetingId");

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
@@ -10,8 +12,7 @@ import '../models/globals.dart';
 
 class ModuleServices {
   static getModules(Globals global) async {
-    Uri modulesURL =
-        Uri.http(global.getTutorMeUrl, '/api/Modules');
+    Uri modulesURL = Uri.http(global.getTutorMeUrl, '/api/Modules');
     try {
       final response = await http.get(modulesURL, headers: global.getHeader);
       if (response.statusCode == 200) {
@@ -24,9 +25,8 @@ class ModuleServices {
         final List list = json.decode(j);
         return list.map((json) => Modules.fromObject(json)).toList();
       } else if (response.statusCode == 401) {
-        final refreshUrl = Uri.http(
-            global.getTutorMeUrl,
-            'api/accoun/refreshToken');
+        final refreshUrl =
+            Uri.http(global.getTutorMeUrl, 'api/account/refreshToken');
 
         final data = jsonEncode({
           'expiredToken': global.getToken,
@@ -51,8 +51,7 @@ class ModuleServices {
   }
 
   static getAllUserModules(Globals global) async {
-    Uri modulesURL = Uri.http(
-        global.getTutorMeUrl, '/api/UserModules');
+    Uri modulesURL = Uri.http(global.getTutorMeUrl, '/api/UserModules');
     try {
       final response = await http.get(modulesURL, headers: global.getHeader);
 
@@ -66,9 +65,8 @@ class ModuleServices {
         final List list = json.decode(j);
         return list.map((json) => UserModules.fromObject(json)).toList();
       } else if (response.statusCode == 401) {
-        final refreshUrl = Uri.http(
-            global.getTutorMeUrl,
-            'api/accoun/refreshToken');
+        final refreshUrl =
+            Uri.http(global.getTutorMeUrl, 'api/account/refreshToken');
 
         final data = jsonEncode({
           'expiredToken': global.getToken,
@@ -93,8 +91,7 @@ class ModuleServices {
   }
 
   static Future getUserModules(String id, Globals global) async {
-    Uri url = Uri.http(
-        global.getTutorMeUrl, 'api/UserModules/$id');
+    Uri url = Uri.http(global.getTutorMeUrl, 'api/UserModules/$id');
 
     try {
       final response = await http.get(url, headers: global.getHeader);
@@ -108,9 +105,8 @@ class ModuleServices {
         final List list = json.decode(j);
         return list.map((json) => Modules.fromObject(json)).toList();
       } else if (response.statusCode == 401) {
-        final refreshUrl = Uri.http(
-            global.getTutorMeUrl,
-            'api/accoun/refreshToken');
+        final refreshUrl =
+            Uri.http(global.getTutorMeUrl, 'api/account/refreshToken');
 
         final data = jsonEncode({
           'expiredToken': global.getToken,
@@ -145,16 +141,15 @@ class ModuleServices {
 
     try {
       final code = module.getCode;
-      final modulesURL = Uri.parse(
-          'http://${global.getTutorMeUrl}/api/Modules/$code');
+      final modulesURL =
+          Uri.parse('http://${global.getTutorMeUrl}/api/Modules/$code');
       final response =
           await http.put(modulesURL, headers: global.getHeader, body: data);
       if (response.statusCode == 204) {
         return module;
       } else if (response.statusCode == 401) {
-        final refreshUrl = Uri.http(
-            global.getTutorMeUrl,
-            'api/accoun/refreshToken');
+        final refreshUrl =
+            Uri.http(global.getTutorMeUrl, 'api/account/refreshToken');
 
         final data = jsonEncode({
           'expiredToken': global.getToken,
@@ -180,15 +175,14 @@ class ModuleServices {
 
   static deleteUserModule(String id, Globals global) async {
     try {
-      final modulesURL = Uri.parse(
-          'http://${global.getTutorMeUrl}/api/UserModules/$id');
+      final modulesURL =
+          Uri.parse('http://${global.getTutorMeUrl}/api/UserModules/$id');
       final response = await http.delete(modulesURL, headers: global.getHeader);
       if (response.statusCode == 200) {
         return true;
       } else if (response.statusCode == 401) {
-        final refreshUrl = Uri.http(
-            global.getTutorMeUrl,
-            'api/accoun/refreshToken');
+        final refreshUrl =
+            Uri.http(global.getTutorMeUrl, 'api/account/refreshToken');
 
         final data = jsonEncode({
           'expiredToken': global.getToken,
@@ -214,8 +208,8 @@ class ModuleServices {
 
   static deleteModule(String id, Globals global) async {
     try {
-      final modulesURL = Uri.parse(
-          'http://${global.getTutorMeUrl}/api/Modules/$id');
+      final modulesURL =
+          Uri.parse('http://${global.getTutorMeUrl}/api/Modules/$id');
       final response = await http.delete(modulesURL, headers: global.getHeader);
       if (response.statusCode == 200 ||
           response.statusCode == 202 ||
@@ -229,9 +223,8 @@ class ModuleServices {
             textColor: Colors.white,
             fontSize: 16.0);
       } else if (response.statusCode == 401) {
-        final refreshUrl = Uri.http(
-            global.getTutorMeUrl,
-            'api/accoun/refreshToken');
+        final refreshUrl =
+            Uri.http(global.getTutorMeUrl, 'api/account/refreshToken');
 
         final data = jsonEncode({
           'expiredToken': global.getToken,
@@ -243,7 +236,8 @@ class ModuleServices {
 
         if (refreshResponse.statusCode == 200) {
           final refreshData = jsonDecode(refreshResponse.body);
-          global.setToken = refreshData['token'];
+          log(refreshData.toString());
+          global.setToken = 'Bearer ' + refreshData['token'];
           global.setRefreshToken = refreshData['refreshToken'];
           deleteModule(id, global);
         }
@@ -265,10 +259,10 @@ class ModuleServices {
   }
 
   static Future getModule(String id, Globals globals) async {
-    Uri tutorURL = Uri.http(
-        globals.getTutorMeUrl, '/api/Modules/$id');
+    Uri tutorURL = Uri.http(globals.getTutorMeUrl, '/api/Modules/$id');
     try {
       final response = await http.get(tutorURL, headers: globals.getHeader);
+      log('res ' + response.statusCode.toString());
       if (response.statusCode == 200) {
         final module = Modules.fromObject(json.decode(response.body));
         return module;
@@ -276,23 +270,32 @@ class ModuleServices {
         final refreshUrl = Uri.parse(
             'http://${globals.getTutorMeUrl}/api/account/refreshToken');
 
+        List<String> token = globals.getToken.split(' ');
         final data = jsonEncode({
-          'expiredToken': globals.getToken,
+          'expiredToken': token[1],
           'refreshToken': globals.getRefreshToken
         });
+        log(data);
         final refreshResponse =
-            await http.post(refreshUrl,headers: globals.getHeader, body: data );
+            await http.post(refreshUrl, headers: globals.getHeader, body: data);
+        log('refresh token ' + refreshResponse.statusCode.toString());
 
         if (refreshResponse.statusCode == 200) {
-          final refreshData = jsonDecode(refreshResponse.body);
-          globals.setToken = refreshData['token'];
-          globals.setRefreshToken = refreshData['refreshToken'];
-          getModule(id, globals);
-        }
-        else
-        {
-          throw Exception('Failed to get module ' + response.statusCode.toString());
-          
+          log(refreshResponse.body);
+          globals.setToken =
+              'Bearer ' + jsonDecode(refreshResponse.body)['token'];
+          globals.setRefreshToken =
+              jsonDecode(refreshResponse.body)['refreshToken'];
+          globals.setHeader = {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            'Authorization': globals.getToken,
+          };
+          await getModule(id, globals);
+        } else {
+          throw Exception(
+              'Failed to get module ' + response.statusCode.toString());
         }
       } else {
         throw Exception('Failed to load');
@@ -320,17 +323,15 @@ class ModuleServices {
       'userId': userId
     });
 
-    Uri url = Uri.http(
-        globals.getTutorMeUrl, '/api/UserModules');
+    Uri url = Uri.http(globals.getTutorMeUrl, '/api/UserModules');
     try {
       final response =
           await http.post(url, headers: globals.getHeader, body: data);
       if (response.statusCode == 200) {
         return true;
       } else if (response.statusCode == 401) {
-        final refreshUrl = Uri.http(
-            globals.getTutorMeUrl,
-            'api/accoun/refreshToken');
+        final refreshUrl =
+            Uri.http(globals.getTutorMeUrl, 'api/account/refreshToken');
 
         final data = jsonEncode({
           'expiredToken': globals.getToken,

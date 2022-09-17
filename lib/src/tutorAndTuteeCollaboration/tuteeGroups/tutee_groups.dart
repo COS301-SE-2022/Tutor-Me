@@ -167,7 +167,7 @@ class TuteeGroupsState extends State<TuteeGroups> {
             Text(
               "   " + modules[i].getModuleName,
               style: TextStyle(
-                fontSize: MediaQuery.of(context).size.width * 0.05,
+                fontSize: MediaQuery.of(context).size.height * 0.025,
                 color: colorWhite,
               ),
             )
