@@ -4,6 +4,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import '../services/models/globals.dart';
 import '../services/models/groups.dart';
+import '../src/colorpallete.dart';
 import '../utils/spacer.dart';
 
 import '../widgets/meeting_controls/meeting_action_button.dart';
@@ -68,8 +69,9 @@ class _JoinScreenState extends State<JoinScreen> {
       appBar: AppBar(
         // Screen Title
         title: const Text("Tutor Me"),
+        backgroundColor: colorBlueTeal,
       ),
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Colors.grey[200],
       body: SafeArea(
         child: !(cameraController?.value.isInitialized ?? false)
             ? const Center(
@@ -96,7 +98,7 @@ class _JoinScreenState extends State<JoinScreen> {
                               child: isWebcamOn
                                   ? CameraPreview(cameraController!)
                                   : Container(
-                                      color: Colors.black,
+                                      color: colorBlueTeal,
                                       child: const Center(
                                         child: Text(
                                           "Camera is turned off",
@@ -117,9 +119,8 @@ class _JoinScreenState extends State<JoinScreen> {
                                   // Mic Action Button
                                   MeetingActionButton(
                                     icon: isMicOn ? Icons.mic : Icons.mic_off,
-                                    backgroundColor: isMicOn
-                                        ? Theme.of(context).primaryColor
-                                        : Colors.red,
+                                    backgroundColor:
+                                        isMicOn ? colorBlueTeal : Colors.red,
                                     iconColor: Colors.white,
                                     radius: 30,
                                     onPressed: () => setState(
@@ -129,9 +130,8 @@ class _JoinScreenState extends State<JoinScreen> {
 
                                   // Camera Action Button
                                   MeetingActionButton(
-                                    backgroundColor: isWebcamOn
-                                        ? Theme.of(context).primaryColor
-                                        : Colors.red,
+                                    backgroundColor:
+                                        isWebcamOn ? colorBlueTeal : Colors.red,
                                     iconColor: Colors.white,
                                     radius: 30,
                                     onPressed: () {
@@ -180,7 +180,7 @@ class _JoinScreenState extends State<JoinScreen> {
                       onPressed: () async {
                         // By default Guest is used as display name
                         if (displayName.isEmpty) {
-                          displayName = "Guest";
+                          displayName = "Tutee";
                         }
 
                         // Dispose Camera Controller before leaving screen
@@ -207,7 +207,7 @@ class _JoinScreenState extends State<JoinScreen> {
                       ),
                       style: TextButton.styleFrom(
                         foregroundColor: Colors.white,
-                        backgroundColor: Theme.of(context).primaryColor,
+                        backgroundColor: colorBlueTeal,
                         textStyle: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 16,

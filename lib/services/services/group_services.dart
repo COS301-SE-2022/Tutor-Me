@@ -8,8 +8,7 @@ import '../models/users.dart';
 
 class GroupServices {
   static createGroup(String moduleId, String tutorId, Globals global) async {
-    final groupsURL =
-        Uri.http(global.getTutorMeUrl, '/api/Groups');
+    final groupsURL = Uri.http(global.getTutorMeUrl, '/api/Groups');
 
     String data = jsonEncode({
       'moduleId': moduleId,
@@ -23,9 +22,8 @@ class GroupServices {
       if (response.statusCode == 201) {
         return true;
       } else if (response.statusCode == 401) {
-        final refreshUrl = Uri.http(
-            global.getTutorMeUrl,
-            'api/account/authtoken');
+        final refreshUrl =
+            Uri.http(global.getTutorMeUrl, 'api/account/authtoken');
 
         final data = jsonEncode({
           'expiredToken': global.getToken,
@@ -49,9 +47,50 @@ class GroupServices {
     }
   }
 
+  static saveMeetingIdForGroup(
+      String meetingId, String groupId, Globals global) async {
+    final groupsURL = Uri.http(global.getTutorMeUrl, '/api/GroupVideosLinks');
+
+    String data = jsonEncode({
+      'groupVideoLinkId': "00000000-0000-0000-0000-000000000000",
+      'groupId': groupId,
+      'videoLink': meetingId,
+    });
+
+    try {
+      final response =
+          await http.post(groupsURL, headers: global.getHeader, body: data);
+
+      if (response.statusCode == 201) {
+        return true;
+      } else if (response.statusCode == 401) {
+        final refreshUrl =
+            Uri.http(global.getTutorMeUrl, 'api/account/authtoken');
+
+        final data = jsonEncode({
+          'expiredToken': global.getToken,
+          'refreshToken': global.getRefreshToken
+        });
+
+        final refreshResponse =
+            await http.post(refreshUrl, body: data, headers: global.getHeader);
+
+        if (refreshResponse.statusCode == 200) {
+          final refreshData = jsonDecode(refreshResponse.body);
+          global.setToken = refreshData['token'];
+          global.setRefreshToken = refreshData['refreshToken'];
+          saveMeetingIdForGroup(meetingId, groupId, global);
+        }
+      } else {
+        throw Exception('Failed to create ' + response.statusCode.toString());
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   static getGroups(Globals globals) async {
-    Uri groupsURL =
-        Uri.http(globals.getTutorMeUrl, '/api/Groups');
+    Uri groupsURL = Uri.http(globals.getTutorMeUrl, '/api/Groups');
     try {
       final response = await http.get(groupsURL, headers: globals.getHeader);
 
@@ -65,9 +104,8 @@ class GroupServices {
         final List list = json.decode(j);
         return list.map((json) => Groups.fromObject(json)).toList();
       } else if (response.statusCode == 401) {
-        final refreshUrl = Uri.http(
-            globals.getTutorMeUrl,
-            'api/account/authtoken');
+        final refreshUrl =
+            Uri.http(globals.getTutorMeUrl, 'api/account/authtoken');
 
         final data = jsonEncode({
           'expiredToken': globals.getToken,
@@ -91,18 +129,57 @@ class GroupServices {
     }
   }
 
+  static getVideoLinks(String groupId, Globals globals) async {
+    Uri groupsURL =
+        Uri.http(globals.getTutorMeUrl, '/api/GroupVideosLinks/$groupId');
+    try {
+      final response = await http.get(groupsURL, headers: globals.getHeader);
+
+      if (response.statusCode == 200) {
+        String j = "";
+        if (response.body[0] != "[") {
+          j = "[" + response.body + "]";
+        } else {
+          j = response.body;
+        }
+        final List list = json.decode(j);
+        return list.map((json) => Groups.fromObject(json)).toList();
+      } else if (response.statusCode == 401) {
+        final refreshUrl =
+            Uri.http(globals.getTutorMeUrl, 'api/account/authtoken');
+
+        final data = jsonEncode({
+          'expiredToken': globals.getToken,
+          'refreshToken': globals.getRefreshToken
+        });
+
+        final refreshResponse =
+            await http.post(refreshUrl, body: data, headers: globals.getHeader);
+
+        if (refreshResponse.statusCode == 200) {
+          final refreshData = jsonDecode(refreshResponse.body);
+          globals.setToken = refreshData['token'];
+          globals.setRefreshToken = refreshData['refreshToken'];
+          getVideoLinks(groupId, globals);
+        }
+      } else {
+        throw Exception('Failed to load');
+      }
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
   static Future getGroup(String id, Globals globals) async {
-    Uri url = Uri.http(
-        globals.getTutorMeUrl, 'api/Groups/$id');
+    Uri url = Uri.http(globals.getTutorMeUrl, 'api/Groups/$id');
     try {
       final response = await http.get(url, headers: globals.getHeader);
       if (response.statusCode == 200) {
         final group = Groups.fromObject(json.decode(response.body));
         return group;
       } else if (response.statusCode == 401) {
-        final refreshUrl = Uri.http(
-            globals.getTutorMeUrl,
-            'api/account/authtoken');
+        final refreshUrl =
+            Uri.http(globals.getTutorMeUrl, 'api/account/authtoken');
 
         final data = jsonEncode({
           'expiredToken': globals.getToken,
@@ -127,8 +204,7 @@ class GroupServices {
   }
 
   static Future getGroupByUserID(String userId, Globals global) async {
-    Uri url = Uri.http(global.getTutorMeUrl,
-        'api/GroupMembers/group/$userId');
+    Uri url = Uri.http(global.getTutorMeUrl, 'api/GroupMembers/group/$userId');
     try {
       final response = await http.get(url, headers: global.getHeader);
       if (response.statusCode == 200) {
@@ -141,9 +217,8 @@ class GroupServices {
         final List list = json.decode(j);
         return list.map((json) => Groups.fromObject(json)).toList();
       } else if (response.statusCode == 401) {
-        final refreshUrl = Uri.http(
-            global.getTutorMeUrl,
-            'api/account/authtoken');
+        final refreshUrl =
+            Uri.http(global.getTutorMeUrl, 'api/account/authtoken');
 
         final data = jsonEncode({
           'expiredToken': global.getToken,
@@ -168,8 +243,7 @@ class GroupServices {
   }
 
   static getGroupTutees(String groupId, Globals global) async {
-    Uri url = Uri.http(global.getTutorMeUrl,
-        'api/GroupMembers/tutee/$groupId');
+    Uri url = Uri.http(global.getTutorMeUrl, 'api/GroupMembers/tutee/$groupId');
 
     try {
       final response = await http.get(url, headers: global.getHeader);
@@ -183,9 +257,8 @@ class GroupServices {
         final List list = json.decode(j);
         return list.map((json) => Users.fromObject(json)).toList();
       } else if (response.statusCode == 401) {
-        final refreshUrl = Uri.http(
-            global.getTutorMeUrl,
-            'api/account/authtoken');
+        final refreshUrl =
+            Uri.http(global.getTutorMeUrl, 'api/account/authtoken');
 
         final data = jsonEncode({
           'expiredToken': global.getToken,
@@ -225,9 +298,8 @@ class GroupServices {
       if (response.statusCode == 204) {
         return group;
       } else if (response.statusCode == 401) {
-        final refreshUrl = Uri.http(
-            global.getTutorMeUrl,
-            'api/account/authtoken');
+        final refreshUrl =
+            Uri.http(global.getTutorMeUrl, 'api/account/authtoken');
 
         final data = jsonEncode({
           'expiredToken': global.getToken,
@@ -267,9 +339,8 @@ class GroupServices {
       if (response.statusCode == 200) {
         return group;
       } else if (response.statusCode == 401) {
-        final refreshUrl = Uri.http(
-            global.getTutorMeUrl,
-            'api/account/authtoken');
+        final refreshUrl =
+            Uri.http(global.getTutorMeUrl, 'api/account/authtoken');
 
         final data = jsonEncode({
           'expiredToken': global.getToken,
@@ -295,16 +366,14 @@ class GroupServices {
 
   static deleteGroup(String id, Globals global) async {
     try {
-      final url = Uri.http(
-          global.getTutorMeUrl, 'api/Groups/$id');
+      final url = Uri.http(global.getTutorMeUrl, 'api/Groups/$id');
 
       final response = await http.delete(url, headers: global.getHeader);
       if (response.statusCode == 204) {
         return true;
       } else if (response.statusCode == 401) {
-        final refreshUrl = Uri.http(
-            global.getTutorMeUrl,
-            'api/account/authtoken');
+        final refreshUrl =
+            Uri.http(global.getTutorMeUrl, 'api/account/authtoken');
 
         final data = jsonEncode({
           'expiredToken': global.getToken,

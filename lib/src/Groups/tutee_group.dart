@@ -395,7 +395,10 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
                             onTap: () {
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (BuildContext context) =>
-                                      const RecordedVideos()));
+                                      RecordedVideos(
+                                        group: widget.group,
+                                        global: widget.globals,
+                                      )));
                             },
                             child: Card(
                               elevation: 0,
