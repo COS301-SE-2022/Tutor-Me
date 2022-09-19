@@ -118,7 +118,7 @@ class _HomeState extends State<Home> {
         chartValueStyle: TextStyle(
           color: const Color.fromARGB(255, 49, 47, 47),
           fontWeight: FontWeight.normal,
-          fontSize: MediaQuery.of(context).size.width * 0.04,
+          fontSize: MediaQuery.of(context).size.height * 0.02,
         ),
       ),
       // centerText: 'Progress',
@@ -153,7 +153,6 @@ class _HomeState extends State<Home> {
   void initState() {
     super.initState();
     getUserType();
-    // _generateData();
   }
 
   Widget buildBody() {
@@ -376,7 +375,7 @@ class _HomeState extends State<Home> {
                         //render Calendar Page
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (BuildContext context) =>
-                                 Calendar(globals: widget.globals)));
+                                Calendar(globals: widget.globals)));
                       } else if (index == 4) {
                         //render Book for a tutor Page
                         Navigator.of(context).push(MaterialPageRoute(

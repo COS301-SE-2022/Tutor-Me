@@ -1,12 +1,14 @@
+import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tutor_me/services/services/user_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/components.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:open_file/open_file.dart';
 
 import '../../services/models/globals.dart';
 import '../../services/models/users.dart';
@@ -98,7 +100,7 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
               hintText: "Change to: ",
               labelText: nameToEdit,
               labelStyle: TextStyle(
-                color: colorOrange,
+                color: colorBlueTeal,
                 fontSize: screenWidthSize * 0.05,
               ),
             ),
@@ -115,7 +117,7 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
               hintText: "Change To:",
               labelText: widget.globals.getUser.getBio,
               labelStyle: TextStyle(
-                color: colorOrange,
+                color: colorBlueTeal,
                 overflow: TextOverflow.visible,
                 fontSize: screenWidthSize * 0.05,
               ),
@@ -127,13 +129,31 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
           btnIcon: Icons.upload,
           btnName: "    Upload Latest Transcript",
           onPressed: () async {
-            final filePick = await FilePicker.platform.pickFiles();
-            if (filePick == null) {
-              return;
-            }
+            final filePick = await FilePicker.platform.pickFiles(
+              type: FileType.custom,
+              allowedExtensions: ['pdf'],
+            );
 
-            final file = filePick.files.first;
-            OpenFile.open(file.path.toString());
+            File? fileToUpload = File(filePick!.files.single.path!);
+
+           
+
+            // OpenFile.open(file.path.toString());
+
+            try {
+              log('here man');
+              await UserServices.updateTranscript(
+                  fileToUpload, widget.globals.getUser.getId, widget.globals);
+            } catch (e) {
+              try {
+                await UserServices.uploadTranscript(
+                    fileToUpload, widget.globals.getUser.getId, widget.globals);
+              } catch (e) {
+                const snackBar =
+                    SnackBar(content: Text('Failed to upload transcript'));
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              }
+            }
           },
         ),
         SizedBox(height: screenHeightSize * 0.03),
@@ -154,23 +174,42 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
                 isSaveLoading = true;
               });
               if (image != null) {
-                
+                try {
+                  await UserServices.updateProfileImage(
+                      image!, widget.globals.getUser.getId, widget.globals);
+                } catch (e) {
                   try {
                     await UserServices.uploadProfileImage(
-                        image, widget.globals.getUser.getId, widget.globals);
+                        image!, widget.globals.getUser.getId, widget.globals);
                   } catch (e) {
-                    const snack =
-                        SnackBar(content: Text("Error uploading image"));
-                    ScaffoldMessenger.of(context).showSnackBar(snack);
+                    const snackBar = SnackBar(
+                        content: Text('Failed to upload profile picture'));
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   }
+                }
+                try {
+                  await UserServices.uploadProfileImage(
+                      image, widget.globals.getUser.getId, widget.globals);
+                } catch (e) {
+                  const snack =
+                      SnackBar(content: Text("Error uploading image"));
+                  ScaffoldMessenger.of(context).showSnackBar(snack);
+                }
               }
               if (bioController.text.isNotEmpty) {
+                await UserServices.updateTutorBio(widget.globals.getUser.getId,
+                    bioController.text, widget.globals);
+
                 widget.globals.getUser.setBio = bioController.text;
+
+                final globalJson = json.encode(widget.globals.toJson());
+                SharedPreferences preferences =
+                    await SharedPreferences.getInstance();
+
+                preferences.setString('globals', globalJson);
               }
               if (nameController.text.isNotEmpty ||
-                  bioController.text.isNotEmpty) {
-                // await UserServices.updateTutor(widget.user);
-              }
+                  bioController.text.isNotEmpty) {}
               setState(() {
                 isSaveLoading = false;
               });

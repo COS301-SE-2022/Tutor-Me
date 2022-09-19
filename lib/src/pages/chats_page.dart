@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -52,11 +53,9 @@ class ChatsState extends State<Chats> {
           widget.globals.getUser.getUserTypeID,
           widget.globals);
 
-      setState(() {
-        userChats = userChats;
-      });
       getChatsProfileImages();
     } catch (e) {
+      log(e.toString());
       getChatsProfileImages();
     }
   }
@@ -64,7 +63,7 @@ class ChatsState extends State<Chats> {
   getChatsProfileImages() async {
     for (int i = 0; i < userChats.length; i++) {
       try {
-        final image = await UserServices.getProfileImage(
+        final image = await UserServices.getTutorProfileImage(
             userChats[i].getId, widget.globals);
         setState(() {
           images.add(image);
