@@ -9,7 +9,6 @@ import 'package:tutor_me/services/services/user_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/components.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:open_file/open_file.dart';
 
 import '../../services/models/globals.dart';
 import '../../services/models/users.dart';
@@ -137,9 +136,7 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
 
             File? fileToUpload = File(filePick!.files.single.path!);
 
-            if (filePick == null) {
-              return;
-            }
+           
 
             // OpenFile.open(file.path.toString());
 

@@ -4,7 +4,6 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:tutor_me/services/models/globals.dart';
 import 'package:tutor_me/services/models/groups.dart';
-import 'package:tutor_me/services/services/user_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import '../../../services/models/modules.dart';
 import '../../../services/services/group_services.dart';

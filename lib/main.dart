@@ -89,7 +89,6 @@ class MyAppState extends State<MyApp> {
                 home: const Login(),
               );
             } else {
-              print(globalsJson);
               final globals = Globals.fromJson(jsonDecode(globalsJson));
               globals.setHeader = {
                 "Accept": "application/json",
