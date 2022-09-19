@@ -80,7 +80,7 @@ class TutorPageState extends State<TutorPage> {
         onWillPop: () async {
           final differenceInClicks =
               DateTime.now().difference(timeWhenBackWasPressed);
-          final exitWaring = differenceInClicks > Duration(seconds: 2);
+          final exitWaring = differenceInClicks > const Duration(seconds: 2);
 
           timeWhenBackWasPressed = DateTime.now();
 
