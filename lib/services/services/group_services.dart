@@ -33,6 +33,48 @@ class GroupServices {
     }
   }
 
+  static saveMeetingIdForGroup(
+      String meetingId, String groupId, Globals global) async {
+    final groupsURL = Uri.http(global.getTutorMeUrl, '/api/GroupVideosLinks');
+
+    String data = jsonEncode({
+      'groupVideoLinkId': "00000000-0000-0000-0000-000000000000",
+      'groupId': groupId,
+      'videoLink': meetingId,
+    });
+
+    try {
+      final response =
+          await http.post(groupsURL, headers: global.getHeader, body: data);
+
+      if (response.statusCode == 201) {
+        return true;
+      } else if (response.statusCode == 401) {
+        final refreshUrl =
+            Uri.http(global.getTutorMeUrl, 'api/account/authtoken');
+
+        final data = jsonEncode({
+          'expiredToken': global.getToken,
+          'refreshToken': global.getRefreshToken
+        });
+
+        final refreshResponse =
+            await http.post(refreshUrl, body: data, headers: global.getHeader);
+
+        if (refreshResponse.statusCode == 200) {
+          final refreshData = jsonDecode(refreshResponse.body);
+          global.setToken = refreshData['token'];
+          global.setRefreshToken = refreshData['refreshToken'];
+          saveMeetingIdForGroup(meetingId, groupId, global);
+        }
+      } else {
+        throw Exception('Failed to create ' + response.statusCode.toString());
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   static getGroups(Globals globals) async {
     Uri groupsURL = Uri.http(globals.getTutorMeUrl, '/api/Groups');
     try {
@@ -51,6 +93,47 @@ class GroupServices {
         globals = await refreshToken(globals);
          return await getGroups(globals);
         
+      } else {
+        throw Exception('Failed to load');
+      }
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  static getVideoLinks(String groupId, Globals globals) async {
+    Uri groupsURL =
+        Uri.http(globals.getTutorMeUrl, '/api/GroupVideosLinks/$groupId');
+    try {
+      final response = await http.get(groupsURL, headers: globals.getHeader);
+
+      if (response.statusCode == 200) {
+        String j = "";
+        if (response.body[0] != "[") {
+          j = "[" + response.body + "]";
+        } else {
+          j = response.body;
+        }
+        final List list = json.decode(j);
+        return list.map((json) => Groups.fromObject(json)).toList();
+      } else if (response.statusCode == 401) {
+        final refreshUrl =
+            Uri.http(globals.getTutorMeUrl, 'api/account/authtoken');
+
+        final data = jsonEncode({
+          'expiredToken': globals.getToken,
+          'refreshToken': globals.getRefreshToken
+        });
+
+        final refreshResponse =
+            await http.post(refreshUrl, body: data, headers: globals.getHeader);
+
+        if (refreshResponse.statusCode == 200) {
+          final refreshData = jsonDecode(refreshResponse.body);
+          globals.setToken = refreshData['token'];
+          globals.setRefreshToken = refreshData['refreshToken'];
+          getVideoLinks(groupId, globals);
+        }
       } else {
         throw Exception('Failed to load');
       }
