@@ -1,12 +1,22 @@
 // ignore_for_file: file_names
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:tutor_me/services/models/globals.dart';
 import 'package:tutor_me/services/models/groups.dart';
+import 'package:tutor_me/services/services/user_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import '../../../services/models/modules.dart';
 import '../../../services/services/group_services.dart';
 import '../../../services/services/module_services.dart';
 import '../../Groups/tutor_group.dart';
+
+class GroupList {
+  Groups group;
+  Modules module;
+
+  GroupList({required this.group, required this.module});
+}
 
 class TutorGroups extends StatefulWidget {
   final Globals globals;
@@ -22,6 +32,7 @@ class TutorGroupsState extends State<TutorGroups> {
   List<Groups> groups = List<Groups>.empty();
   List<int> numTutees = List<int>.empty(growable: true);
   List<Modules> modules = List<Modules>.empty(growable: true);
+  List<GroupList> groupList = List<GroupList>.empty(growable: true);
   String images =
       'https://cdn.pixabay.com/photo/2018/09/27/09/22/artificial-intelligence-3706562_960_720.jpg';
   bool hasGroups = false;
@@ -56,32 +67,37 @@ class TutorGroupsState extends State<TutorGroups> {
   }
 
   getGroupModules() async {
+    // await UserServices.updateEvent(widget.globals);
     try {
       for (int i = 0; i < groups.length; i++) {
         final incomingModules = await ModuleServices.getModule(
             groups[i].getModuleId, widget.globals);
         modules.add(incomingModules);
       }
+      if (groups.isNotEmpty && modules.isNotEmpty) {
+        for (int i = 0; i < groups.length; i++) {
+          groupList.add(GroupList(group: groups[i], module: modules[i]));
+        }
+        setState(() {
+          if (modules.isNotEmpty) {
+            isLoading = false;
+          }
+        });
+      }
     } catch (e) {
+      log(e.toString());
       setState(() {
         groups.clear();
       });
       const snack = SnackBar(content: Text('Error loading modules'));
       ScaffoldMessenger.of(context).showSnackBar(snack);
     }
-    setState(() {
-      isLoading = false;
-    });
   }
 
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      setState(() {
-        getGroupDetails();
-      });
-    });
+    getGroupDetails();
   }
 
   @override
@@ -117,7 +133,7 @@ class TutorGroupsState extends State<TutorGroups> {
                                         0.03,
                                   );
                                 },
-                                itemCount: groups.length))),
+                                itemCount: groupList.length))),
           ),
         ));
   }
@@ -127,9 +143,9 @@ class TutorGroupsState extends State<TutorGroups> {
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => TutorGroupPage(
-                  group: groups[i],
+                  group: groupList[i].group,
                   globals: widget.globals,
-                  module: modules[i],
+                  module: groupList[i].module,
                 )));
       },
       child: Container(
@@ -156,7 +172,7 @@ class TutorGroupsState extends State<TutorGroups> {
             Row(
               children: [
                 SizedBox(height: MediaQuery.of(context).size.height * 0.04),
-                Text("  " + modules[i].getCode,
+                Text("  " + groupList[i].module.getCode,
                     style: TextStyle(
                       fontSize: MediaQuery.of(context).size.height * 0.03,
                       color: colorWhite,
@@ -176,7 +192,7 @@ class TutorGroupsState extends State<TutorGroups> {
               height: MediaQuery.of(context).size.height * 0.01,
             ),
             Text(
-              "  " + modules[i].getModuleName,
+              "  " + groupList[i].module.getModuleName,
               style: TextStyle(
                 fontSize: MediaQuery.of(context).size.height * 0.025,
                 color: colorWhite,
