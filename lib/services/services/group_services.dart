@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:async';
@@ -24,7 +26,7 @@ class GroupServices {
         return true;
       } else if (response.statusCode == 401) {
         global = await refreshToken(global);
-       return await createGroup(moduleId, tutorId, global);
+        return await createGroup(moduleId, tutorId, global);
       } else {
         throw Exception('Failed to create ' + response.statusCode.toString());
       }
@@ -91,8 +93,7 @@ class GroupServices {
         return list.map((json) => Groups.fromObject(json)).toList();
       } else if (response.statusCode == 401) {
         globals = await refreshToken(globals);
-         return await getGroups(globals);
-        
+        return await getGroups(globals);
       } else {
         throw Exception('Failed to load');
       }
@@ -151,8 +152,7 @@ class GroupServices {
         return group;
       } else if (response.statusCode == 401) {
         globals = await refreshToken(globals);
-         return await getGroup(id, globals);
-        
+        return await getGroup(id, globals);
       } else {
         throw Exception('Failed to load' + response.statusCode.toString());
       }
@@ -161,12 +161,11 @@ class GroupServices {
     }
   }
 
-  
-
   static Future getGroupByUserID(String userId, Globals global) async {
     Uri url = Uri.http(global.getTutorMeUrl, 'api/GroupMembers/group/$userId');
     try {
       final response = await http.get(url, headers: global.getHeader);
+      log(response.statusCode.toString());
       if (response.statusCode == 200) {
         String j = "";
         if (response.body[0] != "[") {
@@ -178,8 +177,7 @@ class GroupServices {
         return list.map((json) => Groups.fromObject(json)).toList();
       } else if (response.statusCode == 401) {
         global = await refreshToken(global);
-         return await getGroupByUserID(userId, global);
-      
+        return await getGroupByUserID(userId, global);
       } else {
         throw Exception('Failed to load' + response.body);
       }
@@ -204,8 +202,7 @@ class GroupServices {
         return list.map((json) => Users.fromObject(json)).toList();
       } else if (response.statusCode == 401) {
         global = await refreshToken(global);
-         return await getGroupTutees(groupId, global);
-        
+        return await getGroupTutees(groupId, global);
       } else {
         throw Exception('Failed to load' + response.body);
       }
@@ -231,8 +228,7 @@ class GroupServices {
         return group;
       } else if (response.statusCode == 401) {
         global = await refreshToken(global);
-         return await updateGroupDescription(description, group, global);
-    
+        return await updateGroupDescription(description, group, global);
       } else {
         throw Exception('Failed to update' + response.statusCode.toString());
       }
@@ -258,8 +254,7 @@ class GroupServices {
         return group;
       } else if (response.statusCode == 401) {
         global = await refreshToken(global);
-         return await updateGroupVideoId(videoId, group, global);
-      
+        return await updateGroupVideoId(videoId, group, global);
       } else {
         throw Exception('Failed to update' + response.body);
       }
@@ -277,8 +272,7 @@ class GroupServices {
         return true;
       } else if (response.statusCode == 401) {
         global = await refreshToken(global);
-         return await deleteGroup(id, global);
-        
+        return await deleteGroup(id, global);
       } else {
         throw Exception(
             'Failed to decline. Please make sure your internet connect is on and try again');
@@ -309,10 +303,9 @@ class GroupServices {
         'Authorization': globals.getToken,
       };
       final globalJson = json.encode(globals.toJson());
-                          SharedPreferences preferences =
-                              await SharedPreferences.getInstance();
+      SharedPreferences preferences = await SharedPreferences.getInstance();
 
-                          preferences.setString('globals', globalJson);
+      preferences.setString('globals', globalJson);
       return globals;
     } else {
       throw Exception('Failed to refresh token');

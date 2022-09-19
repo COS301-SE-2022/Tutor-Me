@@ -131,7 +131,7 @@ class UpcomingState extends State<Upcoming> {
                       style: TextStyle(
                         color: colorBlack,
                         fontWeight: FontWeight.w500,
-                        fontSize: MediaQuery.of(context).size.height * 0.022,
+                        fontSize: MediaQuery.of(context).size.height * 0.018,
                       ),
                     ),
                     SizedBox(
