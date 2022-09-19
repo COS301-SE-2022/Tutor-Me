@@ -100,7 +100,6 @@ class ChatState extends State<Chat> {
         title: InkWell(
           onTap: widget.reciever.getUserTypeID[0] == '7'
               ? () {
-                  print(widget.hasImage.toString());
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (BuildContext context) => TutorProfilePageView(
                             tutor: widget.reciever,

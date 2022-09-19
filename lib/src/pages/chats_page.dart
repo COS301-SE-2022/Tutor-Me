@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:tutor_me/services/models/globals.dart';
 import 'package:tutor_me/services/services/user_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
-import 'package:tutor_me/src/pages/tutors_list.dart';
 // import '../../services/models/tutors.dart';
 import '../../services/models/users.dart';
 import '../Groups/tutee_group.dart';
