@@ -4,12 +4,13 @@ import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/notifications/tutorNotifications/tutor_notifications.dart';
 import 'package:tutor_me/src/pages/chats_page.dart';
 import 'package:tutor_me/src/pages/home.dart';
+import 'package:tutor_me/src/pages/text_recognition.dart';
 import 'package:tutor_me/src/tutorAndTuteeCollaboration/tutorGroups/tutor_groups.dart';
 // import 'package:tutor_me/modules/api.services.dart';
 // import 'package:tutor_me/modules/tutors.dart';
 import 'Navigation/tutor_nav_drawer.dart';
 // import 'theme/themes.dart';
-import 'pages/calls_page.dart';
+// import 'pages/calls_page.dart';
 
 class TutorPage extends StatefulWidget {
   final Globals globals;
@@ -33,7 +34,7 @@ class TutorPageState extends State<TutorPage> {
       ),
       Chats(globals: widget.globals),
       TutorGroups(globals: widget.globals),
-      const Calls()
+      const TextRecognition()
     ];
   }
 
@@ -99,8 +100,8 @@ class TutorPageState extends State<TutorPage> {
                 label: 'Groups',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.person),
-                label: 'Calls',
+                icon: Icon(Icons.document_scanner),
+                label: 'Scan',
               ),
             ],
           ));
