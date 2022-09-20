@@ -73,6 +73,7 @@ class TutorListState extends State<TutorList> {
       query = search;
     });
   }
+
 // 0644013797
   void filterGender(String filter) {
     if (filter == 'Male') {
@@ -872,6 +873,8 @@ class TutorListState extends State<TutorList> {
             builder: (BuildContext context) => TutorProfilePageView(
                   tutor: tutors[i].tutor,
                   globals: widget.globals,
+                  image: tutors[i].image,
+                  hasImage: tutors[i].hasImage,
                 )));
       },
     );

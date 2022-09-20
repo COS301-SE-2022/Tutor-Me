@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:tutor_me/services/models/globals.dart';
 import 'package:tutor_me/services/services/user_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
-import 'package:tutor_me/src/pages/tutors_list.dart';
 // import '../../services/models/tutors.dart';
 import '../../services/models/users.dart';
 import '../Groups/tutee_group.dart';
@@ -30,7 +29,6 @@ class Chats extends StatefulWidget {
 
 class ChatsState extends State<Chats> {
   bool _isLoading = true;
-  List<Tutor> tutorChats = List<Tutor>.empty(growable: true);
   List<Tutee> tuteeChats = List<Tutee>.empty(growable: true);
   List<Uint8List> images = List<Uint8List>.empty(growable: true);
   List<int> hasImage = List<int>.empty(growable: true);
@@ -137,10 +135,10 @@ class ChatsState extends State<Chats> {
 
   Widget _chatBuilder(BuildContext context, int i) {
     String name;
-    if (userType.getType == "Tutors") {
+    if (userType.getType == "Tutor") {
       name = tuteeChats[i].tutee.getName + ' ' + userChats[i].getLastName;
     } else {
-      name = tutorChats[i].tutor.getName + ' ' + userChats[i].getLastName;
+      name = tuteeChats[i].tutee.getName + ' ' + userChats[i].getLastName;
     }
 
     return GestureDetector(
@@ -176,10 +174,10 @@ class ChatsState extends State<Chats> {
                                     MediaQuery.of(context).size.width * 0.18,
                               ),
                             )
-                      : tutorChats[i].hasImage
+                      : tuteeChats[i].hasImage
                           ? ClipOval(
                               child: Image.memory(
-                                tutorChats[i].image,
+                                tuteeChats[i].image,
                                 fit: BoxFit.cover,
                                 width: MediaQuery.of(context).size.width * 0.15,
                                 height:
@@ -210,10 +208,10 @@ class ChatsState extends State<Chats> {
                   globals: widget.globals,
                   image: userType.getType == 'Tutors'
                       ? tuteeChats[i].image
-                      : tutorChats[i].image,
+                      : tuteeChats[i].image,
                   hasImage: userType.getType == 'Tutors'
                       ? tuteeChats[i].hasImage
-                      : tutorChats[i].hasImage)));
+                      : tuteeChats[i].hasImage)));
         });
   }
 }

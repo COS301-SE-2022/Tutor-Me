@@ -338,12 +338,16 @@ class UserServices {
 
   static Future getConnections(
       String userId, String userTypeId, Globals global) async {
-    Uri connectionsURL = Uri.http(global.getTutorMeUrl,
-        '/api/Connections/users/$userId?userType=$userTypeId');
+    log(global.getToken);
+    Uri connectionsURL = Uri.parse(
+        'http://${global.getTutorMeUrl}/api/Connections/users/$userId?userType=$userTypeId');
+
     try {
       final response =
           await http.get(connectionsURL, headers: global.getHeader);
+      log(response.statusCode.toString());
       if (response.statusCode == 200) {
+        log(response.body);
         String j = "";
         if (response.body[0] != "[") {
           j = "[" + response.body + "]";
