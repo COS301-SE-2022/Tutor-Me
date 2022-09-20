@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -48,7 +49,8 @@ class TutorRequestsState extends State<TutorRequests> {
 
   getRequests() async {
     try {
-      final requests = await UserServices().getTutorRequests(widget.globals.getUser.getId, widget.globals);
+      final requests = await UserServices()
+          .getTutorRequests(widget.globals.getUser.getId, widget.globals);
       requestList = requests;
       if (requestList.isEmpty) {
         setState(() {
@@ -57,6 +59,7 @@ class TutorRequestsState extends State<TutorRequests> {
       }
       getTutees();
     } catch (e) {
+      log(e.toString());
       setState(() {
         isLoading = false;
       });
@@ -65,7 +68,8 @@ class TutorRequestsState extends State<TutorRequests> {
 
   getTutees() async {
     for (int i = 0; i < requestList.length; i++) {
-      final tutee = await UserServices.getTutee(requestList[i].getTuteeId, widget.globals);
+      final tutee = await UserServices.getTutee(
+          requestList[i].getTuteeId, widget.globals);
       tuteeList += tutee;
     }
     int requestLength = tuteeList.length;
@@ -82,8 +86,8 @@ class TutorRequestsState extends State<TutorRequests> {
   getTuteeModules() async {
     try {
       for (int i = 0; i < requestList.length; i++) {
-        final module =
-            await ModuleServices.getModule(requestList[i].getModuleId, widget.globals);
+        final module = await ModuleServices.getModule(
+            requestList[i].getModuleId, widget.globals);
         setState(() {
           modules.add(module);
         });
@@ -101,8 +105,8 @@ class TutorRequestsState extends State<TutorRequests> {
   getTuteeProfileImages() async {
     for (int i = 0; i < tuteeList.length; i++) {
       try {
-        final image =
-            await UserServices.getTuteeProfileImage(tuteeList[i].getId, widget.globals);
+        final image = await UserServices.getTuteeProfileImage(
+            tuteeList[i].getId, widget.globals);
         setState(() {
           tuteeImages.add(image);
         });
@@ -174,6 +178,7 @@ class TutorRequestsState extends State<TutorRequests> {
   }
 
   String getRequestDate(String dateSent) {
+
     final lastDate = DateTime.now();
     String dateAsString = lastDate.toString();
     List<String> currentSplit = dateAsString.split(' ');
@@ -305,8 +310,8 @@ class TutorRequestsState extends State<TutorRequests> {
                                       // await GroupServices.updateGroup(
                                       //     moduleRequestedGroup);
 
-                                      await UserServices()
-                                          .acceptRequest(requestList[i].getId, widget.globals);
+                                      await UserServices().acceptRequest(
+                                          requestList[i].getId, widget.globals);
 
                                       setState(() {
                                         isExcepting[i] = false;
@@ -344,8 +349,8 @@ class TutorRequestsState extends State<TutorRequests> {
                                   isDeclining[i] = true;
                                 });
                                 try {
-                                  await UserServices()
-                                      .declineRequest(requestList[i].getId,widget.globals);
+                                  await UserServices().declineRequest(
+                                      requestList[i].getId, widget.globals);
 
                                   setState(() {
                                     isDeclining[i] = false;

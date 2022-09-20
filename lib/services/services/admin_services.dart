@@ -3,6 +3,7 @@ import 'dart:async';
 import 'dart:convert';
 // import 'package:tutor_me/services/models/admins.dart';
 import 'package:crypt/crypt.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tutor_me/services/models/users.dart';
 
 import '../models/globals.dart';
@@ -24,30 +25,9 @@ class AdminServices {
         final List list = json.decode(j);
         return list.map((json) => Users.fromObject(json)).toList();
       } else if (response.statusCode == 401) {
-        final refreshUrl = Uri.http(
-            global.getTutorMeUrl,
-            'api/account/authtoken');
-
-        final data = jsonEncode({
-          'expiredToken': global.getToken,
-          'refqreshToken': global.getRefreshToken
-        });
-
-        final refreshResponse =
-            await http.post(refreshUrl, body: data, headers: global.getHeader);
-
-        if (refreshResponse.statusCode == 200) {
-          final refreshData = jsonDecode(refreshResponse.body);
-          global.setToken = refreshData['token'];
-          global.setRefreshToken = refreshData['refreshToken'];
-          global.setHeader = {
-            "Accept": "application/json",
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-            'Authorization': global.getToken,
-          };
-          getAdmins(global);
-        }
+        global = await refreshToken(global);
+         return await getAdmins(global);
+        
       } else {
         throw Exception('Failed to load');
       }
@@ -72,24 +52,9 @@ class AdminServices {
       if (response.statusCode == 204) {
         return admin;
       } else if (response.statusCode == 401) {
-        final refreshUrl = Uri.http(
-            global.getTutorMeUrl,
-            'api/account/authtoken');
-
-        final data = jsonEncode({
-          'expiredToken': global.getToken,
-          'refqreshToken': global.getRefreshToken
-        });
-
-        final refreshResponse =
-            await http.post(refreshUrl, body: data, headers: global.getHeader);
-
-        if (refreshResponse.statusCode == 200) {
-          final refreshData = jsonDecode(refreshResponse.body);
-          global.setToken = refreshData['token'];
-          global.setRefreshToken = refreshData['refreshToken'];
-          updateAdmin(admin, global);
-        }
+        global = await refreshToken(global);
+        return await updateAdmin(admin, global);
+        
       } else {
         throw Exception('Failed to upload ' + response.statusCode.toString());
       }
@@ -113,24 +78,9 @@ class AdminServices {
         final List list = json.decode(j);
         return list.map((json) => Users.fromObject(json)).toList();
       } else if (response.statusCode == 401) {
-        final refreshUrl = Uri.http(
-            global.getTutorMeUrl,
-            'api/account/authtoken');
-
-        final data = jsonEncode({
-          'expiredToken': global.getToken,
-          'refqreshToken': global.getRefreshToken
-        });
-
-        final refreshResponse =
-            await http.post(refreshUrl, body: data, headers: global.getHeader);
-
-        if (refreshResponse.statusCode == 200) {
-          final refreshData = jsonDecode(refreshResponse.body);
-          global.setToken = refreshData['token'];
-          global.setRefreshToken = refreshData['refreshToken'];
-          getAdmin(id, global);
-        }
+        global = await refreshToken(global);
+        return await getAdmin(id, global);
+        
       } else {
         throw Exception('Failed to load');
       }
@@ -173,6 +123,37 @@ class AdminServices {
       }
     } catch (e) {
       rethrow;
+    }
+  }
+
+   static Future<Globals> refreshToken(Globals globals) async {
+    final refreshUrl =
+        Uri.parse('http://${globals.getTutorMeUrl}/api/account/refreshToken');
+
+    List<String> token = globals.getToken.split(' ');
+    final data = jsonEncode(
+        {'expiredToken': token[1], 'refreshToken': globals.getRefreshToken});
+    final refreshResponse =
+        await http.post(refreshUrl, headers: globals.getHeader, body: data);
+
+    if (refreshResponse.statusCode == 200) {
+      globals.setToken = 'Bearer ' + jsonDecode(refreshResponse.body)['token'];
+      globals.setRefreshToken =
+          jsonDecode(refreshResponse.body)['refreshToken'];
+      globals.setHeader = {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        'Authorization': globals.getToken,
+      };
+      final globalJson = json.encode(globals.toJson());
+                          SharedPreferences preferences =
+                              await SharedPreferences.getInstance();
+
+                          preferences.setString('globals', globalJson);
+      return globals;
+    } else {
+      throw Exception('Failed to refresh token');
     }
   }
 }
