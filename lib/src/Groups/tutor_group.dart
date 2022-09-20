@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:tutor_me/services/models/globals.dart';
 import 'package:tutor_me/services/services/group_services.dart';
 // import 'package:tutor_me/src/chat/group_chat.dart';
@@ -22,6 +23,7 @@ import '../chat/one_to_one_chat.dart';
 import 'package:http/http.dart' as http;
 
 import '../pages/recorded_videos.dart';
+import '../theme/themes.dart';
 
 class Tutee {
   Users tutee;
@@ -121,12 +123,29 @@ class TutorGroupPageState extends State<TutorGroupPage> {
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.height;
+
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
+
+    Color primaryColor;
+    Color textColor;
+    Color highLightColor;
+
+    if (provider.themeMode == ThemeMode.dark) {
+      primaryColor = colorGrey;
+      textColor = colorWhite;
+      highLightColor = colorLightBlueTeal;
+    } else {
+      primaryColor = colorBlueTeal;
+      textColor = colorDarkGrey;
+      highLightColor = colorOrange;
+    }
+
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(screenHeight * 0.08),
         child: AppBar(
           title: Text(widget.module.getCode + '- Group'),
-          backgroundColor: colorBlueTeal,
+          backgroundColor: primaryColor,
           actions: [
             IconButton(onPressed: () {}, icon: const Icon(Icons.settings))
           ],
@@ -167,6 +186,7 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                                 'Group Header:',
                                 textAlign: TextAlign.left,
                                 style: TextStyle(
+                                    color: textColor,
                                     fontWeight: FontWeight.w700,
                                     fontSize: screenHeight * 0.03,
                                     decoration: TextDecoration.underline),
@@ -175,7 +195,7 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                                 onPressed: () {},
                                 icon: Icon(
                                   Icons.edit,
-                                  color: colorOrange,
+                                  color: highLightColor,
                                   size: screenHeight * 0.045,
                                 ),
                               )
@@ -191,7 +211,7 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                                   data: Theme.of(context).copyWith(
                                       scrollbarTheme: ScrollbarThemeData(
                                           thumbColor: MaterialStateProperty.all(
-                                              colorOrange))),
+                                              highLightColor))),
                                   child: Scrollbar(
                                     child: ListView.separated(
                                         physics: const BouncingScrollPhysics(),
@@ -234,11 +254,12 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                                 leading: Icon(
                                   Icons.chat,
                                   size: screenHeight * 0.06,
-                                  color: colorBlueTeal,
+                                  color: primaryColor,
                                 ),
                                 title: Text(
                                   'Group Chat',
                                   style: TextStyle(
+                                      color: textColor,
                                       fontWeight: FontWeight.w800,
                                       fontSize:
                                           MediaQuery.of(context).size.height *
@@ -283,7 +304,7 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                                   Icon(
                                     Icons.chat_bubble,
                                     size: screenHeight * 0.06,
-                                    color: colorBlueTeal,
+                                    color: highLightColor,
                                   ),
                                   Positioned(
                                       top: screenHeight * 0.01,
@@ -296,6 +317,7 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                                 title: Text(
                                   'Start Live Video Call',
                                   style: TextStyle(
+                                      color: textColor,
                                       fontWeight: FontWeight.w800,
                                       fontSize:
                                           MediaQuery.of(context).size.height *
@@ -332,6 +354,7 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                                 title: Text(
                                   'Recorded Meetings',
                                   style: TextStyle(
+                                      color: textColor,
                                       fontWeight: FontWeight.w800,
                                       fontSize:
                                           MediaQuery.of(context).size.height *
@@ -354,6 +377,7 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                           'Tutees:',
                           textAlign: TextAlign.left,
                           style: TextStyle(
+                              color: textColor,
                               fontSize:
                                   MediaQuery.of(context).size.height * 0.025,
                               fontWeight: FontWeight.bold),
@@ -374,10 +398,12 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                                 );
                               },
                               itemCount: tutees.length)
-                          : const Center(
+                          : Center(
                               child: Text(
                                 'This group has no tutees',
-                                style: TextStyle(fontWeight: FontWeight.w400),
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w400,
+                                    color: highLightColor),
                               ),
                             ),
                     ),

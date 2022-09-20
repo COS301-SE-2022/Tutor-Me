@@ -164,10 +164,10 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
     if (provider.themeMode == ThemeMode.dark) {
       highlightColor = colorBlueTeal;
       textColor = colorWhite;
-      primaryColor = colorOrange;
+      primaryColor = colorLightGrey;
     } else {
       highlightColor = colorOrange;
-      textColor = Colors.black;
+      textColor = colorDarkGrey;
       primaryColor = colorBlueTeal;
     }
     double screenHeight = MediaQuery.of(context).size.height;
@@ -232,7 +232,7 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
                                     MediaQuery.of(context).size.width * 0.02),
                                 topRight: Radius.circular(
                                     MediaQuery.of(context).size.width * 0.02)),
-                            color: Colors.grey.withOpacity(0.2),
+                            color: primaryColor,
                           ),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
@@ -246,6 +246,7 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
                                     'Group Header:',
                                     textAlign: TextAlign.left,
                                     style: TextStyle(
+                                        color: textColor,
                                         fontWeight: FontWeight.w700,
                                         fontSize: screenHeight * 0.03,
                                         decoration: TextDecoration.underline),
@@ -420,6 +421,7 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
                                   'Recorded Meetings',
                                   style: TextStyle(
                                       fontWeight: FontWeight.w800,
+                                      color: textColor,
                                       fontSize:
                                           MediaQuery.of(context).size.height *
                                               0.025),
@@ -441,6 +443,7 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
                           'Tutor:',
                           textAlign: TextAlign.left,
                           style: TextStyle(
+                              color: textColor,
                               fontSize:
                                   MediaQuery.of(context).size.height * 0.025,
                               fontWeight: FontWeight.bold),
@@ -469,6 +472,7 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
                           'Tutees:',
                           textAlign: TextAlign.left,
                           style: TextStyle(
+                              color: textColor,
                               fontSize:
                                   MediaQuery.of(context).size.height * 0.025,
                               fontWeight: FontWeight.bold),
@@ -516,11 +520,14 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
     final provider = Provider.of<ThemeProvider>(context, listen: false);
 
     Color primaryColor;
+    Color textColor;
 
     if (provider.themeMode == ThemeMode.dark) {
       primaryColor = colorGrey;
+      textColor = colorWhite;
     } else {
       primaryColor = colorBlueTeal;
+      textColor = colorDarkGrey;
     }
     //getTutees
     String name = tutorObj.getName + ' ' + tutorObj.getLastName;
@@ -560,14 +567,15 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
               title: Text(
                 name,
                 style: TextStyle(
+                  color: textColor,
                   fontWeight: FontWeight.w500,
                   fontSize: MediaQuery.of(context).size.height * 0.025,
                 ),
               ),
               subtitle: Text(
                 tutorObj.getBio,
-                style: const TextStyle(
-                    fontWeight: FontWeight.w500, color: colorBlueTeal),
+                style:  TextStyle(
+                    fontWeight: FontWeight.w500, color: textColor),
               ),
               trailing: Icon(
                 Icons.chat_bubble,
@@ -579,6 +587,18 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
 
   Widget participantBuilder(BuildContext context, int i) {
     //getTutees
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
+
+    Color primaryColor;
+    Color textColor;
+
+    if (provider.themeMode == ThemeMode.dark) {
+      primaryColor = colorGrey;
+      textColor = colorWhite;
+    } else {
+      primaryColor = colorBlueTeal;
+      textColor = colorDarkGrey;
+    }
     String name = tutees[i].tutee.getName + ' ' + tutees[i].tutee.getLastName;
     return InkWell(
         onTap: () {
@@ -616,19 +636,20 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
               title: Text(
                 name,
                 style: TextStyle(
+                  color: textColor,
                   fontWeight: FontWeight.w500,
                   fontSize: MediaQuery.of(context).size.height * 0.025,
                 ),
               ),
               subtitle: Text(
                 tutees[i].tutee.getBio,
-                style: const TextStyle(
-                    fontWeight: FontWeight.w500, color: colorBlueTeal),
+                style:  TextStyle(
+                    fontWeight: FontWeight.w500, color: textColor),
               ),
               trailing: Icon(
                 Icons.chat_bubble,
                 size: MediaQuery.of(context).size.aspectRatio * 80,
-                color: colorBlueTeal,
+                color: primaryColor,
               ),
             )));
   }
