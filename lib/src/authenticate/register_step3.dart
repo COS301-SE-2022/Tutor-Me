@@ -1,6 +1,9 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tutor_me/services/models/globals.dart';
 import 'package:tutor_me/services/models/intitutions.dart';
 // import 'package:tutor_me/services/models/tutors.dart';
@@ -64,6 +67,12 @@ class _RegisterStep3State extends State<RegisterStep3> {
             passedinInstitution,
             widget.confirmPassword,
             yearLvl!);
+
+        final globalJson = json.encode(globals.toJson());
+        SharedPreferences preferences = await SharedPreferences.getInstance();
+
+        preferences.setString('globals', globalJson);
+
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => TutorPage(globals: globals)),
@@ -105,6 +114,11 @@ class _RegisterStep3State extends State<RegisterStep3> {
             passedinInstitution,
             widget.confirmPassword,
             yearLvl!);
+
+        final globalJson = json.encode(globals.toJson());
+        SharedPreferences preferences = await SharedPreferences.getInstance();
+
+        preferences.setString('globals', globalJson);
 
         Navigator.push(
           context,
