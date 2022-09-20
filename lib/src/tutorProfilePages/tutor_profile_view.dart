@@ -18,10 +18,17 @@ import 'user_stats.dart';
 
 class TutorProfilePageView extends StatefulWidget {
   // ignore: prefer_const_constructors_in_immutables
-  TutorProfilePageView({Key? key, required this.tutor, required this.globals})
+  TutorProfilePageView(
+      {Key? key,
+      required this.tutor,
+      required this.globals,
+      required this.image,
+      required this.hasImage})
       : super(key: key);
   final Users tutor;
   final Globals globals;
+  final Uint8List image;
+  final bool hasImage;
 
   static const String route = '/tutor_profile_view';
 
@@ -57,7 +64,8 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
   getCurrentModules() async {
     numTutees = 2;
     numConnections = 3;
-    final current = await ModuleServices.getUserModules(widget.tutor.getId, widget.globals);
+    final current =
+        await ModuleServices.getUserModules(widget.tutor.getId, widget.globals);
     setState(() {
       currentModules = current;
     });
@@ -78,38 +86,17 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
 
   //   return allTutees.length;
   // }
-
-  getProfileImage() async {
-    try {
-      final image = await UserServices.getProfileImage(widget.tutor.getId, widget.globals);
-      bytes = image;
-      isImageDisplayed = true;
-      getInstitution();
-    } catch (e) {
-      doesImageExist = false;
-      getInstitution();
-    }
-  }
   //TODO; fix getConnections
 
-  // getConnections() async {
-  //   if (!widget.tutee.getConnections.contains('No connections added')) {
-  //     List<String> connections = widget.tutee.getConnections.split(',');
-  //     int conLength = connections.length;
-  //     for (int i = 0; i < conLength; i++) {
-  //       final tutor = await UserServices.getTutor(connections[i]);
-
-  //       tutors += tutor;
-  //       isConnected = checkConnection();
-  //     }
-  //     setState(() {
-  //       tutors = tutors;
-  //     });
-
-  //     getProfileImage();
-  //   }
-  //   getProfileImage();
-  // }
+  void getConnections() async {
+    try {
+      tutors = await UserServices.getConnections(widget.globals.getUser.getId,
+          widget.globals.getUser.getUserTypeID, widget.globals);
+    } catch (e) {
+      const snackBar = SnackBar(content: Text('Error loading'));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
+  }
 
   bool checkConnection() {
     bool val = false;
@@ -223,7 +210,7 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
             "About Me",
             textAlign: TextAlign.left,
             style: TextStyle(
-              fontSize: screenWidthSize * 0.065,
+              fontSize: screenHeightSize * 0.03,
               fontWeight: FontWeight.bold,
               color: textColor,
             ),
@@ -241,9 +228,9 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
           ),
           child: Text(widget.tutor.getBio,
               style: TextStyle(
-                fontSize: screenWidthSize * 0.05,
+                fontSize: screenHeightSize * 0.025,
                 fontWeight: FontWeight.normal,
-                color: secondaryTextColor,
+                color: Colors.black,
               )),
         ),
       ),
@@ -256,7 +243,7 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
           child: Text("Gender",
               textAlign: TextAlign.left,
               style: TextStyle(
-                fontSize: screenWidthSize * 0.06,
+                fontSize: screenHeightSize * 0.03,
                 fontWeight: FontWeight.bold,
                 color: textColor,
               )),
@@ -273,9 +260,9 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
           ),
           child: Text(gender,
               style: TextStyle(
-                fontSize: screenWidthSize * 0.05,
+                fontSize: screenHeightSize * 0.025,
                 fontWeight: FontWeight.normal,
-                color: secondaryTextColor,
+                color: Colors.black,
               )),
         ),
       ),
@@ -523,7 +510,8 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
                         widget.tutor.setNumberOfReviews = numRatings;
                       });
                       try {
-                        await UserServices.updateTutor(widget.tutor, widget.globals);
+                        await UserServices.updateTutor(
+                            widget.tutor, widget.globals);
                       } catch (e) {
                         const snackBar = SnackBar(
                           content: Text('Failed to upload rating'),
@@ -555,10 +543,10 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
       // backgroundColor: Colors.grey.shade800,
       // backgroundImage: !isImageDisplayed? const AssetImage("assets/Pictures/penguin.png"),
 
-      child: isImageDisplayed
+      child: widget.hasImage
           ? ClipOval(
               child: Image.memory(
-                bytes,
+                widget.image,
                 fit: BoxFit.cover,
                 width: MediaQuery.of(context).size.width * 0.253,
                 height: MediaQuery.of(context).size.width * 0.253,
@@ -619,8 +607,8 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
-              fontSize: MediaQuery.of(context).size.height * 0.05,
-              color: textColor.withOpacity(0.8),
+              fontSize: MediaQuery.of(context).size.height * 0.025,
+              color: textColor,
             ),
           ),
         ),
@@ -738,10 +726,9 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
                                       try {
                                         await UserServices().sendRequest(
                                             widget.tutor.getId,
-
-                                             widget.globals.getUser.getId,
-                                            module.getModuleId, widget.globals);
-
+                                            widget.globals.getUser.getId,
+                                            module.getModuleId,
+                                            widget.globals);
                                       } catch (e) {
                                         const snackBar = SnackBar(
                                           content:
