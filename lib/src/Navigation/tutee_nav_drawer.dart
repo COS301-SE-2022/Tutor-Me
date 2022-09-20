@@ -2,11 +2,12 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tutor_me/services/models/globals.dart';
 import 'package:tutor_me/services/services/user_services.dart';
 import 'package:tutor_me/src/Navigation/about.dart';
 import 'package:tutor_me/src/Navigation/switch_change_theme.dart';
-import 'package:tutor_me/src/authenticate/register_step1.dart';
+import 'package:tutor_me/src/authenticate/login.dart';
 import 'package:tutor_me/src/theme/themes.dart';
 import '../tuteeProfilePages/tutee_profile.dart';
 import 'package:tutor_me/src/colorpallete.dart';
@@ -149,11 +150,13 @@ class TuteeNavigationDrawerState extends State<TuteeNavigationDrawerWidget> {
                 buildMenuNoArrow(
                   text: 'Logout',
                   icon: Icons.logout,
-                  onClicked: () {
+                  onClicked: () async {
+                    SharedPreferences preferences =
+                        await SharedPreferences.getInstance();
+                    preferences.clear();
                     Navigator.push(
                       context,
-                      MaterialPageRoute(
-                          builder: (context) => const RegisterStep1()),
+                      MaterialPageRoute(builder: (context) => const Login()),
                     );
                   },
                 ),
@@ -220,23 +223,27 @@ class TuteeNavigationDrawerState extends State<TuteeNavigationDrawerWidget> {
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.05,
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    fullName,
-                    style: TextStyle(
-                        fontSize: MediaQuery.of(context).size.height * 0.03,
-                        color: colorWhite),
-                  ),
-                  SizedBox(height: MediaQuery.of(context).size.width * 0.01),
-                  Text(
-                    widget.globals.getUser.getEmail,
-                    style: TextStyle(
-                        fontSize: MediaQuery.of(context).size.height * 0.026,
-                        color: colorWhite),
-                  ),
-                ],
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      fullName,
+                      style: TextStyle(
+                          fontSize: MediaQuery.of(context).size.height * 0.03,
+                          color: colorWhite),
+                      overflow: TextOverflow.fade,
+                    ),
+                    SizedBox(height: MediaQuery.of(context).size.width * 0.01),
+                    Text(
+                      widget.globals.getUser.getEmail,
+                      style: TextStyle(
+                          fontSize: MediaQuery.of(context).size.height * 0.02,
+                          color: colorWhite),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
+                ),
               )
             ]),
           ),

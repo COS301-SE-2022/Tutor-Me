@@ -135,7 +135,10 @@ class _TuteeProfileEditState extends State<TuteeProfileEdit> {
                 isSaveLoading = true;
               });
               if (image != null) {
-              
+                try {
+                  await UserServices.updateProfileImage(
+                      image, widget.globals.getUser.getId, widget.globals);
+                } catch (e) {
                   try {
                     await UserServices.uploadProfileImage(
                         image, widget.globals.getUser.getId, widget.globals);
@@ -144,6 +147,7 @@ class _TuteeProfileEditState extends State<TuteeProfileEdit> {
                         SnackBar(content: Text("Error uploading image"));
                     ScaffoldMessenger.of(context).showSnackBar(snack);
                   }
+                }
               }
               if (nameController.text.isNotEmpty) {
                 List<String> name = nameController.text.split(' ');

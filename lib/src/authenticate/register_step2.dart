@@ -60,7 +60,7 @@ class _RegisterStep2State extends State<RegisterStep2> {
     'O - Other',
   ];
 
-  String? gender;
+  String gender = 'F - Female';
   int indexOfOption = 2;
   int currentStep = 1;
 
@@ -162,6 +162,7 @@ class _RegisterStep2State extends State<RegisterStep2> {
                     color: colorWhite,
                     fontSize: MediaQuery.of(context).size.height * 0.06,
                   ),
+                  // ignore: unnecessary_null_comparison
                   hint: gender == null
                       ? Row(
                           children: [
@@ -192,7 +193,7 @@ class _RegisterStep2State extends State<RegisterStep2> {
                               width: MediaQuery.of(context).size.width * 0.04,
                             ),
                             Text(
-                              gender!,
+                              gender,
                               style: const TextStyle(color: colorWhite),
                             ),
                           ],
@@ -228,8 +229,8 @@ class _RegisterStep2State extends State<RegisterStep2> {
                   onChanged: (val) {
                     setState(
                       () {
-                        gender = val;
-                        indexOfOption = items.indexOf(val!);
+                        gender = val!;
+                        indexOfOption = items.indexOf(val);
                       },
                     );
                   },
@@ -327,7 +328,7 @@ class _RegisterStep2State extends State<RegisterStep2> {
                     if (gender == "") {
                       gender = "";
                     } else {
-                      gender = gender!.substring(0, 1);
+                      gender = gender.substring(0, 1);
                     }
 
                     if (firstNameController.text == "" ||

@@ -169,7 +169,7 @@ class _RegisterStep3State extends State<RegisterStep3> {
   ];
 
   String? institution;
-  String? yearLvl;
+  String? yearLvl = 'Year - 1';
 
   bool isLoading = false;
 
