@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:tutor_me/services/models/modules.dart';
 import 'package:tutor_me/services/models/requests.dart';
 import 'package:tutor_me/services/services/module_services.dart';
@@ -10,6 +11,7 @@ import 'package:tutor_me/src/colorpallete.dart';
 
 import '../../../services/models/globals.dart';
 import '../../../services/models/users.dart';
+import '../../theme/themes.dart';
 
 class Tutor {
   Users tutee;
@@ -48,8 +50,8 @@ class TuteePendingRequestsState extends State<TuteePendingRequests> {
   bool isLoading = true;
 
   getRequests() async {
-
-    final requests = await UserServices().getTuteeRequests(widget.globals.getUser.getId, widget.globals);
+    final requests = await UserServices()
+        .getTuteeRequests(widget.globals.getUser.getId, widget.globals);
 
     requestList = requests;
     if (requestList.isEmpty) {
@@ -62,7 +64,8 @@ class TuteePendingRequestsState extends State<TuteePendingRequests> {
 
   getTutors() async {
     for (int i = 0; i < requestList.length; i++) {
-      final tutor = await UserServices.getTutor(requestList[i].getTutorId, widget.globals);
+      final tutor = await UserServices.getTutor(
+          requestList[i].getTutorId, widget.globals);
       tutorList += tutor;
     }
     int requestLength = tutorList.length;
@@ -79,8 +82,8 @@ class TuteePendingRequestsState extends State<TuteePendingRequests> {
   getTuteeModules() async {
     try {
       for (int i = 0; i < requestList.length; i++) {
-        final module =
-            await ModuleServices.getModule(requestList[i].getModuleId, widget.globals);
+        final module = await ModuleServices.getModule(
+            requestList[i].getModuleId, widget.globals);
         setState(() {
           modules += module;
         });
@@ -98,8 +101,8 @@ class TuteePendingRequestsState extends State<TuteePendingRequests> {
   getTuteeProfileImages() async {
     for (int i = 0; i < tutorList.length; i++) {
       try {
-        final image =
-            await UserServices.getTuteeProfileImage(tutorList[i].getId, widget.globals);
+        final image = await UserServices.getTuteeProfileImage(
+            tutorList[i].getId, widget.globals);
         setState(() {
           tutorImages.add(image);
         });
@@ -141,6 +144,22 @@ class TuteePendingRequestsState extends State<TuteePendingRequests> {
     screenHeight = MediaQuery.of(context).size.height;
     screenWidth = MediaQuery.of(context).size.width;
 
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
+
+    Color primaryColor;
+    Color textColor;
+    Color highLightColor;
+
+    if (provider.themeMode == ThemeMode.dark) {
+      primaryColor = colorGrey;
+      textColor = colorWhite;
+      highLightColor = colorLightBlueTeal;
+    } else {
+      primaryColor = colorBlueTeal;
+      textColor = colorDarkGrey;
+      highLightColor = colorOrange;
+    }
+
     return Material(
       child: isLoading
           ? const Center(
@@ -161,9 +180,12 @@ class TuteePendingRequestsState extends State<TuteePendingRequests> {
                       Icon(
                         Icons.notifications_off,
                         size: MediaQuery.of(context).size.height * 0.15,
-                        color: colorOrange,
+                        color: primaryColor,
                       ),
-                      const Text('No new requests')
+                      Text(
+                        'No new requests',
+                        style: TextStyle(color: highLightColor),
+                      )
                     ],
                   ),
                 ),
@@ -216,6 +238,22 @@ class TuteePendingRequestsState extends State<TuteePendingRequests> {
   }
 
   Widget _cardBuilder(BuildContext context, int i) {
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
+
+    Color primaryColor;
+    Color textColor;
+    Color highLightColor;
+
+    if (provider.themeMode == ThemeMode.dark) {
+      primaryColor = colorGrey;
+      textColor = colorWhite;
+      highLightColor = colorLightBlueTeal;
+    } else {
+      primaryColor = colorBlueTeal;
+      textColor = colorDarkGrey;
+      highLightColor = colorOrange;
+    }
+
     String name = tutorList[i].getName + ' ' + tutorList[i].getLastName;
     String howLongAgo = getRequestDate(requestList[i].getDateCreated);
 
@@ -248,14 +286,22 @@ class TuteePendingRequestsState extends State<TuteePendingRequests> {
                           height: MediaQuery.of(context).size.width * 0.15,
                         )),
                 ),
-                title: Text(name),
+                title: Text(
+                  name,
+                  style: TextStyle(
+                    color: textColor,
+                  ),
+                ),
                 subtitle: Text(
                   tutorList[i].getBio,
+                  style: TextStyle(
+                    color: textColor,
+                  ),
                   overflow: TextOverflow.ellipsis,
                 ),
                 trailing: Text(
                   howLongAgo,
-                  style: TextStyle(color: Colors.grey.shade600),
+                  style: TextStyle(color: Color.fromARGB(255, 161, 160, 160)),
                 ),
               ),
               Row(
@@ -293,8 +339,8 @@ class TuteePendingRequestsState extends State<TuteePendingRequests> {
                                     });
 
                                     try {
-                                      await UserServices()
-                                          .declineRequest(requestList[i].getId, widget.globals);
+                                      await UserServices().declineRequest(
+                                          requestList[i].getId, widget.globals);
 
                                       setState(() {
                                         isExcepting[i] = false;
