@@ -2,12 +2,13 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tutor_me/src/Navigation/switch_change_theme.dart';
+import 'package:tutor_me/src/authenticate/login.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/theme/themes.dart';
 import '../../services/models/globals.dart';
 import '../../services/services/user_services.dart';
-import '../authenticate/register_step1.dart';
 import '../tutorProfilePages/settings_pofile_view.dart';
 
 // ignore: must_be_immutable
@@ -131,11 +132,14 @@ class TutorNavigationDrawerState extends State<TutorNavigationDrawerWidget> {
                 buildMenuNoArrow(
                   text: 'Logout',
                   icon: Icons.logout,
-                  onClicked: () {
+                  onClicked: () async {
+                    SharedPreferences preferences =
+                        await SharedPreferences.getInstance();
+                    preferences.clear();
+
                     Navigator.push(
                       context,
-                      MaterialPageRoute(
-                          builder: (context) => const RegisterStep1()),
+                      MaterialPageRoute(builder: (context) => const Login()),
                     );
                   },
                 ),
@@ -201,7 +205,7 @@ class TutorNavigationDrawerState extends State<TutorNavigationDrawerWidget> {
                 Text(
                   fullName,
                   style: TextStyle(
-                      fontSize: MediaQuery.of(context).size.height * 0.04,
+                      fontSize: MediaQuery.of(context).size.height * 0.03,
                       color: colorWhite),
                   overflow: TextOverflow.fade,
                 ),

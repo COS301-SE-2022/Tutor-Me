@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -52,7 +53,7 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
     try {
       final currentModulesList = await ModuleServices.getUserModules(
           widget.globals.getUser.getId, widget.globals);
-
+      log(currentModules.length.toString());
       setState(() {
         currentModules = currentModulesList;
       });
@@ -65,12 +66,19 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
   }
 
   getInstitution() async {
-    final tempInstitution = await InstitutionServices.getUserInstitution(
-        widget.globals.getUser.getInstitutionID, widget.globals);
-    setState(() {
+    try {
+      final tempInstitution = await InstitutionServices.getUserInstitution(
+          widget.globals.getUser.getInstitutionID, widget.globals);
+
       institution = tempInstitution;
-      _isLoading = false;
-    });
+      log(currentModules.length.toString());
+      setState(() {
+        _isLoading = false;
+      });
+    } catch (e) {
+      const snackBar = SnackBar(content: Text('Error loading'));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
   }
   //TODO: get numConnections and numTutees
 
@@ -89,6 +97,7 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
   @override
   void initState() {
     super.initState();
+
     getCurrentModules();
     // numConnections = getNumConnections();
     // numTutees = getNumTutees();
@@ -302,7 +311,9 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
                 );
 
                 setState(() {
-                  currentModules = modules;
+                  if (modules != null) {
+                    currentModules = modules;
+                  }
                 });
               },
             )),

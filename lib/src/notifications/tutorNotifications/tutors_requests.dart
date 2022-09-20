@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -60,6 +61,7 @@ class TutorRequestsState extends State<TutorRequests> {
       }
       getTutees();
     } catch (e) {
+      log(e.toString());
       setState(() {
         isLoading = false;
       });
@@ -197,6 +199,7 @@ class TutorRequestsState extends State<TutorRequests> {
   }
 
   String getRequestDate(String dateSent) {
+
     final lastDate = DateTime.now();
     String dateAsString = lastDate.toString();
     List<String> currentSplit = dateAsString.split(' ');

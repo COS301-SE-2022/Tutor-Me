@@ -6,8 +6,9 @@ import '../services/models/globals.dart';
 import 'Navigation/tutee_nav_drawer.dart';
 // import 'theme/themes.dart';
 import 'notifications/tuteeNotifications/tutee_notifications.dart';
-import 'pages/calls_page.dart';
+// import 'pages/calls_page.dart';
 import 'pages/home.dart';
+import 'pages/text_recognition.dart';
 import 'pages/tutors_list.dart';
 import 'pages/chats_page.dart';
 import 'tutorAndTuteeCollaboration/tuteeGroups/tutee_groups.dart';
@@ -30,7 +31,7 @@ class TuteePageState extends State<TuteePage> {
       Home(globals: widget.globals),
       Chats(globals: widget.globals),
       TuteeGroups(globals: widget.globals),
-      const Calls()
+      const TextRecognition()
     ];
   }
 
@@ -111,8 +112,8 @@ class TuteePageState extends State<TuteePage> {
               label: 'Groups',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              label: 'Calls',
+              icon: Icon(Icons.document_scanner),
+              label: 'Scan',
             ),
           ],
         ),

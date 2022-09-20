@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tutor_me/services/models/globals.dart';
 import 'package:tutor_me/services/models/tutors.dart';
+import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/notifications/tutorNotifications/tutors_requests.dart';
 import 'package:tutor_me/src/notifications/tutorNotifications/tutors_activity.dart';
 

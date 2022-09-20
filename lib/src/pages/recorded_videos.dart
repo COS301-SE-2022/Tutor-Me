@@ -7,15 +7,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
 import 'package:tutor_me/screens/recording_screen.dart';
+import 'package:tutor_me/services/services/group_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:http/http.dart' as http;
 
+import '../../services/models/globals.dart';
+import '../../services/models/groups.dart';
 import '../../utils/toast.dart';
 import '../theme/themes.dart';
 
 class RecordedVideos extends StatefulWidget {
-  const RecordedVideos({Key? key}) : super(key: key);
+  final Groups group;
+  final Globals global;
+  const RecordedVideos({Key? key, required this.group, required this.global})
+      : super(key: key);
 
   @override
   State<RecordedVideos> createState() => _RecordedVideosState();
@@ -171,7 +177,10 @@ class _RecordedVideosState extends State<RecordedVideos> {
                                   // "https://cdn.videosdk.live/encoded/videos/63161d681d5e14bac5db733a.mp4"
                                   )));
                     },
-                    child: const Text('View'),
+                    child: Row(children: const [
+                      Icon(Icons.open_in_new),
+                      Text(' View')
+                    ]),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: highLightColor,
                     ),
@@ -179,7 +188,7 @@ class _RecordedVideosState extends State<RecordedVideos> {
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.05,
-                  width: MediaQuery.of(context).size.width * 0.3,
+                  width: MediaQuery.of(context).size.width * 0.35,
                   child: ElevatedButton(
                     onPressed: () async {
                       if (await canLaunchUrlString(_meetingIdList[index])) {
@@ -187,12 +196,12 @@ class _RecordedVideosState extends State<RecordedVideos> {
                             mode: LaunchMode.externalApplication);
                       }
                     },
-                    child: const Text(
-                      'Download',
-                      style: TextStyle(color: colorWhite),
-                    ),
+                    child: Row(children: const [
+                      Icon(Icons.download_outlined),
+                      Text(' Download')
+                    ]),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromARGB(255, 184, 180, 180),
+                      backgroundColor: colorBlue,
                     ),
                   ),
                 ),
@@ -282,15 +291,27 @@ class _RecordedVideosState extends State<RecordedVideos> {
         .get(getMeetingIdUrl, headers: {"Authorization": _AUTH_TOKEN!});
 
     // final List<String> _meetingIdList = List<String>.empty(growable: true);
-    int length = json.decode(meetingIdResponse.body)['data'].length;
+    // int length = json.decode(meetingIdResponse.body)['data'].length;
+
+    final getVideoLinks =
+        await GroupServices.getVideoLinks(widget.group.getId, widget.global);
+    int length = getVideoLinks.length;
     setState(() {
       numVideos = length - 1;
     });
     // log("Length of array: $length");
+
     //TODO: Check if meetingIdResponse is in group
     for (int i = 0; i < length; i++) {
-      // if (checkIfMeetingIdIsInGroup(
-      //     json.decode(meetingIdResponse.body)['data'][i]['roomId'])) {
+      // if (getVideoLinks(
+      //     )) {
+      if (getVideoLinks
+          .contains(json.decode(meetingIdResponse.body)['data'][i]['roomId'])) {
+        _meetingIdList.add(json.decode(meetingIdResponse.body)['data'][i]
+            ['recordingFiles'][0]['url']);
+        _meetingDateList.add(json.decode(meetingIdResponse.body)['data'][i]
+            ['recordingFiles'][0]['createdAt']);
+      }
       _meetingIdList.add(
           json.decode(meetingIdResponse.body)['data'][i]['file']['fileUrl']);
       _meetingDateList

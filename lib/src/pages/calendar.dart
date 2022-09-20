@@ -99,7 +99,7 @@ final provider = Provider.of<ThemeProvider>(context, listen: false);
             bottom: PreferredSize(
               preferredSize: const Size.fromHeight(50.0),
               child: Container(
-                height: 50.0,
+                height: MediaQuery.of(context).size.height * 0.07,
                 decoration: const BoxDecoration(
                   color: Color.fromARGB(255, 235, 231, 231),
                 ),

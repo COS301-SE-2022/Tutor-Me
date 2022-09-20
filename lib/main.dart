@@ -12,6 +12,7 @@ import 'package:tutor_me/src/landingPages/landing_page.dart';
 // import 'package:tutor_me/src/pages/recorded_videos.dart';
 import 'package:tutor_me/src/theme/themes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tutor_me/src/tutee_page.dart';
 import 'package:tutor_me/src/tutor_page.dart';
 
 //import 'src/authenticate/register_or_login.dart';
@@ -57,7 +58,7 @@ class MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-     setState(() {
+      setState(() {
         initPreferences();
       });
     });
@@ -69,36 +70,61 @@ class MyAppState extends State<MyApp> {
       builder: (context, _) {
         final themeProvider = Provider.of<ThemeProvider>(context, listen: true);
         if (preferences != null) {
-          final globalsJson = preferences!.getString('globals');
-          if (globalsJson == null) {
+          final isFirstTime = preferences!.getBool('isFirstTime');
+          if (isFirstTime == null) {
             return MaterialApp(
               themeMode: themeProvider.themeMode,
               debugShowCheckedModeBanner: false,
               theme: Themes.lightTheme,
               darkTheme: Themes.darkTheme,
-              home: const Login(),
+              home: const LandingPage(),
             );
           } else {
-            final globals = Globals.fromJson(jsonDecode(globalsJson));
-            return MaterialApp(
-              themeMode: themeProvider.themeMode,
-              debugShowCheckedModeBanner: false,
-              theme: Themes.lightTheme,
-              darkTheme: Themes.darkTheme,
-              home: TutorPage(globals: globals),
-            );
+            final globalsJson = preferences!.getString('globals');
+            if (globalsJson == null) {
+              return MaterialApp(
+                themeMode: themeProvider.themeMode,
+                debugShowCheckedModeBanner: false,
+                theme: Themes.lightTheme,
+                darkTheme: Themes.darkTheme,
+                home: const Login(),
+              );
+            } else {
+              final globals = Globals.fromJson(jsonDecode(globalsJson));
+              globals.setHeader = {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*",
+                'Authorization': globals.getToken,
+              };
+              if(globals.getUser.getUserTypeID[0] == '9'){
+                return MaterialApp(
+                  themeMode: themeProvider.themeMode,
+                  debugShowCheckedModeBanner: false,
+                  theme: Themes.lightTheme,
+                  darkTheme: Themes.darkTheme,
+                  home:  TutorPage(globals: globals),
+                );
+                }else{
+                   return MaterialApp(
+                themeMode: themeProvider.themeMode,
+                debugShowCheckedModeBanner: false,
+                theme: Themes.lightTheme,
+                darkTheme: Themes.darkTheme,
+                home: TuteePage(globals: globals),
+              );
+                }
+             
+            }
           }
         }
-        else
-        {
-          return MaterialApp(
-            themeMode: themeProvider.themeMode,
-            debugShowCheckedModeBanner: false,
-            theme: Themes.lightTheme,
-            darkTheme: Themes.darkTheme,
-            home: const LandingPage(),
-          );
-        }
-
+        return const MaterialApp(
+          debugShowCheckedModeBanner: false,
+          home: Scaffold(
+            body: Center(
+              child: CircularProgressIndicator(),
+            ),
+          ),
+        );
       });
 }

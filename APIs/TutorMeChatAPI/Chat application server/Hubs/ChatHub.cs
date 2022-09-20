@@ -44,6 +44,29 @@ namespace Chat_application_server.Hubs
 
             return Groups.AddToGroupAsync(Context.ConnectionId, groupId);
         }
+
+        public Task JoinChat(string receiverName, string userId, string receiverID , string userName,int userId)
+        {
+            MessageModel MessageModel = new MessageModel
+            {
+                CreateDate = DateTime.Now,
+                MessageText = userName + " joined chat with " + receiverName,
+                UserId = 0,
+                UserName = "system"
+            };
+            string groupid = "";
+            if (String.Compare(userId, receiverID, StringComparison.Ordinal) < 0)
+            {
+                groupid = userId + receiverID;
+            }
+            else
+            {
+                groupid = receiverID + userId;
+            }
+            Clients.Group(groupId).SendAsync("ReceiveMessage", MessageModel);
+
+            return Groups.AddToGroupAsync(Context.ConnectionId, groupId);
+        }
     
         public Task SendMessageToGroup(string groupId, string UserName, int RandomUserId, string Message)
         {

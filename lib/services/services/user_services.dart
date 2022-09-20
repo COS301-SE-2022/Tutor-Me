@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:crypt/crypt.dart';
@@ -5,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:tutor_me/services/models/users.dart';
@@ -35,23 +37,8 @@ class UserServices {
       if (response.statusCode == 201) {
         return true;
       } else if (response.statusCode == 401) {
-        final refreshUrl =
-            Uri.http(global.getTutorMeUrl, 'api/account/refreshToken');
-
-        final data = jsonEncode({
-          'expiredToken': global.getToken,
-          'refreshToken': global.getRefreshToken
-        });
-
-        final refreshResponse =
-            await http.post(refreshUrl, body: data, headers: global.getHeader);
-
-        if (refreshResponse.statusCode == 200) {
-          final refreshData = jsonDecode(refreshResponse.body);
-          global.setToken = refreshData['token'];
-          global.setRefreshToken = refreshData['refreshToken'];
-          sendRequest(receiverId, requesterId, moduleId, global);
-        }
+        global = await refreshToken(global);
+        return await sendRequest(receiverId, requesterId, moduleId, global);
       } else {
         throw Exception(
             'Failed to send request. Please make sure your internet connect is on and try again ' +
@@ -66,6 +53,7 @@ class UserServices {
     final url = Uri.http(global.getTutorMeUrl, 'api/Requests/Tutor/$id');
     try {
       final response = await http.get(url, headers: global.getHeader);
+      log(response.statusCode.toString());
       if (response.statusCode == 200) {
         String j = "";
         if (response.body[0] != "[") {
@@ -76,23 +64,8 @@ class UserServices {
         final List list = json.decode(j);
         return list.map((json) => Requests.fromObject(json)).toList();
       } else if (response.statusCode == 401) {
-        final refreshUrl =
-            Uri.http(global.getTutorMeUrl, 'api/account/refreshToken');
-
-        final data = jsonEncode({
-          'expiredToken': global.getToken,
-          'refreshToken': global.getRefreshToken
-        });
-
-        final refreshResponse =
-            await http.post(refreshUrl, body: data, headers: global.getHeader);
-
-        if (refreshResponse.statusCode == 200) {
-          final refreshData = jsonDecode(refreshResponse.body);
-          global.setToken = refreshData['token'];
-          global.setRefreshToken = refreshData['refreshToken'];
-          getTutorRequests(id, global);
-        }
+        global = await refreshToken(global);
+        return await getTutorRequests(id, global);
       } else {
         throw Exception('Failed to load' + response.statusCode.toString());
       }
@@ -115,23 +88,8 @@ class UserServices {
         final List list = json.decode(j);
         return list.map((json) => Requests.fromObject(json)).toList();
       } else if (response.statusCode == 401) {
-        final refreshUrl =
-            Uri.http(global.getTutorMeUrl, 'api/account/refreshToken');
-
-        final data = jsonEncode({
-          'expiredToken': global.getToken,
-          'refreshToken': global.getRefreshToken
-        });
-
-        final refreshResponse =
-            await http.post(refreshUrl, body: data, headers: global.getHeader);
-
-        if (refreshResponse.statusCode == 200) {
-          final refreshData = jsonDecode(refreshResponse.body);
-          global.setToken = refreshData['token'];
-          global.setRefreshToken = refreshData['refreshToken'];
-          getTuteeRequests(id, global);
-        }
+        global = await refreshToken(global);
+        return await getTuteeRequests(id, global);
       } else {
         throw Exception('Failed to load' + response.statusCode.toString());
       }
@@ -154,23 +112,8 @@ class UserServices {
         final List list = json.decode(j);
         return list.map((json) => Requests.fromObject(json)).toList();
       } else if (response.statusCode == 401) {
-        final refreshUrl =
-            Uri.http(global.getTutorMeUrl, 'api/account/refreshToken');
-
-        final data = jsonEncode({
-          'expiredToken': global.getToken,
-          'refreshToken': global.getRefreshToken
-        });
-
-        final refreshResponse =
-            await http.post(refreshUrl, body: data, headers: global.getHeader);
-
-        if (refreshResponse.statusCode == 200) {
-          final refreshData = jsonDecode(refreshResponse.body);
-          global.setToken = refreshData['token'];
-          global.setRefreshToken = refreshData['refreshToken'];
-          getRequest(id, global);
-        }
+        global = await refreshToken(global);
+        return await getRequest(id, global);
       } else {
         throw Exception('Failed to load' + response.statusCode.toString());
       }
@@ -187,23 +130,8 @@ class UserServices {
       if (response.statusCode == 204) {
         return true;
       } else if (response.statusCode == 401) {
-        final refreshUrl =
-            Uri.http(global.getTutorMeUrl, 'api/account/refreshToken');
-
-        final data = jsonEncode({
-          'expiredToken': global.getToken,
-          'refreshToken': global.getRefreshToken
-        });
-
-        final refreshResponse =
-            await http.post(refreshUrl, body: data, headers: global.getHeader);
-
-        if (refreshResponse.statusCode == 200) {
-          final refreshData = jsonDecode(refreshResponse.body);
-          global.setToken = refreshData['token'];
-          global.setRefreshToken = refreshData['refreshToken'];
-          declineRequest(id, global);
-        }
+        global = await refreshToken(global);
+        return await declineRequest(id, global);
       } else {
         throw Exception(
             'Failed to decline. Please make sure your internet connect is on and try again');
@@ -223,23 +151,8 @@ class UserServices {
       if (response.statusCode == 200) {
         return true;
       } else if (response.statusCode == 401) {
-        final refreshUrl =
-            Uri.http(global.getTutorMeUrl, 'api/account/refreshToken');
-
-        final data = jsonEncode({
-          'expiredToken': global.getToken,
-          'refreshToken': global.getRefreshToken
-        });
-
-        final refreshResponse =
-            await http.post(refreshUrl, body: data, headers: global.getHeader);
-
-        if (refreshResponse.statusCode == 200) {
-          final refreshData = jsonDecode(refreshResponse.body);
-          global.setToken = refreshData['token'];
-          global.setRefreshToken = refreshData['refreshToken'];
-          acceptRequest(requestId, global);
-        }
+        global = await refreshToken(global);
+        return await acceptRequest(requestId, global);
       } else {
         throw Exception(
             'Failed to accept. Please make sure your internet connect is on and try again');
@@ -266,23 +179,8 @@ class UserServices {
             textColor: Colors.white,
             fontSize: 16.0);
       } else if (response.statusCode == 401) {
-        final refreshUrl =
-            Uri.http(global.getTutorMeUrl, 'api/account/refreshToken');
-
-        final data = jsonEncode({
-          'expiredToken': global.getToken,
-          'refreshToken': global.getRefreshToken
-        });
-
-        final refreshResponse =
-            await http.post(refreshUrl, body: data, headers: global.getHeader);
-
-        if (refreshResponse.statusCode == 200) {
-          final refreshData = jsonDecode(refreshResponse.body);
-          global.setToken = refreshData['token'];
-          global.setRefreshToken = refreshData['refreshToken'];
-          deleteUser(id, global);
-        }
+        global = await refreshToken(global);
+        return await deleteUser(id, global);
       } else {
         Fluttertoast.showToast(
             msg: "Failed to delete User",
@@ -314,23 +212,8 @@ class UserServices {
         final List list = json.decode(j);
         return list.map((json) => Users.fromObject(json)).toList();
       } else if (response.statusCode == 401) {
-        final refreshUrl =
-            Uri.http(globals.getTutorMeUrl, 'api/account/refreshToken');
-
-        final data = jsonEncode({
-          'expiredToken': globals.getToken,
-          'refreshToken': globals.getRefreshToken
-        });
-
-        final refreshResponse =
-            await http.post(refreshUrl, body: data, headers: globals.getHeader);
-
-        if (refreshResponse.statusCode == 200) {
-          final refreshData = jsonDecode(refreshResponse.body);
-          globals.setToken = refreshData['token'];
-          globals.setRefreshToken = refreshData['refreshToken'];
-          getTutor(id, globals);
-        }
+        globals = await refreshToken(globals);
+        return await getTutor(id, globals);
       } else {
         throw Exception('Failed to load' + response.statusCode.toString());
       }
@@ -353,23 +236,8 @@ class UserServices {
         final List list = json.decode(j);
         return list.map((json) => Users.fromObject(json)).toList();
       } else if (response.statusCode == 401) {
-        final refreshUrl =
-            Uri.http(global.getTutorMeUrl, 'api/account/refreshToken');
-
-        final data = jsonEncode({
-          'expiredToken': global.getToken,
-          'refreshToken': global.getRefreshToken
-        });
-
-        final refreshResponse =
-            await http.post(refreshUrl, body: data, headers: global.getHeader);
-
-        if (refreshResponse.statusCode == 200) {
-          final refreshData = jsonDecode(refreshResponse.body);
-          global.setToken = refreshData['token'];
-          global.setRefreshToken = refreshData['refreshToken'];
-          getTutee(id, global);
-        }
+        global = await refreshToken(global);
+        return await getTutee(id, global);
       } else {
         throw Exception('Failed to load' + response.statusCode.toString());
       }
@@ -392,23 +260,8 @@ class UserServices {
         final List list = json.decode(j);
         return list.map((json) => Users.fromObject(json)).toList();
       } else if (response.statusCode == 401) {
-        final refreshUrl =
-            Uri.http(global.getTutorMeUrl, 'api/account/refreshToken');
-
-        final data = jsonEncode({
-          'expiredToken': global.getToken,
-          'refreshToken': global.getRefreshToken
-        });
-
-        final refreshResponse =
-            await http.post(refreshUrl, body: data, headers: global.getHeader);
-
-        if (refreshResponse.statusCode == 200) {
-          final refreshData = jsonDecode(refreshResponse.body);
-          global.setToken = refreshData['token'];
-          global.setRefreshToken = refreshData['refreshToken'];
-          getTutees(global);
-        }
+        global = await refreshToken(global);
+        return await getTutees(global);
       } else {
         throw Exception('Failed to load' + response.statusCode.toString());
       }
@@ -431,23 +284,8 @@ class UserServices {
         final List list = json.decode(j);
         return list.map((json) => Users.fromObject(json)).toList();
       } else if (response.statusCode == 401) {
-        final refreshUrl =
-            Uri.http(global.getTutorMeUrl, 'api/account/refreshToken');
-
-        final data = jsonEncode({
-          'expiredToken': global.getToken,
-          'refreshToken': global.getRefreshToken
-        });
-
-        final refreshResponse =
-            await http.post(refreshUrl, body: data, headers: global.getHeader);
-
-        if (refreshResponse.statusCode == 200) {
-          final refreshData = jsonDecode(refreshResponse.body);
-          global.setToken = refreshData['token'];
-          global.setRefreshToken = refreshData['refreshToken'];
-          getUser(id, global);
-        }
+        global = await refreshToken(global);
+        return await getUser(id, global);
       } else {
         throw Exception('Failed to load' + response.statusCode.toString());
       }
@@ -464,23 +302,8 @@ class UserServices {
         final UserType type = UserType.fromObject(json.decode(response.body));
         return type;
       } else if (response.statusCode == 401) {
-        final refreshUrl =
-            Uri.http(global.getTutorMeUrl, 'api/account/refreshToken');
-
-        final data = jsonEncode({
-          'expiredToken': global.getToken,
-          'refreshToken': global.getRefreshToken
-        });
-
-        final refreshResponse =
-            await http.post(refreshUrl, body: data, headers: global.getHeader);
-
-        if (refreshResponse.statusCode == 200) {
-          final refreshData = jsonDecode(refreshResponse.body);
-          global.setToken = refreshData['token'];
-          global.setRefreshToken = refreshData['refreshToken'];
-          getUserType(userTypeId, global);
-        }
+        global = await refreshToken(global);
+        return await getUserType(userTypeId, global);
       } else {
         throw Exception('Failed to load' + response.statusCode.toString());
       }
@@ -503,23 +326,8 @@ class UserServices {
         final List list = json.decode(j);
         return list.map((json) => Users.fromObject(json)).toList();
       } else if (response.statusCode == 401) {
-        final refreshUrl =
-            Uri.http(global.getTutorMeUrl, 'api/account/refreshToken');
-
-        final data = jsonEncode({
-          'expiredToken': global.getToken,
-          'refreshToken': global.getRefreshToken
-        });
-
-        final refreshResponse =
-            await http.post(refreshUrl, body: data, headers: global.getHeader);
-
-        if (refreshResponse.statusCode == 200) {
-          final refreshData = jsonDecode(refreshResponse.body);
-          global.setToken = refreshData['token'];
-          global.setRefreshToken = refreshData['refreshToken'];
-          getTutors(global);
-        }
+        global = await refreshToken(global);
+        return await getTutors(global);
       } else {
         throw Exception('Failed to load' + response.statusCode.toString());
       }
@@ -530,12 +338,16 @@ class UserServices {
 
   static Future getConnections(
       String userId, String userTypeId, Globals global) async {
-    Uri connectionsURL = Uri.http(global.getTutorMeUrl,
-        '/api/Connections/users/$userId?userType=$userTypeId');
+    log(global.getToken);
+    Uri connectionsURL = Uri.parse(
+        'http://${global.getTutorMeUrl}/api/Connections/users/$userId?userType=$userTypeId');
+
     try {
       final response =
           await http.get(connectionsURL, headers: global.getHeader);
+      log(response.statusCode.toString());
       if (response.statusCode == 200) {
+        log(response.body);
         String j = "";
         if (response.body[0] != "[") {
           j = "[" + response.body + "]";
@@ -545,23 +357,8 @@ class UserServices {
         final List list = json.decode(j);
         return list.map((json) => Users.fromObject(json)).toList();
       } else if (response.statusCode == 401) {
-        final refreshUrl =
-            Uri.http(global.getTutorMeUrl, 'api/account/refreshToken');
-
-        final data = jsonEncode({
-          'expiredToken': global.getToken,
-          'refreshToken': global.getRefreshToken
-        });
-
-        final refreshResponse =
-            await http.post(refreshUrl, body: data, headers: global.getHeader);
-
-        if (refreshResponse.statusCode == 200) {
-          final refreshData = jsonDecode(refreshResponse.body);
-          global.setToken = refreshData['token'];
-          global.setRefreshToken = refreshData['refreshToken'];
-          getConnections(userId, userTypeId, global);
-        }
+        global = await refreshToken(global);
+        return await getConnections(userId, userTypeId, global);
       } else {
         throw Exception('Failed to load' + response.body);
       }
@@ -585,8 +382,6 @@ class UserServices {
     final modulesURL =
         Uri.parse('http://${tempGlobals.getTutorMeUrl}/api/Users/');
 
-    //source: https://protocoderspoint.com/flutter-encryption-decryption-using-flutter-string-encryption/#:~:text=open%20your%20flutter%20project%20that,IDE(android%2Dstudio).&text=Then%20after%20you%20have%20added,the%20password%20the%20user%20enter.
-
     // password = hashPassword(password);
     String data = jsonEncode({
       'userId': institution,
@@ -597,7 +392,7 @@ class UserServices {
       'gender': gender,
       'email': email,
       'password': password,
-      'userTypeID': "7654103a-01ba-4277-b5e9-82746855f9f4",
+      'userTypeID': "98CA5264-1266-4158-82B6-5DE7FDD03599",
       'institutionId': institution,
       'location': "No Location added",
       'bio': "No bio added",
@@ -613,12 +408,10 @@ class UserServices {
     };
     try {
       final response = await http.post(modulesURL, headers: header, body: data);
+      log(response.statusCode.toString());
       if (response.statusCode == 200) {
-        final Users tutor = Users.fromObject(jsonDecode(response.body)['user']);
-        Globals global = Globals(tutor, json.decode(response.body)['token'],
-            json.decode(response.body)['refreshToken']);
+        final global = await logInTutor(email, password);
 
-        // await createFileRecord(tutors[0].getId);
         return global;
       } else {
         throw Exception('Failed to upload ' + response.statusCode.toString());
@@ -640,19 +433,20 @@ class UserServices {
       String year) async {
     Globals tempGlobals = Globals(null, '', '');
 
-    final modulesURL = Uri.http(tempGlobals.getTutorMeUrl, '/api/Users/');
-    //source: https://protocoderspoint.com/flutter-encryption-decryption-using-flutter-string-encryption/#:~:text=open%20your%20flutter%20project%20that,IDE(android%2Dstudio).&text=Then%20after%20you%20have%20added,the%20password%20the%20user%20enter.
-    // password = hashPassword(password);
+    final modulesURL =
+        Uri.parse('http://${tempGlobals.getTutorMeUrl}/api/Users/');
 
+    // password = hashPassword(password);
     String data = jsonEncode({
+      'userId': institution,
       'firstName': name,
       'lastName': lastName,
       'dateOfBirth': date,
-      'status': "true",
+      'status': false,
       'gender': gender,
       'email': email,
       'password': password,
-      'userTypeID': "54cca757-54ec-4671-a714-64208c5197fb",
+      'userTypeID': "759FC22F-74EC-4852-9648-88878CA70983",
       'institutionId': institution,
       'location': "No Location added",
       'bio': "No bio added",
@@ -661,15 +455,16 @@ class UserServices {
       'numberOfReviews': 0
     });
 
-    final header = <String, String>{
-      'Content-Type': 'application/json; charset=utf-8',
+    final header = {
+      "Accept": "application/json",
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*"
     };
     try {
       final response = await http.post(modulesURL, headers: header, body: data);
+      log(response.statusCode.toString());
       if (response.statusCode == 200) {
-        final Users tutor = Users.fromObject(jsonDecode(response.body)['user']);
-        Globals global = Globals(tutor, json.decode(response.body)['token'],
-            json.decode(response.body)['refreshToken']);
+        final global = await logInTutee(email, password);
 
         return global;
       } else {
@@ -706,23 +501,8 @@ class UserServices {
       if (response.statusCode == 204) {
         return tutee;
       } else if (response.statusCode == 401) {
-        final refreshUrl =
-            Uri.http(global.getTutorMeUrl, 'api/account/refreshToken');
-
-        final data = jsonEncode({
-          'expiredToken': global.getToken,
-          'refreshToken': global.getRefreshToken
-        });
-
-        final refreshResponse =
-            await http.post(refreshUrl, body: data, headers: global.getHeader);
-
-        if (refreshResponse.statusCode == 200) {
-          final refreshData = jsonDecode(refreshResponse.body);
-          global.setToken = refreshData['token'];
-          global.setRefreshToken = refreshData['refreshToken'];
-          updateTutee(tutee, global);
-        }
+        global = await refreshToken(global);
+        return await updateTutee(tutee, global);
       } else {
         throw Exception('Failed to update' + response.statusCode.toString());
       }
@@ -819,6 +599,28 @@ class UserServices {
           await http.put(modulesURL, headers: global.getHeader, body: data);
       if (response.statusCode == 200) {
         return tutor;
+      } else if (response.statusCode == 401) {
+        global = await refreshToken(global);
+        return await updateTutee(tutor, global);
+      } else {
+        throw Exception('Failed to update' + response.statusCode.toString());
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  static updateTutorBio(String userId, String bio, Globals globals) async {
+    try {
+      final modulesURL = Uri.parse(
+          'http://${globals.getTutorMeUrl}/api/Users/Bio/$userId?Bio=$bio');
+      final response = await http.put(modulesURL, headers: globals.getHeader);
+      log(response.statusCode.toString());
+      if (response.statusCode == 200) {
+        return true;
+      } else if (response.statusCode == 401) {
+        globals = await refreshToken(globals);
+        return await updateTutorBio(userId, bio, globals);
       } else {
         throw Exception('Failed to update' + response.statusCode.toString());
       }
@@ -840,23 +642,8 @@ class UserServices {
       if (response.statusCode == 200) {
         return globals.getUser;
       } else if (response.statusCode == 401) {
-        final refreshUrl =
-            Uri.http(globals.getTutorMeUrl, 'api/account/refreshToken');
-
-        final data = jsonEncode({
-          'expiredToken': globals.getToken,
-          'refreshToken': globals.getRefreshToken
-        });
-
-        final refreshResponse =
-            await http.post(refreshUrl, body: data, headers: globals.getHeader);
-
-        if (refreshResponse.statusCode == 200) {
-          final refreshData = jsonDecode(refreshResponse.body);
-          globals.setToken = refreshData['token'];
-          globals.setRefreshToken = refreshData['refreshToken'];
-          changePassword(password, globals);
-        }
+        globals = await refreshToken(globals);
+        return await changePassword(password, globals);
       } else {
         throw Exception('Failed to update' + response.statusCode.toString());
       }
@@ -931,7 +718,7 @@ class UserServices {
     String data = jsonEncode({
       'email': email,
       'password': password,
-      'typeId': '7654103a-01ba-4277-b5e9-82746855f9f4'
+      'typeId': '98CA5264-1266-4158-82B6-5DE7FDD03599'
     });
     final header = <String, String>{
       'Content-Type': 'application/json; charset=utf-8',
@@ -941,6 +728,8 @@ class UserServices {
       final modulesURL = Uri.parse(
           'http://${tempGlobals.getTutorMeUrl}/api/account/authtoken');
       final response = await http.post(modulesURL, headers: header, body: data);
+      log(response.statusCode.toString());
+      log(response.body);
       if (response.statusCode == 200) {
         final Users tutor = Users.fromObject(jsonDecode(response.body)['user']);
         Globals global = Globals(tutor, json.decode(response.body)['token'],
@@ -951,6 +740,7 @@ class UserServices {
         throw Exception('Failed to log in' + response.statusCode.toString());
       }
     } catch (e) {
+      log(e.toString());
       rethrow;
     }
   }
@@ -977,46 +767,36 @@ class UserServices {
 
   static updateProfileImage(File? image, String id, Globals global) async {
     final imageByte = base64Encode(image!.readAsBytesSync());
-    String data = jsonEncode({'userId': id, 'image': imageByte});
+    String data = jsonEncode(
+        {'id': id, 'userImage': imageByte, 'userTranscript': 'trans'});
 
-    final url = Uri.parse('http://${global.getFilesUrl}/api/UserFiles/image/$id');
-    final header = <String, String>{
-      'Content-Type': 'application/json; charset=utf-8',
-    };
+    final url =
+        Uri.parse('http://${global.getFilesUrl}/api/UserFiles/image/$id');
+
     try {
-      final response =
-          await http.put(url, headers: header, body: data);
+      log('before');
+      log(imageByte);
+      final response = await http.put(url, headers: global.header, body: data);
+      log('jjjj ' + response.statusCode.toString());
+      log(response.body);
       if (response.statusCode == 200) {
         return image;
       } else if (response.statusCode == 401) {
-        final refreshUrl =
-            Uri.http(global.getTutorMeUrl, 'api/account/refreshToken');
-
-        final data = jsonEncode({
-          'expiredToken': global.getToken,
-          'refreshToken': global.getRefreshToken
-        });
-
-        final refreshResponse =
-            await http.post(refreshUrl, body: data, headers: global.getHeader);
-
-        if (refreshResponse.statusCode == 200) {
-          final refreshData = jsonDecode(refreshResponse.body);
-          global.setToken = refreshData['token'];
-          global.setRefreshToken = refreshData['refreshToken'];
-          updateProfileImage(image, id, global);
-        }
+        global = await refreshToken(global);
+        return await updateProfileImage(image, id, global);
       } else {
-        throw "failed to upload ${response.body}";
+        throw "failed to upload ${response.statusCode}";
       }
     } catch (e) {
+      log(e.toString());
       rethrow;
     }
   }
 
   static uploadProfileImage(File? image, String id, Globals global) async {
     final imageByte = base64Encode(image!.readAsBytesSync());
-    String data = jsonEncode({'userId': id, 'image': imageByte});
+    String data =
+        jsonEncode({'id': id, 'userImage': imageByte, 'userTranscript': ''});
 
     final url = Uri.parse('http://${global.getFilesUrl}/api/UserFiles');
     try {
@@ -1025,23 +805,8 @@ class UserServices {
       if (response.statusCode == 200) {
         return image;
       } else if (response.statusCode == 401) {
-        final refreshUrl =
-            Uri.http(global.getTutorMeUrl, 'api/account/refreshToken');
-
-        final data = jsonEncode({
-          'expiredToken': global.getToken,
-          'refreshToken': global.getRefreshToken
-        });
-
-        final refreshResponse =
-            await http.post(refreshUrl, body: data, headers: global.getHeader);
-
-        if (refreshResponse.statusCode == 200) {
-          final refreshData = jsonDecode(refreshResponse.body);
-          global.setToken = refreshData['token'];
-          global.setRefreshToken = refreshData['refreshToken'];
-          uploadProfileImage(image, id, global);
-        }
+        global = await refreshToken(global);
+        return await uploadProfileImage(image, id, global);
       } else {
         throw "failed to upload ${response.statusCode}";
       }
@@ -1050,34 +815,47 @@ class UserServices {
     }
   }
 
-  static uploadTranscript(File? transcript, String id, Globals global) async {
+  static updateTranscript(File? transcript, String id, Globals global) async {
     final transcriptByte = base64Encode(transcript!.readAsBytesSync());
-    String data = jsonEncode({'userId': id, 'transcript': transcriptByte});
+    String data = jsonEncode(
+        {'id': id, 'userImage': '', 'userTranscript': transcriptByte});
+    log(data);
 
-    final url = Uri.parse('http://${global.getFilesUrl}/api/UserFiles/$id');
+    final url =
+        Uri.parse('http://${global.getFilesUrl}/api/UserFiles/image/$id');
+
     try {
       final response =
-          await http.post(url, headers: global.getHeader, body: data);
+          await http.put(url, headers: global.getHeader, body: data);
       if (response.statusCode == 200) {
         return transcript;
       } else if (response.statusCode == 401) {
-        final refreshUrl =
-            Uri.http(global.getTutorMeUrl, 'api/account/refreshToken');
+        global = await refreshToken(global);
+        return await updateTranscript(transcript, id, global);
+      } else {
+        throw "failed to upload ${response.body}";
+      }
+    } catch (e) {
+      log(e.toString());
+      rethrow;
+    }
+  }
 
-        final data = jsonEncode({
-          'expiredToken': global.getToken,
-          'refreshToken': global.getRefreshToken
-        });
+  static uploadTranscript(File? transcript, String id, Globals global) async {
+    final transcriptByte = base64Encode(transcript!.readAsBytesSync());
+    String data = jsonEncode(
+        {'userId': id, 'userImage': '', 'userTranscript': transcriptByte});
 
-        final refreshResponse =
-            await http.post(refreshUrl, body: data, headers: global.getHeader);
-
-        if (refreshResponse.statusCode == 200) {
-          final refreshData = jsonDecode(refreshResponse.body);
-          global.setToken = refreshData['token'];
-          global.setRefreshToken = refreshData['refreshToken'];
-          uploadTranscript(transcript, id, global);
-        }
+    final url = Uri.parse('http://${global.getFilesUrl}/api/UserFiles');
+    try {
+      final response =
+          await http.post(url, headers: global.getHeader, body: data);
+      log(response.statusCode.toString());
+      if (response.statusCode == 200) {
+        return transcript;
+      } else if (response.statusCode == 401) {
+        global = await refreshToken(global);
+        return await uploadTranscript(transcript, id, global);
       } else {
         throw "failed to upload";
       }
@@ -1114,23 +892,8 @@ class UserServices {
         // return Image.file(base64Decode(kk));
         // return list.map((json) => Tutees.fromObject(json)).toList();
       } else if (response.statusCode == 401) {
-        final refreshUrl =
-            Uri.http(globals.getTutorMeUrl, 'api/account/refreshToken');
-
-        final data = jsonEncode({
-          'expiredToken': globals.getToken,
-          'refreshToken': globals.getRefreshToken
-        });
-
-        final refreshResponse =
-            await http.post(refreshUrl, body: data, headers: globals.getHeader);
-
-        if (refreshResponse.statusCode == 200) {
-          final refreshData = jsonDecode(refreshResponse.body);
-          globals.setToken = refreshData['token'];
-          globals.setRefreshToken = refreshData['refreshToken'];
-          getProfileImage(id, globals);
-        }
+        globals = await refreshToken(globals);
+        return await getProfileImage(id, globals);
       } else {
         throw Exception('Failed to load' + response.statusCode.toString());
       }
@@ -1143,7 +906,7 @@ class UserServices {
     String data = jsonEncode({
       'email': email,
       'password': password,
-      'typeId': '54cca757-54ec-4671-a714-64208c5197fb'
+      'typeId': '759FC22F-74EC-4852-9648-88878CA70983'
     });
     final header = <String, String>{
       'Content-Type': 'application/json; charset=utf-8',
@@ -1299,8 +1062,8 @@ class UserServices {
   // }
 
   static Future getTutorProfileImage(String id, Globals global) async {
-    Uri tuteeURL = Uri.parse(
-        'http://tutorfilesystem-dev.us-east-1.elasticbeanstalk.com/api/Userfiles/image/$id');
+    Uri tuteeURL =
+        Uri.parse('http://${global.getFilesUrl}/api/Userfiles/image/$id');
 
     try {
       final response = await http.get(tuteeURL, headers: global.getHeader);
@@ -1315,23 +1078,8 @@ class UserServices {
           return bytes;
         }
       } else if (response.statusCode == 401) {
-        final refreshUrl =
-            Uri.http(global.getTutorMeUrl, 'api/account/refreshToken');
-
-        final data = jsonEncode({
-          'expiredToken': global.getToken,
-          'refreshToken': global.getRefreshToken
-        });
-
-        final refreshResponse =
-            await http.post(refreshUrl, body: data, headers: global.getHeader);
-
-        if (refreshResponse.statusCode == 200) {
-          final refreshData = jsonDecode(refreshResponse.body);
-          global.setToken = refreshData['token'];
-          global.setRefreshToken = refreshData['refreshToken'];
-          return getTutorProfileImage(id, global);
-        }
+        global = await refreshToken(global);
+        return await getTutorProfileImage(id, global);
       } else {
         throw Exception('Failed to load' + response.statusCode.toString());
       }
@@ -1341,8 +1089,8 @@ class UserServices {
   }
 
   static Future getTuteeProfileImage(String id, Globals global) async {
-    Uri tuteeURL = Uri.parse(
-        'http://tutorfilesystem-dev.us-east-1.elasticbeanstalk.com/api/Userfiles/image/$id');
+    Uri tuteeURL =
+        Uri.parse('http://${global.getFilesUrl}/api/Userfiles/image/$id');
 
     try {
       final response = await http.get(tuteeURL, headers: global.getHeader);
@@ -1357,28 +1105,60 @@ class UserServices {
           return bytes;
         }
       } else if (response.statusCode == 401) {
-        final refreshUrl =
-            Uri.http(global.getTutorMeUrl, 'api/account/refreshToken');
-
-        final data = jsonEncode({
-          'expiredToken': global.getToken,
-          'refreshToken': global.getRefreshToken
-        });
-
-        final refreshResponse =
-            await http.post(refreshUrl, body: data, headers: global.getHeader);
-
-        if (refreshResponse.statusCode == 200) {
-          final refreshData = jsonDecode(refreshResponse.body);
-          global.setToken = refreshData['token'];
-          global.setRefreshToken = refreshData['refreshToken'];
-          return getTuteeProfileImage(id, global);
-        }
+        global = await refreshToken(global);
+        return await getTuteeProfileImage(id, global);
       } else {
         throw Exception('Failed to load' + response.statusCode.toString());
       }
     } catch (e) {
       throw Exception(e);
+    }
+  }
+
+  // static updateEvent(Globals global) async {
+  //   Uri url = Uri.parse(
+  //       'http://${global.getTutorMeUrl}/api/Events/date/75D2C06C-5051-4D6C-BBA7-E29D17E4E495?newDate=2022-09-29');
+
+  //   try {
+  //     final response = await http.put(url, headers: global.getHeader);
+  //     if (response.statusCode == 204) {
+  //       return true;
+  //     } else {
+  //       throw Exception('Failed to update' + response.statusCode.toString());
+  //     }
+  //   } catch (e) {
+  //     throw Exception(e);
+  //   }
+  // }
+
+  static Future<Globals> refreshToken(Globals globals) async {
+    log('refreshing token');
+    final refreshUrl =
+        Uri.parse('http://${globals.getTutorMeUrl}/api/account/refreshToken');
+
+    List<String> token = globals.getToken.split(' ');
+    final data = jsonEncode(
+        {'expiredToken': token[1], 'refreshToken': globals.getRefreshToken});
+    final refreshResponse =
+        await http.post(refreshUrl, headers: globals.getHeader, body: data);
+
+    if (refreshResponse.statusCode == 200) {
+      globals.setToken = 'Bearer ' + jsonDecode(refreshResponse.body)['token'];
+      globals.setRefreshToken =
+          jsonDecode(refreshResponse.body)['refreshToken'];
+      globals.setHeader = {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        'Authorization': globals.getToken,
+      };
+      final globalJson = json.encode(globals.toJson());
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+
+      preferences.setString('globals', globalJson);
+      return globals;
+    } else {
+      throw Exception('Failed to refresh token');
     }
   }
 }

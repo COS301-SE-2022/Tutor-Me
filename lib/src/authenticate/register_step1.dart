@@ -17,7 +17,7 @@ class RegisterStep1 extends StatefulWidget {
 class _RegisterStep1State extends State<RegisterStep1> {
   String inputOTP = "";
   String errMsg = "";
-  EmailAuth emailAuth = EmailAuth(sessionName: "TutorWhizz");
+  EmailAuth emailAuth = EmailAuth(sessionName: "Tutor_Me");
   void sendOTP() async {
     var res = await emailAuth.sendOtp(
         recipientMail: emailController.text, otpLength: 5);
