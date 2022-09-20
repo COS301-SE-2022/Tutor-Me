@@ -1,14 +1,15 @@
 class Event {
   String _title = "";
   String _description = "";
-  DateTime _dateOfEvent = DateTime.now();
-  DateTime _timeOfEvent = DateTime.now();
+  String _dateOfEvent = "";
+  String _timeOfEvent = "";
   String _userId = "";
   String _groupId = "";
   String _videoLink = "";
+  String _ownerId = "";
 
   Event(this._title, this._description, this._dateOfEvent, this._timeOfEvent,
-      this._userId, this._groupId, this._videoLink);
+      this._userId, this._groupId, this._videoLink, this._ownerId);
 
   set title(String title) {
     _title = title;
@@ -18,11 +19,11 @@ class Event {
     _description = description;
   }
 
-  set dateOfEvent(DateTime dateOfEvent) {
+  set dateOfEvent(String dateOfEvent) {
     _dateOfEvent = dateOfEvent;
   }
 
-  set timeOfEvent(DateTime timeOfEvent) {
+  set timeOfEvent(String timeOfEvent) {
     _timeOfEvent = timeOfEvent;
   }
 
@@ -34,12 +35,18 @@ class Event {
     _videoLink = videoLink;
   }
 
+  set ownerId(String ownerId) {
+    _ownerId = ownerId;
+  }
+
   String get getTitle => _title;
   String get getDescription => _description;
-  DateTime get getDateOfEvent => _dateOfEvent;
-  DateTime get getTimeOfEvent => _timeOfEvent;
+  String get getDateOfEvent => _dateOfEvent;
+  String get getTimeOfEvent => _timeOfEvent;
   String get getGroupId => _groupId;
   String get getVideoLink => _videoLink;
+  String get getUserId => _userId;
+  String get getOwnerId => _ownerId;
 
   Map<String, dynamic> toMap() {
     var data = <String, dynamic>{};
@@ -50,16 +57,18 @@ class Event {
     data['userId'] = _userId;
     data['groupId'] = _groupId;
     data['videoLink'] = _videoLink;
+    data['ownerId'] = _ownerId;
     return data;
   }
 
   Event.fromObject(dynamic o) {
     _title = o["title"];
     _description = o['description'];
-    _dateOfEvent = DateTime.parse(o['dateOfEvent']);
-    _timeOfEvent = DateTime.parse(o['timeOfEvent']);
+    _dateOfEvent = o['dateOfEvent'];
+    _timeOfEvent = o['timeOfEvent'];
     _userId = o['userId'];
     _groupId = o['groupId'];
     _videoLink = o['videoLink'];
+    _ownerId = o['ownerId'];
   }
 }

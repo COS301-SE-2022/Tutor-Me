@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:tutor_me/services/models/globals.dart';
 import 'package:tutor_me/services/services/module_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
@@ -8,6 +9,7 @@ import 'package:tutor_me/src/tutorProfilePages/user_stats.dart';
 import '../../services/models/modules.dart';
 import '../../services/models/users.dart';
 import '../components.dart';
+import '../theme/themes.dart';
 
 class ToReturn {
   Uint8List image;
@@ -38,7 +40,8 @@ class _TuteeProfilePageState extends State<TuteeProfilePageView> {
   bool _isLoading = true;
 
   getCurrentModules() async {
-    final current = await ModuleServices.getUserModules(widget.global.getUser.getId, widget.global);
+    final current = await ModuleServices.getUserModules(
+        widget.global.getUser.getId, widget.global);
     setState(() {
       currentModules = current;
       _isLoading = false;
@@ -75,7 +78,8 @@ class _TuteeProfilePageState extends State<TuteeProfilePageView> {
               )
             : WillPopScope(
                 onWillPop: () async {
-                  Navigator.pop(context, ToReturn(widget.image, widget.global.getUser));
+                  Navigator.pop(
+                      context, ToReturn(widget.image, widget.global.getUser));
                   return false;
                 },
                 child: ListView(
@@ -147,10 +151,12 @@ class _TuteeProfilePageState extends State<TuteeProfilePageView> {
   Widget buildBody() {
     final screenWidthSize = MediaQuery.of(context).size.width;
     final screenHeightSize = MediaQuery.of(context).size.height;
-    String name = widget.global.getUser.getName + ' ' + widget.global.getUser.getLastName;
+    String name =
+        widget.global.getUser.getName + ' ' + widget.global.getUser.getLastName;
     String personalInfo = name + '(' + widget.global.getUser.getAge + ')';
-    String courseInfo =
-        widget.global.getUser.getInstitutionID + ' | ' + widget.global.getUser.getInstitutionID;
+    String courseInfo = widget.global.getUser.getInstitutionID +
+        ' | ' +
+        widget.global.getUser.getInstitutionID;
     String gender = "";
     if (widget.global.getUser.getGender == "F") {
       gender = "Female";
@@ -293,6 +299,23 @@ class _TuteeProfilePageState extends State<TuteeProfilePageView> {
   }
 
   Widget _moduleListBuilder(BuildContext context, int i) {
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
+    Color textColor;
+    Color secondaryTextColor;
+    Color primaryColor;
+    Color highLightColor;
+
+    if (provider.themeMode == ThemeMode.dark) {
+      textColor = colorWhite;
+      secondaryTextColor = colorGrey;
+      primaryColor = colorLightGrey;
+      highLightColor = colorLightBlueTeal;
+    } else {
+      textColor = Colors.black;
+      secondaryTextColor = colorOrange;
+      primaryColor = colorBlueTeal;
+      highLightColor = colorOrange;
+    }
     String moduleDescription =
         currentModules[i].getModuleName + '(' + currentModules[i].getCode + ')';
     return Row(
@@ -300,7 +323,7 @@ class _TuteeProfilePageState extends State<TuteeProfilePageView> {
         Icon(
           Icons.book,
           size: MediaQuery.of(context).size.height * 0.02,
-          color: colorOrange,
+          color: highLightColor,
         ),
         Expanded(
           child: Text(
@@ -309,7 +332,7 @@ class _TuteeProfilePageState extends State<TuteeProfilePageView> {
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
               fontSize: MediaQuery.of(context).size.height * 0.05,
-              color: Colors.black,
+              color: textColor,
             ),
           ),
         ),

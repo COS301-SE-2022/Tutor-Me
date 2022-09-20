@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:tutor_me/services/models/globals.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 // import 'package:tutor_me/src/pages/badges.dart';
 import 'package:tutor_me/src/pages/upcoming.dart';
 
+import '../theme/themes.dart';
 import 'calendar_screen.dart';
 
 class Calendar extends StatefulWidget {
@@ -19,7 +21,12 @@ class _CalendarState extends State<Calendar> {
   int currentIndex = 0;
 
   getScreens() {
-    return [const Upcoming(), CalendarScreen(globals: widget.globals)];
+    return [
+      Upcoming(
+        globals: widget.globals,
+      ),
+      CalendarScreen(globals: widget.globals)
+    ];
   }
   // late CalendarController _controller;
 
@@ -51,6 +58,26 @@ class _CalendarState extends State<Calendar> {
 
   @override
   Widget build(BuildContext context) {
+
+final provider = Provider.of<ThemeProvider>(context, listen: false);
+
+    Color primaryColor;
+    Color secondaryColor;
+    Color textColor;
+    Color highLightColor;
+
+    if (provider.themeMode == ThemeMode.dark) {
+      primaryColor = colorGrey;
+      textColor = colorWhite;
+      highLightColor = colorLightBlueTeal;
+      secondaryColor = colorLightGrey;
+    } else {
+      primaryColor = colorBlueTeal;
+      textColor = colorDarkGrey;
+      highLightColor = colorOrange;
+      secondaryColor = colorWhite;
+    }
+
     final screens = getScreens();
 
     double widthOfScreen = MediaQuery.of(context).size.width;
@@ -82,9 +109,9 @@ class _CalendarState extends State<Calendar> {
                       currentIndex = index;
                     });
                   },
-                  indicatorColor: colorOrange,
+                  indicatorColor: highLightColor,
                   unselectedLabelColor: colorGrey,
-                  labelColor: colorOrange,
+                  labelColor: highLightColor,
                   unselectedLabelStyle: TextStyle(
                     fontSize: MediaQuery.of(context).size.height * 0.02,
                     fontWeight: FontWeight.w400,
