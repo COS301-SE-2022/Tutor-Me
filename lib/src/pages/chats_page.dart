@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:tutor_me/services/models/globals.dart';
 import 'package:tutor_me/services/services/user_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
@@ -9,6 +10,7 @@ import 'package:tutor_me/src/pages/tutors_list.dart';
 import '../../services/models/users.dart';
 import '../Groups/tutee_group.dart';
 import '../chat/one_to_one_chat.dart';
+import '../theme/themes.dart';
 // import 'package:tutor_me/modules/api.services.dart';
 // import 'package:tutor_me/modules/tutors.dart';
 // import 'tutorProfilePages/tutor_profile_view.dart';
@@ -106,6 +108,19 @@ class ChatsState extends State<Chats> {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
+
+    Color textColor;
+    Color highLightColor;
+
+    if (provider.themeMode == ThemeMode.dark) {
+      textColor = colorWhite;
+      highLightColor = colorLightBlueTeal;
+    } else {
+      textColor = colorDarkGrey;
+      highLightColor = colorOrange;
+    }
+
     return Scaffold(
       body: _isLoading
           ? const Center(child: CircularProgressIndicator.adaptive())
@@ -127,9 +142,12 @@ class ChatsState extends State<Chats> {
                       Icon(
                         Icons.chat,
                         size: MediaQuery.of(context).size.height * 0.09,
-                        color: colorOrange,
+                        color: highLightColor,
                       ),
-                      const Text('No Chats found')
+                      Text(
+                        'No Chats found',
+                        style: TextStyle(color: textColor),
+                      )
                     ],
                   ),
                 ),
@@ -137,6 +155,25 @@ class ChatsState extends State<Chats> {
   }
 
   Widget _chatBuilder(BuildContext context, int i) {
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
+
+    Color primaryColor;
+    Color secondaryColor;
+    Color textColor;
+    Color highLightColor;
+
+    if (provider.themeMode == ThemeMode.dark) {
+      primaryColor = colorGrey;
+      textColor = colorWhite;
+      highLightColor = colorLightBlueTeal;
+      secondaryColor = colorLightGrey;
+    } else {
+      primaryColor = colorBlueTeal;
+      textColor = colorDarkGrey;
+      highLightColor = colorOrange;
+      secondaryColor = colorWhite;
+    }
+
     String name;
     if (userType.getType == "Tutors") {
       name = tuteeChats[i].tutee.getName + ' ' + userChats[i].getLastName;
@@ -197,8 +234,12 @@ class ChatsState extends State<Chats> {
                               ),
                             ),
                 ),
-                title: Text(name),
-                subtitle: const Text('Hi, how are you'),
+                title: Text(
+                  name,
+                  style: TextStyle(color: textColor),
+                ),
+                subtitle:  Text('Hi, how are you',
+                    style: TextStyle(color: textColor)),
                 // trailing: ,
               ),
             ],

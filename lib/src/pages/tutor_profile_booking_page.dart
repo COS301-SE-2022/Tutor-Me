@@ -168,13 +168,19 @@ class _TutorProfileBookingPageState extends State<TutorProfileBookingPage> {
     final provider = Provider.of<ThemeProvider>(context, listen: false);
     Color textColor;
     Color secondaryTextColor;
+    Color primaryColor;
+    Color highLightColor;
 
     if (provider.themeMode == ThemeMode.dark) {
       textColor = colorWhite;
       secondaryTextColor = colorGrey;
+      primaryColor =  colorLightGrey;
+      highLightColor = colorLightBlueTeal;
     } else {
       textColor = Colors.black;
       secondaryTextColor = colorOrange;
+      primaryColor = colorBlueTeal;
+      highLightColor = colorOrange;
     }
 
     final screenWidthSize = MediaQuery.of(context).size.width;
@@ -208,7 +214,7 @@ class _TutorProfileBookingPageState extends State<TutorProfileBookingPage> {
         style: TextStyle(
           fontSize: screenWidthSize * 0.04,
           fontWeight: FontWeight.normal,
-          color: colorBlueTeal,
+          color: textColor ,
         ),
       ),
       SizedBox(height: screenHeightSize * 0.02),
@@ -332,10 +338,12 @@ class _TutorProfileBookingPageState extends State<TutorProfileBookingPage> {
               onPressed: () {
                 showModuleSelect(context);
               },
-              child: const Text("Proceed to booking"),
+              child:  Text("Proceed to booking", style: TextStyle(
+                color: textColor,
+              ),),
               style: ButtonStyle(
                 backgroundColor:
-                    MaterialStateProperty.all(Colors.deepOrangeAccent),
+                    MaterialStateProperty.all(Color.fromARGB(255, 104, 94, 90)),
               ),
             ),
           ))
@@ -343,17 +351,26 @@ class _TutorProfileBookingPageState extends State<TutorProfileBookingPage> {
   }
 
   Widget topDesign() {
-    final provider = Provider.of<ThemeProvider>(context, listen: false);
+     final provider = Provider.of<ThemeProvider>(context, listen: false);
     Color textColor;
-    Color highlightColor;
+    Color secondaryTextColor;
+    Color primaryColor;
+    Color highLightColor;
 
     if (provider.themeMode == ThemeMode.dark) {
-      highlightColor = colorBlueTeal;
       textColor = colorWhite;
+      secondaryTextColor = colorGrey;
+      primaryColor =  colorLightGrey;
+      highLightColor = colorLightBlueTeal;
     } else {
-      highlightColor = colorOrange;
       textColor = Colors.black;
+      secondaryTextColor = colorOrange;
+      primaryColor = colorBlueTeal;
+      highLightColor = colorOrange;
     }
+  
+
+  
     return Stack(
       clipBehavior: Clip.none,
       alignment: Alignment.center,
@@ -385,7 +402,7 @@ class _TutorProfileBookingPageState extends State<TutorProfileBookingPage> {
                     },
                     style: ButtonStyle(
                         backgroundColor:
-                            MaterialStateProperty.all(highlightColor),
+                            MaterialStateProperty.all(highLightColor),
                         shape: MaterialStateProperty.all(RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(
                                 MediaQuery.of(context).size.width * 0.1))))))

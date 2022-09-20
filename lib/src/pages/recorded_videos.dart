@@ -5,12 +5,14 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:provider/provider.dart';
 import 'package:tutor_me/screens/recording_screen.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:http/http.dart' as http;
 
 import '../../utils/toast.dart';
+import '../theme/themes.dart';
 
 class RecordedVideos extends StatefulWidget {
   const RecordedVideos({Key? key}) : super(key: key);
@@ -48,6 +50,25 @@ class _RecordedVideosState extends State<RecordedVideos> {
 
   @override
   Widget build(BuildContext context) {
+      final provider = Provider.of<ThemeProvider>(context, listen: false);
+
+    Color primaryColor;
+    Color secondaryColor;
+    Color textColor;
+    Color highLightColor;
+
+    if (provider.themeMode == ThemeMode.dark) {
+      primaryColor = colorGrey;
+      textColor = colorWhite;
+      highLightColor = colorLightBlueTeal;
+      secondaryColor = colorLightGrey;
+    } else {
+      primaryColor = colorBlueTeal;
+      textColor = colorDarkGrey;
+      highLightColor = colorOrange;
+      secondaryColor = colorWhite;
+    }
+    
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -55,7 +76,7 @@ class _RecordedVideosState extends State<RecordedVideos> {
           onPressed: () => Navigator.of(context).pop(),
         ),
         centerTitle: true,
-        backgroundColor: colorBlueTeal,
+        backgroundColor: primaryColor,
         title: const Center(child: Text('Recorded Videos')),
       ),
       body: SizedBox(
@@ -71,6 +92,24 @@ class _RecordedVideosState extends State<RecordedVideos> {
   }
 
   Widget _cardBuilder(BuildContext context, int index) {
+      final provider = Provider.of<ThemeProvider>(context, listen: false);
+
+    Color primaryColor;
+    Color secondaryColor;
+    Color textColor;
+    Color highLightColor;
+
+    if (provider.themeMode == ThemeMode.dark) {
+      primaryColor = colorGrey;
+      textColor = colorWhite;
+      highLightColor = colorLightBlueTeal;
+      secondaryColor = colorLightGrey;
+    } else {
+      primaryColor = colorBlueTeal;
+      textColor = colorDarkGrey;
+      highLightColor = colorOrange;
+      secondaryColor = colorWhite;
+    }
     return Padding(
       padding: EdgeInsets.only(
           top: MediaQuery.of(context).size.height * 0.02,
@@ -92,6 +131,7 @@ class _RecordedVideosState extends State<RecordedVideos> {
                 'Video' ' ' + (index + 1).toString(),
                 textAlign: TextAlign.center,
                 style: TextStyle(
+                  color: textColor,
                   fontWeight: FontWeight.w500,
                   fontSize: MediaQuery.of(context).size.height * 0.028,
                 ),
@@ -105,7 +145,8 @@ class _RecordedVideosState extends State<RecordedVideos> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 Text("Date: " +
-                    _meetingDateList[index].characters.take(10).toString()),
+                    _meetingDateList[index].characters.take(10).toString(),
+                    style: TextStyle(color: textColor),),
               ],
             ),
             const SizedBox(
@@ -132,7 +173,7 @@ class _RecordedVideosState extends State<RecordedVideos> {
                     },
                     child: const Text('View'),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: colorOrange,
+                      backgroundColor: highLightColor,
                     ),
                   ),
                 ),

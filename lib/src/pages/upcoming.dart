@@ -1,5 +1,13 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:tutor_me/services/services/user_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
+
+import '../../services/models/event.dart';
+import '../../services/models/globals.dart';
+import '../../services/models/users.dart';
+import '../../services/services/events_services.dart';
 // import 'package:tutor_me/modules/api.services.dart';
 // import 'package:tutor_me/modules/tutors.dart';
 // import 'tutorProfilePages/tutor_profile_view.dart';
@@ -8,7 +16,8 @@ import 'package:tutor_me/src/colorpallete.dart';
 // import 'theme/themes.dart';
 
 class Upcoming extends StatefulWidget {
-  const Upcoming({Key? key}) : super(key: key);
+  final Globals globals;
+  const Upcoming({Key? key, required this.globals}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -17,33 +26,9 @@ class Upcoming extends StatefulWidget {
 }
 
 class UpcomingState extends State<Upcoming> {
-  var titles = [
-    'COS301 - Software Engineering Meeting',
-    'COS326 - Database Management Meeting',
-    'COS341 - Compiler Construction Meeting',
-    'COS332 - Operating Systems Meeting',
-  ];
-
-  var dates = [
-    '2021-09-01',
-    '2021-09-02',
-    '2021-09-03',
-    '2021-09-04',
-  ];
-
-  var times = [
-    '10:00',
-    '11:00',
-    '12:00',
-    '13:00',
-  ];
-
-  var tutors = [
-    'Ladeb Sibanda',
-    'Kuda Chivunga',
-    'Thabo Maduna',
-    'Simphiwe Ndlovu'
-  ];
+  List<Event> events = List<Event>.empty(growable: true);
+  bool isLoading = true;
+  List<Users> owner = List<Users>.empty(growable: true);
 
   List<Color> colors = [
     const Color.fromARGB(255, 243, 109, 0),
@@ -52,144 +37,206 @@ class UpcomingState extends State<Upcoming> {
     const Color.fromARGB(255, 255, 230, 0),
   ];
 
+  Color getRandomColor() {
+    int x = Random().nextInt(colors.length);
+    return colors[x];
+  }
+
   void search(String search) {
     setState(() {
       //  tutors = tutors.where((tu) => false)
     });
   }
 
+  getUserEvents() async {
+    try {
+      final incomingEvents = await EventServices.getEventsByUserId(
+          widget.globals.getUser.getId, widget.globals);
+      print(incomingEvents);
+      events = incomingEvents;
+    } catch (e) {
+      print("------------------------");
+      print(e.toString());
+      print("------------------------");
+      const snack = SnackBar(content: Text('Error loading events'));
+      ScaffoldMessenger.of(context).showSnackBar(snack);
+    }
+
+    getOwner();
+  }
+
+  getOwner() async {
+    try {
+      for (int i = 0; i < events.length; i++) {
+        final incomingOwner =
+            await UserServices.getTutor(events[i].getOwnerId, widget.globals);
+        owner += incomingOwner;
+      }
+    } catch (e) {
+      const snack = SnackBar(content: Text('Error loading events'));
+      ScaffoldMessenger.of(context).showSnackBar(snack);
+    }
+    setState(() {
+      isLoading = false;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getUserEvents();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SizedBox(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        child: ListView.builder(
-          // padding: const EdgeInsets.all(10),
-          itemCount: 4,
-          itemBuilder: _cardBuilder,
-        ),
-      ),
+      body: isLoading
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
+          : SizedBox(
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              child: ListView.builder(
+                // padding: const EdgeInsets.all(10),
+                itemCount: events.length,
+                itemBuilder: _cardBuilder,
+              ),
+            ),
     );
   }
 
   Widget _cardBuilder(BuildContext context, int i) {
-    return GestureDetector(
-      child: Column(
-        children: <Widget>[
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.02,
-          ),
-          Container(
-            height: MediaQuery.of(context).size.height * 0.155,
-            width: MediaQuery.of(context).size.width * 0.9,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(10),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.3),
-                  spreadRadius: 5,
-                  blurRadius: 7,
-                  offset: const Offset(0, 3), // changes position of shadow
-                ),
-              ],
+    // ignore: unnecessary_null_comparison
+    if (events == null) {
+      return const Center(
+        child: Text('No events found',
+            style: TextStyle(fontSize: 20, color: Colors.black)),
+      );
+    }
+    {
+      return GestureDetector(
+        child: Column(
+          children: <Widget>[
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.02,
             ),
-            child: Row(
-              children: [
-                Container(
-                  height: MediaQuery.of(context).size.height * 0.155,
-                  width: MediaQuery.of(context).size.width * 0.1,
-                  decoration: BoxDecoration(
-                    color: colors[i],
-                    borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(10),
-                        bottomLeft: Radius.circular(10)),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.3),
-                        spreadRadius: 5,
-                        blurRadius: 7,
-                        offset:
-                            const Offset(0, 3), // changes position of shadow
-                      ),
-                    ],
+            Container(
+              height: MediaQuery.of(context).size.height * 0.155,
+              width: MediaQuery.of(context).size.width * 0.9,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.3),
+                    spreadRadius: 5,
+                    blurRadius: 7,
+                    offset: const Offset(0, 3), // changes position of shadow
                   ),
-                ),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.02,
-                ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.01,
+                ],
+              ),
+              child: Row(
+                children: [
+                  Container(
+                    height: MediaQuery.of(context).size.height * 0.155,
+                    width: MediaQuery.of(context).size.width * 0.1,
+                    decoration: BoxDecoration(
+                      color: getRandomColor(),
+                      borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(10),
+                          bottomLeft: Radius.circular(10)),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.3),
+                          spreadRadius: 5,
+                          blurRadius: 7,
+                          offset:
+                              const Offset(0, 3), // changes position of shadow
+                        ),
+                      ],
                     ),
-                    Text(
-                      titles[i],
-                      style: TextStyle(
-                        color: colorBlack,
-                        fontWeight: FontWeight.w500,
-                        fontSize: MediaQuery.of(context).size.height * 0.022,
+                  ),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.02,
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.01,
                       ),
-                    ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.01,
-                    ),
-                    Container(
-                      height: MediaQuery.of(context).size.height * 0.001,
-                      width: MediaQuery.of(context).size.width * 0.7,
-                      decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 36, 35, 35)
-                            .withOpacity(0.2),
-                      ),
-                    ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.02,
-                    ),
-                    Text("Date: " + dates[i],
-                        style: TextStyle(
-                          color: colorDarkGrey,
-                          fontWeight: FontWeight.w500,
-                          fontSize: MediaQuery.of(context).size.height * 0.018,
-                        )),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.01,
-                    ),
-                    Text("Time: " + times[i],
-                        style: TextStyle(
-                          color: colorDarkGrey,
-                          fontWeight: FontWeight.w500,
-                          fontSize: MediaQuery.of(context).size.height * 0.018,
-                        )),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.01,
-                    ),
-                    Row(children: <Widget>[
                       Text(
-                        "Created by - Tutor: ",
+                        events[i].getTitle,
                         style: TextStyle(
-                          color: colorBlueTeal,
+                          color: colorBlack,
                           fontWeight: FontWeight.w500,
-                          fontSize: MediaQuery.of(context).size.height * 0.018,
+                          fontSize: MediaQuery.of(context).size.height * 0.022,
                         ),
                       ),
-                      Text(tutors[i],
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.01,
+                      ),
+                      Container(
+                        height: MediaQuery.of(context).size.height * 0.001,
+                        width: MediaQuery.of(context).size.width * 0.7,
+                        decoration: BoxDecoration(
+                          color: const Color.fromARGB(255, 36, 35, 35)
+                              .withOpacity(0.2),
+                        ),
+                      ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.02,
+                      ),
+                      Text("Date: " + events[i].getDateOfEvent,
                           style: TextStyle(
                             color: colorDarkGrey,
                             fontWeight: FontWeight.w500,
                             fontSize:
                                 MediaQuery.of(context).size.height * 0.018,
                           )),
-                    ])
-                  ],
-                ),
-              ],
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.01,
+                      ),
+                      Text("Time: " + events[i].getTimeOfEvent,
+                          style: TextStyle(
+                            color: colorDarkGrey,
+                            fontWeight: FontWeight.w500,
+                            fontSize:
+                                MediaQuery.of(context).size.height * 0.018,
+                          )),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.01,
+                      ),
+                      Row(children: <Widget>[
+                        Text(
+                          "Created by - Tutor: ",
+                          style: TextStyle(
+                            color: colorBlueTeal,
+                            fontWeight: FontWeight.w500,
+                            fontSize:
+                                MediaQuery.of(context).size.height * 0.018,
+                          ),
+                        ),
+                        Text(
+                          owner[i].getName + " " + owner[i].getLastName,
+                          style: TextStyle(
+                            color: colorDarkGrey,
+                            fontWeight: FontWeight.w500,
+                            fontSize:
+                                MediaQuery.of(context).size.height * 0.018,
+                          ),
+                        ),
+                      ])
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
-      ),
-    );
+          ],
+        ),
+      );
+    }
   }
 }
