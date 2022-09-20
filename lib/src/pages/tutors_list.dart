@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -153,6 +154,7 @@ class TutorListState extends State<TutorList> {
     try {
       final tutors = await UserServices.getTutors(widget.globals);
       tutorList = tutors;
+      log(tutorList.length.toString());
       getConnections();
     } catch (e) {
       setState(() {
@@ -171,9 +173,7 @@ class TutorListState extends State<TutorList> {
           widget.globals.getUser.getUserTypeID,
           widget.globals);
 
-      setState(() {
-        connectedTutors = tutors;
-      });
+      connectedTutors = tutors;
 
       for (int i = 0; i < tutorLength; i++) {
         for (int j = 0; j < connectedTutors.length; j++) {

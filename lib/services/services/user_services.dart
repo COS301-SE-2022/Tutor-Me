@@ -382,8 +382,6 @@ class UserServices {
     final modulesURL =
         Uri.parse('http://${tempGlobals.getTutorMeUrl}/api/Users/');
 
-    //source: https://protocoderspoint.com/flutter-encryption-decryption-using-flutter-string-encryption/#:~:text=open%20your%20flutter%20project%20that,IDE(android%2Dstudio).&text=Then%20after%20you%20have%20added,the%20password%20the%20user%20enter.
-
     // password = hashPassword(password);
     String data = jsonEncode({
       'userId': institution,
@@ -394,7 +392,7 @@ class UserServices {
       'gender': gender,
       'email': email,
       'password': password,
-      'userTypeID': "7654103a-01ba-4277-b5e9-82746855f9f4",
+      'userTypeID': "98CA5264-1266-4158-82B6-5DE7FDD03599",
       'institutionId': institution,
       'location': "No Location added",
       'bio': "No bio added",
@@ -410,12 +408,10 @@ class UserServices {
     };
     try {
       final response = await http.post(modulesURL, headers: header, body: data);
+      log(response.statusCode.toString());
       if (response.statusCode == 200) {
-        final Users tutor = Users.fromObject(jsonDecode(response.body)['user']);
-        Globals global = Globals(tutor, json.decode(response.body)['token'],
-            json.decode(response.body)['refreshToken']);
+        final global = await logInTutor(email, password);
 
-        // await createFileRecord(tutors[0].getId);
         return global;
       } else {
         throw Exception('Failed to upload ' + response.statusCode.toString());
@@ -437,19 +433,20 @@ class UserServices {
       String year) async {
     Globals tempGlobals = Globals(null, '', '');
 
-    final modulesURL = Uri.http(tempGlobals.getTutorMeUrl, '/api/Users/');
-    //source: https://protocoderspoint.com/flutter-encryption-decryption-using-flutter-string-encryption/#:~:text=open%20your%20flutter%20project%20that,IDE(android%2Dstudio).&text=Then%20after%20you%20have%20added,the%20password%20the%20user%20enter.
-    // password = hashPassword(password);
+    final modulesURL =
+        Uri.parse('http://${tempGlobals.getTutorMeUrl}/api/Users/');
 
+    // password = hashPassword(password);
     String data = jsonEncode({
+      'userId': institution,
       'firstName': name,
       'lastName': lastName,
       'dateOfBirth': date,
-      'status': "true",
+      'status': false,
       'gender': gender,
       'email': email,
       'password': password,
-      'userTypeID': "54cca757-54ec-4671-a714-64208c5197fb",
+      'userTypeID': "759FC22F-74EC-4852-9648-88878CA70983",
       'institutionId': institution,
       'location': "No Location added",
       'bio': "No bio added",
@@ -458,15 +455,16 @@ class UserServices {
       'numberOfReviews': 0
     });
 
-    final header = <String, String>{
-      'Content-Type': 'application/json; charset=utf-8',
+    final header = {
+      "Accept": "application/json",
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*"
     };
     try {
       final response = await http.post(modulesURL, headers: header, body: data);
+      log(response.statusCode.toString());
       if (response.statusCode == 200) {
-        final Users tutor = Users.fromObject(jsonDecode(response.body)['user']);
-        Globals global = Globals(tutor, json.decode(response.body)['token'],
-            json.decode(response.body)['refreshToken']);
+        final global = await logInTutee(email, password);
 
         return global;
       } else {
@@ -720,7 +718,7 @@ class UserServices {
     String data = jsonEncode({
       'email': email,
       'password': password,
-      'typeId': '7654103a-01ba-4277-b5e9-82746855f9f4'
+      'typeId': '98CA5264-1266-4158-82B6-5DE7FDD03599'
     });
     final header = <String, String>{
       'Content-Type': 'application/json; charset=utf-8',
@@ -769,19 +767,18 @@ class UserServices {
 
   static updateProfileImage(File? image, String id, Globals global) async {
     final imageByte = base64Encode(image!.readAsBytesSync());
-    log(imageByte);
-    String data =
-        jsonEncode({'id': id, 'userImage': imageByte, 'userTranscript': null});
-    // data += '"}';
-    log(data);
+    String data = jsonEncode(
+        {'id': id, 'userImage': imageByte, 'userTranscript': 'trans'});
 
     final url =
         Uri.parse('http://${global.getFilesUrl}/api/UserFiles/image/$id');
 
     try {
       log('before');
+      log(imageByte);
       final response = await http.put(url, headers: global.header, body: data);
       log('jjjj ' + response.statusCode.toString());
+      log(response.body);
       if (response.statusCode == 200) {
         return image;
       } else if (response.statusCode == 401) {
@@ -801,8 +798,7 @@ class UserServices {
     String data =
         jsonEncode({'id': id, 'userImage': imageByte, 'userTranscript': ''});
 
-    final url =
-        Uri.parse('http://${global.getFilesUrl}/api/UserFiles/image/$id');
+    final url = Uri.parse('http://${global.getFilesUrl}/api/UserFiles');
     try {
       final response =
           await http.post(url, headers: global.getHeader, body: data);
@@ -822,7 +818,7 @@ class UserServices {
   static updateTranscript(File? transcript, String id, Globals global) async {
     final transcriptByte = base64Encode(transcript!.readAsBytesSync());
     String data = jsonEncode(
-        {'id': id, 'userImage': null, 'userTranscript': transcriptByte});
+        {'id': id, 'userImage': '', 'userTranscript': transcriptByte});
     log(data);
 
     final url =
@@ -910,7 +906,7 @@ class UserServices {
     String data = jsonEncode({
       'email': email,
       'password': password,
-      'typeId': '54cca757-54ec-4671-a714-64208c5197fb'
+      'typeId': '759FC22F-74EC-4852-9648-88878CA70983'
     });
     final header = <String, String>{
       'Content-Type': 'application/json; charset=utf-8',

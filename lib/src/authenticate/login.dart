@@ -269,6 +269,12 @@ class _LoginState extends State<Login> {
                           // TutorServices tutor = TutorServices.Login(
                           globals = await UserServices.logInTutee(
                               emailController.text, passwordController.text);
+
+                          final globalJson = json.encode(globals.toJson());
+                          SharedPreferences preferences =
+                              await SharedPreferences.getInstance();
+
+                          preferences.setString('globals', globalJson);
                           Navigator.push(
                             context,
                             MaterialPageRoute(
