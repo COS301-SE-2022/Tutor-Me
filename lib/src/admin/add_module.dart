@@ -2,20 +2,27 @@
 
 import 'package:flutter/material.dart';
 import 'package:tutor_me/src/colorpallete.dart';
+import '../../services/models/globals.dart';
+import '../../services/services/admin_services.dart';
 import '../components.dart';
+// import '../../services/services/module_services.dart';
 
-class UpdateTutor extends StatefulWidget {
-  const UpdateTutor({Key? key}) : super(key: key);
+class AddModule extends StatefulWidget {
+  final Globals global;
+  const AddModule({Key? key, required this.global}) : super(key: key);
 
   @override
-  UpdateTutorState createState() => UpdateTutorState();
+  AddModuleState createState() => AddModuleState();
 }
 
-class UpdateTutorState extends State<UpdateTutor> {
+class AddModuleState extends State<AddModule> {
   final FocusNode idFocusNode = FocusNode();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  final TextEditingController oldemailcontroller = TextEditingController();
-  final TextEditingController newemailcontroller = TextEditingController();
+  final TextEditingController codecontroller = TextEditingController();
+  final TextEditingController namecontroller = TextEditingController();
+  final TextEditingController institutioncontroller = TextEditingController();
+  final TextEditingController facultycontroller = TextEditingController();
+  final TextEditingController yearcontroller = TextEditingController();
 
   bool isLoading = false;
   @override
@@ -57,30 +64,7 @@ class UpdateTutorState extends State<UpdateTutor> {
             backgroundColor: Colors.transparent,
             body: Column(children: [
               const Flexible(
-                child: Center(
-                  child: Text(
-                    'Update Email',
-                    style: TextStyle(
-                      color: colorWhite,
-                      fontSize: 40,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-              const Flexible(
-                child: Text(
-                  '',
-                  style: TextStyle(
-                    color: colorWhite,
-                    fontSize: 30,
-                    fontWeight: FontWeight.normal,
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.04,
-                width: MediaQuery.of(context).size.height,
+                child: Center(),
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
@@ -88,21 +72,51 @@ class UpdateTutorState extends State<UpdateTutor> {
                   SizedBox(
                     width: textBoxWidth,
                     child: TextInputField(
-                      icon: Icons.email_outlined,
-                      hint: 'Enter the old Email',
-                      inputType: TextInputType.emailAddress,
-                      inputAction: TextInputAction.next,
-                      inputController: oldemailcontroller,
+                      icon: Icons.book,
+                      hint: 'Module Code',
+                      inputType: TextInputType.text,
+                      inputAction: TextInputAction.done,
+                      inputController: codecontroller,
                     ),
                   ),
                   SizedBox(
                     width: textBoxWidth,
                     child: TextInputField(
-                      icon: Icons.email_outlined,
-                      hint: 'Enter the new Email',
-                      inputType: TextInputType.emailAddress,
-                      inputAction: TextInputAction.next,
-                      inputController: newemailcontroller,
+                      icon: Icons.book,
+                      hint: 'Module Name',
+                      inputType: TextInputType.text,
+                      inputAction: TextInputAction.done,
+                      inputController: namecontroller,
+                    ),
+                  ),
+                  SizedBox(
+                    width: textBoxWidth,
+                    child: TextInputField(
+                      icon: Icons.house,
+                      hint: 'Institution Id',
+                      inputType: TextInputType.text,
+                      inputAction: TextInputAction.done,
+                      inputController: institutioncontroller,
+                    ),
+                  ),
+                  SizedBox(
+                    width: textBoxWidth,
+                    child: TextInputField(
+                      icon: Icons.house,
+                      hint: 'Faculty',
+                      inputType: TextInputType.text,
+                      inputAction: TextInputAction.done,
+                      inputController: facultycontroller,
+                    ),
+                  ),
+                  SizedBox(
+                    width: textBoxWidth,
+                    child: TextInputField(
+                      icon: Icons.calendar_today,
+                      hint: 'Year',
+                      inputType: TextInputType.text,
+                      inputAction: TextInputAction.done,
+                      inputController: yearcontroller,
                     ),
                   ),
                 ],
@@ -121,14 +135,8 @@ class UpdateTutorState extends State<UpdateTutor> {
                 child: TextButton(
                   onPressed: () async {
                     String errMsg = "";
-                    if (oldemailcontroller.text.isEmpty ||
-                        newemailcontroller.text.isEmpty) {
-                      errMsg +=
-                          "Please fill in the Tutor's Old and New Email \n";
-                    }
-
-                    if (oldemailcontroller.text == newemailcontroller.text) {
-                      errMsg += "Old and new Email must differ \n";
+                    if (codecontroller.text.isEmpty) {
+                      errMsg += "Please fill in the Module Code \n";
                     }
 
                     if (errMsg != "") {
@@ -163,21 +171,20 @@ class UpdateTutorState extends State<UpdateTutor> {
                         },
                       );
                     }
-
-                    //TODO fix this
-
-                    // UserServices.updateTutorByEmail(
-                    //     oldemailcontroller.text, newemailcontroller.text);
-
+                    AdminServices.addModule(
+                        codecontroller.text,
+                        namecontroller.text,
+                        institutioncontroller.text,
+                        facultycontroller.text,
+                        yearcontroller.text,
+                        widget.global);
                     showDialog(
                       context: context,
                       builder: (context) {
                         return AlertDialog(
                           title: const Text("Success"),
-                          content: Text("Tutor email " +
-                              oldemailcontroller.text +
-                              " updated to " +
-                              newemailcontroller.text),
+                          content:
+                              Text("Module " + namecontroller.text + " Added"),
                           backgroundColor: colorWhite,
                           titleTextStyle: TextStyle(
                             color: colorBlack,
@@ -201,7 +208,7 @@ class UpdateTutorState extends State<UpdateTutor> {
                   },
                   child: isLoading
                       ? const CircularProgressIndicator(color: Colors.white)
-                      : const Text("Update Tutor",
+                      : const Text("Add Module",
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
