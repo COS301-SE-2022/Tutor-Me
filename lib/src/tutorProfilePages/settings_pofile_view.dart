@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:tutor_me/services/models/globals.dart';
 import 'package:tutor_me/services/services/institution_services.dart';
 import 'package:tutor_me/services/services/module_services.dart';
@@ -12,6 +13,7 @@ import '../../services/models/intitutions.dart';
 import '../../services/models/modules.dart';
 import '../../services/models/users.dart';
 import '../components.dart';
+import '../theme/themes.dart';
 import '../tuteeProfilePages/edit_module_list.dart';
 
 class ToReturn {
@@ -117,6 +119,21 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
   }
 
   Widget buildBody() {
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
+    Color textColor;
+    Color primaryColor;
+    Color highLightColor;
+
+    if (provider.themeMode == ThemeMode.dark) {
+      textColor = colorWhite;
+      primaryColor = colorLightGrey;
+      highLightColor = colorLightBlueTeal;
+    } else {
+      textColor = Colors.black;
+      primaryColor = colorBlueTeal;
+      highLightColor = colorOrange;
+    }
+
     final screenWidthSize = MediaQuery.of(context).size.width;
     final screenHeightSize = MediaQuery.of(context).size.height;
     String userName = widget.globals.getUser.getName +
@@ -136,13 +153,13 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
         style: TextStyle(
           fontSize: screenHeightSize * 0.04,
           fontWeight: FontWeight.bold,
-          color: Colors.black,
+          color: textColor,
         ),
       ),
       SmallTagButton(
         btnName: "Tutor",
         onPressed: () {},
-        backColor: colorOrange,
+        backColor: highLightColor,
       ),
       SizedBox(height: screenHeightSize * 0.01),
       Text(
@@ -150,7 +167,7 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
         style: TextStyle(
           fontSize: screenHeightSize * 0.04,
           fontWeight: FontWeight.normal,
-          color: colorBlueTeal,
+          color: primaryColor,
         ),
       ),
       SizedBox(height: screenHeightSize * 0.02),
@@ -173,7 +190,7 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
             style: TextStyle(
               fontSize: screenHeightSize * 0.04,
               fontWeight: FontWeight.bold,
-              color: Colors.black,
+              color: textColor,
             ),
           ),
         ),
@@ -190,7 +207,7 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
               style: TextStyle(
                 fontSize: screenHeightSize * 0.033,
                 fontWeight: FontWeight.normal,
-                color: Colors.black,
+                color: textColor,
               )),
         ),
       ),
@@ -205,7 +222,7 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
               style: TextStyle(
                 fontSize: screenHeightSize * 0.04,
                 fontWeight: FontWeight.bold,
-                color: Colors.black,
+                color: textColor,
               )),
         ),
       ),
@@ -222,7 +239,7 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
               style: TextStyle(
                 fontSize: screenHeightSize * 0.033,
                 fontWeight: FontWeight.normal,
-                color: Colors.black,
+                color: textColor,
               )),
         ),
       ),
@@ -238,7 +255,7 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
               style: TextStyle(
                 fontSize: screenHeightSize * 0.04,
                 fontWeight: FontWeight.bold,
-                color: Colors.black,
+                color: textColor,
               )),
         ),
       ),
@@ -273,7 +290,7 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
             ),
             child: SmallTagBtn(
               btnName: "Edit Module list",
-              backColor: colorBlueTeal,
+              backColor: primaryColor,
               funct: () async {
                 final modules = await Navigator.push(
                   context,
@@ -294,6 +311,16 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
   }
 
   Widget topDesign() {
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
+
+    Color primaryColor;
+
+    if (provider.themeMode == ThemeMode.dark) {
+      primaryColor = colorLightGrey;
+    } else {
+      primaryColor = colorBlueTeal;
+    }
+
     return Stack(
       clipBehavior: Clip.none,
       alignment: Alignment.center,
@@ -339,7 +366,7 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
             },
             child: Icon(
               Icons.edit,
-              color: colorBlueTeal,
+              color: primaryColor,
               size: MediaQuery.of(context).size.height * 0.05,
             ),
           ),
@@ -388,6 +415,18 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
       );
 
   Widget _moduleListBuilder(BuildContext context, int i) {
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
+    Color textColor;
+
+    Color highLightColor;
+
+    if (provider.themeMode == ThemeMode.dark) {
+      textColor = colorWhite;
+      highLightColor = colorLightBlueTeal;
+    } else {
+      textColor = Colors.black;
+      highLightColor = colorOrange;
+    }
     String moduleDescription =
         currentModules[i].getModuleName + '(' + currentModules[i].getCode + ')';
     return Row(
@@ -395,7 +434,7 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
         Icon(
           Icons.book,
           size: MediaQuery.of(context).size.height * 0.02,
-          color: colorOrange,
+          color: highLightColor,
         ),
         Expanded(
           child: Text(
@@ -404,7 +443,7 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
               fontSize: MediaQuery.of(context).size.height * 0.03,
-              color: Colors.black,
+              color: textColor,
             ),
           ),
         ),

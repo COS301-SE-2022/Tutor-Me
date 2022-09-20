@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 // import 'package:tutor_me/src/pages/badges.dart';
 import 'package:tutor_me/src/pages/tutor_explore.dart';
 
 import '../../services/models/globals.dart';
+import '../theme/themes.dart';
 
 class BookForTutor extends StatefulWidget {
   final Globals globals;
@@ -16,13 +18,33 @@ class BookForTutor extends StatefulWidget {
 class _BookForTutorState extends State<BookForTutor> {
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
+
+    Color primaryColor;
+    Color secondaryColor;
+    Color textColor;
+    Color highLightColor;
+
+    if (provider.themeMode == ThemeMode.dark) {
+      primaryColor = colorGrey;
+      textColor = colorWhite;
+      highLightColor = colorLightBlueTeal;
+      secondaryColor = colorLightGrey;
+    } else {
+      primaryColor = colorBlueTeal;
+      textColor = colorDarkGrey;
+      highLightColor = colorOrange;
+      secondaryColor = colorWhite;
+    }
+
     double widthOfScreen = MediaQuery.of(context).size.width;
     double heightOfScreen = MediaQuery.of(context).size.height;
 
     return Scaffold(
       appBar: AppBar(
+
         title: const Text("Book for Tutor"),
-        backgroundColor: colorBlueTeal,
+        backgroundColor: primaryColor,
       ),
       body: Column(children: [
         SizedBox(
@@ -67,7 +89,7 @@ class _BookForTutorState extends State<BookForTutor> {
                         style: TextStyle(
                           fontSize: widthOfScreen * 0.05,
                           fontWeight: FontWeight.bold,
-                          color: colorOrange,
+                          color: highLightColor,
                         ),
                       ),
                     ),
@@ -91,7 +113,7 @@ class _BookForTutorState extends State<BookForTutor> {
                         style: TextStyle(
                           fontSize: widthOfScreen * 0.04,
                           fontWeight: FontWeight.w300,
-                          color: colorGrey,
+                          color: highLightColor,
                         ),
                       ),
                     ),
@@ -110,7 +132,7 @@ class _BookForTutorState extends State<BookForTutor> {
           child: Row(
             children: [
               Icon(Icons.info_outline,
-                  size: widthOfScreen * 0.08, color: colorOrange),
+                  size: widthOfScreen * 0.08, color: highLightColor),
               Flexible(
                 child: Text(
                     "Explore the available tutors and book for One time sessions.",
@@ -118,7 +140,7 @@ class _BookForTutorState extends State<BookForTutor> {
                     style: TextStyle(
                       fontSize: widthOfScreen * 0.05,
                       fontWeight: FontWeight.normal,
-                      color: colorDarkGrey,
+                      color: textColor,
                     )),
               ),
             ],
@@ -135,7 +157,7 @@ class _BookForTutorState extends State<BookForTutor> {
               style: TextStyle(
                 fontSize: widthOfScreen * 0.05,
                 fontWeight: FontWeight.normal,
-                color: colorBlueTeal,
+                color: primaryColor,
               ),
             ),
           ),

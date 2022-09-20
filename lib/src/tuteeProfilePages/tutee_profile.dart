@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:tutor_me/services/models/globals.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 // import 'package:tutor_me/src/colorPalette.dart';
@@ -14,6 +15,7 @@ import '../../services/models/users.dart';
 import '../../services/services/institution_services.dart';
 import '../../services/services/module_services.dart';
 import '../components.dart';
+import '../theme/themes.dart';
 import 'edit_module_list.dart';
 import 'tutee_profile_edit.dart';
 
@@ -47,8 +49,8 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
   bool _isLoading = true;
 
   getCurrentModules() async {
-    final currentModulesList =
-        await ModuleServices.getUserModules(widget.globals.getUser.getId, widget.globals);
+    final currentModulesList = await ModuleServices.getUserModules(
+        widget.globals.getUser.getId, widget.globals);
     setState(() {
       currentModules = currentModulesList;
     });
@@ -109,6 +111,15 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
   }
 
   Widget topDesign() {
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
+
+    Color primaryColor;
+
+    if (provider.themeMode == ThemeMode.dark) {
+      primaryColor = colorLightGrey;
+    } else {
+      primaryColor = colorBlueTeal;
+    }
     return Stack(
       clipBehavior: Clip.none,
       alignment: Alignment.center,
@@ -139,7 +150,7 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
             },
             child: Icon(
               Icons.edit,
-              color: colorBlueTeal,
+              color: primaryColor,
               size: MediaQuery.of(context).size.height * 0.05,
             ),
           ),
@@ -188,6 +199,24 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
       );
 
   Widget buildBody() {
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
+    Color textColor;
+    Color secondaryTextColor;
+    Color primaryColor;
+    Color highLightColor;
+
+    if (provider.themeMode == ThemeMode.dark) {
+      textColor = colorWhite;
+      secondaryTextColor = colorGrey;
+      primaryColor = colorLightGrey;
+      highLightColor = colorLightBlueTeal;
+    } else {
+      textColor = Colors.black;
+      secondaryTextColor = colorOrange;
+      primaryColor = colorBlueTeal;
+      highLightColor = colorOrange;
+    }
+
     final screenWidthSize = MediaQuery.of(context).size.width;
     final screenHeightSize = MediaQuery.of(context).size.height;
     String name = widget.globals.getUser.getName +
@@ -207,13 +236,13 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
         style: TextStyle(
           fontSize: screenWidthSize * 0.08,
           fontWeight: FontWeight.bold,
-          color: Colors.black,
+          color: textColor,
         ),
       ),
       SmallTagButton(
         btnName: "Tutee",
         onPressed: () {},
-        backColor: colorBlueTeal,
+        backColor: primaryColor,
       ),
       SizedBox(height: screenHeightSize * 0.01),
       Text(
@@ -221,7 +250,7 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
         style: TextStyle(
           fontSize: screenWidthSize * 0.04,
           fontWeight: FontWeight.normal,
-          color: colorOrange,
+          color: highLightColor,
         ),
       ),
       SizedBox(height: screenHeightSize * 0.02),
@@ -244,7 +273,7 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
             style: TextStyle(
               fontSize: screenWidthSize * 0.065,
               fontWeight: FontWeight.bold,
-              color: Colors.black,
+              color: textColor,
             ),
           ),
         ),
@@ -261,7 +290,7 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
               style: TextStyle(
                 fontSize: screenWidthSize * 0.05,
                 fontWeight: FontWeight.normal,
-                color: Colors.black,
+                color: textColor,
               )),
         ),
       ),
@@ -276,7 +305,7 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
               style: TextStyle(
                 fontSize: screenWidthSize * 0.06,
                 fontWeight: FontWeight.bold,
-                color: Colors.black,
+                color: textColor,
               )),
         ),
       ),
@@ -293,7 +322,7 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
               style: TextStyle(
                 fontSize: screenWidthSize * 0.05,
                 fontWeight: FontWeight.normal,
-                color: Colors.black,
+                color: textColor,
               )),
         ),
       ),
@@ -309,7 +338,7 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
               style: TextStyle(
                 fontSize: screenWidthSize * 0.06,
                 fontWeight: FontWeight.bold,
-                color: Colors.black,
+                color: textColor,
               )),
         ),
       ),
@@ -344,7 +373,7 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
             ),
             child: SmallTagBtn(
               btnName: "Edit Module list",
-              backColor: colorBlueTeal,
+              backColor: primaryColor,
               funct: () async {
                 final modules =
                     await Navigator.of(context).push(MaterialPageRoute(
@@ -363,6 +392,23 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
   }
 
   Widget _moduleListBuilder(BuildContext context, int i) {
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
+    Color textColor;
+    Color secondaryTextColor;
+    Color primaryColor;
+    Color highLightColor;
+
+    if (provider.themeMode == ThemeMode.dark) {
+      textColor = colorWhite;
+      secondaryTextColor = colorGrey;
+      primaryColor = colorLightGrey;
+      highLightColor = colorLightBlueTeal;
+    } else {
+      textColor = Colors.black;
+      secondaryTextColor = colorOrange;
+      primaryColor = colorBlueTeal;
+      highLightColor = colorOrange;
+    }
     String moduleDescription =
         currentModules[i].getModuleName + '(' + currentModules[i].getCode + ')';
     return Row(
@@ -370,7 +416,7 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
         Icon(
           Icons.book,
           size: MediaQuery.of(context).size.height * 0.02,
-          color: colorOrange,
+          color: highLightColor,
         ),
         Expanded(
           child: Text(
@@ -379,7 +425,7 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
               fontSize: MediaQuery.of(context).size.height * 0.05,
-              color: Colors.black,
+              color: textColor,
             ),
           ),
         ),
