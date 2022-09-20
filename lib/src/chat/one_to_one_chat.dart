@@ -178,8 +178,12 @@ class ChatState extends State<Chat> {
     connection.on('ReceiveMessage', (message) {
       _handleIncommingDriverLocation(message);
     });
-    await connection.invoke('JoinGroup',
-        args: ['', '', widget.globals.getUser.getName, currentUserId]);
+    await connection.invoke('JoinChat', args: [
+      widget.reciever.getName,
+      widget.globals.getUser.getId + widget.reciever.getId,
+      widget.globals.getUser.getName,
+      currentUserId
+    ]);
   }
 
   //get messages

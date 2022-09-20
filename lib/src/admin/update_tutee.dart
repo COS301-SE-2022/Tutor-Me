@@ -168,6 +168,36 @@ class UpdateTuteeState extends State<UpdateTutee> {
 
                     // UserServices.updateTuteeByEmail(
                     //     oldemailcontroller.text, newemailcontroller.text);
+
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          title: const Text("Success"),
+                          content: Text("Tutee email " +
+                              oldemailcontroller.text +
+                              " updated to " +
+                              newemailcontroller.text),
+                          backgroundColor: colorWhite,
+                          titleTextStyle: TextStyle(
+                            color: colorBlack,
+                            fontSize: MediaQuery.of(context).size.height * 0.03,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          actions: <Widget>[
+                            TextButton(
+                              child: const Text(
+                                "Retry",
+                                style: TextStyle(color: colorWhite),
+                              ),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    );
                   },
                   child: isLoading
                       ? const CircularProgressIndicator(color: Colors.white)
