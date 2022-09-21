@@ -148,8 +148,8 @@ class TutorRequestsState extends State<TutorRequests> {
     screenHeight = MediaQuery.of(context).size.height;
     screenWidth = MediaQuery.of(context).size.width;
 
-    return Material(
-      child: isLoading
+    return Scaffold(
+      body: isLoading
           ? const Center(
               child: CircularProgressIndicator.adaptive(),
             )
@@ -166,7 +166,7 @@ class TutorRequestsState extends State<TutorRequests> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Icon(
-                        Icons.notifications_off,
+                        Icons.notifications,
                         size: MediaQuery.of(context).size.height * 0.15,
                         color: colorOrange,
                       ),
@@ -178,7 +178,6 @@ class TutorRequestsState extends State<TutorRequests> {
   }
 
   String getRequestDate(String dateSent) {
-
     final lastDate = DateTime.now();
     String dateAsString = lastDate.toString();
     List<String> currentSplit = dateAsString.split(' ');
@@ -190,13 +189,16 @@ class TutorRequestsState extends State<TutorRequests> {
     String howLongAgo = '';
 
     int currentYear = int.parse(currentDateUnits[0]);
-    int yearSent = int.parse(sentDateUnits[2]);
 
-    int currentMonth = int.parse(currentDateUnits[1]);
+    List<String> actualYear = sentDateUnits[2].split(' ');
+    int yearSent = int.parse(actualYear[0]);
+
+    int currentMonth = int.parse(currentDateUnits[2]);
     int monthSent = int.parse(sentDateUnits[1]);
 
-    int currentDay = int.parse(currentDateUnits[2]);
+    int currentDay = int.parse(currentDateUnits[1]);
     int daySent = int.parse(sentDateUnits[0]);
+
 
     if (currentYear - yearSent > 0) {
       if (currentYear - yearSent > 1) {

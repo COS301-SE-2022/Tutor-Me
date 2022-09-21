@@ -105,7 +105,7 @@ class ModuleServices {
         return module;
       } else if (response.statusCode == 401) {
         global = await refreshToken(global);
-       return await updateModule(module, global);
+        return await updateModule(module, global);
       } else {
         throw Exception('Failed to upload ' + response.statusCode.toString());
       }
