@@ -21,7 +21,7 @@ class TutorActivityState extends State<TutorActivity> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Icon(
-              Icons.notifications_off,
+              Icons.notifications,
               size: MediaQuery.of(context).size.height * 0.15,
               color: colorOrange,
             ),

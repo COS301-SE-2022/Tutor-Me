@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tutor_me/services/models/globals.dart';
+import 'package:tutor_me/src/colorpallete.dart';
 import 'tutee_activity.dart';
 import 'tutee_pending_requests.dart';
 
@@ -41,7 +42,7 @@ class TuteeNotificationsState extends State<TuteeNotifications> {
                   ),
                 ],
               ),
-              backgroundColor: const Color(0xffD6521B),
+              backgroundColor: colorBlueTeal,
               title: const Text('Notifications'),
 
               // actions: <Widget>[

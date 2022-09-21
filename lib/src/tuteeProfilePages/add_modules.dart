@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:tutor_me/services/services/group_services.dart';
 import 'package:tutor_me/services/services/module_services.dart';
@@ -21,7 +23,8 @@ class Module {
 class AddModulesPage extends StatefulWidget {
   final Globals globals;
   List<Modules> currentModules;
-  AddModulesPage({Key? key, required this.globals, required this.currentModules})
+  AddModulesPage(
+      {Key? key, required this.globals, required this.currentModules})
       : super(key: key);
 
   @override
@@ -95,6 +98,7 @@ class _AddModulesPageState extends State<AddModulesPage> {
     final fetchedModules = await ModuleServices.getModules(widget.globals);
 
     moduleList = fetchedModules;
+    log(moduleList.length.toString());
 
     for (var element in moduleList) {
       modules.add(Module(element, false));
@@ -109,10 +113,8 @@ class _AddModulesPageState extends State<AddModulesPage> {
   }
 
   getTutorGroups() async {
-
-    final groups =
-        await GroupServices.getGroupByUserID(widget.globals.getUser.getId, widget.globals);
-
+    final groups = await GroupServices.getGroupByUserID(
+        widget.globals.getUser.getId, widget.globals);
 
     tutorGroups = groups;
     setState(() {
