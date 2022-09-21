@@ -48,8 +48,8 @@ class TuteePendingRequestsState extends State<TuteePendingRequests> {
   bool isLoading = true;
 
   getRequests() async {
-
-    final requests = await UserServices().getTuteeRequests(widget.globals.getUser.getId, widget.globals);
+    final requests = await UserServices()
+        .getTuteeRequests(widget.globals.getUser.getId, widget.globals);
 
     requestList = requests;
     if (requestList.isEmpty) {
@@ -62,7 +62,9 @@ class TuteePendingRequestsState extends State<TuteePendingRequests> {
 
   getTutors() async {
     for (int i = 0; i < requestList.length; i++) {
-      final tutor = await UserServices.getTutor(requestList[i].getTutorId, widget.globals);
+      final tutor = await UserServices.getTutor(
+          requestList[i].getTutorId, widget.globals);
+
       tutorList += tutor;
     }
     int requestLength = tutorList.length;
@@ -79,10 +81,10 @@ class TuteePendingRequestsState extends State<TuteePendingRequests> {
   getTuteeModules() async {
     try {
       for (int i = 0; i < requestList.length; i++) {
-        final module =
-            await ModuleServices.getModule(requestList[i].getModuleId, widget.globals);
+        final module = await ModuleServices.getModule(
+            requestList[i].getModuleId, widget.globals);
         setState(() {
-          modules += module;
+          modules.add(module);
         });
       }
     } catch (e) {
@@ -98,8 +100,8 @@ class TuteePendingRequestsState extends State<TuteePendingRequests> {
   getTuteeProfileImages() async {
     for (int i = 0; i < tutorList.length; i++) {
       try {
-        final image =
-            await UserServices.getTuteeProfileImage(tutorList[i].getId, widget.globals);
+        final image = await UserServices.getTuteeProfileImage(
+            tutorList[i].getId, widget.globals);
         setState(() {
           tutorImages.add(image);
         });
@@ -141,8 +143,8 @@ class TuteePendingRequestsState extends State<TuteePendingRequests> {
     screenHeight = MediaQuery.of(context).size.height;
     screenWidth = MediaQuery.of(context).size.width;
 
-    return Material(
-      child: isLoading
+    return Scaffold(
+      body: isLoading
           ? const Center(
               child: CircularProgressIndicator.adaptive(),
             )
@@ -159,7 +161,7 @@ class TuteePendingRequestsState extends State<TuteePendingRequests> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Icon(
-                        Icons.notifications_off,
+                        Icons.notifications,
                         size: MediaQuery.of(context).size.height * 0.15,
                         color: colorOrange,
                       ),
@@ -182,12 +184,13 @@ class TuteePendingRequestsState extends State<TuteePendingRequests> {
     String howLongAgo = '';
 
     int currentYear = int.parse(currentDateUnits[0]);
-    int yearSent = int.parse(sentDateUnits[2]);
+    List<String> actualYear = sentDateUnits[2].split(' ');
+    int yearSent = int.parse(actualYear[0]);
 
-    int currentMonth = int.parse(currentDateUnits[1]);
+    int currentMonth = int.parse(currentDateUnits[2]);
     int monthSent = int.parse(sentDateUnits[1]);
 
-    int currentDay = int.parse(currentDateUnits[2]);
+    int currentDay = int.parse(currentDateUnits[1]);
     int daySent = int.parse(sentDateUnits[0]);
 
     if (currentYear - yearSent > 0) {
@@ -293,8 +296,8 @@ class TuteePendingRequestsState extends State<TuteePendingRequests> {
                                     });
 
                                     try {
-                                      await UserServices()
-                                          .declineRequest(requestList[i].getId, widget.globals);
+                                      await UserServices().declineRequest(
+                                          requestList[i].getId, widget.globals);
 
                                       setState(() {
                                         isExcepting[i] = false;
@@ -306,7 +309,7 @@ class TuteePendingRequestsState extends State<TuteePendingRequests> {
                                         isExcepted[i] = false;
                                       });
                                       const snackBar = SnackBar(
-                                        content: Text('Failed to process'),
+                                        content: Text('Failed to cancel'),
                                       );
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(snackBar);

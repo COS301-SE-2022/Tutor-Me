@@ -34,7 +34,8 @@ class UserServices {
       });
       final response =
           await http.post(url, body: data, headers: global.getHeader);
-      if (response.statusCode == 201) {
+
+      if (response.statusCode == 200) {
         return true;
       } else if (response.statusCode == 401) {
         global = await refreshToken(global);
@@ -124,10 +125,10 @@ class UserServices {
 
   declineRequest(String id, Globals global) async {
     try {
-      final url = Uri.http(global.getTutorMeUrl, 'api/Requests/$id');
+      final url = Uri.http(global.getTutorMeUrl, 'api/Requests/reject/$id');
 
       final response = await http.delete(url, headers: global.getHeader);
-      if (response.statusCode == 204) {
+      if (response.statusCode == 200) {
         return true;
       } else if (response.statusCode == 401) {
         global = await refreshToken(global);

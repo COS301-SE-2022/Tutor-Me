@@ -47,8 +47,8 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
   bool _isLoading = true;
 
   getCurrentModules() async {
-    final currentModulesList =
-        await ModuleServices.getUserModules(widget.globals.getUser.getId, widget.globals);
+    final currentModulesList = await ModuleServices.getUserModules(
+        widget.globals.getUser.getId, widget.globals);
     setState(() {
       currentModules = currentModulesList;
     });
@@ -354,7 +354,9 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
                             )));
 
                 setState(() {
-                  currentModules = modules;
+                  if (modules != null) {
+                    currentModules = modules;
+                  }
                 });
               },
             )),
