@@ -768,8 +768,8 @@ class UserServices {
 
   static updateProfileImage(File? image, String id, Globals global) async {
     final imageByte = base64Encode(image!.readAsBytesSync());
-    String data = jsonEncode(
-        {'id': id, 'userImage': imageByte, 'userTranscript': 'trans'});
+    String data =
+        jsonEncode({'id': id, 'userImage': imageByte, 'userTranscript': ''});
 
     final url =
         Uri.parse('http://${global.getFilesUrl}/api/UserFiles/image/$id');
@@ -803,6 +803,7 @@ class UserServices {
     try {
       final response =
           await http.post(url, headers: global.getHeader, body: data);
+      log(response.statusCode.toString());
       if (response.statusCode == 200) {
         return image;
       } else if (response.statusCode == 401) {
@@ -823,11 +824,12 @@ class UserServices {
     log(data);
 
     final url =
-        Uri.parse('http://${global.getFilesUrl}/api/UserFiles/image/$id');
+        Uri.parse('http://${global.getFilesUrl}/api/UserFiles/transcript/$id');
 
     try {
       final response =
           await http.put(url, headers: global.getHeader, body: data);
+      log('stat ' + response.statusCode.toString());
       if (response.statusCode == 200) {
         return transcript;
       } else if (response.statusCode == 401) {
