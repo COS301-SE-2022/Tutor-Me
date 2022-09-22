@@ -50,7 +50,7 @@ namespace Chat_application_server.Hubs
             MessageModel MessageModel = new MessageModel
             {
                 CreateDate = DateTime.Now,
-                MessageText = userName + " joined chat with " + receiverName,
+                MessageText = userName + " is online",
                 UserId = 0,
                 UserName = "system"
             };
