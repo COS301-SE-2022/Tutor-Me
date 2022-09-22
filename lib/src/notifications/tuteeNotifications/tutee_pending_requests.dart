@@ -66,6 +66,7 @@ class TuteePendingRequestsState extends State<TuteePendingRequests> {
     for (int i = 0; i < requestList.length; i++) {
       final tutor = await UserServices.getTutor(
           requestList[i].getTutorId, widget.globals);
+
       tutorList += tutor;
     }
     int requestLength = tutorList.length;
@@ -85,7 +86,7 @@ class TuteePendingRequestsState extends State<TuteePendingRequests> {
         final module = await ModuleServices.getModule(
             requestList[i].getModuleId, widget.globals);
         setState(() {
-          modules += module;
+          modules.add(module);
         });
       }
     } catch (e) {
@@ -144,6 +145,7 @@ class TuteePendingRequestsState extends State<TuteePendingRequests> {
     screenHeight = MediaQuery.of(context).size.height;
     screenWidth = MediaQuery.of(context).size.width;
 
+
     final provider = Provider.of<ThemeProvider>(context, listen: false);
 
     Color primaryColor;
@@ -174,7 +176,7 @@ class TuteePendingRequestsState extends State<TuteePendingRequests> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Icon(
-                        Icons.notifications_off,
+                        Icons.notifications,
                         size: MediaQuery.of(context).size.height * 0.15,
                         color: primaryColor,
                       ),
@@ -200,12 +202,13 @@ class TuteePendingRequestsState extends State<TuteePendingRequests> {
     String howLongAgo = '';
 
     int currentYear = int.parse(currentDateUnits[0]);
-    int yearSent = int.parse(sentDateUnits[2]);
+    List<String> actualYear = sentDateUnits[2].split(' ');
+    int yearSent = int.parse(actualYear[0]);
 
-    int currentMonth = int.parse(currentDateUnits[1]);
+    int currentMonth = int.parse(currentDateUnits[2]);
     int monthSent = int.parse(sentDateUnits[1]);
 
-    int currentDay = int.parse(currentDateUnits[2]);
+    int currentDay = int.parse(currentDateUnits[1]);
     int daySent = int.parse(sentDateUnits[0]);
 
     if (currentYear - yearSent > 0) {
@@ -342,7 +345,7 @@ class TuteePendingRequestsState extends State<TuteePendingRequests> {
                                         isExcepted[i] = false;
                                       });
                                       const snackBar = SnackBar(
-                                        content: Text('Failed to process'),
+                                        content: Text('Failed to cancel'),
                                       );
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(snackBar);

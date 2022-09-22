@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tutor_me/services/services/group_services.dart';
@@ -98,6 +100,7 @@ class _AddModulesPageState extends State<AddModulesPage> {
     final fetchedModules = await ModuleServices.getModules(widget.globals);
 
     moduleList = fetchedModules;
+    log(moduleList.length.toString());
 
     for (var element in moduleList) {
       modules.add(Module(element, false));

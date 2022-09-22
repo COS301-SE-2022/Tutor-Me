@@ -437,6 +437,17 @@ class _EditModuleListState extends State<EditModuleList> {
                           'Confirm',
                           style: TextStyle(color: colorOrange),
                         )),
+                    OutlinedButton(
+                        style: OutlinedButton.styleFrom(
+                            side:
+                                const BorderSide(width: 2, color: colorOrange)),
+                        onPressed: () async {
+                          Navigator.pop(context);
+                        },
+                        child: const Text(
+                          'Cancel',
+                          style: TextStyle(color: colorOrange),
+                        )),
                   ]);
             }),
           );
