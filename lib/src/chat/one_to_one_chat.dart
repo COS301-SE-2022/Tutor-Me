@@ -74,8 +74,9 @@ class ChatState extends State<Chat> {
   TextEditingController messageTextController = TextEditingController();
   submitMessageFunction() async {
     var messageText = removeMessageExtraChar(messageTextController.text);
-    await connection.invoke('SendMessageToGroup', args: [
-      widget.globals.getUser.getId + widget.reciever.getId,
+    await connection.invoke('SendMessageToChat', args: [
+      widget.globals.getUser.getId,
+      widget.reciever.getId,
       widget.globals.getUser.getName,
       currentUserId,
       messageText
@@ -180,9 +181,9 @@ class ChatState extends State<Chat> {
     });
     await connection.invoke('JoinChat', args: [
       widget.reciever.getName,
-      widget.globals.getUser.getId + widget.reciever.getId,
+      widget.globals.getUser.getId,
+      widget.reciever.getId,
       widget.globals.getUser.getName,
-      currentUserId
     ]);
   }
 
