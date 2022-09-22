@@ -21,7 +21,6 @@ class _BookForTutorState extends State<BookForTutor> {
     final provider = Provider.of<ThemeProvider>(context, listen: false);
 
     Color primaryColor;
-    Color secondaryColor;
     Color textColor;
     Color highLightColor;
 
@@ -29,12 +28,10 @@ class _BookForTutorState extends State<BookForTutor> {
       primaryColor = colorGrey;
       textColor = colorWhite;
       highLightColor = colorLightBlueTeal;
-      secondaryColor = colorLightGrey;
     } else {
       primaryColor = colorBlueTeal;
       textColor = colorDarkGrey;
       highLightColor = colorOrange;
-      secondaryColor = colorWhite;
     }
 
     double widthOfScreen = MediaQuery.of(context).size.width;

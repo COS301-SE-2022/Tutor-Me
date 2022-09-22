@@ -56,25 +56,16 @@ class _RecordedVideosState extends State<RecordedVideos> {
 
   @override
   Widget build(BuildContext context) {
-      final provider = Provider.of<ThemeProvider>(context, listen: false);
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
 
     Color primaryColor;
-    Color secondaryColor;
-    Color textColor;
-    Color highLightColor;
 
     if (provider.themeMode == ThemeMode.dark) {
       primaryColor = colorGrey;
-      textColor = colorWhite;
-      highLightColor = colorLightBlueTeal;
-      secondaryColor = colorLightGrey;
     } else {
       primaryColor = colorBlueTeal;
-      textColor = colorDarkGrey;
-      highLightColor = colorOrange;
-      secondaryColor = colorWhite;
     }
-    
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -98,23 +89,17 @@ class _RecordedVideosState extends State<RecordedVideos> {
   }
 
   Widget _cardBuilder(BuildContext context, int index) {
-      final provider = Provider.of<ThemeProvider>(context, listen: false);
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
 
-    Color primaryColor;
-    Color secondaryColor;
     Color textColor;
     Color highLightColor;
 
     if (provider.themeMode == ThemeMode.dark) {
-      primaryColor = colorGrey;
       textColor = colorWhite;
       highLightColor = colorLightBlueTeal;
-      secondaryColor = colorLightGrey;
     } else {
-      primaryColor = colorBlueTeal;
       textColor = colorDarkGrey;
       highLightColor = colorOrange;
-      secondaryColor = colorWhite;
     }
     return Padding(
       padding: EdgeInsets.only(
@@ -150,9 +135,11 @@ class _RecordedVideosState extends State<RecordedVideos> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                Text("Date: " +
-                    _meetingDateList[index].characters.take(10).toString(),
-                    style: TextStyle(color: textColor),),
+                Text(
+                  "Date: " +
+                      _meetingDateList[index].characters.take(10).toString(),
+                  style: TextStyle(color: textColor),
+                ),
               ],
             ),
             const SizedBox(
@@ -301,7 +288,6 @@ class _RecordedVideosState extends State<RecordedVideos> {
     });
     // log("Length of array: $length");
 
-    //TODO: Check if meetingIdResponse is in group
     for (int i = 0; i < length; i++) {
       // if (getVideoLinks(
       //     )) {

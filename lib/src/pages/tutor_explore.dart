@@ -294,7 +294,6 @@ class TutorExploreState extends State<TutorExplore> {
     final provider = Provider.of<ThemeProvider>(context, listen: false);
 
     Color primaryColor;
-    Color secondaryColor;
     Color textColor;
     Color highLightColor;
 
@@ -302,12 +301,10 @@ class TutorExploreState extends State<TutorExplore> {
       primaryColor = colorGrey;
       textColor = colorWhite;
       highLightColor = colorLightBlueTeal;
-      secondaryColor = colorLightGrey;
     } else {
       primaryColor = colorBlueTeal;
       textColor = colorDarkGrey;
       highLightColor = colorOrange;
-      secondaryColor = colorWhite;
     }
 
     filterContHeight = MediaQuery.of(context).size.height * 0.16;

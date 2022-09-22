@@ -147,17 +147,13 @@ class TuteePendingRequestsState extends State<TuteePendingRequests> {
     final provider = Provider.of<ThemeProvider>(context, listen: false);
 
     Color primaryColor;
-    Color textColor;
     Color highLightColor;
 
     if (provider.themeMode == ThemeMode.dark) {
       primaryColor = colorGrey;
-      textColor = colorWhite;
       highLightColor = colorLightBlueTeal;
     } else {
-      primaryColor = colorBlueTeal;
-      textColor = colorDarkGrey;
-      highLightColor = colorOrange;
+      primaryColor = colorBlueTeal;      highLightColor = colorOrange;
     }
 
     return Material(
@@ -240,18 +236,12 @@ class TuteePendingRequestsState extends State<TuteePendingRequests> {
   Widget _cardBuilder(BuildContext context, int i) {
     final provider = Provider.of<ThemeProvider>(context, listen: false);
 
-    Color primaryColor;
     Color textColor;
-    Color highLightColor;
 
     if (provider.themeMode == ThemeMode.dark) {
-      primaryColor = colorGrey;
       textColor = colorWhite;
-      highLightColor = colorLightBlueTeal;
     } else {
-      primaryColor = colorBlueTeal;
       textColor = colorDarkGrey;
-      highLightColor = colorOrange;
     }
 
     String name = tutorList[i].getName + ' ' + tutorList[i].getLastName;
@@ -301,7 +291,7 @@ class TuteePendingRequestsState extends State<TuteePendingRequests> {
                 ),
                 trailing: Text(
                   howLongAgo,
-                  style: TextStyle(color: Color.fromARGB(255, 161, 160, 160)),
+                  style: const  TextStyle(color: Color.fromARGB(255, 161, 160, 160)),
                 ),
               ),
               Row(

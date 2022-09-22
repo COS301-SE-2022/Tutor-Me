@@ -1,11 +1,7 @@
 // ignore_for_file: sort_child_properties_last, file_names
 
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tutor_me/services/models/event.dart';
-import 'package:tutor_me/services/services/events_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/pages/calendar.dart';
 
@@ -88,23 +84,14 @@ class _InviteToMeetingState extends State<InviteToMeeting> {
 
   @override
   Widget build(BuildContext context) {
-      final provider = Provider.of<ThemeProvider>(context, listen: false);
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
 
-    Color primaryColor;
-    Color secondaryColor;
-    Color textColor;
     Color highLightColor;
 
     if (provider.themeMode == ThemeMode.dark) {
-      primaryColor = colorGrey;
-      textColor = colorWhite;
       highLightColor = colorLightBlueTeal;
-      secondaryColor = colorLightGrey;
     } else {
-      primaryColor = colorBlueTeal;
-      textColor = colorDarkGrey;
       highLightColor = colorOrange;
-      secondaryColor = colorWhite;
     }
     // print();
     return SafeArea(

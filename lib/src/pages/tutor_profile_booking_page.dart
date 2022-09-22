@@ -168,19 +168,15 @@ class _TutorProfileBookingPageState extends State<TutorProfileBookingPage> {
     final provider = Provider.of<ThemeProvider>(context, listen: false);
     Color textColor;
     Color secondaryTextColor;
-    Color primaryColor;
-    Color highLightColor;
 
     if (provider.themeMode == ThemeMode.dark) {
       textColor = colorWhite;
       secondaryTextColor = colorGrey;
-      primaryColor =  colorLightGrey;
-      highLightColor = colorLightBlueTeal;
+    
     } else {
       textColor = Colors.black;
       secondaryTextColor = colorOrange;
-      primaryColor = colorBlueTeal;
-      highLightColor = colorOrange;
+  
     }
 
     final screenWidthSize = MediaQuery.of(context).size.width;
@@ -343,7 +339,7 @@ class _TutorProfileBookingPageState extends State<TutorProfileBookingPage> {
               ),),
               style: ButtonStyle(
                 backgroundColor:
-                    MaterialStateProperty.all(Color.fromARGB(255, 104, 94, 90)),
+                    MaterialStateProperty.all( const Color.fromARGB(255, 104, 94, 90)),
               ),
             ),
           ))
@@ -353,19 +349,13 @@ class _TutorProfileBookingPageState extends State<TutorProfileBookingPage> {
   Widget topDesign() {
      final provider = Provider.of<ThemeProvider>(context, listen: false);
     Color textColor;
-    Color secondaryTextColor;
-    Color primaryColor;
     Color highLightColor;
 
     if (provider.themeMode == ThemeMode.dark) {
       textColor = colorWhite;
-      secondaryTextColor = colorGrey;
-      primaryColor =  colorLightGrey;
       highLightColor = colorLightBlueTeal;
     } else {
       textColor = Colors.black;
-      secondaryTextColor = colorOrange;
-      primaryColor = colorBlueTeal;
       highLightColor = colorOrange;
     }
   

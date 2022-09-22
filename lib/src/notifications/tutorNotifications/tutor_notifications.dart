@@ -5,8 +5,6 @@ import 'package:tutor_me/services/models/tutors.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/notifications/tutorNotifications/tutors_requests.dart';
 import 'package:tutor_me/src/notifications/tutorNotifications/tutors_activity.dart';
-
-import '../../colorpallete.dart';
 import '../../theme/themes.dart';
 
 class TutorNotifications extends StatefulWidget {
@@ -28,17 +26,13 @@ class TutorNotificationsState extends State<TutorNotifications> {
     final provider = Provider.of<ThemeProvider>(context, listen: false);
 
     Color primaryColor;
-    Color textColor;
-    Color highLightColor;
 
     if (provider.themeMode == ThemeMode.dark) {
       primaryColor = colorGrey;
-      textColor = colorWhite;
-      highLightColor = colorLightBlueTeal;
+
     } else {
       primaryColor = colorBlueTeal;
-      textColor = colorDarkGrey;
-      highLightColor = colorOrange;
+     
     }
 
     return DefaultTabController(

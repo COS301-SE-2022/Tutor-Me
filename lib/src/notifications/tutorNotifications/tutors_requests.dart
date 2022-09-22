@@ -150,16 +150,13 @@ class TutorRequestsState extends State<TutorRequests> {
     final provider = Provider.of<ThemeProvider>(context, listen: false);
 
     Color primaryColor;
-    Color textColor;
     Color highLightColor;
 
     if (provider.themeMode == ThemeMode.dark) {
       primaryColor = colorGrey;
-      textColor = colorWhite;
       highLightColor = colorLightBlueTeal;
     } else {
       primaryColor = colorBlueTeal;
-      textColor = colorDarkGrey;
       highLightColor = colorOrange;
     }
 
@@ -249,16 +246,13 @@ class TutorRequestsState extends State<TutorRequests> {
 
     Color primaryColor;
     Color textColor;
-    Color highLightColor;
 
     if (provider.themeMode == ThemeMode.dark) {
       primaryColor = colorGrey;
       textColor = colorWhite;
-      highLightColor = colorLightBlueTeal;
     } else {
       primaryColor = colorBlueTeal;
       textColor = colorDarkGrey;
-      highLightColor = colorOrange;
     }
 
     String name = tuteeList[i].getName + ' ' + tuteeList[i].getLastName;

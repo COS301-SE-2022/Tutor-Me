@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -55,12 +54,12 @@ class UpcomingState extends State<Upcoming> {
     try {
       final incomingEvents = await EventServices.getEventsByUserId(
           widget.globals.getUser.getId, widget.globals);
-      print(incomingEvents);
+      // print(incomingEvents);
       events = incomingEvents;
     } catch (e) {
-      print("------------------------");
-      print(e.toString());
-      print("------------------------");
+      // print("------------------------");
+      // print(e.toString());
+      // print("------------------------");
       const snack = SnackBar(content: Text('Error loading events'));
       ScaffoldMessenger.of(context).showSnackBar(snack);
     }
@@ -82,13 +81,13 @@ class UpcomingState extends State<Upcoming> {
     setState(() {
       isLoading = false;
     });
-    deleteEvets();
+    // deleteEvets();
   }
 
   deleteEvets() async {
     try {
       for (int i = 0; i < events.length; i++) {
-        print('hereeeeeeeeeeeeeeeeeee');
+        // print('hereeeeeeeeeeeeeeeeeee');
         await EventServices.deleteEventEventId(
             events[i].getEventId, widget.globals);
       }
@@ -130,18 +129,15 @@ class UpcomingState extends State<Upcoming> {
     final provider = Provider.of<ThemeProvider>(context, listen: false);
     // Color appBarColor1;
     // Color appBarColor2;
-    Color highlightColor;
     Color textColor;
     Color cardBackground;
 
     if (provider.themeMode == ThemeMode.dark) {
-      highlightColor = colorOrange;
       textColor = colorWhite;
-      cardBackground = Color.fromARGB(255, 146, 143, 143);
+      cardBackground = const Color.fromARGB(255, 146, 143, 143);
     } else {
       // appBarColor1 = colorLightBlueTeal;
       // appBarColor2 = colorBlueTeal;
-      highlightColor = colorOrange;
       textColor = colorBlack;
       cardBackground = colorWhite;
     }

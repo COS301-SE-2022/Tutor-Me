@@ -64,19 +64,17 @@ class _CalendarState extends State<Calendar> {
     Color secondaryColor;
     Color textColor;
     Color highLightColor;
-    Color tabBackgroundColor;
 
     if (provider.themeMode == ThemeMode.dark) {
-      primaryColor = Color.fromARGB(255, 37, 36, 36);
+      primaryColor = const  Color.fromARGB(255, 37, 36, 36);
       textColor = colorWhite;
       highLightColor = colorOrange;
-      secondaryColor = Color.fromARGB(255, 88, 88, 88);
+      secondaryColor =  const Color.fromARGB(255, 88, 88, 88);
     } else {
       primaryColor = colorBlueTeal;
       textColor = colorDarkGrey;
       highLightColor = colorOrange;
       secondaryColor = colorWhite;
-      tabBackgroundColor = colorWhite;
     }
 
     final screens = getScreens();

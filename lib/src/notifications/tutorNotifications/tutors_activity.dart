@@ -21,16 +21,13 @@ class TutorActivityState extends State<TutorActivity> {
     final provider = Provider.of<ThemeProvider>(context, listen: false);
 
     Color primaryColor;
-    Color textColor;
     Color highLightColor;
 
     if (provider.themeMode == ThemeMode.dark) {
       primaryColor = colorGrey;
-      textColor = colorWhite;
       highLightColor = colorLightBlueTeal;
     } else {
       primaryColor = colorBlueTeal;
-      textColor = colorDarkGrey;
       highLightColor = colorOrange;
     }
 

@@ -511,6 +511,7 @@ class UserServices {
     }
   }
 
+  // ignore: todo
   //TODO fix this
 
   // static updateTuteeByEmail(
@@ -652,6 +653,7 @@ class UserServices {
     }
   }
 
+  // ignore: todo
   //TODO fix this
 
   // static updateTutorByEmail(
@@ -974,6 +976,7 @@ class UserServices {
     }
   }
 
+  // ignore: todo
   //TODO: is there tutor by email
 
   // static isThereTutorByEmail(String email) async {
@@ -994,6 +997,7 @@ class UserServices {
   //   }
   // }
 
+  // ignore: todo
   //TODO: is there tutee by email
 
   // static isThereTuteeByEmail(String email, Globals global) async {
@@ -1019,6 +1023,7 @@ class UserServices {
     return hashedPassword;
   }
 
+  // ignore: todo
   //TODO: Tutorfiles Backend
 
   // static createFileRecord(String id) async {

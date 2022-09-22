@@ -66,33 +66,33 @@ class _CalendarScreenState extends State<CalendarScreen> {
   loadScheduledSession() {
     DateTime varDate;
 
-    int month, year, day;
-    int min, hour;
-    List<String> date;
+    // int month, year, day;
+    // int min, hour;
+    // List<String> date;
 
-    print(events.length);
+    // print(events.length);
     for (int i = 0; i < events.length; i++) {
-      min = int.parse(events[i].getTimeOfEvent.substring(3, 4));
-      hour = int.parse(events[i].getTimeOfEvent.substring(0, 1));
+      // min = int.parse(events[i].getTimeOfEvent.substring(3, 4));
+      // hour = int.parse(events[i].getTimeOfEvent.substring(0, 1));
 
-      print("££££££££££££££" + events[i].getDateOfEvent);
-      date = events[i].getDateOfEvent.split('/');
+      // print("££££££££££££££" + events[i].getDateOfEvent);
+      // date = events[i].getDateOfEvent.split('/');
 
       varDate = DateTime.parse(events[i].getDateOfEvent);
-      print(varDate.year.toString() +
-          varDate.month.toString() +
-          varDate.day.toString());
+      // print(varDate.year.toString() +
+          // varDate.month.toString() +
+          // varDate.day.toString());
       scheduledSessions.addAll({
         DateTime(varDate.year, varDate.month, varDate.day): [
           events[i],
         ]
       });
-      print('after add');
+      // print('after add');
     }
-    print("noooo ");
-    print(scheduledSessions.length);
-    print(scheduledSessions);
-    print("noooo2 ");
+    // print("noooo ");
+    // print(scheduledSessions.length);
+    // print(scheduledSessions);
+    // print("noooo2 ");
     getOwner();
   }
 

@@ -300,18 +300,15 @@ class TutorListState extends State<TutorList> {
   Widget build(BuildContext context) {
     final provider = Provider.of<ThemeProvider>(context, listen: false);
     Color textColor;
-    Color secondaryTextColor;
     Color primaryColor;
     Color highLightColor;
 
     if (provider.themeMode == ThemeMode.dark) {
       textColor = colorWhite;
-      secondaryTextColor = colorGrey;
       primaryColor = colorLightGrey;
       highLightColor = colorLightBlueTeal;
     } else {
       textColor = Colors.black;
-      secondaryTextColor = colorOrange;
       primaryColor = colorBlueTeal;
       highLightColor = colorOrange;
     }
@@ -842,20 +839,11 @@ class TutorListState extends State<TutorList> {
   Widget _cardBuilder(BuildContext context, int i) {
     final provider = Provider.of<ThemeProvider>(context, listen: false);
     Color textColor;
-    Color secondaryTextColor;
-    Color primaryColor;
-    Color highLightColor;
 
     if (provider.themeMode == ThemeMode.dark) {
       textColor = colorWhite;
-      secondaryTextColor = colorGrey;
-      primaryColor = colorLightGrey;
-      highLightColor = colorLightBlueTeal;
     } else {
       textColor = Colors.black;
-      secondaryTextColor = colorOrange;
-      primaryColor = colorBlueTeal;
-      highLightColor = colorOrange;
     }
 
     String name = tutors[i].tutor.getName;

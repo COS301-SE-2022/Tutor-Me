@@ -103,15 +103,15 @@ class EventServices {
         'title': event.getTitle,
         'description': event.getDescription,
       });
-      print("*======================*");
-      print(data);
-      print("*======================*");
+      // print("*======================*");
+      // print(data);
+      // print("*======================*");
 
       final response =
           await http.post(url, body: data, headers: global.getHeader);
-      print(response.body);
-      print(response.statusCode);
-      print("*========&&==============*");
+      // print(response.body);
+      // print(response.statusCode);
+      // print("*========&&==============*");
       if (response.statusCode == 200) {
         return true;
       } else if (response.statusCode == 401) {

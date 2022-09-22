@@ -154,21 +154,14 @@ class ChatsState extends State<Chats> {
   Widget _chatBuilder(BuildContext context, int i) {
     final provider = Provider.of<ThemeProvider>(context, listen: false);
 
-    Color primaryColor;
-    Color secondaryColor;
+  
     Color textColor;
-    Color highLightColor;
 
     if (provider.themeMode == ThemeMode.dark) {
-      primaryColor = colorGrey;
       textColor = colorWhite;
-      highLightColor = colorLightBlueTeal;
-      secondaryColor = colorLightGrey;
     } else {
-      primaryColor = colorBlueTeal;
       textColor = colorDarkGrey;
-      highLightColor = colorOrange;
-      secondaryColor = colorWhite;
+     
     }
 
     String name;

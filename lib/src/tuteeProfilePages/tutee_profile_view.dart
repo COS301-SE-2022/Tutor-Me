@@ -57,7 +57,6 @@ class _TuteeProfilePageState extends State<TuteeProfilePageView> {
       getInstitution();
     }
   }
-  //TODO: Add in the number of connections and number of tutees
 
   // int getNumConnections() {
   //   var allConnections = widget.user.getConnections.split(',');
@@ -316,19 +315,16 @@ class _TuteeProfilePageState extends State<TuteeProfilePageView> {
   Widget _moduleListBuilder(BuildContext context, int i) {
     final provider = Provider.of<ThemeProvider>(context, listen: false);
     Color textColor;
-    Color secondaryTextColor;
-    Color primaryColor;
+
     Color highLightColor;
 
     if (provider.themeMode == ThemeMode.dark) {
       textColor = colorWhite;
-      secondaryTextColor = colorGrey;
-      primaryColor = colorLightGrey;
+
       highLightColor = colorLightBlueTeal;
     } else {
       textColor = Colors.black;
-      secondaryTextColor = colorOrange;
-      primaryColor = colorBlueTeal;
+
       highLightColor = colorOrange;
     }
     String moduleDescription =

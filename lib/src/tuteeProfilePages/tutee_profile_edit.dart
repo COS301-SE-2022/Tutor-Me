@@ -81,20 +81,12 @@ class _TuteeProfileEditState extends State<TuteeProfileEdit> {
 
   Widget buildBody() {
     final provider = Provider.of<ThemeProvider>(context, listen: false);
-    Color textColor;
-    Color secondaryTextColor;
-    Color primaryColor;
+
     Color highLightColor;
 
     if (provider.themeMode == ThemeMode.dark) {
-      textColor = colorWhite;
-      secondaryTextColor = colorGrey;
-      primaryColor = colorLightGrey;
       highLightColor = colorLightBlueTeal;
     } else {
-      textColor = Colors.black;
-      secondaryTextColor = colorOrange;
-      primaryColor = colorBlueTeal;
       highLightColor = colorOrange;
     }
     final screenWidthSize = MediaQuery.of(context).size.width;
@@ -252,21 +244,12 @@ class _TuteeProfileEditState extends State<TuteeProfileEdit> {
 
   Widget buildEditImageIcon() {
     final provider = Provider.of<ThemeProvider>(context, listen: false);
-    Color textColor;
-    Color secondaryTextColor;
     Color primaryColor;
-    Color highLightColor;
 
     if (provider.themeMode == ThemeMode.dark) {
-      textColor = colorWhite;
-      secondaryTextColor = colorGrey;
-      primaryColor =  colorLightGrey;
-      highLightColor = colorLightBlueTeal;
+      primaryColor = colorLightGrey;
     } else {
-      textColor = Colors.black;
-      secondaryTextColor = colorOrange;
       primaryColor = colorBlueTeal;
-      highLightColor = colorOrange;
     }
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
@@ -317,20 +300,12 @@ class TextInputFieldEdit extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<ThemeProvider>(context, listen: false);
-    Color textColor;
-    Color secondaryTextColor;
-    Color primaryColor;
+
     Color highLightColor;
 
     if (provider.themeMode == ThemeMode.dark) {
-      textColor = colorWhite;
-      secondaryTextColor = colorGrey;
-      primaryColor =  colorLightGrey;
       highLightColor = colorLightBlueTeal;
     } else {
-      textColor = Colors.black;
-      secondaryTextColor = colorOrange;
-      primaryColor = colorBlueTeal;
       highLightColor = colorOrange;
     }
     Size size = MediaQuery.of(context).size;
@@ -361,7 +336,7 @@ class TextInputFieldEdit extends StatelessWidget {
                 ),
                 hintText: hint,
                 hintStyle: const TextStyle(color: Colors.black)),
-            style:  TextStyle(
+            style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.normal,
                 color: highLightColor),
