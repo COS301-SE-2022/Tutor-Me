@@ -8,7 +8,6 @@ import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/services/models/event.dart';
 // import 'package:tutor_me/src/pages/badges.dart';
 import 'package:tutor_me/src/pages/invite_to_meeting.dart';
-import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
 import '../../services/models/users.dart';
 import '../../services/services/events_services.dart';
 import '../../services/services/user_services.dart';
@@ -23,8 +22,6 @@ class CalendarScreen extends StatefulWidget {
 }
 
 class _CalendarScreenState extends State<CalendarScreen> {
-  // late CalendarController _controller;
-  // Event event = Event();
   List<Event> events = List<Event>.empty(growable: true);
   bool isLoading = true;
   List<Users> owner = List<Users>.empty(growable: true);
@@ -50,7 +47,6 @@ class _CalendarScreenState extends State<CalendarScreen> {
         owner += incomingOwner;
       }
     } catch (e) {
-      print(e.toString());
       const snack = SnackBar(content: Text('Error loading events'));
       ScaffoldMessenger.of(context).showSnackBar(snack);
     }
@@ -74,26 +70,30 @@ class _CalendarScreenState extends State<CalendarScreen> {
     int min, hour;
     List<String> date;
 
-    print("kjjojjo");
+    print(events.length);
     for (int i = 0; i < events.length; i++) {
       min = int.parse(events[i].getTimeOfEvent.substring(3, 4));
       hour = int.parse(events[i].getTimeOfEvent.substring(0, 1));
 
-      print(events[i].getDateOfEvent);
+      print("££££££££££££££" + events[i].getDateOfEvent);
       date = events[i].getDateOfEvent.split('/');
 
       varDate = DateTime.parse(events[i].getDateOfEvent);
-      print(varDate);
+      print(varDate.year.toString() +
+          varDate.month.toString() +
+          varDate.day.toString());
       scheduledSessions.addAll({
         DateTime(varDate.year, varDate.month, varDate.day): [
           events[i],
         ]
       });
-      print(DateTime.now());
-      print("noooo ");
-      print(scheduledSessions);
-      getOwner();
+      print('after add');
     }
+    print("noooo ");
+    print(scheduledSessions.length);
+    print(scheduledSessions);
+    print("noooo2 ");
+    getOwner();
   }
 
   List getScheduledSessions(DateTime date) {
@@ -128,20 +128,20 @@ class _CalendarScreenState extends State<CalendarScreen> {
     final provider = Provider.of<ThemeProvider>(context, listen: false);
 
     Color primaryColor;
-    Color secondaryColor;
     Color textColor;
     Color highLightColor;
+    Color backgroundColor;
 
     if (provider.themeMode == ThemeMode.dark) {
       primaryColor = colorGrey;
       textColor = colorWhite;
       highLightColor = colorLightBlueTeal;
-      secondaryColor = colorLightGrey;
+      backgroundColor = colorDarkGrey;
     } else {
       primaryColor = colorBlueTeal;
       textColor = colorDarkGrey;
       highLightColor = colorOrange;
-      secondaryColor = colorWhite;
+      backgroundColor = colorWhite;
     }
 
     double widthOfScreen = MediaQuery.of(context).size.width;
@@ -163,70 +163,76 @@ class _CalendarScreenState extends State<CalendarScreen> {
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.015,
               ),
-              TableCalendar(
-                startingDayOfWeek: StartingDayOfWeek.sunday,
-                eventLoader: scheduledSessions.isNotEmpty
-                    ? (date) => getScheduledSessions(date)
-                    : (date) => printResults(date),
-                calendarStyle: CalendarStyle(
-                  selectedDecoration: BoxDecoration(
-                    color: colorWhite,
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: primaryColor,
-                      width: 1.0,
-                    ),
-                  ),
-                  todayDecoration: BoxDecoration(
-                    color: primaryColor,
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: primaryColor,
-                      width: 1.0,
-                    ),
-                  ),
-                  selectedTextStyle: selectedStyle(FontWeight.bold),
+              Container(
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                  color: backgroundColor,
                 ),
-                firstDay: DateTime.now(),
-                focusedDay: myFocusedDay,
-                lastDay: DateTime(2025),
-                calendarFormat: format,
-                onFormatChanged: (CalendarFormat format) {
-                  setState(() {
-                    format = format;
-                  });
-                },
-                onDaySelected: (DateTime day, DateTime fday) {
-                  setState(() {
-                    mySelectedDay = day;
-                    myFocusedDay = fday;
-                  });
-                },
-                selectedDayPredicate: (DateTime day) {
-                  return isSameDay(day, mySelectedDay);
-                },
-                headerStyle: HeaderStyle(
-                  // centerHeaderTitle: true,
-                  formatButtonDecoration: BoxDecoration(
-                    color: highLightColor,
-                    borderRadius: BorderRadius.circular(20),
+                child: TableCalendar(
+                  startingDayOfWeek: StartingDayOfWeek.sunday,
+                  eventLoader: scheduledSessions.isNotEmpty
+                      ? (date) => getScheduledSessions(date)
+                      : (date) => printResults(date),
+                  calendarStyle: CalendarStyle(
+                    selectedDecoration: BoxDecoration(
+                      color: highLightColor,
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: highLightColor,
+                        width: 1.0,
+                      ),
+                    ),
+                    todayDecoration: BoxDecoration(
+                      color: primaryColor,
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: primaryColor,
+                        width: 6.0,
+                      ),
+                    ),
+                    selectedTextStyle: selectedStyle(FontWeight.bold),
                   ),
-                  formatButtonVisible: false,
-                  titleCentered: true,
-                  titleTextStyle: TextStyle(
-                    color: primaryColor,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  leftChevronIcon: Icon(
-                    Icons.chevron_left,
-                    color: primaryColor,
-                    size: MediaQuery.of(context).size.width * 0.085,
-                  ),
-                  rightChevronIcon: Icon(
-                    Icons.chevron_right,
-                    color: primaryColor,
-                    size: MediaQuery.of(context).size.width * 0.085,
+                  firstDay: DateTime.now(),
+                  focusedDay: myFocusedDay,
+                  lastDay: DateTime(2025),
+                  calendarFormat: format,
+                  onFormatChanged: (CalendarFormat format) {
+                    setState(() {
+                      format = format;
+                    });
+                  },
+                  onDaySelected: (DateTime day, DateTime fday) {
+                    setState(() {
+                      mySelectedDay = day;
+                      myFocusedDay = fday;
+                    });
+                  },
+                  selectedDayPredicate: (DateTime day) {
+                    return isSameDay(day, mySelectedDay);
+                  },
+                  headerStyle: HeaderStyle(
+                    // centerHeaderTitle: true,
+                    formatButtonDecoration: BoxDecoration(
+                      color: highLightColor,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    formatButtonVisible: false,
+                    titleCentered: true,
+                    titleTextStyle: TextStyle(
+                      color: textColor,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    leftChevronIcon: Icon(
+                      Icons.chevron_left,
+                      color: primaryColor,
+                      size: MediaQuery.of(context).size.width * 0.085,
+                    ),
+                    rightChevronIcon: Icon(
+                      Icons.chevron_right,
+                      color: primaryColor,
+                      size: MediaQuery.of(context).size.width * 0.085,
+                    ),
                   ),
                 ),
               ),
@@ -257,14 +263,18 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                   SizedBox(
                                     width: MediaQuery.of(context).size.width *
                                         0.45,
-                                    child: Text(
-                                      e.getTitle,
-                                      style: TextStyle(
-                                          color: primaryColor,
-                                          fontSize: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.07),
+                                    child: Row(
+                                      children: [
+                                        Text(
+                                          e.getTitle,
+                                          style: TextStyle(
+                                              color: primaryColor,
+                                              fontSize: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.07),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                   SizedBox(
@@ -309,7 +319,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
               builder: (context) => Center(
                     child: AlertDialog(
                       title: const Text('Schedule Meeting'),
-                      content: Container(
+                      content: SizedBox(
                         height: MediaQuery.of(context).size.height * 0.3,
                         child: Column(
                           children: [
@@ -443,9 +453,9 @@ class _CalendarScreenState extends State<CalendarScreen> {
     Color highLightColor;
 
     if (provider.themeMode == ThemeMode.dark) {
-      highLightColor = colorLightBlueTeal;
+      highLightColor = colorLightGrey;
     } else {
-      highLightColor = colorOrange;
+      highLightColor = colorWhite;
     }
     return TextStyle(
       // fontSize: 18,

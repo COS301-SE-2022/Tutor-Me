@@ -1,4 +1,5 @@
 class Event {
+  String _eventId = "";
   String _title = "";
   String _description = "";
   String _dateOfEvent = "";
@@ -8,8 +9,15 @@ class Event {
   String _videoLink = "";
   String _ownerId = "";
 
-  Event(this._title, this._description, this._dateOfEvent, this._timeOfEvent,
-      this._userId, this._groupId, this._videoLink, this._ownerId);
+  Event(
+      this._title,
+      this._description,
+      this._dateOfEvent,
+      this._timeOfEvent,
+      this._userId,
+      this._groupId,
+      this._videoLink,
+      this._ownerId,);
 
   set title(String title) {
     _title = title;
@@ -39,6 +47,10 @@ class Event {
     _ownerId = ownerId;
   }
 
+  set eventId(String eventId) {
+    _eventId = eventId;
+  }
+
   String get getTitle => _title;
   String get getDescription => _description;
   String get getDateOfEvent => _dateOfEvent;
@@ -47,9 +59,11 @@ class Event {
   String get getVideoLink => _videoLink;
   String get getUserId => _userId;
   String get getOwnerId => _ownerId;
+  String get getEventId => _eventId;
 
   Map<String, dynamic> toMap() {
     var data = <String, dynamic>{};
+    data['eventId'] = _eventId;
     data['title'] = _title;
     data['description'] = _description;
     data['dateOfEvent'] = _dateOfEvent;
@@ -62,6 +76,7 @@ class Event {
   }
 
   Event.fromObject(dynamic o) {
+    _eventId = o['eventId'];
     _title = o["title"];
     _description = o['description'];
     _dateOfEvent = o['dateOfEvent'];

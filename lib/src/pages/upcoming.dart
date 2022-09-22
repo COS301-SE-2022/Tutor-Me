@@ -1,6 +1,8 @@
+import 'dart:developer';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:tutor_me/services/services/user_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 
@@ -8,6 +10,7 @@ import '../../services/models/event.dart';
 import '../../services/models/globals.dart';
 import '../../services/models/users.dart';
 import '../../services/services/events_services.dart';
+import '../theme/themes.dart';
 // import 'package:tutor_me/modules/api.services.dart';
 // import 'package:tutor_me/modules/tutors.dart';
 // import 'tutorProfilePages/tutor_profile_view.dart';
@@ -69,11 +72,28 @@ class UpcomingState extends State<Upcoming> {
     try {
       for (int i = 0; i < events.length; i++) {
         final incomingOwner =
-            await UserServices.getTutor(events[i].getOwnerId, widget.globals);
+            await UserServices.getTutor(events[i].getEventId, widget.globals);
         owner += incomingOwner;
       }
     } catch (e) {
       const snack = SnackBar(content: Text('Error loading events'));
+      ScaffoldMessenger.of(context).showSnackBar(snack);
+    }
+    setState(() {
+      isLoading = false;
+    });
+    deleteEvets();
+  }
+
+  deleteEvets() async {
+    try {
+      for (int i = 0; i < events.length; i++) {
+        print('hereeeeeeeeeeeeeeeeeee');
+        await EventServices.deleteEventEventId(
+            events[i].getEventId, widget.globals);
+      }
+    } catch (e) {
+      const snack = SnackBar(content: Text('Error deletng events'));
       ScaffoldMessenger.of(context).showSnackBar(snack);
     }
     setState(() {
@@ -107,6 +127,24 @@ class UpcomingState extends State<Upcoming> {
   }
 
   Widget _cardBuilder(BuildContext context, int i) {
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
+    // Color appBarColor1;
+    // Color appBarColor2;
+    Color highlightColor;
+    Color textColor;
+    Color cardBackground;
+
+    if (provider.themeMode == ThemeMode.dark) {
+      highlightColor = colorOrange;
+      textColor = colorWhite;
+      cardBackground = Color.fromARGB(255, 146, 143, 143);
+    } else {
+      // appBarColor1 = colorLightBlueTeal;
+      // appBarColor2 = colorBlueTeal;
+      highlightColor = colorOrange;
+      textColor = colorBlack;
+      cardBackground = colorWhite;
+    }
     // ignore: unnecessary_null_comparison
     if (events == null) {
       return const Center(
@@ -125,7 +163,7 @@ class UpcomingState extends State<Upcoming> {
               height: MediaQuery.of(context).size.height * 0.155,
               width: MediaQuery.of(context).size.width * 0.9,
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: cardBackground,
                 borderRadius: BorderRadius.circular(10),
                 boxShadow: [
                   BoxShadow(
@@ -167,13 +205,18 @@ class UpcomingState extends State<Upcoming> {
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.01,
                       ),
-                      Text(
-                        events[i].getTitle,
-                        style: TextStyle(
-                          color: colorBlack,
-                          fontWeight: FontWeight.w500,
-                          fontSize: MediaQuery.of(context).size.height * 0.022,
-                        ),
+                      Row(
+                        children: [
+                          Text(
+                            events[i].getTitle,
+                            style: TextStyle(
+                              color: colorBlack,
+                              fontWeight: FontWeight.w500,
+                              fontSize:
+                                  MediaQuery.of(context).size.height * 0.022,
+                            ),
+                          ),
+                        ],
                       ),
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.01,
@@ -191,7 +234,7 @@ class UpcomingState extends State<Upcoming> {
                       ),
                       Text("Date: " + events[i].getDateOfEvent,
                           style: TextStyle(
-                            color: colorDarkGrey,
+                            color: textColor,
                             fontWeight: FontWeight.w500,
                             fontSize:
                                 MediaQuery.of(context).size.height * 0.018,
@@ -201,7 +244,7 @@ class UpcomingState extends State<Upcoming> {
                       ),
                       Text("Time: " + events[i].getTimeOfEvent,
                           style: TextStyle(
-                            color: colorDarkGrey,
+                            color: textColor,
                             fontWeight: FontWeight.w500,
                             fontSize:
                                 MediaQuery.of(context).size.height * 0.018,
@@ -213,8 +256,8 @@ class UpcomingState extends State<Upcoming> {
                         Text(
                           "Created by - Tutor: ",
                           style: TextStyle(
-                            color: colorBlueTeal,
-                            fontWeight: FontWeight.w500,
+                            color: textColor,
+                            fontWeight: FontWeight.bold,
                             fontSize:
                                 MediaQuery.of(context).size.height * 0.018,
                           ),
@@ -222,7 +265,7 @@ class UpcomingState extends State<Upcoming> {
                         Text(
                           owner[i].getName + " " + owner[i].getLastName,
                           style: TextStyle(
-                            color: colorDarkGrey,
+                            color: textColor,
                             fontWeight: FontWeight.w500,
                             fontSize:
                                 MediaQuery.of(context).size.height * 0.018,

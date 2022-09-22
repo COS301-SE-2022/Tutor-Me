@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -10,10 +12,10 @@ class EventServices {
 
     try {
       final response = await http.get(url, headers: global.getHeader);
-      print("*********** " + response.statusCode.toString());
-      print(response.body);
-      print(userId);
+
+      log(response.statusCode.toString());
       if (response.statusCode == 200) {
+        log(response.body);
         String j = "";
         if (response.body[0] != "[") {
           j = "[" + response.body + "]";
@@ -50,9 +52,13 @@ class EventServices {
 
   static deleteEventEventId(String eventId, Globals global) async {
     try {
-      final url = Uri.http(global.getTutorMeUrl, 'api/Groups/$eventId');
+      log(eventId);
+      log(global.getToken);
+      final url = Uri.http(global.getTutorMeUrl, 'api/Events/$eventId');
 
       final response = await http.delete(url, headers: global.getHeader);
+      log(response.body);
+      log('fffff' + response.statusCode.toString());
       if (response.statusCode == 204) {
         return true;
       } else if (response.statusCode == 401) {
@@ -97,15 +103,15 @@ class EventServices {
         'title': event.getTitle,
         'description': event.getDescription,
       });
-      print("**********************");
+      print("*======================*");
       print(data);
-      print("**********************");
+      print("*======================*");
 
       final response =
           await http.post(url, body: data, headers: global.getHeader);
       print(response.body);
       print(response.statusCode);
-
+      print("*========&&==============*");
       if (response.statusCode == 200) {
         return true;
       } else if (response.statusCode == 401) {

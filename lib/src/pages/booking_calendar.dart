@@ -262,7 +262,7 @@ class _BookingCalenderState extends State<BookingCalender> {
                     ),
                     actions: <Widget>[
                       TextButton(
-                        child:  Text(
+                        child: Text(
                           'Cancel',
                           style: TextStyle(color: textColor),
                         ),
@@ -342,7 +342,6 @@ class _BookingCalenderState extends State<BookingCalender> {
     Color highLightColor;
 
     if (provider.themeMode == ThemeMode.dark) {
-  
       highLightColor = colorLightBlueTeal;
     } else {
       highLightColor = colorOrange;

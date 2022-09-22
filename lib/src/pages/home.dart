@@ -136,7 +136,8 @@ class _HomeState extends State<Home> {
         showChartValuesOutside: true,
         decimalPlaces: 1,
         chartValueStyle: TextStyle(
-          color: textColor,
+          background: Paint()..color = secondaryColor,
+          color: colorDarkGrey,
           fontWeight: FontWeight.normal,
           fontSize: MediaQuery.of(context).size.height * 0.015,
         ),
@@ -181,16 +182,19 @@ class _HomeState extends State<Home> {
     // Color appBarColor2;
     Color highlightColor;
     Color textColor;
+    Color cardBackground;
+
     if (provider.themeMode == ThemeMode.dark) {
-      // appBarColor1 = colorDarkGrey;
-      // appBarColor2 = colorGrey;
+
       highlightColor = colorOrange;
       textColor = colorWhite;
+      cardBackground = const Color.fromARGB(255, 104, 104, 104);
     } else {
       // appBarColor1 = colorLightBlueTeal;
       // appBarColor2 = colorBlueTeal;
       highlightColor = colorOrange;
       textColor = colorBlack;
+      cardBackground = colorWhite;
     }
     final screenHeightSize = MediaQuery.of(context).size.height;
     final screenWidthSize = MediaQuery.of(context).size.width;
@@ -423,7 +427,7 @@ class _HomeState extends State<Home> {
                             vertical: screenHeightSize * 0.02,
                             horizontal:
                                 MediaQuery.of(context).size.width * 0.02),
-                        color: secondaryColor,
+                        color: cardBackground,
                         child: Center(
                           child: Container(
                             width: screenWidthSize * 0.4,
@@ -457,7 +461,7 @@ class _HomeState extends State<Home> {
                                     style: TextStyle(
                                         fontSize: screenHeightSize * 0.025,
                                         fontWeight: FontWeight.w500,
-                                        color: textColor),
+                                        color: colorDarkGrey),
                                   ),
                                 ),
                                 Padding(
@@ -477,7 +481,7 @@ class _HomeState extends State<Home> {
                                         style: TextStyle(
                                             fontSize: screenHeightSize * 0.025,
                                             fontWeight: FontWeight.w400,
-                                            color: textColor),
+                                            color: colorDarkGrey),
                                       ),
                                     ],
                                   ),

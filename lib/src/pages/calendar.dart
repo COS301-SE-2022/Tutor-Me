@@ -58,24 +58,25 @@ class _CalendarState extends State<Calendar> {
 
   @override
   Widget build(BuildContext context) {
-
-final provider = Provider.of<ThemeProvider>(context, listen: false);
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
 
     Color primaryColor;
     Color secondaryColor;
     Color textColor;
     Color highLightColor;
+    Color tabBackgroundColor;
 
     if (provider.themeMode == ThemeMode.dark) {
-      primaryColor = colorGrey;
+      primaryColor = Color.fromARGB(255, 37, 36, 36);
       textColor = colorWhite;
-      highLightColor = colorLightBlueTeal;
-      secondaryColor = colorLightGrey;
+      highLightColor = colorOrange;
+      secondaryColor = Color.fromARGB(255, 88, 88, 88);
     } else {
       primaryColor = colorBlueTeal;
       textColor = colorDarkGrey;
       highLightColor = colorOrange;
       secondaryColor = colorWhite;
+      tabBackgroundColor = colorWhite;
     }
 
     final screens = getScreens();
@@ -94,14 +95,14 @@ final provider = Provider.of<ThemeProvider>(context, listen: false);
         child: Scaffold(
           appBar: AppBar(
             centerTitle: true,
-            title: const Text('Calendar'),
-            backgroundColor: colorBlueTeal,
+            title: const Text('Calendar', style: TextStyle(color: colorWhite)),
+            backgroundColor: primaryColor,
             bottom: PreferredSize(
               preferredSize: const Size.fromHeight(50.0),
               child: Container(
                 height: MediaQuery.of(context).size.height * 0.07,
-                decoration: const BoxDecoration(
-                  color: Color.fromARGB(255, 235, 231, 231),
+                decoration: BoxDecoration(
+                  color: secondaryColor,
                 ),
                 child: TabBar(
                   onTap: (index) {
@@ -110,9 +111,10 @@ final provider = Provider.of<ThemeProvider>(context, listen: false);
                     });
                   },
                   indicatorColor: highLightColor,
-                  unselectedLabelColor: colorGrey,
+                  unselectedLabelColor: colorLightGrey,
                   labelColor: highLightColor,
                   unselectedLabelStyle: TextStyle(
+                    color: textColor,
                     fontSize: MediaQuery.of(context).size.height * 0.02,
                     fontWeight: FontWeight.w400,
                   ),
