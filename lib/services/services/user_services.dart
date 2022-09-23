@@ -203,6 +203,9 @@ class UserServices {
     Uri tuteeURL = Uri.http(globals.getTutorMeUrl, '/api/Users/$id');
     try {
       final response = await http.get(tuteeURL, headers: globals.getHeader);
+
+      log(response.body);
+      log(response.statusCode.toString());
       if (response.statusCode == 200) {
         String j = "";
         if (response.body[0] != "[") {

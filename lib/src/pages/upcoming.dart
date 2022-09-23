@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_null_comparison
+
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -44,22 +46,13 @@ class UpcomingState extends State<Upcoming> {
     return colors[x];
   }
 
-  void search(String search) {
-    setState(() {
-      //  tutors = tutors.where((tu) => false)
-    });
-  }
-
   getUserEvents() async {
     try {
       final incomingEvents = await EventServices.getEventsByUserId(
           widget.globals.getUser.getId, widget.globals);
-      // print(incomingEvents);
       events = incomingEvents;
     } catch (e) {
-      // print("------------------------");
-      // print(e.toString());
-      // print("------------------------");
+    
       const snack = SnackBar(content: Text('Error loading events'));
       ScaffoldMessenger.of(context).showSnackBar(snack);
     }
@@ -69,13 +62,15 @@ class UpcomingState extends State<Upcoming> {
 
   getOwner() async {
     try {
-      for (int i = 0; i < events.length; i++) {
-        final incomingOwner =
-            await UserServices.getTutor(events[i].getEventId, widget.globals);
-        owner += incomingOwner;
+      if (events.isNotEmpty) {
+        for (int i = 0; i < events.length; i++) {
+          final incomingOwner =
+              await UserServices.getUser(events[i].getOwnerId, widget.globals);
+          owner += incomingOwner;
+        }
       }
     } catch (e) {
-      const snack = SnackBar(content: Text('Error loading events'));
+      const snack = SnackBar(content: Text('Error loading owners'));
       ScaffoldMessenger.of(context).showSnackBar(snack);
     }
     setState(() {
@@ -113,15 +108,34 @@ class UpcomingState extends State<Upcoming> {
           ? const Center(
               child: CircularProgressIndicator(),
             )
-          : SizedBox(
-              height: MediaQuery.of(context).size.height,
-              width: MediaQuery.of(context).size.width,
-              child: ListView.builder(
-                // padding: const EdgeInsets.all(10),
-                itemCount: events.length,
-                itemBuilder: _cardBuilder,
-              ),
-            ),
+          : (events != null
+              ? SizedBox(
+                  height: MediaQuery.of(context).size.height,
+                  width: MediaQuery.of(context).size.width,
+                  child: ListView.builder(
+                    // padding: const EdgeInsets.all(10),
+                    itemCount: events.length,
+                    itemBuilder: _cardBuilder,
+                  ),
+                )
+              : Center(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.update_disabled_sharp,
+                          size: MediaQuery.of(context).size.height * 0.08,
+                          color: Colors.grey),
+                      Text(
+                        'No Upcoming Events',
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: MediaQuery.of(context).size.width * 0.05,
+                        ),
+                      ),
+                    ],
+                  ),
+                )),
     );
   }
 
@@ -136,12 +150,9 @@ class UpcomingState extends State<Upcoming> {
       textColor = colorWhite;
       cardBackground = const Color.fromARGB(255, 146, 143, 143);
     } else {
-      // appBarColor1 = colorLightBlueTeal;
-      // appBarColor2 = colorBlueTeal;
       textColor = colorBlack;
       cardBackground = colorWhite;
     }
-    // ignore: unnecessary_null_comparison
     if (events == null) {
       return const Center(
         child: Text('No events found',
