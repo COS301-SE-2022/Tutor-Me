@@ -89,11 +89,6 @@ Why? It supports multiple transaction processing and the table is a row based ta
 table to one another.
 ```
 
-- API Architecture:
-``` 
-GraphQl - is an open-source data query and manipulation language for APIs.
-```
-
 - Version control:
 ``` 
 GitHub
