@@ -104,7 +104,7 @@ public class ModulesControllerUnitTests
     public async  Task AddModule_Module_ReturnsModule()
     {
         //arrange
-        var Module = new Module
+        var Module = new IModule
         {
             ModuleId  = Guid.NewGuid(),
             Code  = "COS 301",
@@ -113,7 +113,7 @@ public class ModulesControllerUnitTests
             Faculty ="Faculty of Engineering and Built Environment",
             Year = "3",
         };
-        _ModuleRepositoryMock.Setup(u => u. createModule(It.IsAny<Module>())).Returns(Module.ModuleId);
+        _ModuleRepositoryMock.Setup(u => u. createModule(It.IsAny<IModule>())).Returns(Module.ModuleId);
         
         var controller = new ModulesController(_ModuleRepositoryMock.Object,_mapper.Object);
         
