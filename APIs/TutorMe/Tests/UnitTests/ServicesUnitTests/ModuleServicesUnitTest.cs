@@ -10,6 +10,7 @@ using TutorMe.Services;
 using TutorMe.Models;
 using TutorMe.Services;
 using Module = TutorMe.Models.Module;
+using TutorMe.Entities;
 
 namespace Tests.UnitTests;
 
