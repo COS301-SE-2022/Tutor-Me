@@ -348,11 +348,11 @@ public class RequestServicesUnitTests
         
         var Request2 = new Request
         {
-            RequestId  = Guid.NewGuid(),
-            TuteeId  = Guid.NewGuid(),
-            TutorId  = Guid.NewGuid(),
-            DateCreated ="22/06/2020",
-            ModuleId=Guid.NewGuid()
+           RequestId  = Request.RequestId,
+            TuteeId  = Request.TuteeId,
+            TutorId  = Request.TutorId,
+            DateCreated ="20/04/2020",
+            ModuleId=Request.ModuleId
         };
         
         //Only add Request2 to the context
@@ -387,6 +387,14 @@ public class RequestServicesUnitTests
             DateCreated ="20/04/2020",
             ModuleId=Guid.NewGuid()
         };
+            var Request1 = new IRequest
+        {
+            RequestId  = Request.RequestId,
+            TuteeId  = Request.TuteeId,
+            TutorId  = Request.TutorId,
+            DateCreated ="20/04/2020",
+            ModuleId=Request.ModuleId
+        };
 
         DbContextOptionsBuilder<TutorMeContext> optionsBuilder = new();
         var databaseName = MethodBase.GetCurrentMethod()?.Name;
@@ -401,7 +409,7 @@ public class RequestServicesUnitTests
         Guid result;
         using (TutorMeContext ctx1 = new(optionsBuilder.Options))
         {
-            result =new RequestServices(ctx1).createRequest(Request);
+            result =new RequestServices(ctx1).createRequest(Request1);
         }
         
         //act
@@ -423,6 +431,14 @@ public class RequestServicesUnitTests
             DateCreated ="20/04/2020",
             ModuleId=Guid.NewGuid()
         };
+        var Request1 = new IRequest
+        {
+            RequestId  = Request.RequestId,
+            TuteeId  = Request.TuteeId,
+            TutorId  = Request.TutorId,
+            DateCreated ="20/04/2020",
+            ModuleId=Request.ModuleId
+        };
         
         DbContextOptionsBuilder<TutorMeContext> optionsBuilder = new();
         var databaseName = MethodBase.GetCurrentMethod()?.Name;
@@ -438,7 +454,7 @@ public class RequestServicesUnitTests
         {
             using (TutorMeContext ctx1 = new(optionsBuilder.Options))
             {
-                result =new RequestServices(ctx1).createRequest(Request);
+                result =new RequestServices(ctx1).createRequest(Request1);
             }
         }
         catch (Exception e)
