@@ -13,6 +13,7 @@ class EventServices {
     try {
       final response = await http.get(url, headers: global.getHeader);
 
+      log("============================");
       log(response.statusCode.toString());
       if (response.statusCode == 200) {
         log(response.body);
@@ -23,6 +24,7 @@ class EventServices {
           j = response.body;
         }
         final List list = json.decode(j);
+       
         return list.map((json) => Event.fromObject(json)).toList();
       } else if (response.statusCode == 401) {
         final refreshUrl =
