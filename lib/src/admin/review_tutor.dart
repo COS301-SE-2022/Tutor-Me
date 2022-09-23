@@ -1,4 +1,4 @@
-import 'dart:developer';
+// import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -173,7 +173,7 @@ class ReviewTutorState extends State<ReviewTutor> {
               children: [
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.05,
-                  width: MediaQuery.of(context).size.width * 0.35,
+                  width: MediaQuery.of(context).size.width * 0.5,
                   child: ElevatedButton(
                     onPressed: () {
                       // Navigator.push(
@@ -197,7 +197,7 @@ class ReviewTutorState extends State<ReviewTutor> {
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.05,
-                  width: MediaQuery.of(context).size.width * 0.35,
+                  width: MediaQuery.of(context).size.width * 0.5,
                   child: ElevatedButton(
                     onPressed: () {
                       // Navigator.push(
@@ -221,7 +221,7 @@ class ReviewTutorState extends State<ReviewTutor> {
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.05,
-                  width: MediaQuery.of(context).size.width * 0.35,
+                  width: MediaQuery.of(context).size.width * 0.5,
                   child: ElevatedButton(
                     onPressed: () async {
                       // if (await canLaunchUrlString(_meetingIdList[index])) {
