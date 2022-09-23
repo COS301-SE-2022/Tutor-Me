@@ -1,5 +1,6 @@
 // ignore_for_file: unused_local_variable
 
+import 'dart:developer';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -7,15 +8,18 @@ import 'package:flutter/material.dart';
 import 'package:pie_chart/pie_chart.dart';
 import 'package:provider/provider.dart';
 import 'package:tutor_me/constants/colors.dart';
+import 'package:tutor_me/services/services/group_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/pages/badges.dart';
 import 'package:tutor_me/src/pages/book_for_tutor.dart';
 import 'package:tutor_me/src/pages/calendar.dart';
 import '../../services/models/globals.dart';
+import '../../services/models/groups.dart';
 import '../../services/models/users.dart';
 import '../../services/services/user_services.dart';
 import '../theme/themes.dart';
 import '../tutorAndTuteeCollaboration/tuteeGroups/home_tutee_groups.dart';
+import 'connections.dart';
 
 class Home extends StatefulWidget {
   final Globals globals;
@@ -52,9 +56,63 @@ class _HomeState extends State<Home> {
   bool doesUserImageExist = false;
   bool isImageLoading = true;
   late UserType userType;
+  int numConnections = -1;
+  int numGroups = -1;
+  List<Users> userChats = List<Users>.empty();
+  List<Groups> groups = List<Groups>.empty();
+  String typeUser = '';
+  String bookingsText = '';
+
+  void getUserType() async {
+    if (widget.globals.getUser.getUserTypeID[0] == '9') {
+      setState(() {
+        typeUser = 'Tutor';
+        bookingsText = 'Single Bookings';
+      });
+    } else {
+      setState(() {
+        typeUser = 'Tutee';
+        bookingsText = 'Book a Tutor ';
+      });
+    }
+
+    getConnections();
+  }
+
+  void getGroupCount() async {
+    try {
+      groups = await GroupServices.getGroupByUserID(
+          widget.globals.getUser.getId, widget.globals);
+      numGroups = groups.length;
+
+      setState(() {
+        numGroups = groups.length;
+      });
+    } catch (e) {
+      log(e.toString());
+    }
+  }
+
+  void getConnections() async {
+    try {
+      userChats = await UserServices.getConnections(
+          widget.globals.getUser.getId,
+          widget.globals.getUser.getUserTypeID,
+          widget.globals);
+      numConnections = userChats.length;
+
+      setState(() {
+        numConnections = userChats.length;
+      });
+      // getChatsProfileImages();
+    } catch (e) {
+      log(e.toString());
+      // getChatsProfileImages();
+    }
+    getGroupCount();
+  }
 
   getTuteeProfileImage() async {
-    
     try {
       final image = await UserServices.getTuteeProfileImage(
           widget.globals.getUser.getId, widget.globals);
@@ -69,18 +127,6 @@ class _HomeState extends State<Home> {
         isImageLoading = false;
         tuteeImage = Uint8List(128);
       });
-    }
-  }
-
-  getUserType() async {
-    try {
-      final type = await UserServices.getUserType(
-          widget.globals.getUser.getUserTypeID, widget.globals);
-
-      userType = type;
-      getTuteeProfileImage();
-    } catch (e) {
-      getTuteeProfileImage();
     }
   }
 
@@ -157,20 +203,6 @@ class _HomeState extends State<Home> {
       ),
     );
   }
-  // List<
-
-  // _generateData() {
-  //   var data = [
-  //     Task(
-  //       task: 'Meetings',
-  //       taskValue: 35.8,
-  //       color: const Color(0xff3366cc),
-  //     ),
-  //     Task(task: 'Connections', taskValue: 4, color: colorOrange),
-  //     Task(task: 'Badges', taskValue: 1, color: colorLightGreen),
-  //     Task(task: 'OverAll', taskValue: 32, color: colorBlueTeal),
-  //   ];
-  // }
 
   @override
   void initState() {
@@ -206,20 +238,43 @@ class _HomeState extends State<Home> {
       "assets/Pictures/studentt.jpg",
       "assets/Pictures/badges.jpg",
     ];
-    final titles = [
-      "Book a Tutor",
-      "Groups",
-      "Calendar",
-      "Tutees",
-      "Badges",
-    ];
-    final numberStats = [
+    var titles;
+
+    if (widget.globals.getUser.getUserTypeID[0] == '9') {
+      titles = [
+        "Single Bookings",
+        "Groups",
+        "Calendar",
+        "Tutees",
+        "Badges",
+      ];
+    } else {
+      titles = [
+        "Book a Tutor",
+        "Groups",
+        "Calendar",
+        "Tutors",
+        "Badges",
+      ];
+    }
+    var numberStats = [
       "more info",
       "1",
       "more info",
       "3",
       "1",
     ];
+
+    if (numGroups != -1 && numConnections != -1) {
+      numberStats = [
+        "more info",
+        numGroups.toString(),
+        "more info",
+        numConnections.toString(),
+        "1",
+      ];
+    }
+
     String name = widget.globals.getUser.getName;
     String fullName = name + ' ' + widget.globals.getUser.getLastName;
 
@@ -284,7 +339,7 @@ class _HomeState extends State<Home> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          "  Tutee",
+                          "  " + typeUser,
                           style: TextStyle(
                             color: highlightColor,
                             fontSize: MediaQuery.of(context).size.height * 0.02,
@@ -410,6 +465,13 @@ class _HomeState extends State<Home> {
                     onTap: () {
                       if (index == 3) {
                         //render Tutees Page
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Connections(
+                                      globals: widget.globals,
+                                      stringUserType: titles[3],
+                                    )));
                       } else if (index == 1) {
                         //render Groups Page
                         Navigator.push(

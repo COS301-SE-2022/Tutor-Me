@@ -18,18 +18,21 @@ import '../theme/themes.dart';
 // import 'tuteeProfilePages/tutee_data.dart';
 // import 'theme/themes.dart';
 
-class Chats extends StatefulWidget {
-  const Chats({Key? key, required this.globals}) : super(key: key);
-
+class Connections extends StatefulWidget {
   final Globals globals;
+  final String stringUserType;
+
+  const Connections(
+      {Key? key, required this.globals, required this.stringUserType})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
-    return ChatsState();
+    return _ConnectionsState();
   }
 }
 
-class ChatsState extends State<Chats> {
+class _ConnectionsState extends State<Connections> {
   bool _isLoading = true;
   List<Tutee> tuteeChats = List<Tutee>.empty(growable: true);
   List<Uint8List> images = List<Uint8List>.empty(growable: true);
@@ -109,16 +112,27 @@ class ChatsState extends State<Chats> {
 
     Color textColor;
     Color highLightColor;
+    Color primaryColor;
 
     if (provider.themeMode == ThemeMode.dark) {
       textColor = colorWhite;
       highLightColor = colorLightBlueTeal;
+      primaryColor = colorDarkGrey;
     } else {
       textColor = colorDarkGrey;
       highLightColor = colorOrange;
+      primaryColor = colorBlueTeal;
     }
 
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          widget.stringUserType,
+          style: const TextStyle(color: colorWhite),
+        ),
+        backgroundColor: primaryColor,
+        iconTheme: const IconThemeData(color: colorWhite),
+      ),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator.adaptive())
           : userChats.isNotEmpty
@@ -137,12 +151,12 @@ class ChatsState extends State<Chats> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Icon(
-                        Icons.chat,
+                        Icons.person_add_disabled_outlined,
                         size: MediaQuery.of(context).size.height * 0.09,
                         color: highLightColor,
                       ),
                       Text(
-                        'No Chats found',
+                        'No ' + widget.stringUserType + ' found',
                         style: TextStyle(color: textColor),
                       )
                     ],
