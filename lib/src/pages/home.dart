@@ -87,10 +87,10 @@ class _HomeState extends State<Home> {
   int key = 0;
 
   Map<String, double> dataMap = {
-    "Meetings": 5,
-    "Connections": 3,
-    "Interactions": 2,
-    "Ratings": 2,
+    "Meetings - 2": 2,
+    "Connections - 3": 3,
+    "Interactions - 2": 2,
+    "Ratings - 2": 2,
   };
 
   List<Color> chartColorList = [
@@ -122,6 +122,7 @@ class _HomeState extends State<Home> {
 
     return PieChart(
       key: ValueKey(key),
+      centerText: "Activity",
       dataMap: dataMap,
       initialAngleInDegree: 0,
       animationDuration: const Duration(milliseconds: 3500),
@@ -186,7 +187,6 @@ class _HomeState extends State<Home> {
     Color cardBackground;
 
     if (provider.themeMode == ThemeMode.dark) {
-
       highlightColor = colorOrange;
       textColor = colorWhite;
       cardBackground = const Color.fromARGB(255, 104, 104, 104);
@@ -301,13 +301,13 @@ class _HomeState extends State<Home> {
         ),
         Padding(
           padding: EdgeInsets.only(
-              left: screenWidthSize * 0.1, top: screenHeightSize * 0.02),
+              left: screenWidthSize * 0.075, top: screenHeightSize * 0.02),
           child: Container(
-            width: screenWidthSize > 800 ? 500 : screenWidthSize * 0.8,
+            width: screenWidthSize > 800 ? 500 : screenWidthSize * 0.85,
             height: screenHeightSize * 0.25,
             decoration: BoxDecoration(
                 // color: Colors.black38,
-                border: Border.all(color: colorLightGrey.withOpacity(0.6)),
+                border: Border.all(color: colorBlueTeal.withOpacity(0.3)),
                 borderRadius: const BorderRadius.all(Radius.circular(10))),
             child: buildChart(),
           ),
@@ -323,9 +323,20 @@ class _HomeState extends State<Home> {
                 size: screenHeightSize * 0.017,
               ),
               SizedBox(width: screenWidthSize * 0.02),
-              Text(
-                "How to increase your stats...",
-                style: TextStyle(fontSize: screenHeightSize * 0.025),
+              Row(
+                children: [
+                  Text(
+                    "12.8% ",
+                    style: TextStyle(
+                      color: colorLightGreen,
+                      fontSize: screenHeightSize * 0.03,
+                    ),
+                  ),
+                  Text(
+                    "above average ",
+                    style: TextStyle(fontSize: screenHeightSize * 0.025),
+                  ),
+                ],
               ),
             ],
           ),
