@@ -366,7 +366,7 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
                     },
                     style: ButtonStyle(
                         backgroundColor:
-                            MaterialStateProperty.all(highlightColor),
+                            MaterialStateProperty.all(colorBlueTeal),
                         shape: MaterialStateProperty.all(RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(
                                 MediaQuery.of(context).size.width * 0.1))))))

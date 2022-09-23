@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -50,12 +51,14 @@ class TuteePendingRequestsState extends State<TuteePendingRequests> {
   getRequests() async {
     final requests = await UserServices()
         .getTuteeRequests(widget.globals.getUser.getId, widget.globals);
-
-    requestList = requests;
+    if (requests != null) {
+      requestList = requests;
+    }
     if (requestList.isEmpty) {
       setState(() {
         isLoading = false;
       });
+      return;
     }
     getTutors();
   }

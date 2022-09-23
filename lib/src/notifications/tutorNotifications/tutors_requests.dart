@@ -51,7 +51,10 @@ class TutorRequestsState extends State<TutorRequests> {
     try {
       final requests = await UserServices()
           .getTutorRequests(widget.globals.getUser.getId, widget.globals);
-      requestList = requests;
+      if (requests != null) {
+        requestList = requests;
+      }
+
       if (requestList.isEmpty) {
         setState(() {
           isLoading = false;
@@ -198,7 +201,6 @@ class TutorRequestsState extends State<TutorRequests> {
 
     int currentDay = int.parse(currentDateUnits[1]);
     int daySent = int.parse(sentDateUnits[0]);
-
 
     if (currentYear - yearSent > 0) {
       if (currentYear - yearSent > 1) {

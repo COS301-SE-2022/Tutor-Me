@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:tutor_me/services/models/globals.dart';
 import 'package:tutor_me/services/models/groups.dart';
 import 'package:tutor_me/src/colorpallete.dart';
+import 'package:tutor_me/src/tutorAndTuteeCollaboration/tutorGroups/add_group.dart';
 import '../../../services/models/modules.dart';
 import '../../../services/services/group_services.dart';
 import '../../../services/services/module_services.dart';
@@ -104,6 +105,19 @@ class TutorGroupsState extends State<TutorGroups> {
     return DefaultTabController(
         length: 3,
         child: Scaffold(
+          floatingActionButton: FloatingActionButton.extended(
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => AddGroup(
+                            globals: widget.globals,
+                          )));
+            },
+            label: const Text('Create Group'),
+            icon: const Icon(Icons.add),
+            backgroundColor: colorOrange,
+          ),
           body: Center(
             child: isLoading
                 ? const CircularProgressIndicator.adaptive()

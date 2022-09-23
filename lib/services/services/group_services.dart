@@ -14,15 +14,20 @@ class GroupServices {
     final groupsURL = Uri.http(global.getTutorMeUrl, '/api/Groups');
 
     String data = jsonEncode({
+      'groupId': moduleId,
       'moduleId': moduleId,
       'description': 'No description added',
       'userId': tutorId,
+      'videoId': ''
     });
 
     try {
       final response =
           await http.post(groupsURL, headers: global.getHeader, body: data);
-      if (response.statusCode == 201) {
+      log(response.statusCode.toString());
+
+      log(response.body);
+      if (response.statusCode == 200) {
         return true;
       } else if (response.statusCode == 401) {
         global = await refreshToken(global);
@@ -167,6 +172,7 @@ class GroupServices {
       final response = await http.get(url, headers: global.getHeader);
       log(response.statusCode.toString());
       if (response.statusCode == 200) {
+        log(response.body);
         String j = "";
         if (response.body[0] != "[") {
           j = "[" + response.body + "]";
