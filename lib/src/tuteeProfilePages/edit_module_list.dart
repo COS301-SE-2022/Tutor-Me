@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:tutor_me/services/models/user_modules.dart';
 import 'package:tutor_me/services/services/group_services.dart';
 import 'package:tutor_me/services/services/module_services.dart';
@@ -8,6 +9,7 @@ import 'package:tutor_me/src/tuteeProfilePages/tutee_profile.dart';
 import '../../services/models/globals.dart';
 import '../../services/models/groups.dart';
 import '../../services/models/modules.dart';
+import '../theme/themes.dart';
 import 'add_modules.dart';
 
 // ignore: must_be_immutable
@@ -105,12 +107,24 @@ class _EditModuleListState extends State<EditModuleList> {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
+
+    Color primaryColor;
+    Color highLightColor;
+
+    if (provider.themeMode == ThemeMode.dark) {
+      primaryColor = colorLightGrey;
+      highLightColor = colorLightBlueTeal;
+    } else {
+      primaryColor = colorBlueTeal;
+      highLightColor = colorOrange;
+    }
     return Scaffold(
       floatingActionButton: buildAddButton(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       appBar: AppBar(
         title: const Text('Current Modules'),
-        backgroundColor: colorBlueTeal,
+        backgroundColor: primaryColor,
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -143,7 +157,7 @@ class _EditModuleListState extends State<EditModuleList> {
                       ),
                       child: SmallTagBtn(
                           btnName: "Cancel",
-                          backColor: colorBlueTeal,
+                          backColor: primaryColor,
                           funct: isConfirming
                               ? () {}
                               : () {
@@ -164,7 +178,7 @@ class _EditModuleListState extends State<EditModuleList> {
                       ),
                       child: SmallTagBtn(
                           btnName: !isConfirming ? "Confirm" : 'Confirming',
-                          backColor: colorOrange,
+                          backColor: highLightColor,
                           funct: isConfirming
                               ? () {}
                               : () async {
@@ -313,6 +327,21 @@ class _EditModuleListState extends State<EditModuleList> {
   }
 
   Widget _currentModulesBuilder(BuildContext context, int i) {
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
+    Color textColor;
+
+    Color highLightColor;
+
+    if (provider.themeMode == ThemeMode.dark) {
+      textColor = colorWhite;
+
+      highLightColor = colorLightBlueTeal;
+    } else {
+      textColor = Colors.black;
+
+      highLightColor = colorOrange;
+    }
+
     return Card(
       elevation: 4.0,
       shape: RoundedRectangleBorder(
@@ -322,12 +351,18 @@ class _EditModuleListState extends State<EditModuleList> {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           ListTile(
-            leading: const Icon(
+            leading: Icon(
               Icons.book,
-              color: colorOrange,
+              color: highLightColor,
             ),
-            title: Text(widget.currentModules[i].getModuleName),
-            subtitle: Text(widget.currentModules[i].getCode),
+            title: Text(
+              widget.currentModules[i].getModuleName,
+              style: TextStyle(color: textColor),
+            ),
+            subtitle: Text(
+              widget.currentModules[i].getCode,
+              style: TextStyle(color: textColor),
+            ),
             trailing: IconButton(
               onPressed: () {
                 showDeleteDialog(context, i);
@@ -426,12 +461,34 @@ class _EditModuleListState extends State<EditModuleList> {
   }
 
   Widget topDesign() {
-    return const Scaffold(
-      body: Text('Edit Module List'),
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
+    Color textColor;
+
+    if (provider.themeMode == ThemeMode.dark) {
+      textColor = colorWhite;
+    } else {
+      textColor = colorDarkGrey;
+    }
+    return Scaffold(
+      body: Text(
+        'Edit Module List',
+        style: TextStyle(color: textColor),
+      ),
     );
   }
 
   Widget buildAddButton() {
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
+    Color textColor;
+    Color highLightColor;
+
+    if (provider.themeMode == ThemeMode.dark) {
+      textColor = colorWhite;
+      highLightColor = colorLightBlueTeal;
+    } else {
+      textColor = Colors.black;
+      highLightColor = colorOrange;
+    }
     return FloatingActionButton.extended(
       onPressed: () async {
         final results = await Navigator.push(
@@ -445,9 +502,15 @@ class _EditModuleListState extends State<EditModuleList> {
           widget.currentModules += results;
         });
       },
-      icon: const Icon(Icons.add),
-      label: const Text('Add Modules'),
-      backgroundColor: colorOrange,
+      icon: const Icon(
+        Icons.add,
+        color: colorWhite,
+      ),
+      label: Text(
+        'Add Modules',
+        style: TextStyle(color: textColor),
+      ),
+      backgroundColor: highLightColor,
     );
   }
 }

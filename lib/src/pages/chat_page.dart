@@ -1,12 +1,15 @@
 import 'dart:convert';
 import 'dart:math';
 
+import 'package:provider/provider.dart';
 import 'package:tutor_me/services/models/groups.dart';
 // import 'package:tutor_me/services/models/tutors.dart';
 
 import '../../services/models/globals.dart';
 import '../../services/models/modules.dart';
+import '../colorpallete.dart';
 import '../models/message_model.dart';
+import '../theme/themes.dart';
 import '../widgets/chat_appbar_widget.dart';
 import '../widgets/chat_message_list_widget.dart';
 import '../widgets/chat_type_message_widget.dart';
@@ -83,9 +86,21 @@ class _ChatPageState extends State<ChatPage> {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
+
+    Color secondaryColor;
+
+    if (provider.themeMode == ThemeMode.dark) {
+ 
+      secondaryColor = colorLightGrey;
+    } else {
+   
+      secondaryColor = colorWhite;
+    }
+
     var size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: secondaryColor,
       body: SizedBox(
         height: size.height,
         width: size.width,

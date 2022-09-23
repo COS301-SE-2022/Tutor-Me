@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:typed_data';
 // import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:tutor_me/services/models/globals.dart';
 import 'package:tutor_me/services/services/user_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
@@ -9,6 +10,7 @@ import 'package:tutor_me/src/components.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../services/models/users.dart';
+import '../theme/themes.dart';
 
 class ToReturn {
   Uint8List image;
@@ -78,6 +80,15 @@ class _TuteeProfileEditState extends State<TuteeProfileEdit> {
   }
 
   Widget buildBody() {
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
+
+    Color highLightColor;
+
+    if (provider.themeMode == ThemeMode.dark) {
+      highLightColor = colorLightBlueTeal;
+    } else {
+      highLightColor = colorOrange;
+    }
     final screenWidthSize = MediaQuery.of(context).size.width;
     final screenHeightSize = MediaQuery.of(context).size.height;
     String nameToEdit = widget.globals.getUser.getName +
@@ -100,7 +111,7 @@ class _TuteeProfileEditState extends State<TuteeProfileEdit> {
               hintText: "Change to: ",
               labelText: nameToEdit,
               labelStyle: TextStyle(
-                color: colorOrange,
+                color: highLightColor,
                 fontSize: screenWidthSize * 0.05,
               ),
             ),
@@ -117,7 +128,7 @@ class _TuteeProfileEditState extends State<TuteeProfileEdit> {
               hintText: "Change To:",
               labelText: widget.globals.getUser.getBio,
               labelStyle: TextStyle(
-                color: colorOrange,
+                color: highLightColor,
                 overflow: TextOverflow.visible,
                 fontSize: screenWidthSize * 0.05,
               ),
@@ -231,33 +242,43 @@ class _TuteeProfileEditState extends State<TuteeProfileEdit> {
                   )),
       );
 
-  Widget buildEditImageIcon() => ElevatedButton(
-        style: ElevatedButton.styleFrom(
-            backgroundColor: colorBlueTeal,
-            shape: const CircleBorder(),
-            padding: const EdgeInsets.all(8)),
-        child: const Icon(
-          Icons.add_a_photo_outlined,
-          color: Colors.white,
-        ),
-        onPressed: () {
-          showDialog(
-              context: context,
-              builder: (context) => AlertDialog(
-                    actions: [
-                      IconButton(
-                          onPressed: () => Navigator.pop(context),
-                          icon: const Icon(Icons.arrow_back)),
-                      TextButton(
-                          onPressed: () => pickImage(ImageSource.gallery),
-                          child: const Text('Open Gallery')),
-                      TextButton(
-                          onPressed: () => pickImage(ImageSource.camera),
-                          child: const Text('Open Camera'))
-                    ],
-                  ));
-        },
-      );
+  Widget buildEditImageIcon() {
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
+    Color primaryColor;
+
+    if (provider.themeMode == ThemeMode.dark) {
+      primaryColor = colorLightGrey;
+    } else {
+      primaryColor = colorBlueTeal;
+    }
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+          backgroundColor: primaryColor,
+          shape: const CircleBorder(),
+          padding: const EdgeInsets.all(8)),
+      child: const Icon(
+        Icons.add_a_photo_outlined,
+        color: Colors.white,
+      ),
+      onPressed: () {
+        showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+                  actions: [
+                    IconButton(
+                        onPressed: () => Navigator.pop(context),
+                        icon: const Icon(Icons.arrow_back)),
+                    TextButton(
+                        onPressed: () => pickImage(ImageSource.gallery),
+                        child: const Text('Open Gallery')),
+                    TextButton(
+                        onPressed: () => pickImage(ImageSource.camera),
+                        child: const Text('Open Camera'))
+                  ],
+                ));
+      },
+    );
+  }
 }
 
 class TextInputFieldEdit extends StatelessWidget {
@@ -278,6 +299,15 @@ class TextInputFieldEdit extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
+
+    Color highLightColor;
+
+    if (provider.themeMode == ThemeMode.dark) {
+      highLightColor = colorLightBlueTeal;
+    } else {
+      highLightColor = colorOrange;
+    }
     Size size = MediaQuery.of(context).size;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10.0),
@@ -301,15 +331,15 @@ class TextInputFieldEdit extends StatelessWidget {
                   child: Icon(
                     icon,
                     size: 24,
-                    color: colorOrange,
+                    color: highLightColor,
                   ),
                 ),
                 hintText: hint,
                 hintStyle: const TextStyle(color: Colors.black)),
-            style: const TextStyle(
+            style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.normal,
-                color: colorOrange),
+                color: highLightColor),
             keyboardType: inputType,
             textInputAction: inputAction,
           ),

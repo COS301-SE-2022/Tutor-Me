@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:tutor_me/services/models/modules.dart';
 import 'package:tutor_me/services/models/requests.dart';
 import 'package:tutor_me/services/services/module_services.dart';
@@ -10,6 +11,7 @@ import 'package:tutor_me/src/colorpallete.dart';
 
 import '../../../services/models/globals.dart';
 import '../../../services/models/users.dart';
+import '../../theme/themes.dart';
 
 class Tutor {
   Users tutee;
@@ -145,8 +147,21 @@ class TuteePendingRequestsState extends State<TuteePendingRequests> {
     screenHeight = MediaQuery.of(context).size.height;
     screenWidth = MediaQuery.of(context).size.width;
 
-    return Scaffold(
-      body: isLoading
+
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
+
+    Color primaryColor;
+    Color highLightColor;
+
+    if (provider.themeMode == ThemeMode.dark) {
+      primaryColor = colorGrey;
+      highLightColor = colorLightBlueTeal;
+    } else {
+      primaryColor = colorBlueTeal;      highLightColor = colorOrange;
+    }
+
+    return Material(
+      child: isLoading
           ? const Center(
               child: CircularProgressIndicator.adaptive(),
             )
@@ -165,9 +180,12 @@ class TuteePendingRequestsState extends State<TuteePendingRequests> {
                       Icon(
                         Icons.notifications,
                         size: MediaQuery.of(context).size.height * 0.15,
-                        color: colorOrange,
+                        color: primaryColor,
                       ),
-                      const Text('No new requests')
+                      Text(
+                        'No new requests',
+                        style: TextStyle(color: highLightColor),
+                      )
                     ],
                   ),
                 ),
@@ -221,6 +239,16 @@ class TuteePendingRequestsState extends State<TuteePendingRequests> {
   }
 
   Widget _cardBuilder(BuildContext context, int i) {
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
+
+    Color textColor;
+
+    if (provider.themeMode == ThemeMode.dark) {
+      textColor = colorWhite;
+    } else {
+      textColor = colorDarkGrey;
+    }
+
     String name = tutorList[i].getName + ' ' + tutorList[i].getLastName;
     String howLongAgo = getRequestDate(requestList[i].getDateCreated);
 
@@ -253,14 +281,22 @@ class TuteePendingRequestsState extends State<TuteePendingRequests> {
                           height: MediaQuery.of(context).size.width * 0.15,
                         )),
                 ),
-                title: Text(name),
+                title: Text(
+                  name,
+                  style: TextStyle(
+                    color: textColor,
+                  ),
+                ),
                 subtitle: Text(
                   tutorList[i].getBio,
+                  style: TextStyle(
+                    color: textColor,
+                  ),
                   overflow: TextOverflow.ellipsis,
                 ),
                 trailing: Text(
                   howLongAgo,
-                  style: TextStyle(color: Colors.grey.shade600),
+                  style: const  TextStyle(color: Color.fromARGB(255, 161, 160, 160)),
                 ),
               ),
               Row(

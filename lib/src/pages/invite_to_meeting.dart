@@ -1,6 +1,7 @@
 // ignore_for_file: sort_child_properties_last, file_names
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/pages/calendar.dart';
 
@@ -9,6 +10,7 @@ import '../../services/models/groups.dart';
 import '../../services/models/modules.dart';
 import '../../services/services/group_services.dart';
 import '../../services/services/module_services.dart';
+import '../theme/themes.dart';
 
 class InviteToMeeting extends StatefulWidget {
   final Globals globals;
@@ -82,6 +84,15 @@ class _InviteToMeetingState extends State<InviteToMeeting> {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
+
+    Color highLightColor;
+
+    if (provider.themeMode == ThemeMode.dark) {
+      highLightColor = colorLightBlueTeal;
+    } else {
+      highLightColor = colorOrange;
+    }
     // print();
     return SafeArea(
       child: Scaffold(
@@ -118,7 +129,7 @@ class _InviteToMeetingState extends State<InviteToMeeting> {
                     width: MediaQuery.of(context).size.width * 0.8,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(16),
-                      color: colorOrange,
+                      color: highLightColor,
                     ),
                     child: TextButton(
                         onPressed: () {

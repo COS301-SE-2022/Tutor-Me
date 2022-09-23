@@ -207,6 +207,9 @@ class UserServices {
     Uri tuteeURL = Uri.http(globals.getTutorMeUrl, '/api/Users/$id');
     try {
       final response = await http.get(tuteeURL, headers: globals.getHeader);
+
+      log(response.body);
+      log(response.statusCode.toString());
       if (response.statusCode == 200) {
         String j = "";
         if (response.body[0] != "[") {
@@ -516,6 +519,7 @@ class UserServices {
     }
   }
 
+  // ignore: todo
   //TODO fix this
 
   // static updateTuteeByEmail(
@@ -657,6 +661,7 @@ class UserServices {
     }
   }
 
+  // ignore: todo
   //TODO fix this
 
   // static updateTutorByEmail(
@@ -981,6 +986,7 @@ class UserServices {
     }
   }
 
+  // ignore: todo
   //TODO: is there tutor by email
 
   // static isThereTutorByEmail(String email) async {
@@ -1001,6 +1007,7 @@ class UserServices {
   //   }
   // }
 
+  // ignore: todo
   //TODO: is there tutee by email
 
   // static isThereTuteeByEmail(String email, Globals global) async {
@@ -1026,6 +1033,7 @@ class UserServices {
     return hashedPassword;
   }
 
+  // ignore: todo
   //TODO: Tutorfiles Backend
 
   // static createFileRecord(String id) async {

@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:tutor_me/services/models/globals.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/services/models/event.dart';
 // import 'package:tutor_me/src/pages/badges.dart';
 import 'package:tutor_me/src/pages/invite_to_meeting.dart';
+
+import '../theme/themes.dart';
 
 class BookingCalender extends StatefulWidget {
   final Globals globals;
@@ -44,6 +47,22 @@ class _BookingCalenderState extends State<BookingCalender> {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
+
+    Color primaryColor;
+    Color textColor;
+    Color highLightColor;
+
+    if (provider.themeMode == ThemeMode.dark) {
+      primaryColor = colorGrey;
+      textColor = colorWhite;
+      highLightColor = colorLightBlueTeal;
+    } else {
+      primaryColor = colorBlueTeal;
+      textColor = colorDarkGrey;
+      highLightColor = colorOrange;
+    }
+
     double widthOfScreen = MediaQuery.of(context).size.width;
     double toggleWidth = MediaQuery.of(context).size.width * 0.4;
     double textBoxWidth = MediaQuery.of(context).size.width * 0.4 * 2;
@@ -57,6 +76,7 @@ class _BookingCalenderState extends State<BookingCalender> {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
+          backgroundColor: primaryColor,
           title: const Text(
             'Available Sessions',
             style: TextStyle(
@@ -82,15 +102,15 @@ class _BookingCalenderState extends State<BookingCalender> {
                     color: colorWhite,
                     shape: BoxShape.circle,
                     border: Border.all(
-                      color: colorBlueTeal,
+                      color: primaryColor,
                       width: 1.0,
                     ),
                   ),
                   todayDecoration: BoxDecoration(
-                    color: colorBlueTeal,
+                    color: primaryColor,
                     shape: BoxShape.circle,
                     border: Border.all(
-                      color: colorBlueTeal,
+                      color: primaryColor,
                       width: 1.0,
                     ),
                   ),
@@ -117,24 +137,24 @@ class _BookingCalenderState extends State<BookingCalender> {
                 headerStyle: HeaderStyle(
                   // centerHeaderTitle: true,
                   formatButtonDecoration: BoxDecoration(
-                    color: colorBlueTeal,
+                    color: primaryColor,
                     borderRadius: BorderRadius.circular(20),
                   ),
                   formatButtonVisible: false,
                   titleCentered: true,
-                  titleTextStyle: const TextStyle(
-                    color: colorOrange,
+                  titleTextStyle: TextStyle(
+                    color: highLightColor,
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
                   leftChevronIcon: Icon(
                     Icons.chevron_left,
-                    color: colorOrange,
+                    color: highLightColor,
                     size: MediaQuery.of(context).size.width * 0.085,
                   ),
                   rightChevronIcon: Icon(
                     Icons.chevron_right,
-                    color: colorOrange,
+                    color: highLightColor,
                     size: MediaQuery.of(context).size.width * 0.085,
                   ),
                 ),
@@ -150,7 +170,7 @@ class _BookingCalenderState extends State<BookingCalender> {
                             border: Border(
                                 bottom: BorderSide(
                                     width: 1.0,
-                                    color: colorOrange.withOpacity(0.2)))),
+                                    color: highLightColor.withOpacity(0.2)))),
                         child: Padding(
                           padding: EdgeInsets.only(
                               top: MediaQuery.of(context).size.height * 0.03,
@@ -169,7 +189,7 @@ class _BookingCalenderState extends State<BookingCalender> {
                                     child: Text(
                                       e.title,
                                       style: TextStyle(
-                                          color: colorBlueTeal,
+                                          color: primaryColor,
                                           fontSize: MediaQuery.of(context)
                                                   .size
                                                   .width *
@@ -182,7 +202,7 @@ class _BookingCalenderState extends State<BookingCalender> {
                                     child: Text(
                                       e.description,
                                       style: TextStyle(
-                                          color: colorOrange,
+                                          color: highLightColor,
                                           fontSize: MediaQuery.of(context)
                                                   .size
                                                   .width *
@@ -192,8 +212,8 @@ class _BookingCalenderState extends State<BookingCalender> {
                                 ],
                               ),
                               TextButton(
-                                child: const Text("Send Invitation",
-                                    style: TextStyle(color: colorBlueTeal)),
+                                child: Text("Send Invitation",
+                                    style: TextStyle(color: primaryColor)),
                                 onPressed: () {
                                   Navigator.push(
                                     context,
@@ -216,7 +236,10 @@ class _BookingCalenderState extends State<BookingCalender> {
           onPressed: () => showDialog(
               context: context,
               builder: (context) => AlertDialog(
-                    title: const Text('Schedule Meeting'),
+                    title: Text(
+                      'Schedule Meeting',
+                      style: TextStyle(color: textColor),
+                    ),
                     content: SizedBox(
                       height: MediaQuery.of(context).size.height * 0.2,
                       child: Column(
@@ -236,9 +259,9 @@ class _BookingCalenderState extends State<BookingCalender> {
                     ),
                     actions: <Widget>[
                       TextButton(
-                        child: const Text(
+                        child: Text(
                           'Cancel',
-                          style: TextStyle(color: colorDarkGrey),
+                          style: TextStyle(color: textColor),
                         ),
                         onPressed: () => Navigator.pop(context),
                       ),
@@ -256,19 +279,21 @@ class _BookingCalenderState extends State<BookingCalender> {
                             scheduledSessions[mySelectedDay]?.add(Event(
                                 meetingController.text,
                                 descriptionController.text,
-                                mySelectedDay,
-                                time,
+                                mySelectedDay.toString(),
+                                time.toString(),
                                 "Me",
                                 "k",
+                                "",
                                 ""));
                           } else {
                             scheduledSessions[mySelectedDay] = [
                               Event(
                                   meetingController.text,
                                   descriptionController.text,
-                                  mySelectedDay,
-                                  time,
+                                  mySelectedDay.toString(),
+                                  time.toString(),
                                   "Me",
+                                  "",
                                   "",
                                   "")
                             ];
@@ -284,7 +309,7 @@ class _BookingCalenderState extends State<BookingCalender> {
                       ),
                     ],
                   )),
-          backgroundColor: colorBlueTeal,
+          backgroundColor: primaryColor,
           child: const Icon(Icons.bookmark_add_outlined),
         ),
       ),
@@ -292,18 +317,36 @@ class _BookingCalenderState extends State<BookingCalender> {
   }
 
   TextStyle dayStyle(FontWeight normal) {
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
+
+    Color textColor;
+
+    if (provider.themeMode == ThemeMode.dark) {
+      textColor = colorWhite;
+    } else {
+      textColor = colorDarkGrey;
+    }
     return TextStyle(
       // fontSize: 18,
       fontWeight: normal,
-      color: colorBlack,
+      color: textColor,
     );
   }
 
   selectedStyle(FontWeight bold) {
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
+
+    Color highLightColor;
+
+    if (provider.themeMode == ThemeMode.dark) {
+      highLightColor = colorLightBlueTeal;
+    } else {
+      highLightColor = colorOrange;
+    }
     return TextStyle(
       // fontSize: 18,
       fontWeight: bold,
-      color: colorOrange,
+      color: highLightColor,
     );
   }
 }
