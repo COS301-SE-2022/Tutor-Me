@@ -15,6 +15,7 @@ dependencies:
     sdk: flutter
   http: ^0.13.4
   crypt: ^4.2.1
+  flutter_time_picker_spinner: ^2.0.0
   flutter_localizations:
     sdk: flutter
   intl: ^0.17.0
@@ -43,6 +44,8 @@ dependencies:
   table_calendar: ^3.0.6
   smooth_page_indicator: ^1.0.0+2
   provider: ^6.0.3
+  shared_preferences: ^2.0.15
+
 
   
 dev_dependencies:

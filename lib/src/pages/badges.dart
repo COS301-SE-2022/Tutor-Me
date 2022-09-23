@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:tutor_me/src/colorpallete.dart';
+
+import '../theme/themes.dart';
 
 class Badges extends StatefulWidget {
   const Badges({Key? key}) : super(key: key);
@@ -79,6 +82,25 @@ class _PageState extends State<Badges> {
       );
 
   Widget buildBody() {
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
+
+    Color primaryColor;
+    Color secondaryColor;
+    Color textColor;
+    Color highLightColor;
+
+    if (provider.themeMode == ThemeMode.dark) {
+      primaryColor = colorGrey;
+      textColor = colorWhite;
+      highLightColor = colorLightBlueTeal;
+      secondaryColor = colorLightGrey;
+    } else {
+      primaryColor = colorBlueTeal;
+      textColor = colorDarkGrey;
+      highLightColor = colorOrange;
+      secondaryColor = colorWhite;
+    }
+
     final screenHeightSize = MediaQuery.of(context).size.height;
     final screenWidthSize = MediaQuery.of(context).size.width;
 
@@ -132,7 +154,7 @@ class _PageState extends State<Badges> {
             // height: MediaQuery.of(context).size.height * 0.5,
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: secondaryColor,
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(screenWidthSize * 0.1),
                 bottomRight: Radius.circular(screenWidthSize * 0.1),
@@ -148,7 +170,7 @@ class _PageState extends State<Badges> {
                     style: TextStyle(
                         fontSize: screenWidthSize * 0.06,
                         fontWeight: FontWeight.bold,
-                        color: colorOrange),
+                        color: highLightColor),
                   ),
                 ),
               ],
@@ -164,7 +186,7 @@ class _PageState extends State<Badges> {
               style: TextStyle(
                   fontSize: screenWidthSize * 0.05,
                   fontWeight: FontWeight.bold,
-                  color: colorBlueTeal),
+                  color: primaryColor),
             ),
           ),
           Divider(
@@ -231,6 +253,7 @@ class _PageState extends State<Badges> {
                                         child: Text(
                                           myBages[index],
                                           style: TextStyle(
+                                            color: textColor,
                                               fontSize: screenHeightSize * 0.02,
                                               fontWeight: FontWeight.w500),
                                         ),
@@ -257,7 +280,7 @@ class _PageState extends State<Badges> {
               style: TextStyle(
                   fontSize: screenWidthSize * 0.05,
                   fontWeight: FontWeight.bold,
-                  color: colorBlueTeal),
+                  color: primaryColor),
             ),
           ),
           Divider(
@@ -328,6 +351,7 @@ class _PageState extends State<Badges> {
                                           child: Text(
                                             titles[index],
                                             style: TextStyle(
+                                              color: textColor,
                                                 fontSize:
                                                     screenHeightSize * 0.02,
                                                 fontWeight: FontWeight.w500),

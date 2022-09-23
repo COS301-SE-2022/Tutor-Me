@@ -1,6 +1,8 @@
+import 'dart:developer';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:tutor_me/services/models/globals.dart';
 import 'package:tutor_me/services/models/modules.dart';
 import 'package:tutor_me/services/models/requests.dart';
@@ -10,6 +12,7 @@ import 'package:tutor_me/services/services/user_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 
 import '../../../services/models/users.dart';
+import '../../theme/themes.dart';
 
 class Tutee {
   Users tutee;
@@ -48,7 +51,8 @@ class TutorRequestsState extends State<TutorRequests> {
 
   getRequests() async {
     try {
-      final requests = await UserServices().getTutorRequests(widget.globals.getUser.getId, widget.globals);
+      final requests = await UserServices()
+          .getTutorRequests(widget.globals.getUser.getId, widget.globals);
       requestList = requests;
       if (requestList.isEmpty) {
         setState(() {
@@ -57,6 +61,7 @@ class TutorRequestsState extends State<TutorRequests> {
       }
       getTutees();
     } catch (e) {
+      log(e.toString());
       setState(() {
         isLoading = false;
       });
@@ -65,7 +70,8 @@ class TutorRequestsState extends State<TutorRequests> {
 
   getTutees() async {
     for (int i = 0; i < requestList.length; i++) {
-      final tutee = await UserServices.getTutee(requestList[i].getTuteeId, widget.globals);
+      final tutee = await UserServices.getTutee(
+          requestList[i].getTuteeId, widget.globals);
       tuteeList += tutee;
     }
     int requestLength = tuteeList.length;
@@ -82,8 +88,8 @@ class TutorRequestsState extends State<TutorRequests> {
   getTuteeModules() async {
     try {
       for (int i = 0; i < requestList.length; i++) {
-        final module =
-            await ModuleServices.getModule(requestList[i].getModuleId, widget.globals);
+        final module = await ModuleServices.getModule(
+            requestList[i].getModuleId, widget.globals);
         setState(() {
           modules.add(module);
         });
@@ -101,8 +107,8 @@ class TutorRequestsState extends State<TutorRequests> {
   getTuteeProfileImages() async {
     for (int i = 0; i < tuteeList.length; i++) {
       try {
-        final image =
-            await UserServices.getTuteeProfileImage(tuteeList[i].getId, widget.globals);
+        final image = await UserServices.getTuteeProfileImage(
+            tuteeList[i].getId, widget.globals);
         setState(() {
           tuteeImages.add(image);
         });
@@ -141,11 +147,24 @@ class TutorRequestsState extends State<TutorRequests> {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
+
+    Color primaryColor;
+    Color highLightColor;
+
+    if (provider.themeMode == ThemeMode.dark) {
+      primaryColor = colorGrey;
+      highLightColor = colorLightBlueTeal;
+    } else {
+      primaryColor = colorBlueTeal;
+      highLightColor = colorOrange;
+    }
+
     screenHeight = MediaQuery.of(context).size.height;
     screenWidth = MediaQuery.of(context).size.width;
 
-    return Material(
-      child: isLoading
+    return Scaffold(
+      body: isLoading
           ? const Center(
               child: CircularProgressIndicator.adaptive(),
             )
@@ -162,11 +181,14 @@ class TutorRequestsState extends State<TutorRequests> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Icon(
-                        Icons.notifications_off,
+                        Icons.notifications,
                         size: MediaQuery.of(context).size.height * 0.15,
-                        color: colorOrange,
+                        color: primaryColor,
                       ),
-                      const Text('No new requests')
+                      Text(
+                        'No new requests',
+                        style: TextStyle(color: highLightColor),
+                      )
                     ],
                   ),
                 ),
@@ -185,13 +207,16 @@ class TutorRequestsState extends State<TutorRequests> {
     String howLongAgo = '';
 
     int currentYear = int.parse(currentDateUnits[0]);
-    int yearSent = int.parse(sentDateUnits[2]);
 
-    int currentMonth = int.parse(currentDateUnits[1]);
+    List<String> actualYear = sentDateUnits[2].split(' ');
+    int yearSent = int.parse(actualYear[0]);
+
+    int currentMonth = int.parse(currentDateUnits[2]);
     int monthSent = int.parse(sentDateUnits[1]);
 
-    int currentDay = int.parse(currentDateUnits[2]);
+    int currentDay = int.parse(currentDateUnits[1]);
     int daySent = int.parse(sentDateUnits[0]);
+
 
     if (currentYear - yearSent > 0) {
       if (currentYear - yearSent > 1) {
@@ -219,6 +244,19 @@ class TutorRequestsState extends State<TutorRequests> {
   }
 
   Widget _cardBuilder(BuildContext context, int i) {
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
+
+    Color primaryColor;
+    Color textColor;
+
+    if (provider.themeMode == ThemeMode.dark) {
+      primaryColor = colorGrey;
+      textColor = colorWhite;
+    } else {
+      primaryColor = colorBlueTeal;
+      textColor = colorDarkGrey;
+    }
+
     String name = tuteeList[i].getName + ' ' + tuteeList[i].getLastName;
     String howLongAgo = getRequestDate(requestList[i].getDateCreated);
 
@@ -251,9 +289,13 @@ class TutorRequestsState extends State<TutorRequests> {
                           height: MediaQuery.of(context).size.width * 0.15,
                         )),
                 ),
-                title: Text(name),
+                title: Text(
+                  name,
+                  style: TextStyle(color: textColor),
+                ),
                 subtitle: Text(
                   tuteeList[i].getBio,
+                  style: TextStyle(color: textColor),
                   overflow: TextOverflow.ellipsis,
                 ),
                 trailing: Text(
@@ -305,8 +347,8 @@ class TutorRequestsState extends State<TutorRequests> {
                                       // await GroupServices.updateGroup(
                                       //     moduleRequestedGroup);
 
-                                      await UserServices()
-                                          .acceptRequest(requestList[i].getId, widget.globals);
+                                      await UserServices().acceptRequest(
+                                          requestList[i].getId, widget.globals);
 
                                       setState(() {
                                         isExcepting[i] = false;
@@ -327,7 +369,7 @@ class TutorRequestsState extends State<TutorRequests> {
                                   child: const Text("Accept"),
                                   style: ButtonStyle(
                                     backgroundColor:
-                                        MaterialStateProperty.all(colorOrange),
+                                        MaterialStateProperty.all(primaryColor),
                                   ),
                                 ),
                   SizedBox(width: MediaQuery.of(context).size.width * 0.05),
@@ -344,8 +386,8 @@ class TutorRequestsState extends State<TutorRequests> {
                                   isDeclining[i] = true;
                                 });
                                 try {
-                                  await UserServices()
-                                      .declineRequest(requestList[i].getId,widget.globals);
+                                  await UserServices().declineRequest(
+                                      requestList[i].getId, widget.globals);
 
                                   setState(() {
                                     isDeclining[i] = false;
@@ -362,7 +404,7 @@ class TutorRequestsState extends State<TutorRequests> {
                               child: const Text("Reject"),
                               style: ButtonStyle(
                                 backgroundColor:
-                                    MaterialStateProperty.all(colorBlueTeal),
+                                    MaterialStateProperty.all(primaryColor),
                               ),
                             )
                 ],

@@ -1,15 +1,19 @@
+import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tutor_me/services/services/user_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/components.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:open_file/open_file.dart';
 
 import '../../services/models/globals.dart';
 import '../../services/models/users.dart';
+import '../theme/themes.dart';
 
 class ToReturn {
   Uint8List image;
@@ -76,9 +80,21 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
   }
 
   Widget buildBody() {
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
+
+    Color highLightColor;
+
+    if (provider.themeMode == ThemeMode.dark) {
+      highLightColor = colorLightBlueTeal;
+    } else {
+      highLightColor = colorOrange;
+    }
+
     final screenWidthSize = MediaQuery.of(context).size.width;
     final screenHeightSize = MediaQuery.of(context).size.height;
-    String nameToEdit = widget.globals.getUser.getName + ' ' + widget.globals.getUser.getLastName;
+    String nameToEdit = widget.globals.getUser.getName +
+        ' ' +
+        widget.globals.getUser.getLastName;
     // FilePickerResult? filePickerResult;
     // String? fileName;
     // PlatformFile? file;
@@ -96,7 +112,7 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
               hintText: "Change to: ",
               labelText: nameToEdit,
               labelStyle: TextStyle(
-                color: colorOrange,
+                color: highLightColor,
                 fontSize: screenWidthSize * 0.05,
               ),
             ),
@@ -113,7 +129,7 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
               hintText: "Change To:",
               labelText: widget.globals.getUser.getBio,
               labelStyle: TextStyle(
-                color: colorOrange,
+                color: highLightColor,
                 overflow: TextOverflow.visible,
                 fontSize: screenWidthSize * 0.05,
               ),
@@ -125,13 +141,29 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
           btnIcon: Icons.upload,
           btnName: "    Upload Latest Transcript",
           onPressed: () async {
-            final filePick = await FilePicker.platform.pickFiles();
-            if (filePick == null) {
-              return;
-            }
+            final filePick = await FilePicker.platform.pickFiles(
+              type: FileType.custom,
+              allowedExtensions: ['pdf'],
+            );
 
-            final file = filePick.files.first;
-            OpenFile.open(file.path.toString());
+            File? fileToUpload = File(filePick!.files.single.path!);
+
+            // OpenFile.open(file.path.toString());
+
+            try {
+              log('here man');
+              await UserServices.updateTranscript(
+                  fileToUpload, widget.globals.getUser.getId, widget.globals);
+            } catch (e) {
+              try {
+                await UserServices.uploadTranscript(
+                    fileToUpload, widget.globals.getUser.getId, widget.globals);
+              } catch (e) {
+                const snackBar =
+                    SnackBar(content: Text('Failed to upload transcript'));
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              }
+            }
           },
         ),
         SizedBox(height: screenHeightSize * 0.03),
@@ -151,36 +183,48 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
               setState(() {
                 isSaveLoading = true;
               });
+              Uint8List newImage = widget.image;
               if (image != null) {
+                
                 try {
                   await UserServices.updateProfileImage(
-                      image, widget.globals.getUser.getId, widget.globals);
+                      image!, widget.globals.getUser.getId, widget.globals);
+
+                  newImage = await UserServices.getTutorProfileImage(
+                      widget.globals.getUser.getId, widget.globals);
                 } catch (e) {
                   try {
                     await UserServices.uploadProfileImage(
-
-                        image, widget.globals.getUser.getId, widget.globals);
-                  }
-                  catch(e){
-
-                    const snack =
-                        SnackBar(content: Text("Error uploading image"));
-                    ScaffoldMessenger.of(context).showSnackBar(snack);
+                        image!, widget.globals.getUser.getId, widget.globals);
+                  } catch (e) {
+                    const snackBar = SnackBar(
+                        content: Text('Failed to upload profile picture'));
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   }
                 }
               }
               if (bioController.text.isNotEmpty) {
+                await UserServices.updateTutorBio(widget.globals.getUser.getId,
+                    bioController.text, widget.globals);
+
                 widget.globals.getUser.setBio = bioController.text;
+
+                final globalJson = json.encode(widget.globals.toJson());
+                SharedPreferences preferences =
+                    await SharedPreferences.getInstance();
+
+                preferences.setString('globals', globalJson);
               }
               if (nameController.text.isNotEmpty ||
-                  bioController.text.isNotEmpty) {
-                // await UserServices.updateTutor(widget.user);
-              }
+                  bioController.text.isNotEmpty) {}
               setState(() {
                 isSaveLoading = false;
               });
 
-              Navigator.pop(context, ToReturn(widget.image, widget.globals.getUser));
+               Navigator.pop(context, ToReturn(newImage, widget.globals.getUser));
+              
+
+              
             })
       ],
     );
@@ -241,36 +285,47 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
                   )),
       );
 
-  Widget buildEditImageIcon() => ElevatedButton(
-        style: ElevatedButton.styleFrom(
-            backgroundColor: colorBlueTeal,
-            shape: const CircleBorder(),
-            padding: const EdgeInsets.all(8)),
-        child: const Icon(
-          Icons.add_a_photo_outlined,
-          color: Colors.white,
-        ),
-        onPressed: () {
-          showDialog(
-              context: context,
-              builder: (context) => AlertDialog(
-                    actions: [
-                      IconButton(
-                          onPressed: () => Navigator.pop(context),
-                          icon: const Icon(Icons.arrow_back)),
-                      TextButton(
-                          onPressed: () => pickImage(ImageSource.gallery),
-                          child: const Text('Open Gallery')),
-                      TextButton(
-                          onPressed: () => pickImage(ImageSource.camera),
-                          child: const Text('Open Camera'))
-                    ],
-                  ));
-          // Navigator.pop(context);
-        },
-      );
+  Widget buildEditImageIcon() {
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
 
-  // uploadTranscript() {}
+    Color primaryColor;
+
+    if (provider.themeMode == ThemeMode.dark) {
+      primaryColor = colorLightGrey;
+    } else {
+      primaryColor = colorBlueTeal;
+    }
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+          backgroundColor: primaryColor,
+          shape: const CircleBorder(),
+          padding: const EdgeInsets.all(8)),
+      child: const Icon(
+        Icons.add_a_photo_outlined,
+        color: Colors.white,
+      ),
+      onPressed: () {
+        showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+                  actions: [
+                    IconButton(
+                        onPressed: () => Navigator.pop(context),
+                        icon: const Icon(Icons.arrow_back)),
+                    TextButton(
+                        onPressed: () => pickImage(ImageSource.gallery),
+                        child: const Text('Open Gallery')),
+                    TextButton(
+                        onPressed: () => pickImage(ImageSource.camera),
+                        child: const Text('Open Camera'))
+                  ],
+                ));
+        // Navigator.pop(context);
+      },
+    );
+
+    // uploadTranscript() {}
+  }
 }
 
 class TextInputFieldEdit extends StatelessWidget {
@@ -291,6 +346,24 @@ class TextInputFieldEdit extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
+    Color textColor;
+    Color secondaryTextColor;
+    Color primaryColor;
+    Color highLightColor;
+
+    if (provider.themeMode == ThemeMode.dark) {
+      textColor = colorWhite;
+      secondaryTextColor = colorGrey;
+      primaryColor = colorLightGrey;
+      highLightColor = colorLightBlueTeal;
+    } else {
+      textColor = Colors.black;
+      secondaryTextColor = colorOrange;
+      primaryColor = colorBlueTeal;
+      highLightColor = colorOrange;
+    }
+
     Size size = MediaQuery.of(context).size;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10.0),
@@ -298,10 +371,10 @@ class TextInputFieldEdit extends StatelessWidget {
         height: size.height * height,
         width: size.width * 0.8,
         decoration: BoxDecoration(
-          color: colorWhite,
+          color: secondaryTextColor,
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
-            color: colorBlueTeal,
+            color: primaryColor,
             width: 1,
           ),
         ),
@@ -314,15 +387,15 @@ class TextInputFieldEdit extends StatelessWidget {
                   child: Icon(
                     icon,
                     size: 24,
-                    color: colorOrange,
+                    color: highLightColor,
                   ),
                 ),
                 hintText: hint,
-                hintStyle: const TextStyle(color: Colors.black)),
-            style: const TextStyle(
+                hintStyle: TextStyle(color: textColor)),
+            style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.normal,
-                color: colorOrange),
+                color: highLightColor),
             keyboardType: inputType,
             textInputAction: inputAction,
           ),

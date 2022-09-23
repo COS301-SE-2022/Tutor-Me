@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:tutor_me/services/models/globals.dart';
+import 'package:tutor_me/services/models/requests.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/notifications/tutorNotifications/tutor_notifications.dart';
 import 'package:tutor_me/src/pages/chats_page.dart';
 import 'package:tutor_me/src/pages/home.dart';
+// import 'package:tutor_me/src/pages/text_recognition.dart';
 import 'package:tutor_me/src/tutorAndTuteeCollaboration/tutorGroups/tutor_groups.dart';
 // import 'package:tutor_me/modules/api.services.dart';
 // import 'package:tutor_me/modules/tutors.dart';
+import '../services/services/user_services.dart';
 import 'Navigation/tutor_nav_drawer.dart';
 // import 'theme/themes.dart';
-import 'pages/calls_page.dart';
+// import 'pages/calls_page.dart';
 
 class TutorPage extends StatefulWidget {
   final Globals globals;
@@ -25,6 +28,28 @@ class TutorPage extends StatefulWidget {
 class TutorPageState extends State<TutorPage> {
   // var size = tutors.length;
   int currentIndex = 0;
+  List<Requests> requestList = List<Requests>.empty(growable: true);
+  int notificationCount = 0;
+
+  getRequests() async {
+    try {
+      final requests = await UserServices()
+          .getTutorRequests(widget.globals.getUser.getId, widget.globals);
+      requestList = requests;
+      if (requestList.isEmpty) {
+        setState(() {
+          notificationCount = 0;
+        });
+      } else {
+        setState(() {
+          notificationCount = requestList.length;
+        });
+      }
+    } catch (e) {
+      const snackBar = SnackBar(content: Text('Error loading, retrying...'));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
+  }
 
   getScreens() {
     return [
@@ -33,13 +58,13 @@ class TutorPageState extends State<TutorPage> {
       ),
       Chats(globals: widget.globals),
       TutorGroups(globals: widget.globals),
-      const Calls()
     ];
   }
 
   @override
   void initState() {
     super.initState();
+    getRequests();
   }
 
   @override
@@ -63,19 +88,46 @@ class TutorPageState extends State<TutorPage> {
                       end: Alignment.bottomCenter)),
             ),
             actions: <Widget>[
-              IconButton(
-                  onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (BuildContext context) => TutorNotifications(
-                              globals: widget.globals,
-                            )));
-                  },
-                  icon: const Icon(Icons.notifications))
+              Stack(children: [
+                IconButton(
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (BuildContext context) => TutorNotifications(
+                                globals: widget.globals,
+                              )));
+                    },
+                    icon: const Icon(Icons.notifications)),
+                notificationCount == 0
+                    ? Container()
+                    : Positioned(
+                        right: MediaQuery.of(context).size.width * 0.020,
+                        top: MediaQuery.of(context).size.height * 0.014,
+                        child: Container(
+                          padding: const EdgeInsets.all(2),
+                          decoration: const BoxDecoration(
+                            color: colorOrange,
+                            borderRadius: BorderRadius.all(Radius.circular(6)),
+                          ),
+                          constraints: const BoxConstraints(
+                            minWidth: 14,
+                            minHeight: 14,
+                          ),
+                          child: Text(
+                            notificationCount.toString(),
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 8,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ),
+              ])
             ],
           ),
           body: screens[currentIndex],
           bottomNavigationBar: BottomNavigationBar(
-            selectedItemColor: colorBlueTeal,
+            selectedItemColor: colorOrange,
             unselectedItemColor: colorDarkGrey,
             showUnselectedLabels: true,
             unselectedLabelStyle: const TextStyle(color: colorDarkGrey),
@@ -97,10 +149,6 @@ class TutorPageState extends State<TutorPage> {
               BottomNavigationBarItem(
                 icon: Icon(Icons.people),
                 label: 'Groups',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.person),
-                label: 'Calls',
               ),
             ],
           ));

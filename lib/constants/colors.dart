@@ -1,5 +1,6 @@
-import 'package:flutter/rendering.dart';
+import 'package:flutter/material.dart';
+import '../../src/colorpallete.dart';
 
-const Color primaryColor = Color.fromRGBO(17, 120, 248, 1);
-const Color secondaryColor = Color.fromRGBO(33, 32, 50, 1);
-const Color hoverColor = Color.fromRGBO(51, 50, 68, 1);
+const Color primaryColor = colorBlueTeal;
+const Color secondaryColor = colorBlueTeal;
+const Color hoverColor = colorGrey;

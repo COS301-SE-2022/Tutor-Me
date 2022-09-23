@@ -1,99 +1,109 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:tutor_me/services/models/globals.dart';
 import 'package:tutor_me/src/colorpallete.dart';
-import 'package:tutor_me/src/models/event.dart';
+import 'package:tutor_me/services/models/event.dart';
 // import 'package:tutor_me/src/pages/badges.dart';
 import 'package:tutor_me/src/pages/invite_to_meeting.dart';
+import '../../services/models/users.dart';
+import '../../services/services/events_services.dart';
+import '../../services/services/user_services.dart';
+import '../theme/themes.dart';
 
 class CalendarScreen extends StatefulWidget {
-  const CalendarScreen({Key? key}) : super(key: key);
+  final Globals globals;
+  const CalendarScreen({Key? key, required this.globals}) : super(key: key);
 
   @override
   State<CalendarScreen> createState() => _CalendarScreenState();
 }
 
 class _CalendarScreenState extends State<CalendarScreen> {
-  // late CalendarController _controller;
+  List<Event> events = List<Event>.empty(growable: true);
+  bool isLoading = true;
+  List<Users> owner = List<Users>.empty(growable: true);
+  DateTime timeSelected = DateTime.now();
 
-  late Map<DateTime, List<dynamic>> scheduledSessions = {
-    DateTime(2022, 9, 21): [
-      Event(
-        title: 'Meeting 1',
-        description: 'Meeting 1 description',
-        date: DateTime(2022, 9, 21),
-        time: DateTime(2022, 9, 21, 10, 30),
-        owner: 'Owner 1',
-      ),
-      Event(
-        title: 'Meeting 2',
-        description: 'Meeting 2 description',
-        date: DateTime(2022, 9, 21),
-        time: DateTime(2022, 9, 21, 11, 30),
-        owner: 'Owner 2',
-      ),
-    ],
-    DateTime(2022, 9, 22): [
-      Event(
-        title: 'Meeting 3',
-        description: 'Meeting 3 description',
-        date: DateTime(2022, 9, 22),
-        time: DateTime(2022, 9, 22, 10, 30),
-        owner: 'Owner 3',
-      ),
-      Event(
-        title: 'Meeting 4',
-        description: 'Meeting 4 description',
-        date: DateTime(2022, 9, 22),
-        time: DateTime(2022, 9, 22, 11, 30),
-        owner: 'Owner 4',
-      ),
-    ],
-    DateTime(2022, 9, 23): [
-      Event(
-        title: 'Meeting 5',
-        description: 'Meeting 5 description',
-        date: DateTime(2022, 9, 23),
-        time: DateTime(2022, 9, 23, 10, 30),
-        owner: 'Owner 5',
-      ),
-      Event(
-        title: 'Meeting 6',
-        description: 'Meeting 6 description',
-        date: DateTime(2022, 9, 23),
-        time: DateTime(2022, 9, 23, 11, 30),
-        owner: 'Owner 6',
-      ),
-    ],
-  };
-
-  List getScheduledSessions(DateTime date) {
-    // print("================================");
-    // print(date);
-    // // print(scheduledSessions.isEmpty);
-    // print(scheduledSessions[date]);
-    // print(scheduledSessions);
-    // // print(DateTime(2022, 09, 22) == date);
-    // print("================================");
-
-    return scheduledSessions[date] ?? [];
+  getUserEvents() async {
+    try {
+      final incomingEvents = await EventServices.getEventsByUserId(
+          widget.globals.getUser.getId, widget.globals);
+      events = incomingEvents;
+    } catch (e) {
+      const snack = SnackBar(content: Text('Error loading events'));
+      ScaffoldMessenger.of(context).showSnackBar(snack);
+    }
+    loadScheduledSession();
   }
 
-  List printResults(date) {
-    // print("================================");
-    // print(date);
-    // print("Yes empty");
-    // print("================================");
-    return [];
+  getOwner() async {
+    try {
+      for (int i = 0; i < events.length; i++) {
+        final incomingOwner =
+            await UserServices.getTutor(events[i].getOwnerId, widget.globals);
+        owner += incomingOwner;
+      }
+    } catch (e) {
+      const snack = SnackBar(content: Text('Error loading events'));
+      ScaffoldMessenger.of(context).showSnackBar(snack);
+    }
+    setState(() {
+      isLoading = false;
+    });
   }
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    // print("now");
+    getUserEvents();
+  }
+
+  late Map<DateTime, List<dynamic>> scheduledSessions = {};
+
+  loadScheduledSession() {
+    DateTime varDate;
+
+    // int month, year, day;
+    // int min, hour;
+    // List<String> date;
+
+    // print(events.length);
+    for (int i = 0; i < events.length; i++) {
+      // min = int.parse(events[i].getTimeOfEvent.substring(3, 4));
+      // hour = int.parse(events[i].getTimeOfEvent.substring(0, 1));
+
+      // print("££££££££££££££" + events[i].getDateOfEvent);
+      // date = events[i].getDateOfEvent.split('/');
+
+      varDate = DateTime.parse(events[i].getDateOfEvent);
+      // print(varDate.year.toString() +
+          // varDate.month.toString() +
+          // varDate.day.toString());
+      scheduledSessions.addAll({
+        DateTime(varDate.year, varDate.month, varDate.day): [
+          events[i],
+        ]
+      });
+      // print('after add');
+    }
+    // print("noooo ");
+    // print(scheduledSessions.length);
     // print(scheduledSessions);
+    // print("noooo2 ");
+    getOwner();
+  }
+
+  List getScheduledSessions(DateTime date) {
+    var newDate = DateTime(date.year, date.month, date.day);
+
+    return scheduledSessions[newDate] ?? [];
+  }
+
+  List printResults(date) {
+    return [];
   }
 
   CalendarFormat format = CalendarFormat.month;
@@ -103,6 +113,8 @@ class _CalendarScreenState extends State<CalendarScreen> {
 
   TextEditingController meetingController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
+  TextEditingController timeController = TextEditingController();
+  EventServices event = EventServices();
 
   @override
   void dispose() {
@@ -113,10 +125,30 @@ class _CalendarScreenState extends State<CalendarScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
+
+    Color primaryColor;
+    Color textColor;
+    Color highLightColor;
+    Color backgroundColor;
+
+    if (provider.themeMode == ThemeMode.dark) {
+      primaryColor = colorGrey;
+      textColor = colorWhite;
+      highLightColor = colorLightBlueTeal;
+      backgroundColor = colorDarkGrey;
+    } else {
+      primaryColor = colorBlueTeal;
+      textColor = colorDarkGrey;
+      highLightColor = colorOrange;
+      backgroundColor = colorWhite;
+    }
+
     double widthOfScreen = MediaQuery.of(context).size.width;
     double toggleWidth = MediaQuery.of(context).size.width * 0.4;
     double textBoxWidth = MediaQuery.of(context).size.width * 0.4 * 2;
     double buttonWidth = MediaQuery.of(context).size.width * 0.8;
+
     if (widthOfScreen >= 400.0) {
       toggleWidth = toggleWidth / 2;
       buttonWidth = buttonWidth / 2;
@@ -131,70 +163,76 @@ class _CalendarScreenState extends State<CalendarScreen> {
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.015,
               ),
-              TableCalendar(
-                startingDayOfWeek: StartingDayOfWeek.sunday,
-                eventLoader: scheduledSessions.isNotEmpty
-                    ? (date) => getScheduledSessions(date)
-                    : (date) => printResults(date),
-                calendarStyle: CalendarStyle(
-                  selectedDecoration: BoxDecoration(
-                    color: colorWhite,
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: colorBlueTeal,
-                      width: 1.0,
-                    ),
-                  ),
-                  todayDecoration: BoxDecoration(
-                    color: colorBlueTeal,
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: colorBlueTeal,
-                      width: 1.0,
-                    ),
-                  ),
-                  selectedTextStyle: selectedStyle(FontWeight.bold),
+              Container(
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                  color: backgroundColor,
                 ),
-                firstDay: DateTime.now(),
-                focusedDay: myFocusedDay,
-                lastDay: DateTime(2025),
-                calendarFormat: format,
-                onFormatChanged: (CalendarFormat format) {
-                  setState(() {
-                    format = format;
-                  });
-                },
-                onDaySelected: (DateTime day, DateTime fday) {
-                  setState(() {
-                    mySelectedDay = day;
-                    myFocusedDay = fday;
-                  });
-                },
-                selectedDayPredicate: (DateTime day) {
-                  return isSameDay(day, mySelectedDay);
-                },
-                headerStyle: HeaderStyle(
-                  // centerHeaderTitle: true,
-                  formatButtonDecoration: BoxDecoration(
-                    color: colorOrange,
-                    borderRadius: BorderRadius.circular(20),
+                child: TableCalendar(
+                  startingDayOfWeek: StartingDayOfWeek.sunday,
+                  eventLoader: scheduledSessions.isNotEmpty
+                      ? (date) => getScheduledSessions(date)
+                      : (date) => printResults(date),
+                  calendarStyle: CalendarStyle(
+                    selectedDecoration: BoxDecoration(
+                      color: highLightColor,
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: highLightColor,
+                        width: 1.0,
+                      ),
+                    ),
+                    todayDecoration: BoxDecoration(
+                      color: primaryColor,
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: primaryColor,
+                        width: 6.0,
+                      ),
+                    ),
+                    selectedTextStyle: selectedStyle(FontWeight.bold),
                   ),
-                  formatButtonVisible: false,
-                  titleCentered: true,
-                  titleTextStyle: const TextStyle(
-                    color: colorBlueTeal,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  leftChevronIcon: Icon(
-                    Icons.chevron_left,
-                    color: colorBlueTeal,
-                    size: MediaQuery.of(context).size.width * 0.085,
-                  ),
-                  rightChevronIcon: Icon(
-                    Icons.chevron_right,
-                    color: colorBlueTeal,
-                    size: MediaQuery.of(context).size.width * 0.085,
+                  firstDay: DateTime.now(),
+                  focusedDay: myFocusedDay,
+                  lastDay: DateTime(2025),
+                  calendarFormat: format,
+                  onFormatChanged: (CalendarFormat format) {
+                    setState(() {
+                      format = format;
+                    });
+                  },
+                  onDaySelected: (DateTime day, DateTime fday) {
+                    setState(() {
+                      mySelectedDay = day;
+                      myFocusedDay = fday;
+                    });
+                  },
+                  selectedDayPredicate: (DateTime day) {
+                    return isSameDay(day, mySelectedDay);
+                  },
+                  headerStyle: HeaderStyle(
+                    // centerHeaderTitle: true,
+                    formatButtonDecoration: BoxDecoration(
+                      color: highLightColor,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    formatButtonVisible: false,
+                    titleCentered: true,
+                    titleTextStyle: TextStyle(
+                      color: textColor,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    leftChevronIcon: Icon(
+                      Icons.chevron_left,
+                      color: primaryColor,
+                      size: MediaQuery.of(context).size.width * 0.085,
+                    ),
+                    rightChevronIcon: Icon(
+                      Icons.chevron_right,
+                      color: primaryColor,
+                      size: MediaQuery.of(context).size.width * 0.085,
+                    ),
                   ),
                 ),
               ),
@@ -225,23 +263,27 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                   SizedBox(
                                     width: MediaQuery.of(context).size.width *
                                         0.45,
-                                    child: Text(
-                                      e.title,
-                                      style: TextStyle(
-                                          color: colorBlueTeal,
-                                          fontSize: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.07),
+                                    child: Row(
+                                      children: [
+                                        Text(
+                                          e.getTitle,
+                                          style: TextStyle(
+                                              color: primaryColor,
+                                              fontSize: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.07),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                   SizedBox(
                                     width: MediaQuery.of(context).size.width *
                                         0.45,
                                     child: Text(
-                                      e.description,
+                                      e.getDescription,
                                       style: TextStyle(
-                                          color: colorOrange,
+                                          color: highLightColor,
                                           fontSize: MediaQuery.of(context)
                                                   .size
                                                   .width *
@@ -251,15 +293,15 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                 ],
                               ),
                               TextButton(
-                                child: const Text("Send Invitation",
-                                    style: TextStyle(color: colorOrange)),
+                                child: Text("Send Invitation",
+                                    style: TextStyle(color: highLightColor)),
                                 onPressed: () {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) => InviteToMeeting(
-                                          title: e.title,
-                                          description: e.description),
+                                        globals: widget.globals,
+                                      ),
                                     ),
                                   );
                                 },
@@ -274,72 +316,113 @@ class _CalendarScreenState extends State<CalendarScreen> {
         floatingActionButton: FloatingActionButton(
           onPressed: () => showDialog(
               context: context,
-              builder: (context) => AlertDialog(
-                    title: const Text('Schedule Meeting'),
-                    content: SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.2,
-                      child: Column(
-                        children: [
-                          TextFormField(
-                            controller: meetingController,
-                            decoration: const InputDecoration(
-                                labelText: 'Meeting Title'),
-                          ),
-                          TextFormField(
-                            controller: descriptionController,
-                            decoration: const InputDecoration(
-                                labelText: 'Meeting Description'),
-                          ),
-                        ],
-                      ),
-                    ),
-                    actions: <Widget>[
-                      TextButton(
-                        child: const Text(
-                          'Cancel',
-                          style: TextStyle(color: colorDarkGrey),
+              builder: (context) => Center(
+                    child: AlertDialog(
+                      title: const Text('Schedule Meeting'),
+                      content: SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.3,
+                        child: Column(
+                          children: [
+                            TextFormField(
+                              controller: meetingController,
+                              decoration: const InputDecoration(
+                                  labelText: 'Meeting Title'),
+                            ),
+                            TextFormField(
+                              controller: descriptionController,
+                              decoration: const InputDecoration(
+                                  labelText: 'Meeting Description'),
+                            ),
+                            TextFormField(
+                              controller: timeController,
+                              decoration: const InputDecoration(
+                                  labelText: 'Meeting Time'),
+                            ),
+                          ],
                         ),
-                        onPressed: () => Navigator.pop(context),
                       ),
-                      TextButton(
-                        child: const Text(
-                          'Add',
-                          style: TextStyle(color: Colors.green),
+                      actions: <Widget>[
+                        TextButton(
+                          child: Text(
+                            'Cancel',
+                            style: TextStyle(color: textColor),
+                          ),
+                          onPressed: () => Navigator.pop(context),
                         ),
-                        onPressed: () {
-                          if (meetingController.text.isEmpty) {
-                            return;
-                          }
-                          // else {
-                          if (scheduledSessions[mySelectedDay] != null) {
-                            scheduledSessions[mySelectedDay]?.add(Event(
-                                title: meetingController.text,
-                                description: descriptionController.text,
-                                date: mySelectedDay,
-                                time: time,
-                                owner: "Me"));
-                          } else {
-                            scheduledSessions[mySelectedDay] = [
-                              Event(
-                                  title: meetingController.text,
-                                  description: descriptionController.text,
-                                  date: mySelectedDay,
-                                  time: time,
-                                  owner: "Me")
-                            ];
-                          }
-                          // }
-                          Navigator.pop(context);
-                          meetingController.clear();
-                          descriptionController.clear();
+                        TextButton(
+                          child: const Text(
+                            'Add',
+                            style: TextStyle(color: Colors.green),
+                          ),
+                          onPressed: () {
+                            if (meetingController.text.isEmpty) {
+                              return;
+                            }
 
-                          //move forward to next page
-                          return;
-                        },
-                      ),
-                    ],
+                            // else {
+                            if (scheduledSessions[mySelectedDay] != null) {
+                              scheduledSessions[mySelectedDay]?.add(Event(
+                                meetingController.text,
+                                descriptionController.text,
+                                mySelectedDay.toString(),
+                                timeController.text,
+                                "",
+                                "",
+                                "",
+                                widget.globals.getUser.getId,
+                              ));
+                              EventServices.createEvent(
+                                  Event(
+                                    meetingController.text,
+                                    descriptionController.text,
+                                    mySelectedDay.toString(),
+                                    timeController.text,
+                                    widget.globals.getUser.getId,
+                                    "",
+                                    "",
+                                    widget.globals.getUser.getId,
+                                  ),
+                                  widget.globals);
+                            } else {
+                              scheduledSessions[mySelectedDay] = [
+                                Event(
+                                  meetingController.text,
+                                  descriptionController.text,
+                                  mySelectedDay.toString(),
+                                  time.toString(),
+                                  "",
+                                  "",
+                                  "",
+                                  widget.globals.getUser.getId,
+                                ),
+                              ];
+                              EventServices.createEvent(
+                                  Event(
+                                    meetingController.text,
+                                    descriptionController.text,
+                                    mySelectedDay.toString(),
+                                    timeController.text,
+                                    "",
+                                    "",
+                                    "",
+                                    widget.globals.getUser.getId,
+                                  ),
+                                  widget.globals);
+                            }
+                            // }
+                            Navigator.pop(context);
+                            meetingController.clear();
+                            descriptionController.clear();
+                            timeController.clear();
+
+                            //move forward to next page
+                            return;
+                          },
+                        ),
+                      ],
+                    ),
                   )),
-          backgroundColor: colorOrange,
+          backgroundColor: highLightColor,
           child: const Icon(Icons.add),
         ),
       ),
@@ -347,18 +430,37 @@ class _CalendarScreenState extends State<CalendarScreen> {
   }
 
   TextStyle dayStyle(FontWeight normal) {
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
+
+    Color textColor;
+
+    if (provider.themeMode == ThemeMode.dark) {
+      textColor = colorWhite;
+    } else {
+      textColor = colorDarkGrey;
+    }
+
     return TextStyle(
       // fontSize: 18,
       fontWeight: normal,
-      color: colorBlack,
+      color: textColor,
     );
   }
 
   selectedStyle(FontWeight bold) {
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
+
+    Color highLightColor;
+
+    if (provider.themeMode == ThemeMode.dark) {
+      highLightColor = colorLightGrey;
+    } else {
+      highLightColor = colorWhite;
+    }
     return TextStyle(
       // fontSize: 18,
       fontWeight: bold,
-      color: colorOrange,
+      color: highLightColor,
     );
   }
 }
