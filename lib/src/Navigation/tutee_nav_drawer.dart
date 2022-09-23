@@ -65,6 +65,7 @@ class TuteeNavigationDrawerState extends State<TuteeNavigationDrawerWidget> {
     // final text = MediaQuery.of(context).platformBrightness == Brightness.dark;
     final provider = Provider.of<ThemeProvider>(context, listen: false);
     Color drawerColor;
+    
     if (provider.themeMode == ThemeMode.dark) {
       drawerColor = colorDarkGrey;
     } else {
@@ -133,7 +134,7 @@ class TuteeNavigationDrawerState extends State<TuteeNavigationDrawerWidget> {
                               ))
                         }),
                 buildMenu(
-                    text: 'About Us & Contact Us ',
+                    text: 'Contact Us ',
                     icon: Icons.contact_support_outlined,
                     onClicked: () => {
                           Navigator.push(

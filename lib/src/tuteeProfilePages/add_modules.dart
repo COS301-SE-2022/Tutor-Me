@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:tutor_me/services/services/group_services.dart';
 import 'package:tutor_me/services/services/module_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
@@ -9,6 +10,7 @@ import 'package:tutor_me/src/tuteeProfilePages/tutee_profile.dart';
 import '../../services/models/globals.dart';
 import '../../services/models/groups.dart';
 import '../../services/models/modules.dart';
+import '../theme/themes.dart';
 
 // ignore: must_be_immutable
 
@@ -130,10 +132,22 @@ class _AddModulesPageState extends State<AddModulesPage> {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
+
+    Color primaryColor;
+    Color highLightColor;
+
+    if (provider.themeMode == ThemeMode.dark) {
+      primaryColor = colorLightGrey;
+      highLightColor = colorLightBlueTeal;
+    } else {
+      primaryColor = colorBlueTeal;
+      highLightColor = colorOrange;
+    }
     return Scaffold(
       appBar: AppBar(
         title: const Text("Available Modules"),
-        backgroundColor: colorBlueTeal,
+        backgroundColor: primaryColor,
       ),
       body: _isLoading
           ? const Center(
@@ -147,7 +161,7 @@ class _AddModulesPageState extends State<AddModulesPage> {
                       Icon(
                         Icons.book,
                         size: MediaQuery.of(context).size.height * 0.09,
-                        color: colorOrange,
+                        color: highLightColor,
                       ),
                       const Text('No Modules Available')
                     ],
@@ -187,8 +201,8 @@ class _AddModulesPageState extends State<AddModulesPage> {
                                       )
                                     : null,
                                 border: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                      color: colorBlueTeal, width: 1.0),
+                                  borderSide: BorderSide(
+                                      color: primaryColor, width: 1.0),
                                   borderRadius: BorderRadius.circular(50),
                                 ),
                                 hintStyle: const TextStyle(
@@ -218,7 +232,7 @@ class _AddModulesPageState extends State<AddModulesPage> {
                           ),
                           child: SmallTagBtn(
                               btnName: "Done",
-                              backColor: colorOrange,
+                              backColor: highLightColor,
                               funct: () {
                                 Navigator.pop(context, modulesToAdd);
                               }),
@@ -231,6 +245,21 @@ class _AddModulesPageState extends State<AddModulesPage> {
   }
 
   Widget _cardBuilder(BuildContext context, int i) {
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
+    Color textColor;
+
+    Color highLightColor;
+
+    if (provider.themeMode == ThemeMode.dark) {
+      textColor = colorWhite;
+
+      highLightColor = colorLightBlueTeal;
+    } else {
+      textColor = Colors.black;
+
+      highLightColor = colorOrange;
+    }
+
     String name = modules[i].module.getModuleName;
     return Card(
       elevation: 4.0,
@@ -241,12 +270,18 @@ class _AddModulesPageState extends State<AddModulesPage> {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           ListTile(
-            leading: const Icon(
+            leading: Icon(
               Icons.book,
-              color: colorOrange,
+              color: highLightColor,
             ),
-            title: Text(name),
-            subtitle: Text(modules[i].module.getCode),
+            title: Text(
+              name,
+              style: TextStyle(color: textColor),
+            ),
+            subtitle: Text(
+              modules[i].module.getCode,
+              style: TextStyle(color: textColor),
+            ),
             trailing: Checkbox(
               value: modules[i].selected,
               onChanged: (bool? value) {
@@ -297,12 +332,37 @@ class _AddModulesPageState extends State<AddModulesPage> {
   }
 
   Widget topDesign() {
-    return const Scaffold(
-      body: Text('Edit Module List'),
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
+    Color textColor;
+
+    if (provider.themeMode == ThemeMode.dark) {
+      textColor = colorWhite;
+    } else {
+      textColor = Colors.black;
+    }
+    return Scaffold(
+      body: Text(
+        'Edit Module List',
+        style: TextStyle(color: textColor),
+      ),
     );
   }
 
   Widget buildAddButton() {
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
+    Color textColor;
+
+    Color highLightColor;
+
+    if (provider.themeMode == ThemeMode.dark) {
+      textColor = colorWhite;
+
+      highLightColor = colorLightBlueTeal;
+    } else {
+      textColor = Colors.black;
+
+      highLightColor = colorOrange;
+    }
     return FloatingActionButton.extended(
       onPressed: () {
         Navigator.push(
@@ -319,9 +379,15 @@ class _AddModulesPageState extends State<AddModulesPage> {
           }
         });
       },
-      icon: const Icon(Icons.add),
-      label: const Text('Add Modules'),
-      backgroundColor: colorOrange,
+      icon: const Icon(
+        Icons.add,
+        color: colorWhite,
+      ),
+      label: Text(
+        'Add Modules',
+        style: TextStyle(color: textColor),
+      ),
+      backgroundColor: highLightColor,
     );
   }
 }
