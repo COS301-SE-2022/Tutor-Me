@@ -379,7 +379,9 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
                             )));
 
                 setState(() {
-                  currentModules = modules;
+                  if (modules != null) {
+                    currentModules = modules;
+                  }
                 });
               },
             )),

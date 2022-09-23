@@ -270,6 +270,8 @@ class _RegisterStep1State extends State<RegisterStep1> {
                       isLoading = true;
                     });
 
+                    errMsg = "";
+
                     if (emailController.text == "" ||
                         passwordController.text == "" ||
                         confirmPasswordController.text == "") {
@@ -284,6 +286,25 @@ class _RegisterStep1State extends State<RegisterStep1> {
                           confirmPasswordController.text.length < 8) {
                         errMsg +=
                             "Password must be at least 8 characters long\n";
+                      }
+
+                      if (!passwordController.text.contains(RegExp(r'[0-9]'))) {
+                        errMsg +=
+                            "Passwords must contain at least one number\n";
+                      }
+
+                      if (!passwordController.text.contains(RegExp(r'[A-Z]'))) {
+                        errMsg +=
+                            "Passwords must contain at least one Capital Letter\n";
+                      }
+                      if (!passwordController.text.contains(RegExp(r'[a-z]'))) {
+                        errMsg +=
+                            "Passwords must contain at least one Lowercase Letter\n";
+                      }
+                      if (!passwordController.text
+                          .contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
+                        errMsg +=
+                            "Passwords must contain at least one Special character\n";
                       }
 
                       if (emailController.text.contains("@") == false ||
@@ -303,8 +324,6 @@ class _RegisterStep1State extends State<RegisterStep1> {
                       //         emailController.text);
 
                     }
-
-                    sendOTP();
 
                     if (errMsg != "") {
                       setState(() {
@@ -343,6 +362,7 @@ class _RegisterStep1State extends State<RegisterStep1> {
                         },
                       );
                     } else {
+                      sendOTP();
                       _displayTextInputDialog(context);
                       // Navigator.push(
                       //     context,

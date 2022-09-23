@@ -183,10 +183,15 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
               setState(() {
                 isSaveLoading = true;
               });
+              Uint8List newImage = widget.image;
               if (image != null) {
+                
                 try {
                   await UserServices.updateProfileImage(
                       image!, widget.globals.getUser.getId, widget.globals);
+
+                  newImage = await UserServices.getTutorProfileImage(
+                      widget.globals.getUser.getId, widget.globals);
                 } catch (e) {
                   try {
                     await UserServices.uploadProfileImage(
@@ -196,14 +201,6 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
                         content: Text('Failed to upload profile picture'));
                     ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   }
-                }
-                try {
-                  await UserServices.uploadProfileImage(
-                      image, widget.globals.getUser.getId, widget.globals);
-                } catch (e) {
-                  const snack =
-                      SnackBar(content: Text("Error uploading image"));
-                  ScaffoldMessenger.of(context).showSnackBar(snack);
                 }
               }
               if (bioController.text.isNotEmpty) {
@@ -224,8 +221,10 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
                 isSaveLoading = false;
               });
 
-              Navigator.pop(
-                  context, ToReturn(widget.image, widget.globals.getUser));
+               Navigator.pop(context, ToReturn(newImage, widget.globals.getUser));
+              
+
+              
             })
       ],
     );

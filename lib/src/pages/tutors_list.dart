@@ -167,7 +167,6 @@ class TutorListState extends State<TutorList> {
 
   getConnections() async {
     try {
-      List<int> indecies = List<int>.empty(growable: true);
       int tutorLength = tutorList.length;
 
       final tutors = await UserServices.getConnections(
@@ -180,17 +179,20 @@ class TutorListState extends State<TutorList> {
       for (int i = 0; i < tutorLength; i++) {
         for (int j = 0; j < connectedTutors.length; j++) {
           if (tutorList[i].getId == connectedTutors[j].getId) {
-            indecies.add(i);
+            tutorList.remove(tutorList[i]);
           }
         }
       }
+
       List<Modules> tuteeModules = List<Modules>.empty();
       final tuteeModuleList = await ModuleServices.getUserModules(
           widget.globals.getUser.getId, widget.globals);
+
       tuteeModules = tuteeModuleList;
-      for (int i = 0; i < tutorLength; i++) {
-        bool val = false;
-        if (tuteeModules.isNotEmpty) {
+      if (tuteeModules.isNotEmpty) {
+        for (int i = 0; i < tutorLength; i++) {
+          bool val = false;
+
           List<Modules> tutorModules = List<Modules>.empty();
           final tutorModuleList = await ModuleServices.getUserModules(
               tutorList[i].getId, widget.globals);
@@ -203,38 +205,21 @@ class TutorListState extends State<TutorList> {
               }
             }
           }
-        }
 
-        if (!val) {
-          indecies.add(i);
+          if (!val) {
+            tutorList.remove(tutorList[i]);
+          }
         }
-      }
-
-      if (tuteeModules.isEmpty) {
+        getTutorProfileImages();
+      } else {
         setState(() {
           tutorList = List<Users>.empty();
+          _isLoading = false;
         });
         const snackBar = SnackBar(
-          content: Text('No Tutor suggestions'),
+          content: Text('No Tutor suggestions, please add modules'),
         );
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
-      } else {
-        List<Users> tempList = List<Users>.empty(growable: true);
-
-        for (int i = 0; i < tutorList.length; i++) {
-          bool toAdd = true;
-          for (int j = 0; j < indecies.length; j++) {
-            if (i == indecies[j]) {
-              toAdd = false;
-            }
-          }
-          if (toAdd) {
-            tempList.add(tutorList[i]);
-          }
-        }
-        setState(() {
-          tutorList = tempList;
-        });
       }
     } catch (e) {
       for (var tutor in tutorList) {
@@ -251,7 +236,7 @@ class TutorListState extends State<TutorList> {
     try {
       for (int i = 0; i < tutorList.length; i++) {
         try {
-          final image = await UserServices.getProfileImage(
+          final image = await UserServices.getTutorProfileImage(
               tutorList[i].getId, widget.globals);
           setState(() {
             tutorImages.add(image);
@@ -315,8 +300,8 @@ class TutorListState extends State<TutorList> {
 
     filterContHeight = MediaQuery.of(context).size.height * 0.16;
     filterContWidth = MediaQuery.of(context).size.width * 0.9;
-    return Material(
-        child: SingleChildScrollView(
+    return Scaffold(
+        body: SingleChildScrollView(
       child: Column(
         children: [
           Container(
@@ -811,7 +796,7 @@ class TutorListState extends State<TutorList> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
                                   Icon(
-                                    Icons.person_add_disabled,
+                                    Icons.people,
                                     size: MediaQuery.of(context).size.height *
                                         0.09,
                                     color: highLightColor,
