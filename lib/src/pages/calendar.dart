@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:tutor_me/services/models/globals.dart';
 import 'package:tutor_me/src/colorpallete.dart';
+import 'package:tutor_me/src/pages/tutee_calendar_page.dart';
 // import 'package:tutor_me/src/pages/badges.dart';
 import 'package:tutor_me/src/pages/upcoming.dart';
 
@@ -21,12 +22,21 @@ class _CalendarState extends State<Calendar> {
   int currentIndex = 0;
 
   getScreens() {
-    return [
-      Upcoming(
-        globals: widget.globals,
-      ),
-      CalendarScreen(globals: widget.globals)
-    ];
+    if (widget.globals.getUser.getUserTypeID[0] == '9') {
+      return [
+        Upcoming(
+          globals: widget.globals,
+        ),
+        CalendarScreen(globals: widget.globals)
+      ];
+    } else {
+      return [
+        Upcoming(
+          globals: widget.globals,
+        ),
+        TuteeCalendarScreen(globals: widget.globals)
+      ];
+    }
   }
   // late CalendarController _controller;
 
@@ -66,10 +76,10 @@ class _CalendarState extends State<Calendar> {
     Color highLightColor;
 
     if (provider.themeMode == ThemeMode.dark) {
-      primaryColor = const  Color.fromARGB(255, 37, 36, 36);
+      primaryColor = const Color.fromARGB(255, 37, 36, 36);
       textColor = colorWhite;
       highLightColor = colorOrange;
-      secondaryColor =  const Color.fromARGB(255, 88, 88, 88);
+      secondaryColor = const Color.fromARGB(255, 88, 88, 88);
     } else {
       primaryColor = colorBlueTeal;
       textColor = colorDarkGrey;
