@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TutorMe.Data;
 
@@ -11,47 +12,17 @@ using TutorMe.Data;
 namespace TutorMe.Migrations
 {
     [DbContext(typeof(TutorMeContext))]
-    partial class TutorMeContextModelSnapshot : ModelSnapshot
+    [Migration("20220919135235_makeGroupIdNullableEvents")]
+    partial class makeGroupIdNullableEvents
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.9")
+                .HasAnnotation("ProductVersion", "6.0.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
-
-            modelBuilder.Entity("TutorMe.Models.Badge", b =>
-                {
-                    b.Property<Guid>("BadgeId")
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(36)
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("(newid())");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Image")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Points")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PointsToAchieve")
-                        .HasColumnType("int");
-
-                    b.HasKey("BadgeId");
-
-                    b.ToTable("Badge");
-                });
 
             modelBuilder.Entity("TutorMe.Models.Connection", b =>
                 {
@@ -95,6 +66,7 @@ namespace TutorMe.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid?>("GroupId")
+                        .IsRequired()
                         .HasMaxLength(36)
                         .HasColumnType("uniqueidentifier");
 

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TutorMe.Data;
 
@@ -11,47 +12,17 @@ using TutorMe.Data;
 namespace TutorMe.Migrations
 {
     [DbContext(typeof(TutorMeContext))]
-    partial class TutorMeContextModelSnapshot : ModelSnapshot
+    [Migration("20220915210549_addEventOwner")]
+    partial class addEventOwner
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.9")
+                .HasAnnotation("ProductVersion", "6.0.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
-
-            modelBuilder.Entity("TutorMe.Models.Badge", b =>
-                {
-                    b.Property<Guid>("BadgeId")
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(36)
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("(newid())");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Image")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Points")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PointsToAchieve")
-                        .HasColumnType("int");
-
-                    b.HasKey("BadgeId");
-
-                    b.ToTable("Badge");
-                });
 
             modelBuilder.Entity("TutorMe.Models.Connection", b =>
                 {
@@ -90,22 +61,16 @@ namespace TutorMe.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid?>("GroupId")
+                    b.Property<Guid>("GroupId")
+                        .ValueGeneratedOnAdd()
                         .HasMaxLength(36)
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uniqueidentifier")
+                        .HasDefaultValueSql("(newid())");
 
                     b.Property<Guid>("OwnerId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("TimeOfEvent")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -121,9 +86,12 @@ namespace TutorMe.Migrations
 
                     b.HasKey("EventId");
 
-                    b.HasIndex(new[] { "GroupId" }, "IX_Event_GroupId");
+                    b.HasIndex("GroupId");
 
-                    b.HasIndex(new[] { "OwnerId" }, "IX_Event_OwnerId");
+                    b.HasIndex("OwnerId");
+
+                    b.HasIndex(new[] { "UserId" }, "IX_Event_GroupId")
+                        .HasDatabaseName("IX_Event_GroupId1");
 
                     b.HasIndex(new[] { "UserId" }, "IX_Event_UserId");
 
@@ -139,7 +107,6 @@ namespace TutorMe.Migrations
                         .HasDefaultValueSql("(newid())");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
@@ -153,7 +120,6 @@ namespace TutorMe.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("VideoId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("GroupId");
@@ -194,30 +160,6 @@ namespace TutorMe.Migrations
                     b.ToTable("GroupMember");
                 });
 
-            modelBuilder.Entity("TutorMe.Models.GroupVideosLink", b =>
-                {
-                    b.Property<Guid>("GroupVideoLinkId")
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(36)
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("(newid())");
-
-                    b.Property<Guid>("GroupId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("VideoLink")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("GroupVideoLinkId");
-
-                    b.HasIndex("GroupId");
-
-                    b.HasIndex(new[] { "GroupVideoLinkId" }, "IX_GroupVideosLink_GroupVideosLinkId");
-
-                    b.ToTable("GroupVideosLink");
-                });
-
             modelBuilder.Entity("TutorMe.Models.Institution", b =>
                 {
                     b.Property<Guid>("InstitutionId")
@@ -248,11 +190,9 @@ namespace TutorMe.Migrations
                         .HasDefaultValueSql("(newid())");
 
                     b.Property<string>("Code")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Faculty")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("InstitutionId")
@@ -262,11 +202,9 @@ namespace TutorMe.Migrations
                         .HasDefaultValueSql("(newid())");
 
                     b.Property<string>("ModuleName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Year")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ModuleId");
@@ -285,7 +223,6 @@ namespace TutorMe.Migrations
                         .HasDefaultValueSql("(newid())");
 
                     b.Property<string>("DateCreated")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("ModuleId")
@@ -562,17 +499,6 @@ namespace TutorMe.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("TutorMe.Models.GroupVideosLink", b =>
-                {
-                    b.HasOne("TutorMe.Models.Group", "Group")
-                        .WithMany("GroupVideosLink")
-                        .HasForeignKey("GroupId")
-                        .IsRequired()
-                        .HasConstraintName("GroupVideosLink_Group_FK");
-
-                    b.Navigation("Group");
-                });
-
             modelBuilder.Entity("TutorMe.Models.Module", b =>
                 {
                     b.HasOne("TutorMe.Models.Institution", "Institution")
@@ -665,8 +591,6 @@ namespace TutorMe.Migrations
                     b.Navigation("Events");
 
                     b.Navigation("GroupMembers");
-
-                    b.Navigation("GroupVideosLink");
                 });
 
             modelBuilder.Entity("TutorMe.Models.Institution", b =>
