@@ -183,10 +183,12 @@ class ReviewTutorState extends State<ReviewTutor> {
                       //             videoURL:  "https://cdn.videosdk.live/encoded/videos/63161d681d5e14bac5db733a.mp4"
                       //             )));
                     },
-                    child: Row(children: const [
-                      Icon(Icons.open_in_new),
-                      Text(' View Transcript'),
-                    ]),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          Icon(Icons.open_in_new),
+                          Text(' View Transcript'),
+                        ]),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: colorBlueTeal,
                     ),
@@ -207,10 +209,12 @@ class ReviewTutorState extends State<ReviewTutor> {
                       //             videoURL:  "https://cdn.videosdk.live/encoded/videos/63161d681d5e14bac5db733a.mp4"
                       //             )));
                     },
-                    child: Row(children: const [
-                      Icon(Icons.verified),
-                      Text(' Verify')
-                    ]),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          Icon(Icons.verified),
+                          Text(' Verify Tutor')
+                        ]),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.green,
                     ),
@@ -230,6 +234,7 @@ class ReviewTutorState extends State<ReviewTutor> {
                       // }
                     },
                     child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: const [Icon(Icons.cancel), Text(' Decline')]),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.red,
