@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TutorMe.Data;
+using TutorMe.Entities;
 using TutorMe.Models;
 
 namespace TutorMe.Services
@@ -8,7 +9,7 @@ namespace TutorMe.Services
     {
         IEnumerable<Module> GetAllModules();
         Module GetModuleById(Guid id);
-        Guid createModule(Module module);
+        Guid createModule(IModule module);
         bool deleteModuleById(Guid id);
     }
     public class ModuleServices : IModuleService
@@ -34,14 +35,20 @@ namespace TutorMe.Services
             }
             return module;
         }
-        public Guid createModule(Module module)
+        public Guid createModule(IModule module)
         {
             if (_context.Module.Where(e => e.ModuleName == module.ModuleName && e.InstitutionId == module.InstitutionId).Any())
             {
                 throw new KeyNotFoundException("This Module already exists, Please log in");
             }
-            module.ModuleId = Guid.NewGuid();
-            _context.Module.Add(module);
+            var newModule = new Module();
+            newModule.ModuleId = Guid.NewGuid();
+            newModule.ModuleName = module.ModuleName;
+            newModule.InstitutionId = module.InstitutionId;
+            newModule.Faculty = module.Faculty;
+            newModule.Code = module.Code;
+            newModule.Year = module.Year;
+            _context.Module.Add(newModule);
             _context.SaveChanges();
             return module.ModuleId;
         }
