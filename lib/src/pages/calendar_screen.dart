@@ -2,13 +2,15 @@
 
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:tutor_me/services/models/globals.dart';
 import 'package:tutor_me/src/colorpallete.dart';
-import 'package:tutor_me/src/models/event.dart';
+import 'package:tutor_me/services/models/event.dart';
 // import 'package:tutor_me/src/pages/badges.dart';
 import 'package:tutor_me/src/pages/invite_to_meeting.dart';
 
 class CalendarScreen extends StatefulWidget {
-  const CalendarScreen({Key? key}) : super(key: key);
+  final Globals globals;
+  const CalendarScreen({Key? key, required this.globals}) : super(key: key);
 
   @override
   State<CalendarScreen> createState() => _CalendarScreenState();
@@ -16,81 +18,82 @@ class CalendarScreen extends StatefulWidget {
 
 class _CalendarScreenState extends State<CalendarScreen> {
   // late CalendarController _controller;
-
+  // Event event = Event();
   late Map<DateTime, List<dynamic>> scheduledSessions = {
     DateTime(2022, 9, 21): [
       Event(
-        title: 'Meeting 1',
-        description: 'Meeting 1 description',
-        date: DateTime(2022, 9, 21),
-        time: DateTime(2022, 9, 21, 10, 30),
-        owner: 'Owner 1',
+        'Meeting 1',
+        'Meeting 1 description',
+        DateTime(2022, 9, 21),
+        DateTime(2022, 9, 21, 10, 30),
+        'Owner 1',
+        'group id',
+        'meeting id',
       ),
       Event(
-        title: 'Meeting 2',
-        description: 'Meeting 2 description',
-        date: DateTime(2022, 9, 21),
-        time: DateTime(2022, 9, 21, 11, 30),
-        owner: 'Owner 2',
+        'Meeting 2',
+        'Meeting 2 description',
+        DateTime(2022, 9, 21),
+        DateTime(2022, 9, 21, 11, 30),
+        'Owner 2',
+        'group id',
+        'meeting id',
       ),
     ],
-    DateTime(2022, 9, 22): [
+    DateTime(2022, 9, 29): [
       Event(
-        title: 'Meeting 3',
-        description: 'Meeting 3 description',
-        date: DateTime(2022, 9, 22),
-        time: DateTime(2022, 9, 22, 10, 30),
-        owner: 'Owner 3',
+        'Meeting 3',
+        'Meeting 3 description',
+        DateTime(2022, 9, 29),
+        DateTime(2022, 9, 29, 10, 30),
+        'Owner 3',
+        'group id',
+        'meeting id',
       ),
       Event(
-        title: 'Meeting 4',
-        description: 'Meeting 4 description',
-        date: DateTime(2022, 9, 22),
-        time: DateTime(2022, 9, 22, 11, 30),
-        owner: 'Owner 4',
+        'Meeting 4',
+        'Meeting 4 description',
+        DateTime(2022, 9, 29),
+        DateTime(2022, 9, 29, 11, 30),
+        'Owner 4',
+        'group id',
+        'meeting id',
       ),
     ],
     DateTime(2022, 9, 23): [
       Event(
-        title: 'Meeting 5',
-        description: 'Meeting 5 description',
-        date: DateTime(2022, 9, 23),
-        time: DateTime(2022, 9, 23, 10, 30),
-        owner: 'Owner 5',
+        'Meeting 5',
+        'Meeting 5 description',
+        DateTime(2022, 9, 23),
+        DateTime(2022, 9, 23, 10, 30),
+        'Owner 5',
+        'group id',
+        'meeting id',
       ),
       Event(
-        title: 'Meeting 6',
-        description: 'Meeting 6 description',
-        date: DateTime(2022, 9, 23),
-        time: DateTime(2022, 9, 23, 11, 30),
-        owner: 'Owner 6',
+        'Meeting 6',
+        'Meeting 6 description',
+        DateTime(2022, 9, 23),
+        DateTime(2022, 9, 23, 11, 30),
+        'Owner 6',
+        'group id',
+        'meeting id',
       ),
     ],
   };
 
   List getScheduledSessions(DateTime date) {
-    // print("================================");
-    // print(date);
-    // // print(scheduledSessions.isEmpty);
-    // print(scheduledSessions[date]);
-    // print(scheduledSessions);
-    // // print(DateTime(2022, 09, 22) == date);
-    // print("================================");
+    var newDate = DateTime(date.year, date.month, date.day);
 
-    return scheduledSessions[date] ?? [];
+    return scheduledSessions[newDate] ?? [];
   }
 
   List printResults(date) {
-    // print("================================");
-    // print(date);
-    // print("Yes empty");
-    // print("================================");
     return [];
   }
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     // print("now");
     // print(scheduledSessions);
@@ -226,7 +229,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                     width: MediaQuery.of(context).size.width *
                                         0.45,
                                     child: Text(
-                                      e.title,
+                                      e.getTitle,
                                       style: TextStyle(
                                           color: colorBlueTeal,
                                           fontSize: MediaQuery.of(context)
@@ -239,7 +242,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                     width: MediaQuery.of(context).size.width *
                                         0.45,
                                     child: Text(
-                                      e.description,
+                                      e.getDescription,
                                       style: TextStyle(
                                           color: colorOrange,
                                           fontSize: MediaQuery.of(context)
@@ -258,8 +261,8 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) => InviteToMeeting(
-                                          title: e.title,
-                                          description: e.description),
+                                        globals: widget.globals,
+                                      ),
                                     ),
                                   );
                                 },
@@ -313,19 +316,23 @@ class _CalendarScreenState extends State<CalendarScreen> {
                           // else {
                           if (scheduledSessions[mySelectedDay] != null) {
                             scheduledSessions[mySelectedDay]?.add(Event(
-                                title: meetingController.text,
-                                description: descriptionController.text,
-                                date: mySelectedDay,
-                                time: time,
-                                owner: "Me"));
+                                meetingController.text,
+                                descriptionController.text,
+                                mySelectedDay,
+                                time,
+                                "Me",
+                                "n",
+                                "hjh"));
                           } else {
                             scheduledSessions[mySelectedDay] = [
                               Event(
-                                  title: meetingController.text,
-                                  description: descriptionController.text,
-                                  date: mySelectedDay,
-                                  time: time,
-                                  owner: "Me")
+                                  meetingController.text,
+                                  descriptionController.text,
+                                  mySelectedDay,
+                                  time,
+                                  "Me",
+                                  "jgj",
+                                  "hg")
                             ];
                           }
                           // }

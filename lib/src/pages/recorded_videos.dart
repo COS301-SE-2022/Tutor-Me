@@ -6,14 +6,20 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:tutor_me/screens/recording_screen.dart';
+import 'package:tutor_me/services/services/group_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:http/http.dart' as http;
 
+import '../../services/models/globals.dart';
+import '../../services/models/groups.dart';
 import '../../utils/toast.dart';
 
 class RecordedVideos extends StatefulWidget {
-  const RecordedVideos({Key? key}) : super(key: key);
+  final Groups group;
+  final Globals global;
+  const RecordedVideos({Key? key, required this.group, required this.global})
+      : super(key: key);
 
   @override
   State<RecordedVideos> createState() => _RecordedVideosState();
@@ -21,6 +27,7 @@ class RecordedVideos extends StatefulWidget {
 
 class _RecordedVideosState extends State<RecordedVideos> {
   List<String> _meetingIdList = List<String>.empty(growable: true);
+  List<String> _meetingDateList = List<String>.empty(growable: true);
 
   int currentIndex = 0;
   // String _token = "";
@@ -89,21 +96,22 @@ class _RecordedVideosState extends State<RecordedVideos> {
             ListTile(
               title: Text(
                 'Video' ' ' + (index + 1).toString(),
+                textAlign: TextAlign.center,
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
                   fontSize: MediaQuery.of(context).size.height * 0.028,
                 ),
               ),
-              subtitle: const Text('Mathematics'),
+              // subtitle: const Text(""),
             ),
-            const SizedBox(
-              height: 10,
-            ),
+            // const SizedBox(
+            //   height: 5,
+            // ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: const <Widget>[
-                Text('Date: 12/12/2021'),
-                Text('Duration: 12:00'),
+              children: <Widget>[
+                Text("Date: " +
+                    _meetingDateList[index].characters.take(10).toString()),
               ],
             ),
             const SizedBox(
@@ -128,7 +136,10 @@ class _RecordedVideosState extends State<RecordedVideos> {
                                   // "https://cdn.videosdk.live/encoded/videos/63161d681d5e14bac5db733a.mp4"
                                   )));
                     },
-                    child: const Text('View'),
+                    child: Row(children: const [
+                      Icon(Icons.open_in_new),
+                      Text(' View')
+                    ]),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: colorOrange,
                     ),
@@ -136,7 +147,7 @@ class _RecordedVideosState extends State<RecordedVideos> {
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.05,
-                  width: MediaQuery.of(context).size.width * 0.3,
+                  width: MediaQuery.of(context).size.width * 0.35,
                   child: ElevatedButton(
                     onPressed: () async {
                       if (await canLaunchUrlString(_meetingIdList[index])) {
@@ -144,12 +155,12 @@ class _RecordedVideosState extends State<RecordedVideos> {
                             mode: LaunchMode.externalApplication);
                       }
                     },
-                    child: const Text(
-                      'Download',
-                      style: TextStyle(color: colorWhite),
-                    ),
+                    child: Row(children: const [
+                      Icon(Icons.download_outlined),
+                      Text(' Download')
+                    ]),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromARGB(255, 184, 180, 180),
+                      backgroundColor: colorBlue,
                     ),
                   ),
                 ),
@@ -239,18 +250,37 @@ class _RecordedVideosState extends State<RecordedVideos> {
         .get(getMeetingIdUrl, headers: {"Authorization": _AUTH_TOKEN!});
 
     // final List<String> _meetingIdList = List<String>.empty(growable: true);
-    int length = json.decode(meetingIdResponse.body)['data'].length;
+    // int length = json.decode(meetingIdResponse.body)['data'].length;
+
+    final getVideoLinks =
+        await GroupServices.getVideoLinks(widget.group.getId, widget.global);
+    int length = getVideoLinks.length;
     setState(() {
-      numVideos = length;
+      numVideos = length - 1;
     });
     // log("Length of array: $length");
-    for (int i = 0; i < 2; i++) {
+
+    //TODO: Check if meetingIdResponse is in group
+    for (int i = 0; i < length; i++) {
+      // if (getVideoLinks(
+      //     )) {
+      if (getVideoLinks
+          .contains(json.decode(meetingIdResponse.body)['data'][i]['roomId'])) {
+        _meetingIdList.add(json.decode(meetingIdResponse.body)['data'][i]
+            ['recordingFiles'][0]['url']);
+        _meetingDateList.add(json.decode(meetingIdResponse.body)['data'][i]
+            ['recordingFiles'][0]['createdAt']);
+      }
       _meetingIdList.add(
           json.decode(meetingIdResponse.body)['data'][i]['file']['fileUrl']);
+      _meetingDateList
+          .add(json.decode(meetingIdResponse.body)['data'][i]['createdAt']);
+      // }
     }
 
     setState(() {
       _meetingIdList = _meetingIdList;
+      _meetingDateList = _meetingDateList;
     });
     // final meetingId = json.decode(meetingIdResponse.body)['data'];
 

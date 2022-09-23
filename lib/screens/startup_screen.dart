@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
+import '../services/models/globals.dart';
+import '../services/models/groups.dart';
 import '../src/colorpallete.dart';
 import '../utils/spacer.dart';
 import '../utils/toast.dart';
@@ -15,7 +17,13 @@ import 'meeting_screen.dart';
 
 // Startup Screen
 class StartupScreen extends StatefulWidget {
-  const StartupScreen({Key? key}) : super(key: key);
+  final Groups group;
+  final Globals globals;
+  const StartupScreen({
+    Key? key,
+    required this.group,
+    required this.globals,
+  }) : super(key: key);
 
   @override
   State<StartupScreen> createState() => _StartupScreenState();
@@ -71,6 +79,8 @@ class _StartupScreenState extends State<StartupScreen> {
                             token: _token,
                             meetingId: _meetingID,
                             displayName: "Tutor",
+                            globals: widget.globals,
+                            group: widget.group,
                           ),
                         ),
                       );
@@ -118,6 +128,8 @@ class _StartupScreenState extends State<StartupScreen> {
                             builder: (context) => JoinScreen(
                               meetingId: _meetingID,
                               token: _token,
+                              globals: widget.globals,
+                              group: widget.group,
                             ),
                           ),
                         );

@@ -80,12 +80,10 @@ class DeleteTutorState extends State<DeleteTutor> {
                   ),
                 ),
               ),
-
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.04,
                 width: MediaQuery.of(context).size.height,
               ),
-
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
@@ -152,6 +150,33 @@ class DeleteTutorState extends State<DeleteTutor> {
                       );
                     }
                     UserServices.deleteUser(idcontroller.text, widget.globals);
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          title: const Text("Success"),
+                          content:
+                              Text("Tutor " + idcontroller.text + " Deleted"),
+                          backgroundColor: colorWhite,
+                          titleTextStyle: TextStyle(
+                            color: colorBlack,
+                            fontSize: MediaQuery.of(context).size.height * 0.03,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          actions: <Widget>[
+                            TextButton(
+                              child: const Text(
+                                "Retry",
+                                style: TextStyle(color: colorWhite),
+                              ),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    );
                   },
                   child: isLoading
                       ? const CircularProgressIndicator(color: Colors.white)
@@ -162,7 +187,10 @@ class DeleteTutorState extends State<DeleteTutor> {
                             color: Colors.white,
                           )),
                 ),
-              ), //second input
+              ),
+              const SizedBox(
+                height: 200,
+              ),
             ]),
           )
         ],

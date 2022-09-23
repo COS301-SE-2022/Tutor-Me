@@ -85,9 +85,8 @@ class _EditModuleListState extends State<EditModuleList> {
   }
 
   getTutorGroups() async {
-
-    final groups = await GroupServices.getGroupByUserID(widget.globals.getUser.getId, widget.globals);
-
+    final groups = await GroupServices.getGroupByUserID(
+        widget.globals.getUser.getId, widget.globals);
 
     tutorGroups = groups;
   }
@@ -170,9 +169,9 @@ class _EditModuleListState extends State<EditModuleList> {
                                     for (var module in widget.currentModules) {
                                       try {
                                         await ModuleServices.addUserModule(
-
-                                            widget.globals.getUser.getId, module, widget.globals);
-
+                                            widget.globals.getUser.getId,
+                                            module,
+                                            widget.globals);
                                       } catch (e) {
                                         continue;
                                       }
@@ -394,12 +393,24 @@ class _EditModuleListState extends State<EditModuleList> {
                               break;
                             }
                           }
-                          await ModuleServices.deleteUserModule(userModuleId, widget.globals);
+                          await ModuleServices.deleteUserModule(
+                              userModuleId, widget.globals);
                           deleteModule(index);
                           Navigator.pop(context);
                         },
                         child: const Text(
                           'Confirm',
+                          style: TextStyle(color: colorOrange),
+                        )),
+                    OutlinedButton(
+                        style: OutlinedButton.styleFrom(
+                            side:
+                                const BorderSide(width: 2, color: colorOrange)),
+                        onPressed: () async {
+                          Navigator.pop(context);
+                        },
+                        child: const Text(
+                          'Cancel',
                           style: TextStyle(color: colorOrange),
                         )),
                   ]);

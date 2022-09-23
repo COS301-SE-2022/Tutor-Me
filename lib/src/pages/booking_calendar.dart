@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:tutor_me/services/models/globals.dart';
 import 'package:tutor_me/src/colorpallete.dart';
-import 'package:tutor_me/src/models/event.dart';
+import 'package:tutor_me/services/models/event.dart';
 // import 'package:tutor_me/src/pages/badges.dart';
 import 'package:tutor_me/src/pages/invite_to_meeting.dart';
 
 class BookingCalender extends StatefulWidget {
-  const BookingCalender({Key? key}) : super(key: key);
+  final Globals globals;
+  const BookingCalender({Key? key, required this.globals}) : super(key: key);
 
   @override
   State<BookingCalender> createState() => _BookingCalenderState();
@@ -197,8 +199,8 @@ class _BookingCalenderState extends State<BookingCalender> {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) => InviteToMeeting(
-                                          title: e.title,
-                                          description: e.description),
+                                        globals: widget.globals,
+                                      ),
                                     ),
                                   );
                                 },
@@ -252,19 +254,23 @@ class _BookingCalenderState extends State<BookingCalender> {
                           // else {
                           if (scheduledSessions[mySelectedDay] != null) {
                             scheduledSessions[mySelectedDay]?.add(Event(
-                                title: meetingController.text,
-                                description: descriptionController.text,
-                                date: mySelectedDay,
-                                time: time,
-                                owner: "Me"));
+                                meetingController.text,
+                                descriptionController.text,
+                                mySelectedDay,
+                                time,
+                                "Me",
+                                "k",
+                                ""));
                           } else {
                             scheduledSessions[mySelectedDay] = [
                               Event(
-                                  title: meetingController.text,
-                                  description: descriptionController.text,
-                                  date: mySelectedDay,
-                                  time: time,
-                                  owner: "Me")
+                                  meetingController.text,
+                                  descriptionController.text,
+                                  mySelectedDay,
+                                  time,
+                                  "Me",
+                                  "",
+                                  "")
                             ];
                           }
                           // }

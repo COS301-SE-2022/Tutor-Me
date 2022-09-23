@@ -3,11 +3,12 @@ import 'package:provider/provider.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/theme/themes.dart';
 import '../services/models/globals.dart';
+import '../services/services/user_services.dart';
 import 'Navigation/tutee_nav_drawer.dart';
 // import 'theme/themes.dart';
 import 'notifications/tuteeNotifications/tutee_notifications.dart';
-import 'pages/calls_page.dart';
 import 'pages/home.dart';
+// import 'pages/text_recognition.dart';
 import 'pages/tutors_list.dart';
 import 'pages/chats_page.dart';
 import 'tutorAndTuteeCollaboration/tuteeGroups/tutee_groups.dart';
@@ -24,19 +25,35 @@ class TuteePage extends StatefulWidget {
 
 class TuteePageState extends State<TuteePage> {
   int currentIndex = 0;
+  int notificationCount = 0;
+
+  getRequests() async {
+    final requests = await UserServices()
+        .getTuteeRequests(widget.globals.getUser.getId, widget.globals);
+
+    if (requests.isEmpty) {
+      setState(() {
+        notificationCount = 0;
+      });
+    } else {
+      setState(() {
+        notificationCount = requests.length;
+      });
+    }
+  }
 
   getScreens() {
     return [
       Home(globals: widget.globals),
       Chats(globals: widget.globals),
       TuteeGroups(globals: widget.globals),
-      const Calls()
     ];
   }
 
   @override
   void initState() {
     super.initState();
+    getRequests();
   }
 
   @override
@@ -76,14 +93,41 @@ class TuteePageState extends State<TuteePage> {
                     end: Alignment.bottomCenter)),
           ),
           actions: <Widget>[
-            IconButton(
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (BuildContext context) => TuteeNotifications(
-                            globals: widget.globals,
-                          )));
-                },
-                icon: const Icon(Icons.notifications)),
+            Stack(children: [
+              IconButton(
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (BuildContext context) => TuteeNotifications(
+                              globals: widget.globals,
+                            )));
+                  },
+                  icon: const Icon(Icons.notifications)),
+              notificationCount == 0
+                  ? Container()
+                  : Positioned(
+                      right: MediaQuery.of(context).size.width * 0.020,
+                      top: MediaQuery.of(context).size.height * 0.014,
+                      child: Container(
+                        padding: const EdgeInsets.all(2),
+                        decoration: const BoxDecoration(
+                          color: colorOrange,
+                          borderRadius: BorderRadius.all(Radius.circular(6)),
+                        ),
+                        constraints: const BoxConstraints(
+                          minWidth: 14,
+                          minHeight: 14,
+                        ),
+                        child: Text(
+                          notificationCount.toString(),
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 8,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+            ])
           ],
         ),
         body: screens[currentIndex],
@@ -109,10 +153,6 @@ class TuteePageState extends State<TuteePage> {
             BottomNavigationBarItem(
               icon: Icon(Icons.people),
               label: 'Groups',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              label: 'Calls',
             ),
           ],
         ),

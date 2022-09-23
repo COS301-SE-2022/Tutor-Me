@@ -217,6 +217,9 @@ class LoginAdminState extends State<LoginAdmin> {
                                 )),
                       ),
                     ),
+                    const SizedBox(
+                      height: 150,
+                    ),
                   ]),
                 ],
               )),

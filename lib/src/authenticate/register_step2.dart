@@ -60,7 +60,7 @@ class _RegisterStep2State extends State<RegisterStep2> {
     'O - Other',
   ];
 
-  String? gender;
+  String gender = 'F - Female';
   int indexOfOption = 2;
   int currentStep = 1;
 
@@ -102,7 +102,7 @@ class _RegisterStep2State extends State<RegisterStep2> {
                   'Lets Continue...',
                   style: TextStyle(
                     color: colorWhite,
-                    fontSize: MediaQuery.of(context).size.height * 0.12,
+                    fontSize: MediaQuery.of(context).size.height * 0.05,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -119,7 +119,7 @@ class _RegisterStep2State extends State<RegisterStep2> {
                       primarySwatch: Colors.green,
                       canvasColor: Colors.transparent,
                       colorScheme: ColorScheme.fromSwatch().copyWith(
-                          secondary: colorBlueTeal, primary: colorBlueTeal)),
+                          secondary: colorOrange, primary: colorOrange)),
                   child: Stepper(
                     type: StepperType.horizontal,
                     steps: getSteps(),
@@ -154,7 +154,7 @@ class _RegisterStep2State extends State<RegisterStep2> {
                     left: MediaQuery.of(context).size.width * 0.06,
                     right: MediaQuery.of(context).size.width * 0.01),
                 child: DropdownButton<String>(
-                  dropdownColor: colorBlueTeal,
+                  dropdownColor: colorOrange,
                   icon: Icon(Icons.arrow_drop_down,
                       color: colorWhite,
                       size: MediaQuery.of(context).size.width * 0.08),
@@ -162,6 +162,7 @@ class _RegisterStep2State extends State<RegisterStep2> {
                     color: colorWhite,
                     fontSize: MediaQuery.of(context).size.height * 0.06,
                   ),
+                  // ignore: unnecessary_null_comparison
                   hint: gender == null
                       ? Row(
                           children: [
@@ -172,8 +173,14 @@ class _RegisterStep2State extends State<RegisterStep2> {
                             SizedBox(
                               width: MediaQuery.of(context).size.width * 0.04,
                             ),
-                            const Text('Select Gender',
-                                style: TextStyle(color: colorWhite)),
+                            Text(
+                              'Select Gender',
+                              style: TextStyle(
+                                color: colorWhite,
+                                fontSize:
+                                    MediaQuery.of(context).size.height * 0.03,
+                              ),
+                            ),
                           ],
                         )
                       : Row(
@@ -186,7 +193,7 @@ class _RegisterStep2State extends State<RegisterStep2> {
                               width: MediaQuery.of(context).size.width * 0.04,
                             ),
                             Text(
-                              gender!,
+                              gender,
                               style: const TextStyle(color: colorWhite),
                             ),
                           ],
@@ -206,7 +213,14 @@ class _RegisterStep2State extends State<RegisterStep2> {
                             SizedBox(
                               width: MediaQuery.of(context).size.width * 0.04,
                             ),
-                            Text(val),
+                            Text(
+                              val,
+                              style: TextStyle(
+                                color: colorWhite,
+                                fontSize:
+                                    MediaQuery.of(context).size.height * 0.03,
+                              ),
+                            ),
                           ],
                         ),
                       );
@@ -215,8 +229,8 @@ class _RegisterStep2State extends State<RegisterStep2> {
                   onChanged: (val) {
                     setState(
                       () {
-                        gender = val;
-                        indexOfOption = items.indexOf(val!);
+                        gender = val!;
+                        indexOfOption = items.indexOf(val);
                       },
                     );
                   },
@@ -225,7 +239,7 @@ class _RegisterStep2State extends State<RegisterStep2> {
                   color: Colors.grey[500]!.withOpacity(0.3),
                   borderRadius: BorderRadius.circular(16),
                   border: Border.all(
-                    color: colorBlueTeal,
+                    color: colorOrange,
                     width: 1,
                   ),
                 ),
@@ -244,7 +258,7 @@ class _RegisterStep2State extends State<RegisterStep2> {
                   color: Colors.grey[500]!.withOpacity(0.3),
                   borderRadius: BorderRadius.circular(16),
                   border: Border.all(
-                    color: colorBlueTeal,
+                    color: colorOrange,
                     width: 1,
                   ),
                 ),
@@ -264,7 +278,7 @@ class _RegisterStep2State extends State<RegisterStep2> {
                           return Theme(
                             data: Theme.of(context).copyWith(
                               colorScheme: const ColorScheme.light(
-                                primary: colorOrange,
+                                primary: colorBlueTeal,
                                 onPrimary: Colors.white,
                                 onSurface: Colors.black,
                               ),
@@ -305,7 +319,7 @@ class _RegisterStep2State extends State<RegisterStep2> {
                 width: MediaQuery.of(context).size.width * 0.8,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(16),
-                  color: colorBlueTeal,
+                  color: colorOrange,
                 ),
                 child: TextButton(
                   onPressed: () async {
@@ -314,17 +328,17 @@ class _RegisterStep2State extends State<RegisterStep2> {
                     if (gender == "") {
                       gender = "";
                     } else {
-                      gender = gender!.substring(0, 1);
+                      gender = gender.substring(0, 1);
                     }
 
                     if (firstNameController.text == "" ||
                         lastNameController.text == "" ||
                         gender == "") {
-                      errMsg += "ERROR: One or more parametres missing\n";
+                      errMsg += "One or more parametres missing\n";
                     }
 
                     if (formattedDate == "Date Of Birth") {
-                      errMsg += "ERROR: Your Date of birth is missing\n";
+                      errMsg += "Your Date of birth is missing\n";
                     }
 
                     if (errMsg != "") {
@@ -336,7 +350,7 @@ class _RegisterStep2State extends State<RegisterStep2> {
                             content: Text(errMsg),
                             backgroundColor: colorWhite,
                             titleTextStyle: TextStyle(
-                              color: colorBlueTeal,
+                              color: colorOrange,
                               fontSize:
                                   MediaQuery.of(context).size.height * 0.03,
                               fontWeight: FontWeight.bold,

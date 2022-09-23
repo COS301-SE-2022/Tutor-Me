@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -48,7 +49,8 @@ class TutorRequestsState extends State<TutorRequests> {
 
   getRequests() async {
     try {
-      final requests = await UserServices().getTutorRequests(widget.globals.getUser.getId, widget.globals);
+      final requests = await UserServices()
+          .getTutorRequests(widget.globals.getUser.getId, widget.globals);
       requestList = requests;
       if (requestList.isEmpty) {
         setState(() {
@@ -57,6 +59,7 @@ class TutorRequestsState extends State<TutorRequests> {
       }
       getTutees();
     } catch (e) {
+      log(e.toString());
       setState(() {
         isLoading = false;
       });
@@ -65,7 +68,8 @@ class TutorRequestsState extends State<TutorRequests> {
 
   getTutees() async {
     for (int i = 0; i < requestList.length; i++) {
-      final tutee = await UserServices.getTutee(requestList[i].getTuteeId, widget.globals);
+      final tutee = await UserServices.getTutee(
+          requestList[i].getTuteeId, widget.globals);
       tuteeList += tutee;
     }
     int requestLength = tuteeList.length;
@@ -82,8 +86,8 @@ class TutorRequestsState extends State<TutorRequests> {
   getTuteeModules() async {
     try {
       for (int i = 0; i < requestList.length; i++) {
-        final module =
-            await ModuleServices.getModule(requestList[i].getModuleId, widget.globals);
+        final module = await ModuleServices.getModule(
+            requestList[i].getModuleId, widget.globals);
         setState(() {
           modules.add(module);
         });
@@ -101,8 +105,8 @@ class TutorRequestsState extends State<TutorRequests> {
   getTuteeProfileImages() async {
     for (int i = 0; i < tuteeList.length; i++) {
       try {
-        final image =
-            await UserServices.getTuteeProfileImage(tuteeList[i].getId, widget.globals);
+        final image = await UserServices.getTuteeProfileImage(
+            tuteeList[i].getId, widget.globals);
         setState(() {
           tuteeImages.add(image);
         });
@@ -144,8 +148,8 @@ class TutorRequestsState extends State<TutorRequests> {
     screenHeight = MediaQuery.of(context).size.height;
     screenWidth = MediaQuery.of(context).size.width;
 
-    return Material(
-      child: isLoading
+    return Scaffold(
+      body: isLoading
           ? const Center(
               child: CircularProgressIndicator.adaptive(),
             )
@@ -162,7 +166,7 @@ class TutorRequestsState extends State<TutorRequests> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Icon(
-                        Icons.notifications_off,
+                        Icons.notifications,
                         size: MediaQuery.of(context).size.height * 0.15,
                         color: colorOrange,
                       ),
@@ -185,13 +189,16 @@ class TutorRequestsState extends State<TutorRequests> {
     String howLongAgo = '';
 
     int currentYear = int.parse(currentDateUnits[0]);
-    int yearSent = int.parse(sentDateUnits[2]);
 
-    int currentMonth = int.parse(currentDateUnits[1]);
+    List<String> actualYear = sentDateUnits[2].split(' ');
+    int yearSent = int.parse(actualYear[0]);
+
+    int currentMonth = int.parse(currentDateUnits[2]);
     int monthSent = int.parse(sentDateUnits[1]);
 
-    int currentDay = int.parse(currentDateUnits[2]);
+    int currentDay = int.parse(currentDateUnits[1]);
     int daySent = int.parse(sentDateUnits[0]);
+
 
     if (currentYear - yearSent > 0) {
       if (currentYear - yearSent > 1) {
@@ -305,8 +312,8 @@ class TutorRequestsState extends State<TutorRequests> {
                                       // await GroupServices.updateGroup(
                                       //     moduleRequestedGroup);
 
-                                      await UserServices()
-                                          .acceptRequest(requestList[i].getId, widget.globals);
+                                      await UserServices().acceptRequest(
+                                          requestList[i].getId, widget.globals);
 
                                       setState(() {
                                         isExcepting[i] = false;
@@ -344,8 +351,8 @@ class TutorRequestsState extends State<TutorRequests> {
                                   isDeclining[i] = true;
                                 });
                                 try {
-                                  await UserServices()
-                                      .declineRequest(requestList[i].getId,widget.globals);
+                                  await UserServices().declineRequest(
+                                      requestList[i].getId, widget.globals);
 
                                   setState(() {
                                     isDeclining[i] = false;

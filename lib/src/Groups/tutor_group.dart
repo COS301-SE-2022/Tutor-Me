@@ -7,7 +7,6 @@ import 'package:tutor_me/services/models/globals.dart';
 import 'package:tutor_me/services/services/group_services.dart';
 // import 'package:tutor_me/src/chat/group_chat.dart';
 import 'package:tutor_me/src/colorpallete.dart';
-import '../../constants/colors.dart';
 import '../../services/models/modules.dart';
 import '../pages/chat_page.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -61,7 +60,8 @@ class TutorGroupPageState extends State<TutorGroupPage> {
   getTutees() async {
     fetchToken().then((token) => setState(() => _token = token));
     try {
-      final tutees = await GroupServices.getGroupTutees(widget.group.getId, widget.globals);
+      final tutees = await GroupServices.getGroupTutees(
+          widget.group.getId, widget.globals);
       setState(() {
         tuteeList = tutees;
         if (tuteeList.isNotEmpty) {
@@ -78,8 +78,8 @@ class TutorGroupPageState extends State<TutorGroupPage> {
   getTuteeProfileImages() async {
     for (int i = 0; i < tuteeList.length; i++) {
       try {
-        final image =
-            await UserServices.getTuteeProfileImage(tuteeList[i].getId, widget.globals);
+        final image = await UserServices.getTuteeProfileImage(
+            tuteeList[i].getId, widget.globals);
         setState(() {
           tuteeImages.add(image);
         });
@@ -211,7 +211,8 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                       height: screenHeight * 0.03,
                     ),
                     SizedBox(
-                      height: screenHeight * 0.28,
+                      width: screenWidth * 0.8,
+                      height: screenHeight * 0.35,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
@@ -233,7 +234,7 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                                 leading: Icon(
                                   Icons.chat,
                                   size: screenHeight * 0.06,
-                                  color: colorBlueTeal,
+                                  color: colorOrange,
                                 ),
                                 title: Text(
                                   'Group Chat',
@@ -260,6 +261,8 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                                       token: _token,
                                       meetingId: _meetingID,
                                       displayName: "Tutor",
+                                      group: widget.group,
+                                      globals: widget.globals,
                                     ),
                                   ),
                                 );
@@ -280,7 +283,7 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                                   Icon(
                                     Icons.chat_bubble,
                                     size: screenHeight * 0.06,
-                                    color: colorBlueTeal,
+                                    color: colorOrange,
                                   ),
                                   Positioned(
                                       top: screenHeight * 0.01,
@@ -305,7 +308,10 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                             onTap: () {
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (BuildContext context) =>
-                                      const RecordedVideos()));
+                                      RecordedVideos(
+                                        group: widget.group,
+                                        global: widget.globals,
+                                      )));
                             },
                             child: Card(
                               elevation: 0,
@@ -316,7 +322,7 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                                   Icon(
                                     Icons.chat_bubble,
                                     size: screenHeight * 0.06,
-                                    color: primaryColor,
+                                    color: colorOrange,
                                   ),
                                   Positioned(
                                       top: screenHeight * 0.01,
@@ -338,7 +344,7 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                             ),
                           ),
                           SizedBox(
-                            height: screenHeight * 0.05,
+                            height: screenHeight * 0.06,
                           ),
                         ],
                       ),
@@ -423,7 +429,6 @@ class TutorGroupPageState extends State<TutorGroupPage> {
         await http.post(getMeetingIdUrl, headers: {
       "Authorization": _token,
     });
-
     final meetingId = json.decode(meetingIdResponse.body)['meetingId'];
 
     // log("Meeting ID: $meetingId");

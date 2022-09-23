@@ -8,12 +8,13 @@
 // import 'dart:html';
 
 import 'package:flutter/material.dart';
+import 'package:tutor_me/src/pages/call_history.dart';
 // import 'package:tutor_me/src/colorpallete.dart';
 // import 'package:flutter_dotenv/flutter_dotenv.dart';
 // import '../../constants/colors.dart';
 // import '../../navigator_key.dart';
 // import '../../screens/splash_screen.dart';
-import '../../screens/startup_screen.dart';
+// import '../../screens/startup_screen.dart';
 
 void main() async {
   // Load Environment variables
@@ -35,6 +36,6 @@ class Calls extends StatefulWidget {
 class CallsState extends State<Calls> {
   @override
   Widget build(BuildContext context) {
-    return const StartupScreen();
+    return const CallHistory();
   }
 }

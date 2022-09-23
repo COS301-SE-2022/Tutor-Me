@@ -195,7 +195,7 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
             )
           : SingleChildScrollView(
               child: SizedBox(
-                height: screenHeight * 0.9,
+                // height: screenHeight * 0.9,
                 width: screenWidth * 1,
                 child: Column(
                   children: <Widget>[
@@ -285,10 +285,8 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
                       height: screenHeight * 0.03,
                     ),
                     SizedBox(
-
                       width: screenWidth * 0.8,
-                      height: screenHeight * 0.24,
-
+                      height: screenHeight * 0.27,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
@@ -298,7 +296,7 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
                                   builder: (BuildContext context) => ChatPage(
                                         globals: widget.globals,
                                         group: widget.group,
-                                        moduleCode: widget.group.getDescription,
+                                        moduleCode: widget.module.getCode,
                                       )));
                             },
                             child: Card(
@@ -340,6 +338,8 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
                                         builder: (context) => JoinScreen(
                                           meetingId: widget.group.getVideoId,
                                           token: _token,
+                                          globals: widget.globals,
+                                          group: widget.group,
                                         ),
                                       ),
                                     );
@@ -395,7 +395,10 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
                             onTap: () {
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (BuildContext context) =>
-                                      const RecordedVideos()));
+                                      RecordedVideos(
+                                        group: widget.group,
+                                        global: widget.globals,
+                                      )));
                             },
                             child: Card(
                               elevation: 0,

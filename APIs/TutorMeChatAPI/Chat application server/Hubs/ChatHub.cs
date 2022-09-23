@@ -44,6 +44,50 @@ namespace Chat_application_server.Hubs
 
             return Groups.AddToGroupAsync(Context.ConnectionId, groupId);
         }
+
+        public Task JoinChat(string receiverName, string userId, string receiverID , string userName)
+        {
+            MessageModel MessageModel = new MessageModel
+            {
+                CreateDate = DateTime.Now,
+                MessageText = userName + " is online",
+                UserId = 0,
+                UserName = "system"
+            };
+            string groupId = "";
+            if (String.Compare(userId, receiverID, StringComparison.Ordinal) < 0)
+            {
+                groupId = userId + receiverID;
+            }
+            else
+            {
+                groupId = receiverID + userId;
+            }
+            Clients.Group(groupId).SendAsync("ReceiveMessage", MessageModel);
+
+            return Groups.AddToGroupAsync(Context.ConnectionId, groupId);
+        }
+
+        public Task SendMessageToChat(string userId, string receiverID, string UserName, int RandomUserId, string Message)
+        {
+            string groupId = "";
+            if (String.Compare(userId, receiverID, StringComparison.Ordinal) < 0)
+            {
+                groupId = userId + receiverID;
+            }
+            else
+            {
+                groupId = receiverID + userId;
+            }
+            MessageModel MessageModel = new MessageModel
+            {
+                CreateDate = DateTime.Now,
+                MessageText = Message,
+                UserId = RandomUserId,
+                UserName = UserName
+            };
+            return Clients.Group(groupId).SendAsync("ReceiveMessage", MessageModel);
+        }
     
         public Task SendMessageToGroup(string groupId, string UserName, int RandomUserId, string Message)
         {
