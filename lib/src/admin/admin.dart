@@ -477,7 +477,7 @@ class Admin extends StatelessWidget {
                     height: 14,
                   ),
                   Text(
-                    "0 items",
+                    "1 item",
                     style: GoogleFonts.openSans(
                         textStyle: const TextStyle(
                             color: Colors.white70,
