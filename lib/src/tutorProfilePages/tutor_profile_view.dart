@@ -326,13 +326,12 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
   Widget topDesign() {
     final provider = Provider.of<ThemeProvider>(context, listen: false);
     Color textColor;
-    Color highlightColor;
 
     if (provider.themeMode == ThemeMode.dark) {
-      highlightColor = colorBlueTeal;
+      
       textColor = colorWhite;
     } else {
-      highlightColor = colorOrange;
+     
       textColor = Colors.black;
     }
     return Stack(
