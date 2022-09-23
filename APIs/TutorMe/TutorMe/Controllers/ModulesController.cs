@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using TutorMe.Data;
 using TutorMe.Services;
 using Microsoft.AspNetCore.Authorization;
+using TutorMe.Entities;
 
 namespace TutorMe.Controllers
 {
@@ -47,9 +48,9 @@ namespace TutorMe.Controllers
             }
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpPost]
-        public IActionResult createModule(Module module)
+        public IActionResult createModule(IModule module)
         {
             try {
                 var moduleId = moduleService.createModule(module);

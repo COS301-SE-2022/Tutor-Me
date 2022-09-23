@@ -368,7 +368,8 @@ C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\bi
 C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\bin\Debug\net6.0\publish\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\bin\Debug\net6.0\publish\Microsoft.AspNetCore.Razor.Language.dll
 C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\bin\Debug\net6.0\publish\Microsoft.Bcl.AsyncInterfaces.dll
-C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\bin\Debug\net6.0\publish\Microsoft.Build.Locator.dll
+C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\bin\Debug\net6.0\publish\Microsoft.Build.dll
+C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\bin\Debug\net6.0\publish\Microsoft.Build.Framework.dll
 C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\bin\Debug\net6.0\publish\Microsoft.CodeAnalysis.AnalyzerUtilities.dll
 C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\bin\Debug\net6.0\publish\Microsoft.CodeAnalysis.dll
 C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\bin\Debug\net6.0\publish\Microsoft.CodeAnalysis.CSharp.dll
@@ -396,6 +397,7 @@ C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\bi
 C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\bin\Debug\net6.0\publish\Microsoft.IdentityModel.Protocols.dll
 C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\bin\Debug\net6.0\publish\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\bin\Debug\net6.0\publish\Microsoft.IdentityModel.Tokens.dll
+C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\bin\Debug\net6.0\publish\Microsoft.NET.StringTools.dll
 C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\bin\Debug\net6.0\publish\Microsoft.OpenApi.dll
 C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\bin\Debug\net6.0\publish\Microsoft.VisualStudio.Debugger.Contracts.dll
 C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\bin\Debug\net6.0\publish\Microsoft.VisualStudio.Web.CodeGeneration.dll
