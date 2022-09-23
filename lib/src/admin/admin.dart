@@ -8,6 +8,7 @@ import './delete_tutee.dart';
 import './update_tutor.dart';
 import './update_tutee.dart';
 import './delete_module.dart';
+import 'review_tutor.dart';
 
 class Admin extends StatelessWidget {
   final Globals global;
@@ -431,7 +432,13 @@ class Admin extends StatelessWidget {
           ),
           GestureDetector(
             onTap: () {
-              //print("Container clicked");
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => ReviewTutor(
+                          globals: global,
+                        )),
+              );
             },
             child: Container(
               decoration: BoxDecoration(
@@ -470,7 +477,7 @@ class Admin extends StatelessWidget {
                     height: 14,
                   ),
                   Text(
-                    "0 items",
+                    "1 item",
                     style: GoogleFonts.openSans(
                         textStyle: const TextStyle(
                             color: Colors.white70,
