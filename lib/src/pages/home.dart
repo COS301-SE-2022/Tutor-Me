@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:pie_chart/pie_chart.dart';
 import 'package:provider/provider.dart';
+import 'package:tutor_me/constants/colors.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/pages/badges.dart';
 import 'package:tutor_me/src/pages/book_for_tutor.dart';
@@ -95,11 +96,30 @@ class _HomeState extends State<Home> {
   List<Color> chartColorList = [
     Colors.blue,
     colorLightGreen,
-    Colors.orange,
+    colorOrange,
     Colors.yellow,
   ];
 
   Widget buildChart() {
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
+
+    Color primaryColor;
+    Color secondaryColor;
+    Color textColor;
+    Color highLightColor;
+
+    if (provider.themeMode == ThemeMode.dark) {
+      primaryColor = colorGrey;
+      textColor = colorWhite;
+      highLightColor = colorLightBlueTeal;
+      secondaryColor = colorLightGrey;
+    } else {
+      primaryColor = colorBlueTeal;
+      textColor = colorDarkGrey;
+      highLightColor = colorOrange;
+      secondaryColor = colorWhite;
+    }
+
     return PieChart(
       key: ValueKey(key),
       dataMap: dataMap,
@@ -109,7 +129,7 @@ class _HomeState extends State<Home> {
       ringStrokeWidth: 15,
       colorList: chartColorList,
       chartLegendSpacing: 34,
-      chartRadius: MediaQuery.of(context).size.width / 3.2,
+      chartRadius: MediaQuery.of(context).size.height / 6.6,
       chartValuesOptions: ChartValuesOptions(
         showChartValueBackground: true,
         showChartValues: true,
@@ -117,9 +137,10 @@ class _HomeState extends State<Home> {
         showChartValuesOutside: true,
         decimalPlaces: 1,
         chartValueStyle: TextStyle(
-          color: const Color.fromARGB(255, 49, 47, 47),
+          background: Paint()..color = secondaryColor,
+          color: colorDarkGrey,
           fontWeight: FontWeight.normal,
-          fontSize: MediaQuery.of(context).size.height * 0.02,
+          fontSize: MediaQuery.of(context).size.height * 0.015,
         ),
       ),
       // centerText: 'Progress',
@@ -130,7 +151,7 @@ class _HomeState extends State<Home> {
         legendShape: BoxShape.rectangle,
         legendTextStyle: TextStyle(
             fontWeight: FontWeight.bold,
-            color: colorDarkGrey,
+            color: textColor,
             fontSize: MediaQuery.of(context).size.width * 0.03),
       ),
     );
@@ -162,28 +183,43 @@ class _HomeState extends State<Home> {
     // Color appBarColor2;
     Color highlightColor;
     Color textColor;
+    Color cardBackground;
+
     if (provider.themeMode == ThemeMode.dark) {
-      // appBarColor1 = colorDarkGrey;
-      // appBarColor2 = colorGrey;
+
       highlightColor = colorOrange;
       textColor = colorWhite;
+      cardBackground = const Color.fromARGB(255, 104, 104, 104);
     } else {
       // appBarColor1 = colorLightBlueTeal;
       // appBarColor2 = colorBlueTeal;
       highlightColor = colorOrange;
       textColor = colorBlack;
+      cardBackground = colorWhite;
     }
     final screenHeightSize = MediaQuery.of(context).size.height;
     final screenWidthSize = MediaQuery.of(context).size.width;
     final images = [
-      "assets/Pictures/studentt.jpg",
-      "assets/Pictures/groups.jpg",
-      "assets/Pictures/badges.jpg",
-      "assets/Pictures/calendar.jpg",
       "assets/Pictures/book.jpg",
+      "assets/Pictures/groups.jpg",
+      "assets/Pictures/calendar.jpg",
+      "assets/Pictures/studentt.jpg",
+      "assets/Pictures/badges.jpg",
     ];
-    final titles = ["Tutees", "Groups", "Badges", "Calendar", "Book a Tutor"];
-    final numberStats = ["4", "4", "2", "more info", "more info"];
+    final titles = [
+      "Book a Tutor",
+      "Groups",
+      "Calendar",
+      "Tutees",
+      "Badges",
+    ];
+    final numberStats = [
+      "more info",
+      "1",
+      "more info",
+      "3",
+      "1",
+    ];
     String name = widget.globals.getUser.getName;
     String fullName = name + ' ' + widget.globals.getUser.getLastName;
 
@@ -250,7 +286,7 @@ class _HomeState extends State<Home> {
                         Text(
                           "  Tutee",
                           style: TextStyle(
-                            color: colorOrange,
+                            color: highlightColor,
                             fontSize: MediaQuery.of(context).size.height * 0.02,
                             fontWeight: FontWeight.w600,
                           ),
@@ -283,7 +319,7 @@ class _HomeState extends State<Home> {
             children: <Widget>[
               Icon(
                 Icons.circle,
-                color: colorOrange,
+                color: highlightColor,
                 size: screenHeightSize * 0.017,
               ),
               SizedBox(width: screenWidthSize * 0.02),
@@ -299,7 +335,7 @@ class _HomeState extends State<Home> {
           child: Container(
             height: screenHeightSize * 0.03,
             decoration: const BoxDecoration(
-              border: Border(left: BorderSide(width: 2, color: colorGrey)),
+              border: Border(left: BorderSide(width: 2, color: secondaryColor)),
             ),
           ),
         ),
@@ -309,13 +345,14 @@ class _HomeState extends State<Home> {
             children: <Widget>[
               Icon(
                 Icons.circle,
-                color: colorOrange,
+                color: highlightColor,
                 size: screenHeightSize * 0.017,
               ),
               SizedBox(width: screenWidthSize * 0.02),
               Text(
                 "What do the stats mean ?...",
-                style: TextStyle(fontSize: screenHeightSize * 0.025),
+                style: TextStyle(
+                    fontSize: screenHeightSize * 0.025, color: textColor),
               ),
               Text(
                 "more info",
@@ -332,14 +369,15 @@ class _HomeState extends State<Home> {
             "Dashboard",
             style: TextStyle(
                 fontSize: screenHeightSize * 0.039,
-                fontWeight: FontWeight.bold),
+                fontWeight: FontWeight.bold,
+                color: textColor),
           ),
         ),
         Padding(
           padding: EdgeInsets.only(
               top: screenHeightSize * 0.015, bottom: screenHeightSize * 0.015),
           child: Divider(
-            color: colorGrey.withOpacity(0.2), //color of divider
+            color: colorGrey.withOpacity(0.3), //color of divider
             height: 2, //height spacing of divider
             thickness: 1, //thickness of divier line
             indent: 32, //spacing at the start of divider
@@ -359,7 +397,7 @@ class _HomeState extends State<Home> {
                 return GridTile(
                   child: GestureDetector(
                     onTap: () {
-                      if (index == 0) {
+                      if (index == 3) {
                         //render Tutees Page
                       } else if (index == 1) {
                         //render Groups Page
@@ -368,16 +406,16 @@ class _HomeState extends State<Home> {
                             MaterialPageRoute(
                                 builder: (context) =>
                                     HomeTuteeGroups(globals: widget.globals)));
-                      } else if (index == 2) {
+                      } else if (index == 4) {
                         //render Badges Page
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (BuildContext context) => const Badges()));
-                      } else if (index == 3) {
+                      } else if (index == 2) {
                         //render Calendar Page
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (BuildContext context) =>
                                 Calendar(globals: widget.globals)));
-                      } else if (index == 4) {
+                      } else if (index == 0) {
                         //render Book for a tutor Page
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (BuildContext context) => BookForTutor(
@@ -390,7 +428,7 @@ class _HomeState extends State<Home> {
                             vertical: screenHeightSize * 0.02,
                             horizontal:
                                 MediaQuery.of(context).size.width * 0.02),
-                        color: colorWhite,
+                        color: cardBackground,
                         child: Center(
                           child: Container(
                             width: screenWidthSize * 0.4,
@@ -424,7 +462,7 @@ class _HomeState extends State<Home> {
                                     style: TextStyle(
                                         fontSize: screenHeightSize * 0.025,
                                         fontWeight: FontWeight.w500,
-                                        color: textColor),
+                                        color: colorDarkGrey),
                                   ),
                                 ),
                                 Padding(
@@ -444,7 +482,7 @@ class _HomeState extends State<Home> {
                                         style: TextStyle(
                                             fontSize: screenHeightSize * 0.025,
                                             fontWeight: FontWeight.w400,
-                                            color: textColor),
+                                            color: colorDarkGrey),
                                       ),
                                     ],
                                   ),

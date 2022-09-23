@@ -1,6 +1,9 @@
 // ignore_for_file: sort_child_properties_last, file_names
 
 import 'package:flutter/material.dart';
+import 'package:tutor_me/src/colorpallete.dart';
+import 'package:provider/provider.dart';
+import 'package:tutor_me/src/theme/themes.dart';
 
 class ContactUs extends StatefulWidget {
   const ContactUs({Key? key}) : super(key: key);
@@ -17,10 +20,23 @@ class _ContactUsState extends State<ContactUs> {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
+    Color textColor;
+    Color backgroundColor;
+
+    if (provider.themeMode == ThemeMode.dark) {
+      textColor = colorWhite;
+      backgroundColor = colorLightBlueTeal;
+    } else {
+      textColor = colorDarkGrey;
+      backgroundColor = colorBlueTeal;
+    }
+
     // print();
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+          backgroundColor: backgroundColor,
           toolbarHeight: MediaQuery.of(context).size.height * 0.2,
           flexibleSpace: Container(
             width: MediaQuery.of(context).size.width * 1,
@@ -44,7 +60,7 @@ class _ContactUsState extends State<ContactUs> {
                 style: TextStyle(
                   fontSize: MediaQuery.of(context).size.width * 0.08,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black,
+                  color: textColor,
                 ),
               ),
             ),
@@ -58,7 +74,7 @@ class _ContactUsState extends State<ContactUs> {
                 style: TextStyle(
                   fontSize: MediaQuery.of(context).size.width * 0.055,
                   fontWeight: FontWeight.normal,
-                  color: Colors.black,
+                  color: textColor,
                 ),
               ),
             ),
@@ -69,7 +85,7 @@ class _ContactUsState extends State<ContactUs> {
                 style: TextStyle(
                   fontSize: MediaQuery.of(context).size.width * 0.08,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black,
+                  color: textColor,
                 ),
               ),
             ),
@@ -83,7 +99,7 @@ class _ContactUsState extends State<ContactUs> {
                 style: TextStyle(
                   fontSize: MediaQuery.of(context).size.width * 0.05,
                   fontWeight: FontWeight.normal,
-                  color: Colors.black,
+                  color: textColor,
                 ),
               ),
             ),
@@ -98,7 +114,7 @@ class _ContactUsState extends State<ContactUs> {
                 style: TextStyle(
                   fontSize: MediaQuery.of(context).size.width * 0.05,
                   fontWeight: FontWeight.normal,
-                  color: Colors.black,
+                  color: textColor,
                 ),
               ),
             ),
