@@ -192,7 +192,7 @@ public class ModuleServicesUnitTests
     public async  Task CreateModule_Module_Returns_ModuleId()
     {
         //arrange
-        var Module = new Module
+        var Module = new IModule
         {
             ModuleId  = Guid.NewGuid(),
             Code  = "COS 301",
@@ -238,6 +238,16 @@ public class ModuleServicesUnitTests
             Faculty ="Faculty of Engineering and Built Environment",
             Year = "3",
         };
+          var Module1 = new IModule
+        {
+            ModuleId  = Module.ModuleId,
+            Code  = "COS 301",
+            ModuleName ="Software Engineering",
+            InstitutionId = Module.InstitutionId,
+            Faculty ="Faculty of Engineering and Built Environment",
+            Year = "3",
+        };
+        
         
         DbContextOptionsBuilder<TutorMeContext> optionsBuilder = new();
         var databaseName = MethodBase.GetCurrentMethod()?.Name;
@@ -252,7 +262,7 @@ public class ModuleServicesUnitTests
         {
             using (TutorMeContext ctx1 = new(optionsBuilder.Options))
             {
-                result =new ModuleServices(ctx1).createModule(Module);
+                result =new ModuleServices(ctx1).createModule(Module1);
             }
         }
         catch (Exception e)
