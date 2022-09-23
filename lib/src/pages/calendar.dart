@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:tutor_me/services/models/globals.dart';
 import 'package:tutor_me/src/colorpallete.dart';
+import 'package:tutor_me/src/pages/tutee_calendar_page.dart';
 // import 'package:tutor_me/src/pages/badges.dart';
 import 'package:tutor_me/src/pages/upcoming.dart';
 
+import '../theme/themes.dart';
 import 'calendar_screen.dart';
 
 class Calendar extends StatefulWidget {
-  const Calendar({Key? key}) : super(key: key);
+  final Globals globals;
+  const Calendar({Key? key, required this.globals}) : super(key: key);
 
   @override
   State<Calendar> createState() => _CalendarState();
@@ -17,7 +22,21 @@ class _CalendarState extends State<Calendar> {
   int currentIndex = 0;
 
   getScreens() {
-    return [const Upcoming(), const CalendarScreen()];
+    if (widget.globals.getUser.getUserTypeID[0] == '9') {
+      return [
+        Upcoming(
+          globals: widget.globals,
+        ),
+        CalendarScreen(globals: widget.globals)
+      ];
+    } else {
+      return [
+        Upcoming(
+          globals: widget.globals,
+        ),
+        TuteeCalendarScreen(globals: widget.globals)
+      ];
+    }
   }
   // late CalendarController _controller;
 
@@ -49,6 +68,25 @@ class _CalendarState extends State<Calendar> {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
+
+    Color primaryColor;
+    Color secondaryColor;
+    Color textColor;
+    Color highLightColor;
+
+    if (provider.themeMode == ThemeMode.dark) {
+      primaryColor = const Color.fromARGB(255, 37, 36, 36);
+      textColor = colorWhite;
+      highLightColor = colorOrange;
+      secondaryColor = const Color.fromARGB(255, 88, 88, 88);
+    } else {
+      primaryColor = colorBlueTeal;
+      textColor = colorDarkGrey;
+      highLightColor = colorOrange;
+      secondaryColor = colorWhite;
+    }
+
     final screens = getScreens();
 
     double widthOfScreen = MediaQuery.of(context).size.width;
@@ -64,26 +102,15 @@ class _CalendarState extends State<Calendar> {
         length: 2,
         child: Scaffold(
           appBar: AppBar(
-            // backgroundColor: const Color(0xffD6521B),
             centerTitle: true,
-            title: const Text('Calendar'),
-            backgroundColor: colorBlueTeal,
-            // flexibleSpace: Container(
-            //   decoration: const BoxDecoration(
-            //       // borderRadius:
-            //       //     BorderRadius.vertical(bottom: Radius.circular(60)),
-            //       gradient: LinearGradient(
-            //           colors: <Color>[Colors.orange, Colors.red],
-            //           begin: Alignment.topCenter,
-            //           end: Alignment.bottomCenter)),
-            // ),
-
+            title: const Text('Calendar', style: TextStyle(color: colorWhite)),
+            backgroundColor: primaryColor,
             bottom: PreferredSize(
               preferredSize: const Size.fromHeight(50.0),
               child: Container(
-                height: 50.0,
-                decoration: const BoxDecoration(
-                  color: Color.fromARGB(255, 235, 231, 231),
+                height: MediaQuery.of(context).size.height * 0.07,
+                decoration: BoxDecoration(
+                  color: secondaryColor,
                 ),
                 child: TabBar(
                   onTap: (index) {
@@ -91,10 +118,11 @@ class _CalendarState extends State<Calendar> {
                       currentIndex = index;
                     });
                   },
-                  indicatorColor: colorOrange,
-                  unselectedLabelColor: colorGrey,
-                  labelColor: colorOrange,
+                  indicatorColor: highLightColor,
+                  unselectedLabelColor: colorLightGrey,
+                  labelColor: highLightColor,
                   unselectedLabelStyle: TextStyle(
+                    color: textColor,
                     fontSize: MediaQuery.of(context).size.height * 0.02,
                     fontWeight: FontWeight.w400,
                   ),

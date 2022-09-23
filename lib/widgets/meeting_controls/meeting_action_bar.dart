@@ -1,8 +1,9 @@
-import 'dart:io';
+// import 'dart:io';
 
 import 'package:flutter/material.dart';
 
 import '../../constants/colors.dart';
+// import '../../src/colorpallete.dart';
 import 'meeting_action_button.dart';
 
 // import 'package:provider/provider.dart';
@@ -22,9 +23,9 @@ class MeetingActionBar extends StatelessWidget {
       onMicButtonPressed,
       onWebcamButtonPressed,
       onSwitchCameraButtonPressed,
-      onMoreButtonPressed,
-      onScreenShareButtonPressed,
-      onRecordingShareButtonPressed;
+      onMoreButtonPressed;
+  // onScreenShareButtonPressed;
+  // onRecordingShareButtonPressed;
 
   const MeetingActionBar({
     Key? key,
@@ -37,8 +38,8 @@ class MeetingActionBar extends StatelessWidget {
     required this.onMicButtonPressed,
     required this.onWebcamButtonPressed,
     required this.onSwitchCameraButtonPressed,
-    required this.onScreenShareButtonPressed,
-    required this.onRecordingShareButtonPressed,
+    // required this.onScreenShareButtonPressed,
+    // required this.onRecordingShareButtonPressed,
     required this.onMoreButtonPressed,
   }) : super(key: key);
 
@@ -53,7 +54,7 @@ class MeetingActionBar extends StatelessWidget {
     // }
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-      // color: participantColor,
+      // color: colorGrey,
       child: Row(
         children: [
           // Call End Control
@@ -95,41 +96,41 @@ class MeetingActionBar extends StatelessWidget {
             ),
           ),
 
-          // Recording Switch Control
-          Expanded(
-            child: MeetingActionButton(
-              backgroundColor: secondaryColor.withOpacity(0.8),
-              onPressed: onRecordingShareButtonPressed,
-              icon: isRecordingOn
-                  ? Icons.stop_circle_outlined
-                  : Icons.emergency_recording,
-            ),
-          ),
+          // // Recording Switch Control
+          // Expanded(
+          //   child: MeetingActionButton(
+          //     backgroundColor: secondaryColor.withOpacity(0.8),
+          //     onPressed: onRecordingShareButtonPressed,
+          //     icon: isRecordingOn
+          //         ? Icons.stop_circle_outlined
+          //         : Icons.emergency_recording,
+          //   ),
+          // ),
 
           // ScreenShare Control
-          if (Platform.isAndroid)
-            Expanded(
-              child: MeetingActionButton(
-                backgroundColor: isScreenShareEnabled
-                    ? hoverColor
-                    : secondaryColor.withOpacity(0.8),
-                onPressed: isScreenShareButtonDisabled
-                    ? null
-                    : onScreenShareButtonPressed,
-                icon: isScreenShareEnabled
-                    ? Icons.screen_share
-                    : Icons.stop_screen_share,
-                iconColor:
-                    isScreenShareButtonDisabled ? Colors.white30 : Colors.white,
-              ),
-            ),
+          // if (Platform.isAndroid)
+          //   Expanded(
+          //     child: MeetingActionButton(
+          //       backgroundColor: isScreenShareEnabled
+          //           ? hoverColor
+          //           : secondaryColor.withOpacity(0.8),
+          //       onPressed: isScreenShareButtonDisabled
+          //           ? null
+          //           : onScreenShareButtonPressed,
+          //       icon: isScreenShareEnabled
+          //           ? Icons.screen_share
+          //           : Icons.stop_screen_share,
+          //       iconColor:
+          //           isScreenShareButtonDisabled ? Colors.white30 : Colors.white,
+          //     ),
+          //   ),
 
           // More options
           Expanded(
             child: MeetingActionButton(
               backgroundColor: secondaryColor.withOpacity(0.8),
               onPressed: onMoreButtonPressed,
-              icon: Icons.chat_bubble_outline,
+              icon: Icons.more_vert,
             ),
           ),
         ],

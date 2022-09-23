@@ -4,6 +4,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:videosdk/rtc.dart';
+import '../services/models/globals.dart';
+import '../services/models/groups.dart';
+import '../services/services/group_services.dart';
 import '../src/authenticate/register_step1.dart';
 import '/screens/chat_screen.dart';
 
@@ -21,6 +24,8 @@ import 'package:tutor_me/src/theme/themes.dart';
 class MeetingScreen extends StatefulWidget {
   final String meetingId, token, displayName;
   final bool micEnabled, webcamEnabled, chatEnabled;
+  final Groups group;
+  final Globals globals;
   const MeetingScreen({
     Key? key,
     required this.meetingId,
@@ -29,6 +34,8 @@ class MeetingScreen extends StatefulWidget {
     this.micEnabled = true,
     this.webcamEnabled = true,
     this.chatEnabled = true,
+    required this.group,
+    required this.globals,
   }) : super(key: key);
 
   @override
@@ -38,6 +45,7 @@ class MeetingScreen extends StatefulWidget {
 class _MeetingScreenState extends State<MeetingScreen> {
   // Recording Webhook
   final String recordingWebHookURL = "";
+  bool isScreenshareOn = false;
 
   Meeting? meeting;
 
@@ -166,36 +174,134 @@ class _MeetingScreenState extends State<MeetingScreen> {
                 _meeting.changeWebcam(deviceToSwitch.deviceId);
               },
 
-              // Called when ScreenShare button is pressed
-              onScreenShareButtonPressed: () {
-                if (shareStream != null) {
-                  _meeting.disableScreenShare();
-                } else {
-                  _meeting.enableScreenShare();
-                }
-              },
+              // // Called when ScreenShare button is pressed
+              // onScreenShareButtonPressed: () {
+              //   if (shareStream != null) {
+              //     _meeting.disableScreenShare();
+              //   } else {
+              //     _meeting.enableScreenShare();
+              //   }
+              // },
 
-              // Called when Recording button is pressed
-              onRecordingShareButtonPressed: () {
-                if (isRecordingOn == true) {
-                  _meeting.stopRecording();
-                  isRecordingOn = false;
-                } else {
-                  _meeting.startRecording(recordingWebHookURL);
-                  isRecordingOn = true;
-                }
-              },
+              // // Called when Recording button is pressed
+              // onRecordingShareButtonPressed: () {
+              //   if (isRecordingOn == true) {
+              //     _meeting.stopRecording();
+              //     isRecordingOn = false;
+              //   } else {
+              //     _meeting.startRecording(recordingWebHookURL);
+              //     isRecordingOn = true;
+              //   }
+              // },
 
-              // Called when chat button is pressed
+              // // Called when chat button is pressed
+              // onMoreButtonPressed: () {
+              //   // Showing chat screen
+              //   showModalBottomSheet(
+              //     context: context,
+              //     constraints: BoxConstraints(
+              //         maxHeight:
+              //             MediaQuery.of(context).size.height - statusbarHeight),
+              //     isScrollControlled: true,
+              //     builder: (context) => ChatScreen(meeting: meeting!),
+              //   );
+              // },
+
               onMoreButtonPressed: () {
-                // Showing chat screen
-                showModalBottomSheet(
+                // Showing more options dialog box
+                showDialog<void>(
                   context: context,
-                  constraints: BoxConstraints(
-                      maxHeight:
-                          MediaQuery.of(context).size.height - statusbarHeight),
-                  isScrollControlled: true,
-                  builder: (context) => ChatScreen(meeting: meeting!),
+                  builder: (BuildContext context) => AlertDialog(
+                    content: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        // Chat
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: colorBlueTeal,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.max,
+                            children: const <Widget>[
+                              Icon(Icons.chat),
+                              Text(" Chat"),
+                            ],
+                          ),
+                          onPressed: () {
+                            Navigator.pop(context);
+                            showModalBottomSheet(
+                              context: context,
+                              constraints: BoxConstraints(
+                                  maxHeight:
+                                      MediaQuery.of(context).size.height -
+                                          statusbarHeight),
+                              isScrollControlled: true,
+                              builder: (context) =>
+                                  ChatScreen(meeting: meeting!),
+                            );
+                          },
+                        ),
+
+                        // Recording button
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: colorBlueTeal,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.max,
+                            children: const <Widget>[
+                              Icon(Icons.camera),
+                              Text(" Record Meeting"),
+                            ],
+                          ),
+                          onPressed: () {
+                            if (isRecordingOn == true) {
+                              _meeting.stopRecording();
+                              isRecordingOn = false;
+                            } else {
+                              _meeting.startRecording(recordingWebHookURL);
+                              isRecordingOn = true;
+                            }
+
+                            Navigator.pop(context);
+                          },
+                        ),
+
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: colorBlueTeal,
+                          ),
+                          // child: Text(
+                          //   isScreenshareOn
+                          //       ? 'Stop Sharing'
+                          //       : 'Start Sharing Screen',
+                          // ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.max,
+                            children: const <Widget>[
+                              Icon(Icons.screen_share),
+                              Text(" Share Screen"),
+                            ],
+                          ),
+                          onPressed: () {
+                            if (shareStream != null) {
+                              isScreenshareOn = false;
+                              _meeting.disableScreenShare();
+                            } else {
+                              isScreenshareOn = true;
+                              _meeting.enableScreenShare();
+                            }
+
+                            Navigator.pop(context);
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
                 );
               },
             ),
@@ -260,13 +366,23 @@ class _MeetingScreenState extends State<MeetingScreen> {
     meeting.on(Events.meetingLeft, () {
       Navigator.pushAndRemoveUntil(
           context,
-          MaterialPageRoute(builder: (context) => const StartupScreen()),
+          MaterialPageRoute(
+              builder: (context) => StartupScreen(
+                    globals: widget.globals,
+                    group: widget.group,
+                  )),
           (route) => false);
     });
 
+    // ignore: todo
+    //TODO save meeting id to database
+
     // Called when recording is started
-    meeting.on(Events.recordingStarted, () {
+    meeting.on(Events.recordingStarted, () async {
       toastMsg("Meeting recording started.");
+
+      await GroupServices.saveMeetingIdForGroup(
+          widget.meetingId, widget.group.getId, widget.globals);
 
       setState(() {
         isRecordingOn = true;

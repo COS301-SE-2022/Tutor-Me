@@ -78,12 +78,10 @@ class UpdateTutorState extends State<UpdateTutor> {
                   ),
                 ),
               ),
-
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.04,
                 width: MediaQuery.of(context).size.height,
               ),
-
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
@@ -166,10 +164,41 @@ class UpdateTutorState extends State<UpdateTutor> {
                       );
                     }
 
+                    // ignore: todo
                     //TODO fix this
 
                     // UserServices.updateTutorByEmail(
                     //     oldemailcontroller.text, newemailcontroller.text);
+
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          title: const Text("Success"),
+                          content: Text("Tutor email " +
+                              oldemailcontroller.text +
+                              " updated to " +
+                              newemailcontroller.text),
+                          backgroundColor: colorWhite,
+                          titleTextStyle: TextStyle(
+                            color: colorBlack,
+                            fontSize: MediaQuery.of(context).size.height * 0.03,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          actions: <Widget>[
+                            TextButton(
+                              child: const Text(
+                                "Retry",
+                                style: TextStyle(color: colorWhite),
+                              ),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    );
                   },
                   child: isLoading
                       ? const CircularProgressIndicator(color: Colors.white)
@@ -180,7 +209,10 @@ class UpdateTutorState extends State<UpdateTutor> {
                             color: Colors.white,
                           )),
                 ),
-              ), //second input
+              ),
+              const SizedBox(
+                height: 200,
+              ),
             ]),
           )
         ],

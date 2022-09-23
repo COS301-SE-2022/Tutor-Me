@@ -20,7 +20,8 @@ import '../tutorProfilePages/user_stats.dart';
 
 class TutorProfileBookingPage extends StatefulWidget {
   // ignore: prefer_const_constructors_in_immutables
-  TutorProfileBookingPage({Key? key, required this.tutor, required this.globals})
+  TutorProfileBookingPage(
+      {Key? key, required this.tutor, required this.globals})
       : super(key: key);
   final Users tutor;
   final Globals globals;
@@ -60,7 +61,8 @@ class _TutorProfileBookingPageState extends State<TutorProfileBookingPage> {
   getCurrentModules() async {
     numTutees = 2;
     numConnections = 3;
-    final current = await ModuleServices.getUserModules(widget.tutor.getId, widget.globals);
+    final current =
+        await ModuleServices.getUserModules(widget.tutor.getId, widget.globals);
     setState(() {
       currentModules = current;
     });
@@ -84,7 +86,8 @@ class _TutorProfileBookingPageState extends State<TutorProfileBookingPage> {
 
   getProfileImage() async {
     try {
-      final image = await UserServices.getProfileImage(widget.tutor.getId, widget.globals);
+      final image = await UserServices.getProfileImage(
+          widget.tutor.getId, widget.globals);
       bytes = image;
       isImageDisplayed = true;
       getInstitution();
@@ -169,9 +172,11 @@ class _TutorProfileBookingPageState extends State<TutorProfileBookingPage> {
     if (provider.themeMode == ThemeMode.dark) {
       textColor = colorWhite;
       secondaryTextColor = colorGrey;
+    
     } else {
       textColor = Colors.black;
       secondaryTextColor = colorOrange;
+  
     }
 
     final screenWidthSize = MediaQuery.of(context).size.width;
@@ -205,7 +210,7 @@ class _TutorProfileBookingPageState extends State<TutorProfileBookingPage> {
         style: TextStyle(
           fontSize: screenWidthSize * 0.04,
           fontWeight: FontWeight.normal,
-          color: colorBlueTeal,
+          color: textColor ,
         ),
       ),
       SizedBox(height: screenHeightSize * 0.02),
@@ -329,10 +334,12 @@ class _TutorProfileBookingPageState extends State<TutorProfileBookingPage> {
               onPressed: () {
                 showModuleSelect(context);
               },
-              child: const Text("Proceed to booking"),
+              child:  Text("Proceed to booking", style: TextStyle(
+                color: textColor,
+              ),),
               style: ButtonStyle(
                 backgroundColor:
-                    MaterialStateProperty.all(Colors.deepOrangeAccent),
+                    MaterialStateProperty.all( const Color.fromARGB(255, 104, 94, 90)),
               ),
             ),
           ))
@@ -340,17 +347,20 @@ class _TutorProfileBookingPageState extends State<TutorProfileBookingPage> {
   }
 
   Widget topDesign() {
-    final provider = Provider.of<ThemeProvider>(context, listen: false);
+     final provider = Provider.of<ThemeProvider>(context, listen: false);
     Color textColor;
-    Color highlightColor;
+    Color highLightColor;
 
     if (provider.themeMode == ThemeMode.dark) {
-      highlightColor = colorBlueTeal;
       textColor = colorWhite;
+      highLightColor = colorLightBlueTeal;
     } else {
-      highlightColor = colorOrange;
       textColor = Colors.black;
+      highLightColor = colorOrange;
     }
+  
+
+  
     return Stack(
       clipBehavior: Clip.none,
       alignment: Alignment.center,
@@ -382,7 +392,7 @@ class _TutorProfileBookingPageState extends State<TutorProfileBookingPage> {
                     },
                     style: ButtonStyle(
                         backgroundColor:
-                            MaterialStateProperty.all(highlightColor),
+                            MaterialStateProperty.all(highLightColor),
                         shape: MaterialStateProperty.all(RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(
                                 MediaQuery.of(context).size.width * 0.1))))))
@@ -526,7 +536,8 @@ class _TutorProfileBookingPageState extends State<TutorProfileBookingPage> {
                         widget.tutor.setNumberOfReviews = numRatings;
                       });
                       try {
-                        await UserServices.updateTutor(widget.tutor, widget.globals);
+                        await UserServices.updateTutor(
+                            widget.tutor, widget.globals);
                       } catch (e) {
                         const snackBar = SnackBar(
                           content: Text('Failed to upload rating'),
@@ -681,9 +692,10 @@ class _TutorProfileBookingPageState extends State<TutorProfileBookingPage> {
                                 Navigator.of(context).push(
                                   MaterialPageRoute(
                                     builder: (BuildContext context) =>
-                                        const BookingCalender(
-                                            // user: widget.user,
-                                            ),
+                                        BookingCalender(
+                                      globals: widget.globals,
+                                      // user: widget.user,
+                                    ),
                                   ),
                                 );
                               },
@@ -738,7 +750,8 @@ class _TutorProfileBookingPageState extends State<TutorProfileBookingPage> {
                                         await UserServices().sendRequest(
                                             widget.tutor.getId,
                                             widget.globals.getUser.getId,
-                                            module.getModuleId, widget.globals);
+                                            module.getModuleId,
+                                            widget.globals);
                                       } catch (e) {
                                         const snackBar = SnackBar(
                                           content:

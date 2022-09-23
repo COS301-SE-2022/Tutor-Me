@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:tutor_me/services/models/globals.dart';
 import 'package:tutor_me/services/models/tutors.dart';
+import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/notifications/tutorNotifications/tutors_requests.dart';
 import 'package:tutor_me/src/notifications/tutorNotifications/tutors_activity.dart';
+import '../../theme/themes.dart';
 
 class TutorNotifications extends StatefulWidget {
   final Globals globals;
@@ -20,6 +23,18 @@ class TutorNotificationsState extends State<TutorNotifications> {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
+
+    Color primaryColor;
+
+    if (provider.themeMode == ThemeMode.dark) {
+      primaryColor = colorGrey;
+
+    } else {
+      primaryColor = colorBlueTeal;
+     
+    }
+
     return DefaultTabController(
       length: 2,
       child: Scaffold(
@@ -45,8 +60,11 @@ class TutorNotificationsState extends State<TutorNotifications> {
                   ),
                 ],
               ),
-              backgroundColor: const Color(0xffD6521B),
-              title: const Text('Notifications'),
+              backgroundColor: primaryColor,
+              title: const Text(
+                'Notifications',
+                style: TextStyle(color: colorWhite),
+              ),
 
               // actions: <Widget>[
 

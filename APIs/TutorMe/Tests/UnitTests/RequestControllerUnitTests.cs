@@ -5,6 +5,7 @@ using Moq;
 using TutorMe.Controllers;
 using TutorMe.Models;
 using TutorMe.Services;
+using TutorMe.Entities;
 
 namespace Tests.UnitTests;
 
@@ -152,7 +153,7 @@ public class RequestControllerUnitTests
     public async  Task AddRequest_Request_ReturnsRequest()
     {
         //arrange
-        var Request = new Request
+        var Request = new IRequest
         {
             RequestId  = Guid.NewGuid(),
             TuteeId  = Guid.NewGuid(),
@@ -160,7 +161,7 @@ public class RequestControllerUnitTests
             DateCreated ="20/04/2020",
             ModuleId=Guid.NewGuid()
         };
-        _RequestRepositoryMock.Setup(u => u. createRequest(It.IsAny<Request>())).Returns(Request.RequestId);
+        _RequestRepositoryMock.Setup(u => u. createRequest(It.IsAny<IRequest>())).Returns(Request.RequestId);
         
         var controller = new RequestsController(_RequestRepositoryMock.Object,_mapper.Object);
         
