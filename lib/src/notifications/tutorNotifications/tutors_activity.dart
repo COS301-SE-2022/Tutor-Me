@@ -28,6 +28,8 @@ class TutorActivityState extends State<TutorActivity> {
       highLightColor = colorLightBlueTeal;
     } else {
       primaryColor = colorBlueTeal;
+
+
       highLightColor = colorOrange;
     }
 
