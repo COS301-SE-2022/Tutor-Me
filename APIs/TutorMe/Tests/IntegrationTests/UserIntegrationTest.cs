@@ -17,7 +17,7 @@ namespace Tests.IntegrationTests
     public class UserIntegrationTest : IClassFixture<WebAppFactory>
     {
          static string token;
-        private HttpClient _httpClient = null!;
+        private HttpClient _httpClient;
         private ITestOutputHelper _testOutputHelper = null!;
      
         
@@ -90,10 +90,42 @@ namespace Tests.IntegrationTests
              token = jo["token"].ToString();
             _testOutputHelper.WriteLine("GetToken funct " + token);
             
-         
             
         }
       
+        [Fact]
+        public async Task GetAllUsers_NoUsers()
+        {
+            //Act
+             await InitializeToken();
+            _testOutputHelper.WriteLine("the token is " + token);
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            var response = await _httpClient.GetAsync("https://localhost:7100/api/Users");
+
+            //Assert
+            Assert.NotNull(response);
+            _testOutputHelper.WriteLine("the body: " +response);
+            if (response != null && response.IsSuccessStatusCode == false)
+            {
+                var result = response.Content.ReadAsStringAsync().Result;
+                _testOutputHelper.WriteLine("Http operation unsuccessful");
+                _testOutputHelper.WriteLine(string.Format("Status: '{0}'", response.StatusCode));
+                _testOutputHelper.WriteLine(string.Format("Reason: '{0}'", response.ReasonPhrase));
+
+                _testOutputHelper.WriteLine(result);
+            }
+            Assert.Equal(200, (double)response.StatusCode);
+
+            var users = await response.Content.ReadFromJsonAsync<List<User>>();
+
+            Assert.Equal(1, users.Count()); //User that just registered 
+            
+            
+            //Now Testing with Users
+           // await GetAllUsers_With_Exsistng_Users();
+        }
+        
+
      
 }
 
