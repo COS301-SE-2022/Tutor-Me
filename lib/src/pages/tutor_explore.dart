@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -6,11 +7,18 @@ import 'package:tutor_me/services/models/globals.dart';
 import 'package:tutor_me/services/services/module_services.dart';
 import 'package:tutor_me/services/services/user_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
+import 'package:tutor_me/src/pages/tutor_profile_booking_page.dart';
 import '../../services/models/modules.dart';
 import '../../services/models/users.dart';
 import '../theme/themes.dart';
 import '../tutee_page.dart';
-import 'tutor_profile_booking_page.dart';
+import '../tutorProfilePages/tutor_profile_view.dart';
+// import 'package:tutor_me/services/models/tutors.dart';
+// import 'package:tutor_me/modules/api.services.dart';
+// import 'package:tutor_me/modules/tutors.dart';
+// import 'tutorProfilePages/tutor_profile_view.dart';
+// import 'Navigation/nav_drawer.dart';
+// import 'theme/themes.dart';
 
 class Tutor {
   Users tutor;
@@ -70,6 +78,7 @@ class TutorExploreState extends State<TutorExplore> {
     });
   }
 
+// 0644013797
   void filterGender(String filter) {
     if (filter == 'Male') {
       filter = 'M';
@@ -148,6 +157,7 @@ class TutorExploreState extends State<TutorExplore> {
     try {
       final tutors = await UserServices.getTutors(widget.globals);
       tutorList = tutors;
+      log(tutorList.length.toString());
       getConnections();
     } catch (e) {
       setState(() {
@@ -158,7 +168,6 @@ class TutorExploreState extends State<TutorExplore> {
 
   getConnections() async {
     try {
-      List<int> indecies = List<int>.empty(growable: true);
       int tutorLength = tutorList.length;
 
       final tutors = await UserServices.getConnections(
@@ -166,24 +175,25 @@ class TutorExploreState extends State<TutorExplore> {
           widget.globals.getUser.getUserTypeID,
           widget.globals);
 
-      setState(() {
-        connectedTutors = tutors;
-      });
+      connectedTutors = tutors;
 
       for (int i = 0; i < tutorLength; i++) {
         for (int j = 0; j < connectedTutors.length; j++) {
           if (tutorList[i].getId == connectedTutors[j].getId) {
-            indecies.add(i);
+            tutorList.remove(tutorList[i]);
           }
         }
       }
+
       List<Modules> tuteeModules = List<Modules>.empty();
       final tuteeModuleList = await ModuleServices.getUserModules(
           widget.globals.getUser.getId, widget.globals);
+
       tuteeModules = tuteeModuleList;
-      for (int i = 0; i < tutorLength; i++) {
-        bool val = false;
-        if (tuteeModules.isNotEmpty) {
+      if (tuteeModules.isNotEmpty) {
+        for (int i = 0; i < tutorLength; i++) {
+          bool val = false;
+
           List<Modules> tutorModules = List<Modules>.empty();
           final tutorModuleList = await ModuleServices.getUserModules(
               tutorList[i].getId, widget.globals);
@@ -196,38 +206,21 @@ class TutorExploreState extends State<TutorExplore> {
               }
             }
           }
-        }
 
-        if (!val) {
-          indecies.add(i);
+          if (!val) {
+            tutorList.remove(tutorList[i]);
+          }
         }
-      }
-
-      if (tuteeModules.isEmpty) {
+        getTutorProfileImages();
+      } else {
         setState(() {
           tutorList = List<Users>.empty();
+          _isLoading = false;
         });
         const snackBar = SnackBar(
-          content: Text('No Tutor suggestions'),
+          content: Text('No Tutor suggestions, please add modules'),
         );
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
-      } else {
-        List<Users> tempList = List<Users>.empty(growable: true);
-
-        for (int i = 0; i < tutorList.length; i++) {
-          bool toAdd = true;
-          for (int j = 0; j < indecies.length; j++) {
-            if (i == indecies[j]) {
-              toAdd = false;
-            }
-          }
-          if (toAdd) {
-            tempList.add(tutorList[i]);
-          }
-        }
-        setState(() {
-          tutorList = tempList;
-        });
       }
     } catch (e) {
       for (var tutor in tutorList) {
@@ -244,7 +237,7 @@ class TutorExploreState extends State<TutorExplore> {
     try {
       for (int i = 0; i < tutorList.length; i++) {
         try {
-          final image = await UserServices.getProfileImage(
+          final image = await UserServices.getTutorProfileImage(
               tutorList[i].getId, widget.globals);
           setState(() {
             tutorImages.add(image);
@@ -292,25 +285,24 @@ class TutorExploreState extends State<TutorExplore> {
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<ThemeProvider>(context, listen: false);
-
-    Color primaryColor;
     Color textColor;
+    Color primaryColor;
     Color highLightColor;
 
     if (provider.themeMode == ThemeMode.dark) {
-      primaryColor = colorGrey;
       textColor = colorWhite;
+      primaryColor = colorLightGrey;
       highLightColor = colorLightBlueTeal;
     } else {
+      textColor = Colors.black;
       primaryColor = colorBlueTeal;
-      textColor = colorDarkGrey;
       highLightColor = colorOrange;
     }
 
     filterContHeight = MediaQuery.of(context).size.height * 0.16;
     filterContWidth = MediaQuery.of(context).size.width * 0.9;
-    return Material(
-        child: SingleChildScrollView(
+    return Scaffold(
+        body: SingleChildScrollView(
       child: Column(
         children: [
           Container(
@@ -369,7 +361,7 @@ class TutorExploreState extends State<TutorExplore> {
                     child: Text(
                       "Find a Tutor",
                       style: TextStyle(
-                          color: primaryColor,
+                          color: textColor,
                           fontSize: MediaQuery.of(context).size.height * 0.035,
                           fontWeight: FontWeight.w600,
                           fontFamily: 'Montserrat',
@@ -387,7 +379,7 @@ class TutorExploreState extends State<TutorExplore> {
                       width: MediaQuery.of(context).size.width * 0.8,
                       height: MediaQuery.of(context).size.height * 0.06,
                       child: TextField(
-                        cursorColor: colorBlueTeal,
+                        cursorColor: primaryColor,
                         onChanged: (value) => search(value),
                         controller: textControl,
                         decoration: InputDecoration(
@@ -413,8 +405,8 @@ class TutorExploreState extends State<TutorExplore> {
                                   )
                                 : null,
                             border: OutlineInputBorder(
-                              borderSide:  BorderSide(
-                                  color: primaryColor, width: 1.0),
+                              borderSide:
+                                  BorderSide(color: primaryColor, width: 1.0),
                               borderRadius: BorderRadius.circular(15),
                             ),
                             hintStyle: const TextStyle(
@@ -456,7 +448,7 @@ class TutorExploreState extends State<TutorExplore> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               FilterChip(
-                                selectedColor: colorOrange.withOpacity(0.5),
+                                selectedColor: highLightColor.withOpacity(0.5),
                                 label: Text(
                                   'Male',
                                   style: TextStyle(color: checkedColor),
@@ -482,7 +474,7 @@ class TutorExploreState extends State<TutorExplore> {
                                       isMaleSelected = isSelected;
                                       isFemaleSelected = !isSelected;
                                     } else {
-                                      checkedColor = colorBlack;
+                                      checkedColor = textColor;
                                       isMaleSelected = isSelected;
                                       if (!isFirstSelected ||
                                           !isSecondSelected ||
@@ -509,7 +501,7 @@ class TutorExploreState extends State<TutorExplore> {
                                 backgroundColor: Colors.white60,
                                 shape: StadiumBorder(
                                     side: BorderSide(color: checkedColor)),
-                                checkmarkColor: colorOrange,
+                                checkmarkColor: highLightColor,
                                 onSelected: (isSelected) {
                                   if (isMaleSelected) {
                                     tutors = saveTutors;
@@ -518,7 +510,7 @@ class TutorExploreState extends State<TutorExplore> {
                                   filterGender(newGen);
                                   setState(() {
                                     if (isSelected) {
-                                      checkedColor = colorOrange;
+                                      checkedColor = highLightColor;
                                       const snackBar = SnackBar(
                                         content: Text('Filter option applied'),
                                       );
@@ -550,7 +542,8 @@ class TutorExploreState extends State<TutorExplore> {
                             child: Row(
                               children: <Widget>[
                                 FilterChip(
-                                  selectedColor: highLightColor.withOpacity(0.5),
+                                  selectedColor:
+                                      highLightColor.withOpacity(0.5),
                                   label: Text(
                                     '16-18',
                                     style: TextStyle(color: checkedColor),
@@ -558,7 +551,7 @@ class TutorExploreState extends State<TutorExplore> {
                                   backgroundColor: Colors.white60,
                                   shape: StadiumBorder(
                                       side: BorderSide(color: checkedColor)),
-                                  checkmarkColor: highLightColor,
+                                  checkmarkColor: colorOrange,
                                   onSelected: (isSelected) {
                                     if (isSecondSelected ||
                                         isThirdSelected ||
@@ -584,7 +577,7 @@ class TutorExploreState extends State<TutorExplore> {
                                         isForthSelected = !isSelected;
                                         isFifthSelected = !isSelected;
                                       } else {
-                                        checkedColor = colorBlack;
+                                        checkedColor = textColor;
                                         isFirstSelected = isSelected;
                                         tutors = saveTutors;
                                       }
@@ -597,7 +590,8 @@ class TutorExploreState extends State<TutorExplore> {
                                     width: MediaQuery.of(context).size.width *
                                         0.01),
                                 FilterChip(
-                                  selectedColor: highLightColor.withOpacity(0.5),
+                                  selectedColor:
+                                      highLightColor.withOpacity(0.5),
                                   label: Text(
                                     '19-21',
                                     style: TextStyle(color: checkedColor),
@@ -605,7 +599,7 @@ class TutorExploreState extends State<TutorExplore> {
                                   backgroundColor: Colors.white60,
                                   shape: StadiumBorder(
                                       side: BorderSide(color: checkedColor)),
-                                  checkmarkColor: colorOrange,
+                                  checkmarkColor: highLightColor,
                                   onSelected: (isSelected) {
                                     if (isFirstSelected ||
                                         isThirdSelected ||
@@ -630,7 +624,7 @@ class TutorExploreState extends State<TutorExplore> {
                                         isForthSelected = !isSelected;
                                         isFifthSelected = !isSelected;
                                       } else {
-                                        checkedColor = colorBlack;
+                                        checkedColor = textColor;
                                         isSecondSelected = isSelected;
                                         tutors = saveTutors;
                                       }
@@ -643,7 +637,8 @@ class TutorExploreState extends State<TutorExplore> {
                                     width: MediaQuery.of(context).size.width *
                                         0.01),
                                 FilterChip(
-                                  selectedColor: highLightColor.withOpacity(0.5),
+                                  selectedColor:
+                                      highLightColor.withOpacity(0.5),
                                   label: Text(
                                     '22-25',
                                     style: TextStyle(color: checkedColor),
@@ -689,7 +684,8 @@ class TutorExploreState extends State<TutorExplore> {
                                     width: MediaQuery.of(context).size.width *
                                         0.01),
                                 FilterChip(
-                                  selectedColor: highLightColor.withOpacity(0.5),
+                                  selectedColor:
+                                      highLightColor.withOpacity(0.5),
                                   label: Text(
                                     '26-35',
                                     style: TextStyle(color: checkedColor),
@@ -722,7 +718,7 @@ class TutorExploreState extends State<TutorExplore> {
                                         isThirdSelected = !isSelected;
                                         isFifthSelected = !isSelected;
                                       } else {
-                                        checkedColor = colorBlack;
+                                        checkedColor = textColor;
                                         isForthSelected = isSelected;
                                         tutors = saveTutors;
                                       }
@@ -735,7 +731,8 @@ class TutorExploreState extends State<TutorExplore> {
                                     width: MediaQuery.of(context).size.width *
                                         0.01),
                                 FilterChip(
-                                  selectedColor: highLightColor.withOpacity(0.5),
+                                  selectedColor:
+                                      highLightColor.withOpacity(0.5),
                                   label: Text(
                                     '36+',
                                     style: TextStyle(color: checkedColor),
@@ -768,7 +765,7 @@ class TutorExploreState extends State<TutorExplore> {
                                         isThirdSelected = !isSelected;
                                         isForthSelected = !isSelected;
                                       } else {
-                                        checkedColor = colorBlack;
+                                        checkedColor = textColor;
                                         isFifthSelected = isSelected;
                                         tutors = saveTutors;
                                       }
@@ -800,7 +797,7 @@ class TutorExploreState extends State<TutorExplore> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
                                   Icon(
-                                    Icons.person_add_disabled,
+                                    Icons.people,
                                     size: MediaQuery.of(context).size.height *
                                         0.09,
                                     color: highLightColor,
@@ -826,6 +823,15 @@ class TutorExploreState extends State<TutorExplore> {
   }
 
   Widget _cardBuilder(BuildContext context, int i) {
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
+    Color textColor;
+
+    if (provider.themeMode == ThemeMode.dark) {
+      textColor = colorWhite;
+    } else {
+      textColor = Colors.black;
+    }
+
     String name = tutors[i].tutor.getName;
     name += ' ' + tutors[i].tutor.getLastName;
     int rating = tutors[i].tutor.getRating;
@@ -862,10 +868,14 @@ class TutorExploreState extends State<TutorExplore> {
                           height: MediaQuery.of(context).size.width * 0.15,
                         )),
                 ),
-                title: Text(name),
+                title: Text(
+                  name,
+                  style: TextStyle(color: textColor),
+                ),
                 subtitle: Text(
                   tutors[i].tutor.getBio,
                   overflow: TextOverflow.ellipsis,
+                  style: TextStyle(color: textColor),
                 ),
                 trailing: Row(
                   mainAxisSize: MainAxisSize.min,
@@ -885,6 +895,8 @@ class TutorExploreState extends State<TutorExplore> {
             builder: (BuildContext context) => TutorProfileBookingPage(
                   tutor: tutors[i].tutor,
                   globals: widget.globals,
+                  image: tutors[i].image,
+                  hasImage: tutors[i].hasImage,
                 )));
       },
     );

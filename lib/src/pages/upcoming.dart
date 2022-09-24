@@ -1,5 +1,6 @@
 // ignore_for_file: unnecessary_null_comparison
 
+import 'dart:developer';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -51,8 +52,12 @@ class UpcomingState extends State<Upcoming> {
       final incomingEvents = await EventServices.getEventsByUserId(
           widget.globals.getUser.getId, widget.globals);
       events = incomingEvents;
+      List<int> indecies = List<int>.empty(growable: true);
+      if (widget.globals.getUser.getUserTypeID[0] == '7') {
+        events.removeWhere(
+            (event) => event.getOwnerId == widget.globals.getUser.getId);
+      }
     } catch (e) {
-    
       const snack = SnackBar(content: Text('Error loading events'));
       ScaffoldMessenger.of(context).showSnackBar(snack);
     }
@@ -108,7 +113,7 @@ class UpcomingState extends State<Upcoming> {
           ? const Center(
               child: CircularProgressIndicator(),
             )
-          : (events != null
+          : (events.isNotEmpty
               ? SizedBox(
                   height: MediaQuery.of(context).size.height,
                   width: MediaQuery.of(context).size.width,
