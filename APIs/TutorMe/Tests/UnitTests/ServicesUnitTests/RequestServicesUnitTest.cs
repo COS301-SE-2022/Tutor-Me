@@ -487,18 +487,25 @@ public class RequestServicesUnitTests
             ctx.Add(Request);
             ctx.SaveChanges();
         }
-        Request result;
+        IEnumerable<Request> result;
         using (TutorMeContext ctx1 = new(optionsBuilder.Options))
         {
             result =new RequestServices(ctx1).GetRequestByTutorById(Request.TutorId);
         }
         
         //act
-        Assert.NotNull(result);
-        Assert.IsType<Request>(result);
-        Assert.Equal(Request.DateCreated, result.DateCreated);
-        Assert.Equal(Request.RequestId, result.RequestId);
-        
+        //Assert.NotNull(result);
+        //Assert.IsType<Request>(result);
+        //Assert.Equal(Request.DateCreated, result.DateCreated);
+        //Assert.Equal(Request.RequestId, result.RequestId);
+        //Assert.NotNull(result);
+        //Assert.IsType<OkObjectResult>(result);
+
+
+        var actual = (result as OkObjectResult).Value;
+        Assert.IsType<List<Request>>(actual);
+        Assert.Equal(1, (actual as List<Request>).Count);
+
     }
     //Test GetRequestByTuteeById_TuteeId_ReturnsRequest
     [Fact]
@@ -523,18 +530,24 @@ public class RequestServicesUnitTests
             ctx.Add(Request);
             ctx.SaveChanges();
         }
-        Request result;
+        IEnumerable<Request> result;
         using (TutorMeContext ctx1 = new(optionsBuilder.Options))
         {
             result =new RequestServices(ctx1).GetRequestByTuteeById(Request.TuteeId);
         }
-        
+
         //act
+        //Assert.NotNull(result);
+        //Assert.IsType<Request>(result);
+        //Assert.Equal(Request.DateCreated, result.DateCreated);
+        //Assert.Equal(Request.RequestId, result.RequestId);
+
         Assert.NotNull(result);
-        Assert.IsType<Request>(result);
-        Assert.Equal(Request.DateCreated, result.DateCreated);
-        Assert.Equal(Request.RequestId, result.RequestId);
-        
+        Assert.IsType<OkObjectResult>(result);
+        var actual = (result as OkObjectResult).Value;
+        Assert.IsType<List<Request>>(actual);
+        Assert.Equal(1, (actual as List<Request>).Count);
+
     }
     
     [Fact]

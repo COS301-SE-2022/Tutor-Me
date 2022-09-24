@@ -109,7 +109,26 @@ public class RequestControllerUnitTests
             ModuleId=Guid.NewGuid()
         };
         
-        _RequestRepositoryMock.Setup(u => u.GetRequestByTuteeById(Request.TuteeId)).Returns(Request);
+        List<Request> Requests = new List<Request>{
+            new Request
+            {
+                RequestId  = Guid.NewGuid(),
+                TuteeId  = Guid.NewGuid(),
+                TutorId  = Guid.NewGuid(),
+                DateCreated ="20/04/2020",
+                ModuleId=Guid.NewGuid()
+            },
+            new Request
+            {
+                RequestId  = Guid.NewGuid(),
+                TuteeId  = Guid.NewGuid(),
+                TutorId  = Guid.NewGuid(),
+                DateCreated ="20/05/2020",
+                ModuleId=Guid.NewGuid()
+            },
+        };
+        
+        _RequestRepositoryMock.Setup(u => u.GetRequestByTuteeById(Request.TuteeId)).Returns(Requests);
         
         var controller = new RequestsController(_RequestRepositoryMock.Object,_mapper.Object);
         
@@ -135,8 +154,27 @@ public class RequestControllerUnitTests
             DateCreated ="20/04/2020",
             ModuleId=Guid.NewGuid()
         };
-        
-        _RequestRepositoryMock.Setup(u => u.GetRequestByTutorById(Request.TutorId)).Returns(Request);
+
+        List<Request> Requests = new List<Request>{
+            new Request
+            {
+                RequestId  = Guid.NewGuid(),
+                TuteeId  = Guid.NewGuid(),
+                TutorId  = Guid.NewGuid(),
+                DateCreated ="20/04/2020",
+                ModuleId=Guid.NewGuid()
+            },
+            new Request
+            {
+                RequestId  = Guid.NewGuid(),
+                TuteeId  = Guid.NewGuid(),
+                TutorId  = Guid.NewGuid(),
+                DateCreated ="20/05/2020",
+                ModuleId=Guid.NewGuid()
+            },
+        };
+
+        _RequestRepositoryMock.Setup(u => u.GetRequestByTutorById(Request.TutorId)).Returns(Requests);
         
         var controller = new RequestsController(_RequestRepositoryMock.Object,_mapper.Object);
         
