@@ -23,7 +23,14 @@ namespace TutorMe.Controllers {
             if (!ModelState.IsValid) {
                 return BadRequest(new AuthResponse { IsSuccess = false, Reason = "UserName and Password must be provided." });
             }
-            var authResponse = await _jwtService.GetTokenAsync(authRequest, HttpContext.Connection.RemoteIpAddress.ToString());
+
+            string ipAddress = "";
+            if(HttpContext.Connection.RemoteIpAddress==null) {
+                ipAddress = "::1";//for testing purposes
+            } else {
+                ipAddress = HttpContext.Connection.RemoteIpAddress.ToString();
+            }
+            var authResponse = await _jwtService.GetTokenAsync(authRequest, ipAddress);
             if (authResponse == null)
                 return Unauthorized();
             var user = _context.User.FirstOrDefault(e => e.Email == authRequest.Email);
