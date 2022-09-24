@@ -326,13 +326,12 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
   Widget topDesign() {
     final provider = Provider.of<ThemeProvider>(context, listen: false);
     Color textColor;
-    Color highlightColor;
 
     if (provider.themeMode == ThemeMode.dark) {
-      highlightColor = colorBlueTeal;
+      
       textColor = colorWhite;
     } else {
-      highlightColor = colorOrange;
+     
       textColor = Colors.black;
     }
     return Stack(
@@ -366,7 +365,7 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
                     },
                     style: ButtonStyle(
                         backgroundColor:
-                            MaterialStateProperty.all(highlightColor),
+                            MaterialStateProperty.all(colorBlueTeal),
                         shape: MaterialStateProperty.all(RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(
                                 MediaQuery.of(context).size.width * 0.1))))))

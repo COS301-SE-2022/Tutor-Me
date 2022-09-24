@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 // import 'package:tutor_me/src/authenticate/register_or_login.dart';
@@ -72,6 +73,7 @@ class MyAppState extends State<MyApp> {
         if (preferences != null) {
           final isFirstTime = preferences!.getBool('isFirstTime');
           if (isFirstTime == null) {
+            log('not first time');
             return MaterialApp(
               themeMode: themeProvider.themeMode,
               debugShowCheckedModeBanner: false,
@@ -97,24 +99,23 @@ class MyAppState extends State<MyApp> {
                 "Access-Control-Allow-Origin": "*",
                 'Authorization': globals.getToken,
               };
-              if(globals.getUser.getUserTypeID[0] == '9'){
+              if (globals.getUser.getUserTypeID[0] == '9') {
                 return MaterialApp(
                   themeMode: themeProvider.themeMode,
                   debugShowCheckedModeBanner: false,
                   theme: Themes.lightTheme,
                   darkTheme: Themes.darkTheme,
-                  home:  TutorPage(globals: globals),
+                  home: TutorPage(globals: globals),
                 );
-                }else{
-                   return MaterialApp(
-                themeMode: themeProvider.themeMode,
-                debugShowCheckedModeBanner: false,
-                theme: Themes.lightTheme,
-                darkTheme: Themes.darkTheme,
-                home: TuteePage(globals: globals),
-              );
-                }
-             
+              } else {
+                return MaterialApp(
+                  themeMode: themeProvider.themeMode,
+                  debugShowCheckedModeBanner: false,
+                  theme: Themes.lightTheme,
+                  darkTheme: Themes.darkTheme,
+                  home: TuteePage(globals: globals),
+                );
+              }
             }
           }
         }
