@@ -1,6 +1,5 @@
 // ignore_for_file: unnecessary_null_comparison
 
-import 'dart:developer';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -52,7 +51,6 @@ class UpcomingState extends State<Upcoming> {
       final incomingEvents = await EventServices.getEventsByUserId(
           widget.globals.getUser.getId, widget.globals);
       events = incomingEvents;
-      List<int> indecies = List<int>.empty(growable: true);
       if (widget.globals.getUser.getUserTypeID[0] == '7') {
         events.removeWhere(
             (event) => event.getOwnerId == widget.globals.getUser.getId);

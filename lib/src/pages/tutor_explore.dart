@@ -12,7 +12,6 @@ import '../../services/models/modules.dart';
 import '../../services/models/users.dart';
 import '../theme/themes.dart';
 import '../tutee_page.dart';
-import '../tutorProfilePages/tutor_profile_view.dart';
 // import 'package:tutor_me/services/models/tutors.dart';
 // import 'package:tutor_me/modules/api.services.dart';
 // import 'package:tutor_me/modules/tutors.dart';
