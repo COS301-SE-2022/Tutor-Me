@@ -211,14 +211,7 @@ class UserServices {
       log(response.body);
       log(response.statusCode.toString());
       if (response.statusCode == 200) {
-        String j = "";
-        if (response.body[0] != "[") {
-          j = "[" + response.body + "]";
-        } else {
-          j = response.body;
-        }
-        final List list = json.decode(j);
-        return list.map((json) => Users.fromObject(json)).toList();
+        return Users.fromObject(json.decode(response.body));
       } else if (response.statusCode == 401) {
         globals = await refreshToken(globals);
         return await getTutor(id, globals);
@@ -1156,6 +1149,7 @@ class UserServices {
         {'expiredToken': token[1], 'refreshToken': globals.getRefreshToken});
     final refreshResponse =
         await http.post(refreshUrl, headers: globals.getHeader, body: data);
+    log(refreshResponse.body);
 
     if (refreshResponse.statusCode == 200) {
       globals.setToken = 'Bearer ' + jsonDecode(refreshResponse.body)['token'];

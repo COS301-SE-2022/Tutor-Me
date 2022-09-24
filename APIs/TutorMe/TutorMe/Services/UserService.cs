@@ -77,8 +77,7 @@ namespace TutorMe.Services {
         
         public Guid RegisterUser(IUser user)
         {
-            if (_context.User.Where(e => e.Email == user.Email).Any())
-            {
+            if (_context.User.Where(e => e.Email == user.Email).Any()) {
                 throw new KeyNotFoundException("This User already exists, Please log in");
             }
             var newUser = new User();

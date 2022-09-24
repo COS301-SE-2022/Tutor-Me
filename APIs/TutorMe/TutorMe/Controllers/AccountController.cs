@@ -1,9 +1,6 @@
 ﻿
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Threading.Tasks;
 using TutorMe.Data;
 using TutorMe.Entities;
 using TutorMe.Models;
@@ -23,8 +20,9 @@ namespace TutorMe.Controllers {
 
         [HttpPost("[action]")]
         public async Task<IActionResult> AuthToken([FromBody] UserLogIn authRequest) {
-            if (!ModelState.IsValid)
+            if (!ModelState.IsValid) {
                 return BadRequest(new AuthResponse { IsSuccess = false, Reason = "UserName and Password must be provided." });
+            }
             var authResponse = await _jwtService.GetTokenAsync(authRequest, HttpContext.Connection.RemoteIpAddress.ToString());
             if (authResponse == null)
                 return Unauthorized();

@@ -100,32 +100,32 @@ public class ModulesControllerUnitTests
     }
 
     
-    [Fact]
-    public async  Task AddModule_Module_ReturnsModule()
-    {
-        //arrange
-        var Module = new Module
-        {
-            ModuleId  = Guid.NewGuid(),
-            Code  = "COS 301",
-            ModuleName ="Software Engineering",
-            InstitutionId = Guid.NewGuid(),
-            Faculty ="Faculty of Engineering and Built Environment",
-            Year = "3",
-        };
-        _ModuleRepositoryMock.Setup(u => u. createModule(It.IsAny<Module>())).Returns(Module.ModuleId);
+    //[Fact]
+    //public async  Task AddModule_Module_ReturnsModule()
+    //{
+    //    //arrange
+    //    var Module = new Module
+    //    {
+    //        ModuleId  = Guid.NewGuid(),
+    //        Code  = "COS 301",
+    //        ModuleName ="Software Engineering",
+    //        InstitutionId = Guid.NewGuid(),
+    //        Faculty ="Faculty of Engineering and Built Environment",
+    //        Year = "3",
+    //    };
+    //    _ModuleRepositoryMock.Setup(u => u. createModule(It.IsAny<Module>())).Returns(Module.ModuleId);
         
-        var controller = new ModulesController(_ModuleRepositoryMock.Object,_mapper.Object);
+    //    var controller = new ModulesController(_ModuleRepositoryMock.Object,_mapper.Object);
         
-        //act
-        var result =  controller.createModule(Module);
+    //    //act
+    //    var result =  controller.createModule(Module);
         
-        Assert.NotNull(result);
-        Assert.IsType<OkObjectResult>(result);
+    //    Assert.NotNull(result);
+    //    Assert.IsType<OkObjectResult>(result);
         
-        var actual = (result as OkObjectResult).Value;
-        Assert.IsType<System.Guid>(actual);
-    }
+    //    var actual = (result as OkObjectResult).Value;
+    //    Assert.IsType<System.Guid>(actual);
+    //}
 
        
     [Fact]

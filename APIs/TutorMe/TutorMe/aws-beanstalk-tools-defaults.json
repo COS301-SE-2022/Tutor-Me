@@ -10,7 +10,7 @@
     "iis-website"    : "Default Web Site",
     "enable-xray"    : false,
     "enhanced-health-type" : "basic",
-    "additional-options"   : "\"aws:autoscaling:launchconfiguration,SecurityGroups\"=\"sg-0cb6eed3a0ba54fd9\";\"aws:ec2:vpc,Subnets\"=\"subnet-021f950817323255f\"",
+    "additional-options"   : "",
     "solution-stack"       : "64bit Windows Server Core 2019 v2.10.3 running IIS 10.0",
     "environment-type"     : "SingleInstance",
     "cname"                : "tutormeapi-dev",

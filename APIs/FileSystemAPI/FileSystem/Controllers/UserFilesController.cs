@@ -15,11 +15,11 @@ namespace FileSystem.Controllers {
     [ApiController]
     public class UserFilesController : ControllerBase {
         private readonly FilesContext _context;
-        private UserFilesService userFilesService;
+        private IUserFilesService userFilesService;
 
-        public UserFilesController(FilesContext context) {
+        public UserFilesController(FilesContext context, IUserFilesService userFilesService ) {
             _context = context;
-            userFilesService = new UserFilesService(_context);
+            this.userFilesService = userFilesService;
         }
 
 
@@ -51,8 +51,8 @@ namespace FileSystem.Controllers {
         }
 
         [HttpPut("image/{id}")]
-        public IActionResult ModifyUserImage(Guid id, IImageInput userFiles) {
-            if (id != userFiles.UserId || userFiles == null) {
+        public IActionResult ModifyUserImage(Guid id, UserFiles userFiles) {
+            if (id != userFiles.Id) {
                 return BadRequest("Invalid request sent");
             }
             try {
@@ -65,8 +65,8 @@ namespace FileSystem.Controllers {
         }
 
         [HttpPut("transcript/{id}")]
-        public IActionResult ModifyUserTranscript(Guid id, ITranscript userFiles) {
-            if (id != userFiles.UserId || userFiles == null) {
+        public IActionResult ModifyUserTranscript(Guid id,UserFiles userFiles) {
+            if (id != userFiles.Id || userFiles == null) {
                 return BadRequest("Invalid request sent");
             }
             try {

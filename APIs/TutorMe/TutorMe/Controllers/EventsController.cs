@@ -29,7 +29,8 @@ namespace TutorMe.Controllers
         [Authorize]
         [HttpGet("{id}")]
         public IActionResult GetAllUserEvent(Guid id) {
-            try {
+            try 
+                {
                 var UserEvents = eventService.GetUserEvents(id);
                 return Ok(UserEvents);
             }
@@ -55,6 +56,66 @@ namespace TutorMe.Controllers
         public IActionResult DeleteEventById(Guid id) {
             try {
                 eventService.DeleteUserEvent(id);
+                return Ok();
+            }
+            catch (Exception e) {
+                return Conflict(e.Message);
+            }
+        }
+
+        [Authorize]
+        [HttpPut("date/{id}")]
+        public IActionResult UpdateEventDate(Guid id, string newDate) {
+            try {
+                eventService.UpdateEventDate(id, newDate);
+                return Ok();
+            }
+            catch (Exception e) {
+                return Conflict(e.Message);
+            }
+        }
+
+        [Authorize]
+        [HttpPut("time/{id}")]
+        public IActionResult UpdateEventTime(Guid id, string newTime) {
+            try {
+                eventService.UpdateEventTime(id, newTime);
+                return Ok();
+            }
+            catch (Exception e) {
+                return Conflict(e.Message);
+            }
+        }
+
+        [Authorize]
+        [HttpPut("videoLink/{id}")]
+        public IActionResult UpdateEventVideoLink(Guid id, string newVideoLink) {
+            try {
+                eventService.UpdateEventVideoLink(id, newVideoLink);
+                return Ok();
+            }
+            catch (Exception e) {
+                return Conflict(e.Message);
+            }
+        }
+
+        [Authorize]
+        [HttpPut("title/{id}")]
+        public IActionResult UpdateEventTitle(Guid id, string newTitle) {
+            try {
+                eventService.UpdateEventTitle(id, newTitle);
+                return Ok();
+            }
+            catch (Exception e) {
+                return Conflict(e.Message);
+            }
+        }
+
+        [Authorize]
+        [HttpPut("description/{id}")]
+        public IActionResult UpdateEventDescription(Guid id, string newDescription) {
+            try {
+                eventService.UpdateEventDescription(id, newDescription);
                 return Ok();
             }
             catch (Exception e) {
