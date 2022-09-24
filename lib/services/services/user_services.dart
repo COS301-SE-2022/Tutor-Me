@@ -172,7 +172,7 @@ class UserServices {
           response.statusCode == 202 ||
           response.statusCode == 204) {
         Fluttertoast.showToast(
-            msg: "Tutee Deleted",
+            msg: "User Deleted",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.CENTER,
             timeInSecForIosWeb: 1,
@@ -192,7 +192,7 @@ class UserServices {
             textColor: Colors.white,
             fontSize: 16.0);
         throw Exception(
-            'Failed to delete Tutee' + response.statusCode.toString());
+            'Failed to delete User' + response.statusCode.toString());
       }
     } catch (e) {
       rethrow;

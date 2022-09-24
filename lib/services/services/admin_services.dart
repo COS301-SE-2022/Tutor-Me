@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
@@ -91,6 +93,56 @@ class AdminServices {
     }
   }
 
+  static registerAdmin(
+    String name,
+    String lastName,
+    String email,
+    String password,
+    String confirmPassword,
+  ) async {
+    Globals tempGlobals = Globals(null, '', '');
+
+    final modulesURL =
+        Uri.parse('http://${tempGlobals.getTutorMeUrl}/api/Users/');
+
+    String data = jsonEncode({
+      'userId': "100df4b2-6f8d-440d-9033-93a1efed1533",
+      'firstName': name,
+      'lastName': lastName,
+      'dateOfBirth': "2000/01/01",
+      'status': false,
+      'gender': "M",
+      'email': email,
+      'password': password,
+      'userTypeID': "475ED4B3-D159-4FDF-B6D1-D37C14AB8A60",
+      'institutionId': "100df4b2-6f8d-440d-9033-93a1efed1533",
+      'location': "No Location added",
+      'bio': "No bio added",
+      'year': "1",
+      'rating': 0,
+      'numberOfReviews': 0
+    });
+
+    final header = {
+      "Accept": "application/json",
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*"
+    };
+    try {
+      final response = await http.post(modulesURL, headers: header, body: data);
+      log(response.body);
+      if (response.statusCode == 200) {
+        final global = await logInAdmin(email, password);
+
+        return global;
+      } else {
+        throw Exception('Failed to post ' + response.statusCode.toString());
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   static updateAdmin(Users admin, Globals global) async {
     String data = jsonEncode({
       'id': admin.getId,
@@ -162,6 +214,7 @@ class AdminServices {
       final modulesURL = Uri.parse(
           'http://${tempGlobals.getTutorMeUrl}/api/account/authtoken');
       final response = await http.post(modulesURL, headers: header, body: data);
+      log(response.body);
       if (response.statusCode == 200) {
         final Users admin = Users.fromObject(jsonDecode(response.body)['user']);
         Globals global = Globals(admin, json.decode(response.body)['token'],
