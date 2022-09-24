@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:tutor_me/services/models/globals.dart';
 import 'package:tutor_me/services/models/groups.dart';
 import 'package:tutor_me/src/colorpallete.dart';
+import 'package:tutor_me/src/tutorAndTuteeCollaboration/tutorGroups/add_group.dart';
 import '../../../services/models/modules.dart';
 import '../../../services/services/group_services.dart';
 import '../../../services/services/module_services.dart';
@@ -41,7 +42,7 @@ class TutorGroupsState extends State<TutorGroups> {
   int numOfTutees = 3;
   getGroupDetails() async {
     try {
-      final incomingGroups = await GroupServices.getGroupByUserID(
+      final incomingGroups = await GroupServices.getTutorGroupByUserID(
           widget.globals.getUser.getId, widget.globals);
 
       groups = incomingGroups;
@@ -104,6 +105,19 @@ class TutorGroupsState extends State<TutorGroups> {
     return DefaultTabController(
         length: 3,
         child: Scaffold(
+          floatingActionButton: FloatingActionButton.extended(
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => AddGroup(
+                            globals: widget.globals,
+                          )));
+            },
+            label: const Text('Create Group'),
+            icon: const Icon(Icons.add),
+            backgroundColor: colorOrange,
+          ),
           body: Center(
             child: isLoading
                 ? const CircularProgressIndicator.adaptive()
@@ -153,6 +167,14 @@ class TutorGroupsState extends State<TutorGroups> {
         decoration: BoxDecoration(
           color: colorOrange,
           borderRadius: BorderRadius.circular(15),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.5),
+              spreadRadius: 2,
+              blurRadius: 7,
+              offset: const Offset(0, 3), // changes position of shadow
+            ),
+          ],
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,

@@ -23,7 +23,7 @@
 <h1 align="center"> CapsOn </h1> <br>
 <p align="center"> 
 	<img alt="Team Photo" src="https://github.com/COS301-SE-2022/Tutor-ME/blob/develop/assets/Pictures/Group_Photo[1].jpg" width="300" height="400">
-	<img alt="Team Logo" src="https://github.com/COS301-SE-2022/Tutor-ME/blob/develop/assets/Pictures/CapsOn.png" width="300" height="400">
+	<img alt="Retro Rabbit" src="https://github.com/COS301-SE-2022/Tutor-Me/blob/develop/assets/Pictures/Retro%20Rabbit.png" width="300" height="400">
 </p>
 <h2 align="center"> Tutor Me </h2>
 
@@ -87,11 +87,6 @@ Stories for building web UI and web APIs will help us in making components that 
 ``` 
 Why? It supports multiple transaction processing and the table is a row based table structure that connects data from different
 table to one another.
-```
-
-- API Architecture:
-``` 
-GraphQl - is an open-source data query and manipulation language for APIs.
 ```
 
 - Version control:

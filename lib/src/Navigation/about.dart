@@ -1,6 +1,10 @@
 // ignore_for_file: sort_child_properties_last, file_names, prefer_adjacent_string_concatenation
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../colorpallete.dart';
+import '../theme/themes.dart';
 
 class About extends StatefulWidget {
   const About({Key? key}) : super(key: key);
@@ -18,9 +22,22 @@ class _AboutState extends State<About> {
   @override
   Widget build(BuildContext context) {
     // print();
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
+    Color textColor;
+    Color backgroundColor;
+
+    if (provider.themeMode == ThemeMode.dark) {
+      textColor = colorWhite;
+      backgroundColor = colorLightBlueTeal;
+    } else {
+      textColor = colorDarkGrey;
+      backgroundColor = colorBlueTeal;
+    }
+
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+          backgroundColor: backgroundColor,
           toolbarHeight: MediaQuery.of(context).size.height * 0.2,
           flexibleSpace: Container(
             width: MediaQuery.of(context).size.width * 1,
@@ -44,7 +61,7 @@ class _AboutState extends State<About> {
                 style: TextStyle(
                   fontSize: MediaQuery.of(context).size.width * 0.08,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black,
+                  color: textColor,
                 ),
               ),
             ),
@@ -77,7 +94,7 @@ class _AboutState extends State<About> {
                   style: TextStyle(
                     fontSize: MediaQuery.of(context).size.width * 0.055,
                     fontWeight: FontWeight.normal,
-                    color: Colors.black,
+                    color: textColor,
                   ),
                 ),
               ),
@@ -89,7 +106,7 @@ class _AboutState extends State<About> {
                 style: TextStyle(
                   fontSize: MediaQuery.of(context).size.width * 0.08,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black,
+                  color: textColor,
                 ),
               ),
             ),
@@ -103,7 +120,7 @@ class _AboutState extends State<About> {
                 style: TextStyle(
                   fontSize: MediaQuery.of(context).size.width * 0.05,
                   fontWeight: FontWeight.normal,
-                  color: Colors.black,
+                  color: textColor,
                 ),
               ),
             ),
@@ -118,7 +135,7 @@ class _AboutState extends State<About> {
                 style: TextStyle(
                   fontSize: MediaQuery.of(context).size.width * 0.05,
                   fontWeight: FontWeight.normal,
-                  color: Colors.black,
+                  color: textColor,
                 ),
               ),
             ),

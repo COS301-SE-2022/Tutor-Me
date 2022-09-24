@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using TutorMe.Data;
 using TutorMe.Services;
 using TutorMe.Entities;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TutorMe.Controllers
 {
@@ -13,7 +14,7 @@ namespace TutorMe.Controllers
     {
         private IGroupMemberService groupMemberService;
         private IMapper mapper;
-        private TutorMeContext _context;
+        //private TutorMeContext _context;
 
         public GroupMembersController(IGroupMemberService groupMemberService, IMapper mapper)
         {
@@ -21,6 +22,7 @@ namespace TutorMe.Controllers
             this.mapper = mapper;
         }
 
+        [Authorize]
         [HttpGet]
         public IActionResult GetAllGroupMembers()
         {
@@ -28,6 +30,7 @@ namespace TutorMe.Controllers
             return Ok(groupMembers);
         }
 
+        [Authorize]
         [HttpGet("{id}")]
         public IActionResult GetGroupMemberById(Guid id)
         {
@@ -35,6 +38,7 @@ namespace TutorMe.Controllers
             return Ok(groupMember);
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult createGroupMember(IGroupMember groupMember)
         {
@@ -42,6 +46,7 @@ namespace TutorMe.Controllers
             return Ok(groupMemberId);
         }
 
+        [Authorize]
         [HttpDelete("{id}")]
         public IActionResult DeleteGroupMember(Guid id)
         {
@@ -49,6 +54,7 @@ namespace TutorMe.Controllers
             return Ok(groupMember);
         }
 
+        [Authorize]
         [HttpGet("tutee/{id}")]
         public IActionResult GetGroupTutees(Guid id) {
             try {
@@ -60,6 +66,7 @@ namespace TutorMe.Controllers
             }
         }
 
+        [Authorize]
         [HttpGet("group/{id}")]
         public IActionResult getUserGroups(Guid id) {
             try {

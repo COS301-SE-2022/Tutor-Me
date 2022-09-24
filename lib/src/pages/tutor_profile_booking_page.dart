@@ -21,10 +21,16 @@ import '../tutorProfilePages/user_stats.dart';
 class TutorProfileBookingPage extends StatefulWidget {
   // ignore: prefer_const_constructors_in_immutables
   TutorProfileBookingPage(
-      {Key? key, required this.tutor, required this.globals})
+      {Key? key,
+      required this.tutor,
+      required this.globals,
+      required this.image,
+      required this.hasImage})
       : super(key: key);
   final Users tutor;
   final Globals globals;
+  final Uint8List image;
+  final bool hasImage;
 
   static const String route = '/tutor_profile_view';
 
@@ -208,7 +214,7 @@ class _TutorProfileBookingPageState extends State<TutorProfileBookingPage> {
         style: TextStyle(
           fontSize: screenWidthSize * 0.04,
           fontWeight: FontWeight.normal,
-          color: colorBlueTeal,
+          color: textColor,
         ),
       ),
       SizedBox(height: screenHeightSize * 0.02),
@@ -229,7 +235,7 @@ class _TutorProfileBookingPageState extends State<TutorProfileBookingPage> {
             "About Me",
             textAlign: TextAlign.left,
             style: TextStyle(
-              fontSize: screenWidthSize * 0.065,
+              fontSize: screenHeightSize * 0.034,
               fontWeight: FontWeight.bold,
               color: textColor,
             ),
@@ -247,9 +253,9 @@ class _TutorProfileBookingPageState extends State<TutorProfileBookingPage> {
           ),
           child: Text(widget.tutor.getBio,
               style: TextStyle(
-                fontSize: screenWidthSize * 0.05,
+                fontSize: screenHeightSize * 0.025,
                 fontWeight: FontWeight.normal,
-                color: secondaryTextColor,
+                color: textColor,
               )),
         ),
       ),
@@ -262,7 +268,7 @@ class _TutorProfileBookingPageState extends State<TutorProfileBookingPage> {
           child: Text("Gender",
               textAlign: TextAlign.left,
               style: TextStyle(
-                fontSize: screenWidthSize * 0.06,
+                fontSize: screenHeightSize * 0.034,
                 fontWeight: FontWeight.bold,
                 color: textColor,
               )),
@@ -279,9 +285,9 @@ class _TutorProfileBookingPageState extends State<TutorProfileBookingPage> {
           ),
           child: Text(gender,
               style: TextStyle(
-                fontSize: screenWidthSize * 0.05,
+                fontSize: screenHeightSize * 0.025,
                 fontWeight: FontWeight.normal,
-                color: secondaryTextColor,
+                color: textColor,
               )),
         ),
       ),
@@ -295,7 +301,7 @@ class _TutorProfileBookingPageState extends State<TutorProfileBookingPage> {
           child: Text("Modules I tutor",
               textAlign: TextAlign.left,
               style: TextStyle(
-                fontSize: screenWidthSize * 0.06,
+                fontSize: screenHeightSize * 0.034,
                 fontWeight: FontWeight.bold,
                 color: textColor,
               )),
@@ -330,12 +336,24 @@ class _TutorProfileBookingPageState extends State<TutorProfileBookingPage> {
                 top: MediaQuery.of(context).size.height * 0.03),
             child: ElevatedButton(
               onPressed: () {
-                showModuleSelect(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => BookingCalender(
+                      globals: widget.globals,
+                      tutor: widget.tutor,
+                    ),
+                  ),
+                );
               },
-              child: const Text("Proceed to booking"),
+              child: Text(
+                "Proceed to booking",
+                style: TextStyle(
+                  color: textColor,
+                ),
+              ),
               style: ButtonStyle(
-                backgroundColor:
-                    MaterialStateProperty.all(Colors.deepOrangeAccent),
+                backgroundColor: MaterialStateProperty.all(colorOrange),
               ),
             ),
           ))
@@ -345,15 +363,16 @@ class _TutorProfileBookingPageState extends State<TutorProfileBookingPage> {
   Widget topDesign() {
     final provider = Provider.of<ThemeProvider>(context, listen: false);
     Color textColor;
-    Color highlightColor;
+    Color highLightColor;
 
     if (provider.themeMode == ThemeMode.dark) {
-      highlightColor = colorBlueTeal;
       textColor = colorWhite;
+      highLightColor = colorLightBlueTeal;
     } else {
-      highlightColor = colorOrange;
       textColor = Colors.black;
+      highLightColor = colorOrange;
     }
+
     return Stack(
       clipBehavior: Clip.none,
       alignment: Alignment.center,
@@ -385,7 +404,7 @@ class _TutorProfileBookingPageState extends State<TutorProfileBookingPage> {
                     },
                     style: ButtonStyle(
                         backgroundColor:
-                            MaterialStateProperty.all(highlightColor),
+                            MaterialStateProperty.all(highLightColor),
                         shape: MaterialStateProperty.all(RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(
                                 MediaQuery.of(context).size.width * 0.1))))))
@@ -615,7 +634,7 @@ class _TutorProfileBookingPageState extends State<TutorProfileBookingPage> {
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
-              fontSize: MediaQuery.of(context).size.height * 0.05,
+              fontSize: MediaQuery.of(context).size.height * 0.025,
               color: textColor.withOpacity(0.8),
             ),
           ),
@@ -687,6 +706,7 @@ class _TutorProfileBookingPageState extends State<TutorProfileBookingPage> {
                                     builder: (BuildContext context) =>
                                         BookingCalender(
                                       globals: widget.globals,
+                                      tutor: widget.tutor,
                                       // user: widget.user,
                                     ),
                                   ),

@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:tutor_me/services/models/globals.dart';
 import 'package:tutor_me/services/models/intitutions.dart';
 import 'package:tutor_me/services/services/module_services.dart';
@@ -10,6 +11,7 @@ import '../../services/models/modules.dart';
 import '../../services/models/users.dart';
 import '../../services/services/institution_services.dart';
 import '../components.dart';
+import '../theme/themes.dart';
 
 class ToReturn {
   Uint8List image;
@@ -55,7 +57,6 @@ class _TuteeProfilePageState extends State<TuteeProfilePageView> {
       getInstitution();
     }
   }
-  //TODO: Add in the number of connections and number of tutees
 
   // int getNumConnections() {
   //   var allConnections = widget.user.getConnections.split(',');
@@ -312,6 +313,20 @@ class _TuteeProfilePageState extends State<TuteeProfilePageView> {
   }
 
   Widget _moduleListBuilder(BuildContext context, int i) {
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
+    Color textColor;
+
+    Color highLightColor;
+
+    if (provider.themeMode == ThemeMode.dark) {
+      textColor = colorWhite;
+
+      highLightColor = colorLightBlueTeal;
+    } else {
+      textColor = Colors.black;
+
+      highLightColor = colorOrange;
+    }
     String moduleDescription =
         currentModules[i].getModuleName + '(' + currentModules[i].getCode + ')';
     return Row(
@@ -319,7 +334,7 @@ class _TuteeProfilePageState extends State<TuteeProfilePageView> {
         Icon(
           Icons.book,
           size: MediaQuery.of(context).size.height * 0.02,
-          color: colorOrange,
+          color: highLightColor,
         ),
         Expanded(
           child: Text(
@@ -327,8 +342,8 @@ class _TuteeProfilePageState extends State<TuteeProfilePageView> {
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
-              fontSize: MediaQuery.of(context).size.height * 0.025,
-              color: Colors.black,
+              fontSize: MediaQuery.of(context).size.height * 0.05,
+              color: textColor,
             ),
           ),
         ),

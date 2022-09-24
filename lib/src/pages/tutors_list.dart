@@ -2,12 +2,14 @@ import 'dart:developer';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:tutor_me/services/models/globals.dart';
 import 'package:tutor_me/services/services/module_services.dart';
 import 'package:tutor_me/services/services/user_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import '../../services/models/modules.dart';
 import '../../services/models/users.dart';
+import '../theme/themes.dart';
 import '../tutee_page.dart';
 import '../tutorProfilePages/tutor_profile_view.dart';
 // import 'package:tutor_me/services/models/tutors.dart';
@@ -281,6 +283,21 @@ class TutorListState extends State<TutorList> {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
+    Color textColor;
+    Color primaryColor;
+    Color highLightColor;
+
+    if (provider.themeMode == ThemeMode.dark) {
+      textColor = colorWhite;
+      primaryColor = colorLightGrey;
+      highLightColor = colorLightBlueTeal;
+    } else {
+      textColor = Colors.black;
+      primaryColor = colorBlueTeal;
+      highLightColor = colorOrange;
+    }
+
     filterContHeight = MediaQuery.of(context).size.height * 0.16;
     filterContWidth = MediaQuery.of(context).size.width * 0.9;
     return Scaffold(
@@ -343,6 +360,7 @@ class TutorListState extends State<TutorList> {
                     child: Text(
                       "Request for a Tutor",
                       style: TextStyle(
+                          color: textColor,
                           fontSize: MediaQuery.of(context).size.height * 0.035,
                           fontWeight: FontWeight.w600,
                           fontFamily: 'Montserrat',
@@ -360,7 +378,7 @@ class TutorListState extends State<TutorList> {
                       width: MediaQuery.of(context).size.width * 0.8,
                       height: MediaQuery.of(context).size.height * 0.06,
                       child: TextField(
-                        cursorColor: colorBlueTeal,
+                        cursorColor: primaryColor,
                         onChanged: (value) => search(value),
                         controller: textControl,
                         decoration: InputDecoration(
@@ -386,8 +404,8 @@ class TutorListState extends State<TutorList> {
                                   )
                                 : null,
                             border: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                  color: colorBlueTeal, width: 1.0),
+                              borderSide:
+                                  BorderSide(color: primaryColor, width: 1.0),
                               borderRadius: BorderRadius.circular(15),
                             ),
                             hintStyle: const TextStyle(
@@ -400,7 +418,7 @@ class TutorListState extends State<TutorList> {
                       icon: Icon(
                         Icons.filter_list,
                         size: MediaQuery.of(context).size.width * 0.095,
-                        color: colorBlueTeal,
+                        color: primaryColor,
                       ),
                       onPressed: () {
                         setState(() {
@@ -429,7 +447,7 @@ class TutorListState extends State<TutorList> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               FilterChip(
-                                selectedColor: colorOrange.withOpacity(0.5),
+                                selectedColor: highLightColor.withOpacity(0.5),
                                 label: Text(
                                   'Male',
                                   style: TextStyle(color: checkedColor),
@@ -437,7 +455,7 @@ class TutorListState extends State<TutorList> {
                                 backgroundColor: Colors.white60,
                                 shape: StadiumBorder(
                                     side: BorderSide(color: checkedColor)),
-                                checkmarkColor: colorOrange,
+                                checkmarkColor: highLightColor,
                                 onSelected: (isSelected) {
                                   if (isFemaleSelected) {
                                     tutors = saveTutors;
@@ -446,7 +464,7 @@ class TutorListState extends State<TutorList> {
                                   filterGender(newGen);
                                   setState(() {
                                     if (isSelected) {
-                                      checkedColor = colorOrange;
+                                      checkedColor = highLightColor;
                                       const snackBar = SnackBar(
                                         content: Text('Filter option applied'),
                                       );
@@ -455,7 +473,7 @@ class TutorListState extends State<TutorList> {
                                       isMaleSelected = isSelected;
                                       isFemaleSelected = !isSelected;
                                     } else {
-                                      checkedColor = colorBlack;
+                                      checkedColor = textColor;
                                       isMaleSelected = isSelected;
                                       if (!isFirstSelected ||
                                           !isSecondSelected ||
@@ -474,7 +492,7 @@ class TutorListState extends State<TutorList> {
                                   width:
                                       MediaQuery.of(context).size.width * 0.03),
                               FilterChip(
-                                selectedColor: colorOrange.withOpacity(0.5),
+                                selectedColor: highLightColor.withOpacity(0.5),
                                 label: Text(
                                   'Female',
                                   style: TextStyle(color: checkedColor),
@@ -482,7 +500,7 @@ class TutorListState extends State<TutorList> {
                                 backgroundColor: Colors.white60,
                                 shape: StadiumBorder(
                                     side: BorderSide(color: checkedColor)),
-                                checkmarkColor: colorOrange,
+                                checkmarkColor: highLightColor,
                                 onSelected: (isSelected) {
                                   if (isMaleSelected) {
                                     tutors = saveTutors;
@@ -491,7 +509,7 @@ class TutorListState extends State<TutorList> {
                                   filterGender(newGen);
                                   setState(() {
                                     if (isSelected) {
-                                      checkedColor = colorOrange;
+                                      checkedColor = highLightColor;
                                       const snackBar = SnackBar(
                                         content: Text('Filter option applied'),
                                       );
@@ -500,7 +518,7 @@ class TutorListState extends State<TutorList> {
                                       isMaleSelected = !isSelected;
                                       isFemaleSelected = isSelected;
                                     } else {
-                                      checkedColor = colorBlack;
+                                      checkedColor = textColor;
                                       isFemaleSelected = isSelected;
                                       if (!isFirstSelected ||
                                           !isSecondSelected ||
@@ -523,7 +541,8 @@ class TutorListState extends State<TutorList> {
                             child: Row(
                               children: <Widget>[
                                 FilterChip(
-                                  selectedColor: colorOrange.withOpacity(0.5),
+                                  selectedColor:
+                                      highLightColor.withOpacity(0.5),
                                   label: Text(
                                     '16-18',
                                     style: TextStyle(color: checkedColor),
@@ -544,7 +563,7 @@ class TutorListState extends State<TutorList> {
                                     filterAge(newAge);
                                     setState(() {
                                       if (isSelected) {
-                                        checkedColor = colorOrange;
+                                        checkedColor = highLightColor;
                                         const snackBar = SnackBar(
                                           content:
                                               Text('Filter option applied'),
@@ -557,7 +576,7 @@ class TutorListState extends State<TutorList> {
                                         isForthSelected = !isSelected;
                                         isFifthSelected = !isSelected;
                                       } else {
-                                        checkedColor = colorBlack;
+                                        checkedColor = textColor;
                                         isFirstSelected = isSelected;
                                         tutors = saveTutors;
                                       }
@@ -570,7 +589,8 @@ class TutorListState extends State<TutorList> {
                                     width: MediaQuery.of(context).size.width *
                                         0.01),
                                 FilterChip(
-                                  selectedColor: colorOrange.withOpacity(0.5),
+                                  selectedColor:
+                                      highLightColor.withOpacity(0.5),
                                   label: Text(
                                     '19-21',
                                     style: TextStyle(color: checkedColor),
@@ -578,7 +598,7 @@ class TutorListState extends State<TutorList> {
                                   backgroundColor: Colors.white60,
                                   shape: StadiumBorder(
                                       side: BorderSide(color: checkedColor)),
-                                  checkmarkColor: colorOrange,
+                                  checkmarkColor: highLightColor,
                                   onSelected: (isSelected) {
                                     if (isFirstSelected ||
                                         isThirdSelected ||
@@ -590,7 +610,7 @@ class TutorListState extends State<TutorList> {
                                     filterAge(newAge);
                                     setState(() {
                                       if (isSelected) {
-                                        checkedColor = colorOrange;
+                                        checkedColor = highLightColor;
                                         const snackBar = SnackBar(
                                           content:
                                               Text('Filter option applied'),
@@ -603,7 +623,7 @@ class TutorListState extends State<TutorList> {
                                         isForthSelected = !isSelected;
                                         isFifthSelected = !isSelected;
                                       } else {
-                                        checkedColor = colorBlack;
+                                        checkedColor = textColor;
                                         isSecondSelected = isSelected;
                                         tutors = saveTutors;
                                       }
@@ -616,7 +636,8 @@ class TutorListState extends State<TutorList> {
                                     width: MediaQuery.of(context).size.width *
                                         0.01),
                                 FilterChip(
-                                  selectedColor: colorOrange.withOpacity(0.5),
+                                  selectedColor:
+                                      highLightColor.withOpacity(0.5),
                                   label: Text(
                                     '22-25',
                                     style: TextStyle(color: checkedColor),
@@ -624,7 +645,7 @@ class TutorListState extends State<TutorList> {
                                   backgroundColor: Colors.white60,
                                   shape: StadiumBorder(
                                       side: BorderSide(color: checkedColor)),
-                                  checkmarkColor: colorOrange,
+                                  checkmarkColor: highLightColor,
                                   onSelected: (isSelected) {
                                     if (isFirstSelected ||
                                         isSecondSelected ||
@@ -636,7 +657,7 @@ class TutorListState extends State<TutorList> {
                                     filterAge(newAge);
                                     setState(() {
                                       if (isSelected) {
-                                        checkedColor = colorOrange;
+                                        checkedColor = highLightColor;
                                         const snackBar = SnackBar(
                                           content:
                                               Text('Filter option applied'),
@@ -649,7 +670,7 @@ class TutorListState extends State<TutorList> {
                                         isForthSelected = !isSelected;
                                         isFifthSelected = !isSelected;
                                       } else {
-                                        checkedColor = colorBlack;
+                                        checkedColor = textColor;
                                         isThirdSelected = isSelected;
                                         tutors = saveTutors;
                                       }
@@ -662,7 +683,8 @@ class TutorListState extends State<TutorList> {
                                     width: MediaQuery.of(context).size.width *
                                         0.01),
                                 FilterChip(
-                                  selectedColor: colorOrange.withOpacity(0.5),
+                                  selectedColor:
+                                      highLightColor.withOpacity(0.5),
                                   label: Text(
                                     '26-35',
                                     style: TextStyle(color: checkedColor),
@@ -670,7 +692,7 @@ class TutorListState extends State<TutorList> {
                                   backgroundColor: Colors.white60,
                                   shape: StadiumBorder(
                                       side: BorderSide(color: checkedColor)),
-                                  checkmarkColor: colorOrange,
+                                  checkmarkColor: highLightColor,
                                   onSelected: (isSelected) {
                                     if (isFirstSelected ||
                                         isSecondSelected ||
@@ -682,7 +704,7 @@ class TutorListState extends State<TutorList> {
                                     filterAge(newAge);
                                     setState(() {
                                       if (isSelected) {
-                                        checkedColor = colorOrange;
+                                        checkedColor = highLightColor;
                                         const snackBar = SnackBar(
                                           content:
                                               Text('Filter option applied'),
@@ -695,7 +717,7 @@ class TutorListState extends State<TutorList> {
                                         isThirdSelected = !isSelected;
                                         isFifthSelected = !isSelected;
                                       } else {
-                                        checkedColor = colorBlack;
+                                        checkedColor = textColor;
                                         isForthSelected = isSelected;
                                         tutors = saveTutors;
                                       }
@@ -708,7 +730,8 @@ class TutorListState extends State<TutorList> {
                                     width: MediaQuery.of(context).size.width *
                                         0.01),
                                 FilterChip(
-                                  selectedColor: colorOrange.withOpacity(0.5),
+                                  selectedColor:
+                                      highLightColor.withOpacity(0.5),
                                   label: Text(
                                     '36+',
                                     style: TextStyle(color: checkedColor),
@@ -716,7 +739,7 @@ class TutorListState extends State<TutorList> {
                                   backgroundColor: Colors.white60,
                                   shape: StadiumBorder(
                                       side: BorderSide(color: checkedColor)),
-                                  checkmarkColor: colorOrange,
+                                  checkmarkColor: highLightColor,
                                   onSelected: (isSelected) {
                                     if (isFirstSelected ||
                                         isSecondSelected ||
@@ -728,7 +751,7 @@ class TutorListState extends State<TutorList> {
                                     filterAge(newAge);
                                     setState(() {
                                       if (isSelected) {
-                                        checkedColor = colorOrange;
+                                        checkedColor = highLightColor;
                                         const snackBar = SnackBar(
                                           content:
                                               Text('Filter option applied'),
@@ -741,7 +764,7 @@ class TutorListState extends State<TutorList> {
                                         isThirdSelected = !isSelected;
                                         isForthSelected = !isSelected;
                                       } else {
-                                        checkedColor = colorBlack;
+                                        checkedColor = textColor;
                                         isFifthSelected = isSelected;
                                         tutors = saveTutors;
                                       }
@@ -776,7 +799,7 @@ class TutorListState extends State<TutorList> {
                                     Icons.people,
                                     size: MediaQuery.of(context).size.height *
                                         0.09,
-                                    color: colorOrange,
+                                    color: highLightColor,
                                   ),
                                   const Text('No Tutors available')
                                 ],
@@ -799,6 +822,15 @@ class TutorListState extends State<TutorList> {
   }
 
   Widget _cardBuilder(BuildContext context, int i) {
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
+    Color textColor;
+
+    if (provider.themeMode == ThemeMode.dark) {
+      textColor = colorWhite;
+    } else {
+      textColor = Colors.black;
+    }
+
     String name = tutors[i].tutor.getName;
     name += ' ' + tutors[i].tutor.getLastName;
     int rating = tutors[i].tutor.getRating;
@@ -835,10 +867,14 @@ class TutorListState extends State<TutorList> {
                           height: MediaQuery.of(context).size.width * 0.15,
                         )),
                 ),
-                title: Text(name),
+                title: Text(
+                  name,
+                  style: TextStyle(color: textColor),
+                ),
                 subtitle: Text(
                   tutors[i].tutor.getBio,
                   overflow: TextOverflow.ellipsis,
+                  style: TextStyle(color: textColor),
                 ),
                 trailing: Row(
                   mainAxisSize: MainAxisSize.min,

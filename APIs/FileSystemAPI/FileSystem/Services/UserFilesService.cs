@@ -8,8 +8,10 @@ namespace FileSystem.Services {
 
         IEnumerable<byte[]> GetImageByUserId(Guid id);
         IEnumerable<byte[]> GetTranscriptByUserId(Guid id);
-        bool ModifyUserImage(IImageInput imageInput);
-        bool ModifyUserTranscript(ITranscript transcript);
+        bool ModifyUserImage(UserFiles imageInput);
+        bool ModifyUserTranscript(UserFiles transcript);
+        Guid createUserRecord(UserFiles userFile);
+        bool DeleteUserFilesById(Guid id);
 
 
     }
@@ -63,36 +65,29 @@ namespace FileSystem.Services {
                 throw new KeyNotFoundException("user files not found");
             }
             _context.UserFiles.Remove(userFile);
+
+            
             _context.SaveChanges();
             return true;
         }
 
-        public bool ModifyUserImage(IImageInput imageInput) {
-            var userFile = _context.UserFiles.Find(imageInput.UserId);
+        public bool ModifyUserImage(UserFiles imageInput) {
+            var userFile = _context.UserFiles.Find(imageInput.Id);
             if (userFile == null) {
-                userFile.Id = imageInput.UserId;
-                userFile.UserImage = imageInput.Image;
-                userFile.UserTranscript = null;
-                _context.UserFiles.Add(userFile);
-                _context.SaveChanges();
-                return true;
+                throw new KeyNotFoundException("user files not found");
             }
-            userFile.UserImage = imageInput.Image;
+            userFile.UserImage = imageInput.UserImage;
             _context.UserFiles.Update(userFile);
             _context.SaveChanges();
             return true;
         }
 
-        public bool ModifyUserTranscript(ITranscript transcript) {
-            var userFile = _context.UserFiles.Find(transcript.UserId);
+        public bool ModifyUserTranscript(UserFiles transcript) {
+            var userFile = _context.UserFiles.Find(transcript.Id);
             if (userFile == null) {
-                userFile.Id = transcript.UserId;
-                userFile.UserImage = null;
-                userFile.UserTranscript = transcript.Transcript;
-                _context.UserFiles.Add(userFile);
-                _context.SaveChanges();
+                throw new KeyNotFoundException("user files not found");
             }
-            userFile.UserTranscript = transcript.Transcript;
+            userFile.UserTranscript = transcript.UserTranscript;
             _context.UserFiles.Update(userFile);
             _context.SaveChanges();
             return true;

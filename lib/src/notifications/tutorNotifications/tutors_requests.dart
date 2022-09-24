@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:tutor_me/services/models/globals.dart';
 import 'package:tutor_me/services/models/modules.dart';
 import 'package:tutor_me/services/models/requests.dart';
@@ -11,6 +12,7 @@ import 'package:tutor_me/services/services/user_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 
 import '../../../services/models/users.dart';
+import '../../theme/themes.dart';
 
 class Tutee {
   Users tutee;
@@ -51,7 +53,10 @@ class TutorRequestsState extends State<TutorRequests> {
     try {
       final requests = await UserServices()
           .getTutorRequests(widget.globals.getUser.getId, widget.globals);
-      requestList = requests;
+      if (requests != null) {
+        requestList = requests;
+      }
+
       if (requestList.isEmpty) {
         setState(() {
           isLoading = false;
@@ -145,6 +150,19 @@ class TutorRequestsState extends State<TutorRequests> {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
+
+    Color primaryColor;
+    Color highLightColor;
+
+    if (provider.themeMode == ThemeMode.dark) {
+      primaryColor = colorGrey;
+      highLightColor = colorOrange;
+    } else {
+      primaryColor = colorOrange;
+      highLightColor = colorBlueTeal;
+    }
+
     screenHeight = MediaQuery.of(context).size.height;
     screenWidth = MediaQuery.of(context).size.width;
 
@@ -168,9 +186,12 @@ class TutorRequestsState extends State<TutorRequests> {
                       Icon(
                         Icons.notifications,
                         size: MediaQuery.of(context).size.height * 0.15,
-                        color: colorOrange,
+                        color: primaryColor,
                       ),
-                      const Text('No new requests')
+                      Text(
+                        'No new requests',
+                        style: TextStyle(color: highLightColor),
+                      )
                     ],
                   ),
                 ),
@@ -199,7 +220,6 @@ class TutorRequestsState extends State<TutorRequests> {
     int currentDay = int.parse(currentDateUnits[1]);
     int daySent = int.parse(sentDateUnits[0]);
 
-
     if (currentYear - yearSent > 0) {
       if (currentYear - yearSent > 1) {
         howLongAgo = (currentYear - yearSent).toString() + ' years ago';
@@ -226,6 +246,19 @@ class TutorRequestsState extends State<TutorRequests> {
   }
 
   Widget _cardBuilder(BuildContext context, int i) {
+    final provider = Provider.of<ThemeProvider>(context, listen: false);
+
+    Color primaryColor;
+    Color textColor;
+
+    if (provider.themeMode == ThemeMode.dark) {
+      primaryColor = colorGrey;
+      textColor = colorWhite;
+    } else {
+      primaryColor = colorBlueTeal;
+      textColor = colorDarkGrey;
+    }
+
     String name = tuteeList[i].getName + ' ' + tuteeList[i].getLastName;
     String howLongAgo = getRequestDate(requestList[i].getDateCreated);
 
@@ -258,9 +291,13 @@ class TutorRequestsState extends State<TutorRequests> {
                           height: MediaQuery.of(context).size.width * 0.15,
                         )),
                 ),
-                title: Text(name),
+                title: Text(
+                  name,
+                  style: TextStyle(color: textColor),
+                ),
                 subtitle: Text(
                   tuteeList[i].getBio,
+                  style: TextStyle(color: textColor),
                   overflow: TextOverflow.ellipsis,
                 ),
                 trailing: Text(
@@ -334,7 +371,7 @@ class TutorRequestsState extends State<TutorRequests> {
                                   child: const Text("Accept"),
                                   style: ButtonStyle(
                                     backgroundColor:
-                                        MaterialStateProperty.all(colorOrange),
+                                        MaterialStateProperty.all(primaryColor),
                                   ),
                                 ),
                   SizedBox(width: MediaQuery.of(context).size.width * 0.05),
@@ -369,7 +406,7 @@ class TutorRequestsState extends State<TutorRequests> {
                               child: const Text("Reject"),
                               style: ButtonStyle(
                                 backgroundColor:
-                                    MaterialStateProperty.all(colorBlueTeal),
+                                    MaterialStateProperty.all(primaryColor),
                               ),
                             )
                 ],
