@@ -1,4 +1,5 @@
 ﻿using TutorMe.Models;
+using TutorMe.Entities;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using TutorMe.Data;
@@ -49,7 +50,7 @@ namespace TutorMe.Controllers
 
         [Authorize]
         [HttpPost]
-        public IActionResult createRequest(Request request)
+        public IActionResult createRequest(IRequest request)
         {
             try {
                 var requestId = requestService.createRequest(request);
@@ -74,7 +75,7 @@ namespace TutorMe.Controllers
         }
 
         [Authorize]
-        [HttpGet("/tutor/{id}")]
+        [HttpGet("tutor/{id}")]
         public IActionResult GetRequestByTutorById(Guid id)
         {
             try {
@@ -87,7 +88,7 @@ namespace TutorMe.Controllers
         }
 
         [Authorize]
-        [HttpGet("/tutee/{id}")]
+        [HttpGet("tutee/{id}")]
         public IActionResult GetRequestByTuteeById(Guid id)
         {
             try {
@@ -100,7 +101,7 @@ namespace TutorMe.Controllers
         }
 
         [Authorize]
-        [HttpGet("/accept/{id}")]
+        [HttpGet("accept/{id}")]
         public IActionResult AcceptRequestById(Guid id) {
             try {
                 var request = requestService.AcceptRequestById(id);

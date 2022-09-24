@@ -188,79 +188,79 @@ public class ModuleServicesUnitTests
     }
 
     
-    [Fact]
-    public async  Task CreateModule_Module_Returns_ModuleId()
-    {
-        //arrange
-        var Module = new Module
-        {
-            ModuleId  = Guid.NewGuid(),
-            Code  = "COS 301",
-            ModuleName ="Software Engineering",
-            InstitutionId = Guid.NewGuid(),
-            Faculty ="Faculty of Engineering and Built Environment",
-            Year = "3",
-        };
+    //[Fact]
+    //public async  Task CreateModule_Module_Returns_ModuleId()
+    //{
+    //    //arrange
+    //    var Module = new Module
+    //    {
+    //        ModuleId  = Guid.NewGuid(),
+    //        Code  = "COS 301",
+    //        ModuleName ="Software Engineering",
+    //        InstitutionId = Guid.NewGuid(),
+    //        Faculty ="Faculty of Engineering and Built Environment",
+    //        Year = "3",
+    //    };
 
-        DbContextOptionsBuilder<TutorMeContext> optionsBuilder = new();
-        var databaseName = MethodBase.GetCurrentMethod()?.Name;
-        if (databaseName != null)
-            optionsBuilder.UseInMemoryDatabase(databaseName);
+    //    DbContextOptionsBuilder<TutorMeContext> optionsBuilder = new();
+    //    var databaseName = MethodBase.GetCurrentMethod()?.Name;
+    //    if (databaseName != null)
+    //        optionsBuilder.UseInMemoryDatabase(databaseName);
 
-        using (TutorMeContext ctx = new(optionsBuilder.Options))
-        {
-            //Empty TutorMeContext
-        }
+    //    using (TutorMeContext ctx = new(optionsBuilder.Options))
+    //    {
+    //        //Empty TutorMeContext
+    //    }
 
-        Guid result;
-        using (TutorMeContext ctx1 = new(optionsBuilder.Options))
-        {
-            result =new ModuleServices(ctx1).createModule(Module);
-        }
+    //    Guid result;
+    //    using (TutorMeContext ctx1 = new(optionsBuilder.Options))
+    //    {
+    //        result =new ModuleServices(ctx1).createModule(Module);
+    //    }
         
-        //act
-        Assert.NotNull(result);
-        Assert.IsType<Guid>(result);
-        Assert.Equal(Module.ModuleId, result);
-    }
+    //    //act
+    //    Assert.NotNull(result);
+    //    Assert.IsType<Guid>(result);
+    //    Assert.Equal(Module.ModuleId, result);
+    //}
     
     // test CreateModule_Returns_createModule()
-    [Fact]
-    public async  Task CreateModule_Returns_Type_already_exists()
-    {
-        //arrange
-        var Module = new Module
-        {
-            ModuleId  = Guid.NewGuid(),
-            Code  = "COS 301",
-            ModuleName ="Software Engineering",
-            InstitutionId = Guid.NewGuid(),
-            Faculty ="Faculty of Engineering and Built Environment",
-            Year = "3",
-        };
+    //[Fact]
+    //public async  Task CreateModule_Returns_Type_already_exists()
+    //{
+    //    //arrange
+    //    var Module = new Module
+    //    {
+    //        ModuleId  = Guid.NewGuid(),
+    //        Code  = "COS 301",
+    //        ModuleName ="Software Engineering",
+    //        InstitutionId = Guid.NewGuid(),
+    //        Faculty ="Faculty of Engineering and Built Environment",
+    //        Year = "3",
+    //    };
         
-        DbContextOptionsBuilder<TutorMeContext> optionsBuilder = new();
-        var databaseName = MethodBase.GetCurrentMethod()?.Name;
-        if (databaseName != null)
-            optionsBuilder.UseInMemoryDatabase(databaseName);
-        using (TutorMeContext ctx = new(optionsBuilder.Options))
-        {
-            ctx.Add(Module);
-        }
-        Guid result;
-        try
-        {
-            using (TutorMeContext ctx1 = new(optionsBuilder.Options))
-            {
-                result =new ModuleServices(ctx1).createModule(Module);
-            }
-        }
-        catch (Exception e)
-        {
-            Assert.Equal("This user type already exists, Please log in", e.Message);
-        }
+    //    DbContextOptionsBuilder<TutorMeContext> optionsBuilder = new();
+    //    var databaseName = MethodBase.GetCurrentMethod()?.Name;
+    //    if (databaseName != null)
+    //        optionsBuilder.UseInMemoryDatabase(databaseName);
+    //    using (TutorMeContext ctx = new(optionsBuilder.Options))
+    //    {
+    //        ctx.Add(Module);
+    //    }
+    //    Guid result;
+    //    try
+    //    {
+    //        using (TutorMeContext ctx1 = new(optionsBuilder.Options))
+    //        {
+    //            result =new ModuleServices(ctx1).createModule(Module);
+    //        }
+    //    }
+    //    catch (Exception e)
+    //    {
+    //        Assert.Equal("This user type already exists, Please log in", e.Message);
+    //    }
 
-    }
+    //}
     
     
     
