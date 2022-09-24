@@ -119,6 +119,14 @@ app.MapControllers();
 
 app.Run();
 
+// for integration testing
+public partial class Program
+{
+ 
+}
+
+
+
 
 //References Used for this code
 
