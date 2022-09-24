@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:tutor_me/services/models/globals.dart';
 import 'package:tutor_me/services/models/requests.dart';
@@ -35,17 +37,22 @@ class TutorPageState extends State<TutorPage> {
     try {
       final requests = await UserServices()
           .getTutorRequests(widget.globals.getUser.getId, widget.globals);
-      requestList = requests;
+      if (requests != null) {
+        requestList = requests;
+      }
+
       if (requestList.isEmpty) {
         setState(() {
           notificationCount = 0;
         });
+        return;
       } else {
         setState(() {
           notificationCount = requestList.length;
         });
       }
     } catch (e) {
+      log(e.toString());
       const snackBar = SnackBar(content: Text('Error loading, retrying...'));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }

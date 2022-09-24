@@ -9,7 +9,7 @@ import 'package:tutor_me/services/models/intitutions.dart';
 // import 'package:tutor_me/services/models/tutors.dart';
 import 'package:tutor_me/services/services/institution_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
-import 'package:tutor_me/src/tutor_page.dart';
+import 'package:tutor_me/src/tutorVerifyShowcase/tutor_page.dart';
 // import '../../services/models/tutees.dart';
 import '../../services/services/user_services.dart';
 import '../components.dart';
@@ -75,7 +75,8 @@ class _RegisterStep3State extends State<RegisterStep3> {
 
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => TutorPage(globals: globals)),
+          MaterialPageRoute(
+              builder: (context) => ShowCaseParent(globals: globals)),
         );
       } catch (e) {
         showDialog(

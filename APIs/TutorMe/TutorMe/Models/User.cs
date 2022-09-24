@@ -14,7 +14,8 @@ namespace TutorMe.Models
             RequestsTutor = new HashSet<Request>();
             UserModule = new HashSet<UserModule>();
             Group = new HashSet<Group>();
-            Events = new HashSet<Event>();
+            UserEvents = new HashSet<Event>();
+            EventOwner = new HashSet<Event>();
         }
 
         public Guid UserId { get; set; }
@@ -52,6 +53,8 @@ namespace TutorMe.Models
         [JsonIgnore]
         public virtual ICollection<Group> Group { get; set; }
         [JsonIgnore]
-        public virtual ICollection<Event> Events { get; set; }
+        public virtual ICollection<Event> UserEvents { get; set; }
+        [JsonIgnore]
+        public virtual ICollection<Event> EventOwner { get; set; }
     }
 }

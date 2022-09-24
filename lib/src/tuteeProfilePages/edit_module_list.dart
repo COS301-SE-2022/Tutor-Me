@@ -81,13 +81,19 @@ class _EditModuleListState extends State<EditModuleList> {
   // }
 
   getUserModules() async {
-    final userModules = await ModuleServices.getAllUserModules(widget.globals);
+    try {
+      final userModules =
+          await ModuleServices.getAllUserModules(widget.globals);
 
-    this.userModules = userModules;
+      this.userModules = userModules;
+    } catch (e) {
+      const snackBar = SnackBar(content: Text('Error getting modules'));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
   }
 
   getTutorGroups() async {
-    final groups = await GroupServices.getGroupByUserID(
+    final groups = await GroupServices.getTutorGroupByUserID(
         widget.globals.getUser.getId, widget.globals);
 
     tutorGroups = groups;
@@ -127,7 +133,7 @@ class _EditModuleListState extends State<EditModuleList> {
               height: MediaQuery.of(context).size.height * 0.03,
             ),
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.7,
+              height: MediaQuery.of(context).size.height * 0.65,
               width: MediaQuery.of(context).size.width * 0.9,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),

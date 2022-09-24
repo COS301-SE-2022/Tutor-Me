@@ -53,7 +53,10 @@ class TutorRequestsState extends State<TutorRequests> {
     try {
       final requests = await UserServices()
           .getTutorRequests(widget.globals.getUser.getId, widget.globals);
-      requestList = requests;
+      if (requests != null) {
+        requestList = requests;
+      }
+
       if (requestList.isEmpty) {
         setState(() {
           isLoading = false;
@@ -154,10 +157,10 @@ class TutorRequestsState extends State<TutorRequests> {
 
     if (provider.themeMode == ThemeMode.dark) {
       primaryColor = colorGrey;
-      highLightColor = colorLightBlueTeal;
-    } else {
-      primaryColor = colorBlueTeal;
       highLightColor = colorOrange;
+    } else {
+      primaryColor = colorOrange;
+      highLightColor = colorBlueTeal;
     }
 
     screenHeight = MediaQuery.of(context).size.height;
@@ -216,7 +219,6 @@ class TutorRequestsState extends State<TutorRequests> {
 
     int currentDay = int.parse(currentDateUnits[1]);
     int daySent = int.parse(sentDateUnits[0]);
-
 
     if (currentYear - yearSent > 0) {
       if (currentYear - yearSent > 1) {

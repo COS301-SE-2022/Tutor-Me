@@ -49,7 +49,7 @@ class _InviteToMeetingState extends State<InviteToMeeting> {
 
   getGroupDetails() async {
     try {
-      final incomingGroups = await GroupServices.getGroupByUserID(
+      final incomingGroups = await GroupServices.getTuteeGroupByUserID(
           widget.globals.getUser.getId, widget.globals);
 
       groups = incomingGroups;

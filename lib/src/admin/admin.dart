@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tutor_me/services/models/globals.dart';
+import 'package:tutor_me/src/admin/add_admin.dart';
 import 'package:tutor_me/src/admin/add_institution.dart';
 import 'package:tutor_me/src/admin/add_module.dart';
+import 'package:tutor_me/src/admin/delete_admin.dart';
 import './delete_tutor.dart';
 import './delete_tutee.dart';
 import './update_tutor.dart';
 import './update_tutee.dart';
 import './delete_module.dart';
+import 'review_tutor.dart';
 
 class Admin extends StatelessWidget {
   final Globals global;
@@ -20,7 +23,7 @@ class Admin extends StatelessWidget {
     if (widthOfScreen < 500.0) {
       crossAxis = 2;
     } else {
-      crossAxis = 4;
+      crossAxis = 5;
     }
 
     return Flexible(
@@ -431,7 +434,13 @@ class Admin extends StatelessWidget {
           ),
           GestureDetector(
             onTap: () {
-              //print("Container clicked");
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => ReviewTutor(
+                          globals: global,
+                        )),
+              );
             },
             child: Container(
               decoration: BoxDecoration(
@@ -470,7 +479,123 @@ class Admin extends StatelessWidget {
                     height: 14,
                   ),
                   Text(
-                    "0 items",
+                    "1 item",
+                    style: GoogleFonts.openSans(
+                        textStyle: const TextStyle(
+                            color: Colors.white70,
+                            fontSize: 11,
+                            fontWeight: FontWeight.w600)),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => DeleteAdmin(
+                          globals: global,
+                        )),
+              );
+            },
+            child: Container(
+              decoration: BoxDecoration(
+                  color: const Color.fromARGB(255, 23, 23, 40),
+                  borderRadius: BorderRadius.circular(10)),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Image.asset(
+                    "assets/Pictures/AdminFired.png",
+                    width: 42,
+                  ),
+                  const SizedBox(
+                    height: 14,
+                  ),
+                  Text(
+                    "Delete Admin",
+                    style: GoogleFonts.openSans(
+                        textStyle: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600)),
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  Text(
+                    "Delete by ID",
+                    style: GoogleFonts.openSans(
+                        textStyle: const TextStyle(
+                            color: Colors.white38,
+                            fontSize: 10,
+                            fontWeight: FontWeight.w600)),
+                  ),
+                  const SizedBox(
+                    height: 14,
+                  ),
+                  Text(
+                    "1 item",
+                    style: GoogleFonts.openSans(
+                        textStyle: const TextStyle(
+                            color: Colors.white70,
+                            fontSize: 11,
+                            fontWeight: FontWeight.w600)),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => AddAdmin(
+                          global: global,
+                        )),
+              );
+            },
+            child: Container(
+              decoration: BoxDecoration(
+                  color: const Color.fromARGB(255, 23, 23, 40),
+                  borderRadius: BorderRadius.circular(10)),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Image.asset(
+                    "assets/Pictures/HireAdmin.png",
+                    width: 42,
+                  ),
+                  const SizedBox(
+                    height: 14,
+                  ),
+                  Text(
+                    "Add Admin",
+                    style: GoogleFonts.openSans(
+                        textStyle: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600)),
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  Text(
+                    "Admin Details",
+                    style: GoogleFonts.openSans(
+                        textStyle: const TextStyle(
+                            color: Colors.white38,
+                            fontSize: 10,
+                            fontWeight: FontWeight.w600)),
+                  ),
+                  const SizedBox(
+                    height: 14,
+                  ),
+                  Text(
+                    "1 item",
                     style: GoogleFonts.openSans(
                         textStyle: const TextStyle(
                             color: Colors.white70,
