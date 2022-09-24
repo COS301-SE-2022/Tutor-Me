@@ -1,5 +1,3 @@
-// ignore_for_file: file_names
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -13,6 +11,7 @@ import '../../services/services/events_services.dart';
 import '../../services/services/user_services.dart';
 import '../theme/themes.dart';
 
+// TODO:  fix file names
 class CalendarScreen extends StatefulWidget {
   final Globals globals;
   const CalendarScreen({Key? key, required this.globals}) : super(key: key);
@@ -66,33 +65,23 @@ class _CalendarScreenState extends State<CalendarScreen> {
   loadScheduledSession() {
     DateTime varDate;
 
-    // int month, year, day;
-    // int min, hour;
-    // List<String> date;
-
-    // print(events.length);
     for (int i = 0; i < events.length; i++) {
-      // min = int.parse(events[i].getTimeOfEvent.substring(3, 4));
-      // hour = int.parse(events[i].getTimeOfEvent.substring(0, 1));
-
-      // print("££££££££££££££" + events[i].getDateOfEvent);
-      // date = events[i].getDateOfEvent.split('/');
-
       varDate = DateTime.parse(events[i].getDateOfEvent);
-      // print(varDate.year.toString() +
-          // varDate.month.toString() +
-          // varDate.day.toString());
-      scheduledSessions.addAll({
-        DateTime(varDate.year, varDate.month, varDate.day): [
-          events[i],
-        ]
-      });
-      // print('after add');
+
+      if (scheduledSessions[
+              DateTime(varDate.year, varDate.month, varDate.day)] ==
+          null) {
+        scheduledSessions.addAll({
+          DateTime(varDate.year, varDate.month, varDate.day): [
+            events[i],
+          ]
+        });
+      } else {
+        scheduledSessions[DateTime(varDate.year, varDate.month, varDate.day)]!
+            .add(events[i]);
+      }
     }
-    // print("noooo ");
-    // print(scheduledSessions.length);
-    // print(scheduledSessions);
-    // print("noooo2 ");
+
     getOwner();
   }
 
@@ -323,6 +312,17 @@ class _CalendarScreenState extends State<CalendarScreen> {
                         height: MediaQuery.of(context).size.height * 0.3,
                         child: Column(
                           children: [
+                            Text(
+                              'For: ' +
+                                  DateTime(
+                                          mySelectedDay.year,
+                                          mySelectedDay.month,
+                                          mySelectedDay.day)
+                                      .toString(),
+                              style: const TextStyle(
+                                color: colorLightGreen,
+                              ),
+                            ),
                             TextFormField(
                               controller: meetingController,
                               decoration: const InputDecoration(
@@ -354,24 +354,34 @@ class _CalendarScreenState extends State<CalendarScreen> {
                             'Add',
                             style: TextStyle(color: Colors.green),
                           ),
-                          onPressed: () {
+                          onPressed: () async {
                             if (meetingController.text.isEmpty) {
                               return;
                             }
 
                             // else {
-                            if (scheduledSessions[mySelectedDay] != null) {
-                              scheduledSessions[mySelectedDay]?.add(Event(
+                            if (scheduledSessions[DateTime(mySelectedDay.year,
+                                    mySelectedDay.month, mySelectedDay.day)] !=
+                                null) {
+                              // final date
+                              scheduledSessions[DateTime(mySelectedDay.year,
+                                      mySelectedDay.month, mySelectedDay.day)]
+                                  ?.add(Event(
                                 meetingController.text,
                                 descriptionController.text,
-                                mySelectedDay.toString(),
+                                DateTime(mySelectedDay.year,
+                                        mySelectedDay.month, mySelectedDay.day)
+                                    .toString(),
                                 timeController.text,
                                 "",
                                 "",
                                 "",
                                 widget.globals.getUser.getId,
                               ));
-                              EventServices.createEvent(
+                              setState(() {
+                                loadScheduledSession();
+                              });
+                              await EventServices.createEvent(
                                   Event(
                                     meetingController.text,
                                     descriptionController.text,
@@ -384,11 +394,16 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                   ),
                                   widget.globals);
                             } else {
-                              scheduledSessions[mySelectedDay] = [
+                              scheduledSessions[DateTime(mySelectedDay.year,
+                                  mySelectedDay.month, mySelectedDay.day)] = [
                                 Event(
                                   meetingController.text,
                                   descriptionController.text,
-                                  mySelectedDay.toString(),
+                                  DateTime(
+                                          mySelectedDay.year,
+                                          mySelectedDay.month,
+                                          mySelectedDay.day)
+                                      .toString(),
                                   time.toString(),
                                   "",
                                   "",
@@ -396,7 +411,10 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                   widget.globals.getUser.getId,
                                 ),
                               ];
-                              EventServices.createEvent(
+                              setState(() {
+                                loadScheduledSession();
+                              });
+                              await EventServices.createEvent(
                                   Event(
                                     meetingController.text,
                                     descriptionController.text,
