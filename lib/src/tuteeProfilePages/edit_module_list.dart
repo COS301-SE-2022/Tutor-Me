@@ -93,7 +93,7 @@ class _EditModuleListState extends State<EditModuleList> {
   }
 
   getTutorGroups() async {
-    final groups = await GroupServices.getGroupByUserID(
+    final groups = await GroupServices.getTutorGroupByUserID(
         widget.globals.getUser.getId, widget.globals);
 
     tutorGroups = groups;

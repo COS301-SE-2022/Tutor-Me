@@ -1,10 +1,12 @@
 import 'dart:developer';
 
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
 import '../models/event.dart';
 import '../models/globals.dart';
+import '../models/users.dart';
 
 class EventServices {
   static getEventsByUserId(String userId, Globals global) async {
@@ -24,26 +26,11 @@ class EventServices {
           j = response.body;
         }
         final List list = json.decode(j);
-       
+
         return list.map((json) => Event.fromObject(json)).toList();
       } else if (response.statusCode == 401) {
-        final refreshUrl =
-            Uri.http(global.getTutorMeUrl, 'api/account/authtoken');
-
-        final data = jsonEncode({
-          'expiredToken': global.getToken,
-          'refqreshToken': global.getRefreshToken
-        });
-
-        final refreshResponse =
-            await http.post(refreshUrl, body: data, headers: global.getHeader);
-
-        if (refreshResponse.statusCode == 200) {
-          final refreshData = jsonDecode(refreshResponse.body);
-          global.setToken = refreshData['token'];
-          global.setRefreshToken = refreshData['refreshToken'];
-          getEventsByUserId(userId, global);
-        }
+        global = await refreshToken(global);
+        return await getEventsByUserId(userId, global);
       } else {
         throw Exception('Failed to load' + response.body);
       }
@@ -64,23 +51,8 @@ class EventServices {
       if (response.statusCode == 204) {
         return true;
       } else if (response.statusCode == 401) {
-        final refreshUrl =
-            Uri.http(global.getTutorMeUrl, 'api/account/authtoken');
-
-        final data = jsonEncode({
-          'expiredToken': global.getToken,
-          'refqreshToken': global.getRefreshToken
-        });
-
-        final refreshResponse =
-            await http.post(refreshUrl, body: data, headers: global.getHeader);
-
-        if (refreshResponse.statusCode == 200) {
-          final refreshData = jsonDecode(refreshResponse.body);
-          global.setToken = refreshData['token'];
-          global.setRefreshToken = refreshData['refreshToken'];
-          deleteEventEventId(eventId, global);
-        }
+        global = await refreshToken(global);
+        return await deleteEventEventId(eventId, global);
       } else {
         throw Exception(
             'Failed to deleted. Please make sure your internet connect is on and try again');
@@ -117,23 +89,46 @@ class EventServices {
       if (response.statusCode == 200) {
         return true;
       } else if (response.statusCode == 401) {
-        final refreshUrl =
-            Uri.http(global.getTutorMeUrl, 'api/account/authtoken');
+        global = await refreshToken(global);
+        return await createEvent(event, global);
+      } else {
+        throw Exception(
+            'Failed to create event. Please make sure your internet connect is on and try again');
+      }
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
 
-        final data = jsonEncode({
-          'expiredToken': global.getToken,
-          'refqreshToken': global.getRefreshToken
-        });
+  static bookTutorEvent(Users tutor, Event event, Globals global) async {
+    try {
+      final url = Uri.http(global.getTutorMeUrl, 'api/Events');
 
-        final refreshResponse =
-            await http.post(refreshUrl, body: data, headers: global.getHeader);
+      final data = jsonEncode({
+        'eventId': global.getUser.getId,
+        'groupId': null,
+        'ownerId': global.getUser.getId,
+        'userId': tutor.getId,
+        'dateOfEvent': event.getDateOfEvent,
+        'videoLink': event.getVideoLink,
+        'timeOfEvent': event.getTimeOfEvent,
+        'title': event.getTitle,
+        'description': event.getDescription,
+      });
+      // print("*======================*");
+      // print(data);
+      // print("*======================*");
 
-        if (refreshResponse.statusCode == 200) {
-          final refreshData = jsonDecode(refreshResponse.body);
-          global.setToken = refreshData['token'];
-          global.setRefreshToken = refreshData['refreshToken'];
-          createEvent(event, global);
-        }
+      final response =
+          await http.post(url, body: data, headers: global.getHeader);
+      // print(response.body);
+      // print(response.statusCode);
+      // print("*========&&==============*");
+      if (response.statusCode == 200) {
+        return true;
+      } else if (response.statusCode == 401) {
+        global = await refreshToken(global);
+        return await createEvent(event, global);
       } else {
         throw Exception(
             'Failed to create event. Please make sure your internet connect is on and try again');
@@ -152,23 +147,8 @@ class EventServices {
       if (response.statusCode == 200) {
         return true;
       } else if (response.statusCode == 401) {
-        final refreshUrl =
-            Uri.http(global.getTutorMeUrl, 'api/account/refreshtoken');
-
-        final data = jsonEncode({
-          'expiredToken': global.getToken,
-          'refqreshToken': global.getRefreshToken
-        });
-
-        final refreshResponse =
-            await http.post(refreshUrl, body: data, headers: global.getHeader);
-
-        if (refreshResponse.statusCode == 200) {
-          final refreshData = jsonDecode(refreshResponse.body);
-          global.setToken = refreshData['token'];
-          global.setRefreshToken = refreshData['refreshToken'];
-          updateEventTime(eventId, time, global);
-        }
+        global = await refreshToken(global);
+        return await updateEventTime(eventId, time, global);
       } else {
         throw Exception(
             'Failed to update event time. Please make sure your internet connect is on and try again');
@@ -187,23 +167,8 @@ class EventServices {
       if (response.statusCode == 200) {
         return true;
       } else if (response.statusCode == 401) {
-        final refreshUrl =
-            Uri.http(global.getTutorMeUrl, 'api/account/refreshtoken');
-
-        final data = jsonEncode({
-          'expiredToken': global.getToken,
-          'refqreshToken': global.getRefreshToken
-        });
-
-        final refreshResponse =
-            await http.post(refreshUrl, body: data, headers: global.getHeader);
-
-        if (refreshResponse.statusCode == 200) {
-          final refreshData = jsonDecode(refreshResponse.body);
-          global.setToken = refreshData['token'];
-          global.setRefreshToken = refreshData['refreshToken'];
-          updateEventDate(eventId, date, global);
-        }
+        global = await refreshToken(global);
+        return await updateEventDate(eventId, date, global);
       } else {
         throw Exception(
             'Failed to update event date. Please make sure your internet connect is on and try again');
@@ -222,23 +187,8 @@ class EventServices {
       if (response.statusCode == 200) {
         return true;
       } else if (response.statusCode == 401) {
-        final refreshUrl =
-            Uri.http(global.getTutorMeUrl, 'api/account/refreshtoken');
-
-        final data = jsonEncode({
-          'expiredToken': global.getToken,
-          'refqreshToken': global.getRefreshToken
-        });
-
-        final refreshResponse =
-            await http.post(refreshUrl, body: data, headers: global.getHeader);
-
-        if (refreshResponse.statusCode == 200) {
-          final refreshData = jsonDecode(refreshResponse.body);
-          global.setToken = refreshData['token'];
-          global.setRefreshToken = refreshData['refreshToken'];
-          updateEventTitle(eventId, title, global);
-        }
+        global = await refreshToken(global);
+        return await updateEventTitle(eventId, title, global);
       } else {
         throw Exception(
             'Failed to update event title. Please make sure your internet connect is on and try again');
@@ -258,23 +208,8 @@ class EventServices {
       if (response.statusCode == 200) {
         return true;
       } else if (response.statusCode == 401) {
-        final refreshUrl =
-            Uri.http(global.getTutorMeUrl, 'api/account/refreshtoken');
-
-        final data = jsonEncode({
-          'expiredToken': global.getToken,
-          'refqreshToken': global.getRefreshToken
-        });
-
-        final refreshResponse =
-            await http.post(refreshUrl, body: data, headers: global.getHeader);
-
-        if (refreshResponse.statusCode == 200) {
-          final refreshData = jsonDecode(refreshResponse.body);
-          global.setToken = refreshData['token'];
-          global.setRefreshToken = refreshData['refreshToken'];
-          updateEventDescription(eventId, description, global);
-        }
+        global = await refreshToken(global);
+        return await updateEventDescription(eventId, description, global);
       } else {
         throw Exception(
             'Failed to update event description. Please make sure your internet connect is on and try again');
@@ -293,29 +228,46 @@ class EventServices {
       if (response.statusCode == 200) {
         return true;
       } else if (response.statusCode == 401) {
-        final refreshUrl =
-            Uri.http(global.getTutorMeUrl, 'api/account/refreshtoken');
-
-        final data = jsonEncode({
-          'expiredToken': global.getToken,
-          'refqreshToken': global.getRefreshToken
-        });
-
-        final refreshResponse =
-            await http.post(refreshUrl, body: data, headers: global.getHeader);
-
-        if (refreshResponse.statusCode == 200) {
-          final refreshData = jsonDecode(refreshResponse.body);
-          global.setToken = refreshData['token'];
-          global.setRefreshToken = refreshData['refreshToken'];
-          updateGroupId(eventId, groupId, global);
-        }
+        global = await refreshToken(global);
+        return await updateGroupId(eventId, groupId, global);
       } else {
         throw Exception(
             'Failed to update event group. Please make sure your internet connect is on and try again');
       }
     } catch (e) {
       throw Exception(e);
+    }
+  }
+
+  static Future<Globals> refreshToken(Globals globals) async {
+    log('refreshing token');
+    final refreshUrl =
+        Uri.parse('http://${globals.getTutorMeUrl}/api/account/refreshToken');
+
+    List<String> token = globals.getToken.split(' ');
+    final data = jsonEncode(
+        {'expiredToken': token[1], 'refreshToken': globals.getRefreshToken});
+    final refreshResponse =
+        await http.post(refreshUrl, headers: globals.getHeader, body: data);
+
+    if (refreshResponse.statusCode == 200) {
+      log('token refreshed');
+      globals.setToken = 'Bearer ' + jsonDecode(refreshResponse.body)['token'];
+      globals.setRefreshToken =
+          jsonDecode(refreshResponse.body)['refreshToken'];
+      globals.setHeader = {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        'Authorization': globals.getToken,
+      };
+      final globalJson = json.encode(globals.toJson());
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+
+      preferences.setString('globals', globalJson);
+      return globals;
+    } else {
+      throw Exception('Failed to refresh token');
     }
   }
 }

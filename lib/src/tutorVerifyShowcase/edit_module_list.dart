@@ -110,7 +110,7 @@ class _ShowcaseEditModuleListState extends State<ShowcaseEditModuleList> {
   }
 
   getTutorGroups() async {
-    final groups = await GroupServices.getGroupByUserID(
+    final groups = await GroupServices.getTutorGroupByUserID(
         widget.globals.getUser.getId, widget.globals);
 
     tutorGroups = groups;

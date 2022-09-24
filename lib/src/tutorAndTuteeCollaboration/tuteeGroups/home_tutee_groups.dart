@@ -31,7 +31,7 @@ class _HomeTuteeGroupsState extends State<HomeTuteeGroups> {
 
   int numOfTutees = 3;
   getGroupDetails() async {
-    final incomingGroups = await GroupServices.getGroupByUserID(
+    final incomingGroups = await GroupServices.getTuteeGroupByUserID(
         widget.globals.getUser.getId, widget.globals);
     groups = incomingGroups;
     if (groups.isNotEmpty) {
