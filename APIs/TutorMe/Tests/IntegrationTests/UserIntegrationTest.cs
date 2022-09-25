@@ -1,10 +1,6 @@
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.AspNetCore.TestHost;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
+
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using TutorMe.Data;
@@ -33,13 +29,13 @@ namespace Tests.IntegrationTests
         {
               var testUser = new User
             {
-                FirstName = "Thabo",
-                LastName = "Maduna",
+                FirstName = Guid.NewGuid().ToString(),
+                LastName = Guid.NewGuid().ToString(),
                 DateOfBirth = "02/04/2000",
                 Status = true,
                 Gender = "M",
-                Email = "thaboMaduna527@gmail.com",
-                Password = "24681012",
+                Email = Guid.NewGuid().ToString(),
+                Password = Guid.NewGuid().ToString(),
                 UserTypeId = new Guid("1fa85f64-5717-4562-b3fc-2c963f66afa6"), //Admin
                 // InstitutionId = new Guid("ca16749a-1667-47a6-b945-8338f5c6a69c"),
                 Location = "1166 TMN, 0028",
@@ -63,8 +59,8 @@ namespace Tests.IntegrationTests
             //Log in
             var expectedUser = new UserLogIn();
 
-            expectedUser.Email = "thaboMaduna527@gmail.com";
-            expectedUser.Password = "24681012";
+            expectedUser.Email = testUser.Email;
+            expectedUser.Password =testUser.Password;
             expectedUser.TypeId = new Guid("1fa85f64-5717-4562-b3fc-2c963f66afa6");
 
             var response = await _httpClient.PostAsJsonAsync("https://localhost:7100/api/Account/AuthToken", expectedUser);
@@ -88,13 +84,12 @@ namespace Tests.IntegrationTests
             var myJsonString = JsonConvert.DeserializeObject(responseObj).ToString();
             var jo = JObject.Parse(myJsonString);
              token = jo["token"].ToString();
-            _testOutputHelper.WriteLine("GetToken funct " + token);
-            
-            
+
+
         }
       
         [Fact]
-        public async Task GetAllUsers_NoUsers()
+        public async Task aGetAllUsers_NoUsers()
         {
             //Act
              await InitializeToken();
@@ -122,113 +117,91 @@ namespace Tests.IntegrationTests
             
             
             //Now Testing with Users
-           await GetAllUsers_With_Exsisting_Users();
+           // await GetAllUsers_With_Exsisting_Users();
         }
-        private async Task GetAllUsers_With_Exsisting_Users()
-    { 
-        //Arrange
-     
-        _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-        var testUser = new User()
-        {
-            FirstName = "Simphiwe",
-            LastName = "Ndlovu",
-            DateOfBirth = "02/04/1999",
-            Status = true,
-            Gender = "M",
-            Email = "simphiwendlovu527@gmail.com",
-            Password = "24681012",
-            UserTypeId = new Guid("3fa85f64-5717-4562-b3fc-2c963f66afa6"), //Tutor
-            InstitutionId = new Guid("ca16749a-1667-47a6-b945-8338f5c6a69c"),
-            Location = "1166 Burnet, 0028",
-            Bio = "One Piece",
-            Year = "3",
-            Rating = 0,
-            NumberOfReviews = 0
-
-        };
-        var testUser2 = new User()
-        {
-            
-            FirstName = "Musa",
-            LastName = "Mabasa",
-            DateOfBirth = "02/04/2000",
-            Status = true,
-            Gender = "M",
-            Email = "MusaMabasa@gmail.com",
-            Password = "24681012",
-            UserTypeId =  new Guid("2fa85f64-5717-4562-b3fc-2c963f66afa6"), //Tutee
-            InstitutionId = new Guid("ca16749a-1667-47a6-b945-8338f5c6a69c"),
-            Location = "1166 Burnet, 0028",
-            Bio = "One Piece",
-            Year = "3",
-            Rating = 0,
-            NumberOfReviews = 0
-
-        };
-        var testUser3 = new User()
-        {
-            FirstName = "Farai",
-            LastName = "Chivunga",
-            DateOfBirth = "02/04/2000",
-            Status = true,
-            Gender = "M",
-            Email = "FaraiChivunga@gmail.com",
-            Password = "24681012",
-            UserTypeId = new Guid("2fa85f64-5717-4562-b3fc-2c963f66afa6"), //Tutee
-            InstitutionId = new Guid("ca16749a-1667-47a6-b945-8338f5c6a69c"),
-            Location = "1166 erodit, 0028",
-            Bio = "foot ball",
-            Year = "3",
-            Rating = 0,
-            NumberOfReviews = 0
-
-        };
-
-        await _httpClient.PostAsJsonAsync("https://localhost:7100/api/Users", testUser);
-        await _httpClient.PostAsJsonAsync("https://localhost:7100/api/Users", testUser2);
-        await _httpClient.PostAsJsonAsync("https://localhost:7100/api/Users", testUser3);
-
-        //Act
-        var response = await _httpClient.GetAsync("http://localhost:7100/api/Users");
-
-        //Assert
-        Assert.NotNull(response);
-        Assert.Equal(200, (double)response.StatusCode);
-
-        var users = await response.Content.ReadFromJsonAsync<List<User>>();
-        Assert.NotNull(users);
-        Assert.Equal(4, users.Count());//3+1
-    }
-        
-
-     
-}
-
-public class WebAppFactory : WebApplicationFactory<Program>
-    {
-
-        protected override void ConfigureWebHost(IWebHostBuilder builder)
-        {
-            builder.ConfigureTestServices(services =>
+        [Fact]
+        public async Task GetAllUsers_With_Exsisting_Users()
+        { 
+            //Arrange
+            await InitializeToken();
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            var testUser = new User()
             {
-                var descriptor = services.SingleOrDefault(
-                    d => d.ServiceType == typeof(DbContextOptions<TutorMeContext>));
-                            
-                if (descriptor != null)
-                {
-                    services.Remove(descriptor);
-                }
+                FirstName = "Simphiwe",
+                LastName = "Ndlovu",
+                DateOfBirth = "02/04/1999",
+                Status = true,
+                Gender = "M",
+                Email = "simphiwendlovu527@gmail.com",
+                Password = "24681012",
+                UserTypeId = new Guid("3fa85f64-5717-4562-b3fc-2c963f66afa6"), //Tutor
+                InstitutionId = new Guid("ca16749a-1667-47a6-b945-8338f5c6a69c"),
+                Location = "1166 Burnet, 0028",
+                Bio = "One Piece",
+                Year = "3",
+                Rating = 0,
+                NumberOfReviews = 0
+
+            };
+            var testUser2 = new User()
+            {
                 
-                services.AddDbContext<TutorMeContext>(options =>
-                {
-                    options.UseInMemoryDatabase("InMemoryDb");
-                });
-               
-            });
-            
-        }
+                FirstName = "Musa",
+                LastName = "Mabasa",
+                DateOfBirth = "02/04/2000",
+                Status = true,
+                Gender = "M",
+                Email = "MusaMabasa@gmail.com",
+                Password = "24681012",
+                UserTypeId =  new Guid("2fa85f64-5717-4562-b3fc-2c963f66afa6"), //Tutee
+                InstitutionId = new Guid("ca16749a-1667-47a6-b945-8338f5c6a69c"),
+                Location = "1166 Burnet, 0028",
+                Bio = "One Piece",
+                Year = "3",
+                Rating = 0,
+                NumberOfReviews = 0
+
+            };
+            var testUser3 = new User()
+            {
+                FirstName = "Farai",
+                LastName = "Chivunga",
+                DateOfBirth = "02/04/2000",
+                Status = true,
+                Gender = "M",
+                Email = "FaraiChivunga@gmail.com",
+                Password = "24681012",
+                UserTypeId = new Guid("2fa85f64-5717-4562-b3fc-2c963f66afa6"), //Tutee
+                InstitutionId = new Guid("ca16749a-1667-47a6-b945-8338f5c6a69c"),
+                Location = "1166 erodit, 0028",
+                Bio = "foot ball",
+                Year = "3",
+                Rating = 0,
+                NumberOfReviews = 0
+
+            };
+
+            await _httpClient.PostAsJsonAsync("https://localhost:7100/api/Users", testUser);
+            await _httpClient.PostAsJsonAsync("https://localhost:7100/api/Users", testUser2);
+            await _httpClient.PostAsJsonAsync("https://localhost:7100/api/Users", testUser3);
+
+            //Act
+            var response = await _httpClient.GetAsync("http://localhost:7100/api/Users");
+
+            //Assert
+            Assert.NotNull(response);
+            Assert.Equal(200, (double)response.StatusCode);
+
+            var users = await response.Content.ReadFromJsonAsync<List<User>>();
+            Assert.NotNull(users);
+            Assert.Equal(5, users.Count());//4+1
+           
     }
+
+      
+    }
+
+
 
    
    
