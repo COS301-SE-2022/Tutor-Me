@@ -4,9 +4,9 @@ import 'package:tutor_me/services/models/globals.dart';
 import 'package:tutor_me/src/admin/add_admin.dart';
 import 'package:tutor_me/src/admin/add_institution.dart';
 import 'package:tutor_me/src/admin/add_module.dart';
-import 'package:tutor_me/src/admin/delete_admin.dart';
-import './delete_tutor.dart';
-import './delete_tutee.dart';
+import 'package:tutor_me/src/admin/add_badge.dart';
+import 'delete_user.dart';
+import 'delete_badge.dart';
 import './update_tutor.dart';
 import './update_tutee.dart';
 import './delete_module.dart';
@@ -39,7 +39,7 @@ class Admin extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => DeleteTutor(
+                    builder: (context) => DeleteUser(
                           globals: global,
                         )),
               );
@@ -59,63 +59,7 @@ class Admin extends StatelessWidget {
                     height: 14,
                   ),
                   Text(
-                    "Delete Tutor",
-                    style: GoogleFonts.openSans(
-                        textStyle: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600)),
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  Text(
-                    "Delete by ID",
-                    style: GoogleFonts.openSans(
-                        textStyle: const TextStyle(
-                            color: Colors.white38,
-                            fontSize: 10,
-                            fontWeight: FontWeight.w600)),
-                  ),
-                  const SizedBox(
-                    height: 14,
-                  ),
-                  Text(
-                    "1 item",
-                    style: GoogleFonts.openSans(
-                        textStyle: const TextStyle(
-                            color: Colors.white70,
-                            fontSize: 11,
-                            fontWeight: FontWeight.w600)),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => DeleteTutee(global: global)),
-              );
-            },
-            child: Container(
-              decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 23, 23, 40),
-                  borderRadius: BorderRadius.circular(10)),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Image.asset(
-                    "assets/Pictures/deleteTutee.png",
-                    width: 42,
-                  ),
-                  const SizedBox(
-                    height: 14,
-                  ),
-                  Text(
-                    "Delete Tutee",
+                    "Delete User",
                     style: GoogleFonts.openSans(
                         textStyle: const TextStyle(
                             color: Colors.white,
@@ -495,8 +439,64 @@ class Admin extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => DeleteAdmin(
-                          globals: global,
+                    builder: (context) => AddBadge(globals: global)),
+              );
+            },
+            child: Container(
+              decoration: BoxDecoration(
+                  color: const Color.fromARGB(255, 23, 23, 40),
+                  borderRadius: BorderRadius.circular(10)),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Image.asset(
+                    "assets/Pictures/addBadge.png",
+                    width: 42,
+                  ),
+                  const SizedBox(
+                    height: 14,
+                  ),
+                  Text(
+                    "Add Badge",
+                    style: GoogleFonts.openSans(
+                        textStyle: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600)),
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  Text(
+                    "New Badge",
+                    style: GoogleFonts.openSans(
+                        textStyle: const TextStyle(
+                            color: Colors.white38,
+                            fontSize: 10,
+                            fontWeight: FontWeight.w600)),
+                  ),
+                  const SizedBox(
+                    height: 14,
+                  ),
+                  Text(
+                    "1 item",
+                    style: GoogleFonts.openSans(
+                        textStyle: const TextStyle(
+                            color: Colors.white70,
+                            fontSize: 11,
+                            fontWeight: FontWeight.w600)),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => DeleteBadge(
+                          global: global,
                         )),
               );
             },
@@ -508,14 +508,14 @@ class Admin extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Image.asset(
-                    "assets/Pictures/AdminFired.png",
+                    "assets/Pictures/deleteBadge.png",
                     width: 42,
                   ),
                   const SizedBox(
                     height: 14,
                   ),
                   Text(
-                    "Delete Admin",
+                    "Delete Badge",
                     style: GoogleFonts.openSans(
                         textStyle: const TextStyle(
                             color: Colors.white,

@@ -284,7 +284,7 @@ class _RecordedVideosState extends State<RecordedVideos> {
         await GroupServices.getVideoLinks(widget.group.getId, widget.global);
     int length = getVideoLinks.length;
     setState(() {
-      numVideos = length - 1;
+      numVideos = length;
     });
     // log("Length of array: $length");
 
