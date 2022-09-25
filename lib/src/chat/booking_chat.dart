@@ -58,15 +58,9 @@ class BookingChatState extends State<BookingChat> {
   void initState() {
     super.initState();
     openSignalRConnection();
-    createRandomId();
   }
 
-  int currentUserId = 0;
-  //generate random user id
-  createRandomId() {
-    Random random = Random();
-    currentUserId = random.nextInt(999999);
-  }
+  
 
   String removeMessageExtraChar(String userText) {
     String editedUserText = userText;
@@ -92,7 +86,6 @@ class BookingChatState extends State<BookingChat> {
       widget.globals.getUser.getId,
       widget.reciever.getId,
       widget.globals.getUser.getName,
-      currentUserId,
       messageText
     ]);
     messageTextController.text = "";
@@ -232,7 +225,7 @@ class BookingChatState extends State<BookingChat> {
         child: Column(
           children: [
             chatMessageWidget(
-                chatListScrollController, messageModel, currentUserId),
+                chatListScrollController, messageModel, widget.globals.getUser.getId),
             chatTypeMessageWidget(messageTextController, submitMessageFunction)
           ],
         ),
