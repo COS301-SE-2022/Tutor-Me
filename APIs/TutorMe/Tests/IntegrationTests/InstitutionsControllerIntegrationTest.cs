@@ -284,6 +284,45 @@ namespace Tests.IntegrationTests
             Assert.NotNull(response);
             Assert.Equal(404, (double)response.StatusCode);
         }
+        
+        
+        [Fact]
+        public async Task AddInstitution()
+        {
+
+            //Act
+            var testInstitution = new Institution()
+            {
+                Name = Guid.NewGuid().ToString(),
+                Location = "Hatfield"
+
+            };
+            await InitializeToken();
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+
+            var responseMessage =
+                await _httpClient.PostAsJsonAsync("https://localhost:7100/api/Institutions", testInstitution);
+            var idReadAsStringAsync = responseMessage.Content.ReadAsStringAsync().Result;
+            var id = JsonConvert.DeserializeObject<Guid>(idReadAsStringAsync);
+
+            var response = await _httpClient.GetAsync("https://localhost:7100/api/Institutions/" + id);
+
+            //Assert
+            Assert.NotNull(response);
+            Assert.Equal(200, (double)response.StatusCode);
+
+            var Institution = await response.Content.ReadFromJsonAsync<Institution>();
+
+            Assert.NotNull(Institution);
+            if (Institution != null)
+            {
+                Assert.Equal(testInstitution.Name, Institution.Name);
+                Assert.Equal(testInstitution.Location, Institution.Location);
+
+            }
+        }
+
 
     }
 
