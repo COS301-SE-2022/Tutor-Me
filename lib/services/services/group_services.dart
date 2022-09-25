@@ -367,4 +367,6 @@ class GroupServices {
       throw Exception('Failed to refresh token');
     }
   }
+
+  static getGroupByUserID(String getId, Globals globals) {}
 }
