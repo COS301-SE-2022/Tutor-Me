@@ -378,6 +378,11 @@ namespace TutorMe.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("verified")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
                     b.HasKey("UserId");
 
                     b.HasIndex(new[] { "InstitutionId" }, "IX_User_InstitutionId");
@@ -385,6 +390,38 @@ namespace TutorMe.Migrations
                     b.HasIndex(new[] { "UserTypeId" }, "IX_User_UserTypeId");
 
                     b.ToTable("User");
+                });
+
+            modelBuilder.Entity("TutorMe.Models.UserBadge", b =>
+                {
+                    b.Property<Guid>("UserBadgeId")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(36)
+                        .HasColumnType("uniqueidentifier")
+                        .HasDefaultValueSql("(newid())");
+
+                    b.Property<Guid>("BadgeId")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(36)
+                        .HasColumnType("uniqueidentifier")
+                        .HasDefaultValueSql("(newid())");
+
+                    b.Property<Guid>("UserId")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(36)
+                        .HasColumnType("uniqueidentifier")
+                        .HasDefaultValueSql("(newid())");
+
+                    b.Property<int>("pointAchieved")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserBadgeId");
+
+                    b.HasIndex(new[] { "BadgeId" }, "IX_UserBadge_BadgeId");
+
+                    b.HasIndex(new[] { "UserId" }, "IX_UserBadge_UserId");
+
+                    b.ToTable("UserBadge");
                 });
 
             modelBuilder.Entity("TutorMe.Models.UserModule", b =>
@@ -630,6 +667,26 @@ namespace TutorMe.Migrations
                     b.Navigation("UserType");
                 });
 
+            modelBuilder.Entity("TutorMe.Models.UserBadge", b =>
+                {
+                    b.HasOne("TutorMe.Models.Badge", "Badge")
+                        .WithMany("UserBadges")
+                        .HasForeignKey("BadgeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("UserBadge_Group_FK");
+
+                    b.HasOne("TutorMe.Models.User", "User")
+                        .WithMany("UserBadges")
+                        .HasForeignKey("UserId")
+                        .IsRequired()
+                        .HasConstraintName("UserBadge_User_FK");
+
+                    b.Navigation("Badge");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("TutorMe.Models.UserModule", b =>
                 {
                     b.HasOne("TutorMe.Models.Module", "Module")
@@ -658,6 +715,11 @@ namespace TutorMe.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("TutorMe.Models.Badge", b =>
+                {
+                    b.Navigation("UserBadges");
                 });
 
             modelBuilder.Entity("TutorMe.Models.Group", b =>
@@ -702,6 +764,8 @@ namespace TutorMe.Migrations
                     b.Navigation("RequestsTutee");
 
                     b.Navigation("RequestsTutor");
+
+                    b.Navigation("UserBadges");
 
                     b.Navigation("UserEvents");
 
