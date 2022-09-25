@@ -13,6 +13,8 @@ import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/pages/badges.dart';
 import 'package:tutor_me/src/pages/book_for_tutor.dart';
 import 'package:tutor_me/src/pages/calendar.dart';
+import 'package:tutor_me/src/pages/woah_factor.dart';
+import 'package:tutor_me/src/pages/woah_factor_nav.dart';
 import '../../services/models/globals.dart';
 import '../../services/models/groups.dart';
 import '../../services/models/users.dart';
@@ -42,11 +44,16 @@ class _HomeState extends State<Home> {
       gridCount = 2;
     }
 
+    int meetings = 2;
+    int connections = 3;
+    int interactions = 4;
+    int ratings = 2;
+
     return Scaffold(
         body: ListView(
       padding: EdgeInsets.zero,
       children: <Widget>[
-        buildBody(),
+        buildBody(meetings, connections, interactions, ratings),
         // buildBody(),
       ],
     ));
@@ -133,10 +140,10 @@ class _HomeState extends State<Home> {
   int key = 0;
 
   Map<String, double> dataMap = {
-    "Meetings - 2": 2,
-    "Connections - 3": 3,
+    "Meetings": 2,
+    "Connections": 3,
     "Interactions - 2": 2,
-    "Ratings - 2": 2,
+    "Ratings": 2,
   };
 
   List<Color> chartColorList = [
@@ -210,7 +217,8 @@ class _HomeState extends State<Home> {
     getUserType();
   }
 
-  Widget buildBody() {
+  Widget buildBody(
+      int meetings, int connections, int interactions, int ratings) {
     final provider = Provider.of<ThemeProvider>(context, listen: false);
     // Color appBarColor1;
     // Color appBarColor2;
@@ -420,10 +428,24 @@ class _HomeState extends State<Home> {
                 style: TextStyle(
                     fontSize: screenHeightSize * 0.025, color: textColor),
               ),
-              Text(
-                "more info",
-                style: TextStyle(color: highlightColor),
-                overflow: TextOverflow.ellipsis,
+              TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => WoahFactorNav(
+                          meetings: meetings,
+                          connections: connections,
+                          interactions: interactions,
+                          ratings: ratings),
+                    ),
+                  );
+                },
+                child: Text(
+                  "more info",
+                  style: TextStyle(color: highlightColor),
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
             ],
           ),
@@ -482,7 +504,9 @@ class _HomeState extends State<Home> {
                       } else if (index == 4) {
                         //render Badges Page
                         Navigator.of(context).push(MaterialPageRoute(
-                            builder: (BuildContext context) => const Badges()));
+                            builder: (BuildContext context) => Badges(
+                                  globals: widget.globals,
+                                )));
                       } else if (index == 2) {
                         //render Calendar Page
                         Navigator.of(context).push(MaterialPageRoute(
