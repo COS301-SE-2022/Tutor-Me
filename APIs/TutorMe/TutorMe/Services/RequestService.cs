@@ -1,5 +1,6 @@
 ﻿using TutorMe.Data;
 using TutorMe.Models;
+using TutorMe.Entities;
 
 namespace TutorMe.Services
 {
@@ -7,7 +8,7 @@ namespace TutorMe.Services
     {
         IEnumerable<Request> GetAllRequests();
         Request GetRequestById(Guid id);
-        Guid createRequest(Request request);
+        Guid createRequest(IRequest request);
         bool deleteRequestById(Guid id);
         Request GetRequestByTutorById(Guid id);
         Request GetRequestByTuteeById(Guid id);
@@ -47,14 +48,19 @@ namespace TutorMe.Services
             var request = _context.Request.FirstOrDefault(e => e.TuteeId == id);
             return request;
         } 
-        public Guid createRequest(Request request)
+        public Guid createRequest(IRequest request)
         {
             if (_context.Request.Where(e => e.ModuleId == request.ModuleId && e.TuteeId == request.TuteeId && e.TutorId == request.TutorId).Any())
             {
                 throw new KeyNotFoundException("This Request already exists, Please log in");
             }
-            request.RequestId = Guid.NewGuid();
-            _context.Request.Add(request);
+            var newRequest = new Request();
+            newRequest.RequestId = Guid.NewGuid();
+            newRequest.TuteeId = request.TuteeId;
+            newRequest.TutorId = request.TutorId;
+            newRequest.ModuleId = request.ModuleId;
+            newRequest.DateCreated = DateTime.Now.ToString();
+            _context.Request.Add(newRequest);
             _context.SaveChanges();
             return request.RequestId;
         }

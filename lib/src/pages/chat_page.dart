@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:math';
 
 import 'package:provider/provider.dart';
 import 'package:tutor_me/services/models/groups.dart';
@@ -38,14 +37,6 @@ class _ChatPageState extends State<ChatPage> {
   void initState() {
     super.initState();
     openSignalRConnection();
-    createRandomId();
-  }
-
-  int currentUserId = 0;
-  //generate random user id
-  createRandomId() {
-    Random random = Random();
-    currentUserId = random.nextInt(999999);
   }
 
   String removeMessageExtraChar(String userText) {
@@ -71,7 +62,7 @@ class _ChatPageState extends State<ChatPage> {
     await connection.invoke('SendMessageToGroup', args: [
       widget.group.getId,
       widget.globals.getUser.getName,
-      currentUserId,
+      widget.globals.getUser.getId,
       messageText
     ]);
     messageTextController.text = "";
@@ -91,10 +82,8 @@ class _ChatPageState extends State<ChatPage> {
     Color secondaryColor;
 
     if (provider.themeMode == ThemeMode.dark) {
- 
       secondaryColor = colorLightGrey;
     } else {
-   
       secondaryColor = colorWhite;
     }
 
@@ -107,8 +96,8 @@ class _ChatPageState extends State<ChatPage> {
         child: Column(
           children: [
             chatAppbarWidget(size, context, widget.moduleCode),
-            chatMessageWidget(
-                chatListScrollController, messageModel, currentUserId),
+            chatMessageWidget(chatListScrollController, messageModel,
+                widget.globals.getUser.getId),
             chatTypeMessageWidget(messageTextController, submitMessageFunction)
           ],
         ),
@@ -119,8 +108,8 @@ class _ChatPageState extends State<ChatPage> {
   //set url and configs
   final connection = HubConnectionBuilder()
       .withUrl(
-          // 'http://tutormechatapi-prod.us-east-1.elasticbeanstalk.com/chatHub',
-          'http://192.168.42.155:500/chatHub',
+          'http://tutormechathub.us-east-1.elasticbeanstalk.com/chatHub',
+          // 'http://192.168.42.155:500/chatHub',
           HttpConnectionOptions())
       .build();
 
@@ -134,7 +123,7 @@ class _ChatPageState extends State<ChatPage> {
       widget.moduleCode,
       widget.group.getId,
       widget.globals.getUser.getName,
-      currentUserId
+      widget.globals.getUser.getId
     ]);
   }
 
