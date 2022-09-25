@@ -6,15 +6,15 @@ import 'package:tutor_me/src/colorpallete.dart';
 import '../../services/services/user_services.dart';
 import '../components.dart';
 
-class DeleteAdmin extends StatefulWidget {
+class DeleteUser extends StatefulWidget {
   final Globals globals;
-  const DeleteAdmin({Key? key, required this.globals}) : super(key: key);
+  const DeleteUser({Key? key, required this.globals}) : super(key: key);
 
   @override
-  DeleteAdminState createState() => DeleteAdminState();
+  DeleteUserState createState() => DeleteUserState();
 }
 
-class DeleteAdminState extends State<DeleteAdmin> {
+class DeleteUserState extends State<DeleteUser> {
   final FocusNode idFocusNode = FocusNode();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final TextEditingController idcontroller = TextEditingController();
@@ -61,7 +61,7 @@ class DeleteAdminState extends State<DeleteAdmin> {
               const Flexible(
                 child: Center(
                   child: Text(
-                    'Enter ID of Admin',
+                    'Enter ID of User',
                     style: TextStyle(
                       color: colorWhite,
                       fontSize: 40,
@@ -114,7 +114,7 @@ class DeleteAdminState extends State<DeleteAdmin> {
                   onPressed: () async {
                     String errMsg = "";
                     if (idcontroller.text.isEmpty) {
-                      errMsg += "Please fill in the Admins ID \n";
+                      errMsg += "Please fill in the Users ID \n";
                     }
 
                     if (errMsg != "") {
@@ -156,7 +156,7 @@ class DeleteAdminState extends State<DeleteAdmin> {
                         return AlertDialog(
                           title: const Text("Success"),
                           content:
-                              Text("Admin " + idcontroller.text + " Deleted"),
+                              Text("User " + idcontroller.text + " Deleted"),
                           backgroundColor: colorWhite,
                           titleTextStyle: TextStyle(
                             color: colorBlack,
@@ -180,7 +180,7 @@ class DeleteAdminState extends State<DeleteAdmin> {
                   },
                   child: isLoading
                       ? const CircularProgressIndicator(color: Colors.white)
-                      : const Text("Delete Admin",
+                      : const Text("Delete User",
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,

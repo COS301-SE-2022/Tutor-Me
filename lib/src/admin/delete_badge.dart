@@ -1,20 +1,21 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
 
 import 'package:flutter/material.dart';
-import 'package:tutor_me/services/models/globals.dart';
 import 'package:tutor_me/src/colorpallete.dart';
-import '../../services/services/user_services.dart';
+import '../../services/models/globals.dart';
+import '../../services/services/admin_services.dart';
 import '../components.dart';
 
-class DeleteTutor extends StatefulWidget {
-  final Globals globals;
-  const DeleteTutor({Key? key, required this.globals}) : super(key: key);
+class DeleteBadge extends StatefulWidget {
+  final Globals global;
+
+  const DeleteBadge({Key? key, required this.global}) : super(key: key);
 
   @override
-  DeleteTutorState createState() => DeleteTutorState();
+  DeleteBadgeState createState() => DeleteBadgeState();
 }
 
-class DeleteTutorState extends State<DeleteTutor> {
+class DeleteBadgeState extends State<DeleteBadge> {
   final FocusNode idFocusNode = FocusNode();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final TextEditingController idcontroller = TextEditingController();
@@ -61,7 +62,7 @@ class DeleteTutorState extends State<DeleteTutor> {
               const Flexible(
                 child: Center(
                   child: Text(
-                    'Enter ID of Tutor',
+                    'Enter ID of Badge',
                     style: TextStyle(
                       color: colorWhite,
                       fontSize: 40,
@@ -114,7 +115,7 @@ class DeleteTutorState extends State<DeleteTutor> {
                   onPressed: () async {
                     String errMsg = "";
                     if (idcontroller.text.isEmpty) {
-                      errMsg += "Please fill in the Tutors ID \n";
+                      errMsg += "Please fill in the Badges ID \n";
                     }
 
                     if (errMsg != "") {
@@ -149,14 +150,14 @@ class DeleteTutorState extends State<DeleteTutor> {
                         },
                       );
                     }
-                    UserServices.deleteUser(idcontroller.text, widget.globals);
+                    AdminServices.deleteBadge(idcontroller.text, widget.global);
                     showDialog(
                       context: context,
                       builder: (context) {
                         return AlertDialog(
                           title: const Text("Success"),
                           content:
-                              Text("Tutor " + idcontroller.text + " Deleted"),
+                              Text("Badge " + idcontroller.text + " Deleted"),
                           backgroundColor: colorWhite,
                           titleTextStyle: TextStyle(
                             color: colorBlack,
@@ -180,7 +181,7 @@ class DeleteTutorState extends State<DeleteTutor> {
                   },
                   child: isLoading
                       ? const CircularProgressIndicator(color: Colors.white)
-                      : const Text("Delete Tutor",
+                      : const Text("Delete Badge",
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
