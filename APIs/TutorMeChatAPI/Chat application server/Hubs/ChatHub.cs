@@ -7,37 +7,37 @@ namespace Chat_application_server.Hubs
 {
     public class ChatHub : Hub
     {
-        public async Task SendMessage(string UserName, int RandomUserId, string Message)
+        public async Task SendMessage(string UserName, string UserId, string Message)
         {
             MessageModel MessageModel = new MessageModel
             {
                 CreateDate = DateTime.Now,
                 MessageText = Message,
-                UserId = RandomUserId,
+                UserId = UserId,
                 UserName = UserName
             };
             await Clients.All.SendAsync("ReceiveMessage", MessageModel);
         }
 
-        public async Task JoinUSer(string userName,int userId)
+        public async Task JoinUSer(string userName,string userId)
         {
             MessageModel MessageModel = new MessageModel
             {
                 CreateDate = DateTime.Now,
                 MessageText = userName + " joined chat",
-                UserId = 0,
+                UserId = "0",
                 UserName = "system"
             };
             await Clients.All.SendAsync("ReceiveMessage", MessageModel);
         }
 
-        public Task JoinGroup(string groupName, string groupId, string userName,int userId)
+        public Task JoinGroup(string groupName, string groupId, string userName,string userId)
         {
             MessageModel MessageModel = new MessageModel
             {
                 CreateDate = DateTime.Now,
                 MessageText = userName + " joined " + groupName,
-                UserId = 0,
+                UserId = "0",
                 UserName = "system"
             };
             Clients.Group(groupId).SendAsync("ReceiveMessage", MessageModel);
@@ -51,7 +51,7 @@ namespace Chat_application_server.Hubs
             {
                 CreateDate = DateTime.Now,
                 MessageText = userName + " is online",
-                UserId = 0,
+                UserId = "0",
                 UserName = "system"
             };
             string groupId = "";
@@ -68,7 +68,7 @@ namespace Chat_application_server.Hubs
             return Groups.AddToGroupAsync(Context.ConnectionId, groupId);
         }
 
-        public Task SendMessageToChat(string userId, string receiverID, string UserName, int RandomUserId, string Message)
+        public Task SendMessageToChat(string userId, string receiverID, string UserName, string Message)
         {
             string groupId = "";
             if (String.Compare(userId, receiverID, StringComparison.Ordinal) < 0)
@@ -83,19 +83,19 @@ namespace Chat_application_server.Hubs
             {
                 CreateDate = DateTime.Now,
                 MessageText = Message,
-                UserId = RandomUserId,
+                UserId = userId,
                 UserName = UserName
             };
             return Clients.Group(groupId).SendAsync("ReceiveMessage", MessageModel);
         }
     
-        public Task SendMessageToGroup(string groupId, string UserName, int RandomUserId, string Message)
+        public Task SendMessageToGroup(string groupId, string UserName, string UserId, string Message)
         {
             MessageModel MessageModel = new MessageModel
             {
                 CreateDate = DateTime.Now,
                 MessageText = Message,
-                UserId = RandomUserId,
+                UserId = UserId,
                 UserName = UserName
             };
             return Clients.Group(groupId).SendAsync("ReceiveMessage", MessageModel);

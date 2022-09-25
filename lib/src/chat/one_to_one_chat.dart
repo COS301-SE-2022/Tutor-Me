@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:math';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -44,14 +43,6 @@ class ChatState extends State<Chat> {
   void initState() {
     super.initState();
     openSignalRConnection();
-    createRandomId();
-  }
-
-  int currentUserId = 0;
-  //generate random user id
-  createRandomId() {
-    Random random = Random();
-    currentUserId = random.nextInt(999999);
   }
 
   String removeMessageExtraChar(String userText) {
@@ -78,7 +69,6 @@ class ChatState extends State<Chat> {
       widget.globals.getUser.getId,
       widget.reciever.getId,
       widget.globals.getUser.getName,
-      currentUserId,
       messageText
     ]);
     messageTextController.text = "";
@@ -156,8 +146,8 @@ class ChatState extends State<Chat> {
         width: size.width,
         child: Column(
           children: [
-            chatMessageWidget(
-                chatListScrollController, messageModel, currentUserId),
+            chatMessageWidget(chatListScrollController, messageModel,
+                widget.globals.getUser.getId),
             chatTypeMessageWidget(messageTextController, submitMessageFunction)
           ],
         ),
@@ -168,8 +158,8 @@ class ChatState extends State<Chat> {
   //set url and configs
   final connection = HubConnectionBuilder()
       .withUrl(
-          // 'http://tutormechatapi-prod.us-east-1.elasticbeanstalk.com/chatHub',
-          'http://192.168.42.155:500/chatHub',
+          'http://tutormechathub.us-east-1.elasticbeanstalk.com/chatHub',
+          // 'http://192.168.42.155:500/chatHub',
           HttpConnectionOptions())
       .build();
 

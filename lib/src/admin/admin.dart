@@ -19,8 +19,11 @@ class Admin extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double widthOfScreen = MediaQuery.of(context).size.width;
-    int crossAxis = 2;
-    if (widthOfScreen < 500.0) {
+    int crossAxis = 5;
+
+    if (widthOfScreen < 900.0 && widthOfScreen >= 500.0) {
+      crossAxis = 3;
+    } else if (widthOfScreen < 500.0) {
       crossAxis = 2;
     } else {
       crossAxis = 5;
@@ -337,7 +340,7 @@ class Admin extends StatelessWidget {
                 children: <Widget>[
                   Image.asset(
                     "assets/Pictures/institution.png",
-                    width: 92,
+                    width: 60,
                   ),
                   const SizedBox(
                     height: 14,
