@@ -244,6 +244,47 @@ namespace Tests.IntegrationTests
 
             }
         }
+        
+        [Fact]
+        public async Task GetInstitutionById_InstitutionNotFound()
+        {
+            //Arrange
+            await InitializeToken();
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+            var testInstitution = new Institution()
+            {
+                Name = Guid.NewGuid().ToString(),
+                Location = "Hatfield"
+
+            };
+            var testInstitution2 = new Institution()
+            {
+
+                Name = Guid.NewGuid().ToString(),
+                Location = "Freestate"
+
+            };
+            var testInstitution3 = new Institution()
+            {
+                Name = Guid.NewGuid().ToString(),
+
+                Location = "Johannesburg"
+
+            };
+            await _httpClient.PostAsJsonAsync("https://localhost:7100/api/Institutions", testInstitution);
+            await _httpClient.PostAsJsonAsync("https://localhost:7100/api/Institutions", testInstitution2);
+            await _httpClient.PostAsJsonAsync("https://localhost:7100/api/Institutions", testInstitution3);
+
+            //Act
+            var id = Guid.NewGuid(); //Institution that does not exist
+            var response = await _httpClient.GetAsync("https://localhost:7100/api/Institutions/" + id);
+
+            //Assert
+            Assert.NotNull(response);
+            Assert.Equal(404, (double)response.StatusCode);
+        }
+
     }
 
 
