@@ -1,16 +1,21 @@
 import 'package:tutor_me/services/models/users.dart';
 
+import '../../src/pages/badges.dart';
+import '../services/badges_services.dart';
+import 'badges.dart';
+
 class Globals {
   late Users _user;
   String _filesUrl = 'tutormefilesystem-dev.us-east-1.elasticbeanstalk.com';
   String _tutorMeUrl = 'tutormeapi-dev.us-east-1.elasticbeanstalk.com';
   String _token = 'Bearer ';
   String _refreshToken = '';
+  List<Badge> badges = [];
 
   late Map<String, String> header;
 
   Globals(Users? user, String token, String refreshToken) {
-    if(user!=null){
+    if (user != null) {
       _user = user;
     }
     _token += token;
@@ -29,6 +34,7 @@ class Globals {
   Map<String, String> get getHeader => header;
   String get getToken => _token;
   String get getRefreshToken => _refreshToken;
+  List<Badge> get getBadges => badges;
 
   set setUser(Users user) {
     _user = user;
@@ -49,9 +55,13 @@ class Globals {
   set setToken(String token) {
     _token = token;
   }
-  
-  set setRefreshToken(String refreshToken){
+
+  set setRefreshToken(String refreshToken) {
     _refreshToken = refreshToken;
+  }
+
+  getAllBadges()async{
+      badges = await BadgesServices.getAllBages(this);
   }
 
   Globals.fromJson(Map<String, dynamic> json) {
@@ -69,7 +79,7 @@ class Globals {
     data['filesUrl'] = _filesUrl;
     data['token'] = _token;
     data['refreshToken'] = _refreshToken;
-   
+
     return data;
   }
 }
