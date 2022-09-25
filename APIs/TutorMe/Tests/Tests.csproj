@@ -28,5 +28,8 @@
     <ItemGroup>
       <ProjectReference Include="..\TutorMe\TutorMe.csproj" />
     </ItemGroup>
+    <ItemGroup>
+    <Content Include="appsettings.json" CopyToOutputDirectory="PreserveNewest" />
+    </ItemGroup>
 
 </Project>
