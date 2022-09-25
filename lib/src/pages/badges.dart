@@ -20,6 +20,9 @@ class Badges extends StatefulWidget {
 class _PageState extends State<Badges> {
   List<Badge> allBadges = List<Badge>.empty(growable: true);
   bool isLoading = true;
+  List<String> titles = List<String>.empty(growable: true);
+  List<String> descriptions = List<String>.empty(growable: true);
+  List<String> images = List<String>.empty(growable: true);
 
   getAllBadges() async {
     log("bbi ");
@@ -28,6 +31,37 @@ class _PageState extends State<Badges> {
       var badges = await BadgesServices.getAllBages(widget.globals);
       allBadges = badges;
       log("bbi " + badges.toString());
+
+      for (int i = 0; i < allBadges.length; i++) {
+        titles.add(allBadges[i].getName);
+      }
+
+      for (int i = 0; i < allBadges.length; i++) {
+        descriptions.add(allBadges[i].getDescription);
+      }
+
+      log("mmm " + allBadges.length.toString());
+      for (int i = 0; i < allBadges.length; i++) {
+        if (titles[i].contains("connect")) {
+          log("connext " + titles[i]);
+          images.add("assets/Pictures/badges/connections.png");
+        } else if (titles[i].contains("streak") ||
+            titles[i].contains("conse")) {
+          log("streak " + titles[i]);
+
+          images.add("assets/Pictures/badges/streak.png");
+        } else if (titles[i].contains("rat")) {
+          log("rat " + titles[i]);
+
+          images.add("assets/Pictures/badges/rating.png");
+        } else {
+          log("j " + titles[i]);
+
+          images.add("assets/Pictures/badges/star.png");
+        }
+      }
+
+      log("message " + images.toString());
     } catch (e) {
       log(e.toString());
     }
@@ -46,14 +80,16 @@ class _PageState extends State<Badges> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: ListView(
-      padding: EdgeInsets.zero,
-      children: <Widget>[
-        topDesign(),
-        buildBody(allBadges),
-        // buildBody(),
-      ],
-    ));
+        body: (isLoading
+            ? Center(child: CircularProgressIndicator())
+            : ListView(
+                padding: EdgeInsets.zero,
+                children: <Widget>[
+                  topDesign(),
+                  buildBody(allBadges),
+                  // buildBody(),
+                ],
+              )));
   }
 
   Widget topDesign() {
@@ -121,23 +157,6 @@ class _PageState extends State<Badges> {
     final myBages = [
       "Registered",
     ];
-
-    List<String> titles = List<String>.empty(growable: true);
-    List<String> descriptions = List<String>.empty(growable: true);
-    List<String> images = List<String>.empty(growable: true);
-
-    for (int i = 0; i < allBadges.length; i++) {
-      titles.add(allBadges[i].getName);
-    }
-
-    for (int i = 0; i < allBadges.length; i++) {
-      descriptions.add(allBadges[i].getDescription);
-    }
-
-    for (int i = 0; i < allBadges.length; i++) {
-      images.add(allBadges[i].getImage);
-    }
-    if (images.length > 0) log(images[0] + " images");
 
     //   "10 Consecutive Days",
     //   "Attend 5 Meetings",
@@ -268,7 +287,7 @@ class _PageState extends State<Badges> {
                                             topRight: Radius.circular(10)),
                                         image: DecorationImage(
                                           image: AssetImage(
-                                            "assets\Pictures\badges\star.png",
+                                            "assets/Pictures/badges/star.png",
                                           ),
                                           fit: BoxFit.cover,
                                         ),
@@ -324,7 +343,7 @@ class _PageState extends State<Badges> {
                   padding: EdgeInsets.only(
                       left: MediaQuery.of(context).size.width * 0.05),
                   child: SizedBox(
-                    height: screenHeightSize * 0.9,
+                    height: screenHeightSize * 1.95,
                     width: screenWidthSize * 1,
                     child: GridView.count(
                       childAspectRatio: 1,
@@ -361,6 +380,11 @@ class _PageState extends State<Badges> {
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: <Widget>[
+                                              SizedBox(
+                                                  height: MediaQuery.of(context)
+                                                          .size
+                                                          .height *
+                                                      0.02),
                                               Container(
                                                 height: screenHeightSize * 0.07,
                                                 width: screenWidthSize * 0.4,
@@ -375,26 +399,32 @@ class _PageState extends State<Badges> {
                                                                   10)),
                                                   image: DecorationImage(
                                                     image: AssetImage(
+                                                      // "assets/Pictures/badges/streak.png",
                                                       images[index],
                                                     ),
                                                     fit: BoxFit.cover,
                                                   ),
                                                 ),
                                               ),
-                                              Padding(
-                                                padding: EdgeInsets.only(
-                                                  left: screenWidthSize * 0.01,
-                                                  right: screenWidthSize * 0.01,
-                                                ),
-                                                child: Text(
-                                                  titles[index],
-                                                  style: TextStyle(
-                                                      color: textColor,
-                                                      fontSize:
-                                                          screenHeightSize *
-                                                              0.02,
-                                                      fontWeight:
-                                                          FontWeight.w500),
+                                              Center(
+                                                child: Padding(
+                                                  padding: EdgeInsets.only(
+                                                    top: screenWidthSize * 0.01,
+                                                    left:
+                                                        screenWidthSize * 0.01,
+                                                    right:
+                                                        screenWidthSize * 0.01,
+                                                  ),
+                                                  child: Text(
+                                                    titles[index],
+                                                    style: TextStyle(
+                                                        color: textColor,
+                                                        fontSize:
+                                                            screenHeightSize *
+                                                                0.02,
+                                                        fontWeight:
+                                                            FontWeight.w500),
+                                                  ),
                                                 ),
                                               ),
                                             ],

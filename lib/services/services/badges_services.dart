@@ -94,4 +94,33 @@ class BadgesServices {
       throw Exception('Failed to refresh token');
     }
   }
+
+  addUserBadge(String Id, Globals globals) async {
+    try {
+
+      String data  = jsonEncode({"userBadgeId": Id, "userId": globals.getUser.getId,'badgeId':'',"pointAchieved":0});
+      Uri badgesURL = Uri.http(globals.getTutorMeUrl, '/api/UserBadges/');
+
+      var response = await http.post(badgesURL, headers: globals.getHeader);
+
+      if (response.statusCode == 200) {
+        String j = "";
+        if (response.body[0] != "[") {
+          j = "[" + response.body + "]";
+        } else {
+          j = response.body;
+        }
+        final List list = json.decode(j);
+
+        return list.map((json) => Badge.fromObject(json)).toList();
+      } else if (response.statusCode == 401) {
+        globals = await refreshToken(globals);
+        return await addUserBadge(Id, globals);
+      } else {
+        throw Exception('Failed to load');
+      }
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
 }
