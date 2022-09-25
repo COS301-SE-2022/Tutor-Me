@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:pie_chart/pie_chart.dart';
 import 'package:provider/provider.dart';
 import 'package:tutor_me/constants/colors.dart';
+import 'package:tutor_me/services/models/user_badges.dart';
+import 'package:tutor_me/services/services/badges_services.dart';
 import 'package:tutor_me/services/services/group_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/pages/badges.dart';
@@ -15,9 +17,11 @@ import 'package:tutor_me/src/pages/book_for_tutor.dart';
 import 'package:tutor_me/src/pages/calendar.dart';
 import 'package:tutor_me/src/pages/woah_factor.dart';
 import 'package:tutor_me/src/pages/woah_factor_nav.dart';
+import '../../services/models/badges.dart';
 import '../../services/models/globals.dart';
 import '../../services/models/groups.dart';
 import '../../services/models/users.dart';
+import '../../services/services/user_badges.dart';
 import '../../services/services/user_services.dart';
 import '../theme/themes.dart';
 import '../tutorAndTuteeCollaboration/tuteeGroups/home_tutee_groups.dart';
@@ -33,6 +37,103 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   var gridCount = 0;
+  List<Badge> allBadges = List.empty(growable: true);
+  List<UserBadge> userBadges = List.empty(growable: true);
+  List<String> userBadgeIds = List.empty(growable: true);
+  List<String> userBadgeNames = List.empty(growable: true);
+  bool isLoading = true;
+  int numBadges = -1;
+
+  getAllEarnedBadges() async {
+    try {
+      var badges = await UserBadges.getAllUserBadgesByUserId(widget.globals);
+
+      userBadges = badges;
+
+      log(userBadges.length.toString());
+
+      log("user badges: " + userBadges.toString());
+      log("all badges: " + allBadges.toString());
+
+      for (int x = 0; x < userBadges.length; x++) {
+        allBadges.removeWhere((badge) =>
+            badge.getBadgeId == userBadges[x].getBadgeId &&
+            badge.getPointsToAchieve <= userBadges[x].getPointAchieved);
+      }
+
+      for (var allBadge in allBadges) {
+        userBadges.removeWhere((userBadge) =>
+            userBadge.getBadgeId == allBadge.getBadgeId &&
+            userBadge.getPointAchieved <= allBadge.getPointsToAchieve);
+      }
+
+      for (int i = 0; i < userBadges.length; i++) {
+        userBadgeIds.add(userBadges[i].getBadgeId);
+      }
+
+      for (int i = 0; i < widget.globals.getBadges.length; i++) {
+        for (int j = 0; j < userBadgeIds.length; j++) {
+          if (widget.globals.getBadges[i].getBadgeId == userBadgeIds[j]) {
+            userBadgeNames.add(widget.globals.getBadges[i].getName);
+          }
+        }
+      }
+
+      numBadges = userBadgeNames.length;
+      setState(() {
+        numBadges = userBadgeNames.length;
+      });
+    } catch (e) {
+      log(e.toString());
+    }
+
+    getUserType();
+  }
+
+  getAllBadges() async {
+    try {
+      var badges = await BadgesServices.getAllBages(widget.globals);
+      allBadges = badges;
+      List<String> titles = List.empty(growable: true);
+      List<String> images = List.empty(growable: true);
+
+      for (int i = 0; i < allBadges.length; i++) {
+        titles.add(allBadges[i].getName);
+      }
+
+      for (int i = 0; i < allBadges.length; i++) {
+        if (titles[i].contains("connect")) {
+          log("connext " + titles[i]);
+          images.add("assets/Pictures/badges/connections.png");
+        } else if (titles[i].contains("streak") ||
+            titles[i].contains("conse")) {
+          log("streak " + titles[i]);
+
+          images.add("assets/Pictures/badges/streak.png");
+        } else if (titles[i].contains("rat")) {
+          log("rat " + titles[i]);
+
+          images.add("assets/Pictures/badges/rating.png");
+        } else {
+          log("j " + titles[i]);
+
+          images.add("assets/Pictures/badges/star.png");
+        }
+      }
+
+      log("message " + images.toString());
+    } catch (e) {
+      log(e.toString());
+    }
+
+    getAllEarnedBadges();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getAllBadges();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -88,16 +189,25 @@ class _HomeState extends State<Home> {
 
   void getGroupCount() async {
     try {
-      groups = await GroupServices.getGroupByUserID(
-          widget.globals.getUser.getId, widget.globals);
+      if (widget.globals.getUser.getUserTypeID[0] == '9') {
+        groups = await GroupServices.getTutorGroupByUserID(
+            widget.globals.getUser.getId, widget.globals);
+      } else {
+        groups = await GroupServices.getTuteeGroupByUserID(
+            widget.globals.getUser.getId, widget.globals);
+      }
       numGroups = groups.length;
 
       setState(() {
-        numGroups = groups.length;
+        log("groups lemdth " + numGroups.toString());
+        numGroups = numGroups;
       });
     } catch (e) {
       log(e.toString());
     }
+    setState(() {
+      isLoading = false;
+    });
   }
 
   void getConnections() async {
@@ -211,12 +321,6 @@ class _HomeState extends State<Home> {
     );
   }
 
-  @override
-  void initState() {
-    super.initState();
-    getUserType();
-  }
-
   Widget buildBody(
       int meetings, int connections, int interactions, int ratings) {
     final provider = Provider.of<ThemeProvider>(context, listen: false);
@@ -265,21 +369,34 @@ class _HomeState extends State<Home> {
         "Badges",
       ];
     }
-    var numberStats = [
-      "more info",
-      "1",
-      "more info",
-      "3",
-      "1",
-    ];
 
-    if (numGroups != -1 && numConnections != -1) {
+    var numberStats;
+
+    if (numBadges == -1) {
+      numberStats = [
+        "more info",
+        "1",
+        "more info",
+        "0",
+        "1",
+      ];
+    } else {
+      numberStats = [
+        "more info",
+        "1",
+        "more info",
+        numBadges.toString(),
+        numConnections.toString(),
+      ];
+    }
+
+    if (numGroups != -1 || numConnections != -1 || numBadges != -1) {
       numberStats = [
         "more info",
         numGroups.toString(),
         "more info",
         numConnections.toString(),
-        "1",
+        numBadges.toString(),
       ];
     }
 
@@ -347,7 +464,7 @@ class _HomeState extends State<Home> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          "  " + typeUser,
+                          " " + typeUser,
                           style: TextStyle(
                             color: highlightColor,
                             fontSize: MediaQuery.of(context).size.height * 0.02,
