@@ -1,5 +1,7 @@
 import 'dart:developer';
 
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
@@ -137,6 +139,81 @@ class AdminServices {
         return global;
       } else {
         throw Exception('Failed to post ' + response.statusCode.toString());
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  static addBadge(
+    String name,
+    String description,
+    String image,
+    int points,
+    int pointsToAchieve,
+    Globals global,
+  ) async {
+    final modulesURL = Uri.parse('http://${global.getTutorMeUrl}/api/Badges/');
+
+    String data = jsonEncode({
+      'badgeId': "100df4b2-6f8d-440d-9033-93a1efed1533",
+      'name': name,
+      'description': description,
+      'image': image,
+      'points': points,
+      'pointsToAchieve': pointsToAchieve,
+    });
+
+    try {
+      final response =
+          await http.post(modulesURL, headers: global.header, body: data);
+      if (response.statusCode == 200) {
+        log(response.body);
+        return true;
+      } else if (response.statusCode == 401) {
+        return await addBadge(
+            name, description, image, points, pointsToAchieve, global);
+      } else {
+        throw Exception(
+            'Failed to send request. Please make sure your internet connect is on and try again ' +
+                response.statusCode.toString());
+      }
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  static deleteBadge(String id, Globals global) async {
+    try {
+      final usersURL =
+          Uri.parse('http://${global.getTutorMeUrl}/api/Badges/$id');
+      final response = await http.delete(usersURL, headers: global.getHeader);
+      log(response.body);
+      if (response.statusCode == 200 ||
+          response.statusCode == 202 ||
+          response.statusCode == 204) {
+        Fluttertoast.showToast(
+            msg: "Badge Deleted",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.orange,
+            textColor: Colors.white,
+            fontSize: 16.0);
+      } else if (response.statusCode == 401) {
+        global = await refreshToken(global);
+        return await deleteBadge(id, global);
+      } else {
+        Fluttertoast.showToast(
+            msg: "Failed to delete Badge",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.grey,
+            textColor: Colors.white,
+            fontSize: 16.0);
+        throw Exception(
+            'Failed to delete Badge' + response.statusCode.toString());
       }
     } catch (e) {
       rethrow;

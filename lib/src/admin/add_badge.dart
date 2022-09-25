@@ -1,24 +1,28 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
 
 import 'package:flutter/material.dart';
+import 'package:tutor_me/services/models/globals.dart';
 import 'package:tutor_me/src/colorpallete.dart';
-import '../../services/models/globals.dart';
-import '../../services/services/user_services.dart';
+import '../../services/services/admin_services.dart';
 import '../components.dart';
 
-class DeleteTutee extends StatefulWidget {
-  final Globals global;
-
-  const DeleteTutee({Key? key, required this.global}) : super(key: key);
+class AddBadge extends StatefulWidget {
+  final Globals globals;
+  const AddBadge({Key? key, required this.globals}) : super(key: key);
 
   @override
-  DeleteTuteeState createState() => DeleteTuteeState();
+  AddBadgeState createState() => AddBadgeState();
 }
 
-class DeleteTuteeState extends State<DeleteTutee> {
+class AddBadgeState extends State<AddBadge> {
   final FocusNode idFocusNode = FocusNode();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  final TextEditingController idcontroller = TextEditingController();
+  final TextEditingController namecontroller = TextEditingController();
+  final TextEditingController descriptioncontroller = TextEditingController();
+  final TextEditingController imagecontroller = TextEditingController();
+  final TextEditingController pointscontroller = TextEditingController();
+  final TextEditingController pointstoachievecontroller =
+      TextEditingController();
 
   bool isLoading = false;
   @override
@@ -60,26 +64,7 @@ class DeleteTuteeState extends State<DeleteTutee> {
             backgroundColor: Colors.transparent,
             body: Column(children: [
               const Flexible(
-                child: Center(
-                  child: Text(
-                    'Enter ID of Tutee',
-                    style: TextStyle(
-                      color: colorWhite,
-                      fontSize: 40,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-              const Flexible(
-                child: Text(
-                  '',
-                  style: TextStyle(
-                    color: colorWhite,
-                    fontSize: 30,
-                    fontWeight: FontWeight.normal,
-                  ),
-                ),
+                child: Center(),
               ),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.04,
@@ -92,10 +77,50 @@ class DeleteTuteeState extends State<DeleteTutee> {
                     width: textBoxWidth,
                     child: TextInputField(
                       icon: Icons.perm_identity,
-                      hint: 'id',
+                      hint: 'Name of Badge',
                       inputType: TextInputType.text,
                       inputAction: TextInputAction.done,
-                      inputController: idcontroller,
+                      inputController: namecontroller,
+                    ),
+                  ),
+                  SizedBox(
+                    width: textBoxWidth,
+                    child: TextInputField(
+                      icon: Icons.perm_identity,
+                      hint: 'Description',
+                      inputType: TextInputType.text,
+                      inputAction: TextInputAction.done,
+                      inputController: descriptioncontroller,
+                    ),
+                  ),
+                  SizedBox(
+                    width: textBoxWidth,
+                    child: TextInputField(
+                      icon: Icons.perm_identity,
+                      hint: 'image',
+                      inputType: TextInputType.text,
+                      inputAction: TextInputAction.done,
+                      inputController: imagecontroller,
+                    ),
+                  ),
+                  SizedBox(
+                    width: textBoxWidth,
+                    child: TextInputField(
+                      icon: Icons.perm_identity,
+                      hint: 'Points',
+                      inputType: TextInputType.number,
+                      inputAction: TextInputAction.done,
+                      inputController: pointscontroller,
+                    ),
+                  ),
+                  SizedBox(
+                    width: textBoxWidth,
+                    child: TextInputField(
+                      icon: Icons.perm_identity,
+                      hint: 'Points To Achieve',
+                      inputType: TextInputType.number,
+                      inputAction: TextInputAction.done,
+                      inputController: pointstoachievecontroller,
                     ),
                   ),
                 ],
@@ -114,9 +139,17 @@ class DeleteTuteeState extends State<DeleteTutee> {
                 child: TextButton(
                   onPressed: () async {
                     String errMsg = "";
-                    if (idcontroller.text.isEmpty) {
-                      errMsg += "Please fill in the Tutee's ID \n";
+                    if (namecontroller.text.isEmpty ||
+                        descriptioncontroller.text.isEmpty ||
+                        imagecontroller.text.isEmpty ||
+                        pointscontroller.text.isEmpty ||
+                        pointstoachievecontroller.text.isEmpty) {
+                      errMsg += "Please fill in all fields \n";
                     }
+
+                    int point = int.parse(pointscontroller.text);
+                    int pointstoachieve =
+                        int.parse(pointstoachievecontroller.text);
 
                     if (errMsg != "") {
                       setState(() {
@@ -150,14 +183,20 @@ class DeleteTuteeState extends State<DeleteTutee> {
                         },
                       );
                     }
-                    UserServices.deleteUser(idcontroller.text, widget.global);
+                    AdminServices.addBadge(
+                        namecontroller.text,
+                        descriptioncontroller.text,
+                        imagecontroller.text,
+                        point,
+                        pointstoachieve,
+                        widget.globals);
                     showDialog(
                       context: context,
                       builder: (context) {
                         return AlertDialog(
                           title: const Text("Success"),
                           content:
-                              Text("Tutee " + idcontroller.text + " Deleted"),
+                              Text("Badge " + namecontroller.text + " Created"),
                           backgroundColor: colorWhite,
                           titleTextStyle: TextStyle(
                             color: colorBlack,
@@ -181,7 +220,7 @@ class DeleteTuteeState extends State<DeleteTutee> {
                   },
                   child: isLoading
                       ? const CircularProgressIndicator(color: Colors.white)
-                      : const Text("Delete Tutee",
+                      : const Text("Add Badge",
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
