@@ -3,8 +3,8 @@ class Badge {
   String _name = "";
   String description = "";
   String _image = "";
-  String _points = "";
-  String _pointsToAchieve = "";
+  int _points = 0;
+  int _pointsToAchieve = 0;
 
   Badge(this._name, this.description, this._image, this._points,
       this._pointsToAchieve);
@@ -13,8 +13,8 @@ class Badge {
   String get getName => _name;
   String get getDescription => description;
   String get getImage => _image;
-  String get getPoints => _points;
-  String get getPointsToAchieve => _pointsToAchieve;
+  int get getPoints => _points;
+  int get getPointsToAchieve => _pointsToAchieve;
 
   set setBadgeId(String newBadgeId) {
     _badgeId = newBadgeId;
@@ -32,11 +32,11 @@ class Badge {
     _image = newImage;
   }
 
-  set setPoints(String newPoints) {
+  set setPoints(int newPoints) {
     _points = newPoints;
   }
 
-  set setPointsToAchieve(String newPointsToAchieve) {
+  set setPointsToAchieve(int newPointsToAchieve) {
     _pointsToAchieve = newPointsToAchieve;
   }
 
