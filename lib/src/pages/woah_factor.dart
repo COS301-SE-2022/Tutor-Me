@@ -67,9 +67,6 @@ class _WoahFactorState extends State<WoahFactor> {
             indent: MediaQuery.of(context).size.width * 0.1,
             endIndent: MediaQuery.of(context).size.width * 0.1,
           ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.01,
-          ),
           Row(
             children: [
               Padding(
@@ -174,6 +171,18 @@ class _WoahFactorState extends State<WoahFactor> {
                   ),
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.02,
+                  ),
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.arrow_right,
+                        color: colorOrange,
+                        size: MediaQuery.of(context).size.height * 0.04,
+                      ),
+                      const Flexible(
+                        child: Text("You have 4 tutees in total so far. "),
+                      ),
+                    ],
                   ),
                 ],
               ),
