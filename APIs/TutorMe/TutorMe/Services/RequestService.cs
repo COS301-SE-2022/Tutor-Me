@@ -10,8 +10,8 @@ namespace TutorMe.Services
         Request GetRequestById(Guid id);
         Guid createRequest(IRequest request);
         bool deleteRequestById(Guid id);
-        Request GetRequestByTutorById(Guid id);
-        Request GetRequestByTuteeById(Guid id);
+        IEnumerable<Request> GetRequestByTutorById(Guid id);
+        IEnumerable<Request> GetRequestByTuteeById(Guid id);
         bool AcceptRequestById(Guid id);
         bool RejectRequestById(Guid id);
     }
@@ -38,14 +38,14 @@ namespace TutorMe.Services
             }
             return request;
         }
-        public Request GetRequestByTutorById(Guid id)
+        public IEnumerable<Request> GetRequestByTutorById(Guid id)
         {
-            var request= _context.Request.FirstOrDefault(e => e.TutorId == id);
+            var request = _context.Request.Where(e => e.TutorId == id).ToList();
             return request;
         }
-        public Request GetRequestByTuteeById(Guid id)
+        public IEnumerable<Request> GetRequestByTuteeById(Guid id)
         {
-            var request = _context.Request.FirstOrDefault(e => e.TuteeId == id);
+            var request = _context.Request.Where(e => e.TuteeId == id).ToList();
             return request;
         } 
         public Guid createRequest(IRequest request)
