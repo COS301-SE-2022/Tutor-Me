@@ -130,7 +130,50 @@ namespace Tests.IntegrationTests
 
             Assert.Equal(0, Institutions.Count());
         }
+        
+        [Fact]
+        public async Task GetAllInstitutions_with_Institutions()
+        {
+            //Arrange
+            await InitializeToken();
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
+            var testInstitution = new Institution()
+            {
+                Name = Guid.NewGuid().ToString(),
+                Location = "Hatfield"
+
+            };
+            var testInstitution2 = new Institution()
+            {
+
+                Name =Guid.NewGuid().ToString(),
+                Location = "Freestate"
+
+            };
+            var testInstitution3 = new Institution()
+            {
+                Name = Guid.NewGuid().ToString(),
+
+                Location = "Johannesburg"
+
+            };
+
+            await _httpClient.PostAsJsonAsync("https://localhost:7100/api/Institutions", testInstitution);
+            await _httpClient.PostAsJsonAsync("https://localhost:7100/api/Institutions", testInstitution2);
+            await _httpClient.PostAsJsonAsync("https://localhost:7100/api/Institutions", testInstitution3);
+
+            //Act
+            var response = await _httpClient.GetAsync("http://localhost:7100/api/Institutions");
+
+            //Assert
+            Assert.NotNull(response);
+            Assert.Equal(200, (double)response.StatusCode);
+
+            var Institutions = await response.Content.ReadFromJsonAsync<List<Institution>>();
+            Assert.NotNull(Institutions);
+            Assert.Equal(3, Institutions.Count());
+        }
                 
     }
 
