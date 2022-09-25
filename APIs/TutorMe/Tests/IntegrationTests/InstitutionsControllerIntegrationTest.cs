@@ -174,6 +174,21 @@ namespace Tests.IntegrationTests
             Assert.NotNull(Institutions);
             Assert.Equal(3, Institutions.Count());
         }
+        [Fact]
+        public async Task GetInstitutionById_NoInstitution()
+        {
+            //Act
+            await InitializeToken();
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+            Guid id = Guid.NewGuid();
+            var response = await _httpClient.GetAsync("https://localhost:7100/api/Institutions/" + id);
+
+            //Assert
+            Assert.NotNull(response);
+            Assert.Equal(404, (double)response.StatusCode);
+
+        }
                 
     }
 
