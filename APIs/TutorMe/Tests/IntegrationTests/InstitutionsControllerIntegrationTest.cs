@@ -322,6 +322,65 @@ namespace Tests.IntegrationTests
 
             }
         }
+         // delete institution return 404
+        [Fact]
+        public async Task deleteInstitution_return_return_404()
+        {
+            //Arrange
+            await InitializeToken();
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+            var testInstitution = new Institution()
+            {
+                Name = Guid.NewGuid().ToString(),
+                Location = "Hatfield"
+
+            };
+
+             await _httpClient.PostAsJsonAsync("https://localhost:7100/api/Institutions", testInstitution);
+
+            //Act
+            // var idReadAsStringAsync = responseMessage.Content.ReadAsStringAsync().Result;
+            // var id= JsonConvert.DeserializeObject<Guid>(idReadAsStringAsync);
+            var id = Guid.NewGuid();
+            var response = await _httpClient.DeleteAsync("https://localhost:7100/api/Institutions/" + id);
+
+            //Assert
+            Assert.NotNull(response);
+            Assert.Equal(404, (double)response.StatusCode);
+
+
+        }
+
+        [Fact]
+        public async Task deleteInstitution_return_return_200()
+        {
+            //Arrange
+            await InitializeToken();
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+            var testInstitution = new Institution()
+            {
+                Name = Guid.NewGuid().ToString(),
+                Location = "Hatfield"
+
+            };
+
+            var responseMessage =
+                await _httpClient.PostAsJsonAsync("https://localhost:7100/api/Institutions", testInstitution);
+
+            //Act
+            var idReadAsStringAsync = responseMessage.Content.ReadAsStringAsync().Result;
+            var id = JsonConvert.DeserializeObject<Guid>(idReadAsStringAsync);
+
+            var response = await _httpClient.DeleteAsync("https://localhost:7100/api/Institutions/" + id);
+
+            //Assert
+            Assert.NotNull(response);
+            Assert.Equal(200, (double)response.StatusCode);
+
+
+        }
 
 
     }
