@@ -250,6 +250,7 @@ class BookingChatState extends State<BookingChat> {
 
   //connect to signalR
   Future<void> openSignalRConnection() async {
+    fetchToken().then((token) => setState(() => _token = token));
     await connection.start();
     connection.on('ReceiveMessage', (message) {
       _handleIncommingDriverLocation(message);
@@ -305,7 +306,6 @@ class BookingChatState extends State<BookingChat> {
   }
 
   Future<String> createMeeting() async {
-    var dotenv;
     final String? _VIDEOSDK_API_ENDPOINT = dotenv.env['VIDEOSDK_API_ENDPOINT'];
 
     final Uri getMeetingIdUrl = Uri.parse('$_VIDEOSDK_API_ENDPOINT/meetings');

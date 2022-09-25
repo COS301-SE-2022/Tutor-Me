@@ -6,7 +6,6 @@ import 'package:tutor_me/services/services/group_services.dart';
 import 'package:tutor_me/src/Groups/tutor_group.dart';
 
 import '../../../services/models/globals.dart';
-import '../../../services/services/module_services.dart';
 import '../../services/models/groups.dart';
 import '../../services/models/users.dart';
 import '../../services/services/user_services.dart';

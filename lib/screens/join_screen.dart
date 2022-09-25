@@ -11,6 +11,7 @@ import '../widgets/meeting_controls/meeting_action_button.dart';
 import 'meeting_screen.dart';
 
 // Join Screen
+// ignore: must_be_immutable
 class JoinScreen extends StatefulWidget {
   final String meetingId;
   final String token;

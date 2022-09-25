@@ -821,8 +821,7 @@ class UserServices {
 
   static updateTranscript(File? transcript, String id, Globals global) async {
     final transcriptByte = base64Encode(transcript!.readAsBytesSync());
-    String data = jsonEncode(
-        {'id': id, 'userImage': null, 'userTranscript': transcriptByte});
+    String data = jsonEncode({'id': id,'userImage':null, 'userTranscript': transcriptByte});
     log(data);
 
     final url =
@@ -832,6 +831,7 @@ class UserServices {
       final response =
           await http.put(url, headers: global.getHeader, body: data);
       log('stat ' + response.statusCode.toString());
+      log(response.body);
       if (response.statusCode == 200) {
         return transcript;
       } else if (response.statusCode == 401) {
@@ -849,7 +849,7 @@ class UserServices {
   static uploadTranscript(File? transcript, String id, Globals global) async {
     final transcriptByte = base64Encode(transcript!.readAsBytesSync());
     String data = jsonEncode(
-        {'userId': id, 'userImage': null, 'userTranscript': transcriptByte});
+        {'id': id, 'userImage': null, 'userTranscript': transcriptByte});
 
     final url = Uri.parse('http://${global.getFilesUrl}/api/UserFiles');
     try {
@@ -1130,7 +1130,10 @@ class UserServices {
 
     try {
       final response = await http.get(tuteeURL, headers: global.getHeader);
-      if (response.statusCode == 204) {
+     
+      log(response.statusCode.toString());
+      log(response.body);
+      if (response.statusCode == 200) {
         log(response.body);
         final transcript = response.body;
         List<String> imageList = transcript.split('"');
