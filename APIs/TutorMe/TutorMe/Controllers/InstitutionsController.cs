@@ -62,8 +62,20 @@ namespace TutorMe.Controllers
         [HttpDelete("{id}")]
         public IActionResult DeleteInstitution(Guid id)
         {
-            var institution = institutionService.deleteInstitutionById(id);
-            return Ok(institution);
+            try
+            {
+                var institution = institutionService.deleteInstitutionById(id);
+                return Ok(institution);
+            }
+            catch (Exception e)
+            {
+               if(e.Message== "Institution not found")
+               {
+                    return NotFound(e.Message);
+               }
+               return BadRequest(e.Message);
+            }
+           
         }
     }
 }
