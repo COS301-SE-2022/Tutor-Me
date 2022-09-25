@@ -34,8 +34,21 @@ namespace TutorMe.Controllers
         [HttpGet("{id}")]
         public IActionResult GetGroupMemberById(Guid id)
         {
-            var groupMember = groupMemberService.GetGroupMemberById(id);
-            return Ok(groupMember);
+            try
+            {
+                var groupMember = groupMemberService.GetGroupMemberById(id);
+                return Ok(groupMember);
+            }
+            catch (Exception e)
+            {
+                if(e.Message=="GroupMember not found")
+                {
+                    return NotFound(e.Message);
+                }
+                
+                return BadRequest(e.Message);
+
+            }
         }
 
         [Authorize]

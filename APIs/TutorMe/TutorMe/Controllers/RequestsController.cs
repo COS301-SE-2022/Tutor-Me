@@ -44,6 +44,9 @@ namespace TutorMe.Controllers
                 return Ok(request);
             }
             catch (Exception exception) {
+                if(exception.Message == "Request not found") {
+                    return NotFound(exception.Message);
+                }
                 return BadRequest(exception.Message);
             }
         }

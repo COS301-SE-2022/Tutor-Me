@@ -59,6 +59,9 @@ namespace TutorMe.Controllers
                 return Ok();
             }
             catch (Exception e) {
+                if(e.Message == "Event not found") {
+                    return NotFound();
+                }
                 return Conflict(e.Message);
             }
         }

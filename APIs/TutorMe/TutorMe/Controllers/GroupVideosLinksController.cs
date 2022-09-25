@@ -52,6 +52,9 @@ namespace TutorMe.Controllers
                 return Ok();
             }
             catch (Exception e) {
+                if(e.Message == "GroupVideosLink not found") {
+                    return NotFound();
+                }
                 return BadRequest(e.Message);
             }
         }

@@ -31,14 +31,29 @@ namespace TutorMe.Controllers
         [HttpGet("{id}")]
         public IActionResult GetInstitutionById(Guid id)
         {
-            var institution = institutionService.GetInstitutionById(id);
-            return Ok(institution);
+            try
+            {
+                var institution = institutionService.GetInstitutionById(id);
+                return Ok(institution);
+
+            }
+            catch (Exception e)
+            {
+                if(e.Message== "Institution not found")
+                {
+                    return NotFound();
+                }
+                return BadRequest();
+            
+            }
+         
         }
 
         [Authorize]
         [HttpPost]
         public IActionResult createInstitution(Institution institution)
         {
+            
             var institutionId = institutionService.createInstitution(institution);
             return Ok(institutionId);
         }

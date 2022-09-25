@@ -34,21 +34,20 @@ public class InstitutionsControllerUnitTests
               
             InstitutionId = Guid.NewGuid(),
             Name ="University Of Pretoria",
-             // Faculty 
-             Location ="Hatfield"
+            Location ="Hatfield"
             },
             new Institution
             {
                 InstitutionId = Guid.NewGuid(),
                 Name ="University Of Freestate",
-                // Faculty 
+              
                 Location ="Freestate"
             },
             new Institution
             {
                 InstitutionId = Guid.NewGuid(),
                 Name ="University Of Johannesburg",
-                // Faculty 
+              
                 Location ="Johannesburg"
             }
         };
@@ -76,7 +75,7 @@ public class InstitutionsControllerUnitTests
         var Institution = new Institution
         {
             Name ="University Of Pretoria",
-            // Faculty 
+          
             Location ="Hatfield"
         };
         
@@ -101,7 +100,7 @@ public class InstitutionsControllerUnitTests
         var Institution = new Institution
         {
             Name ="University Of Pretoria",
-            // Faculty 
+          
             Location ="Hatfield"
         };
         _InstitutionRepositoryMock.Setup(u => u. createInstitution(It.IsAny<Institution>())).Returns(Institution.InstitutionId);
@@ -128,7 +127,7 @@ public class InstitutionsControllerUnitTests
         var expectedTutor =  new Institution
         {
             Name ="University Of Pretoria",
-            // Faculty 
+          
             Location ="Hatfield"
         };
             
@@ -154,7 +153,7 @@ public class InstitutionsControllerUnitTests
         var expectedTutor =  new Institution
         {
             Name ="University Of Pretoria",
-            // Faculty 
+          
             Location ="Hatfield"
         };
             
