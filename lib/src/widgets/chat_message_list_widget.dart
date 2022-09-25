@@ -1,8 +1,10 @@
+import 'package:tutor_me/src/colorpallete.dart';
+
 import '../models/message_model.dart';
 import 'package:flutter/material.dart';
 
 Widget chatMessageWidget(ScrollController chatListScrollController,
-    List<MessageModel> messageModel, int currentUserId) {
+    List<MessageModel> messageModel, String currentUserId) {
   return Expanded(
       child: Container(
     color: Colors.white,
@@ -20,9 +22,9 @@ Widget chatMessageWidget(ScrollController chatListScrollController,
   ));
 }
 
-Widget chatItemWidget(MessageModel e, int currentUserId) {
+Widget chatItemWidget(MessageModel e, String currentUserId) {
   bool isMyChat = e.userId == currentUserId;
-  return e.userId == 0
+  return e.userId == "0"
       ? systemMessageWidget(e.messageText!)
       : Padding(
           padding: const EdgeInsets.only(left: 12, right: 12),
@@ -53,19 +55,8 @@ Widget systemMessageWidget(String text) {
   );
 }
 
-Widget userAvatar(int userId, String userName) {
-  Color avatarColor = Colors.greenAccent;
-  if (userId < 10000) {
-    avatarColor = const Color(0xFFffadad);
-  } else if (userId < 100000) {
-    avatarColor = const Color(0xFFffd6a5);
-  } else if (userId < 200000) {
-    avatarColor = const Color(0xFFfdffb6);
-  } else if (userId < 700000) {
-    avatarColor = const Color(0xFFcaffbf);
-  } else if (userId < 1000000) {
-    avatarColor = Colors.blueAccent;
-  }
+Widget userAvatar(String userId, String userName) {
+  Color avatarColor = colorBlueTeal;
 
   return Container(
     width: 40,

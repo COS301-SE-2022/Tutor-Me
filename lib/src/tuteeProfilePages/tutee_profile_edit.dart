@@ -91,9 +91,6 @@ class _TuteeProfileEditState extends State<TuteeProfileEdit> {
     }
     final screenWidthSize = MediaQuery.of(context).size.width;
     final screenHeightSize = MediaQuery.of(context).size.height;
-    String nameToEdit = widget.globals.getUser.getName +
-        ' ' +
-        widget.globals.getUser.getLastName;
     // FilePickerResult? filePickerResult;
     // String? fileName;
     // PlatformFile? file;
@@ -102,21 +99,6 @@ class _TuteeProfileEditState extends State<TuteeProfileEdit> {
 
     return Column(
       children: [
-        Padding(
-          padding: EdgeInsets.only(
-              left: screenWidthSize * 0.15, right: screenWidthSize * 0.15),
-          child: TextField(
-            controller: nameController,
-            decoration: InputDecoration(
-              hintText: "Change to: ",
-              labelText: nameToEdit,
-              labelStyle: TextStyle(
-                color: highLightColor,
-                fontSize: screenWidthSize * 0.05,
-              ),
-            ),
-          ),
-        ),
         Padding(
           padding: EdgeInsets.only(
               left: screenWidthSize * 0.15, right: screenWidthSize * 0.15),

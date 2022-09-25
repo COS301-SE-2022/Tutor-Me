@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:tutor_me/src/authenticate/register_step1.dart';
 import '../../services/models/globals.dart';
 import 'admin.dart';
+import 'login.dart';
 
 class AdminHome extends StatefulWidget {
   final Globals global;
@@ -25,7 +25,7 @@ class AdminHomeState extends State<AdminHome> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const RegisterStep1()));
+                        builder: (context) => const LoginAdmin()));
               },
               icon: Image.asset("assets/Pictures/TutorLogo.png", width: 30))
         ],
