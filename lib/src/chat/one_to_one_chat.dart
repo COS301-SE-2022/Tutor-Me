@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:math';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -44,14 +43,6 @@ class ChatState extends State<Chat> {
   void initState() {
     super.initState();
     openSignalRConnection();
-    createRandomId();
-  }
-
-  int currentUserId = 0;
-  //generate random user id
-  createRandomId() {
-    Random random = Random();
-    currentUserId = random.nextInt(999999);
   }
 
   String removeMessageExtraChar(String userText) {
@@ -78,7 +69,6 @@ class ChatState extends State<Chat> {
       widget.globals.getUser.getId,
       widget.reciever.getId,
       widget.globals.getUser.getName,
-      currentUserId,
       messageText
     ]);
     messageTextController.text = "";
@@ -157,7 +147,7 @@ class ChatState extends State<Chat> {
         child: Column(
           children: [
             chatMessageWidget(
-                chatListScrollController, messageModel, currentUserId),
+                chatListScrollController, messageModel, widget.globals.getUser.getId),
             chatTypeMessageWidget(messageTextController, submitMessageFunction)
           ],
         ),

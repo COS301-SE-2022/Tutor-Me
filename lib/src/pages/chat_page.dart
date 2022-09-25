@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:math';
 
 import 'package:provider/provider.dart';
 import 'package:tutor_me/services/models/groups.dart';
@@ -38,14 +37,6 @@ class _ChatPageState extends State<ChatPage> {
   void initState() {
     super.initState();
     openSignalRConnection();
-    createRandomId();
-  }
-
-  int currentUserId = 0;
-  //generate random user id
-  createRandomId() {
-    Random random = Random();
-    currentUserId = random.nextInt(999999);
   }
 
   String removeMessageExtraChar(String userText) {
@@ -71,7 +62,7 @@ class _ChatPageState extends State<ChatPage> {
     await connection.invoke('SendMessageToGroup', args: [
       widget.group.getId,
       widget.globals.getUser.getName,
-      currentUserId,
+      widget.globals.getUser.getId,
       messageText
     ]);
     messageTextController.text = "";
@@ -108,7 +99,7 @@ class _ChatPageState extends State<ChatPage> {
           children: [
             chatAppbarWidget(size, context, widget.moduleCode),
             chatMessageWidget(
-                chatListScrollController, messageModel, currentUserId),
+                chatListScrollController, messageModel, widget.globals.getUser.getId),
             chatTypeMessageWidget(messageTextController, submitMessageFunction)
           ],
         ),
@@ -134,7 +125,7 @@ class _ChatPageState extends State<ChatPage> {
       widget.moduleCode,
       widget.group.getId,
       widget.globals.getUser.getName,
-      currentUserId
+      widget.globals.getUser.getId
     ]);
   }
 

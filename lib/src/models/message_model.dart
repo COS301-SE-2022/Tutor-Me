@@ -1,5 +1,5 @@
 class MessageModel {
-  int? userId;
+  String? userId;
   String? userName;
   String? messageText;
   String? createDate;
@@ -11,7 +11,7 @@ class MessageModel {
     this.createDate,
   });
   MessageModel.fromJson(Map<String, dynamic> json) {
-    userId = json["userId"]?.toInt();
+    userId = json["userId"]?.toString();
     userName = json["userName"]?.toString();
     messageText = json["messageText"]?.toString();
     createDate = json["createDate"]?.toString();
