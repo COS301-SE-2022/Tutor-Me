@@ -146,8 +146,8 @@ class ChatState extends State<Chat> {
         width: size.width,
         child: Column(
           children: [
-            chatMessageWidget(
-                chatListScrollController, messageModel, widget.globals.getUser.getId),
+            chatMessageWidget(chatListScrollController, messageModel,
+                widget.globals.getUser.getId),
             chatTypeMessageWidget(messageTextController, submitMessageFunction)
           ],
         ),
@@ -158,8 +158,8 @@ class ChatState extends State<Chat> {
   //set url and configs
   final connection = HubConnectionBuilder()
       .withUrl(
-          // 'http://tutormechatapi-prod.us-east-1.elasticbeanstalk.com/chatHub',
-          'http://192.168.42.155:500/chatHub',
+          'http://tutormechathub.us-east-1.elasticbeanstalk.com/chatHub',
+          // 'http://192.168.42.155:500/chatHub',
           HttpConnectionOptions())
       .build();
 

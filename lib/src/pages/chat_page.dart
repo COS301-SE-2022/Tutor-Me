@@ -82,10 +82,8 @@ class _ChatPageState extends State<ChatPage> {
     Color secondaryColor;
 
     if (provider.themeMode == ThemeMode.dark) {
- 
       secondaryColor = colorLightGrey;
     } else {
-   
       secondaryColor = colorWhite;
     }
 
@@ -98,8 +96,8 @@ class _ChatPageState extends State<ChatPage> {
         child: Column(
           children: [
             chatAppbarWidget(size, context, widget.moduleCode),
-            chatMessageWidget(
-                chatListScrollController, messageModel, widget.globals.getUser.getId),
+            chatMessageWidget(chatListScrollController, messageModel,
+                widget.globals.getUser.getId),
             chatTypeMessageWidget(messageTextController, submitMessageFunction)
           ],
         ),
@@ -110,8 +108,8 @@ class _ChatPageState extends State<ChatPage> {
   //set url and configs
   final connection = HubConnectionBuilder()
       .withUrl(
-          // 'http://tutormechatapi-prod.us-east-1.elasticbeanstalk.com/chatHub',
-          'http://192.168.42.155:500/chatHub',
+          'http://tutormechathub.us-east-1.elasticbeanstalk.com/chatHub',
+          // 'http://192.168.42.155:500/chatHub',
           HttpConnectionOptions())
       .build();
 
