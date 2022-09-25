@@ -189,7 +189,61 @@ namespace Tests.IntegrationTests
             Assert.Equal(404, (double)response.StatusCode);
 
         }
-                
+        
+        [Fact]
+        public async Task GetInstitutionById_InstitutionFound()
+        {
+            //Arrange
+            await InitializeToken();
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+            var testInstitution = new Institution()
+            {
+                Name = Guid.NewGuid().ToString(),
+                Location = "Hatfield"
+
+            };
+            var testInstitution2 = new Institution()
+            {
+
+                Name = Guid.NewGuid().ToString(),
+                Location = "Freestate"
+
+            };
+            var testInstitution3 = new Institution()
+            {
+                Name = Guid.NewGuid().ToString(),
+
+                Location = "Johannesburg"
+
+            };
+
+            await _httpClient.PostAsJsonAsync("https://localhost:7100/api/Institutions", testInstitution);
+            await _httpClient.PostAsJsonAsync("https://localhost:7100/api/Institutions", testInstitution2);
+            var responseMessage =
+                _httpClient.PostAsJsonAsync("https://localhost:7100/api/Institutions", testInstitution3);
+
+            //Act
+
+            var idReadAsStringAsync = responseMessage.Result.Content.ReadAsStringAsync().Result;
+            var id = JsonConvert.DeserializeObject<Guid>(idReadAsStringAsync);
+            _testOutputHelper.WriteLine("the id is " + id);
+            var response = await _httpClient.GetAsync("https://localhost:7100/api/Institutions/" + id);
+
+            //Assert
+            Assert.NotNull(response);
+            Assert.Equal(200, (double)response.StatusCode);
+
+            var testInstitution11 = await response.Content.ReadFromJsonAsync<Institution>();
+
+            Assert.NotNull(testInstitution11);
+            if (testInstitution11 != null)
+            {
+                Assert.Equal(testInstitution11.Name, testInstitution11.Name);
+                Assert.Equal(testInstitution11.Location, testInstitution11.Location);
+
+            }
+        }
     }
 
 
