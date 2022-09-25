@@ -17,11 +17,11 @@ import 'meeting_screen.dart';
 
 // Startup Screen
 class StartupScreen extends StatefulWidget {
-  final Groups group;
+  final Groups? group;
   final Globals globals;
   const StartupScreen({
     Key? key,
-    required this.group,
+    this.group,
     required this.globals,
   }) : super(key: key);
 
@@ -80,7 +80,7 @@ class _StartupScreenState extends State<StartupScreen> {
                             meetingId: _meetingID,
                             displayName: "Tutor",
                             globals: widget.globals,
-                            group: widget.group,
+                            group: widget.group!,
                           ),
                         ),
                       );
@@ -129,7 +129,7 @@ class _StartupScreenState extends State<StartupScreen> {
                               meetingId: _meetingID,
                               token: _token,
                               globals: widget.globals,
-                              group: widget.group,
+                              group: widget.group!,
                             ),
                           ),
                         );

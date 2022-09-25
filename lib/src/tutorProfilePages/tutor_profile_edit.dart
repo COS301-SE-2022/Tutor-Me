@@ -14,6 +14,7 @@ import 'package:image_picker/image_picker.dart';
 import '../../services/models/globals.dart';
 import '../../services/models/users.dart';
 import '../theme/themes.dart';
+import 'pdfViewer/pdf_viewer.dart';
 
 class ToReturn {
   Uint8List image;
@@ -45,6 +46,7 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
   File? image;
   bool isImagePicked = false;
   bool isSaveLoading = false;
+  Uint8List? transcript;
 
   Future pickImage(ImageSource source) async {
     final imageChosen = await ImagePicker().pickImage(source: source);
@@ -65,6 +67,23 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
       return FileImage(image!);
     }
     return const AssetImage('assets/Pictures/penguin.png');
+  }
+
+  getTranscript() async {
+    try {
+      transcript = await UserServices.getTutorTranscript(
+          widget.globals.getUser.getId, widget.globals);
+    } catch (e) {
+      const snackBar = SnackBar(content: Text('Failed to get transcript'));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getTranscript();
   }
 
   @override
@@ -92,9 +111,6 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
 
     final screenWidthSize = MediaQuery.of(context).size.width;
     final screenHeightSize = MediaQuery.of(context).size.height;
-    String nameToEdit = widget.globals.getUser.getName +
-        ' ' +
-        widget.globals.getUser.getLastName;
     // FilePickerResult? filePickerResult;
     // String? fileName;
     // PlatformFile? file;
@@ -103,21 +119,6 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
 
     return Column(
       children: [
-        Padding(
-          padding: EdgeInsets.only(
-              left: screenWidthSize * 0.15, right: screenWidthSize * 0.15),
-          child: TextField(
-            controller: nameController,
-            decoration: InputDecoration(
-              hintText: "Change to: ",
-              labelText: nameToEdit,
-              labelStyle: TextStyle(
-                color: highLightColor,
-                fontSize: screenWidthSize * 0.05,
-              ),
-            ),
-          ),
-        ),
         Padding(
           padding: EdgeInsets.only(
               left: screenWidthSize * 0.15, right: screenWidthSize * 0.15),
@@ -167,7 +168,23 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
           },
         ),
         SizedBox(height: screenHeightSize * 0.03),
-        DowloadLinkButton(btnName: "Download Transcript", onPressed: () {}),
+        transcript != null
+            ? DowloadLinkButton(
+                btnName: "View Transcript",
+                onPressed: ()  {
+
+                  const snackBar = SnackBar(content: Text('Opening Transcript...'));
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => PDFViewer(
+                        pdf: transcript!,
+                      ),
+                    ),
+                  );
+                })
+            : Container(),
         SizedBox(height: screenHeightSize * 0.03),
         UploadButton(
           btnName: "    Upload Id",
@@ -185,7 +202,6 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
               });
               Uint8List newImage = widget.image;
               if (image != null) {
-                
                 try {
                   await UserServices.updateProfileImage(
                       image!, widget.globals.getUser.getId, widget.globals);
@@ -221,10 +237,8 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
                 isSaveLoading = false;
               });
 
-               Navigator.pop(context, ToReturn(newImage, widget.globals.getUser));
-              
-
-              
+              Navigator.pop(
+                  context, ToReturn(newImage, widget.globals.getUser));
             })
       ],
     );

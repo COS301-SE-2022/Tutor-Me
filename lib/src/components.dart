@@ -49,9 +49,10 @@ class DowloadLinkButton extends StatelessWidget {
   const DowloadLinkButton({
     Key? key,
     required this.btnName,
-    required Function() onPressed,
+    required this.onPressed,
   }) : super(key: key);
   final String btnName;
+  final Function() onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +66,7 @@ class DowloadLinkButton extends StatelessWidget {
         color: Colors.transparent,
       ),
       child: TextButton(
-        onPressed: () {},
+        onPressed: onPressed,
         child: Row(
           children: [
             const Icon(

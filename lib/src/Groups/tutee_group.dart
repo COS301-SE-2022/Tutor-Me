@@ -69,9 +69,8 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
     try {
       final tutees = await GroupServices.getGroupTutees(
           widget.group.getId, widget.globals);
-      setState(() {
-        tuteeList = tutees;
-      });
+
+      tuteeList = tutees;
     } catch (e) {
       const snackBar = SnackBar(content: Text('Error getting tutees'));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -84,9 +83,8 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
       try {
         final image = await UserServices.getTuteeProfileImage(
             tuteeList[i].getId, widget.globals);
-        setState(() {
-          tuteeImages.add(image);
-        });
+
+        tuteeImages.add(image);
       } catch (e) {
         final byte = Uint8List(128);
         tuteeImages.add(byte);
@@ -107,9 +105,11 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
         tutees.add(Tutee(tuteeList[i], tuteeImages[i], true));
       }
     }
-    setState(() {
-      tutees = tutees;
-    });
+
+    tutees = tutees;
+
+    tutees.removeWhere(
+        (tutee) => tutee.tutee.getId == widget.globals.getUser.getId);
     getTutor();
   }
 
@@ -118,9 +118,8 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
       final tutor =
           await UserServices.getTutor(widget.group.getUserId, widget.globals);
 
-      setState(() {
-        tutorObj = tutor[0];
-      });
+      tutorObj = tutor;
+      log(tutorObj.getName);
     } catch (e) {
       const snackBar = SnackBar(content: Text('Error getting tutor'));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -134,7 +133,6 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
     try {
       final image = await UserServices.getTutorProfileImage(
           widget.group.getUserId, widget.globals);
-
       setState(() {
         tutorHasImage = true;
         tutorImage = image;
@@ -144,6 +142,7 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
       setState(() {
         _isLoading = false;
         tutorHasImage = false;
+        tutorImage = Uint8List(128);
       });
     }
   }
@@ -232,7 +231,7 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
                                     MediaQuery.of(context).size.width * 0.02),
                                 topRight: Radius.circular(
                                     MediaQuery.of(context).size.width * 0.02)),
-                            color: primaryColor,
+                            color: Colors.grey.withOpacity(0.2),
                           ),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
@@ -577,8 +576,7 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
               ),
               subtitle: Text(
                 tutorObj.getBio,
-                style:  TextStyle(
-                    fontWeight: FontWeight.w500, color: textColor),
+                style: TextStyle(fontWeight: FontWeight.w500, color: textColor),
               ),
               trailing: Icon(
                 Icons.chat_bubble,
@@ -646,8 +644,7 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
               ),
               subtitle: Text(
                 tutees[i].tutee.getBio,
-                style:  TextStyle(
-                    fontWeight: FontWeight.w500, color: textColor),
+                style: TextStyle(fontWeight: FontWeight.w500, color: textColor),
               ),
               trailing: Icon(
                 Icons.chat_bubble,

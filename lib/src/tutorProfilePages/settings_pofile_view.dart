@@ -324,6 +324,7 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
   Widget topDesign() {
     final provider = Provider.of<ThemeProvider>(context, listen: false);
 
+    // ignore: unused_local_variable
     Color primaryColor;
 
     if (provider.themeMode == ThemeMode.dark) {
@@ -377,7 +378,7 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
             },
             child: Icon(
               Icons.edit,
-              color: primaryColor,
+              color: colorOrange,
               size: MediaQuery.of(context).size.height * 0.05,
             ),
           ),

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tutor_me/services/models/globals.dart';
 import 'package:tutor_me/services/services/group_services.dart';
+import 'package:tutor_me/src/Groups/add_tutees.dart';
 // import 'package:tutor_me/src/chat/group_chat.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import '../../services/models/modules.dart';
@@ -140,6 +141,19 @@ class TutorGroupPageState extends State<TutorGroupPage> {
     }
 
     return Scaffold(
+      floatingActionButton: FloatingActionButton.extended(
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => AddTutees(
+                        group: widget.group,
+                        globals: widget.globals,
+                        tutees: tutees)));
+          },
+          label: const Text('Add tutees'),
+          backgroundColor: colorOrange,
+          icon: const Icon(Icons.add)),
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(screenHeight * 0.08),
         child: AppBar(
@@ -272,9 +286,14 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                           InkWell(
                             onTap: () async {
                               try {
+                                const SnackBar snackBar =
+                                    SnackBar(content: Text('Initializing...'));
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(snackBar);
                                 _meetingID = await createMeeting();
                                 await GroupServices.updateGroupVideoId(
                                     _meetingID, widget.group, widget.globals);
+
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
