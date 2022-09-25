@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable
+
 import 'dart:convert';
 import 'dart:developer';
 
@@ -95,10 +97,10 @@ class BadgesServices {
     }
   }
 
-  addUserBadge(String Id, Globals globals) async {
+  addUserBadge(String id, Globals globals) async {
     try {
 
-      String data  = jsonEncode({"userBadgeId": Id, "userId": globals.getUser.getId,'badgeId':'',"pointAchieved":0});
+      String data  = jsonEncode({"userBadgeId": id, "userId": globals.getUser.getId,'badgeId':'',"pointAchieved":0});
       Uri badgesURL = Uri.http(globals.getTutorMeUrl, '/api/UserBadges/');
 
       var response = await http.post(badgesURL, headers: globals.getHeader);
@@ -115,7 +117,7 @@ class BadgesServices {
         return list.map((json) => Badge.fromObject(json)).toList();
       } else if (response.statusCode == 401) {
         globals = await refreshToken(globals);
-        return await addUserBadge(Id, globals);
+        return await addUserBadge(id, globals);
       } else {
         throw Exception('Failed to load');
       }

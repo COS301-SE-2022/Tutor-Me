@@ -441,7 +441,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                     ),
                   )),
           backgroundColor: highLightColor,
-          child: Icon(
+          child: const Icon(
             Icons.add,
             // size: MediaQuery.of(context).size.height * 0.,
           ),

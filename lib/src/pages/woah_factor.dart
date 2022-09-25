@@ -1,12 +1,12 @@
+// ignore_for_file: import_of_legacy_library_into_null_safe
+
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:pie_chart/pie_chart.dart';
 import 'package:provider/provider.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/theme/themes.dart';
 
+// ignore: must_be_immutable
 class WoahFactor extends StatefulWidget {
   int connections;
   int interactions;
@@ -110,7 +110,7 @@ class _WoahFactorState extends State<WoahFactor> {
             ],
           ),
           Center(
-            child: Container(
+            child: SizedBox(
               width: MediaQuery.of(context).size.width * 0.9,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -196,20 +196,15 @@ class _WoahFactorState extends State<WoahFactor> {
   Widget buildChart() {
     final provider = Provider.of<ThemeProvider>(context, listen: false);
     int key = 0;
-    Color primaryColor;
     Color secondaryColor;
     Color textColor;
-    Color highLightColor;
+
 
     if (provider.themeMode == ThemeMode.dark) {
-      primaryColor = colorGrey;
       textColor = colorWhite;
-      highLightColor = colorLightBlueTeal;
       secondaryColor = colorLightGrey;
     } else {
-      primaryColor = colorBlueTeal;
       textColor = colorDarkGrey;
-      highLightColor = colorOrange;
       secondaryColor = colorWhite;
     }
 

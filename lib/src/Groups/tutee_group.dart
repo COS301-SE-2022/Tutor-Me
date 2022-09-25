@@ -366,7 +366,6 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
                                             widget.globals);
 
                                     bool isThere = false;
-                                    int index = 0;
 
                                     for (int k = 0;
                                         k < userBadges.length;

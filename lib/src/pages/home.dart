@@ -15,7 +15,6 @@ import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/pages/badges.dart';
 import 'package:tutor_me/src/pages/book_for_tutor.dart';
 import 'package:tutor_me/src/pages/calendar.dart';
-import 'package:tutor_me/src/pages/woah_factor.dart';
 import 'package:tutor_me/src/pages/woah_factor_nav.dart';
 import '../../services/models/badges.dart';
 import '../../services/models/globals.dart';
@@ -350,7 +349,7 @@ class _HomeState extends State<Home> {
       "assets/Pictures/studentt.jpg",
       "assets/Pictures/badges.jpg",
     ];
-    var titles;
+    List<String> titles;
 
     if (widget.globals.getUser.getUserTypeID[0] == '9') {
       titles = [
@@ -370,7 +369,7 @@ class _HomeState extends State<Home> {
       ];
     }
 
-    var numberStats;
+    List<String> numberStats;
 
     if (numBadges == -1) {
       numberStats = [

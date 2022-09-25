@@ -1,6 +1,4 @@
 import 'package:tutor_me/services/models/users.dart';
-
-import '../../src/pages/badges.dart';
 import '../services/badges_services.dart';
 import 'badges.dart';
 

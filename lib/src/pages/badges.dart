@@ -11,6 +11,7 @@ import '../../services/models/user_badges.dart';
 import '../../services/services/badges_services.dart';
 import '../theme/themes.dart';
 
+// ignore: must_be_immutable
 class Badges extends StatefulWidget {
   Globals globals;
   Badges({Key? key, required this.globals}) : super(key: key);
@@ -125,7 +126,7 @@ class _PageState extends State<Badges> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: (isLoading
-            ? Center(child: CircularProgressIndicator())
+            ? const Center(child: CircularProgressIndicator())
             : ListView(
                 padding: EdgeInsets.zero,
                 children: <Widget>[
@@ -197,10 +198,6 @@ class _PageState extends State<Badges> {
 
     final screenHeightSize = MediaQuery.of(context).size.height;
     final screenWidthSize = MediaQuery.of(context).size.width;
-
-    final myBages = [
-      "Registered",
-    ];
 
     //   "10 Consecutive Days",
     //   "Attend 5 Meetings",

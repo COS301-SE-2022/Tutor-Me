@@ -1,15 +1,12 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'package:tutor_me/services/models/globals.dart';
 import 'package:tutor_me/src/colorpallete.dart';
-import 'package:tutor_me/src/pages/tutee_calendar_page.dart';
-// import 'package:tutor_me/src/pages/badges.dart';
-import 'package:tutor_me/src/pages/upcoming.dart';
 import 'package:tutor_me/src/pages/woah_factor.dart';
 
 import '../theme/themes.dart';
-import 'calendar_screen.dart';
 
 class WoahFactorNav extends StatefulWidget {
   int connections;
@@ -174,4 +171,3 @@ class _WoahFactorNavState extends State<WoahFactorNav> {
         ));
   }
 }
-

@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tutor_me/services/models/globals.dart';
 import 'package:tutor_me/services/models/user_badges.dart';
-import 'package:tutor_me/services/services/badges_services.dart';
 import 'package:tutor_me/services/services/group_services.dart';
 import 'package:tutor_me/src/Groups/add_tutees.dart';
 import 'package:tutor_me/services/services/user_badges.dart';

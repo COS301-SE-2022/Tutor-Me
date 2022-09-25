@@ -1,15 +1,8 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:tutor_me/services/models/globals.dart';
-import 'package:tutor_me/src/colorpallete.dart';
-import 'package:tutor_me/src/pages/tutee_calendar_page.dart';
-// import 'package:tutor_me/src/pages/badges.dart';
-import 'package:tutor_me/src/pages/upcoming.dart';
-import 'package:tutor_me/src/pages/woah_factor.dart';
-
-import '../theme/themes.dart';
-import 'calendar_screen.dart';
 
 class WeeklyReport extends StatefulWidget {
   Globals globals;
@@ -71,24 +64,7 @@ class _WeeklyReportState extends State<WeeklyReport> {
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<ThemeProvider>(context, listen: false);
-
-    Color primaryColor;
-    Color secondaryColor;
-    Color textColor;
-    Color highLightColor;
-
-    if (provider.themeMode == ThemeMode.dark) {
-      primaryColor = const Color.fromARGB(255, 37, 36, 36);
-      textColor = colorWhite;
-      highLightColor = colorOrange;
-      secondaryColor = const Color.fromARGB(255, 88, 88, 88);
-    } else {
-      primaryColor = colorBlueTeal;
-      textColor = colorDarkGrey;
-      highLightColor = colorOrange;
-      secondaryColor = colorWhite;
-    }
+    // final provider = Provider.of<ThemeProvider>(context, listen: false);
 
     // final screens = getScreens();
 

@@ -6,7 +6,6 @@ import 'package:toggle_switch/toggle_switch.dart';
 import 'package:tutor_me/services/models/users.dart';
 import 'package:tutor_me/src/authenticate/register_step1.dart';
 import 'package:tutor_me/src/colorpallete.dart';
-import 'package:tutor_me/src/notifications/tuteeNotifications/tutee_pending_requests.dart';
 // import '../../services/models/tutees.dart';
 // import '../../services/models/tutors.dart';
 import '../../services/models/badges.dart';
