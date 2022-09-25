@@ -167,7 +167,16 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
           },
         ),
         SizedBox(height: screenHeightSize * 0.03),
-        DowloadLinkButton(btnName: "Download Transcript", onPressed: () {}),
+        DowloadLinkButton(
+            btnName: "Download Transcript",
+            onPressed: () async {
+              try {
+                await UserServices.getTutorTranscript(
+                    widget.globals.getUser.getId, widget.globals);
+              } catch (e) {
+                log(e.toString());
+              }
+            }),
         SizedBox(height: screenHeightSize * 0.03),
         UploadButton(
           btnName: "    Upload Id",
@@ -185,7 +194,6 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
               });
               Uint8List newImage = widget.image;
               if (image != null) {
-                
                 try {
                   await UserServices.updateProfileImage(
                       image!, widget.globals.getUser.getId, widget.globals);
@@ -221,10 +229,8 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
                 isSaveLoading = false;
               });
 
-               Navigator.pop(context, ToReturn(newImage, widget.globals.getUser));
-              
-
-              
+              Navigator.pop(
+                  context, ToReturn(newImage, widget.globals.getUser));
             })
       ],
     );

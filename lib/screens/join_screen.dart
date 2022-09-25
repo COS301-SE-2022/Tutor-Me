@@ -14,14 +14,14 @@ import 'meeting_screen.dart';
 class JoinScreen extends StatefulWidget {
   final String meetingId;
   final String token;
-  final Groups group;
+  Groups? group;
   final Globals globals;
 
-  const JoinScreen({
+   JoinScreen({
     Key? key,
     required this.meetingId,
     required this.token,
-    required this.group,
+    this.group,
     required this.globals,
   }) : super(key: key);
 
@@ -197,7 +197,7 @@ class _JoinScreenState extends State<JoinScreen> {
                               micEnabled: isMicOn,
                               webcamEnabled: isWebcamOn,
                               globals: widget.globals,
-                              group: widget.group,
+                              group: widget.group!,
                             ),
                           ),
                         );
