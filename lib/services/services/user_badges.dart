@@ -12,11 +12,11 @@ class UserBadges {
     try {
       var response = await http.get(
           Uri.http(globals.getTutorMeUrl,
-              '/api/UserBadges/${globals.getUser.getId}'),
+              '/api/UserBadges/user/${globals.getUser.getId}'),
           headers: globals.getHeader);
 
       log(response.body);
-
+      log(response.statusCode.toString());
       if (response.statusCode == 200) {
         String j = "";
         if (response.body[0] != "[") {
@@ -69,34 +69,41 @@ class UserBadges {
     }
   }
 
-  addUserBadge(String id, Globals globals) async {
+  static addUserBadge(
+      String userId, String badgeId, int num, Globals globals) async {
     try {
       String data = jsonEncode({
-        "userBadgeId": id,
+        "userBadgeId": userId,
         "userId": globals.getUser.getId,
-        'badgeId': '',
-        "pointAchieved": 0
+        'badgeId': badgeId,
+        "pointAchieved": num
       });
       Uri badgesURL = Uri.http(globals.getTutorMeUrl, '/api/UserBadges/');
 
-      var response = await http.post(badgesURL, headers: globals.getHeader);
+      var response =
+          await http.post(badgesURL, headers: globals.getHeader, body: data);
+      log(response.statusCode.toString());
 
       if (response.statusCode == 200) {
-        String j = "";
-        if (response.body[0] != "[") {
-          j = "[" + response.body + "]";
-        } else {
-          j = response.body;
-        }
-        final List list = json.decode(j);
-
-        return list.map((json) => UserBadge.fromObject(json)).toList();
+        return true;
       } else if (response.statusCode == 401) {
         globals = await refreshToken(globals);
-        return await addUserBadge(id, globals);
+        return await addUserBadge(userId, badgeId, num, globals);
       } else {
         throw Exception('Failed to load');
       }
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  static updateUserBadge(
+      String userId, String badgeId, int newPoints, Globals globals) async {
+    try {
+      var response = await http.put(
+          Uri.http(globals.getTutorMeUrl,
+              '/api/UserBadges/$userId?pointAchieved=$newPoints'),
+          headers: globals.getHeader);
     } catch (e) {
       throw Exception(e);
     }

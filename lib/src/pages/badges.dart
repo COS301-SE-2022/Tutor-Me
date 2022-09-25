@@ -2,10 +2,12 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tutor_me/services/services/user_badges.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 
 import '../../services/models/badges.dart';
 import '../../services/models/globals.dart';
+import '../../services/models/user_badges.dart';
 import '../../services/services/badges_services.dart';
 import '../theme/themes.dart';
 
@@ -19,10 +21,56 @@ class Badges extends StatefulWidget {
 
 class _PageState extends State<Badges> {
   List<Badge> allBadges = List<Badge>.empty(growable: true);
+  List<UserBadge> userBadges = List<UserBadge>.empty(growable: true);
+  List<String> userBadgeIds = List<String>.empty(growable: true);
+  List<String> userBadgeNames = List<String>.empty(growable: true);
   bool isLoading = true;
   List<String> titles = List<String>.empty(growable: true);
   List<String> descriptions = List<String>.empty(growable: true);
   List<String> images = List<String>.empty(growable: true);
+
+  getAllEarnedBadges() async {
+    try {
+      var badges = await UserBadges.getAllUserBadgesByUserId(widget.globals);
+
+      userBadges = badges;
+
+      log(userBadges.length.toString());
+
+      log("user badges: " + userBadges.toString());
+      log("all badges: " + allBadges.toString());
+
+      for (int x = 0; x < userBadges.length; x++) {
+        allBadges.removeWhere((badge) =>
+            badge.getBadgeId == userBadges[x].getBadgeId &&
+            badge.getPointsToAchieve <= userBadges[x].getPointAchieved);
+      }
+
+      for (var allBadge in allBadges) {
+        userBadges.removeWhere((userBadge) =>
+            userBadge.getBadgeId == allBadge.getBadgeId &&
+            userBadge.getPointAchieved <= allBadge.getPointsToAchieve);
+      }
+
+      for (int i = 0; i < userBadges.length; i++) {
+        userBadgeIds.add(userBadges[i].getBadgeId);
+      }
+
+      for (int i = 0; i < widget.globals.getBadges.length; i++) {
+        for (int j = 0; j < userBadgeIds.length; j++) {
+          if (widget.globals.getBadges[i].getBadgeId == userBadgeIds[j]) {
+            userBadgeNames.add(widget.globals.getBadges[i].getName);
+          }
+        }
+      }
+    } catch (e) {
+      log(e.toString());
+    }
+
+    setState(() {
+      isLoading = false;
+    });
+  }
 
   getAllBadges() async {
     log("bbi ");
@@ -30,7 +78,6 @@ class _PageState extends State<Badges> {
     try {
       var badges = await BadgesServices.getAllBages(widget.globals);
       allBadges = badges;
-      log("bbi " + badges.toString());
 
       for (int i = 0; i < allBadges.length; i++) {
         titles.add(allBadges[i].getName);
@@ -40,7 +87,6 @@ class _PageState extends State<Badges> {
         descriptions.add(allBadges[i].getDescription);
       }
 
-      log("mmm " + allBadges.length.toString());
       for (int i = 0; i < allBadges.length; i++) {
         if (titles[i].contains("connect")) {
           log("connext " + titles[i]);
@@ -66,9 +112,7 @@ class _PageState extends State<Badges> {
       log(e.toString());
     }
 
-    setState(() {
-      isLoading = false;
-    });
+    getAllEarnedBadges();
   }
 
   @override
@@ -248,13 +292,12 @@ class _PageState extends State<Badges> {
             padding:
                 EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.05),
             child: SizedBox(
-              height: screenHeightSize * 0.2,
+              height: screenHeightSize * 0.25,
               width: screenWidthSize * 1,
               child: GridView.count(
                 childAspectRatio: 1,
-                physics: const NeverScrollableScrollPhysics(),
                 crossAxisCount: 3,
-                children: List<Widget>.generate(myBages.length, (index) {
+                children: List<Widget>.generate(userBadges.length, (index) {
                   return GridTile(
                     child: GestureDetector(
                       onTap: () {},
@@ -281,13 +324,13 @@ class _PageState extends State<Badges> {
                                     Container(
                                       height: screenHeightSize * 0.09,
                                       width: screenWidthSize * 0.4,
-                                      decoration: const BoxDecoration(
-                                        borderRadius: BorderRadius.only(
+                                      decoration: BoxDecoration(
+                                        borderRadius: const BorderRadius.only(
                                             topLeft: Radius.circular(10),
                                             topRight: Radius.circular(10)),
                                         image: DecorationImage(
                                           image: AssetImage(
-                                            "assets/Pictures/badges/star.png",
+                                            images[index],
                                           ),
                                           fit: BoxFit.cover,
                                         ),
@@ -300,7 +343,7 @@ class _PageState extends State<Badges> {
                                           right: screenWidthSize * 0.01,
                                         ),
                                         child: Text(
-                                          myBages[index],
+                                          userBadgeNames[index],
                                           style: TextStyle(
                                               color: textColor,
                                               fontSize: screenHeightSize * 0.02,
@@ -347,9 +390,10 @@ class _PageState extends State<Badges> {
                     width: screenWidthSize * 1,
                     child: GridView.count(
                       childAspectRatio: 1,
-                      physics: const NeverScrollableScrollPhysics(),
                       crossAxisCount: 3,
-                      children: List<Widget>.generate(titles.length, (index) {
+                      physics: const NeverScrollableScrollPhysics(),
+                      children:
+                          List<Widget>.generate(allBadges.length, (index) {
                         return GridTile(
                           child: GestureDetector(
                             onTap: () {},
@@ -416,7 +460,7 @@ class _PageState extends State<Badges> {
                                                         screenWidthSize * 0.01,
                                                   ),
                                                   child: Text(
-                                                    titles[index],
+                                                    allBadges[index].getName,
                                                     style: TextStyle(
                                                         color: textColor,
                                                         fontSize:
