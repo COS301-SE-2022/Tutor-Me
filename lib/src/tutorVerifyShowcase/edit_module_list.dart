@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:showcaseview/showcaseview.dart';
 import 'package:tutor_me/services/models/user_modules.dart';
 import 'package:tutor_me/services/services/group_services.dart';
 import 'package:tutor_me/services/services/module_services.dart';
@@ -9,28 +9,51 @@ import 'package:tutor_me/src/tuteeProfilePages/tutee_profile.dart';
 import '../../services/models/globals.dart';
 import '../../services/models/groups.dart';
 import '../../services/models/modules.dart';
-import '../theme/themes.dart';
 import 'add_modules.dart';
 
 // ignore: must_be_immutable
-class EditModuleList extends StatefulWidget {
+class EditModuleShowCaseParent extends StatelessWidget {
   final Globals globals;
   List<Modules> currentModules;
-  EditModuleList(
+
+  EditModuleShowCaseParent(
       {Key? key, required this.globals, required this.currentModules})
       : super(key: key);
 
   @override
-  _EditModuleListState createState() => _EditModuleListState();
+  Widget build(BuildContext context) {
+    return ShowCaseWidget(
+      builder: Builder(
+        builder: (_) => ShowcaseEditModuleList(
+          globals: globals,
+          currentModules: currentModules,
+        ),
+      ),
+    );
+  }
 }
 
-class _EditModuleListState extends State<EditModuleList> {
+// ignore: must_be_immutable
+class ShowcaseEditModuleList extends StatefulWidget {
+  final Globals globals;
+  List<Modules> currentModules;
+  ShowcaseEditModuleList(
+      {Key? key, required this.globals, required this.currentModules})
+      : super(key: key);
+
+  @override
+  _ShowcaseEditModuleListState createState() => _ShowcaseEditModuleListState();
+}
+
+class _ShowcaseEditModuleListState extends State<ShowcaseEditModuleList> {
   List<Modules> modulesToRemove = List<Modules>.empty(growable: true);
   List<Modules> modulesToAdd = List<Modules>.empty(growable: true);
   List<Modules> confirmedModules = List<Modules>.empty();
   List<Groups> tutorGroups = List<Groups>.empty();
   List<UserModules> userModules = List<UserModules>.empty();
   final textControl = TextEditingController();
+  final key = GlobalKey();
+  final key2 = GlobalKey();
 
   String query = '';
   bool isCurrentOpen = true;
@@ -81,15 +104,9 @@ class _EditModuleListState extends State<EditModuleList> {
   // }
 
   getUserModules() async {
-    try {
-      final userModules =
-          await ModuleServices.getAllUserModules(widget.globals);
+    final userModules = await ModuleServices.getAllUserModules(widget.globals);
 
-      this.userModules = userModules;
-    } catch (e) {
-      const snackBar = SnackBar(content: Text('Error getting modules'));
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-    }
+    this.userModules = userModules;
   }
 
   getTutorGroups() async {
@@ -103,28 +120,40 @@ class _EditModuleListState extends State<EditModuleList> {
   void initState() {
     super.initState();
     getUserModules();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ShowCaseWidget.of(context).startShowCase([key]);
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<ThemeProvider>(context, listen: false);
-
-    Color primaryColor;
-    Color highLightColor;
-
-    if (provider.themeMode == ThemeMode.dark) {
-      primaryColor = colorLightGrey;
-      highLightColor = colorLightBlueTeal;
-    } else {
-      primaryColor = colorBlueTeal;
-      highLightColor = colorOrange;
-    }
     return Scaffold(
-      floatingActionButton: buildAddButton(),
+      floatingActionButton: Showcase(
+          key: key,
+          description: 'Click here to add modules',
+          onTargetClick: () async {
+            final results = await Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => ShowCaseAddModulesPage(
+                          globals: widget.globals,
+                          currentModules: widget.currentModules,
+                        )));
+            setState(() {
+              if(results != null){
+                widget.currentModules = results;
+              }
+            });
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              ShowCaseWidget.of(context).startShowCase([key2]);
+            });
+          },
+          disposeOnTap: true,
+          child: buildAddButton()),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       appBar: AppBar(
         title: const Text('Current Modules'),
-        backgroundColor: primaryColor,
+        backgroundColor: colorBlueTeal,
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -133,7 +162,7 @@ class _EditModuleListState extends State<EditModuleList> {
               height: MediaQuery.of(context).size.height * 0.03,
             ),
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.65,
+              height: MediaQuery.of(context).size.height * 0.7,
               width: MediaQuery.of(context).size.width * 0.9,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -157,7 +186,7 @@ class _EditModuleListState extends State<EditModuleList> {
                       ),
                       child: SmallTagBtn(
                           btnName: "Cancel",
-                          backColor: primaryColor,
+                          backColor: colorBlueTeal,
                           funct: isConfirming
                               ? () {}
                               : () {
@@ -176,71 +205,76 @@ class _EditModuleListState extends State<EditModuleList> {
                         right: MediaQuery.of(context).size.width * 0.1,
                         bottom: MediaQuery.of(context).size.width * 0.05,
                       ),
-                      child: SmallTagBtn(
-                          btnName: !isConfirming ? "Confirm" : 'Confirming',
-                          backColor: highLightColor,
-                          funct: isConfirming
-                              ? () {}
-                              : () async {
-                                  setState(() {
-                                    isConfirming = true;
-                                  });
-                                  try {
-                                    for (var module in widget.currentModules) {
-                                      try {
-                                        await ModuleServices.addUserModule(
-                                            widget.globals.getUser.getId,
-                                            module,
-                                            widget.globals);
-                                      } catch (e) {
-                                        continue;
+                      child: Showcase(
+                        key: key2,
+                        description: 'Click here to confirm changes',
+                        child: SmallTagBtn(
+                            btnName: !isConfirming ? "Confirm" : 'Confirming',
+                            backColor: colorOrange,
+                            funct: isConfirming
+                                ? () {}
+                                : () async {
+                                    setState(() {
+                                      isConfirming = true;
+                                    });
+                                    try {
+                                      for (var module
+                                          in widget.currentModules) {
+                                        try {
+                                          await ModuleServices.addUserModule(
+                                              widget.globals.getUser.getId,
+                                              module,
+                                              widget.globals);
+                                        } catch (e) {
+                                          continue;
+                                        }
                                       }
+
+                                      // if (tutorGroups.isEmpty) {
+                                      //   modulesToAdd = widget.currentModules;
+                                      // } else {
+                                      //   final newGroups =
+                                      //       widget.currentModules.where((module) {
+                                      //     bool isModuleOld = false;
+                                      //     for (int i = 0;
+                                      //         i < tutorGroups.length;
+                                      //         i++) {
+                                      //       if (module.getCode.contains(
+                                      //           tutorGroups[i].getModuleCode)) {
+                                      //         isModuleOld = true;
+                                      //       }
+                                      //     }
+                                      //     return !isModuleOld;
+                                      //   }).toList();
+
+                                      //   modulesToAdd = newGroups;
+                                      // }
+
+                                      // if (modulesToAdd.isNotEmpty) {
+                                      //   showConfirmUpdate(context);
+                                      //   for (int i = 0;
+                                      //       i < modulesToAdd.length;
+                                      //       i++) {
+                                      //     await GroupServices.createGroup(
+                                      //         modulesToAdd[i].getCode,
+                                      //         modulesToAdd[i].getModuleName,
+                                      //         widget.user.getId);
+                                      //   }
+                                      // }
+
+                                      Navigator.pop(
+                                          context, widget.currentModules);
+                                    } catch (e) {
+                                      const snackBar = SnackBar(
+                                        content:
+                                            Text('Failed to update modules.'),
+                                      );
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(snackBar);
                                     }
-
-                                    // if (tutorGroups.isEmpty) {
-                                    //   modulesToAdd = widget.currentModules;
-                                    // } else {
-                                    //   final newGroups =
-                                    //       widget.currentModules.where((module) {
-                                    //     bool isModuleOld = false;
-                                    //     for (int i = 0;
-                                    //         i < tutorGroups.length;
-                                    //         i++) {
-                                    //       if (module.getCode.contains(
-                                    //           tutorGroups[i].getModuleCode)) {
-                                    //         isModuleOld = true;
-                                    //       }
-                                    //     }
-                                    //     return !isModuleOld;
-                                    //   }).toList();
-
-                                    //   modulesToAdd = newGroups;
-                                    // }
-
-                                    // if (modulesToAdd.isNotEmpty) {
-                                    //   showConfirmUpdate(context);
-                                    //   for (int i = 0;
-                                    //       i < modulesToAdd.length;
-                                    //       i++) {
-                                    //     await GroupServices.createGroup(
-                                    //         modulesToAdd[i].getCode,
-                                    //         modulesToAdd[i].getModuleName,
-                                    //         widget.user.getId);
-                                    //   }
-                                    // }
-
-                                    Navigator.pop(
-                                        context, widget.currentModules);
-                                  } catch (e) {
-                                    const snackBar = SnackBar(
-                                      content:
-                                          Text('Failed to update modules.'),
-                                    );
-                                    ScaffoldMessenger.of(context)
-                                        .showSnackBar(snackBar);
-                                  }
-                                  isConfirming = false;
-                                }),
+                                    isConfirming = false;
+                                  }),
+                      ),
                     ),
                   ),
                 ],
@@ -327,21 +361,6 @@ class _EditModuleListState extends State<EditModuleList> {
   }
 
   Widget _currentModulesBuilder(BuildContext context, int i) {
-    final provider = Provider.of<ThemeProvider>(context, listen: false);
-    Color textColor;
-
-    Color highLightColor;
-
-    if (provider.themeMode == ThemeMode.dark) {
-      textColor = colorWhite;
-
-      highLightColor = colorLightBlueTeal;
-    } else {
-      textColor = Colors.black;
-
-      highLightColor = colorOrange;
-    }
-
     return Card(
       elevation: 4.0,
       shape: RoundedRectangleBorder(
@@ -351,18 +370,12 @@ class _EditModuleListState extends State<EditModuleList> {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           ListTile(
-            leading: Icon(
+            leading: const Icon(
               Icons.book,
-              color: highLightColor,
+              color: colorOrange,
             ),
-            title: Text(
-              widget.currentModules[i].getModuleName,
-              style: TextStyle(color: textColor),
-            ),
-            subtitle: Text(
-              widget.currentModules[i].getCode,
-              style: TextStyle(color: textColor),
-            ),
+            title: Text(widget.currentModules[i].getModuleName),
+            subtitle: Text(widget.currentModules[i].getCode),
             trailing: IconButton(
               onPressed: () {
                 showDeleteDialog(context, i);
@@ -461,40 +474,18 @@ class _EditModuleListState extends State<EditModuleList> {
   }
 
   Widget topDesign() {
-    final provider = Provider.of<ThemeProvider>(context, listen: false);
-    Color textColor;
-
-    if (provider.themeMode == ThemeMode.dark) {
-      textColor = colorWhite;
-    } else {
-      textColor = colorDarkGrey;
-    }
-    return Scaffold(
-      body: Text(
-        'Edit Module List',
-        style: TextStyle(color: textColor),
-      ),
+    return const Scaffold(
+      body: Text('Edit Module List'),
     );
   }
 
   Widget buildAddButton() {
-    final provider = Provider.of<ThemeProvider>(context, listen: false);
-    Color textColor;
-    Color highLightColor;
-
-    if (provider.themeMode == ThemeMode.dark) {
-      textColor = colorWhite;
-      highLightColor = colorLightBlueTeal;
-    } else {
-      textColor = Colors.black;
-      highLightColor = colorOrange;
-    }
     return FloatingActionButton.extended(
       onPressed: () async {
         final results = await Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => AddModulesPage(
+                builder: (context) => ShowCaseAddModulesPage(
                       globals: widget.globals,
                       currentModules: widget.currentModules,
                     )));
@@ -502,15 +493,9 @@ class _EditModuleListState extends State<EditModuleList> {
           widget.currentModules += results;
         });
       },
-      icon: const Icon(
-        Icons.add,
-        color: colorWhite,
-      ),
-      label: Text(
-        'Add Modules',
-        style: TextStyle(color: textColor),
-      ),
-      backgroundColor: highLightColor,
+      icon: const Icon(Icons.add),
+      label: const Text('Add Modules'),
+      backgroundColor: colorOrange,
     );
   }
 }

@@ -1,6 +1,5 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
+import 'package:showcaseview/showcaseview.dart';
 import 'package:tutor_me/services/models/globals.dart';
 import 'package:tutor_me/services/models/requests.dart';
 import 'package:tutor_me/src/colorpallete.dart';
@@ -9,50 +8,68 @@ import 'package:tutor_me/src/pages/chats_page.dart';
 import 'package:tutor_me/src/pages/home.dart';
 // import 'package:tutor_me/src/pages/text_recognition.dart';
 import 'package:tutor_me/src/tutorAndTuteeCollaboration/tutorGroups/tutor_groups.dart';
+
+import '../../services/services/user_services.dart';
+import 'tutor_nav_drawer.dart';
 // import 'package:tutor_me/modules/api.services.dart';
 // import 'package:tutor_me/modules/tutors.dart';
-import '../services/services/user_services.dart';
-import 'Navigation/tutor_nav_drawer.dart';
+
 // import 'theme/themes.dart';
 // import 'pages/calls_page.dart';
 
-class TutorPage extends StatefulWidget {
+class ShowCaseParent extends StatelessWidget {
   final Globals globals;
 
-  const TutorPage({Key? key, required this.globals}) : super(key: key);
+  const ShowCaseParent({Key? key, required this.globals}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() {
-    return TutorPageState();
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: ShowCaseWidget(
+        builder: Builder(
+          builder: (_) => TutorShowCasePage(
+            globals: globals,
+          ),
+        ),
+      ),
+    );
   }
 }
 
-class TutorPageState extends State<TutorPage> {
+class TutorShowCasePage extends StatefulWidget {
+  final Globals globals;
+
+  const TutorShowCasePage({Key? key, required this.globals}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() {
+    return TutorShowCasePageState();
+  }
+}
+
+class TutorShowCasePageState extends State<TutorShowCasePage> {
   // var size = tutors.length;
   int currentIndex = 0;
   List<Requests> requestList = List<Requests>.empty(growable: true);
   int notificationCount = 0;
+  final key = GlobalKey();
+  final key2 = GlobalKey();
 
   getRequests() async {
     try {
       final requests = await UserServices()
           .getTutorRequests(widget.globals.getUser.getId, widget.globals);
-      if (requests != null) {
-        requestList = requests;
-      }
-
+      requestList = requests;
       if (requestList.isEmpty) {
         setState(() {
           notificationCount = 0;
         });
-        return;
       } else {
         setState(() {
           notificationCount = requestList.length;
         });
       }
     } catch (e) {
-      log(e.toString());
       const snackBar = SnackBar(content: Text('Error loading, retrying...'));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
@@ -72,6 +89,9 @@ class TutorPageState extends State<TutorPage> {
   void initState() {
     super.initState();
     getRequests();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ShowCaseWidget.of(context).startShowCase([key]);
+    });
   }
 
   @override
@@ -80,11 +100,15 @@ class TutorPageState extends State<TutorPage> {
     double screenWidth = MediaQuery.of(context).size.width;
     if (screenWidth < 1100) {
       return Scaffold(
-          drawer: TutorNavigationDrawerWidget(globals: widget.globals),
+          drawer: DrawerShowCaseParent(globals: widget.globals),
           appBar: AppBar(
             toolbarHeight: 70,
             centerTitle: true,
-            title: const Text('Tutor Me'),
+            title: Showcase(
+                key: key,
+                description:
+                    'Click on the menu button on the top left to begin verification process.',
+                child: const Text('Tutor Me')),
             flexibleSpace: Container(
               decoration: const BoxDecoration(
                   // borderRadius:
@@ -190,7 +214,8 @@ class TutorPageState extends State<TutorPage> {
           children: <Widget>[
             SizedBox(
               width: screenWidth * 0.2,
-              child: TutorNavigationDrawerWidget(globals: widget.globals),
+              child:
+                  TutorShowCaseNavigationDrawerWidget(globals: widget.globals),
             ),
             SizedBox(
               width: screenWidth * 0.8,
