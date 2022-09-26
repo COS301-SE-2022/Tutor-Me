@@ -398,7 +398,8 @@ class UserServices {
       'bio': "No bio added",
       'year': year,
       'rating': 0,
-      'numberOfReviews': 0
+      'numberOfReviews': 0,
+      'verified': false,
     });
 
     final header = {
@@ -452,7 +453,8 @@ class UserServices {
       'bio': "No bio added",
       'year': year,
       'rating': 0,
-      'numberOfReviews': 0
+      'numberOfReviews': 0,
+      'verified': false,
     });
 
     final header = {
@@ -518,7 +520,7 @@ class UserServices {
           '/api/Users/rating/$id?rating=$newRating&numberOfReviews=$numReviews');
 
       final response = await http.put(uri, headers: global.getHeader);
-      print(response.statusCode);
+      
       if (response.statusCode == 200) {
         return true;
       } else {
