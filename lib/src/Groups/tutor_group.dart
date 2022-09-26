@@ -1,14 +1,18 @@
 // ignore_for_file: non_constant_identifier_names, dead_code
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tutor_me/services/models/globals.dart';
+import 'package:tutor_me/services/models/user_badges.dart';
 import 'package:tutor_me/services/services/group_services.dart';
 import 'package:tutor_me/src/Groups/add_tutees.dart';
+import 'package:tutor_me/services/services/user_badges.dart';
 // import 'package:tutor_me/src/chat/group_chat.dart';
 import 'package:tutor_me/src/colorpallete.dart';
+import '../../services/models/badges.dart';
 import '../../services/models/modules.dart';
 import '../pages/chat_page.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -295,17 +299,88 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                                     _meetingID, widget.group, widget.globals);
 
                                 Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => MeetingScreen(
-                                      token: _token,
-                                      meetingId: _meetingID,
-                                      displayName: "Tutor",
-                                      group: widget.group,
-                                      globals: widget.globals,
-                                    ),
-                                  ),
-                                );
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => MeetingScreen(
+                                        token: _token,
+                                        meetingId: _meetingID,
+                                        displayName: "Tutor",
+                                        group: widget.group,
+                                        globals: widget.globals,
+                                      ),
+                                    ));
+                                List<Badge> fetchedBadges =
+                                    List<Badge>.empty(growable: true);
+                                for (var badge in widget.globals.getBadges) {
+                                  if (badge.getName.contains('Meetings')) {
+                                    fetchedBadges.add(badge);
+                                  }
+                                }
+
+                                List<UserBadge> userBadges =
+                                    List<UserBadge>.empty(growable: true);
+
+                                userBadges =
+                                    await UserBadges.getAllUserBadgesByUserId(
+                                        widget.globals);
+
+                                bool isThere = false;
+                                int index = 0;
+
+                                for (int k = 0; k < userBadges.length; k++) {
+                                  for (int j = 0;
+                                      j < fetchedBadges.length;
+                                      j++) {
+                                    if (userBadges[k].getBadgeId ==
+                                        fetchedBadges[j].getBadgeId) {
+                                      isThere = true;
+                                      await UserBadges.updateUserBadge(
+                                          widget.globals.getUser.getId,
+                                          userBadges[k].getBadgeId,
+                                          userBadges[k].getPointAchieved + 1,
+                                          widget.globals);
+                                      break;
+                                    }
+                                  }
+                                  if (isThere == false) {
+                                    await UserBadges.addUserBadge(
+                                        widget.globals.getUser.getId,
+                                        fetchedBadges[index].getBadgeId,
+                                        1,
+                                        widget.globals);
+                                    break;
+                                  }
+                                  try {} catch (e) {
+                                    log(e.toString());
+                                  }
+
+                                  try {
+                                    _meetingID = await createMeeting();
+                                    await GroupServices.updateGroupVideoId(
+                                        _meetingID,
+                                        widget.group,
+                                        widget.globals);
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => MeetingScreen(
+                                          token: _token,
+                                          meetingId: _meetingID,
+                                          displayName: "Tutor",
+                                          group: widget.group,
+                                          globals: widget.globals,
+                                        ),
+                                      ),
+                                    );
+                                  } catch (e) {
+                                    const snackBar = SnackBar(
+                                      content:
+                                          Text('Failed to start live video'),
+                                    );
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(snackBar);
+                                  }
+                                }
                               } catch (e) {
                                 const snackBar = SnackBar(
                                   content: Text('Failed to start live video'),

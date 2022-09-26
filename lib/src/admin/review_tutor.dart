@@ -1,11 +1,14 @@
 // import 'dart:developer';
 
+import 'dart:developer';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 // import 'package:google_fonts/google_fonts.dart';
 import 'package:tutor_me/services/models/globals.dart';
+import 'package:tutor_me/services/services/admin_services.dart';
 import 'package:tutor_me/services/services/institution_services.dart';
-
+import 'package:tutor_me/src/tutorProfilePages/pdfViewer/pdf_viewer.dart';
 import '../../services/models/users.dart';
 import '../../services/services/user_services.dart';
 import '../colorpallete.dart';
@@ -13,8 +16,10 @@ import '../colorpallete.dart';
 class TutorDetails {
   Users tutor;
   String institution;
-  Uint8List transcript = Uint8List(128);
-  TutorDetails(this.tutor, this.institution);
+  Uint8List? transcript;
+  bool hasTranscript;
+  TutorDetails(
+      this.tutor, this.institution, this.transcript, this.hasTranscript);
 }
 
 class ReviewTutor extends StatefulWidget {
@@ -28,12 +33,16 @@ class ReviewTutor extends StatefulWidget {
 
 class ReviewTutorState extends State<ReviewTutor> {
   List<Users> tutors = List.empty(growable: true);
+  List<String> institutions = List.empty(growable: true);
+  List<Uint8List> transcripts = List.empty(growable: true);
+  List<bool> hasTranscript = List.empty(growable: true);
   List<TutorDetails> tutorDetails = List.empty(growable: true);
   int currentIndex = 0;
   bool isLoading = true;
 
   getTutors() async {
     tutors = await UserServices.getTutors(widget.globals);
+    tutors.removeWhere((tutor) => tutor.getIsVerified == true);
     getTutorDetails();
   }
 
@@ -42,18 +51,46 @@ class ReviewTutorState extends State<ReviewTutor> {
       for (var tutor in tutors) {
         final institution = await InstitutionServices.getUserInstitution(
             tutor.getInstitutionID, widget.globals);
+
+        institutions.add(institution.getName);
         //TODO: get transcripts
         //  final transcript = await UserServices.getTranscript(tutor,widget.globals);
 
-        tutorDetails.add(TutorDetails(tutor, institution.getName));
       }
-      setState(() {
-        isLoading = false;
-      });
+      log(institutions.toString());
     } catch (e) {
       const snackBar = SnackBar(content: Text('Error loading tutors'));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
+    getTranscripts();
+  }
+
+  getTranscripts() async {
+    for (var tutor in tutors) {
+      log('again');
+
+      try {
+        final transcript =
+            await UserServices.getTutorTranscript(tutor.getId, widget.globals);
+        transcripts.add(transcript);
+        hasTranscript.add(true);
+      } catch (e) {
+        log(e.toString());
+        Uint8List? empty = Uint8List(128);
+        transcripts.add(empty);
+        hasTranscript.add(false);
+      }
+    }
+
+    for (int i = 0; i < tutors.length; i++) {
+      tutorDetails.add(TutorDetails(
+          tutors[i], institutions[i], transcripts[i], hasTranscript[i]));
+    }
+
+    tutorDetails.removeWhere((tutor) => tutor.hasTranscript == false);
+    setState(() {
+      isLoading = false;
+    });
   }
 
   @override
@@ -93,7 +130,7 @@ class ReviewTutorState extends State<ReviewTutor> {
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
               child: ListView.builder(
-                itemCount: tutors.length,
+                itemCount: tutorDetails.length,
                 itemBuilder: _cardBuilder,
               ),
             ),
@@ -132,7 +169,7 @@ class ReviewTutorState extends State<ReviewTutor> {
                 ),
               ),
               subtitle: Text(
-                tutors[index].getEmail,
+                tutorDetails[index].tutor.getEmail,
                 textAlign: TextAlign.center,
                 style: const TextStyle(
                   color: Colors.white,
@@ -175,14 +212,16 @@ class ReviewTutorState extends State<ReviewTutor> {
                   height: MediaQuery.of(context).size.height * 0.05,
                   width: MediaQuery.of(context).size.width * 0.5,
                   child: ElevatedButton(
-                    onPressed: () {
-                      // Navigator.push(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //         builder: (context) => RecordingScreen(
-                      //             videoURL:  "https://cdn.videosdk.live/encoded/videos/63161d681d5e14bac5db733a.mp4"
-                      //             )));
-                    },
+                    onPressed: tutorDetails[index].hasTranscript
+                        ? () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => PDFViewer(
+                                          pdf: tutorDetails[index].transcript!,
+                                        )));
+                          }
+                        : null,
                     child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: const [
@@ -202,12 +241,35 @@ class ReviewTutorState extends State<ReviewTutor> {
                   width: MediaQuery.of(context).size.width * 0.5,
                   child: ElevatedButton(
                     onPressed: () {
-                      // Navigator.push(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //         builder: (context) => RecordingScreen(
-                      //             videoURL:  "https://cdn.videosdk.live/encoded/videos/63161d681d5e14bac5db733a.mp4"
-                      //             )));
+                      AdminServices.verifyUser(
+                          tutorDetails[index].tutor.getId, widget.globals);
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            title: const Text("Success"),
+                            content: const Text("Tutor Verified"),
+                            backgroundColor: colorWhite,
+                            titleTextStyle: TextStyle(
+                              color: colorBlack,
+                              fontSize:
+                                  MediaQuery.of(context).size.height * 0.03,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            actions: <Widget>[
+                              TextButton(
+                                child: const Text(
+                                  "Retry",
+                                  style: TextStyle(color: colorWhite),
+                                ),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                            ],
+                          );
+                        },
+                      );
                     },
                     child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,

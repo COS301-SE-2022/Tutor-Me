@@ -56,6 +56,7 @@ class TutorPageState extends State<TutorPage> {
       const snackBar = SnackBar(content: Text('Error loading, retrying...'));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
+    setBadges();
   }
 
   getScreens() {
@@ -66,6 +67,10 @@ class TutorPageState extends State<TutorPage> {
       Chats(globals: widget.globals),
       TutorGroups(globals: widget.globals),
     ];
+  }
+
+  setBadges() async {
+    await widget.globals.getAllBadges();
   }
 
   @override

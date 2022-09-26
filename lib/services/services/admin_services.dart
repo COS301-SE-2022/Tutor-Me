@@ -246,6 +246,25 @@ class AdminServices {
     }
   }
 
+  static verifyUser(String id, Globals global) async {
+    try {
+      final adminsURL = Uri.parse(
+          'http://${global.getTutorMeUrl}/api/Users/validate/$id?isValidated=true');
+      final response = await http.put(adminsURL, headers: global.getHeader);
+      log(response.body);
+      if (response.statusCode == 200) {
+        return true;
+      } else if (response.statusCode == 401) {
+        global = await refreshToken(global);
+        return await verifyUser(id, global);
+      } else {
+        throw Exception('Failed to upload ' + response.statusCode.toString());
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   static Future getAdmin(String id, Globals global) async {
     Uri tutorURL = Uri.http(global.getTutorMeUrl, '/api/Admins/$id');
     try {

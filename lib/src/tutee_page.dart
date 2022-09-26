@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tutor_me/src/colorpallete.dart';
@@ -32,7 +30,7 @@ class TuteePageState extends State<TuteePage> {
   getRequests() async {
     final requests = await UserServices()
         .getTuteeRequests(widget.globals.getUser.getId, widget.globals);
-    
+
     if (requests == null) {
       return;
     }
@@ -45,6 +43,7 @@ class TuteePageState extends State<TuteePage> {
         notificationCount = requests.length;
       });
     }
+    setBadges();
   }
 
   getScreens() {
@@ -53,6 +52,10 @@ class TuteePageState extends State<TuteePage> {
       Chats(globals: widget.globals),
       TuteeGroups(globals: widget.globals),
     ];
+  }
+
+  setBadges() async {
+    await widget.globals.getAllBadges();
   }
 
   @override

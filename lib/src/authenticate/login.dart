@@ -1,12 +1,17 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:toggle_switch/toggle_switch.dart';
+import 'package:tutor_me/services/models/users.dart';
 import 'package:tutor_me/src/authenticate/register_step1.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 // import '../../services/models/tutees.dart';
 // import '../../services/models/tutors.dart';
+import '../../services/models/badges.dart';
 import '../../services/models/globals.dart';
+import '../../services/models/user_badges.dart';
+import '../../services/services/user_badges.dart';
 import '../../services/services/user_services.dart';
 import '../components.dart';
 import '../tutor_page.dart';
@@ -227,6 +232,112 @@ class _LoginState extends State<Login> {
                                 builder: (context) =>
                                     TutorPage(globals: globals)),
                           );
+
+                          //Get num of connections
+                          final connections = await UserServices.getConnections(
+                              globals.getUser.getId,
+                              globals.getUser.getUserTypeID,
+                              globals);
+                          int numConnections = connections.length;
+
+                          List<Badge> fetchedBadges =
+                              List<Badge>.empty(growable: true);
+                          for (var badge in globals.getBadges) {
+                            if (badge.getName.contains('Connections')) {
+                              fetchedBadges.add(badge);
+                            }
+                          }
+
+                          List<UserBadge> userBadges =
+                              List<UserBadge>.empty(growable: true);
+
+                          userBadges =
+                              await UserBadges.getAllUserBadgesByUserId(
+                                  globals);
+
+                          bool isThere = false;
+                          int index = 0;
+
+                          for (int k = 0; k < userBadges.length; k++) {
+                            for (int j = 0; j < fetchedBadges.length; j++) {
+                              if (userBadges[k].getBadgeId ==
+                                  fetchedBadges[j].getBadgeId) {
+                                isThere = true;
+                                await UserBadges.updateUserBadge(
+                                    globals.getUser.getId,
+                                    userBadges[k].getBadgeId,
+                                    numConnections,
+                                    globals);
+                                break;
+                              }
+                            }
+                            if (isThere == false) {
+                              await UserBadges.addUserBadge(
+                                globals.getUser.getId,
+                                fetchedBadges[index].getBadgeId,
+                                numConnections,
+                                globals,
+                              );
+                              break;
+                            }
+                            try {} catch (e) {
+                              log(e.toString());
+                            }
+                          }
+
+                          //update for ratings
+                          //if tutor
+                          if (globals.getUser.getUserTypeID[0] == '9') {
+                            Users tutor = globals.getUser;
+
+                            int ratings = tutor.getNumberOfReviews;
+                            // int numRatings = connections.length;
+
+                            List<Badge> fetchedBadges =
+                                List<Badge>.empty(growable: true);
+                            for (var badge in globals.getBadges) {
+                              if (badge.getName.contains('rating')) {
+                                fetchedBadges.add(badge);
+                              }
+                            }
+
+                            List<UserBadge> userBadges =
+                                List<UserBadge>.empty(growable: true);
+
+                            userBadges =
+                                await UserBadges.getAllUserBadgesByUserId(
+                                    globals);
+
+                            bool isThere = false;
+                            int index = 0;
+
+                            for (int k = 0; k < userBadges.length; k++) {
+                              for (int j = 0; j < fetchedBadges.length; j++) {
+                                if (userBadges[k].getBadgeId ==
+                                    fetchedBadges[j].getBadgeId) {
+                                  isThere = true;
+                                  await UserBadges.updateUserBadge(
+                                      globals.getUser.getId,
+                                      userBadges[k].getBadgeId,
+                                      ratings,
+                                      globals);
+                                  break;
+                                }
+                              }
+                              if (isThere == false) {
+                                await UserBadges.addUserBadge(
+                                  globals.getUser.getId,
+                                  fetchedBadges[index].getBadgeId,
+                                  ratings,
+                                  globals,
+                                );
+                                break;
+                              }
+                              try {} catch (e) {
+                                log(e.toString());
+                              }
+                            }
+                          }
 
                           setState(() {
                             isLoading = false;

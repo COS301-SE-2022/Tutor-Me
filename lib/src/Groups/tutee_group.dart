@@ -14,9 +14,12 @@ import 'package:tutor_me/src/theme/themes.dart';
 import 'package:tutor_me/src/tutorAndTuteeCollaboration/tuteeGroups/tuteeGroupSettings.dart';
 import 'package:http/http.dart' as http;
 import '../../screens/join_screen.dart';
+import '../../services/models/badges.dart';
 import '../../services/models/globals.dart';
 import '../../services/models/groups.dart';
 import '../../services/models/modules.dart';
+import '../../services/models/user_badges.dart';
+import '../../services/services/user_badges.dart';
 import '../../services/services/user_services.dart';
 import '../../utils/toast.dart';
 import '../pages/chat_page.dart';
@@ -343,6 +346,61 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
                                         ),
                                       ),
                                     );
+
+                                    List<Badge> fetchedBadges =
+                                        List<Badge>.empty(growable: true);
+                                    for (var badge
+                                        in widget.globals.getBadges) {
+                                      if (badge.getName.contains('Meeting')) {
+                                        fetchedBadges.add(badge);
+                                      }
+                                    }
+
+                                    log(fetchedBadges[0].getName);
+
+                                    List<UserBadge> userBadges =
+                                        List<UserBadge>.empty(growable: true);
+
+                                    userBadges = await UserBadges
+                                        .getAllUserBadgesByUserId(
+                                            widget.globals);
+
+                                    bool isThere = false;
+
+                                    for (int k = 0;
+                                        k < userBadges.length;
+                                        k++) {
+                                      for (int j = 0;
+                                          j < fetchedBadges.length;
+                                          j++) {
+                                        if (userBadges[k].getBadgeId ==
+                                            fetchedBadges[j].getBadgeId) {
+                                          isThere = true;
+                                          await UserBadges.updateUserBadge(
+                                              widget.globals.getUser.getId,
+                                              userBadges[k].getBadgeId,
+                                              userBadges[k].getPointAchieved +
+                                                  1,
+                                              widget.globals);
+                                          break;
+                                        }
+                                      }
+                                    }
+
+                                    if (isThere == false) {
+                                      for (var badge in fetchedBadges) {
+                                        log(badge.getName);
+                                        try {
+                                          await UserBadges.addUserBadge(
+                                              widget.globals.getUser.getId,
+                                              badge.getBadgeId,
+                                              1,
+                                              widget.globals);
+                                        } catch (e) {
+                                          log(e.toString());
+                                        }
+                                      }
+                                    }
                                   } else {
                                     toastMsg("Invalid Meeting ID");
                                   }
