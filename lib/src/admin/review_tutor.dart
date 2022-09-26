@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 // import 'package:google_fonts/google_fonts.dart';
 import 'package:tutor_me/services/models/globals.dart';
+import 'package:tutor_me/services/services/admin_services.dart';
 import 'package:tutor_me/services/services/institution_services.dart';
 import 'package:tutor_me/src/tutorProfilePages/pdfViewer/pdf_viewer.dart';
 import '../../services/models/users.dart';
@@ -240,12 +241,35 @@ class ReviewTutorState extends State<ReviewTutor> {
                   width: MediaQuery.of(context).size.width * 0.5,
                   child: ElevatedButton(
                     onPressed: () {
-                      // Navigator.push(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //         builder: (context) => RecordingScreen(
-                      //             videoURL:  "https://cdn.videosdk.live/encoded/videos/63161d681d5e14bac5db733a.mp4"
-                      //             )));
+                      AdminServices.verifyUser(
+                          tutorDetails[index].tutor.getId, widget.globals);
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            title: const Text("Success"),
+                            content: const Text("Tutor Verified"),
+                            backgroundColor: colorWhite,
+                            titleTextStyle: TextStyle(
+                              color: colorBlack,
+                              fontSize:
+                                  MediaQuery.of(context).size.height * 0.03,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            actions: <Widget>[
+                              TextButton(
+                                child: const Text(
+                                  "Retry",
+                                  style: TextStyle(color: colorWhite),
+                                ),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                            ],
+                          );
+                        },
+                      );
                     },
                     child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
