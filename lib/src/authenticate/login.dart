@@ -285,6 +285,45 @@ class _LoginState extends State<Login> {
                             }
                           }
 
+                          fetchedBadges = List<Badge>.empty(growable: true);
+                          for (var badge in globals.getBadges) {
+                            if (badge.getName.contains('Reg')) {
+                              fetchedBadges.add(badge);
+                            }
+                          }
+
+                          userBadges = List<UserBadge>.empty(growable: true);
+
+                          userBadges =
+                              await UserBadges.getAllUserBadgesByUserId(
+                                  globals);
+
+                          isThere = false;
+                          index = 0;
+
+                          for (int k = 0; k < userBadges.length; k++) {
+                            for (int j = 0; j < fetchedBadges.length; j++) {
+                              if (userBadges[k].getBadgeId ==
+                                  fetchedBadges[j].getBadgeId) {
+                                isThere = true;
+
+                                break;
+                              }
+                            }
+                            if (isThere == false) {
+                              await UserBadges.addUserBadge(
+                                globals.getUser.getId,
+                                fetchedBadges[index].getBadgeId,
+                                1,
+                                globals,
+                              );
+                              break;
+                            }
+                            try {} catch (e) {
+                              log(e.toString());
+                            }
+                          }
+
                           //update for ratings
                           //if tutor
                           if (globals.getUser.getUserTypeID[0] == '9') {
@@ -392,6 +431,47 @@ class _LoginState extends State<Login> {
                                 builder: (context) =>
                                     TuteePage(globals: globals)),
                           );
+
+                          List<Badge> fetchedBadges =
+                              List<Badge>.empty(growable: true);
+                          for (var badge in globals.getBadges) {
+                            if (badge.getName.contains('Reg')) {
+                              fetchedBadges.add(badge);
+                            }
+                          }
+
+                          List<UserBadge> userBadges =
+                              List<UserBadge>.empty(growable: true);
+
+                          userBadges =
+                              await UserBadges.getAllUserBadgesByUserId(
+                                  globals);
+
+                          bool isThere = false;
+                          int index = 0;
+
+                          for (int k = 0; k < userBadges.length; k++) {
+                            for (int j = 0; j < fetchedBadges.length; j++) {
+                              if (userBadges[k].getBadgeId ==
+                                  fetchedBadges[j].getBadgeId) {
+                                isThere = true;
+
+                                break;
+                              }
+                            }
+                            if (isThere == false) {
+                              await UserBadges.addUserBadge(
+                                globals.getUser.getId,
+                                fetchedBadges[index].getBadgeId,
+                                1,
+                                globals,
+                              );
+                              break;
+                            }
+                            try {} catch (e) {
+                              log(e.toString());
+                            }
+                          }
 
                           setState(() {
                             isLoading = false;

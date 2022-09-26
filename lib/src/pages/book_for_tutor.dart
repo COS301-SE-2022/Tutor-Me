@@ -33,8 +33,6 @@ class _BookForTutorState extends State<BookForTutor> {
       final incomingEvents = await EventServices.getEventsByUserId(
           widget.globals.getUser.getId, widget.globals);
       events = incomingEvents;
-      log('heree ' + events.length.toString());
-      log('heree22 ' + widget.globals.getUser.getUserTypeID[0]);
 
       if (widget.globals.getUser.getUserTypeID[0] == '9') {
         events.removeWhere(
