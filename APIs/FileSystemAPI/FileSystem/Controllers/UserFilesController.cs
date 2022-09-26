@@ -25,12 +25,27 @@ namespace FileSystem.Controllers {
 
         // GET: api/UserFiles/5
         [HttpGet("image/{id}")]
-        public IActionResult GetImageByUserId(Guid id) {
+        public async Task<IActionResult> GetImageByUserId(Guid id, string username, string password, Guid typeId) 
+            {
+            UserAuth userAuth = new UserAuth();
+            userAuth.Email = username;
+            userAuth.Password = password;
+            userAuth.TypeId = typeId;
             if (_context.UserFiles == null) {
                 return NotFound();
             }
-            var connection = userFilesService.GetImageByUserId(id);
-            return Ok(connection);
+            try {
+                
+                var connection = userFilesService.GetImageByUserId(id, userAuth);
+                return Ok(connection);
+            }
+            catch (Exception e) {
+                if (e.Message == "Unauthorized") {
+                    return Unauthorized();
+                }
+                return BadRequest(e.Message);
+            }
+
         }
 
         [HttpGet("transcript/{id}")]
@@ -45,7 +60,7 @@ namespace FileSystem.Controllers {
         // PUT: api/UserFiles/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<IActionResult> createUserRecord(UserFiles userFiles) {
+        public IActionResult createUserRecord(IUserFiles userFiles) {
             this.userFilesService.createUserRecord(userFiles);
             return Ok();
         }
