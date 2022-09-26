@@ -39,6 +39,7 @@ class _BookForTutorState extends State<BookForTutor> {
             (event) => event.getOwnerId == widget.globals.getUser.getId);
       }
     } catch (e) {
+      
       const snack = SnackBar(content: Text('Error loading events'));
       ScaffoldMessenger.of(context).showSnackBar(snack);
     }
@@ -54,14 +55,11 @@ class _BookForTutorState extends State<BookForTutor> {
             await UserServices.getTutor(events[i].getUserId, widget.globals);
         tutors.add(incomingTutors);
       }
-      final incomingTutors = await UserServices.getTutor(
-          widget.globals.getUser.getId, widget.globals);
-      tutors = incomingTutors;
     } catch (e) {
       const snack = SnackBar(content: Text('Error loading tutors'));
       ScaffoldMessenger.of(context).showSnackBar(snack);
     }
-    log(tutors.length.toString());
+
     setState(() {
       isLoading = false;
     });

@@ -183,7 +183,6 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
       UserStats(
         rating: widget.globals.getUser.getRating,
         numTutees: numTutees,
-        numConnections: numConnections,
       ),
       SizedBox(height: screenHeightSize * 0.02),
       SizedBox(

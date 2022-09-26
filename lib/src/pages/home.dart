@@ -204,9 +204,8 @@ class _HomeState extends State<Home> {
     } catch (e) {
       log(e.toString());
     }
-    setState(() {
-      isLoading = false;
-    });
+
+    getTuteeProfileImage();
   }
 
   void getConnections() async {
@@ -244,6 +243,10 @@ class _HomeState extends State<Home> {
         tuteeImage = Uint8List(128);
       });
     }
+    setState(() {
+      isLoading = false;
+      isImageLoading = false;
+    });
   }
 
   int key = 0;
@@ -474,6 +477,13 @@ class _HomeState extends State<Home> {
                     )
                   ],
                 ),
+                widget.globals.getUser.getIsVerified
+                    ? Icon(
+                        Icons.verified,
+                        color: colorGreen,
+                        size: screenHeightSize * 0.03,
+                      )
+                    : Container(),
               ],
             ),
           ),
