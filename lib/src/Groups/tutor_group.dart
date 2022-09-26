@@ -175,7 +175,7 @@ class TutorGroupPageState extends State<TutorGroupPage> {
             )
           : SingleChildScrollView(
               child: SizedBox(
-                height: screenHeight * 0.9,
+                // height: screenHeight * 0.9,
                 width: screenWidth * 0.9,
                 child: Column(
                   children: <Widget>[
@@ -250,7 +250,7 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                     ),
                     SizedBox(
                       width: screenWidth * 0.8,
-                      height: screenHeight * 0.35,
+                      height: screenHeight * 0.39,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,

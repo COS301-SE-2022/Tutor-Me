@@ -288,8 +288,8 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
                       height: screenHeight * 0.03,
                     ),
                     SizedBox(
-                      width: screenWidth * 0.8,
-                      height: screenHeight * 0.27,
+                      width: screenWidth * 0.89,
+                      height: screenHeight * 0.33,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
