@@ -10,6 +10,7 @@ import 'package:tutor_me/src/tutorProfilePages/user_stats.dart';
 import '../../services/models/modules.dart';
 import '../../services/models/users.dart';
 import '../../services/services/institution_services.dart';
+import '../../services/services/user_services.dart';
 import '../components.dart';
 import '../theme/themes.dart';
 
@@ -40,9 +41,28 @@ class TuteeProfilePageView extends StatefulWidget {
 class _TuteeProfilePageState extends State<TuteeProfilePageView> {
   List<Modules> currentModules = List<Modules>.empty();
   late Institutions institution;
-  late int numConnections;
   late int numTutees;
   bool _isLoading = true;
+
+  void getConnections() async {
+    try {
+      final tutors = await UserServices.getConnections(widget.global.getUser.getId,
+          widget.global.getUser.getUserTypeID, widget.global);
+
+          numTutees = tutors.length;
+     
+
+      setState(() {
+        _isLoading = false;
+      });
+    } catch (e) {
+      setState(() {
+        _isLoading = false;
+      });
+      const snackBar = SnackBar(content: Text('Error loading'));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
+  }
 
   getCurrentModules() async {
     try {
@@ -73,10 +93,11 @@ class _TuteeProfilePageState extends State<TuteeProfilePageView> {
   getInstitution() async {
     final tempInstitution = await InstitutionServices.getUserInstitution(
         widget.tutee.getInstitutionID, widget.global);
-    setState(() {
+       
+    
       institution = tempInstitution;
-      _isLoading = false;
-    });
+       getConnections();
+
   }
 
   @override
@@ -201,10 +222,9 @@ class _TuteeProfilePageState extends State<TuteeProfilePageView> {
         ),
       ),
       SizedBox(height: screenHeightSize * 0.02),
-      const UserStats(
+       UserStats(
         rating: 1,
-        numTutees: 2,
-        numConnections: 23,
+        numTutees: numTutees,
       ),
       SizedBox(height: screenHeightSize * 0.02),
       SizedBox(

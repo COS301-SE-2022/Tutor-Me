@@ -511,6 +511,24 @@ class UserServices {
     }
   }
 
+  static updateTutorRating(
+      int newRating, int numReviews, String id, Globals global) async {
+    try {
+      Uri uri = Uri.http(global.getTutorMeUrl,
+          '/api/Users/rating/$id?rating=$newRating&numberOfReviews=$numReviews');
+
+      final response = await http.put(uri, headers: global.getHeader);
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        return true;
+      } else {
+        throw Exception('Failed to update' + response.statusCode.toString());
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   // ignore: todo
   //TODO fix this
 
@@ -821,7 +839,8 @@ class UserServices {
 
   static updateTranscript(File? transcript, String id, Globals global) async {
     final transcriptByte = base64Encode(transcript!.readAsBytesSync());
-    String data = jsonEncode({'id': id,'userImage':null, 'userTranscript': transcriptByte});
+    String data = jsonEncode(
+        {'id': id, 'userImage': null, 'userTranscript': transcriptByte});
     log(data);
 
     final url =
@@ -1130,7 +1149,7 @@ class UserServices {
 
     try {
       final response = await http.get(tuteeURL, headers: global.getHeader);
-     
+
       log(response.statusCode.toString());
       log(response.body);
       if (response.statusCode == 200) {

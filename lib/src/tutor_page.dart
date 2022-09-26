@@ -103,11 +103,14 @@ class TutorPageState extends State<TutorPage> {
                                 globals: widget.globals,
                               )));
                     },
-                    icon: const Icon(Icons.notifications)),
+                    icon: Icon(
+                      Icons.notifications,
+                      size: MediaQuery.of(context).size.height * 0.04,
+                    )),
                 notificationCount == 0
                     ? Container()
                     : Positioned(
-                        right: MediaQuery.of(context).size.width * 0.020,
+                        right: MediaQuery.of(context).size.width * 0.014,
                         top: MediaQuery.of(context).size.height * 0.014,
                         child: Container(
                           padding: const EdgeInsets.all(2),
@@ -116,14 +119,14 @@ class TutorPageState extends State<TutorPage> {
                             borderRadius: BorderRadius.all(Radius.circular(6)),
                           ),
                           constraints: const BoxConstraints(
-                            minWidth: 14,
-                            minHeight: 14,
+                            minWidth: 20,
+                            minHeight: 16,
                           ),
                           child: Text(
                             notificationCount.toString(),
                             style: const TextStyle(
                               color: Colors.white,
-                              fontSize: 8,
+                              fontSize: 12
                             ),
                             textAlign: TextAlign.center,
                           ),

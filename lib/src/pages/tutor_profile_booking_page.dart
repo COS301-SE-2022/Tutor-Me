@@ -221,7 +221,6 @@ class _TutorProfileBookingPageState extends State<TutorProfileBookingPage> {
       UserStats(
         rating: widget.tutor.getRating,
         numTutees: numTutees,
-        numConnections: numConnections,
       ),
       SizedBox(height: screenHeightSize * 0.02),
       SizedBox(
