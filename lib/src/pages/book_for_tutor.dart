@@ -56,12 +56,10 @@ class _BookForTutorState extends State<BookForTutor> {
         tutors.add(incomingTutors);
       }
     } catch (e) {
-      print('f ' +e.toString());
       const snack = SnackBar(content: Text('Error loading tutors'));
       ScaffoldMessenger.of(context).showSnackBar(snack);
     }
 
-    print('evev ' + events.length.toString());
     setState(() {
       isLoading = false;
     });
