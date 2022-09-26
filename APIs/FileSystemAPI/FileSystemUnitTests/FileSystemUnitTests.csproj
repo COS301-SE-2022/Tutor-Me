@@ -9,6 +9,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Json.Net" Version="1.0.33" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="6.0.0" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
         <PackageReference Include="Moq" Version="4.18.1" />

@@ -30,6 +30,7 @@ namespace TutorMe.Data
         public virtual DbSet<Event> Event { get; set; }
         public virtual DbSet<GroupVideosLink> GroupVideosLink { get; set; }
         public virtual DbSet<Badge> Badge { get; set; }
+        public virtual DbSet<UserBadge> UserBadge { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Connection>(entity =>
@@ -176,6 +177,31 @@ namespace TutorMe.Data
                     .HasConstraintName("UserModule_User_FK");
             });
 
+            modelBuilder.Entity<UserBadge>(entity => {
+                entity.HasKey(e => e.UserBadgeId);
+
+                entity.HasIndex(e => e.UserId, "IX_UserBadge_UserId");
+                entity.HasIndex(e => e.BadgeId, "IX_UserBadge_BadgeId");
+
+                entity.Property(e => e.UserBadgeId).HasDefaultValueSql("(newid())").HasMaxLength(36); ;
+
+                entity.Property(e => e.BadgeId).HasDefaultValueSql("(newid())").HasMaxLength(36); ;
+
+                entity.Property(e => e.UserId).HasDefaultValueSql("(newid())").HasMaxLength(36); ;
+
+                entity.HasOne(d => d.Badge)
+                    .WithMany(p => p.UserBadges)
+                    .HasForeignKey(d => d.BadgeId)
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .HasConstraintName("UserBadge_Group_FK");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.UserBadges)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("UserBadge_User_FK");
+            });
+
             modelBuilder.Entity<Institution>(entity =>
             {
                 entity.Property(e => e.InstitutionId).HasDefaultValueSql("(newid())").HasMaxLength(36);;
@@ -262,8 +288,9 @@ namespace TutorMe.Data
                 entity.Property(e => e.Rating).HasColumnName("rating").HasDefaultValue(0);
                 
                 entity.Property(e => e.NumberOfReviews).HasDefaultValue(0);
+                entity.Property(e => e.verified).HasDefaultValue(false);
 
-                entity.Property(e => e.UserTypeId).HasDefaultValueSql("(newid())").HasMaxLength(36);;
+                entity.Property(e => e.UserTypeId).HasDefaultValueSql("(newid())").HasMaxLength(36);
 
                 entity.Property(e => e.Year).IsRequired();
 

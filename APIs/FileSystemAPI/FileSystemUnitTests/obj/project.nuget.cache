@@ -1,12 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "mKPg41D9l495/iLOwzKWXDhEnTiYD0gqFhmapz/cH5dDSt8f68Ti7h7naxuVGCnwATfbaDK5GpbwhLfzy1GTDw==",
+  "dgSpecHash": "ucg+7S/wkxzB5zfqPGqauhmQwX5I8hg0qRrIu2C9yrUz/da7sEU1qub8DlCkRHB5NMA5kkpoNxjjmhFHbL/fzQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\madun\\Documents\\School\\COS301\\Capstone\\Tutor-ME\\APIs\\FileSystemAPI\\FileSystemUnitTests\\FileSystemUnitTests.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\madun\\.nuget\\packages\\castle.core\\5.0.0\\castle.core.5.0.0.nupkg.sha512",
     "C:\\Users\\madun\\.nuget\\packages\\coverlet.collector\\3.1.2\\coverlet.collector.3.1.2.nupkg.sha512",
     "C:\\Users\\madun\\.nuget\\packages\\humanizer.core\\2.2.0\\humanizer.core.2.2.0.nupkg.sha512",
+    "C:\\Users\\madun\\.nuget\\packages\\json.net\\1.0.33\\json.net.1.0.33.nupkg.sha512",
     "C:\\Users\\madun\\.nuget\\packages\\messagepack\\2.1.152\\messagepack.2.1.152.nupkg.sha512",
     "C:\\Users\\madun\\.nuget\\packages\\messagepack.annotations\\2.1.152\\messagepack.annotations.2.1.152.nupkg.sha512",
     "C:\\Users\\madun\\.nuget\\packages\\messagepackanalyzer\\2.1.152\\messagepackanalyzer.2.1.152.nupkg.sha512",

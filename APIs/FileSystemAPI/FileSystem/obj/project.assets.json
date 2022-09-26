@@ -11,6 +11,15 @@
           "lib/netstandard2.0/Humanizer.dll": {}
         }
       },
+      "Json.Net/1.0.33": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/Json.Net.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Json.Net.dll": {}
+        }
+      },
       "MessagePack/2.1.152": {
         "type": "package",
         "dependencies": {
@@ -3180,6 +3189,18 @@
         "lib/netstandard2.0/Humanizer.dll",
         "lib/netstandard2.0/Humanizer.xml",
         "logo.png"
+      ]
+    },
+    "Json.Net/1.0.33": {
+      "sha512": "5tE+db6BqhRAvITIVBeRsQorLGshPExfm4FmMRvWWAfs4RxeTbFFj2PIEybwmMW0qR30HKkXDYhq0YkDK2Jtxw==",
+      "type": "package",
+      "path": "json.net/1.0.33",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "json.net.1.0.33.nupkg.sha512",
+        "json.net.nuspec",
+        "lib/netstandard2.0/Json.Net.dll"
       ]
     },
     "MessagePack/2.1.152": {
@@ -9923,6 +9944,7 @@
   },
   "projectFileDependencyGroups": {
     "net6.0": [
+      "Json.Net >= 1.0.33",
       "Microsoft.EntityFrameworkCore >= 6.0.8",
       "Microsoft.EntityFrameworkCore.SqlServer >= 6.0.8",
       "Microsoft.EntityFrameworkCore.Tools >= 6.0.8",
@@ -9970,6 +9992,10 @@
       "net6.0": {
         "targetAlias": "net6.0",
         "dependencies": {
+          "Json.Net": {
+            "target": "Package",
+            "version": "[1.0.33, )"
+          },
           "Microsoft.EntityFrameworkCore": {
             "target": "Package",
             "version": "[6.0.8, )"

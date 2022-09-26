@@ -281,6 +281,8 @@ C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\bi
 C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\bin\Debug\net6.0\Microsoft.AspNetCore.Razor.Language.dll
 C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\bin\Debug\net6.0\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\bin\Debug\net6.0\Microsoft.Build.dll
+C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\bin\Debug\net6.0\Microsoft.Build.Framework.dll
 C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\bin\Debug\net6.0\Microsoft.CodeAnalysis.AnalyzerUtilities.dll
 C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\bin\Debug\net6.0\Microsoft.CodeAnalysis.dll
 C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\bin\Debug\net6.0\Microsoft.CodeAnalysis.CSharp.dll
@@ -310,6 +312,7 @@ C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\bi
 C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.dll
 C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\bin\Debug\net6.0\Microsoft.NET.StringTools.dll
 C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\bin\Debug\net6.0\Microsoft.OpenApi.dll
 C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\bin\Debug\net6.0\Microsoft.VisualStudio.Debugger.Contracts.dll
 C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\bin\Debug\net6.0\Microsoft.VisualStudio.Web.CodeGeneration.dll
@@ -529,6 +532,3 @@ C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\ob
 C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\obj\Debug\net6.0\TutorMe.pdb
 C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\obj\Debug\net6.0\TutorMe.genruntimeconfig.cache
 C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\obj\Debug\net6.0\ref\TutorMe.dll
-C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\bin\Debug\net6.0\Microsoft.Build.dll
-C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\bin\Debug\net6.0\Microsoft.Build.Framework.dll
-C:\Users\madun\Documents\School\COS301\Capstone\Tutor-ME\APIs\TutorMe\TutorMe\bin\Debug\net6.0\Microsoft.NET.StringTools.dll
