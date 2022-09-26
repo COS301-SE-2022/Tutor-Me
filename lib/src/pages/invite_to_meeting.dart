@@ -120,45 +120,37 @@ class _InviteToMeetingState extends State<InviteToMeeting> {
                       });
                     },
                   ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.7,
-                ),
                 Center(
-                  child: Container(
-                    height: MediaQuery.of(context).size.height * 0.06,
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(16),
-                      color: highLightColor,
-                    ),
-                    child: TextButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => Calendar(
-                                globals: widget.globals,
-                              ),
-                            ),
-                          );
-                          SnackBar snackBar = const SnackBar(
-                            backgroundColor: colorLightGreen,
-                            content: Text(
-                              'Meeting Invited',
-                            ),
-                          );
-                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                        },
-                        child: Text(
-                          "Invite",
-                          style: TextStyle(
-                            fontSize: MediaQuery.of(context).size.height * 0.03,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
+                  child: FloatingActionButton.extended(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Calendar(
+                            globals: widget.globals,
                           ),
-                        )),
+                        ),
+                      );
+                      SnackBar snackBar = const SnackBar(
+                        backgroundColor: colorLightGreen,
+                        content: Text(
+                          'Meeting Invitations have been sent',
+                        ),
+                      );
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+                      
+                    },
+                    label: Text(
+                      'Invite',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: MediaQuery.of(context).size.width * 0.05,
+                      ),
+                    ),
+                    backgroundColor: highLightColor,
                   ),
-                )
+                ),
               ],
             ),
           ],

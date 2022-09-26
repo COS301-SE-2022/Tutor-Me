@@ -7,6 +7,7 @@ import 'package:tutor_me/src/colorpallete.dart';
 import '../../../services/models/globals.dart';
 import '../../../services/models/modules.dart';
 import '../../Groups/tutee_group.dart';
+import '../../Groups/tutor_group.dart';
 
 class HomeTuteeGroups extends StatefulWidget {
   final Globals globals;
@@ -118,12 +119,20 @@ class _HomeTuteeGroupsState extends State<HomeTuteeGroups> {
   Widget groupBuilder(BuildContext context, int i) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => TuteeGroupPage(
-                globals: widget.globals,
-                group: groups[i],
-                numberOfParticipants: numOfTutees,
-                module: modules[i])));
+        if (widget.globals.getUser.getUserTypeID[0] == '9') {
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => TutorGroupPage(
+                  globals: widget.globals,
+                  group: groups[i],
+                  module: modules[i])));
+        } else {
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => TuteeGroupPage(
+                  globals: widget.globals,
+                  group: groups[i],
+                  numberOfParticipants: numOfTutees,
+                  module: modules[i])));
+        }
       },
       child: Container(
         width: MediaQuery.of(context).size.width * 0.8,
