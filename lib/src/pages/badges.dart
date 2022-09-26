@@ -125,16 +125,17 @@ class _PageState extends State<Badges> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: (isLoading
-            ? const Center(child: CircularProgressIndicator())
-            : ListView(
-                padding: EdgeInsets.zero,
-                children: <Widget>[
-                  topDesign(),
-                  buildBody(allBadges),
-                  // buildBody(),
-                ],
-              )));
+      body: (isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : ListView(
+              padding: EdgeInsets.zero,
+              children: <Widget>[
+                topDesign(),
+                buildBody(allBadges),
+                // buildBody(),
+              ],
+            )),
+    );
   }
 
   Widget topDesign() {
@@ -285,80 +286,121 @@ class _PageState extends State<Badges> {
             indent: screenWidthSize * 0.05,
             endIndent: screenWidthSize * 0.05,
           ),
-          Padding(
-            padding:
-                EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.05),
-            child: SizedBox(
-              height: screenHeightSize * 0.25,
-              width: screenWidthSize * 1,
-              child: GridView.count(
-                childAspectRatio: 1,
-                crossAxisCount: 3,
-                children: List<Widget>.generate(userBadges.length, (index) {
-                  return GridTile(
-                    child: GestureDetector(
-                      onTap: () {},
-                      child: Padding(
-                        padding: EdgeInsets.only(
-                            top: MediaQuery.of(context).size.height * 0.015),
-                        child: Card(
-                            margin: EdgeInsets.symmetric(
-                                vertical: screenHeightSize * 0,
-                                horizontal:
-                                    MediaQuery.of(context).size.width * 0.02),
-                            color: colorWhite,
-                            child: Center(
-                              child: Container(
-                                width: screenWidthSize * 0.4,
-                                height: screenHeightSize * 0.5,
-                                decoration: const BoxDecoration(
-                                    color: Color.fromARGB(50, 193, 193, 193),
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(10))),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    Container(
-                                      height: screenHeightSize * 0.09,
+          (userBadgeNames.isNotEmpty
+              ? Padding(
+                  padding: EdgeInsets.only(
+                      left: MediaQuery.of(context).size.width * 0.05),
+                  child: SizedBox(
+                    height: screenHeightSize * 0.25,
+                    width: screenWidthSize * 1,
+                    child: GridView.count(
+                      childAspectRatio: 1,
+                      crossAxisCount: 3,
+                      children:
+                          List<Widget>.generate(userBadges.length, (index) {
+                        return GridTile(
+                          child: GestureDetector(
+                            onTap: () {},
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                  top: MediaQuery.of(context).size.height *
+                                      0.015),
+                              child: Card(
+                                  margin: EdgeInsets.symmetric(
+                                      vertical: screenHeightSize * 0,
+                                      horizontal:
+                                          MediaQuery.of(context).size.width *
+                                              0.02),
+                                  color: colorWhite,
+                                  child: Center(
+                                    child: Container(
                                       width: screenWidthSize * 0.4,
-                                      decoration: BoxDecoration(
-                                        borderRadius: const BorderRadius.only(
-                                            topLeft: Radius.circular(10),
-                                            topRight: Radius.circular(10)),
-                                        image: DecorationImage(
-                                          image: AssetImage(
-                                            images[index],
+                                      height: screenHeightSize * 0.5,
+                                      decoration: const BoxDecoration(
+                                          color:
+                                              Color.fromARGB(50, 193, 193, 193),
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(10))),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          Container(
+                                            height: screenHeightSize * 0.09,
+                                            width: screenWidthSize * 0.4,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  const BorderRadius.only(
+                                                      topLeft:
+                                                          Radius.circular(10),
+                                                      topRight:
+                                                          Radius.circular(10)),
+                                              image: DecorationImage(
+                                                image: AssetImage(
+                                                  images[index],
+                                                ),
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
                                           ),
-                                          fit: BoxFit.cover,
-                                        ),
+                                          Center(
+                                            child: Padding(
+                                              padding: EdgeInsets.only(
+                                                left: screenWidthSize * 0.01,
+                                                right: screenWidthSize * 0.01,
+                                              ),
+                                              child: Text(
+                                                userBadgeNames[index],
+                                                style: TextStyle(
+                                                    color: textColor,
+                                                    fontSize:
+                                                        screenHeightSize * 0.02,
+                                                    fontWeight:
+                                                        FontWeight.w500),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ),
-                                    Center(
-                                      child: Padding(
-                                        padding: EdgeInsets.only(
-                                          left: screenWidthSize * 0.01,
-                                          right: screenWidthSize * 0.01,
-                                        ),
-                                        child: Text(
-                                          userBadgeNames[index],
-                                          style: TextStyle(
-                                              color: textColor,
-                                              fontSize: screenHeightSize * 0.02,
-                                              fontWeight: FontWeight.w500),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            )),
+                                  )),
+                            ),
+                          ),
+                        );
+                      }),
+                    ),
+                  ),
+                )
+              : Center(
+                  child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.02,
+                    ),
+                    const Text("No Badges Earned Yet"),
+                    Center(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.celebration,
+                            color: highLightColor,
+                          ),
+                          Text(
+                            "Congratulations! on Registering",
+                            style: TextStyle(color: highLightColor),
+                          ),
+                        ],
                       ),
                     ),
-                  );
-                }),
-              ),
-            ),
-          ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.02,
+                    ),
+                  ],
+                ))),
           Padding(
             padding: EdgeInsets.only(
               top: MediaQuery.of(context).size.height * 0.04,
@@ -383,7 +425,7 @@ class _PageState extends State<Badges> {
                   padding: EdgeInsets.only(
                       left: MediaQuery.of(context).size.width * 0.05),
                   child: SizedBox(
-                    height: screenHeightSize * 1.95,
+                    height: screenHeightSize * 2.1,
                     width: screenWidthSize * 1,
                     child: GridView.count(
                       childAspectRatio: 1,

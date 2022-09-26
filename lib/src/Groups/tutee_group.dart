@@ -14,12 +14,9 @@ import 'package:tutor_me/src/theme/themes.dart';
 import 'package:tutor_me/src/tutorAndTuteeCollaboration/tuteeGroups/tuteeGroupSettings.dart';
 import 'package:http/http.dart' as http;
 import '../../screens/join_screen.dart';
-import '../../services/models/badges.dart';
 import '../../services/models/globals.dart';
 import '../../services/models/groups.dart';
 import '../../services/models/modules.dart';
-import '../../services/models/user_badges.dart';
-import '../../services/services/user_badges.dart';
 import '../../services/services/user_services.dart';
 import '../../utils/toast.dart';
 import '../pages/chat_page.dart';
@@ -72,8 +69,9 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
     try {
       final tutees = await GroupServices.getGroupTutees(
           widget.group.getId, widget.globals);
-
-      tuteeList = tutees;
+      setState(() {
+        tuteeList = tutees;
+      });
     } catch (e) {
       const snackBar = SnackBar(content: Text('Error getting tutees'));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -86,8 +84,9 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
       try {
         final image = await UserServices.getTuteeProfileImage(
             tuteeList[i].getId, widget.globals);
-
-        tuteeImages.add(image);
+        setState(() {
+          tuteeImages.add(image);
+        });
       } catch (e) {
         final byte = Uint8List(128);
         tuteeImages.add(byte);
@@ -108,11 +107,9 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
         tutees.add(Tutee(tuteeList[i], tuteeImages[i], true));
       }
     }
-
-    tutees = tutees;
-
-    tutees.removeWhere(
-        (tutee) => tutee.tutee.getId == widget.globals.getUser.getId);
+    setState(() {
+      tutees = tutees;
+    });
     getTutor();
   }
 
@@ -121,8 +118,9 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
       final tutor =
           await UserServices.getTutor(widget.group.getUserId, widget.globals);
 
-      tutorObj = tutor;
-      log(tutorObj.getName);
+      setState(() {
+        tutorObj = tutor[0];
+      });
     } catch (e) {
       const snackBar = SnackBar(content: Text('Error getting tutor'));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -136,6 +134,7 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
     try {
       final image = await UserServices.getTutorProfileImage(
           widget.group.getUserId, widget.globals);
+
       setState(() {
         tutorHasImage = true;
         tutorImage = image;
@@ -145,7 +144,6 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
       setState(() {
         _isLoading = false;
         tutorHasImage = false;
-        tutorImage = Uint8List(128);
       });
     }
   }
@@ -196,8 +194,9 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
               child: CircularProgressIndicator.adaptive(),
             )
           : SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
               child: SizedBox(
-                // height: screenHeight * 0.9,
+                // height: screenHeight * ,
                 width: screenWidth * 1,
                 child: Column(
                   children: <Widget>[
@@ -346,61 +345,6 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
                                         ),
                                       ),
                                     );
-
-                                    List<Badge> fetchedBadges =
-                                        List<Badge>.empty(growable: true);
-                                    for (var badge
-                                        in widget.globals.getBadges) {
-                                      if (badge.getName.contains('Meeting')) {
-                                        fetchedBadges.add(badge);
-                                      }
-                                    }
-
-                                    log(fetchedBadges[0].getName);
-
-                                    List<UserBadge> userBadges =
-                                        List<UserBadge>.empty(growable: true);
-
-                                    userBadges = await UserBadges
-                                        .getAllUserBadgesByUserId(
-                                            widget.globals);
-
-                                    bool isThere = false;
-
-                                    for (int k = 0;
-                                        k < userBadges.length;
-                                        k++) {
-                                      for (int j = 0;
-                                          j < fetchedBadges.length;
-                                          j++) {
-                                        if (userBadges[k].getBadgeId ==
-                                            fetchedBadges[j].getBadgeId) {
-                                          isThere = true;
-                                          await UserBadges.updateUserBadge(
-                                              widget.globals.getUser.getId,
-                                              userBadges[k].getBadgeId,
-                                              userBadges[k].getPointAchieved +
-                                                  1,
-                                              widget.globals);
-                                          break;
-                                        }
-                                      }
-                                    }
-
-                                    if (isThere == false) {
-                                      for (var badge in fetchedBadges) {
-                                        log(badge.getName);
-                                        try {
-                                          await UserBadges.addUserBadge(
-                                              widget.globals.getUser.getId,
-                                              badge.getBadgeId,
-                                              1,
-                                              widget.globals);
-                                        } catch (e) {
-                                          log(e.toString());
-                                        }
-                                      }
-                                    }
                                   } else {
                                     toastMsg("Invalid Meeting ID");
                                   }

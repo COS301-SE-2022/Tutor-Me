@@ -119,7 +119,7 @@ class _CalendarState extends State<Calendar> {
                     });
                   },
                   indicatorColor: highLightColor,
-                  unselectedLabelColor: colorLightGrey,
+                  unselectedLabelColor: colorDarkGrey,
                   labelColor: highLightColor,
                   unselectedLabelStyle: TextStyle(
                     color: textColor,

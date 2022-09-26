@@ -182,68 +182,67 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                     SizedBox(
                       height: screenHeight * 0.04,
                     ),
-                    Container(
-                      color: Colors.grey.withOpacity(0.2),
-                      height: screenHeight * 0.2,
-                      width: screenWidth * 0.42,
-                      padding: EdgeInsets.only(
-                          top: screenHeight * 0.02,
-                          bottom: screenHeight * 0.02,
-                          left: screenWidth * 0.02,
-                          right: screenWidth * 0.02),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Text(
-                                'Group Header:',
-                                textAlign: TextAlign.left,
-                                style: TextStyle(
-                                    color: textColor,
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: screenHeight * 0.03,
-                                    decoration: TextDecoration.underline),
+                    Row(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(
+                              left: MediaQuery.of(context).size.width * 0.05),
+                          child: Container(
+                            width: screenWidth * 0.03,
+                            height: screenHeight * 0.2,
+                            decoration: const BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage('assets/Pictures/group.jpg'),
+                                fit: BoxFit.cover,
                               ),
-                              IconButton(
-                                onPressed: () {},
-                                icon: Icon(
-                                  Icons.edit,
-                                  color: highLightColor,
-                                  size: screenHeight * 0.045,
-                                ),
-                              )
+                            ),
+                          ),
+                        ),
+                        Container(
+                          height: screenHeight * 0.2,
+                          width: screenWidth * 0.40,
+                          padding: EdgeInsets.only(
+                              top: screenHeight * 0.02,
+                              bottom: screenHeight * 0.02,
+                              left: screenWidth * 0.02,
+                              right: screenWidth * 0.02),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                                bottomRight: Radius.circular(
+                                    MediaQuery.of(context).size.width * 0.02),
+                                topRight: Radius.circular(
+                                    MediaQuery.of(context).size.width * 0.02)),
+                            color: Colors.grey.withOpacity(0.2),
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Text(
+                                    'Group Header:',
+                                    textAlign: TextAlign.left,
+                                    style: TextStyle(
+                                        color: textColor,
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: screenHeight * 0.03,
+                                        decoration: TextDecoration.underline),
+                                  ),
+                                  IconButton(
+                                      onPressed: () {},
+                                      icon: Icon(
+                                        Icons.edit,
+                                        color: highLightColor,
+                                      ))
+                                ],
+                              ),
                             ],
                           ),
-                          SizedBox(
-                            height: screenHeight * 0.01,
-                          ),
-                          Flexible(
-                            child: ConstrainedBox(
-                                constraints: const BoxConstraints.expand(),
-                                child: Theme(
-                                  data: Theme.of(context).copyWith(
-                                      scrollbarTheme: ScrollbarThemeData(
-                                          thumbColor: MaterialStateProperty.all(
-                                              highLightColor))),
-                                  child: Scrollbar(
-                                    child: ListView.separated(
-                                        physics: const BouncingScrollPhysics(),
-                                        itemBuilder: pointBuilder,
-                                        separatorBuilder: (context, index) {
-                                          return SizedBox(
-                                            height: screenHeight * 0.01,
-                                          );
-                                        },
-                                        itemCount: 1),
-                                  ),
-                                )),
-                          )
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                     SizedBox(
                       height: screenHeight * 0.03,
@@ -268,7 +267,7 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                               elevation: 0,
                               color: Colors.transparent,
                               child: ListTile(
-                                horizontalTitleGap: screenHeight * 0.04,
+                                horizontalTitleGap: screenHeight * 0.02,
                                 leading: Icon(
                                   Icons.chat,
                                   size: screenHeight * 0.06,
@@ -284,6 +283,10 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                                               0.025),
                                 ),
                                 subtitle: const Text('2 new msgs!'),
+                                trailing: Icon(
+                                  Icons.arrow_forward_ios,
+                                  color: highLightColor,
+                                ),
                               ),
                             ),
                           ),
@@ -393,12 +396,12 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                               elevation: 0,
                               color: Colors.transparent,
                               child: ListTile(
-                                horizontalTitleGap: screenHeight * 0.04,
+                                horizontalTitleGap: screenHeight * 0.02,
                                 leading: Stack(children: [
                                   Icon(
                                     Icons.chat_bubble,
                                     size: screenHeight * 0.06,
-                                    color: highLightColor,
+                                    color: primaryColor,
                                   ),
                                   Positioned(
                                       top: screenHeight * 0.01,
@@ -417,6 +420,10 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                                           MediaQuery.of(context).size.height *
                                               0.025),
                                 ),
+                                trailing: Icon(
+                                  Icons.arrow_forward_ios,
+                                  color: highLightColor,
+                                ),
                               ),
                             ),
                           ),
@@ -433,12 +440,12 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                               elevation: 0,
                               color: Colors.transparent,
                               child: ListTile(
-                                horizontalTitleGap: screenHeight * 0.04,
+                                horizontalTitleGap: screenHeight * 0.02,
                                 leading: Stack(children: [
                                   Icon(
                                     Icons.chat_bubble,
                                     size: screenHeight * 0.06,
-                                    color: colorOrange,
+                                    color: primaryColor,
                                   ),
                                   Positioned(
                                       top: screenHeight * 0.01,
@@ -457,17 +464,19 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                                           MediaQuery.of(context).size.height *
                                               0.025),
                                 ),
+                                trailing: Icon(
+                                  Icons.arrow_forward_ios,
+                                  color: highLightColor,
+                                ),
                               ),
                             ),
-                          ),
-                          SizedBox(
-                            height: screenHeight * 0.06,
                           ),
                         ],
                       ),
                     ),
                     SizedBox(
                       width: screenWidth * 0.5,
+                      // height: screenHeight * 0.5,
                       child: Padding(
                         padding: EdgeInsets.only(left: screenWidth * 0.03),
                         child: Text(
@@ -482,7 +491,7 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                       ),
                     ),
                     SizedBox(
-                      height: screenHeight * 0.25,
+                      height: screenHeight * 0.20,
                       width: screenWidth * 0.5,
                       child: hasTutees
                           ? ListView.separated(

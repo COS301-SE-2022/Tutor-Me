@@ -622,11 +622,20 @@ class _HomeState extends State<Home> {
                                     )));
                       } else if (index == 1) {
                         //render Groups Page
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    HomeTuteeGroups(globals: widget.globals)));
+
+                        if (widget.globals.getUser.getUserTypeID[0] == '9') {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => HomeTuteeGroups(
+                                      globals: widget.globals)));
+                        } else {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => HomeTuteeGroups(
+                                      globals: widget.globals)));
+                        }
                       } else if (index == 4) {
                         //render Badges Page
                         Navigator.of(context).push(MaterialPageRoute(
