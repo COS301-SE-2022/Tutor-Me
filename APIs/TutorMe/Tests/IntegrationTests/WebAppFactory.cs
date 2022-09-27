@@ -13,13 +13,7 @@ public class WebAppFactory: WebApplicationFactory<Program>
 {
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
-        builder.ConfigureAppConfiguration(config =>
-        {
-            var projectDir = Directory.GetCurrentDirectory();
-            var configPath = Path.Combine(projectDir, "appsettings.json");
-            config.AddJsonFile(configPath);
-            
-        });
+    
         
      
         builder.ConfigureTestServices(services =>
