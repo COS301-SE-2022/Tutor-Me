@@ -67,7 +67,7 @@ namespace Tests.IntegrationTests
 
             var response = await _httpClient.PostAsJsonAsync("https://localhost:7100/api/Account/AuthToken", expectedUser);
             _testOutputHelper.WriteLine("the body login " + response);
-            response.EnsureSuccessStatusCode();
+             response.EnsureSuccessStatusCode();
             Assert.NotNull(response);
             if (response != null && response.IsSuccessStatusCode == false)
             {
@@ -217,8 +217,6 @@ namespace Tests.IntegrationTests
 
         }
         
-
-      
     }
 
 
