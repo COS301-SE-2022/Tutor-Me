@@ -75,6 +75,7 @@ namespace TutorMe.Services
             newGroupMember.GroupId = newGroup.GroupId;
             newGroupMember.UserId = group.UserId;
             _context.GroupMember.Add(newGroupMember);
+            _context.SaveChanges();
             return group.GroupId;
         }
 

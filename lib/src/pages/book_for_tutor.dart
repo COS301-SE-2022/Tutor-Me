@@ -1,8 +1,10 @@
 import 'dart:developer';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tutor_me/services/services/user_services.dart';
+import 'package:tutor_me/src/chat/booking_chat.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 // import 'package:tutor_me/src/pages/badges.dart';
 import 'package:tutor_me/src/pages/tutor_explore.dart';
@@ -31,7 +33,13 @@ class _BookForTutorState extends State<BookForTutor> {
       final incomingEvents = await EventServices.getEventsByUserId(
           widget.globals.getUser.getId, widget.globals);
       events = incomingEvents;
+
+      if (widget.globals.getUser.getUserTypeID[0] == '9') {
+        events.removeWhere(
+            (event) => event.getOwnerId == widget.globals.getUser.getId);
+      }
     } catch (e) {
+      
       const snack = SnackBar(content: Text('Error loading events'));
       ScaffoldMessenger.of(context).showSnackBar(snack);
     }
@@ -41,22 +49,21 @@ class _BookForTutorState extends State<BookForTutor> {
 
   getTutors() async {
     try {
+      log('heree ' + events.length.toString());
       for (int i = 0; i < events.length; i++) {
         final incomingTutors =
             await UserServices.getTutor(events[i].getUserId, widget.globals);
         tutors.add(incomingTutors);
       }
-      final incomingTutors = await UserServices.getTutor(
-          widget.globals.getUser.getId, widget.globals);
-      tutors = incomingTutors;
     } catch (e) {
       const snack = SnackBar(content: Text('Error loading tutors'));
       ScaffoldMessenger.of(context).showSnackBar(snack);
     }
-    log(tutors.length.toString());
+
     setState(() {
       isLoading = false;
     });
+    log('heree ' + events.length.toString());
   }
 
   @override
@@ -271,16 +278,20 @@ class _BookForTutorState extends State<BookForTutor> {
 
   Widget buildAppointments(BuildContext context, int i) {
     String date = events[i].getDateOfEvent.split(' ')[0];
+    Uint8List image = Uint8List(128);
     return TextButton(
         onPressed: () {
-          // Navigator.push(
-          //   context,
-          //   MaterialPageRoute(
-          //       builder: (context) => TutorBookedAppointment(
-          //             globals: widget.globals,
-          //             event: events[i],
-          //           )),
-          // );
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => BookingChat(
+                      reciever: tutors[i],
+                      globals: widget.globals,
+                      image: image,
+                      hasImage: false,
+                      event: events[i],
+                    )),
+          );
         },
         child: Text(
           '•' +

@@ -154,14 +154,12 @@ class ChatsState extends State<Chats> {
   Widget _chatBuilder(BuildContext context, int i) {
     final provider = Provider.of<ThemeProvider>(context, listen: false);
 
-  
     Color textColor;
 
     if (provider.themeMode == ThemeMode.dark) {
       textColor = colorWhite;
     } else {
       textColor = colorDarkGrey;
-     
     }
 
     String name;
@@ -228,8 +226,8 @@ class ChatsState extends State<Chats> {
                   name,
                   style: TextStyle(color: textColor),
                 ),
-                subtitle:  Text('Hi, how are you',
-                    style: TextStyle(color: textColor)),
+                subtitle:
+                    Text('Hi, how are you', style: TextStyle(color: textColor)),
                 // trailing: ,
               ),
             ],

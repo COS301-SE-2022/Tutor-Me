@@ -69,6 +69,22 @@ additional functionalities like filtering tutors by gender to enable students to
 > > > ### [GitHub Project Board](https://github.com/COS301-SE-2022/Tutor-ME/projects/1)
 > > > ### [Trello Project Board](https://trello.com/b/R58mrioT/tutor-me)
 
+# Demo 4
+## [Technical Installation Document](https://github.com/COS301-SE-2022/Tutor-ME/blob/develop/assets/Technical%20installation%20manual.pdf)
+## [User Manual](https://github.com/COS301-SE-2022/Tutor-ME/blob/develop/assets/User%20Manual%20TutorMe-4.pdf)
+## [SRS Document](https://github.com/COS301-SE-2022/Tutor-ME/blob/develop/assets/SRS%20Document%20-%20version%203.pdf)
+## [Coding Standards Document](https://github.com/COS301-SE-2022/Tutor-ME/blob/develop/assets/Coding%20standards%20document.pdf)
+## [Sprint Planning](https://github.com/COS301-SE-2022/Tutor-ME/blob/develop/assets/Sprint%20Planning%20And%20Burndown%20Charts%20-1.pdf)
+## Project Boards:
+> > > ### [GitHub Project Board](https://github.com/COS301-SE-2022/Tutor-ME/projects/1)
+> > > ### [Trello Project Board](https://trello.com/b/R58mrioT/tutor-me)
+
+## Applications
+<p align="center"> 
+	<img align="left" alt="Android App" src="https://github.com/COS301-SE-2022/Tutor-Me/blob/develop/assets/Pictures/TutorMe%20apk.png" width="200" height="200">
+	<img align="right" alt="Admin Windows App" src="https://github.com/COS301-SE-2022/Tutor-Me/blob/develop/assets/Pictures/TutorMe%20admin.png" width="200" height="200">
+</p>
+
 ## Project Technologies
 - Frontend: Flutter(Dart)
 ``` 

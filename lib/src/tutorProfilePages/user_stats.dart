@@ -5,23 +5,18 @@ import 'package:tutor_me/src/theme/themes.dart';
 
 class UserStats extends StatelessWidget {
   final int rating;
-  final int numConnections;
   final int numTutees;
 
   const UserStats(
       {Key? key,
       required this.rating,
-      required this.numTutees,
-      required this.numConnections})
+      required this.numTutees,})
       : super(key: key);
 
-  int convertRating() {
-    return rating;
-  }
+  
 
   @override
   Widget build(BuildContext context) {
-    int rating = convertRating();
 
     final provider = Provider.of<ThemeProvider>(context, listen: false);
 
@@ -39,11 +34,7 @@ class UserStats extends StatelessWidget {
         buildDivider(),
         buildButton(
             text: '  Tutors', value: numTutees, color: secondaryTextColor),
-        buildDivider(),
-        buildButton(
-            text: '  Connections',
-            value: numConnections,
-            color: secondaryTextColor),
+       
       ],
     );
   }

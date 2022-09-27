@@ -194,8 +194,9 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
               child: CircularProgressIndicator.adaptive(),
             )
           : SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
               child: SizedBox(
-                // height: screenHeight * 0.9,
+                // height: screenHeight * ,
                 width: screenWidth * 1,
                 child: Column(
                   children: <Widget>[
@@ -232,7 +233,7 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
                                     MediaQuery.of(context).size.width * 0.02),
                                 topRight: Radius.circular(
                                     MediaQuery.of(context).size.width * 0.02)),
-                            color: primaryColor,
+                            color: Colors.grey.withOpacity(0.2),
                           ),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
@@ -286,8 +287,8 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
                       height: screenHeight * 0.03,
                     ),
                     SizedBox(
-                      width: screenWidth * 0.8,
-                      height: screenHeight * 0.27,
+                      width: screenWidth * 0.89,
+                      height: screenHeight * 0.33,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
@@ -577,8 +578,7 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
               ),
               subtitle: Text(
                 tutorObj.getBio,
-                style:  TextStyle(
-                    fontWeight: FontWeight.w500, color: textColor),
+                style: TextStyle(fontWeight: FontWeight.w500, color: textColor),
               ),
               trailing: Icon(
                 Icons.chat_bubble,
@@ -646,8 +646,7 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
               ),
               subtitle: Text(
                 tutees[i].tutee.getBio,
-                style:  TextStyle(
-                    fontWeight: FontWeight.w500, color: textColor),
+                style: TextStyle(fontWeight: FontWeight.w500, color: textColor),
               ),
               trailing: Icon(
                 Icons.chat_bubble,

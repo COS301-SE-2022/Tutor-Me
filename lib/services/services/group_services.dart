@@ -223,7 +223,9 @@ class GroupServices {
 
     try {
       final response = await http.get(url, headers: global.getHeader);
+      log(response.statusCode.toString());
       if (response.statusCode == 200) {
+        log(response.body);
         String j = "";
         if (response.body[0] != "[") {
           j = "[" + response.body + "]";
@@ -235,6 +237,28 @@ class GroupServices {
       } else if (response.statusCode == 401) {
         global = await refreshToken(global);
         return await getGroupTutees(groupId, global);
+      } else {
+        throw Exception('Failed to load' + response.body);
+      }
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  static addTuteeToGroup(String tuteeId, String groupId, Globals global) async {
+    String data = jsonEncode(
+        {"groupMemberId": groupId, "groupId": groupId, "userId": tuteeId});
+
+    Uri url = Uri.http(global.getTutorMeUrl, 'api/GroupMembers/');
+    try {
+      final response =
+          await http.post(url, headers: global.getHeader, body: data);
+      log(response.statusCode.toString());
+      if (response.statusCode == 200) {
+        return true;
+      } else if (response.statusCode == 401) {
+        global = await refreshToken(global);
+        return await addTuteeToGroup(tuteeId, groupId, global);
       } else {
         throw Exception('Failed to load' + response.body);
       }
@@ -343,4 +367,6 @@ class GroupServices {
       throw Exception('Failed to refresh token');
     }
   }
+
+  static getGroupByUserID(String getId, Globals globals) {}
 }

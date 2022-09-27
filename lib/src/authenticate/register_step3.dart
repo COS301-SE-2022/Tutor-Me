@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
 
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -8,9 +9,12 @@ import 'package:tutor_me/services/models/globals.dart';
 import 'package:tutor_me/services/models/intitutions.dart';
 // import 'package:tutor_me/services/models/tutors.dart';
 import 'package:tutor_me/services/services/institution_services.dart';
+import 'package:tutor_me/services/services/user_badges.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/tutorVerifyShowcase/tutor_page.dart';
 // import '../../services/models/tutees.dart';
+import '../../services/models/badges.dart';
+import '../../services/models/user_badges.dart';
 import '../../services/services/user_services.dart';
 import '../components.dart';
 import '../tutee_page.dart';
@@ -78,6 +82,42 @@ class _RegisterStep3State extends State<RegisterStep3> {
           MaterialPageRoute(
               builder: (context) => ShowCaseParent(globals: globals)),
         );
+
+        List<Badge> fetchedBadges = List<Badge>.empty(growable: true);
+        for (var badge in globals.getBadges) {
+          if (badge.getName.contains('Reg')) {
+            fetchedBadges.add(badge);
+          }
+        }
+
+        List<UserBadge> userBadges = List<UserBadge>.empty(growable: true);
+
+        userBadges = await UserBadges.getAllUserBadgesByUserId(globals);
+
+        bool isThere = false;
+        int index = 0;
+
+        for (int k = 0; k < userBadges.length; k++) {
+          for (int j = 0; j < fetchedBadges.length; j++) {
+            if (userBadges[k].getBadgeId == fetchedBadges[j].getBadgeId) {
+              isThere = true;
+
+              break;
+            }
+          }
+          if (isThere == false) {
+            await UserBadges.addUserBadge(
+              globals.getUser.getId,
+              fetchedBadges[index].getBadgeId,
+              1,
+              globals,
+            );
+            break;
+          }
+          try {} catch (e) {
+            log(e.toString());
+          }
+        }
       } catch (e) {
         showDialog(
           context: context,

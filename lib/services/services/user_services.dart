@@ -208,7 +208,6 @@ class UserServices {
     try {
       final response = await http.get(tuteeURL, headers: globals.getHeader);
 
-      log(response.body);
       log(response.statusCode.toString());
       if (response.statusCode == 200) {
         return Users.fromObject(json.decode(response.body));
@@ -399,7 +398,8 @@ class UserServices {
       'bio': "No bio added",
       'year': year,
       'rating': 0,
-      'numberOfReviews': 0
+      'numberOfReviews': 0,
+      'verified': false,
     });
 
     final header = {
@@ -453,7 +453,8 @@ class UserServices {
       'bio': "No bio added",
       'year': year,
       'rating': 0,
-      'numberOfReviews': 0
+      'numberOfReviews': 0,
+      'verified': false,
     });
 
     final header = {
@@ -504,6 +505,24 @@ class UserServices {
       } else if (response.statusCode == 401) {
         global = await refreshToken(global);
         return await updateTutee(tutee, global);
+      } else {
+        throw Exception('Failed to update' + response.statusCode.toString());
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  static updateTutorRating(
+      int newRating, int numReviews, String id, Globals global) async {
+    try {
+      Uri uri = Uri.http(global.getTutorMeUrl,
+          '/api/Users/rating/$id?rating=$newRating&numberOfReviews=$numReviews');
+
+      final response = await http.put(uri, headers: global.getHeader);
+      
+      if (response.statusCode == 200) {
+        return true;
       } else {
         throw Exception('Failed to update' + response.statusCode.toString());
       }
@@ -654,7 +673,6 @@ class UserServices {
     }
   }
 
-  // ignore: todo
   //TODO fix this
 
   // static updateTutorByEmail(
@@ -769,9 +787,10 @@ class UserServices {
   // }
 
   static updateProfileImage(File? image, String id, Globals global) async {
+    log('putting');
     final imageByte = base64Encode(image!.readAsBytesSync());
     String data =
-        jsonEncode({'id': id, 'userImage': imageByte, 'userTranscript': ''});
+        jsonEncode({'id': id, 'userImage': imageByte, 'userTranscript': null});
 
     final url =
         Uri.parse('http://${global.getFilesUrl}/api/UserFiles/image/$id');
@@ -797,9 +816,10 @@ class UserServices {
   }
 
   static uploadProfileImage(File? image, String id, Globals global) async {
+    log('posting');
     final imageByte = base64Encode(image!.readAsBytesSync());
     String data =
-        jsonEncode({'id': id, 'userImage': imageByte, 'userTranscript': ''});
+        jsonEncode({'id': id, 'userImage': imageByte, 'userTranscript': null});
 
     final url = Uri.parse('http://${global.getFilesUrl}/api/UserFiles');
     try {
@@ -822,7 +842,7 @@ class UserServices {
   static updateTranscript(File? transcript, String id, Globals global) async {
     final transcriptByte = base64Encode(transcript!.readAsBytesSync());
     String data = jsonEncode(
-        {'id': id, 'userImage': '', 'userTranscript': transcriptByte});
+        {'id': id, 'userImage': null, 'userTranscript': transcriptByte});
     log(data);
 
     final url =
@@ -832,6 +852,7 @@ class UserServices {
       final response =
           await http.put(url, headers: global.getHeader, body: data);
       log('stat ' + response.statusCode.toString());
+      log(response.body);
       if (response.statusCode == 200) {
         return transcript;
       } else if (response.statusCode == 401) {
@@ -849,7 +870,7 @@ class UserServices {
   static uploadTranscript(File? transcript, String id, Globals global) async {
     final transcriptByte = base64Encode(transcript!.readAsBytesSync());
     String data = jsonEncode(
-        {'userId': id, 'userImage': '', 'userTranscript': transcriptByte});
+        {'id': id, 'userImage': null, 'userTranscript': transcriptByte});
 
     final url = Uri.parse('http://${global.getFilesUrl}/api/UserFiles');
     try {
@@ -1078,7 +1099,7 @@ class UserServices {
       if (response.statusCode == 200) {
         final image = response.body;
         List<String> imageList = image.split('"');
-        log(image);
+        log('This is the returned image' + image);
         if (image.length < 10) {
           throw Exception('No Image found');
         } else {
@@ -1115,6 +1136,38 @@ class UserServices {
       } else if (response.statusCode == 401) {
         global = await refreshToken(global);
         return await getTuteeProfileImage(id, global);
+      } else {
+        throw Exception('Failed to load' + response.statusCode.toString());
+      }
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  static Future getTutorTranscript(String id, Globals global) async {
+    log('getting transcript');
+    Uri tuteeURL =
+        Uri.parse('http://${global.getFilesUrl}/api/Userfiles/transcript/$id');
+
+    try {
+      final response = await http.get(tuteeURL, headers: global.getHeader);
+
+      log(response.statusCode.toString());
+      log(response.body);
+      if (response.statusCode == 200) {
+        log(response.body);
+        final transcript = response.body;
+        List<String> imageList = transcript.split('"');
+        log('This is the returned transcript' + transcript);
+        if (transcript.length < 10) {
+          throw Exception('No Image found');
+        } else {
+          Uint8List bytes = base64Decode(imageList[1]);
+          return bytes;
+        }
+      } else if (response.statusCode == 401) {
+        global = await refreshToken(global);
+        return await getTutorProfileImage(id, global);
       } else {
         throw Exception('Failed to load' + response.statusCode.toString());
       }

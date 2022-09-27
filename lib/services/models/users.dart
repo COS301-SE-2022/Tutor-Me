@@ -15,6 +15,7 @@ class Users {
   int _rating = 0;
   String _age = "";
   int _numberOfReviews = 0;
+  bool _isVerified = false;
 
   Users(
       this._id,
@@ -49,6 +50,7 @@ class Users {
   int get getRating => _rating;
   int get getNumberOfReviews => _numberOfReviews;
   String get getAge => calculateAge(_dateOfBirth);
+  bool get getIsVerified => _isVerified;
 
   set setStatus(bool newStatus) {
     _status = newStatus;
@@ -127,6 +129,10 @@ class Users {
     _numberOfReviews = newNumberOfReviews;
   }
 
+  set setISVerified(bool isVerified) {
+    _isVerified = isVerified;
+  }
+
   Map<String, dynamic> toMap() {
     var map = <String, dynamic>{};
     map["userId"] = _id;
@@ -144,6 +150,7 @@ class Users {
     map["year"] = _year;
     map["rating"] = _rating;
     map["numberOfReviews"] = _numberOfReviews;
+    map["verified"] = _isVerified;
     return map;
   }
 
@@ -163,9 +170,8 @@ class Users {
     _year = o["year"];
     _rating = o["rating"];
     _numberOfReviews = o["numberOfReviews"];
+    _isVerified = o["verified"];
   }
-
-
 }
 
 class UserType {

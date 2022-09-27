@@ -239,6 +239,25 @@ class EventServices {
     }
   }
 
+ static updateVideoId(String eventId, String videoLink, Globals global) async {
+    try {
+      final url = Uri.http(
+          global.getTutorMeUrl, 'api/Events/$eventId?newVideoLink=$videoLink');
+
+      final response = await http.put(url, headers: global.getHeader);
+      if (response.statusCode == 200) {
+        return true;
+      } else if (response.statusCode == 401) {
+        global = await refreshToken(global);
+        return await updateGroupId(eventId, videoLink, global);
+      } else {
+        throw Exception(
+            'Failed to update event group. Please make sure your internet connect is on and try again');
+      }
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
   static Future<Globals> refreshToken(Globals globals) async {
     log('refreshing token');
     final refreshUrl =
