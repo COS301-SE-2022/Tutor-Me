@@ -17,15 +17,14 @@ namespace Tests.IntegrationTests
         private string token;
         private HttpClient _httpClient;
         private ITestOutputHelper _testOutputHelper = null!;
-
-       
-   
+        
+        
         public InstitutionIntegrationTest(ITestOutputHelper output)
         {   _testOutputHelper = output;
             var dbname = Guid.NewGuid().ToString();
             var appFactory = new WebApplicationFactory<Program>()
                 .WithWebHostBuilder(builder =>
-                {
+                { 
                     builder.ConfigureServices(
                         services =>
                         {

@@ -27,9 +27,8 @@
 
     <ItemGroup>
       <ProjectReference Include="..\TutorMe\TutorMe.csproj" />
+      <None Include="/home/simphiwe/Desktop/updated_CapsOn/Tutor-ME/APIs/TutorMe/TutorMe/appsettings.json" CopyToPublishDirectory="Always" CopyToOutputDirectory="Always" />
     </ItemGroup>
-    <ItemGroup>
-    <Content Include="appsettings.json" CopyToOutputDirectory="PreserveNewest" />
-    </ItemGroup>
+    
 
 </Project>

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.TestHost;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+
 using TutorMe.Data;
 
 namespace Tests.IntegrationTests;
@@ -17,10 +18,13 @@ public class WebAppFactory: WebApplicationFactory<Program>
             var projectDir = Directory.GetCurrentDirectory();
             var configPath = Path.Combine(projectDir, "appsettings.json");
             config.AddJsonFile(configPath);
+            
         });
-        builder.ConfigureTestServices(services =>
-        { 
         
+     
+        builder.ConfigureTestServices(services =>
+        {
+         
             var descriptor = services.SingleOrDefault(
                 d => d.ServiceType == typeof(DbContextOptions<TutorMeContext>));
                             

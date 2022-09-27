@@ -39,7 +39,7 @@ namespace Tests.IntegrationTests
                 Email = "thaboMaduna527@gmail.com",
                 Password = "24681012",
                 UserTypeId = new Guid("1fa85f64-5717-4562-b3fc-2c963f66afa6"), //Admin
-                // InstitutionId = new Guid("ca16749a-1667-47a6-b945-8338f5c6a69c"),
+              
                 Location = "1166 TMN, 0028",
                 Bio = "The boys",
                 Year = "3",
@@ -56,7 +56,7 @@ namespace Tests.IntegrationTests
 
 
             //Arrange
-
+    
 
             //Log in
             var expectedUser = new UserLogIn();

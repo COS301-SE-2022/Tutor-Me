@@ -60,6 +60,9 @@ namespace TutorMe.Controllers
                 return Ok(group);
             }
             catch (Exception exception) {
+                if(exception.Message == "Group not found") {
+                    return NotFound(exception.Message);
+                }
                 return BadRequest(exception.Message);
             }
         }
@@ -73,7 +76,10 @@ namespace TutorMe.Controllers
                 return Ok(groupId);
             }
             catch (Exception exception) {
-                return BadRequest(exception.Message);
+                if(exception.Message == "This Group already exists.") {
+                    return NotFound(exception.Message);
+                }
+                return BadRequest(exception.Message + " " + exception.StackTrace + " " + exception.InnerException);
             }
         }
 

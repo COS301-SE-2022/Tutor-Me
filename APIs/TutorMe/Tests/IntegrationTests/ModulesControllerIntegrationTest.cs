@@ -196,7 +196,7 @@ namespace Tests.IntegrationTests
             Assert.Equal(404, (double)response.StatusCode);
 
         }
-        
+        //
         // [Fact]
         // public async Task GetModuleById_ModuleFound()
         // {
@@ -247,6 +247,7 @@ namespace Tests.IntegrationTests
         //     var idReadAsStringAsync = responseMessage.Result.Content.ReadAsStringAsync().Result;
         //     var id = JsonConvert.DeserializeObject<Guid>(idReadAsStringAsync);
         //     _testOutputHelper.WriteLine("the id is " + id);
+        //   
         //     
         //     var response = await _httpClient.GetAsync("https://localhost:7100/api/Modules/" + id);
         //
@@ -266,7 +267,7 @@ namespace Tests.IntegrationTests
         //         Assert.Equal(testModule11.Year, testModule11.Year);
         //     }
         // }
-        //
+        
         [Fact]
         public async Task GetModuleById_ModuleNotFound()
         {
@@ -321,20 +322,49 @@ namespace Tests.IntegrationTests
         // [Fact]
         // public async Task AddModule()
         // {
+        //     await InitializeToken();
+        //     _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+        //
+        //
+        //     var testInstitution = new Institution()
+        //     {
+        //         Name = Guid.NewGuid().ToString(),
+        //         Location = "Hatfield"
+        //
+        //     };
+        //     
+        //     var responseMessage1 =
+        //         await _httpClient.PostAsJsonAsync("https://localhost:7100/api/Institutions", testInstitution);
+        //     var idReadAsStringAsync1 = responseMessage1.Content.ReadAsStringAsync().Result;
+        //     var testInstitutionId = JsonConvert.DeserializeObject<Guid>(idReadAsStringAsync1);
+        //     _testOutputHelper.WriteLine("TEST INSTITUTION ID IS " + testInstitutionId);
+        //     var response1 = await _httpClient.GetAsync("https://localhost:7100/api/Institutions/" + testInstitutionId);
+        //
+        //     //Assert
+        //     Assert.NotNull(response1);
+        //     Assert.Equal(200, (double)response1.StatusCode);
+        //
+        //     var institution = await response1.Content.ReadFromJsonAsync<Institution>();
+        //
+        //     Assert.NotNull(institution);
+        //     if (institution != null)
+        //     {
+        //         Assert.Equal(testInstitution.Name, institution.Name);
+        //         Assert.Equal(testInstitution.Location, institution.Location);
+        //     }
         //
         //     //Act
         //     var testModule = new Module()
         //     {
+        //         ModuleId = Guid.NewGuid(),
         //         Code  = "COS 301",
         //         ModuleName ="Software Engineering",
-        //         InstitutionId = Guid.NewGuid(),
+        //         InstitutionId = testInstitutionId,
         //         Faculty ="Faculty of Engineering and Built Environment",
         //         Year = "3",
         //
         //     };
-        //     await InitializeToken();
-        //     _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-        //
+        //    
         //
         //     var responseMessage =
         //         await _httpClient.PostAsJsonAsync("https://localhost:7100/api/Modules", testModule);
@@ -392,16 +422,15 @@ namespace Tests.IntegrationTests
 
 
         }
-
+        //
         // [Fact]
         // public async Task deleteModule_return_return_200()
         // {
         //     //Arrange
         //     await InitializeToken();
         //     _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-        //
         //     var testModule = new Module()
-        //     {
+        //     {   ModuleId = Guid.NewGuid(),
         //         Code  = "COS 301",
         //         ModuleName ="Software Engineering",
         //         InstitutionId = Guid.NewGuid(),
@@ -410,20 +439,20 @@ namespace Tests.IntegrationTests
         //
         //     };
         //
-        //     var responseMessage =
-        //         await _httpClient.PostAsJsonAsync("https://localhost:7100/api/Modules", testModule);
+        //     var responseMessage = await _httpClient.PostAsJsonAsync("https://localhost:7100/api/Modules", testModule);
         //
         //     //Act
         //     var idReadAsStringAsync = responseMessage.Content.ReadAsStringAsync().Result;
         //     var id = JsonConvert.DeserializeObject<Guid>(idReadAsStringAsync);
-        //
-        //     var response = await _httpClient.DeleteAsync("https://localhost:7100/api/Modules/" + id);
+        //     _testOutputHelper.WriteLine("response m: "+responseMessage);
+        //     _testOutputHelper.WriteLine(" id:: " + id);
+        //     
+        //     var response = await _httpClient.DeleteAsync("https://localhost:7100/api/Modules/" + id.ToString(
+        //         ));
         //
         //     //Assert
         //     Assert.NotNull(response);
         //     Assert.Equal(200, (double)response.StatusCode);
-        //
-        //
         // }
 
 
