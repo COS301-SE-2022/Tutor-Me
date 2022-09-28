@@ -54,8 +54,7 @@ namespace TutorMe.Services
             return connection.ConnectionId;
         }
 
-        public bool deleteConnectionById(Guid id)
-        {
+        public bool deleteConnectionById(Guid id){
             var connection = _context.Connection.Find(id);
             if (connection == null)
             {

@@ -21,6 +21,9 @@ namespace TutorMe.Controllers
             this.mapper = mapper;
         }
 
+
+        /// <summary> Get all the institutions stored </summary>
+        /// <returns> A list of Institutions </returns>
         [HttpGet]
         public IActionResult GetAllInstitutions()
         {
@@ -28,6 +31,9 @@ namespace TutorMe.Controllers
             return Ok(institutions);
         }
 
+        /// <summary> Get an institution by Id </summary>
+        /// <param name="id"> The institution's Id</param>
+        /// <returns> An institution</returns>
         [HttpGet("{id}")]
         public IActionResult GetInstitutionById(Guid id)
         {
@@ -49,6 +55,9 @@ namespace TutorMe.Controllers
          
         }
 
+        /// <summary> Strore a new institution </summary>
+        /// <param name="institution"> The new institution Object</param>
+        /// <returns> The Institutions's Id </returns>
         [Authorize]
         [HttpPost]
         public IActionResult createInstitution(Institution institution)
@@ -58,6 +67,9 @@ namespace TutorMe.Controllers
             return Ok(institutionId);
         }
 
+        /// <summary> Delete an Institution by Id </summary>
+        /// <param name="id"> The institution's Id </param>
+        /// <returns> A boolean</returns>
         [Authorize]
         [HttpDelete("{id}")]
         public IActionResult DeleteInstitution(Guid id)

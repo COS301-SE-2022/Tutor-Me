@@ -21,7 +21,8 @@ namespace TutorMe.Controllers
             this.mapper = mapper;
         }
 
-        [Authorize]
+        /// <summary> Get all the userTypes </summary>
+        /// <returns> A list of user types </returns>
         [HttpGet]
         public IActionResult GetAllUserTypes()
         {
@@ -35,6 +36,9 @@ namespace TutorMe.Controllers
             }
         }
 
+        /// <summary> Get a userType by it's Id </summary>
+        /// <param name="id"> The userType's Id</param>
+        /// <returns> a UserType </returns>
         [Authorize]
         [HttpGet("{id}")]
         public IActionResult GetUserTypeById(Guid id)
@@ -50,6 +54,9 @@ namespace TutorMe.Controllers
             }
         }
 
+        /// <summary> Store a new UserType </summary>
+        /// <param name="userType"> The UserType object </param>
+        /// <returns> UserType's Id </returns>
         [Authorize]
         [HttpPost]
         public IActionResult createUserType(UserType userType)
@@ -63,6 +70,9 @@ namespace TutorMe.Controllers
             }
         }
 
+        /// <summary> Delete a UserType by it's Id </summary>
+        /// <param name="id">The UserType's Id</param>
+        /// <returns></returns>
         [Authorize]
         [HttpDelete("{id}")]
         public IActionResult DeleteUserType(Guid id)

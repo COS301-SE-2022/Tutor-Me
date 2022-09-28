@@ -1,25 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "/home/simphiwe/Desktop/updated_CapsOn/Tutor-ME/APIs/TutorMe/TutorMe/TutorMe.csproj": {}
+    "C:\\Users\\madun\\Documents\\School\\COS301\\Capstone\\Tutor-ME\\APIs\\TutorMe\\TutorMe\\TutorMe.csproj": {}
   },
   "projects": {
-    "/home/simphiwe/Desktop/updated_CapsOn/Tutor-ME/APIs/TutorMe/TutorMe/TutorMe.csproj": {
+    "C:\\Users\\madun\\Documents\\School\\COS301\\Capstone\\Tutor-ME\\APIs\\TutorMe\\TutorMe\\TutorMe.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/simphiwe/Desktop/updated_CapsOn/Tutor-ME/APIs/TutorMe/TutorMe/TutorMe.csproj",
+        "projectUniqueName": "C:\\Users\\madun\\Documents\\School\\COS301\\Capstone\\Tutor-ME\\APIs\\TutorMe\\TutorMe\\TutorMe.csproj",
         "projectName": "TutorMe",
-        "projectPath": "/home/simphiwe/Desktop/updated_CapsOn/Tutor-ME/APIs/TutorMe/TutorMe/TutorMe.csproj",
-        "packagesPath": "/home/simphiwe/.nuget/packages/",
-        "outputPath": "/home/simphiwe/Desktop/updated_CapsOn/Tutor-ME/APIs/TutorMe/TutorMe/obj/",
+        "projectPath": "C:\\Users\\madun\\Documents\\School\\COS301\\Capstone\\Tutor-ME\\APIs\\TutorMe\\TutorMe\\TutorMe.csproj",
+        "packagesPath": "C:\\Users\\madun\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\madun\\Documents\\School\\COS301\\Capstone\\Tutor-ME\\APIs\\TutorMe\\TutorMe\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/simphiwe/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\madun\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -79,8 +81,7 @@
             "net47",
             "net471",
             "net472",
-            "net48",
-            "net481"
+            "net48"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -92,7 +93,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/6.0.400/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.302\\RuntimeIdentifierGraph.json"
         }
       }
     }

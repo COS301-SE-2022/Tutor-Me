@@ -17,7 +17,10 @@ namespace TutorMe.Controllers {
             _jwtService = jwtService;
             _context = context;
         }
-
+        
+        /// <summary> Logs in the user </summary>
+        /// <param name="authRequest">UserLogIn object(check entities)</param>
+        /// <returns>The user object and the tokens</returns>
         [HttpPost("[action]")]
         public async Task<IActionResult> AuthToken([FromBody] UserLogIn authRequest) {
             if (!ModelState.IsValid) {
@@ -39,8 +42,11 @@ namespace TutorMe.Controllers {
                 refreshToken = authResponse.RefreshToken,
                 user = user
             });
-            //return Ok(authResponse);
         }
+
+        /// <summary> Refreshes an expired token </summary>
+        /// <param name="request"> RefreshTokenRequest object(check entities)</param>
+        /// <returns>returns refreshed token</returns>
         [HttpPost("[action]")]
         public async Task<IActionResult> RefreshToken([FromBody] RefreshTokenRequest request) {
             if (!ModelState.IsValid)
@@ -67,6 +73,10 @@ namespace TutorMe.Controllers {
             return Ok(authResponse);
         }
 
+        /// <summary> Validate the user details </summary>
+        /// <param name="token">The </param>
+        /// <param name="userRefreshToken"></param>
+        /// <returns>returns a token and the refresh token</returns>
         private AuthResponse ValidateDetails(JwtSecurityToken token, Models.UserRefreshToken userRefreshToken) {
             if (userRefreshToken == null)
                 return new AuthResponse { IsSuccess = false, Reason = "Invalid Token Details." };
@@ -77,6 +87,9 @@ namespace TutorMe.Controllers {
             return new AuthResponse { IsSuccess = true };
         }
 
+        /// <summary> Generate a token from an expired token </summary>
+        /// <param name="expiredToken"></param>
+        /// <returns>A token</returns>
         private JwtSecurityToken GetJwtToken(string expiredToken) {
             JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
             return tokenHandler.ReadJwtToken(expiredToken);
