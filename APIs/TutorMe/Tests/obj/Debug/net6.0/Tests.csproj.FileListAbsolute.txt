@@ -997,4 +997,3 @@ C:/Users/madun/Documents/School/COS301/Capstone/Tutor-ME/APIs/TutorMe/Tests/obj/
 /home/simphiwe/Desktop/updated_CapsOn/Tutor-ME/APIs/TutorMe/Tests/bin/Debug/net6.0/Microsoft.NET.StringTools.dll
 /home/simphiwe/Desktop/updated_CapsOn/Tutor-ME/APIs/TutorMe/Tests/bin/Debug/net6.0/System.IO.Pipelines.dll
 /home/simphiwe/Desktop/updated_CapsOn/Tutor-ME/APIs/TutorMe/Tests/obj/Debug/net6.0/MvcTestingAppManifest.json
-/home/simphiwe/Desktop/updated_CapsOn/Tutor-ME/APIs/TutorMe/Tests/bin/Debug/net6.0/appsettings.json
