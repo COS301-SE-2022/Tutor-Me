@@ -50,3 +50,8 @@ windows/flutter/generated_plugin_registrant.cc
 windows/flutter/generated_plugins.cmake
 .env
 APIs/TutorMe/TutorMe/appsettings.json
+/APIs/**/.vs
+/APIs/**/obj
+/APIs/**/bin
+
+
