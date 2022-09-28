@@ -1,5 +1,4 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
-
 import 'package:flutter/material.dart';
 import 'package:tutor_me/services/models/globals.dart';
 import 'package:tutor_me/src/colorpallete.dart';
@@ -149,34 +148,78 @@ class DeleteUserState extends State<DeleteUser> {
                         },
                       );
                     }
-                    UserServices.deleteUser(idcontroller.text, widget.globals);
-                    showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                          title: const Text("Success"),
-                          content:
-                              Text("User " + idcontroller.text + " Deleted"),
-                          backgroundColor: colorWhite,
-                          titleTextStyle: TextStyle(
-                            color: colorBlack,
-                            fontSize: MediaQuery.of(context).size.height * 0.03,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          actions: <Widget>[
-                            TextButton(
-                              child: const Text(
-                                "Retry",
-                                style: TextStyle(color: colorWhite),
+                    if (idcontroller.text ==
+                            '475ED4B3-D159-4FDF-B6D1-D37C14AB8A60' ||
+                        idcontroller.text ==
+                            '033CF7DF-33E7-49D3-A91B-82EBF7C612B0') {
+                      if (widget.globals.getUser.getId !=
+                          '033CF7DF-33E7-49D3-A91B-82EBF7C612B0') {
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: const Text("Unable To Delete User"),
+                              content: const Text(
+                                  "Only the Super Admin can delete this user"),
+                              backgroundColor: colorWhite,
+                              titleTextStyle: TextStyle(
+                                color: colorBlack,
+                                fontSize:
+                                    MediaQuery.of(context).size.height * 0.03,
+                                fontWeight: FontWeight.bold,
                               ),
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                            ),
-                          ],
+                              actions: <Widget>[
+                                TextButton(
+                                  child: const Text(
+                                    "Retry",
+                                    style: TextStyle(color: colorWhite),
+                                  ),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              ],
+                            );
+                          },
                         );
-                      },
-                    );
+                      } else {
+                        UserServices.deleteUser(
+                            idcontroller.text, widget.globals);
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: const Text("Success"),
+                              content: Text(
+                                  "User " + idcontroller.text + " Deleted"),
+                              backgroundColor: colorWhite,
+                              titleTextStyle: TextStyle(
+                                color: colorBlack,
+                                fontSize:
+                                    MediaQuery.of(context).size.height * 0.03,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              actions: <Widget>[
+                                TextButton(
+                                  child: const Text(
+                                    "Retry",
+                                    style: TextStyle(color: colorWhite),
+                                  ),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      }
+                    } else {
+                      if (idcontroller.text != "") {
+                        UserServices.deleteUser(
+                            idcontroller.text, widget.globals);
+                      }
+                    }
                   },
                   child: isLoading
                       ? const CircularProgressIndicator(color: Colors.white)

@@ -310,6 +310,39 @@ class AdminServices {
       final modulesURL = Uri.parse(
           'http://${tempGlobals.getTutorMeUrl}/api/account/authtoken');
       final response = await http.post(modulesURL, headers: header, body: data);
+      log(response.statusCode.toString());
+      if (response.statusCode == 401) {
+        final change = await logInSuperAdmin(email, password);
+        return change;
+      }
+      if (response.statusCode == 200) {
+        final Users admin = Users.fromObject(jsonDecode(response.body)['user']);
+        Globals global = Globals(admin, json.decode(response.body)['token'],
+            json.decode(response.body)['refreshToken']);
+
+        return global;
+      } else {
+        throw Exception('Failed to log in' + response.statusCode.toString());
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  static logInSuperAdmin(String email, String password) async {
+    String data = jsonEncode({
+      'email': email,
+      'password': password,
+      'typeId': '033CF7DF-33E7-49D3-A91B-82EBF7C612B0'
+    });
+    final header = <String, String>{
+      'Content-Type': 'application/json; charset=utf-8',
+    };
+    Globals tempGlobals = Globals(null, '', '');
+    try {
+      final modulesURL = Uri.parse(
+          'http://${tempGlobals.getTutorMeUrl}/api/account/authtoken');
+      final response = await http.post(modulesURL, headers: header, body: data);
       log(response.body);
       if (response.statusCode == 200) {
         final Users admin = Users.fromObject(jsonDecode(response.body)['user']);
