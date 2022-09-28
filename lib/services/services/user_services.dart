@@ -207,7 +207,6 @@ class UserServices {
     Uri tuteeURL = Uri.http(globals.getTutorMeUrl, '/api/Users/$id');
     try {
       final response = await http.get(tuteeURL, headers: globals.getHeader);
-
       log(response.statusCode.toString());
       if (response.statusCode == 200) {
         return Users.fromObject(json.decode(response.body));
@@ -1098,7 +1097,7 @@ class UserServices {
 
     try {
       final response = await http.get(tuteeURL, headers: global.getHeader);
-      print(response.statusCode);
+      print('img ' + response.statusCode.toString());
       if (response.statusCode == 200) {
         print(response.body);
         final image = response.body;
@@ -1127,7 +1126,7 @@ class UserServices {
 
     try {
       final response = await http.get(tuteeURL, headers: global.getHeader);
-      print(response.statusCode);
+      print('img ' + response.statusCode.toString());
       if (response.statusCode == 200) {
         final image = response.body;
         List<String> imageList = image.split('"');

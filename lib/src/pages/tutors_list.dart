@@ -176,14 +176,11 @@ class TutorListState extends State<TutorList> {
 
       connectedTutors = tutors;
 
-      for (int i = 0; i < tutorLength; i++) {
-        for (int j = 0; j < connectedTutors.length; j++) {
-          if (tutorList[i].getId == connectedTutors[j].getId) {
-            tutorList.remove(tutorList[i]);
-          }
-        }
+      for (var cTutors in connectedTutors) {
+        tutorList.removeWhere((element) => element.getId == cTutors.getId);
       }
 
+      List<int> toRemove = List<int>.empty(growable: true);
       List<Modules> tuteeModules = List<Modules>.empty();
       final tuteeModuleList = await ModuleServices.getUserModules(
           widget.globals.getUser.getId, widget.globals);
@@ -207,10 +204,15 @@ class TutorListState extends State<TutorList> {
           }
 
           if (!val) {
-            tutorList.remove(tutorList[i]);
+            toRemove.add(i);
           }
         }
-        getTutorProfileImages();
+
+        for(int i = tutorLength - 1; i >= 0; i--){
+          if(toRemove.contains(i)){
+            tutorList.removeAt(i);
+          }
+        }
       } else {
         setState(() {
           tutorList = List<Users>.empty();
@@ -230,6 +232,7 @@ class TutorListState extends State<TutorList> {
       });
       // getTutorProfileImages();
     }
+    getTutorProfileImages();
   }
 
   getTutorProfileImages() async {
@@ -250,6 +253,7 @@ class TutorListState extends State<TutorList> {
       for (int i = 0; i < tutorList.length; i++) {
         setState(() {
           bool val = true;
+          getTutorProfileImages();
           for (int j = 0; j < hasImage.length; j++) {
             if (hasImage[j] == i) {
               val = false;

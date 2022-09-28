@@ -427,6 +427,8 @@ class _LoginState extends State<Login> {
                           SharedPreferences preferences =
                               await SharedPreferences.getInstance();
 
+                              globals.setPassword = passwordController.text;
+
                           preferences.setString('globals', globalJson);
                           Navigator.push(
                             context,

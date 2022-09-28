@@ -109,9 +109,6 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
         tutees.add(Tutee(tuteeList[i], tuteeImages[i], true));
       }
     }
-    setState(() {
-      tutees = tutees;
-    });
     getTutor();
   }
 
@@ -120,9 +117,7 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
       final tutor =
           await UserServices.getTutor(widget.group.getUserId, widget.globals);
 
-      setState(() {
-        tutorObj = tutor[0];
-      });
+        tutorObj = tutor;
     } catch (e) {
       const snackBar = SnackBar(content: Text('Error getting tutor'));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -321,6 +316,10 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
                                               0.025),
                                 ),
                                 subtitle: const Text('2 new msgs!'),
+                                trailing: Icon(
+                                  Icons.arrow_forward_ios,
+                                  color: highlightColor,
+                                ),
                               ),
                             ),
                           ),
@@ -339,11 +338,8 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
                                 } else {
                                   final meetingCount =
                                       prefs?.getInt('meetingCount');
-                                      print('meetincount '+meetingCount.toString());
                                   await prefs?.setInt(
                                       'meetingCount', meetingCount! + 1);
-                                     final count =  prefs?.getInt('meetingCount');
-                                     print('count after '+ count.toString()); 
                                 }
                               } else {
                                 await prefs?.setString(
@@ -416,6 +412,10 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
                                           MediaQuery.of(context).size.height *
                                               0.025),
                                 ),
+                                trailing: Icon(
+                                  Icons.arrow_forward_ios,
+                                  color: highlightColor,
+                                ),
                               ),
                             ),
                           ),
@@ -456,6 +456,11 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
                                           MediaQuery.of(context).size.height *
                                               0.025),
                                 ),
+                                trailing: Icon(
+                                  Icons.arrow_forward_ios,
+                                  color: highlightColor,
+                                ),
+                                
                               ),
                             ),
                           ),
