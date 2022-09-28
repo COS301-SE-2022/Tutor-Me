@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:pie_chart/pie_chart.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tutor_me/constants/colors.dart';
 import 'package:tutor_me/services/models/user_badges.dart';
 import 'package:tutor_me/services/services/badges_services.dart';
@@ -145,8 +146,8 @@ class _HomeState extends State<Home> {
     }
 
     int meetings = 2;
-    int connections = 3;
-    int interactions = 4;
+    int connections = 2;
+    int interactions = 2;
     int ratings = 2;
 
     return Scaffold(
@@ -169,6 +170,7 @@ class _HomeState extends State<Home> {
   List<Groups> groups = List<Groups>.empty();
   String typeUser = '';
   String bookingsText = '';
+  SharedPreferences? prefs;
 
   void getUserType() async {
     if (widget.globals.getUser.getUserTypeID[0] == '9') {
@@ -228,6 +230,7 @@ class _HomeState extends State<Home> {
   }
 
   getTuteeProfileImage() async {
+    prefs = await SharedPreferences.getInstance();
     try {
       final image = await UserServices.getTuteeProfileImage(
           widget.globals.getUser.getId, widget.globals);
@@ -244,6 +247,20 @@ class _HomeState extends State<Home> {
       });
     }
     setState(() {
+      final meetingCount = prefs!.getInt('meetingCount');
+      final interactionCount = prefs!.getInt('interactionCount');
+        dataMap = {
+          "Meetings":  meetingCount == null? 0 : meetingCount.toDouble(),
+          "Connections": numConnections.toDouble(),
+          "Interactions": interactionCount == null? 0 : interactionCount.toDouble(),
+          "Ratings": 2,
+        };
+
+        if(meetingCount !=null)
+        {
+          
+        }
+
       isLoading = false;
       isImageLoading = false;
     });
@@ -253,8 +270,8 @@ class _HomeState extends State<Home> {
 
   Map<String, double> dataMap = {
     "Meetings": 2,
-    "Connections": 3,
-    "Interactions - 2": 2,
+    "Connections": 2,
+    "Interactions": 2,
     "Ratings": 2,
   };
 
@@ -356,7 +373,7 @@ class _HomeState extends State<Home> {
 
     if (widget.globals.getUser.getUserTypeID[0] == '9') {
       titles = [
-        "Single Bookings",
+        "Bookings",
         "Groups",
         "Calendar",
         "Tutees",
@@ -560,9 +577,9 @@ class _HomeState extends State<Home> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => WoahFactorNav(
-                          meetings: meetings,
-                          connections: connections,
-                          interactions: interactions,
+                          meetings: prefs?.getInt('meetingCount') ?? 0,
+                          connections: numConnections,
+                          interactions: prefs?.getInt('interactionCount') ?? 0,
                           ratings: ratings),
                     ),
                   );
@@ -692,9 +709,11 @@ class _HomeState extends State<Home> {
                                   child: Text(
                                     titles[index],
                                     style: TextStyle(
-                                        fontSize: screenHeightSize * 0.025,
-                                        fontWeight: FontWeight.w500,
-                                        color: colorDarkGrey),
+                                      fontSize: screenHeightSize * 0.025,
+                                      fontWeight: FontWeight.w500,
+                                      color: colorDarkGrey,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
                                   ),
                                 ),
                                 Padding(
@@ -712,9 +731,10 @@ class _HomeState extends State<Home> {
                                       Text(
                                         numberStats[index],
                                         style: TextStyle(
-                                            fontSize: screenHeightSize * 0.025,
+                                            fontSize: screenHeightSize * 0.019,
                                             fontWeight: FontWeight.w400,
-                                            color: colorDarkGrey),
+                                            color: colorDarkGrey,
+                                            overflow: TextOverflow.ellipsis),
                                       ),
                                     ],
                                   ),

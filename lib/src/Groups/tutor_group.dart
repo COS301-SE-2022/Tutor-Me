@@ -5,6 +5,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tutor_me/services/models/globals.dart';
 import 'package:tutor_me/services/models/user_badges.dart';
 import 'package:tutor_me/services/services/group_services.dart';
@@ -59,12 +60,15 @@ class TutorGroupPageState extends State<TutorGroupPage> {
   List<Uint8List> tuteeImages = List<Uint8List>.empty(growable: true);
   List<int> hasImage = List<int>.empty(growable: true);
   bool _isLoading = true;
+  SharedPreferences? prefs;
 
   bool hasTutees = false;
   String _token = "";
   String _meetingID = "";
 
   getTutees() async {
+    prefs = await SharedPreferences.getInstance();
+
     fetchToken().then((token) => setState(() => _token = token));
     try {
       final tutees = await GroupServices.getGroupTutees(
@@ -163,9 +167,6 @@ class TutorGroupPageState extends State<TutorGroupPage> {
         child: AppBar(
           title: Text(widget.module.getCode + '- Group'),
           backgroundColor: primaryColor,
-          actions: [
-            IconButton(onPressed: () {}, icon: const Icon(Icons.settings))
-          ],
           centerTitle: true,
         ),
       ),
@@ -292,6 +293,31 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                           ),
                           InkWell(
                             onTap: () async {
+                              final lastDate = prefs?.getString('lastDate');
+                              if (lastDate != null) {
+                                final lastDateParsed = DateTime.parse(lastDate);
+                                final now = DateTime.now();
+                                final difference =
+                                    now.difference(lastDateParsed);
+                                if (difference.inDays > 0) {
+                                  await prefs?.setString(
+                                      'lastDate', now.toString());
+                                  await prefs?.setInt('meetingCount', 1);
+                                } else {
+                                  final meetingCount =
+                                      prefs?.getInt('meetingCount');
+                                      print('meetincount '+meetingCount.toString());
+                                  await prefs?.setInt(
+                                      'meetingCount', meetingCount! + 1);
+                                     final count =  prefs?.getInt('meetingCount');
+                                     print('count after '+ count.toString()); 
+                                }
+                              } else {
+                                await prefs?.setString(
+                                    'lastDate', DateTime.now().toString());
+                                await prefs?.setInt('meetingCount', 1);
+                              }
+
                               try {
                                 const SnackBar snackBar =
                                     SnackBar(content: Text('Initializing...'));

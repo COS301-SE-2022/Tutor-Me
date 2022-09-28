@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tutor_me/services/models/groups.dart';
 // import 'package:tutor_me/services/models/tutors.dart';
 
@@ -32,6 +33,7 @@ class ChatPage extends StatefulWidget {
 
 class _ChatPageState extends State<ChatPage> {
   late Modules module;
+  SharedPreferences? prefs;
 
   @override
   void initState() {
@@ -115,6 +117,24 @@ class _ChatPageState extends State<ChatPage> {
 
   //connect to signalR
   Future<void> openSignalRConnection() async {
+    prefs = await SharedPreferences.getInstance();
+    final lastDate = prefs?.getString('lastDate');
+    if (lastDate != null) {
+      final lastDateParsed = DateTime.parse(lastDate);
+      final now = DateTime.now();
+      final difference = now.difference(lastDateParsed);
+      if (difference.inDays > 0) {
+        await prefs?.setString('lastDate', now.toString());
+        await prefs?.setInt('interactionCount', 1);
+      } else {
+        final interactionCount = prefs?.getInt('interactionCount');
+        await prefs?.setInt('interactionCount', interactionCount! + 1);
+      }
+    } else {
+      await prefs?.setString('lastDate', DateTime.now().toString());
+      await prefs?.setInt('interactionCount', 1);
+    }
+
     await connection.start();
     connection.on('ReceiveMessage', (message) {
       _handleIncommingDriverLocation(message);

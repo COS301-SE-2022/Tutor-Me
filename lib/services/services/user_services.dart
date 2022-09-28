@@ -520,7 +520,7 @@ class UserServices {
           '/api/Users/rating/$id?rating=$newRating&numberOfReviews=$numReviews');
 
       final response = await http.put(uri, headers: global.getHeader);
-      
+
       if (response.statusCode == 200) {
         return true;
       } else {
@@ -792,8 +792,8 @@ class UserServices {
     String data =
         jsonEncode({'id': id, 'userImage': imageByte, 'userTranscript': null});
 
-    final url =
-        Uri.parse('http://${global.getFilesUrl}/api/UserFiles/image/$id');
+    final url = Uri.parse(
+        'http://${global.getFilesUrl}/api/UserFiles/image/$id?username=${global.getUser.getEmail}&password=${global.getPassword}&typeId=${global.getUser.getUserTypeID}');
 
     try {
       log('before');
@@ -821,7 +821,8 @@ class UserServices {
     String data =
         jsonEncode({'id': id, 'userImage': imageByte, 'userTranscript': null});
 
-    final url = Uri.parse('http://${global.getFilesUrl}/api/UserFiles');
+    final url = Uri.parse(
+        'http://${global.getFilesUrl}/api/UserFiles/?username=${global.getUser.getEmail}&password=${global.getPassword}&typeId=${global.getUser.getUserTypeID}');
     try {
       final response =
           await http.post(url, headers: global.getHeader, body: data);
@@ -845,8 +846,8 @@ class UserServices {
         {'id': id, 'userImage': null, 'userTranscript': transcriptByte});
     log(data);
 
-    final url =
-        Uri.parse('http://${global.getFilesUrl}/api/UserFiles/transcript/$id');
+    final url = Uri.parse(
+        'http://${global.getFilesUrl}/api/UserFiles/transcript/$id?username=${global.getUser.getEmail}&password=${global.getPassword}&typeId=${global.getUser.getUserTypeID}');
 
     try {
       final response =
@@ -872,7 +873,8 @@ class UserServices {
     String data = jsonEncode(
         {'id': id, 'userImage': null, 'userTranscript': transcriptByte});
 
-    final url = Uri.parse('http://${global.getFilesUrl}/api/UserFiles');
+    final url = Uri.parse(
+        'http://${global.getFilesUrl}/api/UserFiles/?username=${global.getUser.getEmail}&password=${global.getPassword}&typeId=${global.getUser.getUserTypeID}');
     try {
       final response =
           await http.post(url, headers: global.getHeader, body: data);
@@ -1091,15 +1093,17 @@ class UserServices {
   // }
 
   static Future getTutorProfileImage(String id, Globals global) async {
-    Uri tuteeURL =
-        Uri.parse('http://${global.getFilesUrl}/api/Userfiles/image/$id');
+    Uri tuteeURL = Uri.parse(
+        'http://${global.getFilesUrl}/api/Userfiles/image/$id?username=${global.getUser.getEmail}&password=${global.getPassword}&typeId=${global.getUser.getUserTypeID}');
 
     try {
       final response = await http.get(tuteeURL, headers: global.getHeader);
+      print(response.statusCode);
       if (response.statusCode == 200) {
+        print(response.body);
         final image = response.body;
         List<String> imageList = image.split('"');
-        log('This is the returned image' + image);
+
         if (image.length < 10) {
           throw Exception('No Image found');
         } else {
@@ -1118,15 +1122,15 @@ class UserServices {
   }
 
   static Future getTuteeProfileImage(String id, Globals global) async {
-    Uri tuteeURL =
-        Uri.parse('http://${global.getFilesUrl}/api/Userfiles/image/$id');
+    Uri tuteeURL = Uri.parse(
+        'http://${global.getFilesUrl}/api/Userfiles/image/$id?username=${global.getUser.getEmail}&password=${global.getPassword}&typeId=${global.getUser.getUserTypeID}');
 
     try {
       final response = await http.get(tuteeURL, headers: global.getHeader);
+      print(response.statusCode);
       if (response.statusCode == 200) {
         final image = response.body;
         List<String> imageList = image.split('"');
-
         if (image.length < 10) {
           throw Exception('No Image found');
         } else {
@@ -1146,8 +1150,8 @@ class UserServices {
 
   static Future getTutorTranscript(String id, Globals global) async {
     log('getting transcript');
-    Uri tuteeURL =
-        Uri.parse('http://${global.getFilesUrl}/api/Userfiles/transcript/$id');
+    Uri tuteeURL = Uri.parse(
+        'http://${global.getFilesUrl}/api/Userfiles/transcript/$id?username=${global.getUser.getEmail}&password=${global.getPassword}&typeId=${global.getUser.getUserTypeID}');
 
     try {
       final response = await http.get(tuteeURL, headers: global.getHeader);

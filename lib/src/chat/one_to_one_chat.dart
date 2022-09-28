@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/tutorProfilePages/tutor_profile_view.dart';
 import '../../services/models/globals.dart';
@@ -39,6 +40,7 @@ class Chat extends StatefulWidget {
 }
 
 class ChatState extends State<Chat> {
+  SharedPreferences? prefs;
   @override
   void initState() {
     super.initState();
@@ -165,6 +167,24 @@ class ChatState extends State<Chat> {
 
   //connect to signalR
   Future<void> openSignalRConnection() async {
+    prefs = await SharedPreferences.getInstance();
+    final lastDate = prefs?.getString('lastDate');
+    if (lastDate != null) {
+      final lastDateParsed = DateTime.parse(lastDate);
+      final now = DateTime.now();
+      final difference = now.difference(lastDateParsed);
+      if (difference.inDays > 0) {
+        await prefs?.setString('lastDate', now.toString());
+        await prefs?.setInt('interactionCount', 1);
+      } else {
+        final interactionCount = prefs?.getInt('interactionCount');
+        await prefs?.setInt('interactionCount', interactionCount! + 1);
+      }
+    } else {
+      await prefs?.setString('lastDate', DateTime.now().toString());
+      await prefs?.setInt('interactionCount', 1);
+    }
+
     await connection.start();
     connection.on('ReceiveMessage', (message) {
       _handleIncommingDriverLocation(message);

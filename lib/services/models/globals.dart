@@ -9,6 +9,7 @@ class Globals {
   String _token = 'Bearer ';
   String _refreshToken = '';
   List<Badge> badges = [];
+  String password = '';
 
   late Map<String, String> header;
 
@@ -33,6 +34,7 @@ class Globals {
   String get getToken => _token;
   String get getRefreshToken => _refreshToken;
   List<Badge> get getBadges => badges;
+  String get getPassword => password;
 
   set setUser(Users user) {
     _user = user;
@@ -58,6 +60,10 @@ class Globals {
     _refreshToken = refreshToken;
   }
 
+  set setPassword(String password) {
+    this.password = password;
+  }
+
   getAllBadges()async{
       badges = await BadgesServices.getAllBages(this);
   }
@@ -68,6 +74,7 @@ class Globals {
     _filesUrl = json['filesUrl'];
     _token = json['token'];
     _refreshToken = json['refreshToken'];
+    password = json['password'];
   }
 
   Map<String, dynamic> toJson() {
@@ -77,6 +84,7 @@ class Globals {
     data['filesUrl'] = _filesUrl;
     data['token'] = _token;
     data['refreshToken'] = _refreshToken;
+    data['password'] = password;
 
     return data;
   }

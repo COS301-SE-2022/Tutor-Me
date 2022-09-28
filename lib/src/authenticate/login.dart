@@ -219,6 +219,9 @@ class _LoginState extends State<Login> {
                           // TutorServices tutor = TutorServices.Login(
                           globals = await UserServices.logInTutor(
                               emailController.text, passwordController.text);
+
+                          globals.setPassword = passwordController.text;
+
                           // tutor.setStatus = true;
                           // await UserServices.updateTutor(tutor);
                           final globalJson = json.encode(globals.toJson());

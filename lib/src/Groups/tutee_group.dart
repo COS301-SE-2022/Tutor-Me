@@ -6,6 +6,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tutor_me/services/services/group_services.dart';
 import 'package:tutor_me/services/models/users.dart';
 import 'package:tutor_me/src/chat/one_to_one_chat.dart';
@@ -63,6 +64,7 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
   List<int> hasImage = List<int>.empty(growable: true);
   bool hasOnlyOneTutee = false;
   String _token = "";
+  SharedPreferences? prefs;
 
   getTutees() async {
     fetchToken().then((token) => setState(() => _token = token));
@@ -324,6 +326,30 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
                           ),
                           InkWell(
                             onTap: () async {
+                               final lastDate = prefs?.getString('lastDate');
+                              if (lastDate != null) {
+                                final lastDateParsed = DateTime.parse(lastDate);
+                                final now = DateTime.now();
+                                final difference =
+                                    now.difference(lastDateParsed);
+                                if (difference.inDays > 0) {
+                                  await prefs?.setString(
+                                      'lastDate', now.toString());
+                                  await prefs?.setInt('meetingCount', 1);
+                                } else {
+                                  final meetingCount =
+                                      prefs?.getInt('meetingCount');
+                                      print('meetincount '+meetingCount.toString());
+                                  await prefs?.setInt(
+                                      'meetingCount', meetingCount! + 1);
+                                     final count =  prefs?.getInt('meetingCount');
+                                     print('count after '+ count.toString()); 
+                                }
+                              } else {
+                                await prefs?.setString(
+                                    'lastDate', DateTime.now().toString());
+                                await prefs?.setInt('meetingCount', 1);
+                              }
                               try {
                                 final group = await GroupServices.getGroup(
                                     widget.group.getId, widget.globals);
