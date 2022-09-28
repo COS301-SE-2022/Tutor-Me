@@ -37,12 +37,12 @@ namespace TutorMe.Controllers {
         public IActionResult GetUserModulesByUserId(Guid id) {
             try {
                 var userModule = userModuleService.GetUserModulesByUserId(id);
-                if (userModule == null) {
-                    return NotFound();
-                }
                 return Ok(userModule);
             }
             catch (Exception exception) {
+                if(exception.Message == "UserModule not found") {
+                    return NotFound(exception.Message);
+                }
                 return BadRequest(exception.Message);
             }
         }

@@ -49,7 +49,7 @@ namespace TutorMe.Services
         public Guid createGroup(IGroup group)
         {
             if (_context.Group.Where(e => e.ModuleId == group.ModuleId && e.UserId == group.UserId).Any()) {
-                throw new KeyNotFoundException("This Group already exists, Please log in");
+                throw new KeyNotFoundException("This Group already exists.");
             }
             var newGroup = new Group();
             newGroup.GroupId = Guid.NewGuid();
@@ -58,7 +58,16 @@ namespace TutorMe.Services
             newGroup.Description = group.Description;
             newGroup.VideoId = group.VideoId;
             _context.Group.Add(newGroup);
-            _context.SaveChanges();
+            try
+            {
+                _context.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                 throw new KeyNotFoundException("Group not created"+e.Message+e.InnerException + e.StackTrace);
+            }
+            
             
             //add user to Group Member
             var newGroupMember = new GroupMember();

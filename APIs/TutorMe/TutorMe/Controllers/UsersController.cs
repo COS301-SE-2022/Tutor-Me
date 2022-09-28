@@ -80,6 +80,9 @@ namespace TutorMe.Controllers
                 return Ok(user);
             }
             catch (Exception exception) {
+                if(exception.Message == "User not found") {
+                    return NotFound(exception.Message);
+                }
                 return BadRequest(exception.Message);
             }
         }
