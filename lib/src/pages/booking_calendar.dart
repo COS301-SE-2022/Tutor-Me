@@ -268,6 +268,7 @@ class _BookingCalenderState extends State<BookingCalender> {
                                     MaterialPageRoute(
                                       builder: (context) => InviteToMeeting(
                                         globals: widget.globals,
+                                        event: e,
                                       ),
                                     ),
                                   );

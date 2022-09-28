@@ -2,9 +2,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tutor_me/services/services/events_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/pages/calendar.dart';
 
+import '../../services/models/event.dart';
 import '../../services/models/globals.dart';
 import '../../services/models/groups.dart';
 import '../../services/models/modules.dart';
@@ -14,7 +16,9 @@ import '../theme/themes.dart';
 
 class InviteToMeeting extends StatefulWidget {
   final Globals globals;
-  const InviteToMeeting({Key? key, required this.globals}) : super(key: key);
+  final Event event;
+  const InviteToMeeting({Key? key, required this.globals, required this.event})
+      : super(key: key);
 
   @override
   State<InviteToMeeting> createState() => _InviteToMeetingState();
@@ -24,6 +28,7 @@ class _InviteToMeetingState extends State<InviteToMeeting> {
   List<Groups> groups = List<Groups>.empty();
   List<Modules> modules = List<Modules>.empty(growable: true);
   List<int> numTutees = List<int>.empty(growable: true);
+  late Groups selectedGroup;
   String images =
       'https://cdn.pixabay.com/photo/2018/09/27/09/22/artificial-intelligence-3706562_960_720.jpg';
   bool hasGroups = false;
@@ -96,6 +101,42 @@ class _InviteToMeetingState extends State<InviteToMeeting> {
     // print();
     return SafeArea(
       child: Scaffold(
+        floatingActionButton: FloatingActionButton.extended(
+          onPressed: () async {
+            try {
+              print('before');
+              print(widget.event.getEventId);
+              await EventServices.updateGroupId(
+                  widget.event.getEventId, selectedGroup.getId, widget.globals);
+              print('after');
+
+              SnackBar snackBar = const SnackBar(
+                backgroundColor: colorLightGreen,
+                content: Text(
+                  'Meeting Invitations have been sent',
+                ),
+              );
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+              Navigator.pop(context);
+            } catch (e) {
+              SnackBar snackBar = const SnackBar(
+                content: Text(
+                  'Failed to invite group',
+                ),
+              );
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            }
+          },
+          label: Text(
+            'Invite',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: MediaQuery.of(context).size.width * 0.05,
+            ),
+          ),
+          backgroundColor: highLightColor,
+        ),
         appBar: AppBar(
           title: const Text("Invite To Meeting"),
           backgroundColor: colorBlueTeal,
@@ -110,47 +151,19 @@ class _InviteToMeetingState extends State<InviteToMeeting> {
               children: [
                 for (int i = 0; i < modules.length; i++)
                   RadioListTile(
-                    title: Text(
-                        modules[i].getCode + ' - ' + modules[i].getModuleName),
+                    title: Text(modules[i].getCode +
+                        ' - ' +
+                        modules[i].getModuleName +
+                        ' group'),
                     value: i,
                     groupValue: selectedButton,
                     onChanged: (value) {
                       setState(() {
                         selectedButton = value as int;
+                        selectedGroup = groups[selectedButton];
                       });
                     },
                   ),
-                Center(
-                  child: FloatingActionButton.extended(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => Calendar(
-                            globals: widget.globals,
-                          ),
-                        ),
-                      );
-                      SnackBar snackBar = const SnackBar(
-                        backgroundColor: colorLightGreen,
-                        content: Text(
-                          'Meeting Invitations have been sent',
-                        ),
-                      );
-                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-
-                      
-                    },
-                    label: Text(
-                      'Invite',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: MediaQuery.of(context).size.width * 0.05,
-                      ),
-                    ),
-                    backgroundColor: highLightColor,
-                  ),
-                ),
               ],
             ),
           ],
