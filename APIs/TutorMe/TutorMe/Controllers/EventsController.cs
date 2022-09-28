@@ -154,5 +154,21 @@ namespace TutorMe.Controllers
                 return Conflict(e.Message);
             }
         }
+
+        /// <summary> Update the groupId for the event </summary>
+        /// <param name="id"> The event's Id </param>
+        /// <param name="newGroupId"> The new Event's GroupId </param>
+        /// <returns> A boolean </returns>
+        [Authorize]
+        [HttpPut("groupId/{id}")]
+        public IActionResult UpdateEventGroupId(Guid id, Guid newGroupId) {
+            try {
+                eventService.UpdateEventGroupId(id, newGroupId);
+                return Ok();
+            }
+            catch (Exception e) {
+                return Conflict(e.Message);
+            }
+        }
     }
 }
