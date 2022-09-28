@@ -42,7 +42,7 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
   List<bool> isChecked = List<bool>.empty();
   late Institutions institution;
   late int numConnections;
-  late int numTutees;
+  int numTutees = 0;
   bool isRequestLoading = false;
   bool isRequestDone = false;
   List<Users> tutors = List<Users>.empty();
@@ -62,8 +62,7 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
   bool isLoading = true;
 
   getCurrentModules() async {
-    numTutees = 2;
-    numConnections = 3;
+    
     final current =
         await ModuleServices.getUserModules(widget.tutor.getId, widget.globals);
     setState(() {
@@ -73,25 +72,11 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
 
     // getConnections();
   }
-  //TODO: Add a function to get the number of connections and tutees
-
-  // int getNumConnections() {
-  //   var allConnections = widget.tutor.getConnections.split(',');
-
-  //   return allConnections.length;
-  // }
-
-  // int getNumTutees() {
-  //   var allTutees = widget.tutor.getTuteesCode.split(',');
-
-  //   return allTutees.length;
-  // }
-  //TODO; fix getConnections
-
   void getConnections() async {
     try {
       tutors = await UserServices.getConnections(widget.globals.getUser.getId,
           widget.globals.getUser.getUserTypeID, widget.globals);
+          numTutees = tutors.length;
       for (var tutor in tutors) {
         if (tutor.getId == widget.tutor.getId) {
           isConnected = true;
@@ -193,7 +178,7 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
         ),
       ),
       SizedBox(height: screenHeightSize * 0.02),
-      UserStats(
+      TutorUserStats(
         rating: widget.tutor.getRating,
         numTutees: numTutees,
       ),

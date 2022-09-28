@@ -13,6 +13,7 @@ import 'package:tutor_me/src/tutorProfilePages/user_stats.dart';
 import '../../services/models/intitutions.dart';
 import '../../services/models/modules.dart';
 import '../../services/models/users.dart';
+import '../../services/services/user_services.dart';
 import '../components.dart';
 import '../tutor_page.dart';
 import 'edit_module_list.dart';
@@ -73,7 +74,7 @@ class _TutorShowCaseSettingsProfileViewState
   List<Modules> currentModules = List<Modules>.empty();
   late Institutions institution;
   late int numConnections;
-  late int numTutees;
+  int numTutees = 0;
   bool _isLoading = true;
   final key = GlobalKey();
   final key2 = GlobalKey();
@@ -81,8 +82,7 @@ class _TutorShowCaseSettingsProfileViewState
   final ScrollController scrollController = ScrollController();
 
   getCurrentModules() async {
-    numTutees = 2;
-    numConnections = 3;
+   
     try {
       final currentModulesList = await ModuleServices.getUserModules(
           widget.globals.getUser.getId, widget.globals);
@@ -113,19 +113,25 @@ class _TutorShowCaseSettingsProfileViewState
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
   }
-  //TODO: get numConnections and numTutees
+  void getConnections() async {
+    try {
+      final tutors = await UserServices.getConnections(widget.globals.getUser.getId,
+          widget.globals.getUser.getUserTypeID, widget.globals);
 
-  // int getNumConnections() {
-  //   var allConnections = widget.user.getConnections.split(',');
+          numTutees = tutors.length;
+     
 
-  //   return allConnections.length;
-  // }
-
-  // int getNumTutees() {
-  //   var allTutees = widget.user.getTuteesCode.split(',');
-
-  //   return allTutees.length;
-  // }
+      setState(() {
+        _isLoading = false;
+      });
+    } catch (e) {
+      setState(() {
+        _isLoading = false;
+      });
+      const snackBar = SnackBar(content: Text('Error loading'));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
+  }
 
   @override
   void initState() {
@@ -255,7 +261,7 @@ class _TutorShowCaseSettingsProfileViewState
         ),
       ),
       SizedBox(height: screenHeightSize * 0.02),
-      UserStats(
+      TutorUserStats(
         rating: widget.globals.getUser.getRating,
         numTutees: numTutees,
       ),
