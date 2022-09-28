@@ -157,10 +157,10 @@ class TutorRequestsState extends State<TutorRequests> {
 
     if (provider.themeMode == ThemeMode.dark) {
       primaryColor = colorGrey;
-      highLightColor = colorLightBlueTeal;
-    } else {
-      primaryColor = colorBlueTeal;
       highLightColor = colorOrange;
+    } else {
+      primaryColor = colorOrange;
+      highLightColor = colorBlueTeal;
     }
 
     screenHeight = MediaQuery.of(context).size.height;
@@ -244,7 +244,6 @@ class TutorRequestsState extends State<TutorRequests> {
 
     return howLongAgo;
   }
-
   Widget _cardBuilder(BuildContext context, int i) {
     final provider = Provider.of<ThemeProvider>(context, listen: false);
 

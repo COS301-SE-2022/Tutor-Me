@@ -24,7 +24,7 @@ import 'package:tutor_me/src/theme/themes.dart';
 class MeetingScreen extends StatefulWidget {
   final String meetingId, token, displayName;
   final bool micEnabled, webcamEnabled, chatEnabled;
-  final Groups group;
+  final Groups? group;
   final Globals globals;
   const MeetingScreen({
     Key? key,
@@ -34,7 +34,7 @@ class MeetingScreen extends StatefulWidget {
     this.micEnabled = true,
     this.webcamEnabled = true,
     this.chatEnabled = true,
-    required this.group,
+    this.group,
     required this.globals,
   }) : super(key: key);
 
@@ -369,7 +369,7 @@ class _MeetingScreenState extends State<MeetingScreen> {
           MaterialPageRoute(
               builder: (context) => StartupScreen(
                     globals: widget.globals,
-                    group: widget.group,
+                    group: widget.group!,
                   )),
           (route) => false);
     });
@@ -381,8 +381,12 @@ class _MeetingScreenState extends State<MeetingScreen> {
     meeting.on(Events.recordingStarted, () async {
       toastMsg("Meeting recording started.");
 
-      await GroupServices.saveMeetingIdForGroup(
-          widget.meetingId, widget.group.getId, widget.globals);
+      if(widget.group != null){
+        await GroupServices.saveMeetingIdForGroup(
+          widget.meetingId, widget.group!.getId, widget.globals);
+      }
+
+      
 
       setState(() {
         isRecordingOn = true;

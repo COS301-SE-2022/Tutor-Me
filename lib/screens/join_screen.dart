@@ -11,17 +11,18 @@ import '../widgets/meeting_controls/meeting_action_button.dart';
 import 'meeting_screen.dart';
 
 // Join Screen
+// ignore: must_be_immutable
 class JoinScreen extends StatefulWidget {
   final String meetingId;
   final String token;
-  final Groups group;
+  Groups? group;
   final Globals globals;
 
-  const JoinScreen({
+   JoinScreen({
     Key? key,
     required this.meetingId,
     required this.token,
-    required this.group,
+    this.group,
     required this.globals,
   }) : super(key: key);
 
@@ -197,7 +198,7 @@ class _JoinScreenState extends State<JoinScreen> {
                               micEnabled: isMicOn,
                               webcamEnabled: isWebcamOn,
                               globals: widget.globals,
-                              group: widget.group,
+                              group: widget.group!,
                             ),
                           ),
                         );

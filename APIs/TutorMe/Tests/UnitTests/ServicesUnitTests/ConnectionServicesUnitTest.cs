@@ -61,7 +61,6 @@ public class ConnectionServicesUnitTests
         using (TutorMeContext ctx1 = new(optionsBuilder.Options))
         {
             result =new ConnectionServices(ctx1).GetAllConnections();
-            //ToDo: Must change all getALL FUNCTIONS to return a list of objects
         }
         
         Assert.NotNull(result);

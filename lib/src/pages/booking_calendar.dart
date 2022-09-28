@@ -7,27 +7,61 @@ import 'package:tutor_me/services/models/event.dart';
 // import 'package:tutor_me/src/pages/badges.dart';
 import 'package:tutor_me/src/pages/invite_to_meeting.dart';
 
+import '../../services/models/users.dart';
+import '../../services/services/events_services.dart';
 import '../theme/themes.dart';
 
 class BookingCalender extends StatefulWidget {
   final Globals globals;
-  const BookingCalender({Key? key, required this.globals}) : super(key: key);
+  final Users tutor;
+  const BookingCalender({Key? key, required this.globals, required this.tutor})
+      : super(key: key);
 
   @override
   State<BookingCalender> createState() => _BookingCalenderState();
 }
 
 class _BookingCalenderState extends State<BookingCalender> {
-  late Map<DateTime, List<dynamic>> scheduledSessions = {};
+  List<Event> events = List<Event>.empty(growable: true);
+  bool isLoading = true;
+  DateTime timeSelected = DateTime.now();
 
-  List getScheduledSessions(DateTime date) {
-    return scheduledSessions[date] ?? [];
+  @override
+  void initState() {
+    super.initState();
   }
 
-  void iniState() {
-    scheduledSessions = {};
-    super.initState();
-    // _controller = CalendarController();
+  late Map<DateTime, List<dynamic>> scheduledSessions = {};
+
+  loadScheduledSession() {
+    DateTime varDate;
+
+    for (int i = 0; i < events.length; i++) {
+      varDate = DateTime.parse(events[i].getDateOfEvent);
+
+      if (scheduledSessions[
+              DateTime(varDate.year, varDate.month, varDate.day)] ==
+          null) {
+        scheduledSessions.addAll({
+          DateTime(varDate.year, varDate.month, varDate.day): [
+            events[i],
+          ]
+        });
+      } else {
+        scheduledSessions[DateTime(varDate.year, varDate.month, varDate.day)]!
+            .add(events[i]);
+      }
+    }
+  }
+
+  List getScheduledSessions(DateTime date) {
+    var newDate = DateTime(date.year, date.month, date.day);
+
+    return scheduledSessions[newDate] ?? [];
+  }
+
+  List printResults(date) {
+    return [];
   }
 
   CalendarFormat format = CalendarFormat.month;
@@ -37,6 +71,8 @@ class _BookingCalenderState extends State<BookingCalender> {
 
   TextEditingController meetingController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
+  TextEditingController timeController = TextEditingController();
+  EventServices event = EventServices();
 
   @override
   void dispose() {
@@ -52,21 +88,25 @@ class _BookingCalenderState extends State<BookingCalender> {
     Color primaryColor;
     Color textColor;
     Color highLightColor;
+    Color backgroundColor;
 
     if (provider.themeMode == ThemeMode.dark) {
       primaryColor = colorGrey;
       textColor = colorWhite;
       highLightColor = colorLightBlueTeal;
+      backgroundColor = colorDarkGrey;
     } else {
       primaryColor = colorBlueTeal;
       textColor = colorDarkGrey;
       highLightColor = colorOrange;
+      backgroundColor = colorWhite;
     }
 
     double widthOfScreen = MediaQuery.of(context).size.width;
     double toggleWidth = MediaQuery.of(context).size.width * 0.4;
     double textBoxWidth = MediaQuery.of(context).size.width * 0.4 * 2;
     double buttonWidth = MediaQuery.of(context).size.width * 0.8;
+
     if (widthOfScreen >= 400.0) {
       toggleWidth = toggleWidth / 2;
       buttonWidth = buttonWidth / 2;
@@ -92,70 +132,74 @@ class _BookingCalenderState extends State<BookingCalender> {
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.015,
               ),
-              TableCalendar(
-                startingDayOfWeek: StartingDayOfWeek.sunday,
-                eventLoader: scheduledSessions.isNotEmpty
-                    ? (date) => getScheduledSessions(date)
-                    : null,
-                calendarStyle: CalendarStyle(
-                  selectedDecoration: BoxDecoration(
-                    color: colorWhite,
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: primaryColor,
-                      width: 1.0,
-                    ),
-                  ),
-                  todayDecoration: BoxDecoration(
-                    color: primaryColor,
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: primaryColor,
-                      width: 1.0,
-                    ),
-                  ),
-                  selectedTextStyle: selectedStyle(FontWeight.bold),
+              Container(
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                  color: backgroundColor,
                 ),
-                firstDay: DateTime.now(),
-                focusedDay: myFocusedDay,
-                lastDay: DateTime(2025),
-                calendarFormat: format,
-                onFormatChanged: (CalendarFormat format) {
-                  setState(() {
-                    format = format;
-                  });
-                },
-                onDaySelected: (DateTime day, DateTime fday) {
-                  setState(() {
-                    mySelectedDay = day;
-                    myFocusedDay = fday;
-                  });
-                },
-                selectedDayPredicate: (DateTime day) {
-                  return isSameDay(day, mySelectedDay);
-                },
-                headerStyle: HeaderStyle(
-                  // centerHeaderTitle: true,
-                  formatButtonDecoration: BoxDecoration(
-                    color: primaryColor,
-                    borderRadius: BorderRadius.circular(20),
+                child: TableCalendar(
+                  startingDayOfWeek: StartingDayOfWeek.sunday,
+                  eventLoader: (date) => getScheduledSessions(date),
+                  calendarStyle: CalendarStyle(
+                    selectedDecoration: BoxDecoration(
+                      color: highLightColor,
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: highLightColor,
+                        width: 1.0,
+                      ),
+                    ),
+                    todayDecoration: BoxDecoration(
+                      color: primaryColor,
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: primaryColor,
+                        width: 6.0,
+                      ),
+                    ),
+                    selectedTextStyle: selectedStyle(FontWeight.bold),
                   ),
-                  formatButtonVisible: false,
-                  titleCentered: true,
-                  titleTextStyle: TextStyle(
-                    color: highLightColor,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  leftChevronIcon: Icon(
-                    Icons.chevron_left,
-                    color: highLightColor,
-                    size: MediaQuery.of(context).size.width * 0.085,
-                  ),
-                  rightChevronIcon: Icon(
-                    Icons.chevron_right,
-                    color: highLightColor,
-                    size: MediaQuery.of(context).size.width * 0.085,
+                  firstDay: DateTime.now(),
+                  focusedDay: myFocusedDay,
+                  lastDay: DateTime(2025),
+                  calendarFormat: format,
+                  onFormatChanged: (CalendarFormat format) {
+                    setState(() {
+                      format = format;
+                    });
+                  },
+                  onDaySelected: (DateTime day, DateTime fday) {
+                    setState(() {
+                      mySelectedDay = day;
+                      myFocusedDay = fday;
+                    });
+                  },
+                  selectedDayPredicate: (DateTime day) {
+                    return isSameDay(day, mySelectedDay);
+                  },
+                  headerStyle: HeaderStyle(
+                    // centerHeaderTitle: true,
+                    formatButtonDecoration: BoxDecoration(
+                      color: highLightColor,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    formatButtonVisible: false,
+                    titleCentered: true,
+                    titleTextStyle: TextStyle(
+                      color: textColor,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    leftChevronIcon: Icon(
+                      Icons.chevron_left,
+                      color: primaryColor,
+                      size: MediaQuery.of(context).size.width * 0.085,
+                    ),
+                    rightChevronIcon: Icon(
+                      Icons.chevron_right,
+                      color: primaryColor,
+                      size: MediaQuery.of(context).size.width * 0.085,
+                    ),
                   ),
                 ),
               ),
@@ -170,7 +214,7 @@ class _BookingCalenderState extends State<BookingCalender> {
                             border: Border(
                                 bottom: BorderSide(
                                     width: 1.0,
-                                    color: highLightColor.withOpacity(0.2)))),
+                                    color: colorLightGrey.withOpacity(0.6)))),
                         child: Padding(
                           padding: EdgeInsets.only(
                               top: MediaQuery.of(context).size.height * 0.03,
@@ -186,21 +230,25 @@ class _BookingCalenderState extends State<BookingCalender> {
                                   SizedBox(
                                     width: MediaQuery.of(context).size.width *
                                         0.45,
-                                    child: Text(
-                                      e.title,
-                                      style: TextStyle(
-                                          color: primaryColor,
-                                          fontSize: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.07),
+                                    child: Row(
+                                      children: [
+                                        Text(
+                                          e.getTitle,
+                                          style: TextStyle(
+                                              color: primaryColor,
+                                              fontSize: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.07),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                   SizedBox(
                                     width: MediaQuery.of(context).size.width *
                                         0.45,
                                     child: Text(
-                                      e.description,
+                                      e.getDescription,
                                       style: TextStyle(
                                           color: highLightColor,
                                           fontSize: MediaQuery.of(context)
@@ -213,7 +261,7 @@ class _BookingCalenderState extends State<BookingCalender> {
                               ),
                               TextButton(
                                 child: Text("Send Invitation",
-                                    style: TextStyle(color: primaryColor)),
+                                    style: TextStyle(color: highLightColor)),
                                 onPressed: () {
                                   Navigator.push(
                                     context,
@@ -235,79 +283,141 @@ class _BookingCalenderState extends State<BookingCalender> {
         floatingActionButton: FloatingActionButton(
           onPressed: () => showDialog(
               context: context,
-              builder: (context) => AlertDialog(
-                    title: Text(
-                      'Schedule Meeting',
-                      style: TextStyle(color: textColor),
-                    ),
-                    content: SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.2,
-                      child: Column(
-                        children: [
-                          TextFormField(
-                            controller: meetingController,
-                            decoration: const InputDecoration(
-                                labelText: 'Meeting Title'),
-                          ),
-                          TextFormField(
-                            controller: descriptionController,
-                            decoration: const InputDecoration(
-                                labelText: 'Meeting Description'),
-                          ),
-                        ],
-                      ),
-                    ),
-                    actions: <Widget>[
-                      TextButton(
-                        child: Text(
-                          'Cancel',
-                          style: TextStyle(color: textColor),
+              builder: (context) => Center(
+                    child: AlertDialog(
+                      title: const Text('Schedule Meeting'),
+                      content: SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.3,
+                        child: Column(
+                          children: [
+                            Text(
+                              'For: ' +
+                                  DateTime(
+                                          mySelectedDay.year,
+                                          mySelectedDay.month,
+                                          mySelectedDay.day)
+                                      .toString(),
+                              style: const TextStyle(
+                                color: colorLightGreen,
+                              ),
+                            ),
+                            TextFormField(
+                              controller: meetingController,
+                              decoration: const InputDecoration(
+                                  labelText: 'Meeting Title'),
+                            ),
+                            TextFormField(
+                              controller: descriptionController,
+                              decoration: const InputDecoration(
+                                  labelText: 'Meeting Description'),
+                            ),
+                            TextFormField(
+                              controller: timeController,
+                              decoration: const InputDecoration(
+                                  labelText: 'Meeting Time'),
+                            ),
+                          ],
                         ),
-                        onPressed: () => Navigator.pop(context),
                       ),
-                      TextButton(
-                        child: const Text(
-                          'Add',
-                          style: TextStyle(color: Colors.green),
+                      actions: <Widget>[
+                        TextButton(
+                          child: Text(
+                            'Cancel',
+                            style: TextStyle(color: textColor),
+                          ),
+                          onPressed: () => Navigator.pop(context),
                         ),
-                        onPressed: () {
-                          if (meetingController.text.isEmpty) {
-                            return;
-                          }
-                          // else {
-                          if (scheduledSessions[mySelectedDay] != null) {
-                            scheduledSessions[mySelectedDay]?.add(Event(
+                        TextButton(
+                          child: const Text(
+                            'Add',
+                            style: TextStyle(color: Colors.green),
+                          ),
+                          onPressed: () async {
+                            if (meetingController.text.isEmpty) {
+                              return;
+                            }
+
+                            // else {
+                            if (scheduledSessions[DateTime(mySelectedDay.year,
+                                    mySelectedDay.month, mySelectedDay.day)] !=
+                                null) {
+                              // final date
+                              scheduledSessions[DateTime(mySelectedDay.year,
+                                      mySelectedDay.month, mySelectedDay.day)]
+                                  ?.add(Event(
                                 meetingController.text,
                                 descriptionController.text,
-                                mySelectedDay.toString(),
-                                time.toString(),
-                                "Me",
-                                "k",
+                                DateTime(mySelectedDay.year,
+                                        mySelectedDay.month, mySelectedDay.day)
+                                    .toString(),
+                                timeController.text,
                                 "",
-                                ""));
-                          } else {
-                            scheduledSessions[mySelectedDay] = [
-                              Event(
+                                "",
+                                "",
+                                widget.globals.getUser.getId,
+                              ));
+                              setState(() {
+                                loadScheduledSession();
+                              });
+                              await EventServices.createEvent(
+                                  Event(
+                                    meetingController.text,
+                                    descriptionController.text,
+                                    mySelectedDay.toString(),
+                                    timeController.text,
+                                    widget.globals.getUser.getId,
+                                    "",
+                                    "",
+                                    widget.globals.getUser.getId,
+                                  ),
+                                  widget.globals);
+                            } else {
+                              scheduledSessions[DateTime(mySelectedDay.year,
+                                  mySelectedDay.month, mySelectedDay.day)] = [
+                                Event(
                                   meetingController.text,
                                   descriptionController.text,
-                                  mySelectedDay.toString(),
+                                  DateTime(
+                                          mySelectedDay.year,
+                                          mySelectedDay.month,
+                                          mySelectedDay.day)
+                                      .toString(),
                                   time.toString(),
-                                  "Me",
                                   "",
                                   "",
-                                  "")
-                            ];
-                          }
-                          // }
-                          Navigator.pop(context);
-                          meetingController.clear();
-                          descriptionController.clear();
+                                  "",
+                                  widget.globals.getUser.getId,
+                                ),
+                              ];
+                              setState(() {
+                                loadScheduledSession();
+                              });
+                              await EventServices.bookTutorEvent(
+                                  widget.tutor,
+                                  Event(
+                                    meetingController.text,
+                                    descriptionController.text,
+                                    mySelectedDay.toString(),
+                                    timeController.text,
+                                    "",
+                                    "",
+                                    "",
+                                    widget.globals.getUser.getId,
+                                  ),
+                                  widget.globals);
+                            }
+                            // }
+                            Navigator.pop(context);
+                            meetingController.clear();
+                            descriptionController.clear();
+                            timeController.clear();
 
-                          //move forward to next page
-                          return;
-                        },
-                      ),
-                    ],
+                            //move forward to next page
+                            return;
+                          },
+                        ),
+                      ],
+                    ),
                   )),
           backgroundColor: primaryColor,
           child: const Icon(Icons.bookmark_add_outlined),
@@ -326,6 +436,7 @@ class _BookingCalenderState extends State<BookingCalender> {
     } else {
       textColor = colorDarkGrey;
     }
+
     return TextStyle(
       // fontSize: 18,
       fontWeight: normal,
@@ -339,9 +450,9 @@ class _BookingCalenderState extends State<BookingCalender> {
     Color highLightColor;
 
     if (provider.themeMode == ThemeMode.dark) {
-      highLightColor = colorLightBlueTeal;
+      highLightColor = colorLightGrey;
     } else {
-      highLightColor = colorOrange;
+      highLightColor = colorWhite;
     }
     return TextStyle(
       // fontSize: 18,

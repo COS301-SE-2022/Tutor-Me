@@ -47,6 +47,9 @@ namespace TutorMe.Controllers
                 return Ok(connection);
             }
             catch (Exception exception) {
+                if(exception.Message == "Connection not found") {
+                    return NotFound();
+                }
                 return BadRequest(exception.Message);
             }
         }
@@ -60,6 +63,9 @@ namespace TutorMe.Controllers
                 return Ok(connection);
             }
             catch (Exception exception) {
+                if(exception.Message == "Connection not found") {
+                    return NotFound();
+                }
                 return BadRequest(exception.Message);
             }
         }

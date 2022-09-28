@@ -18,7 +18,7 @@ namespace Chat_application_server.Controllers
         }
 
         [HttpGet("[action]")]
-        public async Task<IActionResult> SendMessage(string MessageText, int UserId, string UserName)
+        public async Task<IActionResult> SendMessage(string MessageText, string UserId, string UserName)
         {
             MessageModel MessageModel = new MessageModel
             {

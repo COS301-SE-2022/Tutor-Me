@@ -30,6 +30,7 @@ namespace TutorMe.Controllers
                 return Ok(userTypes);
             }
             catch (Exception exception) {
+                
                 return BadRequest(exception.Message);
             }
         }
@@ -43,6 +44,8 @@ namespace TutorMe.Controllers
                 return Ok(userType);
             }
             catch (Exception exception) {
+                if(exception.Message == "UserType not found")
+                    return NotFound(exception.Message);
                 return BadRequest(exception.Message);
             }
         }
