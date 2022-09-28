@@ -22,6 +22,9 @@ namespace TutorMe.Controllers
             this.mapper = mapper;
         }
 
+
+        /// <summary> Get All the Users stored </summary>
+        /// <returns> A list of users </returns>
         [Authorize]
         [HttpGet]
         public IActionResult GetAllUsers()
@@ -35,6 +38,9 @@ namespace TutorMe.Controllers
             }
         }
 
+
+        /// <summary> Get all the tutors </summary>
+        /// <returns> A list of users </returns>
         [Authorize]
         [HttpGet("tutors")]
         public IActionResult GetAllTutors() {
@@ -46,7 +52,8 @@ namespace TutorMe.Controllers
                 return BadRequest(exception.Message);
             }
         }
-
+        /// <summary> Get all the tutees  </summary>
+        /// <returns> A list of users</returns>
         [Authorize]
         [HttpGet("tutees")]
         public IActionResult GetAllTutees() {
@@ -59,6 +66,8 @@ namespace TutorMe.Controllers
             }
         }
 
+        /// <summary> Get all the admins </summary>
+        /// <returns> A list of users </returns>
         [Authorize]
         [HttpGet("admins")]
         public IActionResult GetAllAdmins() {
@@ -71,6 +80,9 @@ namespace TutorMe.Controllers
             }
         }
 
+        /// <summary> Get a user by Id </summary>
+        /// <param name="id"> User's Id </param>
+        /// <returns> User object </returns>
         [Authorize]
         [HttpGet("{id}")]
         public IActionResult GetUserById(Guid id)
@@ -86,7 +98,9 @@ namespace TutorMe.Controllers
                 return BadRequest(exception.Message);
             }
         }
-
+        /// <summary> Store a new user </summary>
+        /// <param name="user"> A user object </param>
+        /// <returns>The User's generated Id</returns>
         [HttpPost]
         public IActionResult RegisterUser(IUser user)
         {
@@ -99,6 +113,10 @@ namespace TutorMe.Controllers
             }
         }
 
+        /// <summary> Update a user's bio </summary>
+        /// <param name="id"> User's Id </param>
+        /// <param name="bio"> The new user's bio </param>
+        /// <returns></returns>
         [Authorize]
         [HttpPut("bio/{id}")]
         public IActionResult UpdateBioByUserId(Guid id, string bio) {
@@ -111,6 +129,10 @@ namespace TutorMe.Controllers
             }
         }
 
+        /// <summary> Verify a tutor after they upload their transcript </summary>
+        /// <param name="id"> User's Id</param>
+        /// <param name="isValidated"> User's verification </param>
+        /// <returns> Returns a boolean </returns>
         [Authorize]
         [HttpPut("validate/{id}")]
         public IActionResult ValidateUser(Guid id, bool isValidated) {
@@ -123,6 +145,11 @@ namespace TutorMe.Controllers
             }
         }
 
+        /// <summary> Update the user's rating </summary>
+        /// <param name="id"> User's Id </param>
+        /// <param name="rating"> User's new rating </param>
+        /// <param name="numberOfReviews"> User's new number of reviews </param>
+        /// <returns> Returns a boolean </returns>
         [Authorize]
         [HttpPut("rating/{id}")]
         public IActionResult UpdateRatingByUserId(Guid id, int rating, int numberOfReviews) {
@@ -135,6 +162,10 @@ namespace TutorMe.Controllers
             }
         }
 
+        /// <summary> Update the user object </summary>
+        /// <param name="id"> User's Id </param>
+        /// <param name="user"> The updated User object (check entities) </param>
+        /// <returns> The updated user object </returns>
         [Authorize]
         [HttpPut("{id}")]
         public IActionResult UpdateUser(Guid id, IUser user)
@@ -154,6 +185,9 @@ namespace TutorMe.Controllers
             }
         }
 
+        /// <summary> Delete a user by their Id </summary>
+        /// <param name="id"> User's Id </param>
+        /// <returns> Returns a boolean </returns>
         [Authorize]
         [HttpDelete("{id}")]
         public IActionResult DeleteUserById(Guid id) {
