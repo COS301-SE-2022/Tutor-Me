@@ -288,7 +288,7 @@ namespace TutorMe.Data
                 entity.Property(e => e.Rating).HasColumnName("rating").HasDefaultValue(0);
                 
                 entity.Property(e => e.NumberOfReviews).HasDefaultValue(0);
-                entity.Property(e => e.verified).HasDefaultValue(false);
+                entity.Property(e => e.Verified).HasDefaultValue(false);
 
                 entity.Property(e => e.UserTypeId).HasDefaultValueSql("(newid())").HasMaxLength(36);
 
