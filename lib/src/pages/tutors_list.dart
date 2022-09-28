@@ -175,19 +175,20 @@ class TutorListState extends State<TutorList> {
           widget.globals);
 
       connectedTutors = tutors;
-
+      print('sillaaaa');
       for (var cTutors in connectedTutors) {
         tutorList.removeWhere((element) => element.getId == cTutors.getId);
       }
 
-      List<int> toRemove = List<int>.empty(growable: true);
       List<Modules> tuteeModules = List<Modules>.empty();
       final tuteeModuleList = await ModuleServices.getUserModules(
           widget.globals.getUser.getId, widget.globals);
+      List<Users> tempTutors = List<Users>.empty(growable: true);
 
       tuteeModules = tuteeModuleList;
+      
       if (tuteeModules.isNotEmpty) {
-        for (int i = 0; i < tutorLength; i++) {
+        for (int i = 0; i < tutorList.length; i++) {
           bool val = false;
 
           List<Modules> tutorModules = List<Modules>.empty();
@@ -198,21 +199,21 @@ class TutorListState extends State<TutorList> {
           for (int k = 0; k < tutorModules.length; k++) {
             for (int l = 0; l < tuteeModules.length; l++) {
               if (tutorModules[k].getCode == tuteeModules[l].getCode) {
+                tempTutors.add(tutorList[i]);
                 val = true;
+                break;
               }
             }
-          }
-
-          if (!val) {
-            toRemove.add(i);
-          }
-        }
-
-        for(int i = tutorLength - 1; i >= 0; i--){
-          if(toRemove.contains(i)){
-            tutorList.removeAt(i);
+            if (val) {
+              break;
+            }
           }
         }
+        print('before tuteemodulelist');
+
+        tutorList = tempTutors;
+
+        getTutorProfileImages();
       } else {
         setState(() {
           tutorList = List<Users>.empty();
@@ -224,15 +225,14 @@ class TutorListState extends State<TutorList> {
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
       }
     } catch (e) {
+      print('exccccc ' + e.toString());
       for (var tutor in tutorList) {
         tutors.add(Tutor(tutor, Uint8List(128), false));
       }
       setState(() {
         _isLoading = false;
       });
-      // getTutorProfileImages();
     }
-    getTutorProfileImages();
   }
 
   getTutorProfileImages() async {
@@ -241,31 +241,28 @@ class TutorListState extends State<TutorList> {
         try {
           final image = await UserServices.getTutorProfileImage(
               tutorList[i].getId, widget.globals);
-          setState(() {
-            tutorImages.add(image);
-          });
+
+          tutorImages.add(image);
         } catch (e) {
           final byte = Uint8List(128);
           tutorImages.add(byte);
           hasImage.add(i);
         }
       }
+      print(tutorList);
       for (int i = 0; i < tutorList.length; i++) {
-        setState(() {
-          bool val = true;
-          getTutorProfileImages();
-          for (int j = 0; j < hasImage.length; j++) {
-            if (hasImage[j] == i) {
-              val = false;
-              break;
-            }
+        bool val = true;
+        for (int j = 0; j < hasImage.length; j++) {
+          if (hasImage[j] == i) {
+            val = false;
+            break;
           }
-          if (!val) {
-            tutors.add(Tutor(tutorList[i], tutorImages[i], false));
-          } else {
-            tutors.add(Tutor(tutorList[i], tutorImages[i], true));
-          }
-        });
+        }
+        if (!val) {
+          tutors.add(Tutor(tutorList[i], tutorImages[i], false));
+        } else {
+          tutors.add(Tutor(tutorList[i], tutorImages[i], true));
+        }
       }
       setState(() {
         saveTutors = tutors;

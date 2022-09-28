@@ -381,6 +381,8 @@ class UserServices {
     final modulesURL =
         Uri.parse('http://${tempGlobals.getTutorMeUrl}/api/Users/');
 
+    print('passssssss ' + password);
+
     // password = hashPassword(password);
     String data = jsonEncode({
       'userId': institution,
@@ -515,11 +517,11 @@ class UserServices {
   static updateTutorRating(
       int newRating, int numReviews, String id, Globals global) async {
     try {
-      Uri uri = Uri.http(global.getTutorMeUrl,
-          '/api/Users/rating/$id?rating=$newRating&numberOfReviews=$numReviews');
+      Uri uri = Uri.parse(
+          'http://${global.getTutorMeUrl}/api/Users/rating/$id?rating=$newRating&numberOfReviews=$numReviews');
 
       final response = await http.put(uri, headers: global.getHeader);
-
+      print(response.statusCode);
       if (response.statusCode == 200) {
         return true;
       } else {
@@ -1099,10 +1101,8 @@ class UserServices {
       final response = await http.get(tuteeURL, headers: global.getHeader);
       print('img ' + response.statusCode.toString());
       if (response.statusCode == 200) {
-        print(response.body);
         final image = response.body;
         List<String> imageList = image.split('"');
-
         if (image.length < 10) {
           throw Exception('No Image found');
         } else {
@@ -1111,7 +1111,7 @@ class UserServices {
         }
       } else if (response.statusCode == 401) {
         global = await refreshToken(global);
-        return await getTutorProfileImage(id, global);
+        return await getTuteeProfileImage(id, global);
       } else {
         throw Exception('Failed to load' + response.statusCode.toString());
       }

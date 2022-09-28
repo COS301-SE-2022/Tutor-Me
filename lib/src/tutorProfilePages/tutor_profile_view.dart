@@ -380,6 +380,12 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
                 Text(
                   'Give ' + widget.tutor.getName + ' a rating',
                   textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: MediaQuery.of(context).size.width * 0.05,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                  
                 ),
               ],
             ),
@@ -393,7 +399,7 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
               Center(
                 child: SizedBox(
                   height: MediaQuery.of(context).size.height * 0.1,
-                  width: MediaQuery.of(context).size.width * 0.65,
+                  width: MediaQuery.of(context).size.width * 0.8,
                   child: Center(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -490,6 +496,11 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
                       try {
                         await UserServices.updateTutorRating(
                             asInt,numRatings,widget.tutor.getId, widget.globals);
+                            const snackBar = SnackBar(
+                              backgroundColor: colorGreen,
+                          content: Text('Rated successfully'),
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       } catch (e) {
                         const snackBar = SnackBar(
                           content: Text('Failed to upload rating'),

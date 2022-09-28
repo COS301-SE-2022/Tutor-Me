@@ -72,6 +72,8 @@ class _RegisterStep3State extends State<RegisterStep3> {
             widget.confirmPassword,
             yearLvl!);
 
+        globals.setPassword = widget.password;
+
         final globalJson = json.encode(globals.toJson());
         SharedPreferences preferences = await SharedPreferences.getInstance();
 
@@ -155,6 +157,8 @@ class _RegisterStep3State extends State<RegisterStep3> {
             passedinInstitution,
             widget.confirmPassword,
             yearLvl!);
+
+            globals.setPassword = widget.password;
 
         final globalJson = json.encode(globals.toJson());
         SharedPreferences preferences = await SharedPreferences.getInstance();
