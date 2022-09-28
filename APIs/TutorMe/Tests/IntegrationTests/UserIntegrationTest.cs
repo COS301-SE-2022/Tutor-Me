@@ -44,25 +44,25 @@
 //                 Rating = 0,
 //                 NumberOfReviews = 0
 //             };
-//
+
 //             //Act
 //             var response1 = await _httpClient.PostAsJsonAsync("https://localhost:7100/api/Users", testUser);
-//
+
 //             //Assert
 //             Assert.NotNull(response1);
 //             Assert.Equal(200, (double)response1.StatusCode);
-//
-//
+
+
 //             //Arrange
-//
-//
+
+
 //             //Log in
 //             var expectedUser = new UserLogIn();
-//
+
 //             expectedUser.Email = testUser.Email;
 //             expectedUser.Password =testUser.Password;
 //             expectedUser.TypeId = new Guid("1fa85f64-5717-4562-b3fc-2c963f66afa6");
-//
+
 //             var response = await _httpClient.PostAsJsonAsync("https://localhost:7100/api/Account/AuthToken", expectedUser);
 //             _testOutputHelper.WriteLine("the body login " + response);
 //             response.EnsureSuccessStatusCode();
