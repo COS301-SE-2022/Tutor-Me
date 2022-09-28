@@ -799,4 +799,3 @@ C:/Users/madun/Documents/School/COS301/Capstone/Tutor-ME/APIs/TutorMe/TutorMe/bi
 /home/simphiwe/Desktop/updated_CapsOn/Tutor-ME/APIs/TutorMe/TutorMe/obj/Debug/net6.0/TutorMe.pdb
 /home/simphiwe/Desktop/updated_CapsOn/Tutor-ME/APIs/TutorMe/TutorMe/obj/Debug/net6.0/TutorMe.genruntimeconfig.cache
 /home/simphiwe/Desktop/updated_CapsOn/Tutor-ME/APIs/TutorMe/TutorMe/obj/Debug/net6.0/ref/TutorMe.dll
-/home/simphiwe/Desktop/updated_CapsOn/Tutor-ME/APIs/TutorMe/TutorMe/bin/Debug/net6.0/appsettings.json
