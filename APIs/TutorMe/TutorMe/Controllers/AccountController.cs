@@ -28,7 +28,7 @@ namespace TutorMe.Controllers {
             }
 
             string ipAddress = "";
-            if(HttpContext.Connection.RemoteIpAddress==null) {
+            if(HttpContext==null || HttpContext.Connection==null || HttpContext.Connection.RemoteIpAddress==null) {
                 ipAddress = "::1";//for testing purposes
             } else {
                 ipAddress = HttpContext.Connection.RemoteIpAddress.ToString();
@@ -51,7 +51,12 @@ namespace TutorMe.Controllers {
         public async Task<IActionResult> RefreshToken([FromBody] RefreshTokenRequest request) {
             if (!ModelState.IsValid)
                 return BadRequest(new AuthResponse { IsSuccess = false, Reason = "Tokens must be provided" });
-            string ipAddress = HttpContext.Connection.RemoteIpAddress.ToString();
+            string ipAddress = "";
+            if(HttpContext==null || HttpContext.Connection==null || HttpContext.Connection.RemoteIpAddress==null) {
+                ipAddress = "::1";//for testing purposes
+            } else {
+                ipAddress = HttpContext.Connection.RemoteIpAddress.ToString();
+            }
             var token = GetJwtToken(request.ExpiredToken);
             var userRefreshToken = _context.UserRefreshToken.FirstOrDefault(
                 x => x.IsInvalidated == false && x.Token == request.ExpiredToken

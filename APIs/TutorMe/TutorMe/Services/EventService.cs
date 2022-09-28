@@ -23,7 +23,7 @@ namespace TutorMe.Services {
         }
 
         public IEnumerable<Event> GetUserEvents(Guid id) {
-            return _context.Event.Where(e => e.OwnerId == id || e.UserId == id).ToArray();
+            return _context.Event.Where(e => e.OwnerId == id || e.UserId == id).ToList();
         }
 
         public bool CreateUserEvent(IEvent eventInput) {

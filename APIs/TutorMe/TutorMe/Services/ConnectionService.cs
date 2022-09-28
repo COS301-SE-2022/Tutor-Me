@@ -10,7 +10,7 @@ namespace TutorMe.Services
         IEnumerable<Connection> GetAllConnections();
         IEnumerable<Connection> GetConnectionsByUserId(Guid id);
         IEnumerable<User> GetUserConnectionObjectById(Guid id, Guid userType);
-        Connection GetConnectionById(Guid id);
+        // Connection GetConnectionById(Guid id);
         Guid createConnection(IConnection connection);
         bool deleteConnectionById(Guid id);
     }
@@ -28,14 +28,18 @@ namespace TutorMe.Services
             return _context.Connection.ToList();
         }
 
-        public Connection GetConnectionById(Guid id)
-        {
-            var connection = _context.Connection.Find(id);
-            return connection;
-        }
+        // public Connection GetConnectionById(Guid id)
+        // {
+        //     var connection = _context.Connection.Find(id);
+        //     return connection;
+        // }
 
         public IEnumerable<Connection> GetConnectionsByUserId(Guid id) {
             var connections = _context.Connection.Where(e => e.TuteeId == id || e.TutorId == id);
+            if (connections == null)
+            {
+                throw new KeyNotFoundException("No connections found for user");
+            }
             return connections.ToList();
         }
         public Guid createConnection(IConnection connection)
@@ -72,7 +76,7 @@ namespace TutorMe.Services
             }
             
             if (userTypeObject.Type == "Tutor") {
-                var connections = _context.Connection.Include(e=>e.Tutee).Where(e => e.TutorId == id).ToArray();
+                var connections = _context.Connection.Include(e=>e.Tutee).Where(e => e.TutorId == id).ToList();
                 var users = connections.Select(e => e.Tutee);
                 //get unique users
                 var uniqueUser = new List<User>();
@@ -84,7 +88,7 @@ namespace TutorMe.Services
                 return uniqueUser;
             }
             else if (userTypeObject.Type == "Tutee") {
-                var connections = _context.Connection.Include(e => e.Tutor).Where(e => e.TuteeId == id);
+                var connections = _context.Connection.Include(e => e.Tutor).Where(e => e.TuteeId == id).ToList();
                 var users = connections.Select(e => e.Tutor);
                 var uniqueUser = new List<User>();
                 foreach (User item in users) {

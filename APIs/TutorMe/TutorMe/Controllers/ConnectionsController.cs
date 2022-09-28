@@ -47,12 +47,12 @@ namespace TutorMe.Controllers
             try {
                 var connection = connectionService.GetConnectionsByUserId(id);
                 if (connection == null) {
-                    return NotFound();
+                    return NotFound("Connection not found");
                 }
                 return Ok(connection);
             }
             catch (Exception exception) {
-                if(exception.Message == "Connection not found") {
+                if(exception.Message == "No connections found for user") {
                     return NotFound();
                 }
                 return BadRequest(exception.Message);
