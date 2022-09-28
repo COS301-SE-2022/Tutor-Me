@@ -25,8 +25,7 @@ namespace FileSystem.Controllers {
 
         // GET: api/UserFiles/5
         [HttpGet("image/{id}")]
-        public async Task<IActionResult> GetImageByUserId(Guid id, string username, string password, Guid typeId) 
-            {
+        public async Task<IActionResult> GetImageByUserId(Guid id, string username, string password, Guid typeId) {
             UserAuth userAuth = new UserAuth();
             userAuth.Email = username;
             userAuth.Password = password;
@@ -35,44 +34,88 @@ namespace FileSystem.Controllers {
                 return NotFound();
             }
             try {
-                
-                var connection = userFilesService.GetImageByUserId(id, userAuth);
-                return Ok(connection);
-            }
-            catch (Exception e) {
-                if (e.Message == "Unauthorized") {
+                if (await userFilesService.checkIfAuthorized(userAuth)) {
+                    var record = await userFilesService.GetImageByUserId(id);
+                    if (record == null) {
+                        return NotFound();
+                    }
+                    return Ok(record);
+                }
+                else {
                     return Unauthorized();
                 }
+            }
+            catch (Exception e) {
                 return BadRequest(e.Message);
             }
 
         }
 
         [HttpGet("transcript/{id}")]
-        public IActionResult GetTranscriptByUserId(Guid id) {
+        public async Task<IActionResult> GetTranscriptByUserId(Guid id, string username, string password, Guid typeId) {
+            UserAuth userAuth = new UserAuth();
+            userAuth.Email = username;
+            userAuth.Password = password;
+            userAuth.TypeId = typeId;
             if (_context.UserFiles == null) {
                 return NotFound();
             }
-            var connection = userFilesService.GetTranscriptByUserId(id);
-            return Ok(connection);
+            try {
+                if(await userFilesService.checkIfAuthorized(userAuth)) {
+                    var record = await userFilesService.GetTranscriptByUserId(id);
+                    if (record == null) {
+                        return NotFound();
+                    }
+                    return Ok(record);
+                }
+                else {
+                    return Unauthorized();
+                }
+            }
+            catch (Exception e) {
+                return BadRequest(e.Message);
+            }
         }
 
         // PUT: api/UserFiles/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public IActionResult createUserRecord(IUserFiles userFiles) {
-            this.userFilesService.createUserRecord(userFiles);
-            return Ok();
+        public async Task<IActionResult> createUserRecord(IUserFiles userFiles, string username, string password, Guid typeId) {
+            try {
+                UserAuth userAuth = new UserAuth();
+                userAuth.Email = username;
+                userAuth.Password = password;
+                userAuth.TypeId = typeId;
+                if (await userFilesService.checkIfAuthorized(userAuth)) {
+                    userFilesService.createUserRecord(userFiles);
+                    return Ok();
+                }
+                else {
+                    return Unauthorized();
+                }
+            }
+            catch (Exception e) {
+                return BadRequest(e.Message);
+            }
         }
 
         [HttpPut("image/{id}")]
-        public IActionResult ModifyUserImage(Guid id, UserFiles userFiles) {
+        public async Task<IActionResult> ModifyUserImage(Guid id, UserFiles userFiles, string username, string password, Guid typeId) {
             if (id != userFiles.Id) {
                 return BadRequest("Invalid request sent");
             }
             try {
-                this.userFilesService.ModifyUserImage(userFiles);
-                return Ok();
+                UserAuth userAuth = new UserAuth();
+                userAuth.Email = username;
+                userAuth.Password = password;
+                userAuth.TypeId = typeId;
+                if (await userFilesService.checkIfAuthorized(userAuth)) {
+                    userFilesService.ModifyUserImage(userFiles);
+                    return Ok();
+                }
+                else {
+                    return Unauthorized();
+                }
             }
             catch (Exception exception) {
                 return NotFound(exception.Message);
@@ -80,13 +123,22 @@ namespace FileSystem.Controllers {
         }
 
         [HttpPut("transcript/{id}")]
-        public IActionResult ModifyUserTranscript(Guid id,UserFiles userFiles) {
+        public async Task<IActionResult> ModifyUserTranscript(Guid id,UserFiles userFiles, string username, string password, Guid typeId) {
             if (id != userFiles.Id || userFiles == null) {
                 return BadRequest("Invalid request sent");
             }
             try {
-                this.userFilesService.ModifyUserTranscript(userFiles);
-                return Ok();
+                UserAuth userAuth = new UserAuth();
+                userAuth.Email = username;
+                userAuth.Password = password;
+                userAuth.TypeId = typeId;
+                if (await userFilesService.checkIfAuthorized(userAuth)) {
+                    userFilesService.ModifyUserTranscript(userFiles);
+                    return Ok();
+                }
+                else {
+                    return Unauthorized();
+                }
             }
             catch (Exception exception) {
                 return NotFound(exception.Message);
@@ -95,14 +147,22 @@ namespace FileSystem.Controllers {
 
         // DELETE: api/UserFiles/5
         [HttpDelete("{id}")]
-        public IActionResult DeleteUserFiles(Guid id) {
+        public async Task<IActionResult> DeleteUserFiles(Guid id, string username, string password, Guid typeId) {
             if (_context.UserFiles == null) {
                 return NotFound();
             }
-
             try {
-                var response = userFilesService.DeleteUserFilesById(id);
-                return Ok(response);
+                UserAuth userAuth = new UserAuth();
+                userAuth.Email = username;
+                userAuth.Password = password;
+                userAuth.TypeId = typeId;
+                if (await userFilesService.checkIfAuthorized(userAuth)) {
+                    var response = userFilesService.DeleteUserFilesById(id);
+                    return Ok(response);
+                }
+                else {
+                    return Unauthorized();
+                }
             }
             catch (Exception e) {
                 return BadRequest(e);
