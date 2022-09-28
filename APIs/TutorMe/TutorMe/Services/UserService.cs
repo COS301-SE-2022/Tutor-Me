@@ -16,6 +16,8 @@ namespace TutorMe.Services {
         bool DeleteUserById(Guid id);
         bool updateUserBio(Guid id, string bio);
         User UpdateUser(IUser user);
+        bool updateValidated(Guid id, bool validated);
+        bool updateUserRating(Guid id, int rating, int numReviews );
     }
     public class UserServices : IUserService
     {
@@ -158,5 +160,26 @@ namespace TutorMe.Services {
             _context.SaveChanges();
             return true;
         }
+
+        public bool updateValidated(Guid id, bool validated) {
+            var user = _context.User.Find(id);
+            if (user == null) {
+                throw new KeyNotFoundException("User not found");
+            }
+            user.Verified = validated;
+            _context.SaveChanges();
+            return true;
+        }
+        
+        public bool updateUserRating(Guid id, int rating, int numReviews) {
+                var user = _context.User.Find(id);
+                if (user == null) {
+                    throw new KeyNotFoundException("User not found");
+                }
+                user.Rating = rating;
+                user.NumberOfReviews = numReviews;
+                _context.SaveChanges();
+                return true;
+            }
     }
 }

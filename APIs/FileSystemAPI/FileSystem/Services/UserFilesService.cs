@@ -9,8 +9,8 @@ using Newtonsoft.Json;
 namespace FileSystem.Services {
     public interface IUserFilesService {
 
-        Task<byte[]> GetImageByUserId(Guid id, UserAuth userAuth);
-        byte[] GetTranscriptByUserId(Guid id);
+        Task<byte[]> GetImageByUserId(Guid id);
+        Task<byte[]> GetTranscriptByUserId(Guid id);
         bool ModifyUserImage(UserFiles imageInput);
         bool ModifyUserTranscript(UserFiles transcript);
         Guid createUserRecord(IUserFiles userFile);
@@ -27,13 +27,7 @@ namespace FileSystem.Services {
             _context = context;
         }
 
-        public async Task<byte[]> GetImageByUserId(Guid id, UserAuth userAuth) {
-            var isAuth = await checkIfAuthorized(userAuth);
-            if (isAuth == false) {
-                throw
-                    new Exception("Unauthorized");
-            }
-
+        public async Task<byte[]> GetImageByUserId(Guid id) {
             var record = _context.UserFiles.FirstOrDefault(e => e.Id == id);
             if (record == null) {
                 return null;
@@ -46,15 +40,15 @@ namespace FileSystem.Services {
             
         }
 
-        public byte[] GetTranscriptByUserId(Guid id) {
+        public async Task<byte[]> GetTranscriptByUserId(Guid id) {
             var record = _context.UserFiles.FirstOrDefault(e => e.Id == id);
             if (record == null) {
                 return null;
             }
+            AESEncryper encryper = new AESEncryper();
             if (record.UserTranscript == null) {
                 return null;
             }
-            AESEncryper encryper = new AESEncryper();
             return encryper.Decrypt(record.UserTranscript, record.TranscriptKey, record.TranscriptIV);
         }
         public Guid createUserRecord(IUserFiles userFileInput) {

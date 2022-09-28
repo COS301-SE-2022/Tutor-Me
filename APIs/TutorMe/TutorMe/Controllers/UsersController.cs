@@ -112,6 +112,30 @@ namespace TutorMe.Controllers
         }
 
         [Authorize]
+        [HttpPut("validate/{id}")]
+        public IActionResult ValidateUser(Guid id, bool isValidated) {
+            try {
+                var user = userService.updateValidated(id, isValidated);
+                return Ok(user);
+            }
+            catch (Exception e) {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [Authorize]
+        [HttpPut("rating/{id}")]
+        public IActionResult UpdateRatingByUserId(Guid id, int rating, int numberOfReviews) {
+            try {
+                var user = userService.updateUserRating(id, rating, numberOfReviews);
+                return Ok(user);
+            }
+            catch (Exception e) {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [Authorize]
         [HttpPut("{id}")]
         public IActionResult UpdateUser(Guid id, IUser user)
         {
