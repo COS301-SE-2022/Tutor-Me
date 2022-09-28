@@ -100,87 +100,87 @@ public class ConnectionServicesUnitTests
     }
     
         
-    [Fact]
-    public async  Task GetConnectionById_ConnectionId_ReturnsConnection()
-    {
-        //arrange
-        var Connection = new Connection
-        {
-            ConnectionId = Guid.NewGuid(),
-            TutorId = Guid.NewGuid(),
-            TuteeId = Guid.NewGuid(),
-            ModuleId = Guid.NewGuid(),
-           
-        };
-        
-        DbContextOptionsBuilder<TutorMeContext> optionsBuilder = new();
-        var databaseName = MethodBase.GetCurrentMethod()?.Name;
-        if (databaseName != null)
-            optionsBuilder.UseInMemoryDatabase(databaseName);
-
-      
-        
-        using (TutorMeContext ctx = new(optionsBuilder.Options))
-        {
-            ctx.Add(Connection);
-            ctx.SaveChanges();
-        }
-
-        Connection result;
-        using (TutorMeContext ctx1 = new(optionsBuilder.Options))
-        {
-            result =new ConnectionServices(ctx1).GetConnectionById(Connection.ConnectionId);
-        }
-        
-        //act
-        Assert.NotNull(result);
-        Assert.IsType<Connection>(result);
-        Assert.Equal(Connection.ConnectionId, result.ConnectionId);
-        Assert.Equal(Connection.ConnectionId, result.ConnectionId);
-        
-    }
-    
-    [Fact]
-    public async  Task GetConnectionById_ConnectionId_Returns_Connection_not_found()
-    {
-        //arrange
-        var Connection = new Connection
-        {
-            ConnectionId = Guid.NewGuid(),
-            TutorId = Guid.NewGuid(),
-            TuteeId = Guid.NewGuid(),
-            ModuleId = Guid.NewGuid(),
-           
-        };
-        
-        DbContextOptionsBuilder<TutorMeContext> optionsBuilder = new();
-        var databaseName = MethodBase.GetCurrentMethod()?.Name;
-        if (databaseName != null)
-            optionsBuilder.UseInMemoryDatabase(databaseName);
-        
-        using (TutorMeContext ctx = new(optionsBuilder.Options))
-        {
-            //Empty TutorMeContext
-        }
-        Connection result = null;
-        try
-        {
-           
-            using (TutorMeContext ctx1 = new(optionsBuilder.Options))
-            {
-                result =new ConnectionServices(ctx1).GetConnectionById(Connection.ConnectionId);
-            }
-
-        }
-        catch (Exception e)
-        {
-            Assert.Equal("Connection not found", e.Message);
-        }
-      
-        
-        
-       
-    }
+    // [Fact]
+    // public async  Task GetConnectionById_ConnectionId_ReturnsConnection()
+    // {
+    //     //arrange
+    //     var Connection = new Connection
+    //     {
+    //         ConnectionId = Guid.NewGuid(),
+    //         TutorId = Guid.NewGuid(),
+    //         TuteeId = Guid.NewGuid(),
+    //         ModuleId = Guid.NewGuid(),
+    //        
+    //     };
+    //     
+    //     DbContextOptionsBuilder<TutorMeContext> optionsBuilder = new();
+    //     var databaseName = MethodBase.GetCurrentMethod()?.Name;
+    //     if (databaseName != null)
+    //         optionsBuilder.UseInMemoryDatabase(databaseName);
+    //
+    //   
+    //     
+    //     using (TutorMeContext ctx = new(optionsBuilder.Options))
+    //     {
+    //         ctx.Add(Connection);
+    //         ctx.SaveChanges();
+    //     }
+    //
+    //     Connection result;
+    //     using (TutorMeContext ctx1 = new(optionsBuilder.Options))
+    //     {
+    //         result =new ConnectionServices(ctx1).GetConnectionById(Connection.ConnectionId);
+    //     }
+    //     
+    //     //act
+    //     Assert.NotNull(result);
+    //     Assert.IsType<Connection>(result);
+    //     Assert.Equal(Connection.ConnectionId, result.ConnectionId);
+    //     Assert.Equal(Connection.ConnectionId, result.ConnectionId);
+    //     
+    // }
+    //
+    // [Fact]
+    // public async  Task GetConnectionById_ConnectionId_Returns_Connection_not_found()
+    // {
+    //     //arrange
+    //     var Connection = new Connection
+    //     {
+    //         ConnectionId = Guid.NewGuid(),
+    //         TutorId = Guid.NewGuid(),
+    //         TuteeId = Guid.NewGuid(),
+    //         ModuleId = Guid.NewGuid(),
+    //        
+    //     };
+    //     
+    //     DbContextOptionsBuilder<TutorMeContext> optionsBuilder = new();
+    //     var databaseName = MethodBase.GetCurrentMethod()?.Name;
+    //     if (databaseName != null)
+    //         optionsBuilder.UseInMemoryDatabase(databaseName);
+    //     
+    //     using (TutorMeContext ctx = new(optionsBuilder.Options))
+    //     {
+    //         //Empty TutorMeContext
+    //     }
+    //     Connection result = null;
+    //     try
+    //     {
+    //        
+    //         using (TutorMeContext ctx1 = new(optionsBuilder.Options))
+    //         {
+    //             result =new ConnectionServices(ctx1).GetConnectionById(Connection.ConnectionId);
+    //         }
+    //
+    //     }
+    //     catch (Exception e)
+    //     {
+    //         Assert.Equal("Connection not found", e.Message);
+    //     }
+    //   
+    //     
+    //     
+    //    
+    // }
 //Test GetConnectionsByUserId - returns list of connections
     // [Fact]
     // public async Task GetConnectionsByUserId_UserId_ReturnsListOfConnections()

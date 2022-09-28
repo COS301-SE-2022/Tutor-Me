@@ -77,6 +77,8 @@ namespace TutorMe.Controllers
                 return Ok(badge);
             }
             catch (Exception ex) {
+                if(ex.Message == "Badge not found")
+                    return NotFound();
                 return BadRequest(ex.Message);
             }
         }
@@ -90,6 +92,8 @@ namespace TutorMe.Controllers
                 return Ok(badge);
             }
             catch (Exception ex) {
+                if(ex.Message == "Badge not found")
+                    return NotFound();
                 return BadRequest(ex.Message);
             }
         }
@@ -103,6 +107,8 @@ namespace TutorMe.Controllers
                 return Ok(badge);
             }
             catch (Exception ex) {
+                if(ex.Message == "Badge not found")
+                    return NotFound();
                 return BadRequest(ex.Message);
             }
         }
@@ -116,6 +122,8 @@ namespace TutorMe.Controllers
                 return Ok(badge);
             }
             catch (Exception ex) {
+                if(ex.Message == "Badge not found")
+                    return NotFound();
                 return BadRequest(ex.Message);
             }
         }
@@ -129,6 +137,8 @@ namespace TutorMe.Controllers
                 return Ok(badge);
             }
             catch (Exception ex) {
+                if(ex.Message == "Badge not found")
+                    return NotFound();
                 return BadRequest(ex.Message);
             }
         }
@@ -142,6 +152,8 @@ namespace TutorMe.Controllers
                 return Ok(badge);
             }
             catch (Exception ex) {
+                if(ex.Message == "Badge not found")
+                    return NotFound();
                 return BadRequest(ex.Message);
             }
         }
