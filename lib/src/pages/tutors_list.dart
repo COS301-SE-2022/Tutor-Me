@@ -167,7 +167,6 @@ class TutorListState extends State<TutorList> {
 
   getConnections() async {
     try {
-
       final tutors = await UserServices.getConnections(
           widget.globals.getUser.getId,
           widget.globals.getUser.getUserTypeID,
@@ -184,7 +183,7 @@ class TutorListState extends State<TutorList> {
       List<Users> tempTutors = List<Users>.empty(growable: true);
 
       tuteeModules = tuteeModuleList;
-      
+
       if (tuteeModules.isNotEmpty) {
         for (int i = 0; i < tutorList.length; i++) {
           bool val = false;
@@ -257,6 +256,17 @@ class TutorListState extends State<TutorList> {
           tutors.add(Tutor(tutorList[i], tutorImages[i], false));
         } else {
           tutors.add(Tutor(tutorList[i], tutorImages[i], true));
+        }
+      }
+
+      int length = tutors.length;
+      for (int step = 0; step < length;step++){
+        for(int i = 0; i < length - step - 1; i++){
+          if(tutors[i].tutor.getRating > tutors[i+1].tutor.getRating){
+            Tutor temp = tutors[i];
+            tutors[i] = tutors[i+1];
+            tutors[i+1] = temp;
+          }
         }
       }
       setState(() {

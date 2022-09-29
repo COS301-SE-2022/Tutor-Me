@@ -14,12 +14,15 @@ class WoahFactorNav extends StatefulWidget {
   int interactions;
   int ratings;
   int meetings;
+  double average;
   WoahFactorNav(
       {Key? key,
       required this.connections,
       required this.interactions,
       required this.ratings,
-      required this.meetings})
+      required this.meetings,
+      required this.average
+      })
       : super(key: key);
   // WoahFactorNav({Key? key, required this.connections, required thi}) : super(key: key);
 
@@ -54,9 +57,10 @@ class _WoahFactorNavState extends State<WoahFactorNav> {
         interactions: widget.interactions,
         ratings: widget.ratings,
         meetings: widget.meetings,
+        average: widget.average,
       ),
-      DailyUsage()
-      // 
+      // DailyUsage()
+      //
     ];
   }
   // late CalendarController _controller;
