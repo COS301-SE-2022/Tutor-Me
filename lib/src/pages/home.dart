@@ -17,7 +17,6 @@ import 'package:tutor_me/src/pages/badges.dart';
 import 'package:tutor_me/src/pages/book_for_tutor.dart';
 import 'package:tutor_me/src/pages/calendar.dart';
 import 'package:tutor_me/src/pages/woah_factor.dart';
-import 'package:tutor_me/src/pages/woah_factor_nav.dart';
 import '../../services/models/badges.dart';
 import '../../services/models/globals.dart';
 import '../../services/models/groups.dart';
@@ -282,7 +281,6 @@ class _HomeState extends State<Home> {
 
       average *= 10;
 
-      print('ave ' + average.toString());
 
       isLoading = false;
       isImageLoading = false;

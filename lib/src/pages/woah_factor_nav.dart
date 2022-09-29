@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:tutor_me/src/colorpallete.dart';
-import 'package:tutor_me/src/pages/daily_usage.dart';
 import 'package:tutor_me/src/pages/woah_factor.dart';
 
 import '../theme/themes.dart';
