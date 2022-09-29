@@ -12,12 +12,15 @@ class WoahFactor extends StatefulWidget {
   int interactions;
   int ratings;
   int meetings;
+  double average;
   WoahFactor(
       {Key? key,
       required this.connections,
       required this.interactions,
       required this.meetings,
-      required this.ratings})
+      required this.ratings,
+      required this.average
+      })
       : super(key: key);
 
   @override
@@ -28,6 +31,17 @@ class _WoahFactorState extends State<WoahFactor> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: colorBlueTeal,
+        title: const Text(
+          'Today\'s stats ',
+          style: TextStyle(
+            color: colorWhite,
+            fontSize: 20,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -84,7 +98,7 @@ class _WoahFactorState extends State<WoahFactor> {
                       ),
                       child: Center(
                         child: Text(
-                          "12.8",
+                          widget.average.toString(),
                           style: TextStyle(
                             color: colorGreen.withOpacity(0.8),
                             fontSize: MediaQuery.of(context).size.height * 0.04,
@@ -123,9 +137,9 @@ class _WoahFactorState extends State<WoahFactor> {
                         color: colorGreen,
                         size: MediaQuery.of(context).size.height * 0.04,
                       ),
-                      const Flexible(
+                       Flexible(
                         child: Text(
-                          "12.8% more activity from the last 24hrs. You are doing a great job!",
+                          widget.average.toString() + "% activity from the last 24hrs. You are doing a great job!",
                         ),
                       ),
                     ],
@@ -149,26 +163,6 @@ class _WoahFactorState extends State<WoahFactor> {
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.02,
                   ),
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.arrow_right,
-                        color: colorOrange,
-                        size: MediaQuery.of(context).size.height * 0.04,
-                      ),
-                      const Flexible(
-                          child: Text("You have scheduled 2 meetings today. ")),
-                      const Flexible(
-                        child: Text(
-                          "Maybe let your tutees know?",
-                          style: TextStyle(
-                            color: colorLightBlueTeal,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.02,
                   ),
@@ -179,8 +173,8 @@ class _WoahFactorState extends State<WoahFactor> {
                         color: colorOrange,
                         size: MediaQuery.of(context).size.height * 0.04,
                       ),
-                      const Flexible(
-                        child: Text("You have 4 tutees in total so far. "),
+                     Flexible(
+                        child: Text("You have " +widget.connections.toString()+" connections in total so far. "),
                       ),
                     ],
                   ),
@@ -198,7 +192,6 @@ class _WoahFactorState extends State<WoahFactor> {
     int key = 0;
     Color secondaryColor;
     Color textColor;
-
 
     if (provider.themeMode == ThemeMode.dark) {
       textColor = colorWhite;

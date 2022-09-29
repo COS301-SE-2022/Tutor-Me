@@ -48,6 +48,7 @@ dependencies:
   showcaseview: ^1.1.8
   syncfusion_flutter_pdfviewer: ^20.2.50-beta
   fl_chart: ^0.55.2
+  app_usage: ^2.0.0
 
 
   

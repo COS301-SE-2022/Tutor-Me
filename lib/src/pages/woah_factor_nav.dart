@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:tutor_me/src/colorpallete.dart';
-import 'package:tutor_me/src/pages/daily_usage.dart';
 import 'package:tutor_me/src/pages/woah_factor.dart';
 
 import '../theme/themes.dart';
@@ -14,12 +13,15 @@ class WoahFactorNav extends StatefulWidget {
   int interactions;
   int ratings;
   int meetings;
+  double average;
   WoahFactorNav(
       {Key? key,
       required this.connections,
       required this.interactions,
       required this.ratings,
-      required this.meetings})
+      required this.meetings,
+      required this.average
+      })
       : super(key: key);
   // WoahFactorNav({Key? key, required this.connections, required thi}) : super(key: key);
 
@@ -54,9 +56,10 @@ class _WoahFactorNavState extends State<WoahFactorNav> {
         interactions: widget.interactions,
         ratings: widget.ratings,
         meetings: widget.meetings,
+        average: widget.average,
       ),
-      DailyUsage()
-      // 
+      // DailyUsage()
+      //
     ];
   }
   // late CalendarController _controller;

@@ -16,7 +16,7 @@ import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/pages/badges.dart';
 import 'package:tutor_me/src/pages/book_for_tutor.dart';
 import 'package:tutor_me/src/pages/calendar.dart';
-import 'package:tutor_me/src/pages/woah_factor_nav.dart';
+import 'package:tutor_me/src/pages/woah_factor.dart';
 import '../../services/models/badges.dart';
 import '../../services/models/globals.dart';
 import '../../services/models/groups.dart';
@@ -43,6 +43,7 @@ class _HomeState extends State<Home> {
   List<String> userBadgeNames = List.empty(growable: true);
   bool isLoading = true;
   int numBadges = -1;
+  double average = 0;
 
   getAllEarnedBadges() async {
     try {
@@ -249,17 +250,37 @@ class _HomeState extends State<Home> {
     setState(() {
       final meetingCount = prefs!.getInt('meetingCount');
       final interactionCount = prefs!.getInt('interactionCount');
-        dataMap = {
-          "Meetings":  meetingCount == null? 0 : meetingCount.toDouble(),
-          "Connections": numConnections.toDouble(),
-          "Interactions": interactionCount == null? 0 : interactionCount.toDouble(),
-          "Ratings": 2,
-        };
+      dataMap = {
+        "Meetings": meetingCount == null ? 0 : meetingCount.toDouble(),
+        "Connections": numConnections.toDouble(),
+        "Interactions":
+            interactionCount == null ? 0 : interactionCount.toDouble(),
+        "Ratings": 2,
+      };
 
-        if(meetingCount !=null)
-        {
-          
-        }
+      int countMeeting = 0;
+      int countInteraction = 0;
+
+      if (meetingCount == null) {
+        countMeeting = 0;
+      } else {
+        countMeeting = meetingCount;
+      }
+
+      if (interactionCount == null) {
+        countInteraction = 0;
+      } else {
+        countInteraction = interactionCount;
+      }
+
+      average = (countMeeting.toDouble() +
+              countInteraction.toDouble() +
+              numConnections.toDouble() +
+              2) /
+          4;
+
+      average *= 10;
+
 
       isLoading = false;
       isImageLoading = false;
@@ -532,14 +553,17 @@ class _HomeState extends State<Home> {
               Row(
                 children: [
                   Text(
-                    "12.8% ",
+                    average.toString()+'%',
                     style: TextStyle(
                       color: colorLightGreen,
                       fontSize: screenHeightSize * 0.03,
                     ),
                   ),
+                  SizedBox(
+                    width: screenWidthSize * 0.01,
+                  ),
                   Text(
-                    "above average ",
+                    "Total average",
                     style: TextStyle(fontSize: screenHeightSize * 0.025),
                   ),
                 ],
@@ -576,11 +600,13 @@ class _HomeState extends State<Home> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => WoahFactorNav(
+                      builder: (context) => WoahFactor(
                           meetings: prefs?.getInt('meetingCount') ?? 0,
                           connections: numConnections,
                           interactions: prefs?.getInt('interactionCount') ?? 0,
-                          ratings: ratings),
+                          ratings: ratings,
+                          average: average,
+                          ),
                     ),
                   );
                 },
