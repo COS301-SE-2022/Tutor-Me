@@ -1,356 +1,199 @@
 using System.Reflection;
+using AutoMapper;
 using FileSystem.Controllers;
 using FileSystem.Data;
+using FileSystem.Entities;
 using FileSystem.Models;
+using FileSystem.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Moq;
+using NuGet.Versioning;
+//using TutorMe.Controllers;
+//using TutorMe.Data;
+//using TutorMe.Models;
+//using TutorMe.Services;
 
-namespace FileSystemUnitTests;
 
-public class TutorFileFilesUnitTests
+namespace Tests.UnitTests;
+
+public class UserFilesControllerUnitTests
 {
-    //DTO
-    // private static TutorFile createTutorFile()
-    // {
-    //     return new()
-    //     {
-    //         Id = Guid.NewGuid(),
-    //         TutorImage=Guid.NewGuid().ToByteArray(),
-    //         TutorTranscript =Guid.NewGuid().ToByteArray()
-    //     };
-    // }
-    // [Fact]
-    // public async Task GetTutorFileAsync_WithUnexistingTutorFile_ReturnsNotFound()
-    // {
-    //     //Arranage
+    private readonly Mock<IUserFilesService> _UserFilesRepositoryMock;
+    private readonly FilesContext tutorMeContext;
+    private static Mock<IMapper> _mapper;
 
-    //     var repositoryStub = new Mock<FilesContext>();
-    //     repositoryStub.Setup(repo => repo.TutorFiles.FindAsync(It.IsAny<Type>())).ReturnsAsync((TutorFile)null);
-    //     var controller = new TutorFilesController(repositoryStub.Object);
+    public UserFilesControllerUnitTests()
+    {
+        _UserFilesRepositoryMock = new Mock<IUserFilesService>();
+        _mapper = new Mock<IMapper>();
+        tutorMeContext = new FilesContext();
+    }
 
-    //     //Act
-    //     var result = await controller.GetTutorFile(Guid.NewGuid());
-    //     //Assert
-    //     Assert.IsType<NotFoundResult>(result.Result);
-    // }
+    //[Fact]
+    //public async Task GetAllUserFiles_ListOfUserFiles_ReturnsListOfUserFiles()
+    //{
 
-    // [Fact]
-    // public async Task GetTutorFileAsync_WithUnExistingDb_ReturnsFound()
-    // {
-    //     //Arranage
-    //     var expectedTutorFile = createTutorFile();
-    //     // id = Guid.NewGuid();
-    
-    //     var repositoryStub = new Mock<FilesContext>();
-    //     repositoryStub.Setup(repo => repo.TutorFiles.FindAsync(It.IsAny<Guid>())).ReturnsAsync((expectedTutorFile));
-    //     var controller = new TutorFilesController(repositoryStub.Object);
-    
-    //     //Act
-    //     Guid yourGuid = Guid.NewGuid();
-    //     var result = await controller.GetTutorFile(yourGuid);
-    
-    //     //Assert 
-    // //   result.Value.Should().BeEquivalentTo(expectedTutorFile, options => options.CompatingByMembers<TutorFile>());
-    //    result.Value.Equals(expectedTutorFile);
+    //    //arrange
+    //    List<UserFiles> UserFiles = new List<UserFiles>
+    //    {
+    //        new UserFiles
+    //        {
+
+    //        UserFilesId = Guid.NewGuid(),
+    //        Name ="University Of Pretoria",
+    //        Location ="Hatfield"
+    //        },
+    //        new UserFiles
+    //        {
+    //            UserFilesId = Guid.NewGuid(),
+    //            Name ="University Of Freestate",
+
+    //            Location ="Freestate"
+    //        },
+    //        new UserFiles
+    //        {
+    //            UserFilesId = Guid.NewGuid(),
+    //            Name ="University Of Johannesburg",
+
+    //            Location ="Johannesburg"
+    //        }
+    //    };
+
+
+    //    _UserFilesRepositoryMock.Setup(u => u.GetAllUserFiles()).Returns(UserFiles);
+
+    //    var controller = new UserFilesController(_UserFilesRepositoryMock.Object, _mapper.Object);
+    //    var result = controller.GetAllUserFiles();
+
+
+    //    Assert.NotNull(result);
+    //    Assert.IsType<OkObjectResult>(result);
+
+    //    var actual = (result as OkObjectResult).Value;
+    //    Assert.IsType<List<UserFiles>>(actual);
+    //    Assert.Equal(3, (actual as List<UserFiles>).Count);
+
+    //}
+
+    [Fact]
+    public async Task GetUserFilesById_UserFilesId_ReturnsUnauthorized()
+    {
+        //arrange
+        var userFiles = new UserFiles
+        {
+            Id = Guid.NewGuid(),
+            UserImage = Guid.NewGuid().ToByteArray(),
+            UserTranscript = Guid.NewGuid().ToByteArray(),
+            ImageKey = Guid.NewGuid().ToByteArray(),
+            ImageIV = Guid.NewGuid().ToByteArray(),
+            TranscriptKey = Guid.NewGuid().ToByteArray(),
+            TranscriptIV = Guid.NewGuid().ToByteArray(),
+        };
+
+
       
-    // }
-    // [Fact]
-    // public async Task GetTutorFileAsync_WithanEmpyDb()
-    // {
-    //     //Arranage
-    //     var repositoryStub = new Mock<FilesContext>();
-    //     //setup repositorystub to null
-    //     repositoryStub.Setup(repo => repo.TutorFiles).Returns((DbSet<TutorFile>)null);
+        _UserFilesRepositoryMock.Setup(u => u.GetImageByUserId(userFiles.Id)).Returns(Task.FromResult(Guid.NewGuid().ToByteArray()));
 
-    //     //Act
-    //     var controller = new TutorFilesController(repositoryStub.Object);
+        var controller = new UserFilesController(tutorMeContext, _UserFilesRepositoryMock.Object );
 
-    //     var result = await controller.GetTutorFile(new Guid());
+        //act
+        var result = await controller.GetImageByUserId(userFiles.Id, "madunathabo2@gmail.com", "TutorMe#1", new Guid("98CA5264-1266-4158-82B6-5DE7FDD03599"));
 
-    //     //Assert     
-    //     Assert.IsType<NotFoundResult>(result.Result);
-    // }
-    // //  GetTutorFile
-    // [Fact]
-    // public async Task GetTutorFilesAsync_WithExistingItem_ReturnsNull()
-    // {
-    //     //Arranage
-    //     var repositoryStub = new Mock<FilesContext>();
-    //     var controller = new TutorFilesController(repositoryStub.Object);
+        //Assert.NotNull(result);
+        Assert.IsType<UnauthorizedResult>(result);
+        var actual = (result as UnauthorizedResult);
+        Assert.IsType<UnauthorizedResult>(actual);
+    }
 
+    [Fact]
+    public async Task AddUserFiles_UserFiles_ReturnsUnauthorized()
+    {
+        //arrange
+        var userAuth = new UserAuth
+        {
+            Email = "madunathabo2@gmail.com",
+            Password = "Tutorme#1",
+            TypeId = new Guid("98CA5264-1266-4158-82B6-5DE7FDD03599")
+        };
+        var UserFiles = new IUserFiles
+        {
+            Id = Guid.NewGuid(),
+            UserImage = Guid.NewGuid().ToByteArray(),
+            UserTranscript = Guid.NewGuid().ToByteArray()
+        };
+        _UserFilesRepositoryMock.Setup(u => u.createUserRecord(It.IsAny<IUserFiles>())).Returns(Guid.NewGuid());
 
-    //     //Act
+        var controller = new UserFilesController(tutorMeContext, _UserFilesRepositoryMock.Object);
 
-    //     var result = await controller.GetTutorFiles();
+        //act
+        var result = controller.createUserRecord(UserFiles, userAuth.Email, userAuth.Password, userAuth.TypeId);
 
-    //     //Assert     
-    //     Assert.Null(result.Value);
+        Assert.NotNull(result);
+        Assert.IsType<UnauthorizedResult>(result.Result);
 
-    // }
-    // //  Mock the GetTutorFile Method to return a list of TutorFile
-    // [Fact]
-    // public async Task GetTutorFilesAsync_WithExistingItemReturnsFound()
-    // {
-    //     //Arranage
-    //     var repositoryStub = new Mock<FilesContext>();
-    //     //setup repositorystub to null
-    //     repositoryStub.Setup(repo => repo.TutorFiles).Returns((DbSet<TutorFile>)null);
-
-    //     //Act
-    //     var controller = new TutorFilesController(repositoryStub.Object);
-
-    //     var result = await controller.GetTutorFiles();
-
-    //     //Assert     
-    //     Assert.IsType<NotFoundResult>(result.Result);
-    // }
-  
-  
-    // //Test the PutTutorFile Method to check if id is the same as the id in the DTO
-    // [Fact]
-    // public async Task PutTutorFile_With_differentIds_BadRequestResult()
-    // {
-    //     //Arranage
-    //     var repositoryStub = new Mock<FilesContext>();
-    //     //setup repositorystub to null
-    //     var expectedTutorFile = createTutorFile();
-    //     //Act
-    //     var controller = new TutorFilesController(repositoryStub.Object);
-    //     var id = Guid.NewGuid();
-    //     var email = Guid.NewGuid().ToString();
-    //     var result = await controller.PutTutorFile(id, expectedTutorFile);
-
-    //     //Assert     
-    //     Assert.IsType<BadRequestResult>(result);
-    // }
-
-    // [Fact]
-    // public async Task PutTutorFile_With_same_Id_but_UnExisting_TutorFile_returns_NullReferenceException()//####
-    // {
-    //     //Arranage
-    //     var repositoryStub = new Mock<FilesContext>();
-    //     //setup repositorystub to null
-    //     var expectedTutorFile = createTutorFile();
-    //     //repositoryStub.Setup(repo => repo.TutorFile.Find(expectedTutorFile.Id).Equals(expectedTutorFile.Id)).Returns(false);
-    //     repositoryStub.Setup(repo => repo.TutorFiles).Returns((DbSet<TutorFile>)null);
-    //     //Act
-    //     var controller = new TutorFilesController(repositoryStub.Object);
-    //     var id = Guid.NewGuid();
-    //     var email = Guid.NewGuid().ToString();
-    //     try
-    //     {
-    //         var result = await controller.PutTutorFile(expectedTutorFile.Id, expectedTutorFile);
-    //     }
-    //     //Assert   
-    //     catch (Exception e)
-    //     {
-    //         Assert.IsType<NullReferenceException>(e);
-    //     }
-
-    // }
-    // [Fact]
-    // public async Task PutTutorFile_WithUnExistingId_NotFound()
-    // {
-    //     //Arranage
-    //     var repositoryStub = new Mock<FilesContext>();
-    //     //setup repositorystub to null
-    //     var expectedTutorFile = createTutorFile();
-    //     //Act
-    //     var controller = new TutorFilesController(repositoryStub.Object);
-    //     var id = Guid.NewGuid();
-    //     var result = await controller.PutTutorFile(id, expectedTutorFile);
-
-    //     //Assert     
-    //     Assert.IsType<BadRequestResult>(result);
-    // }
-    // [Fact]
-    // public void ModifiesTutorFile_Returns_NotFoundResult()
-    // {
-    //     DbContextOptionsBuilder<FilesContext> optionsBuilder = new();
-    //     var databaseName = MethodBase.GetCurrentMethod()?.Name;
-    //     if (databaseName != null)
-    //         optionsBuilder.UseInMemoryDatabase(databaseName);
-    
-    //     var newTutorFile = createTutorFile();
-    //     using (FilesContext ctx = new(optionsBuilder.Options))
-    //     {
-    //         ctx.Add(newTutorFile);
-    //         ctx.SaveChangesAsync();
-    //     }
-    
-    //     //Modify the tutors Bio
-    //     newTutorFile.TutorImage = Guid.NewGuid().ToByteArray();
-    //     var id = Guid.NewGuid();
-    //     var unExsistingTutorFile = createTutorFile();
-    //     unExsistingTutorFile.Id = id;
-    //     Task<IActionResult>  result;
-    //     using (FilesContext ctx1 = new(optionsBuilder.Options))
-    //     {
-    //         result =new TutorFilesController(ctx1).PutTutorFile(unExsistingTutorFile.Id,unExsistingTutorFile);
-    //     }
-    
-    //     // result should be of type NotFoundResult
-    //     Assert.IsType<NotFoundResult>(result.Result);
-        
-       
-    // }
+        var actual = (result.Result as UnauthorizedResult);
+        Assert.IsType<UnauthorizedResult>(actual);
+    }
 
 
 
+    [Fact]
+    public async Task DeleteUserFilesById_Returns_true()
+    {
 
-    // [Fact]
-    // public async Task PostTutorFile_and_returns_a_type_of_Action_Result_returns_null()
-    // {
+        //Arrange
+        var userAuth = new UserAuth
+        {
+            Email = "madunathabo2@gmail.com",
+            Password = "Tutorme#1",
+            TypeId = new Guid("98CA5264-1266-4158-82B6-5DE7FDD03599")
+        };
+        var UserFiles = new IUserFiles
+        {
+            Id = Guid.NewGuid(),
+            UserImage = Guid.NewGuid().ToByteArray(),
+            UserTranscript = Guid.NewGuid().ToByteArray()
+        };
 
-    //     //Arranage
-    //     var expectedTutorFile = createTutorFile();
+        _UserFilesRepositoryMock.Setup(repo => repo.DeleteUserFilesById(It.IsAny<Guid>())).Returns(true);
+        var controller = new UserFilesController(_UserFilesRepositoryMock.Object, _mapper.Object);
 
-    //     var repositoryStub = new Mock<FilesContext>();
-    //     repositoryStub.Setup(repo => repo.TutorFiles.FindAsync(It.IsAny<Guid>())).ReturnsAsync((expectedTutorFile));
-    //     var controller = new TutorFilesController(repositoryStub.Object);
+        //Act
+        var result = controller.DeleteUserFiles(expectedTutor.UserFilesId);
+        // Assert
+        Assert.NotNull(result);
+        Assert.IsType<OkObjectResult>(result);
+        var actual = (result as OkObjectResult).Value;
+        Assert.IsType<Boolean>(actual);
+        Assert.Equal(true, actual);
 
-    //     //Act
+    }
 
-    //     var result = await controller.PostTutorFile(expectedTutorFile);
-    //     // Assert
-    //     Assert.IsType<ActionResult<FileSystem.Models.TutorFile>>(result);
+    //[Fact]
+    //public async Task DeleteUserFilesById_Returns_False()
+    //{
 
-    // }
-    // [Fact]
-    // public async Task PostTutorFile_and_returns_a_type_of_Action()
-    // {
+    //    //Arrange
+    //    var expectedTutor = new UserFiles
+    //    {
+    //        Name = "University Of Pretoria",
 
-    //     //Arranage
-    //     var expectedTutorFile = createTutorFile();
+    //        Location = "Hatfield"
+    //    };
 
-    //     var repositoryStub = new Mock<FilesContext>();
-    //     repositoryStub.Setup(repo => repo.TutorFiles.FindAsync(It.IsAny<Guid>())).ReturnsAsync((TutorFile)null);
-    //     var controller = new TutorFilesController(repositoryStub.Object);
+    //    _UserFilesRepositoryMock.Setup(repo => repo.deleteUserFilesById(It.IsAny<Guid>())).Returns(false);
+    //    var controller = new UserFilesController(_UserFilesRepositoryMock.Object, _mapper.Object);
 
-    //     //Act
+    //    //Act
+    //    var result = controller.DeleteUserFiles(expectedTutor.UserFilesId);
+    //    // Assert
+    //    Assert.NotNull(result);
+    //    Assert.IsType<OkObjectResult>(result);
+    //    var actual = (result as OkObjectResult).Value;
+    //    Assert.IsType<Boolean>(actual);
+    //    Assert.Equal(false, actual);
 
-    //     var result = await controller.PostTutorFile(expectedTutorFile);
-    //     // Assert
-    //     // Assert.IsType<ActionResult<Api.Models.TutorFile>>(result);
-    //     Assert.Null(result.Value);
-    // }
-    // [Fact]
-    // public async Task PostTutorFile_and_returns_ObjectResult()
-    // {
-
-    //     //Arranage
-    //     var expectedTutorFile = createTutorFile();
-
-    //     var repositoryStub = new Mock<FilesContext>();
-    //     repositoryStub.Setup(repo => repo.TutorFiles).Returns((DbSet<TutorFile>)null);
-
-    //     var controller = new TutorFilesController(repositoryStub.Object);
-
-    //     //Act
-
-    //     var result = await controller.PostTutorFile(expectedTutorFile);
-    //     // Assert
-    //     Assert.IsType<ObjectResult>(result.Result);
-    // }
-    // [Fact]
-    // public async Task PostTutorFile_and_returns_CreatedAtActionResult()
-    // {
-
-    //     //Arranage
-    //     var expectedTutorFile = createTutorFile();
-
-    //     var repositoryStub = new Mock<FilesContext>();
-    //     repositoryStub.Setup(repo => repo.TutorFiles.Add(expectedTutorFile)).Returns((Func<EntityEntry<TutorFile>>)null);
-
-    //     var controller = new TutorFilesController(repositoryStub.Object);
-
-    //     //Act
-
-    //     var result = await controller.PostTutorFile(expectedTutorFile);
-    //     // Assert
-    //     // Assert.IsType<ActionResult<Api.Models.TutorFile>>(result);
-    //     Assert.IsType<CreatedAtActionResult>(result.Result);
-    // }
-    // [Fact]
-    // public async Task PostTutorFile_and_returns_TutorFileExists_DbUpdateException()
-    // {
-
-    //     //Arranage
-    //     var expectedTutorFile = createTutorFile();
-
-    //     var repositoryStub = new Mock<FilesContext>();
-    //     repositoryStub.Setup(repo => repo.TutorFiles.Add(expectedTutorFile)).Throws<DbUpdateException>();
-
-    //     //repositoryStub.Setup(repo => repo.TutorFile.Update(expectedTutorFile)).Throws< DbUpdateException>();
-
-    //     var controller = new TutorFilesController(repositoryStub.Object);
-
-    //     //Act
-    //     try
-    //     {
-    //         var result = await controller.PostTutorFile(expectedTutorFile);
-    //     }
-    //     // Assert
-    //     catch (Exception e)
-    //     {
-    //         Assert.IsType<DbUpdateException>(e);
-    //     }
-
-    // }
-
-    // [Fact]
-    // public async Task DeleteTutorFile_and_returns_a_type_of_NotFoundResult()
-    // {
-
-    //     //Arranage
-    //     var expectedTutorFile = createTutorFile();
-
-    //     var repositoryStub = new Mock<FilesContext>();
-    //     repositoryStub.Setup(repo => repo.TutorFiles.FindAsync(It.IsAny<Guid>())).ReturnsAsync((TutorFile)null);
-    //     var controller = new TutorFilesController(repositoryStub.Object);
-
-    //     //Act
-    //     var result = await controller.DeleteTutorFile(expectedTutorFile.Id);
-    //     // Assert
-    //     Assert.IsType<NotFoundResult>(result);
-    // }
-    // // Mock the DeleteTutorFile method  and return a Value 
-    // [Fact]
-    // public async Task DeleteTutorFile_and_returns_a_type_of_NoContentResult()
-    // {
-
-    //     //Arranage
-    //     var expectedTutorFile = createTutorFile();
-
-    //     var repositoryStub = new Mock<FilesContext>();
-    //     repositoryStub.Setup(repo => repo.TutorFiles.FindAsync(It.IsAny<Guid>())).ReturnsAsync(expectedTutorFile);
-    //     var controller = new TutorFilesController(repositoryStub.Object);
-
-    //     //Act
-
-    //     var result = await controller.DeleteTutorFile(expectedTutorFile.Id);
-    //     // Assert
-    //     Assert.IsType<NoContentResult>(result);
-    // }
-    // [Fact]
-    // public async Task DeleteTutorFile_and_returns_a_type_of_NotFound()
-    // {
-
-    //     //Arranage
-    //     var expectedTutorFile = createTutorFile();
-
-    //     var repositoryStub = new Mock<FilesContext>();
-    //     repositoryStub.Setup(repo => repo.TutorFiles).Returns((DbSet<TutorFile>)null);
-    //     var controller = new TutorFilesController(repositoryStub.Object);
-
-    //     //Act
-
-    //     var result = await controller.DeleteTutorFile(expectedTutorFile.Id);
-    //     // Assert
-    //     Assert.IsType<NotFoundResult>(result);
-    // }
-
+    //}
 
 }
