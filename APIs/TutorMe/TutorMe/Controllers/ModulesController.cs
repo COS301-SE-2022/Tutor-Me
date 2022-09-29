@@ -22,6 +22,8 @@ namespace TutorMe.Controllers
             this.mapper = mapper;
         }
 
+        /// <summary> Get all the modules stored </summary>
+        /// <returns> A list of modules </returns>
         [Authorize]
         [HttpGet]
         public IActionResult GetAllModules()
@@ -35,6 +37,9 @@ namespace TutorMe.Controllers
             }
         }
 
+        /// <summary> Get a modules by it's Id </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Authorize]
         [HttpGet("{id}")]
         public IActionResult GetModuleById(Guid id)
@@ -44,11 +49,17 @@ namespace TutorMe.Controllers
                 return Ok(module);
             }
             catch (Exception exception) {
+                if(exception.Message == "Module not found") {
+                    return NotFound(exception.Message);
+                }
                 return BadRequest(exception.Message);
             }
         }
 
-        //[Authorize]
+        /// <summary> Store a new modules </summary>
+        /// <param name="module"> The module object (check entities)</param>
+        /// <returns> The modules's Id</returns>
+        [Authorize]
         [HttpPost]
         public IActionResult createModule(IModule module)
         {
@@ -61,6 +72,9 @@ namespace TutorMe.Controllers
             }
         }
 
+        /// <summary> Delete a module by Id </summary>
+        /// <param name="id"> The module's Id </param>
+        /// <returns> A boolean </returns>
         [Authorize]
         [HttpDelete("{id}")]
         public IActionResult DeleteModule(Guid id)
@@ -70,6 +84,9 @@ namespace TutorMe.Controllers
                 return Ok(module);
             }
             catch (Exception exception) {
+                if(exception.Message == "Module not found") {
+                    return NotFound(exception.Message);
+                }
                 return BadRequest(exception.Message);
             }
         }

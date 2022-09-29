@@ -22,6 +22,8 @@ namespace TutorMe.Controllers
             this.mapper = mapper;
         }
 
+        /// <summary> Get all group member objects </summary>
+        /// <returns> a list of group member objects</returns>
         [Authorize]
         [HttpGet]
         public IActionResult GetAllGroupMembers()
@@ -30,14 +32,33 @@ namespace TutorMe.Controllers
             return Ok(groupMembers);
         }
 
+        /// <summary> Gets a specific groupMember object by Id </summary>
+        /// <param name="id"> The groupMember object's Id</param>
+        /// <returns> Returns a groupMember Id </returns>
         [Authorize]
         [HttpGet("{id}")]
         public IActionResult GetGroupMemberById(Guid id)
         {
-            var groupMember = groupMemberService.GetGroupMemberById(id);
-            return Ok(groupMember);
+            try
+            {
+                var groupMember = groupMemberService.GetGroupMemberById(id);
+                return Ok(groupMember);
+            }
+            catch (Exception e)
+            {
+                if(e.Message=="GroupMember not found")
+                {
+                    return NotFound(e.Message);
+                }
+                
+                return BadRequest(e.Message);
+
+            }
         }
 
+        /// <summary> This creates a new group member record </summary>
+        /// <param name="groupMember"> Groupmember entity (check entities)</param>
+        /// <returns>returns the id of the new object</returns>
         [Authorize]
         [HttpPost]
         public IActionResult createGroupMember(IGroupMember groupMember)
@@ -46,6 +67,9 @@ namespace TutorMe.Controllers
             return Ok(groupMemberId);
         }
 
+        /// <summary> Delete a group member object by Id </summary>
+        /// <param name="id"> The group member object's Id</param>
+        /// <returns> Rreturns a boolean</returns>
         [Authorize]
         [HttpDelete("{id}")]
         public IActionResult DeleteGroupMember(Guid id)
@@ -54,6 +78,9 @@ namespace TutorMe.Controllers
             return Ok(groupMember);
         }
 
+        /// <summary> Get the tutees in a group</summary>
+        /// <param name="id"> The group Id</param>
+        /// <returns> A list of User obkects</returns>
         [Authorize]
         [HttpGet("tutee/{id}")]
         public IActionResult GetGroupTutees(Guid id) {
@@ -66,6 +93,9 @@ namespace TutorMe.Controllers
             }
         }
 
+        /// <summary> Get the groups the user is in </summary>
+        /// <param name="id"> The user Id</param>
+        /// <returns>A list of groups</returns>
         [Authorize]
         [HttpGet("group/{id}")]
         public IActionResult getUserGroups(Guid id) {

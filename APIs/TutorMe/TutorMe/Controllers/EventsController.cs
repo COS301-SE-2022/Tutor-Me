@@ -26,6 +26,9 @@ namespace TutorMe.Controllers
             this.eventService = eventService;
         }
 
+        /// <summary> This method is used to get all the user's events from the database </summary>
+        /// <param name="id"> The user's ID </param>
+        /// <returns> All the user's events </returns>
         [Authorize]
         [HttpGet("{id}")]
         public IActionResult GetAllUserEvent(Guid id) {
@@ -39,6 +42,9 @@ namespace TutorMe.Controllers
             }
         }
 
+        /// <summary> Store a new user event </summary>
+        /// <param name="newEvent"> The event object</param>
+        /// <returns>Returns a boolean</returns>
         [Authorize]
         [HttpPost]
         public IActionResult CreateUserEvent(IEvent newEvent) {
@@ -51,6 +57,9 @@ namespace TutorMe.Controllers
             }
         }
 
+        /// <summary> Deletes an event </summary>
+        /// <param name="id"> The event's ID </param>
+        /// <returns> returns a boolean</returns>
         [Authorize]
         [HttpDelete("{id}")]
         public IActionResult DeleteEventById(Guid id) {
@@ -59,10 +68,17 @@ namespace TutorMe.Controllers
                 return Ok();
             }
             catch (Exception e) {
+                if(e.Message == "Event not found") {
+                    return NotFound();
+                }
                 return Conflict(e.Message);
             }
         }
 
+        /// <summary> Updates the date for the event </summary>
+        /// <param name="id">The event's ID</param>
+        /// <param name="newDate"> The new event date</param>
+        /// <returns>return a boolean</returns>
         [Authorize]
         [HttpPut("date/{id}")]
         public IActionResult UpdateEventDate(Guid id, string newDate) {
@@ -75,6 +91,10 @@ namespace TutorMe.Controllers
             }
         }
 
+        /// <summary> Updates the time for the event </summary>
+        /// <param name="id">The event's ID</param>
+        /// <param name="newTime"> The new event time</param>
+        /// <returns></returns>
         [Authorize]
         [HttpPut("time/{id}")]
         public IActionResult UpdateEventTime(Guid id, string newTime) {
@@ -87,6 +107,10 @@ namespace TutorMe.Controllers
             }
         }
 
+        /// <summary> Updates the event's meeting link </summary>
+        /// <param name="id"> The event's Id</param>
+        /// <param name="newVideoLink"> The meeting link</param>
+        /// <returns> returns a boolean </returns>
         [Authorize]
         [HttpPut("videoLink/{id}")]
         public IActionResult UpdateEventVideoLink(Guid id, string newVideoLink) {
@@ -99,6 +123,10 @@ namespace TutorMe.Controllers
             }
         }
 
+        /// <summary> Updates the event's title </summary>
+        /// <param name="id"> The event's Id</param>
+        /// <param name="newTitle"> The new event's title </param>
+        /// <returns></returns>
         [Authorize]
         [HttpPut("title/{id}")]
         public IActionResult UpdateEventTitle(Guid id, string newTitle) {
@@ -111,11 +139,31 @@ namespace TutorMe.Controllers
             }
         }
 
+        /// <summary> Updates the event's description </summary>
+        /// <param name="id"> The event's Id</param>
+        /// <param name="newDescription"> The new event's description </param>
+        /// <returns></returns>
         [Authorize]
         [HttpPut("description/{id}")]
         public IActionResult UpdateEventDescription(Guid id, string newDescription) {
             try {
                 eventService.UpdateEventDescription(id, newDescription);
+                return Ok();
+            }
+            catch (Exception e) {
+                return Conflict(e.Message);
+            }
+        }
+
+        /// <summary> Update the groupId for the event </summary>
+        /// <param name="id"> The event's Id </param>
+        /// <param name="newGroupId"> The new Event's GroupId </param>
+        /// <returns> A boolean </returns>
+        [Authorize]
+        [HttpPut("groupId/{id}")]
+        public IActionResult UpdateEventGroupId(Guid id, Guid newGroupId) {
+            try {
+                eventService.UpdateEventGroupId(id, newGroupId);
                 return Ok();
             }
             catch (Exception e) {

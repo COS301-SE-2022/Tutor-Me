@@ -66,7 +66,13 @@ builder.Services.AddAuthentication(authOptions =>{
         jwtOptions.Events = new JwtBearerEvents();
         jwtOptions.Events.OnTokenValidated = async (context) =>
         {
-            var ipAddress = context.Request.HttpContext.Connection.RemoteIpAddress.ToString();
+            string ipAddress = "";
+            if( context.Request.HttpContext.Connection.RemoteIpAddress==null) {
+                ipAddress = "::1";//for testing purposes
+            } else {
+                ipAddress =  context.Request.HttpContext.Connection.RemoteIpAddress.ToString();
+            }
+            
             var jwtService = context.Request.HttpContext.RequestServices.GetService<IJwtService>();
             var jwtToken = context.SecurityToken as JwtSecurityToken;
             if (!await jwtService.IsTokenValid(jwtToken.RawData, ipAddress))
@@ -92,6 +98,7 @@ builder.Services.AddScoped<IUserAuthenticationService, UserAuthenticationService
 builder.Services.AddScoped<IEventService, EventService>();
 builder.Services.AddScoped<IGroupVideosLinkService, GroupVideosLinkService>();
 builder.Services.AddScoped<IBadgeService, BadgeService>();
+builder.Services.AddScoped<IUserBadgeService, UserBadgeService>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 //builder.Services.AddSwaggerGen();
@@ -118,6 +125,14 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+// for integration testing
+public partial class Program
+{
+ 
+}
+
+
 
 
 //References Used for this code

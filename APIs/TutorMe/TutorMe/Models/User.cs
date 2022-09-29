@@ -16,6 +16,7 @@ namespace TutorMe.Models
             Group = new HashSet<Group>();
             UserEvents = new HashSet<Event>();
             EventOwner = new HashSet<Event>();
+            UserBadges = new HashSet<UserBadge>();
         }
 
         public Guid UserId { get; set; }
@@ -33,6 +34,7 @@ namespace TutorMe.Models
         public string Year { get; set; }
         public int? Rating { get; set; }
         public int? NumberOfReviews { get; set; }
+        public bool Verified { get; set; }
 
         [JsonIgnore]
         public virtual Institution Institution { get; set; }
@@ -56,5 +58,7 @@ namespace TutorMe.Models
         public virtual ICollection<Event> UserEvents { get; set; }
         [JsonIgnore]
         public virtual ICollection<Event> EventOwner { get; set; }
+        [JsonIgnore]
+        public virtual ICollection<UserBadge> UserBadges { get; set; }
     }
 }

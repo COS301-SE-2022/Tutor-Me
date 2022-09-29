@@ -15,6 +15,6 @@
         public string Year { get; set; }
         public int? Rating { get; set; }
         public int? NumberOfReviews { get; set; }
-
+        public bool verified { get; set; }
     }
 }

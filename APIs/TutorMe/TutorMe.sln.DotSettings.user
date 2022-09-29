@@ -1,10 +1,33 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
 	<s:String x:Key="/Default/Environment/Highlighting/HighlightingSourceSnapshotLocation/@EntryValue">/home/simphiwe/.cache/JetBrains/Rider2022.2/resharper-host/temp/Rider/vAny/CoverageData/_TutorMe.-297807847/Snapshot/snapshot.utdcvr</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=25c72e1d_002D6520_002D47e2_002D8fc0_002D69e4729a4043/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="All tests from Solution" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;Solution /&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=28e67a8c_002D9f73_002D4ce0_002Db2f3_002D2431bb669542/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="AuthorizationIntegrationTest #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::BF4C8A78-8369-4AF0-BEF1-DAE6FB9CB6B4::net6.0::Tests.IntegrationTests.AuthorizationIntegrationTest&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=469e7bce_002D454e_002D4a99_002Dbb1b_002D0b8af5fdfac2/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GetAllUsers_ListOfUsers_ReturnsListOfUsers" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
     &lt;TestId&gt;xUnit::BF4C8A78-8369-4AF0-BEF1-DAE6FB9CB6B4::net6.0::Tests.UnitTests.UsersControllerUnitTests&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=da45c472_002D963b_002D461f_002D924b_002D9475b1a6d040/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="GetAllUsers_ListOfUsers_ReturnsListOfUsers" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=9aa6b7a0_002D0f0c_002D453b_002Dae3b_002D48f26b24b1dd/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="AuthorizationIntegrationTest" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::BF4C8A78-8369-4AF0-BEF1-DAE6FB9CB6B4::net6.0::Tests.IntegrationTests.AuthorizationIntegrationTest&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::BF4C8A78-8369-4AF0-BEF1-DAE6FB9CB6B4::net6.0::Tests.UnitTests.EventsControllerUnitTest&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=a9e46a60_002Df319_002D459b_002Daa8b_002D1769d9cd2518/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="All tests from Solution #3" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;Solution /&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=c525d752_002D35a9_002D4fc9_002Db7fa_002D48181c860c2b/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="ConnectionControllerIntegrationTest" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;Solution /&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=da45c472_002D963b_002D461f_002D924b_002D9475b1a6d040/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GetAllUsers_ListOfUsers_ReturnsListOfUsers" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;Solution /&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=f81d21b7_002Daefb_002D4d30_002Da237_002D8f4fccf8a368/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="All tests from Solution #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;Solution /&gt;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

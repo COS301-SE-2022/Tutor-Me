@@ -24,7 +24,9 @@ namespace TutorMe.Controllers
             _badgeService = badgeService;
         }
 
-        // GET: api/Badges
+        /// <summary> This method is used to get all badges from the database </summary>
+        /// <param>None</param>
+        // GET:api/Badges
         [HttpGet]
         public IActionResult GetAllBadges()
         {
@@ -37,6 +39,11 @@ namespace TutorMe.Controllers
             }
         }
 
+        /// <summary>
+        /// This method is used to get a badge by its id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         // GET: api/Badges/5
         [HttpGet("{id}")]
         public IActionResult GetBadgeById(Guid id)
@@ -46,12 +53,17 @@ namespace TutorMe.Controllers
                 return Ok(badge);
             }
             catch (Exception ex)
-            {
+            {   if(ex.Message == "Badge not found")
+                    return NotFound();
                 return BadRequest(ex.Message);
             }
         }
 
-
+        /// <summary>
+        /// This method is used to create a badge
+        /// </summary>
+        /// <param name="badge">badge object to be added</param>
+        /// <returns>Badge ID</returns>
         // POST: api/Badges
         [Authorize]
         [HttpPost]
@@ -66,6 +78,9 @@ namespace TutorMe.Controllers
             }
         }
 
+        /// <summary>Delete a badge using the badgeId </summary>
+        /// <param name="id">The badge ID</param>
+        /// <returns></returns>
         // DELETE: api/Badges/5
         [Authorize]
         [HttpDelete("{id}")]
@@ -76,10 +91,16 @@ namespace TutorMe.Controllers
                 return Ok(badge);
             }
             catch (Exception ex) {
+                if(ex.Message == "Badge not found")
+                    return NotFound();
                 return BadRequest(ex.Message);
             }
         }
 
+        /// <summary> Update the points for a badge </summary>
+        /// <param name="id">the id for the badge</param>
+        /// <param name="points">the new point for the badge</param>
+        /// <returns></returns>
         // PUT: api/Badges/5
         [Authorize]
         [HttpPut("{id}/points")]
@@ -89,10 +110,16 @@ namespace TutorMe.Controllers
                 return Ok(badge);
             }
             catch (Exception ex) {
+                if(ex.Message == "Badge not found")
+                    return NotFound();
                 return BadRequest(ex.Message);
             }
         }
 
+        /// <summary> Updates the point to achieve for the badge </summary>
+        /// <param name="id">The badge ID</param>
+        /// <param name="pointsToAchieve">The new point to achieve the badge</param>
+        /// <returns></returns>
         // PUT: api/pointsToAchieve/5
         [Authorize]
         [HttpPut("{id}/pointsToAchieve")]
@@ -102,10 +129,16 @@ namespace TutorMe.Controllers
                 return Ok(badge);
             }
             catch (Exception ex) {
+                if(ex.Message == "Badge not found")
+                    return NotFound();
                 return BadRequest(ex.Message);
             }
         }
 
+        /// <summary> Update the name of the badge </summary>
+        /// <param name="id">The badge ID</param>
+        /// <param name="name">The new badge name</param>
+        /// <returns></returns>
         // PUT: api/name/5
         [Authorize]
         [HttpPut("{id}/name")]
@@ -115,10 +148,16 @@ namespace TutorMe.Controllers
                 return Ok(badge);
             }
             catch (Exception ex) {
+                if(ex.Message == "Badge not found")
+                    return NotFound();
                 return BadRequest(ex.Message);
             }
         }
 
+        /// <summary> Updates the description for the badge </summary>
+        /// <param name="id">The badge id</param>
+        /// <param name="description"> The new description for the badge</param>
+        /// <returns></returns>
         // PUT: api/description/5
         [Authorize]
         [HttpPut("{id}/description")]
@@ -128,10 +167,16 @@ namespace TutorMe.Controllers
                 return Ok(badge);
             }
             catch (Exception ex) {
+                if(ex.Message == "Badge not found")
+                    return NotFound();
                 return BadRequest(ex.Message);
             }
         }
 
+        /// <summary> Updates the location of the badge </summary>
+        /// <param name="id"> The badge ID</param>
+        /// <param name="image">The new badge image path</param>
+        /// <returns></returns>
         // PUT: api/image/5
         [Authorize]
         [HttpPut("{id}/image")]
@@ -141,6 +186,8 @@ namespace TutorMe.Controllers
                 return Ok(badge);
             }
             catch (Exception ex) {
+                if(ex.Message == "Badge not found")
+                    return NotFound();
                 return BadRequest(ex.Message);
             }
         }
