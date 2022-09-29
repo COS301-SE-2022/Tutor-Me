@@ -1,7 +1,6 @@
 {
   "format": 1,
   "restore": {
-<<<<<<< HEAD
     "C:\\Users\\user\\OneDrive\\Documents\\Tutor-Me\\APIs\\FileSystemAPI\\FileSystemIntegrationTests\\FileSystemIntegrationTests.csproj": {}
   },
   "projects": {
@@ -16,22 +15,6 @@
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
-=======
-    "C:\\Users\\madun\\Documents\\School\\COS301\\Capstone\\Tutor-ME\\APIs\\FileSystemAPI\\FileSystemIntegrationTests\\FileSystemIntegrationTests.csproj": {}
-  },
-  "projects": {
-    "C:\\Users\\madun\\Documents\\School\\COS301\\Capstone\\Tutor-ME\\APIs\\FileSystemAPI\\FileSystemIntegrationTests\\FileSystemIntegrationTests.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "C:\\Users\\madun\\Documents\\School\\COS301\\Capstone\\Tutor-ME\\APIs\\FileSystemAPI\\FileSystemIntegrationTests\\FileSystemIntegrationTests.csproj",
-        "projectName": "FileSystemIntegrationTests",
-        "projectPath": "C:\\Users\\madun\\Documents\\School\\COS301\\Capstone\\Tutor-ME\\APIs\\FileSystemAPI\\FileSystemIntegrationTests\\FileSystemIntegrationTests.csproj",
-        "packagesPath": "C:\\Users\\madun\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\madun\\Documents\\School\\COS301\\Capstone\\Tutor-ME\\APIs\\FileSystemAPI\\FileSystemIntegrationTests\\obj\\",
-        "projectStyle": "PackageReference",
-        "configFilePaths": [
-          "C:\\Users\\madun\\AppData\\Roaming\\NuGet\\NuGet.Config",
->>>>>>> 6ebff93021d21323b827247f16e6c701300fbfa8
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -45,13 +28,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-<<<<<<< HEAD
               "C:\\Users\\user\\OneDrive\\Documents\\Tutor-Me\\APIs\\FileSystemAPI\\FileSystem\\FileSystem.csproj": {
                 "projectPath": "C:\\Users\\user\\OneDrive\\Documents\\Tutor-Me\\APIs\\FileSystemAPI\\FileSystem\\FileSystem.csproj"
-=======
-              "C:\\Users\\madun\\Documents\\School\\COS301\\Capstone\\Tutor-ME\\APIs\\FileSystemAPI\\FileSystem\\FileSystem.csproj": {
-                "projectPath": "C:\\Users\\madun\\Documents\\School\\COS301\\Capstone\\Tutor-ME\\APIs\\FileSystemAPI\\FileSystem\\FileSystem.csproj"
->>>>>>> 6ebff93021d21323b827247f16e6c701300fbfa8
               }
             }
           }
@@ -72,15 +50,15 @@
             },
             "Microsoft.AspNetCore.Mvc.Testing": {
               "target": "Package",
-              "version": "[6.0.0, )"
+              "version": "[6.0.9, )"
             },
             "Microsoft.EntityFrameworkCore.InMemory": {
               "target": "Package",
-              "version": "[6.0.0, )"
+              "version": "[6.0.9, )"
             },
             "Microsoft.NET.Test.Sdk": {
               "target": "Package",
-              "version": "[17.1.0, )"
+              "version": "[17.3.2, )"
             },
             "coverlet.collector": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
@@ -90,13 +68,13 @@
             },
             "xunit": {
               "target": "Package",
-              "version": "[2.4.1, )"
+              "version": "[2.4.2, )"
             },
             "xunit.runner.visualstudio": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[2.4.3, )"
+              "version": "[2.4.5, )"
             }
           },
           "imports": [
@@ -118,7 +96,6 @@
         }
       }
     },
-<<<<<<< HEAD
     "C:\\Users\\user\\OneDrive\\Documents\\Tutor-Me\\APIs\\FileSystemAPI\\FileSystem\\FileSystem.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -130,19 +107,6 @@
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
-=======
-    "C:\\Users\\madun\\Documents\\School\\COS301\\Capstone\\Tutor-ME\\APIs\\FileSystemAPI\\FileSystem\\FileSystem.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "C:\\Users\\madun\\Documents\\School\\COS301\\Capstone\\Tutor-ME\\APIs\\FileSystemAPI\\FileSystem\\FileSystem.csproj",
-        "projectName": "FileSystem",
-        "projectPath": "C:\\Users\\madun\\Documents\\School\\COS301\\Capstone\\Tutor-ME\\APIs\\FileSystemAPI\\FileSystem\\FileSystem.csproj",
-        "packagesPath": "C:\\Users\\madun\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\madun\\Documents\\School\\COS301\\Capstone\\Tutor-ME\\APIs\\FileSystemAPI\\FileSystem\\obj\\",
-        "projectStyle": "PackageReference",
-        "configFilePaths": [
-          "C:\\Users\\madun\\AppData\\Roaming\\NuGet\\NuGet.Config",
->>>>>>> 6ebff93021d21323b827247f16e6c701300fbfa8
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -174,25 +138,25 @@
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[6.0.8, )"
+              "version": "[6.0.9, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
-              "version": "[6.0.8, )"
+              "version": "[6.0.9, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[6.0.8, )"
+              "version": "[6.0.9, )"
             },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
-              "version": "[6.0.8, )"
+              "version": "[6.0.10, )"
             },
             "Npgsql.EntityFrameworkCore.PostgreSQL": {
               "target": "Package",
-              "version": "[6.0.6, )"
+              "version": "[6.0.7, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",

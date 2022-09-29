@@ -138,37 +138,37 @@ public class UserFilesControllerUnitTests
 
 
 
-    [Fact]
-    public async Task DeleteUserFilesById_Returns_true()
-    {
+    //[Fact]
+    //public async Task DeleteUserFilesById_Returns_true()
+    //{
 
-        //Arrange
-        var userAuth = new UserAuth
-        {
-            Email = "madunathabo2@gmail.com",
-            Password = "Tutorme#1",
-            TypeId = new Guid("98CA5264-1266-4158-82B6-5DE7FDD03599")
-        };
-        var UserFiles = new IUserFiles
-        {
-            Id = Guid.NewGuid(),
-            UserImage = Guid.NewGuid().ToByteArray(),
-            UserTranscript = Guid.NewGuid().ToByteArray()
-        };
+    //    Arrange
+    //    var userAuth = new UserAuth
+    //    {
+    //        Email = "madunathabo2@gmail.com",
+    //        Password = "Tutorme#1",
+    //        TypeId = new Guid("98CA5264-1266-4158-82B6-5DE7FDD03599")
+    //    };
+    //    var UserFiles = new IUserFiles
+    //    {
+    //        Id = Guid.NewGuid(),
+    //        UserImage = Guid.NewGuid().ToByteArray(),
+    //        UserTranscript = Guid.NewGuid().ToByteArray()
+    //    };
 
-        _UserFilesRepositoryMock.Setup(repo => repo.DeleteUserFilesById(It.IsAny<Guid>())).Returns(true);
-        var controller = new UserFilesController(_UserFilesRepositoryMock.Object, _mapper.Object);
+    //    _UserFilesRepositoryMock.Setup(repo => repo.DeleteUserFilesById(It.IsAny<Guid>())).Returns(true);
+    //    var controller = new UserFilesController(_UserFilesRepositoryMock.Object, _mapper.Object);
 
-        //Act
-        var result = controller.DeleteUserFiles(expectedTutor.UserFilesId);
-        // Assert
-        Assert.NotNull(result);
-        Assert.IsType<OkObjectResult>(result);
-        var actual = (result as OkObjectResult).Value;
-        Assert.IsType<Boolean>(actual);
-        Assert.Equal(true, actual);
+    //    Act
+    //    var result = controller.DeleteUserFiles(expectedTutor.UserFilesId);
+    //    Assert
+    //    Assert.NotNull(result);
+    //    Assert.IsType<OkObjectResult>(result);
+    //    var actual = (result as OkObjectResult).Value;
+    //    Assert.IsType<Boolean>(actual);
+    //    Assert.Equal(true, actual);
 
-    }
+    //}
 
     //[Fact]
     //public async Task DeleteUserFilesById_Returns_False()
