@@ -274,8 +274,7 @@ class GroupServices {
       final modulesURL = Uri.parse(
           'http://${global.getTutorMeUrl}/api/Groups/description/$id?description=$description');
       final response = await http.put(modulesURL, headers: global.header);
-      print('res '+response.statusCode.toString());
-      print('bod '+response.body);
+     
       if (response.statusCode == 200) {
         return group;
       } else if (response.statusCode == 401) {

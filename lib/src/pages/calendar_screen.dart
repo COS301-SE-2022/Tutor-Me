@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -12,7 +11,7 @@ import '../../services/services/events_services.dart';
 import '../../services/services/user_services.dart';
 import '../theme/themes.dart';
 
-// TODO:  fix file names
+
 class CalendarScreen extends StatefulWidget {
   final Globals globals;
   const CalendarScreen({Key? key, required this.globals}) : super(key: key);

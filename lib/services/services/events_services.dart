@@ -221,13 +221,10 @@ class EventServices {
 
   static updateGroupId(String eventId, String groupId, Globals global) async {
     try {
-      print('before url');
       final url = Uri.parse(
           'http://${global.getTutorMeUrl}/api/Events/groupId/$eventId?newGroupId=$groupId');
-      print('after url');
 
       final response = await http.put(url, headers: global.getHeader);
-      print('res ' + response.statusCode.toString());
 
       if (response.statusCode == 200) {
         return true;

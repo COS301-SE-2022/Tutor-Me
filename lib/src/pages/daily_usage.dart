@@ -1,10 +1,7 @@
 // ignore_for_file: import_of_legacy_library_into_null_safe
 
 import 'package:flutter/material.dart';
-import 'package:pie_chart/pie_chart.dart';
-import 'package:provider/provider.dart';
 import 'package:tutor_me/src/colorpallete.dart';
-import 'package:tutor_me/src/theme/themes.dart';
 import 'package:fl_chart/fl_chart.dart';
 
 // ignore: must_be_immutable

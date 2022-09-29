@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tutor_me/services/services/events_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
-import 'package:tutor_me/src/pages/calendar.dart';
 
 import '../../services/models/event.dart';
 import '../../services/models/globals.dart';
@@ -104,11 +103,8 @@ class _InviteToMeetingState extends State<InviteToMeeting> {
         floatingActionButton: FloatingActionButton.extended(
           onPressed: () async {
             try {
-              print('before');
-              print(widget.event.getEventId);
               await EventServices.updateGroupId(
                   widget.event.getEventId, selectedGroup.getId, widget.globals);
-              print('after');
 
               SnackBar snackBar = const SnackBar(
                 backgroundColor: colorLightGreen,

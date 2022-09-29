@@ -76,19 +76,7 @@ class _TutorProfileBookingPageState extends State<TutorProfileBookingPage> {
 
     // getConnections();
   }
-  //TODO: Add a function to get the number of connections and tutees
-
-  // int getNumConnections() {
-  //   var allConnections = widget.tutor.getConnections.split(',');
-
-  //   return allConnections.length;
-  // }
-
-  // int getNumTutees() {
-  //   var allTutees = widget.tutor.getTuteesCode.split(',');
-
-  //   return allTutees.length;
-  // }
+  
 
   getProfileImage() async {
     try {

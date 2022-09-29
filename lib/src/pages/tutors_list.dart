@@ -167,7 +167,6 @@ class TutorListState extends State<TutorList> {
 
   getConnections() async {
     try {
-      int tutorLength = tutorList.length;
 
       final tutors = await UserServices.getConnections(
           widget.globals.getUser.getId,
@@ -175,7 +174,6 @@ class TutorListState extends State<TutorList> {
           widget.globals);
 
       connectedTutors = tutors;
-      print('sillaaaa');
       for (var cTutors in connectedTutors) {
         tutorList.removeWhere((element) => element.getId == cTutors.getId);
       }
@@ -209,7 +207,6 @@ class TutorListState extends State<TutorList> {
             }
           }
         }
-        print('before tuteemodulelist');
 
         tutorList = tempTutors;
 
@@ -225,7 +222,6 @@ class TutorListState extends State<TutorList> {
         ScaffoldMessenger.of(context).showSnackBar(snackBar);
       }
     } catch (e) {
-      print('exccccc ' + e.toString());
       for (var tutor in tutorList) {
         tutors.add(Tutor(tutor, Uint8List(128), false));
       }
@@ -249,7 +245,6 @@ class TutorListState extends State<TutorList> {
           hasImage.add(i);
         }
       }
-      print(tutorList);
       for (int i = 0; i < tutorList.length; i++) {
         bool val = true;
         for (int j = 0; j < hasImage.length; j++) {

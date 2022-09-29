@@ -381,8 +381,6 @@ class UserServices {
     final modulesURL =
         Uri.parse('http://${tempGlobals.getTutorMeUrl}/api/Users/');
 
-    print('passssssss ' + password);
-
     // password = hashPassword(password);
     String data = jsonEncode({
       'userId': institution,
@@ -521,7 +519,6 @@ class UserServices {
           'http://${global.getTutorMeUrl}/api/Users/rating/$id?rating=$newRating&numberOfReviews=$numReviews');
 
       final response = await http.put(uri, headers: global.getHeader);
-      print(response.statusCode);
       if (response.statusCode == 200) {
         return true;
       } else {
@@ -1099,7 +1096,6 @@ class UserServices {
 
     try {
       final response = await http.get(tuteeURL, headers: global.getHeader);
-      print('img ' + response.statusCode.toString());
       if (response.statusCode == 200) {
         final image = response.body;
         List<String> imageList = image.split('"');
@@ -1126,7 +1122,6 @@ class UserServices {
 
     try {
       final response = await http.get(tuteeURL, headers: global.getHeader);
-      print('img ' + response.statusCode.toString());
       if (response.statusCode == 200) {
         final image = response.body;
         List<String> imageList = image.split('"');
