@@ -4,6 +4,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tutor_me/services/services/events_services.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/tutorProfilePages/tutor_profile_view.dart';
@@ -49,6 +50,7 @@ class BookingChat extends StatefulWidget {
 }
 
 class BookingChatState extends State<BookingChat> {
+  SharedPreferences? prefs;
   bool isVideoReady = false;
   String _token = "";
   String _meetingID = "";
@@ -242,6 +244,23 @@ class BookingChatState extends State<BookingChat> {
 
   //connect to signalR
   Future<void> openSignalRConnection() async {
+     prefs = await SharedPreferences.getInstance();
+    final lastDate = prefs?.getString('lastDate');
+    if (lastDate != null) {
+      final lastDateParsed = DateTime.parse(lastDate);
+      final now = DateTime.now();
+      final difference = now.difference(lastDateParsed);
+      if (difference.inDays > 0) {
+        await prefs?.setString('lastDate', now.toString());
+        await prefs?.setInt('interactionCount', 1);
+      } else {
+        final interactionCount = prefs?.getInt('interactionCount');
+        await prefs?.setInt('interactionCount', interactionCount! + 1);
+      }
+    } else {
+      await prefs?.setString('lastDate', DateTime.now().toString());
+      await prefs?.setInt('interactionCount', 1);
+    }
     fetchToken().then((token) => setState(() => _token = token));
     await connection.start();
     connection.on('ReceiveMessage', (message) {

@@ -216,7 +216,6 @@ class UserServices {
     Uri tuteeURL = Uri.http(globals.getTutorMeUrl, '/api/Users/$id');
     try {
       final response = await http.get(tuteeURL, headers: globals.getHeader);
-
       log(response.statusCode.toString());
       if (response.statusCode == 200) {
         return Users.fromObject(json.decode(response.body));
@@ -525,10 +524,12 @@ class UserServices {
   static updateTutorRating(
       int newRating, int numReviews, String id, Globals global) async {
     try {
-      Uri uri = Uri.http(global.getTutorMeUrl,
-          '/api/Users/rating/$id?rating=$newRating&numberOfReviews=$numReviews');
+      Uri uri = Uri.parse(
+          'http://${global.getTutorMeUrl}/api/Users/rating/$id?rating=$newRating&numberOfReviews=$numReviews');
 
       final response = await http.put(uri, headers: global.getHeader);
+
+
 
       if (response.statusCode == 200) {
         return true;
@@ -801,8 +802,8 @@ class UserServices {
     String data =
         jsonEncode({'id': id, 'userImage': imageByte, 'userTranscript': null});
 
-    final url =
-        Uri.parse('http://${global.getFilesUrl}/api/UserFiles/image/$id');
+    final url = Uri.parse(
+        'http://${global.getFilesUrl}/api/UserFiles/image/$id?username=${global.getUser.getEmail}&password=${global.getPassword}&typeId=${global.getUser.getUserTypeID}');
 
     try {
       log('before');
@@ -830,7 +831,8 @@ class UserServices {
     String data =
         jsonEncode({'id': id, 'userImage': imageByte, 'userTranscript': null});
 
-    final url = Uri.parse('http://${global.getFilesUrl}/api/UserFiles');
+    final url = Uri.parse(
+        'http://${global.getFilesUrl}/api/UserFiles/?username=${global.getUser.getEmail}&password=${global.getPassword}&typeId=${global.getUser.getUserTypeID}');
     try {
       final response =
           await http.post(url, headers: global.getHeader, body: data);
@@ -854,8 +856,8 @@ class UserServices {
         {'id': id, 'userImage': null, 'userTranscript': transcriptByte});
     log(data);
 
-    final url =
-        Uri.parse('http://${global.getFilesUrl}/api/UserFiles/transcript/$id');
+    final url = Uri.parse(
+        'http://${global.getFilesUrl}/api/UserFiles/transcript/$id?username=${global.getUser.getEmail}&password=${global.getPassword}&typeId=${global.getUser.getUserTypeID}');
 
     try {
       final response =
@@ -881,7 +883,8 @@ class UserServices {
     String data = jsonEncode(
         {'id': id, 'userImage': null, 'userTranscript': transcriptByte});
 
-    final url = Uri.parse('http://${global.getFilesUrl}/api/UserFiles');
+    final url = Uri.parse(
+        'http://${global.getFilesUrl}/api/UserFiles/?username=${global.getUser.getEmail}&password=${global.getPassword}&typeId=${global.getUser.getUserTypeID}');
     try {
       final response =
           await http.post(url, headers: global.getHeader, body: data);
@@ -1100,15 +1103,14 @@ class UserServices {
   // }
 
   static Future getTutorProfileImage(String id, Globals global) async {
-    Uri tuteeURL =
-        Uri.parse('http://${global.getFilesUrl}/api/Userfiles/image/$id');
+    Uri tuteeURL = Uri.parse(
+        'http://${global.getFilesUrl}/api/Userfiles/image/$id?username=${global.getUser.getEmail}&password=${global.getPassword}&typeId=${global.getUser.getUserTypeID}');
 
     try {
       final response = await http.get(tuteeURL, headers: global.getHeader);
       if (response.statusCode == 200) {
         final image = response.body;
         List<String> imageList = image.split('"');
-        log('This is the returned image' + image);
         if (image.length < 10) {
           throw Exception('No Image found');
         } else {
@@ -1117,7 +1119,7 @@ class UserServices {
         }
       } else if (response.statusCode == 401) {
         global = await refreshToken(global);
-        return await getTutorProfileImage(id, global);
+        return await getTuteeProfileImage(id, global);
       } else {
         throw Exception('Failed to load' + response.statusCode.toString());
       }
@@ -1127,15 +1129,14 @@ class UserServices {
   }
 
   static Future getTuteeProfileImage(String id, Globals global) async {
-    Uri tuteeURL =
-        Uri.parse('http://${global.getFilesUrl}/api/Userfiles/image/$id');
+    Uri tuteeURL = Uri.parse(
+        'http://${global.getFilesUrl}/api/Userfiles/image/$id?username=${global.getUser.getEmail}&password=${global.getPassword}&typeId=${global.getUser.getUserTypeID}');
 
     try {
       final response = await http.get(tuteeURL, headers: global.getHeader);
       if (response.statusCode == 200) {
         final image = response.body;
         List<String> imageList = image.split('"');
-
         if (image.length < 10) {
           throw Exception('No Image found');
         } else {
@@ -1155,8 +1156,8 @@ class UserServices {
 
   static Future getTutorTranscript(String id, Globals global) async {
     log('getting transcript');
-    Uri tuteeURL =
-        Uri.parse('http://${global.getFilesUrl}/api/Userfiles/transcript/$id');
+    Uri tuteeURL = Uri.parse(
+        'http://${global.getFilesUrl}/api/Userfiles/transcript/$id?username=${global.getUser.getEmail}&password=${global.getPassword}&typeId=${global.getUser.getUserTypeID}');
 
     try {
       final response = await http.get(tuteeURL, headers: global.getHeader);

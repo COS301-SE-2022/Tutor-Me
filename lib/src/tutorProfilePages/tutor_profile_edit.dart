@@ -4,6 +4,7 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:open_file/open_file.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tutor_me/services/services/user_services.dart';
@@ -47,6 +48,7 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
   bool isImagePicked = false;
   bool isSaveLoading = false;
   Uint8List? transcript;
+  File? fileToUpload;
 
   Future pickImage(ImageSource source) async {
     final imageChosen = await ImagePicker().pickImage(source: source);
@@ -147,18 +149,23 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
               allowedExtensions: ['pdf'],
             );
 
-            File? fileToUpload = File(filePick!.files.single.path!);
-
-            // OpenFile.open(file.path.toString());
+            setState(() {
+              fileToUpload = File(filePick!.files.single.path!);
+            });
 
             try {
               log('here man');
               await UserServices.updateTranscript(
                   fileToUpload, widget.globals.getUser.getId, widget.globals);
+              const snackBar = SnackBar(content: Text('Transcript Updated'));
+              ScaffoldMessenger.of(context).showSnackBar(snackBar);
             } catch (e) {
               try {
                 await UserServices.uploadTranscript(
                     fileToUpload, widget.globals.getUser.getId, widget.globals);
+
+                const snackBar = SnackBar(content: Text('Transcript Uploaded'));
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
               } catch (e) {
                 const snackBar =
                     SnackBar(content: Text('Failed to upload transcript'));
@@ -171,9 +178,9 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
         transcript != null
             ? DowloadLinkButton(
                 btnName: "View Transcript",
-                onPressed: ()  {
-
-                  const snackBar = SnackBar(content: Text('Opening Transcript...'));
+                onPressed: () {
+                  const snackBar =
+                      SnackBar(content: Text('Opening Transcript...'));
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   Navigator.push(
                     context,
@@ -184,7 +191,12 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
                     ),
                   );
                 })
-            : Container(),
+            : DowloadLinkButton(
+                btnName: "View Transcript",
+                onPressed: () {
+                  OpenFile.open(fileToUpload!.path);
+                }),
+        Container(),
         SizedBox(height: screenHeightSize * 0.03),
         UploadButton(
           btnName: "    Upload Id",

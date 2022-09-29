@@ -33,7 +33,7 @@ class TuteePendingRequests extends StatefulWidget {
 }
 
 class TuteePendingRequestsState extends State<TuteePendingRequests> {
-  List<Users> tutorList = List<Users>.empty();
+  List<Users> tutorList = List<Users>.empty(growable: true);
   List<Tutor> tutors = List<Tutor>.empty(growable: true);
   List<Requests> requestList = List<Requests>.empty();
   List<Uint8List> tutorImages = List<Uint8List>.empty(growable: true);
@@ -69,7 +69,7 @@ class TuteePendingRequestsState extends State<TuteePendingRequests> {
       final tutor = await UserServices.getTutor(
           requestList[i].getTutorId, widget.globals);
 
-      tutorList += tutor;
+      tutorList.add(tutor);
     }
     int requestLength = tutorList.length;
     setState(() {

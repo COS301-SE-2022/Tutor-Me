@@ -221,10 +221,11 @@ class EventServices {
 
   static updateGroupId(String eventId, String groupId, Globals global) async {
     try {
-      final url = Uri.http(
-          global.getTutorMeUrl, 'api/Events/$eventId?newGroupId=$groupId');
+      final url = Uri.parse(
+          'http://${global.getTutorMeUrl}/api/Events/groupId/$eventId?newGroupId=$groupId');
 
       final response = await http.put(url, headers: global.getHeader);
+
       if (response.statusCode == 200) {
         return true;
       } else if (response.statusCode == 401) {
@@ -239,7 +240,7 @@ class EventServices {
     }
   }
 
- static updateVideoId(String eventId, String videoLink, Globals global) async {
+  static updateVideoId(String eventId, String videoLink, Globals global) async {
     try {
       final url = Uri.http(
           global.getTutorMeUrl, 'api/Events/$eventId?newVideoLink=$videoLink');
@@ -258,6 +259,7 @@ class EventServices {
       throw Exception(e);
     }
   }
+
   static Future<Globals> refreshToken(Globals globals) async {
     log('refreshing token');
     final refreshUrl =

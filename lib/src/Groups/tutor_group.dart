@@ -5,6 +5,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tutor_me/services/models/globals.dart';
 import 'package:tutor_me/services/models/user_badges.dart';
 import 'package:tutor_me/services/services/group_services.dart';
@@ -36,11 +37,12 @@ class Tutee {
   Tutee(this.tutee, this.image, this.hasImage);
 }
 
+// ignore: must_be_immutable
 class TutorGroupPage extends StatefulWidget {
-  final Groups group;
+  Groups group;
   final Globals globals;
   final Modules module;
-  const TutorGroupPage(
+  TutorGroupPage(
       {Key? key,
       required this.group,
       required this.globals,
@@ -59,12 +61,16 @@ class TutorGroupPageState extends State<TutorGroupPage> {
   List<Uint8List> tuteeImages = List<Uint8List>.empty(growable: true);
   List<int> hasImage = List<int>.empty(growable: true);
   bool _isLoading = true;
+  SharedPreferences? prefs;
+  bool isEditing = false;
 
   bool hasTutees = false;
   String _token = "";
   String _meetingID = "";
 
   getTutees() async {
+    prefs = await SharedPreferences.getInstance();
+
     fetchToken().then((token) => setState(() => _token = token));
     try {
       final tutees = await GroupServices.getGroupTutees(
@@ -129,6 +135,7 @@ class TutorGroupPageState extends State<TutorGroupPage> {
     double screenWidth = MediaQuery.of(context).size.height;
 
     final provider = Provider.of<ThemeProvider>(context, listen: false);
+    TextEditingController controller = TextEditingController();
 
     Color primaryColor;
     Color textColor;
@@ -163,9 +170,6 @@ class TutorGroupPageState extends State<TutorGroupPage> {
         child: AppBar(
           title: Text(widget.module.getCode + '- Group'),
           backgroundColor: primaryColor,
-          actions: [
-            IconButton(onPressed: () {}, icon: const Icon(Icons.settings))
-          ],
           centerTitle: true,
         ),
       ),
@@ -232,12 +236,90 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                                         decoration: TextDecoration.underline),
                                   ),
                                   IconButton(
-                                      onPressed: () {},
+                                      onPressed: () async {
+                                        setState(() {
+                                          isEditing = !isEditing;
+                                        });
+
+                                      },
                                       icon: Icon(
                                         Icons.edit,
                                         color: highLightColor,
                                       ))
                                 ],
+                              ),
+                              SizedBox(
+                                height: screenHeight * 0.01,
+                              ),
+                              Flexible(
+                                child: ConstrainedBox(
+                                  constraints: const BoxConstraints.expand(),
+                                  child: Theme(
+                                      data: Theme.of(context).copyWith(
+                                          scrollbarTheme: ScrollbarThemeData(
+                                              thumbColor:
+                                                  MaterialStateProperty.all(
+                                                      colorOrange))),
+                                      child: Scrollbar(
+                                        child: isEditing
+                                            ? TextField(
+                                                controller: controller,
+                                                maxLines: 1,
+                                                decoration: InputDecoration(
+                                                  hintText: 'Edit the header',
+                                                  suffixIcon: IconButton(
+                                                    icon:
+                                                        const Icon(Icons.done),
+                                                    onPressed: () async {
+                                                      try {
+                                                        if (controller
+                                                            .text.isNotEmpty) {
+                                                              const snackBar = SnackBar(content: Text('Header updating!'));
+                                                              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                                          await GroupServices
+                                                              .updateGroupDescription(
+                                                                  controller
+                                                                      .text,
+                                                                  widget.group,
+                                                                  widget
+                                                                      .globals);
+                                                          setState(() {
+                                                            isEditing = false;
+                                                            widget.group
+                                                                    .setDescription =
+                                                                controller.text;
+                                                          });
+                                                        } else {
+                                                          setState(() {
+                                                            isEditing = false;
+                                                          });
+                                                        }
+                                                      } catch (e) {
+                                                        const snackBar =
+                                                            SnackBar(
+                                                          content: Text(
+                                                              'Error updating group description'),
+                                                        );
+                                                        ScaffoldMessenger.of(
+                                                                context)
+                                                            .showSnackBar(
+                                                                snackBar);
+                                                      }
+                                                    },
+                                                  ),
+                                                ),
+                                              )
+                                            : Text(
+                                                widget.group.getDescription,
+                                                textAlign: TextAlign.left,
+                                                style: TextStyle(
+                                                    color: textColor,
+                                                    fontWeight: FontWeight.w500,
+                                                    fontSize:
+                                                        screenHeight * 0.02),
+                                              ),
+                                      )),
+                                ),
                               ),
                             ],
                           ),
@@ -292,6 +374,28 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                           ),
                           InkWell(
                             onTap: () async {
+                              final lastDate = prefs?.getString('lastDate');
+                              if (lastDate != null) {
+                                final lastDateParsed = DateTime.parse(lastDate);
+                                final now = DateTime.now();
+                                final difference =
+                                    now.difference(lastDateParsed);
+                                if (difference.inDays > 0) {
+                                  await prefs?.setString(
+                                      'lastDate', now.toString());
+                                  await prefs?.setInt('meetingCount', 1);
+                                } else {
+                                  final meetingCount =
+                                      prefs?.getInt('meetingCount');
+                                  await prefs?.setInt(
+                                      'meetingCount', meetingCount! + 1);
+                                }
+                              } else {
+                                await prefs?.setString(
+                                    'lastDate', DateTime.now().toString());
+                                await prefs?.setInt('meetingCount', 1);
+                              }
+
                               try {
                                 const SnackBar snackBar =
                                     SnackBar(content: Text('Initializing...'));

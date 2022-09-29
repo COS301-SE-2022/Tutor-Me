@@ -53,8 +53,7 @@ class ReviewTutorState extends State<ReviewTutor> {
             tutor.getInstitutionID, widget.globals);
 
         institutions.add(institution.getName);
-        //TODO: get transcripts
-        //  final transcript = await UserServices.getTranscript(tutor,widget.globals);
+        
 
       }
       log(institutions.toString());

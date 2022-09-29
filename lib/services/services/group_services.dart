@@ -269,18 +269,13 @@ class GroupServices {
 
   static updateGroupDescription(
       String description, Groups group, Globals global) async {
-    // String data = jsonEncode({
-    //   'id': group.getId,
-    //   'description': group.getDescription,
-    // });
-
     try {
       final id = group.getId;
       final modulesURL = Uri.parse(
-          'http://${global.getTutorMeUrl}/api/Groups/description/$id');
-      final response =
-          await http.put(modulesURL, headers: global.header, body: description);
-      if (response.statusCode == 204) {
+          'http://${global.getTutorMeUrl}/api/Groups/description/$id?description=$description');
+      final response = await http.put(modulesURL, headers: global.header);
+     
+      if (response.statusCode == 200) {
         return group;
       } else if (response.statusCode == 401) {
         global = await refreshToken(global);

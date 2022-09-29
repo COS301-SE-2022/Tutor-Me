@@ -6,6 +6,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tutor_me/services/services/group_services.dart';
 import 'package:tutor_me/services/models/users.dart';
 import 'package:tutor_me/src/chat/one_to_one_chat.dart';
@@ -63,6 +64,7 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
   List<int> hasImage = List<int>.empty(growable: true);
   bool hasOnlyOneTutee = false;
   String _token = "";
+  SharedPreferences? prefs;
 
   getTutees() async {
     fetchToken().then((token) => setState(() => _token = token));
@@ -107,9 +109,6 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
         tutees.add(Tutee(tuteeList[i], tuteeImages[i], true));
       }
     }
-    setState(() {
-      tutees = tutees;
-    });
     getTutor();
   }
 
@@ -118,9 +117,7 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
       final tutor =
           await UserServices.getTutor(widget.group.getUserId, widget.globals);
 
-      setState(() {
-        tutorObj = tutor[0];
-      });
+        tutorObj = tutor;
     } catch (e) {
       const snackBar = SnackBar(content: Text('Error getting tutor'));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -319,11 +316,36 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
                                               0.025),
                                 ),
                                 subtitle: const Text('2 new msgs!'),
+                                trailing: Icon(
+                                  Icons.arrow_forward_ios,
+                                  color: highlightColor,
+                                ),
                               ),
                             ),
                           ),
                           InkWell(
                             onTap: () async {
+                               final lastDate = prefs?.getString('lastDate');
+                              if (lastDate != null) {
+                                final lastDateParsed = DateTime.parse(lastDate);
+                                final now = DateTime.now();
+                                final difference =
+                                    now.difference(lastDateParsed);
+                                if (difference.inDays > 0) {
+                                  await prefs?.setString(
+                                      'lastDate', now.toString());
+                                  await prefs?.setInt('meetingCount', 1);
+                                } else {
+                                  final meetingCount =
+                                      prefs?.getInt('meetingCount');
+                                  await prefs?.setInt(
+                                      'meetingCount', meetingCount! + 1);
+                                }
+                              } else {
+                                await prefs?.setString(
+                                    'lastDate', DateTime.now().toString());
+                                await prefs?.setInt('meetingCount', 1);
+                              }
                               try {
                                 final group = await GroupServices.getGroup(
                                     widget.group.getId, widget.globals);
@@ -390,6 +412,10 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
                                           MediaQuery.of(context).size.height *
                                               0.025),
                                 ),
+                                trailing: Icon(
+                                  Icons.arrow_forward_ios,
+                                  color: highlightColor,
+                                ),
                               ),
                             ),
                           ),
@@ -430,6 +456,11 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
                                           MediaQuery.of(context).size.height *
                                               0.025),
                                 ),
+                                trailing: Icon(
+                                  Icons.arrow_forward_ios,
+                                  color: highlightColor,
+                                ),
+                                
                               ),
                             ),
                           ),

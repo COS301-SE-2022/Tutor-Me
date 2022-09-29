@@ -76,19 +76,7 @@ class _TutorProfileBookingPageState extends State<TutorProfileBookingPage> {
 
     // getConnections();
   }
-  //TODO: Add a function to get the number of connections and tutees
-
-  // int getNumConnections() {
-  //   var allConnections = widget.tutor.getConnections.split(',');
-
-  //   return allConnections.length;
-  // }
-
-  // int getNumTutees() {
-  //   var allTutees = widget.tutor.getTuteesCode.split(',');
-
-  //   return allTutees.length;
-  // }
+  
 
   getProfileImage() async {
     try {
@@ -102,26 +90,27 @@ class _TutorProfileBookingPageState extends State<TutorProfileBookingPage> {
       getInstitution();
     }
   }
-  //TODO; fix getConnections
 
-  // getConnections() async {
-  //   if (!widget.tutee.getConnections.contains('No connections added')) {
-  //     List<String> connections = widget.tutee.getConnections.split(',');
-  //     int conLength = connections.length;
-  //     for (int i = 0; i < conLength; i++) {
-  //       final tutor = await UserServices.getTutor(connections[i]);
+  void getConnections() async {
+    try {
+      final tutors = await UserServices.getConnections(
+          widget.globals.getUser.getId,
+          widget.globals.getUser.getUserTypeID,
+          widget.globals);
 
-  //       tutors += tutor;
-  //       isConnected = checkConnection();
-  //     }
-  //     setState(() {
-  //       tutors = tutors;
-  //     });
+      numTutees = tutors.length;
 
-  //     getProfileImage();
-  //   }
-  //   getProfileImage();
-  // }
+      setState(() {
+        isLoading = false;
+      });
+    } catch (e) {
+      setState(() {
+        isLoading = false;
+      });
+      const snackBar = SnackBar(content: Text('Error loading'));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
+  }
 
   bool checkConnection() {
     bool val = false;
@@ -138,10 +127,9 @@ class _TutorProfileBookingPageState extends State<TutorProfileBookingPage> {
   getInstitution() async {
     final tempInstitution = await InstitutionServices.getUserInstitution(
         widget.tutor.getInstitutionID, widget.globals);
-    setState(() {
-      institution = tempInstitution;
-      isLoading = false;
-    });
+
+    institution = tempInstitution;
+    getConnections();
   }
 
   @override
@@ -218,7 +206,7 @@ class _TutorProfileBookingPageState extends State<TutorProfileBookingPage> {
         ),
       ),
       SizedBox(height: screenHeightSize * 0.02),
-      UserStats(
+      TutorUserStats(
         rating: widget.tutor.getRating,
         numTutees: numTutees,
       ),

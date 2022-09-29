@@ -14,6 +14,7 @@ import '../../services/models/modules.dart';
 import '../../services/models/users.dart';
 import '../../services/services/institution_services.dart';
 import '../../services/services/module_services.dart';
+import '../../services/services/user_services.dart';
 import '../components.dart';
 import '../theme/themes.dart';
 import 'edit_module_list.dart';
@@ -43,6 +44,7 @@ class TuteeProfilePage extends StatefulWidget {
 
 class _TuteeProfilePageState extends State<TuteeProfilePage> {
   List<Modules> currentModules = List<Modules>.empty();
+
   late Institutions institution;
   late int numConnections;
   late int numTutees;
@@ -60,22 +62,28 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
   getInstitution() async {
     final tempInstitution = await InstitutionServices.getUserInstitution(
         widget.globals.getUser.getInstitutionID, widget.globals);
-    setState(() {
-      institution = tempInstitution;
-      _isLoading = false;
-    });
+
+    institution = tempInstitution;
+    getConnections();
   }
-  // int getNumConnections() {
-  //   var allConnections = widget.user.getConnections.split(',');
 
-  //   return allConnections.length;
-  // }
+  void getConnections() async {
+    try {
+      final connections = await UserServices.getConnections(
+          widget.globals.getUser.getId,
+          widget.globals.getUser.getUserTypeID,
+          widget.globals);
 
-  // int getNumTutees() {
-  //   var allTutees = widget.user.getTutorsCode.split(',');
-
-  //   return allTutees.length;
-  // }
+      numConnections = connections.length;
+      setState(() {
+        _isLoading = false;
+      });
+    } catch (e) {
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
 
   @override
   void initState() {
@@ -110,15 +118,15 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
   }
 
   Widget topDesign() {
-    final provider = Provider.of<ThemeProvider>(context, listen: false);
+    // final provider = Provider.of<ThemeProvider>(context, listen: false);
 
-    Color primaryColor;
+    // Color primaryColor;
 
-    if (provider.themeMode == ThemeMode.dark) {
-      primaryColor = colorLightGrey;
-    } else {
-      primaryColor = colorBlueTeal;
-    }
+    // if (provider.themeMode == ThemeMode.dark) {
+    //   primaryColor = colorLightGrey;
+    // } else {
+    //   primaryColor = colorBlueTeal;
+    // }
     return Stack(
       clipBehavior: Clip.none,
       alignment: Alignment.center,
@@ -149,7 +157,7 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
             },
             child: Icon(
               Icons.edit,
-              color: primaryColor,
+              color: colorOrange,
               size: MediaQuery.of(context).size.height * 0.05,
             ),
           ),
@@ -250,9 +258,8 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
         ),
       ),
       SizedBox(height: screenHeightSize * 0.02),
-      const UserStats(
-        rating: 1,
-        numTutees: 2,
+      TuteeUserStats(
+        numTutees: numConnections,
       ),
       SizedBox(height: screenHeightSize * 0.02),
       SizedBox(
@@ -418,7 +425,7 @@ class _TuteeProfilePageState extends State<TuteeProfilePage> {
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
-              fontSize: MediaQuery.of(context).size.height * 0.05,
+              fontSize: MediaQuery.of(context).size.height * 0.025,
               color: textColor,
             ),
           ),

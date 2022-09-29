@@ -222,8 +222,7 @@ class _TuteeProfilePageState extends State<TuteeProfilePageView> {
         ),
       ),
       SizedBox(height: screenHeightSize * 0.02),
-       UserStats(
-        rating: 1,
+       TuteeUserStats(
         numTutees: numTutees,
       ),
       SizedBox(height: screenHeightSize * 0.02),
