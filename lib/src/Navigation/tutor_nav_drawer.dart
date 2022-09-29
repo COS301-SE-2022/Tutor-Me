@@ -137,9 +137,10 @@ class TutorNavigationDrawerState extends State<TutorNavigationDrawerWidget> {
                         await SharedPreferences.getInstance();
                     preferences.clear();
 
-                    Navigator.push(
+                    Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(builder: (context) => const Login()),
+                      ((route) => false),
                     );
                   },
                 ),

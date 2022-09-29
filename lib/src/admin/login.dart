@@ -163,6 +163,8 @@ class LoginAdminState extends State<LoginAdmin> {
                               global = await AdminServices.logInAdmin(
                                   emailController.text,
                                   passwordController.text);
+
+                                  global.setPassword = passwordController.text;
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(

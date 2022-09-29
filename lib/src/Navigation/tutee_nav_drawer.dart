@@ -155,9 +155,10 @@ class TuteeNavigationDrawerState extends State<TuteeNavigationDrawerWidget> {
                     SharedPreferences preferences =
                         await SharedPreferences.getInstance();
                     preferences.clear();
-                    Navigator.push(
+                    Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(builder: (context) => const Login()),
+                      ((route) => false),
                     );
                   },
                 ),
