@@ -22,6 +22,8 @@ namespace TutorMe.Controllers
             this.mapper = mapper;
         }
         
+        /// <summary> Gets all the connection in the database </summary>
+        /// <returns>A list of connections</returns>
         [Authorize]
         [HttpGet]
         public IActionResult GetAllConnections()
@@ -35,6 +37,9 @@ namespace TutorMe.Controllers
             }
         }
 
+        /// <summary> Returns one conection by their id </summary>
+        /// <param name="id"> The connections's ID</param>
+        /// <returns>returns a connection</returns>
         [Authorize]
         [HttpGet("{id}")]
         public IActionResult GetConnectionById(Guid id)
@@ -42,18 +47,21 @@ namespace TutorMe.Controllers
             try {
                 var connection = connectionService.GetConnectionsByUserId(id);
                 if (connection == null) {
-                    return NotFound();
+                    return NotFound("Connection not found");
                 }
                 return Ok(connection);
             }
             catch (Exception exception) {
-                if(exception.Message == "Connection not found") {
+                if(exception.Message == "No connections found for user") {
                     return NotFound();
                 }
                 return BadRequest(exception.Message);
             }
         }
         
+        /// <summary> Deletes a user connecion by the connection id </summary>
+        /// <param name="id"> The connection id </param>
+        /// <returns>return a boolean</returns>
         [Authorize]
         [HttpDelete("{id}")]
         public IActionResult DeleteConnection(Guid id)
@@ -70,6 +78,10 @@ namespace TutorMe.Controllers
             }
         }
         
+        /// <summary> Returns a list of users connected to the specified user </summary>
+        /// <param name="id"> The user's id </param>
+        /// <param name="userType"> The usertype id of the user </param>
+        /// <returns>a list of users</returns>
         [Authorize]
         [HttpGet("users/{id}")]
         public IActionResult GetUserConnectionObjectsById(Guid id, Guid userType) { 

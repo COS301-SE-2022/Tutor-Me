@@ -13,6 +13,7 @@ namespace TutorMe.Services {
         bool UpdateEventTime(Guid id, string newTime);
         bool UpdateEventTitle(Guid id, string newTitle);
         bool UpdateEventDescription(Guid id, string newDescription);
+        bool UpdateEventGroupId(Guid id, Guid newGroupId);
     }
     public class EventService : IEventService {
         private readonly TutorMeContext _context;
@@ -22,7 +23,7 @@ namespace TutorMe.Services {
         }
 
         public IEnumerable<Event> GetUserEvents(Guid id) {
-            return _context.Event.Where(e => e.OwnerId == id || e.UserId == id).ToArray();
+            return _context.Event.Where(e => e.OwnerId == id || e.UserId == id).ToList();
         }
 
         public bool CreateUserEvent(IEvent eventInput) {
@@ -105,6 +106,18 @@ namespace TutorMe.Services {
             var Userevent = _context.Event.Find(id);
             if (Userevent != null) {
                 Userevent.Description = newDescription;
+                _context.SaveChanges();
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+
+        public bool UpdateEventGroupId(Guid id, Guid newGroupId) {
+            var Userevent = _context.Event.Find(id);
+            if (Userevent != null) {
+                Userevent.GroupId = newGroupId;
                 _context.SaveChanges();
                 return true;
             }

@@ -183,6 +183,15 @@ class UserServices {
             backgroundColor: Colors.orange,
             textColor: Colors.white,
             fontSize: 16.0);
+        SnackBar(
+          content: const Text('User Deleted'),
+          action: SnackBarAction(
+            label: 'Undo',
+            onPressed: () {
+              // Some code to undo the change.
+            },
+          ),
+        );
       } else if (response.statusCode == 401) {
         global = await refreshToken(global);
         return await deleteUser(id, global);
@@ -520,7 +529,7 @@ class UserServices {
           '/api/Users/rating/$id?rating=$newRating&numberOfReviews=$numReviews');
 
       final response = await http.put(uri, headers: global.getHeader);
-      
+
       if (response.statusCode == 200) {
         return true;
       } else {

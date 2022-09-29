@@ -22,6 +22,8 @@ namespace TutorMe.Controllers
             this.mapper = mapper;
         }
 
+        /// <summary> Get all requests </summary>
+        /// <returns> A list of request </returns>
         [Authorize]
         [HttpGet]
         public IActionResult GetAllRequests()
@@ -35,6 +37,9 @@ namespace TutorMe.Controllers
             }
         }
 
+        /// <summary> Get request by it's Id </summary>
+        /// <param name="id"> The request's Id </param>
+        /// <returns> a request object </returns>
         [Authorize]
         [HttpGet("{id}")]
         public IActionResult GetRequestById(Guid id)
@@ -51,6 +56,9 @@ namespace TutorMe.Controllers
             }
         }
 
+        /// <summary> Store a new request </summary>
+        /// <param name="request"> The request object (check entities)</param>
+        /// <returns> The request's Id </returns>
         [Authorize]
         [HttpPost]
         public IActionResult createRequest(IRequest request)
@@ -64,6 +72,9 @@ namespace TutorMe.Controllers
             }
         }
 
+        /// <summary> Delete a request by it's Id </summary>
+        /// <param name="id"> The request's Id </param>
+        /// <returns> A boolean </returns>
         [Authorize]
         [HttpDelete("{id}")]
         public IActionResult DeleteRequest(Guid id)
@@ -77,6 +88,9 @@ namespace TutorMe.Controllers
             }
         }
 
+        /// <summary> Get Tutor's requests </summary>
+        /// <param name="id"> The user(Tutor)'s Id</param>
+        /// <returns> a lit of requests </returns>
         [Authorize]
         [HttpGet("tutor/{id}")]
         public IActionResult GetRequestByTutorById(Guid id)
@@ -90,6 +104,9 @@ namespace TutorMe.Controllers
             }
         }
 
+        /// <summary> Get Tutee's requests </summary>
+        /// <param name="id">The user(Tutee)'s Id</param>
+        /// <returns> A list of requests</returns>
         [Authorize]
         [HttpGet("tutee/{id}")]
         public IActionResult GetRequestByTuteeById(Guid id)
@@ -103,6 +120,9 @@ namespace TutorMe.Controllers
             }
         }
 
+        /// <summary> A Tutor to accept a tutees's request and make a connection </summary>
+        /// <param name="id"> The request's Id </param>
+        /// <returns> A boolean </returns>
         [Authorize]
         [HttpGet("accept/{id}")]
         public IActionResult AcceptRequestById(Guid id) {
@@ -115,6 +135,9 @@ namespace TutorMe.Controllers
             }
         }
 
+        /// <summary> Reject a tutor's request </summary>
+        /// <param name="id"> The requwst's Id</param>
+        /// <returns> A boolean </returns>
         [Authorize]
         [HttpGet("reject/{id}")]
         public IActionResult RejectRequestById(Guid id) {

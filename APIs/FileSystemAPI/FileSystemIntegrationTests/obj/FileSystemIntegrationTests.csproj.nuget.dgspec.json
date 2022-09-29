@@ -1,6 +1,7 @@
 {
   "format": 1,
   "restore": {
+<<<<<<< HEAD
     "C:\\Users\\user\\OneDrive\\Documents\\Tutor-Me\\APIs\\FileSystemAPI\\FileSystemIntegrationTests\\FileSystemIntegrationTests.csproj": {}
   },
   "projects": {
@@ -15,6 +16,22 @@
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
+=======
+    "C:\\Users\\madun\\Documents\\School\\COS301\\Capstone\\Tutor-ME\\APIs\\FileSystemAPI\\FileSystemIntegrationTests\\FileSystemIntegrationTests.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\madun\\Documents\\School\\COS301\\Capstone\\Tutor-ME\\APIs\\FileSystemAPI\\FileSystemIntegrationTests\\FileSystemIntegrationTests.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\madun\\Documents\\School\\COS301\\Capstone\\Tutor-ME\\APIs\\FileSystemAPI\\FileSystemIntegrationTests\\FileSystemIntegrationTests.csproj",
+        "projectName": "FileSystemIntegrationTests",
+        "projectPath": "C:\\Users\\madun\\Documents\\School\\COS301\\Capstone\\Tutor-ME\\APIs\\FileSystemAPI\\FileSystemIntegrationTests\\FileSystemIntegrationTests.csproj",
+        "packagesPath": "C:\\Users\\madun\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\madun\\Documents\\School\\COS301\\Capstone\\Tutor-ME\\APIs\\FileSystemAPI\\FileSystemIntegrationTests\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\madun\\AppData\\Roaming\\NuGet\\NuGet.Config",
+>>>>>>> 6ebff93021d21323b827247f16e6c701300fbfa8
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -28,8 +45,13 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
+<<<<<<< HEAD
               "C:\\Users\\user\\OneDrive\\Documents\\Tutor-Me\\APIs\\FileSystemAPI\\FileSystem\\FileSystem.csproj": {
                 "projectPath": "C:\\Users\\user\\OneDrive\\Documents\\Tutor-Me\\APIs\\FileSystemAPI\\FileSystem\\FileSystem.csproj"
+=======
+              "C:\\Users\\madun\\Documents\\School\\COS301\\Capstone\\Tutor-ME\\APIs\\FileSystemAPI\\FileSystem\\FileSystem.csproj": {
+                "projectPath": "C:\\Users\\madun\\Documents\\School\\COS301\\Capstone\\Tutor-ME\\APIs\\FileSystemAPI\\FileSystem\\FileSystem.csproj"
+>>>>>>> 6ebff93021d21323b827247f16e6c701300fbfa8
               }
             }
           }
@@ -96,6 +118,7 @@
         }
       }
     },
+<<<<<<< HEAD
     "C:\\Users\\user\\OneDrive\\Documents\\Tutor-Me\\APIs\\FileSystemAPI\\FileSystem\\FileSystem.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -107,6 +130,19 @@
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
+=======
+    "C:\\Users\\madun\\Documents\\School\\COS301\\Capstone\\Tutor-ME\\APIs\\FileSystemAPI\\FileSystem\\FileSystem.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\madun\\Documents\\School\\COS301\\Capstone\\Tutor-ME\\APIs\\FileSystemAPI\\FileSystem\\FileSystem.csproj",
+        "projectName": "FileSystem",
+        "projectPath": "C:\\Users\\madun\\Documents\\School\\COS301\\Capstone\\Tutor-ME\\APIs\\FileSystemAPI\\FileSystem\\FileSystem.csproj",
+        "packagesPath": "C:\\Users\\madun\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\madun\\Documents\\School\\COS301\\Capstone\\Tutor-ME\\APIs\\FileSystemAPI\\FileSystem\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\madun\\AppData\\Roaming\\NuGet\\NuGet.Config",
+>>>>>>> 6ebff93021d21323b827247f16e6c701300fbfa8
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

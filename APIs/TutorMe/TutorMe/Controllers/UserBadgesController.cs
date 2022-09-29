@@ -24,6 +24,9 @@ namespace TutorMe.Controllers
             this.UserBadgeService = UserBadgeService;
         }
 
+        /// <summary> Get user badge object's Id </summary>
+        /// <param name="id">the badge's Id</param>
+        /// <returns> a badge object</returns>
         // GET: api/UserBadges
         [HttpGet]
         public IActionResult GetUserBadgeById(Guid id)
@@ -37,6 +40,9 @@ namespace TutorMe.Controllers
             }
         }
 
+        /// <summary> Get user badge records by user id </summary>
+        /// <param name="id"> User's Id </param>
+        /// <returns> a list of userBadge objects</returns>
         // GET: api/UserBadges/5
         [HttpGet("user/{id}")]
         public IActionResult GetUsersBadgesByUserId(Guid id)
@@ -50,8 +56,10 @@ namespace TutorMe.Controllers
             }
         }
 
+        /// <summary> Store a new UserBadge object</summary>
+        /// <param name="userBadge"> The UserBadge object (check entities)</param>
+        /// <returns> The UserBadge's Id </returns>
         // POST: api/UserBadges
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public IActionResult createUserBadge(IUserBadge userBadge)
         {
@@ -64,6 +72,9 @@ namespace TutorMe.Controllers
             }
         }
 
+        /// <summary> Delete a UserBadge by it's Id </summary>
+        /// <param name="id"> UserBadge's Id </param>
+        /// <returns> A boolean </returns>
         // DELETE: api/UserBadges/5
         [HttpDelete("{id}")]
         public IActionResult DeleteUserBadgeById(Guid id)
@@ -77,6 +88,10 @@ namespace TutorMe.Controllers
             }
         }
 
+        /// <summary> Update the points achieved for a badge </summary>
+        /// <param name="id"> The Badges's Id</param>
+        /// <param name="pointAchieved"> The Point achieved </param>
+        /// <returns> A boolean </returns>
         [HttpPut("{id}")]
         public IActionResult updatePointAchieved(Guid id, int pointAchieved) {
             try {

@@ -18,7 +18,7 @@ namespace TutorMe.Services {
 
         [Authorize]
         public IEnumerable<GroupVideosLink> GetAllGroupVideosLinksByGroupId(Guid id) {
-            return _context.GroupVideosLink.Where(e => e.GroupId == id);
+            return _context.GroupVideosLink.Where(e => e.GroupId == id).ToList();
         }
 
         [Authorize]

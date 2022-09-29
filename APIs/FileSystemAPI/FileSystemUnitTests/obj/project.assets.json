@@ -1955,6 +1955,7 @@
         },
         "runtime": {
           "lib/netstandard2.0/NuGet.Versioning.dll": {}
+<<<<<<< HEAD
         }
       },
       "Owin/1.0.0": {
@@ -1964,6 +1965,8 @@
         },
         "runtime": {
           "lib/net40/Owin.dll": {}
+=======
+>>>>>>> 6ebff93021d21323b827247f16e6c701300fbfa8
         }
       },
       "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
@@ -11254,11 +11257,16 @@
     ]
   },
   "packageFolders": {
+<<<<<<< HEAD
     "C:\\Users\\user\\.nuget\\packages\\": {}
+=======
+    "C:\\Users\\madun\\.nuget\\packages\\": {}
+>>>>>>> 6ebff93021d21323b827247f16e6c701300fbfa8
   },
   "project": {
     "version": "1.0.0",
     "restore": {
+<<<<<<< HEAD
       "projectUniqueName": "C:\\Users\\user\\OneDrive\\Documents\\Tutor-Me\\APIs\\FileSystemAPI\\FileSystemUnitTests\\FileSystemUnitTests.csproj",
       "projectName": "FileSystemUnitTests",
       "projectPath": "C:\\Users\\user\\OneDrive\\Documents\\Tutor-Me\\APIs\\FileSystemAPI\\FileSystemUnitTests\\FileSystemUnitTests.csproj",
@@ -11267,6 +11275,16 @@
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
+=======
+      "projectUniqueName": "C:\\Users\\madun\\Documents\\School\\COS301\\Capstone\\Tutor-ME\\APIs\\FileSystemAPI\\FileSystemUnitTests\\FileSystemUnitTests.csproj",
+      "projectName": "FileSystemUnitTests",
+      "projectPath": "C:\\Users\\madun\\Documents\\School\\COS301\\Capstone\\Tutor-ME\\APIs\\FileSystemAPI\\FileSystemUnitTests\\FileSystemUnitTests.csproj",
+      "packagesPath": "C:\\Users\\madun\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\madun\\Documents\\School\\COS301\\Capstone\\Tutor-ME\\APIs\\FileSystemAPI\\FileSystemUnitTests\\obj\\",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "C:\\Users\\madun\\AppData\\Roaming\\NuGet\\NuGet.Config",
+>>>>>>> 6ebff93021d21323b827247f16e6c701300fbfa8
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -11280,8 +11298,13 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
+<<<<<<< HEAD
             "C:\\Users\\user\\OneDrive\\Documents\\Tutor-Me\\APIs\\FileSystemAPI\\FileSystem\\FileSystem.csproj": {
               "projectPath": "C:\\Users\\user\\OneDrive\\Documents\\Tutor-Me\\APIs\\FileSystemAPI\\FileSystem\\FileSystem.csproj"
+=======
+            "C:\\Users\\madun\\Documents\\School\\COS301\\Capstone\\Tutor-ME\\APIs\\FileSystemAPI\\FileSystem\\FileSystem.csproj": {
+              "projectPath": "C:\\Users\\madun\\Documents\\School\\COS301\\Capstone\\Tutor-ME\\APIs\\FileSystemAPI\\FileSystem\\FileSystem.csproj"
+>>>>>>> 6ebff93021d21323b827247f16e6c701300fbfa8
             }
           }
         }

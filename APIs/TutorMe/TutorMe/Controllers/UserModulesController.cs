@@ -19,10 +19,11 @@ namespace TutorMe.Controllers {
             this.mapper = mapper;
         }
 
+        /// <summary> Get UserModule records </summary>
+        /// <returns> A list of UserModule objects </returns>
         [Authorize]
         [HttpGet]
         public IActionResult GetAllUserModules() {
-            Console.WriteLine("this is what we got");
             try {
                 var userModules = userModuleService.GetAllUserModules();
                 return Ok(userModules);
@@ -32,6 +33,9 @@ namespace TutorMe.Controllers {
             }
         }
 
+        /// <summary> Get UserModule by User's Id </summary>
+        /// <param name="id"> User's Id </param>
+        /// <returns> A list of UserModules </returns>
         [Authorize]
         [HttpGet("{id}")]
         public IActionResult GetUserModulesByUserId(Guid id) {
@@ -47,6 +51,9 @@ namespace TutorMe.Controllers {
             }
         }
 
+        /// <summary> Store a new UserModule object </summary>
+        /// <param name="userModule"> The UserModule object (check entities)</param>
+        /// <returns> The UserModule's Id </returns>
         [Authorize]
         [HttpPost]
         public IActionResult createUserModule(IUserModule userModule) {
@@ -60,6 +67,9 @@ namespace TutorMe.Controllers {
             
         }
 
+        /// <summary> Delete a UserModule by it's Id </summary>
+        /// <param name="id"> UserModule's Id </param>
+        /// <returns> A boolean </returns>
         [Authorize]
         [HttpDelete("{id}")]
         public IActionResult DeleteUserModule(Guid id) {
