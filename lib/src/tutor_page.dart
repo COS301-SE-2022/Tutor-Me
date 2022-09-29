@@ -110,11 +110,7 @@ class TutorPageState extends State<TutorPage> {
 
            
 
-            if (lastClicked.difference(DateTime.now()).inSeconds > 2) {
-              return false;
-            } else {
-              return true;
-            }
+          
           }),
           child: Scaffold(
               drawer: TutorNavigationDrawerWidget(globals: widget.globals),

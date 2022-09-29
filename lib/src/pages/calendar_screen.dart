@@ -32,7 +32,6 @@ class _CalendarScreenState extends State<CalendarScreen> {
           widget.globals.getUser.getId, widget.globals);
       events = incomingEvents;
     } catch (e) {
-      print(e);
       const snack = SnackBar(content: Text('Error loading events'));
       ScaffoldMessenger.of(context).showSnackBar(snack);
     }
@@ -47,7 +46,6 @@ class _CalendarScreenState extends State<CalendarScreen> {
         owner.add(incomingOwner);
       }
     } catch (e) {
-      print(e);
       const snack = SnackBar(content: Text('Error loading events'));
       ScaffoldMessenger.of(context).showSnackBar(snack);
     }

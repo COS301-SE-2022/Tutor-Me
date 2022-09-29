@@ -73,7 +73,6 @@ class ReviewTutorState extends State<ReviewTutor> {
         transcripts.add(transcript);
         hasTranscript.add(true);
       } catch (e) {
-        print(e);
         log(e.toString());
         Uint8List? empty = Uint8List(128);
         transcripts.add(empty);
