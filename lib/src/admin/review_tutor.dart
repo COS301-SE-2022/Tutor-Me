@@ -43,6 +43,7 @@ class ReviewTutorState extends State<ReviewTutor> {
   getTutors() async {
     tutors = await UserServices.getTutors(widget.globals);
     tutors.removeWhere((tutor) => tutor.getIsVerified == true);
+
     getTutorDetails();
   }
 
@@ -53,8 +54,6 @@ class ReviewTutorState extends State<ReviewTutor> {
             tutor.getInstitutionID, widget.globals);
 
         institutions.add(institution.getName);
-        
-
       }
       log(institutions.toString());
     } catch (e) {
@@ -74,6 +73,7 @@ class ReviewTutorState extends State<ReviewTutor> {
         transcripts.add(transcript);
         hasTranscript.add(true);
       } catch (e) {
+        print(e);
         log(e.toString());
         Uint8List? empty = Uint8List(128);
         transcripts.add(empty);

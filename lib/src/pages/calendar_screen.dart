@@ -11,7 +11,6 @@ import '../../services/services/events_services.dart';
 import '../../services/services/user_services.dart';
 import '../theme/themes.dart';
 
-
 class CalendarScreen extends StatefulWidget {
   final Globals globals;
   const CalendarScreen({Key? key, required this.globals}) : super(key: key);
@@ -33,6 +32,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
           widget.globals.getUser.getId, widget.globals);
       events = incomingEvents;
     } catch (e) {
+      print(e);
       const snack = SnackBar(content: Text('Error loading events'));
       ScaffoldMessenger.of(context).showSnackBar(snack);
     }
@@ -44,9 +44,10 @@ class _CalendarScreenState extends State<CalendarScreen> {
       for (int i = 0; i < events.length; i++) {
         final incomingOwner =
             await UserServices.getTutor(events[i].getOwnerId, widget.globals);
-        owner += incomingOwner;
+        owner.add(incomingOwner);
       }
     } catch (e) {
+      print(e);
       const snack = SnackBar(content: Text('Error loading events'));
       ScaffoldMessenger.of(context).showSnackBar(snack);
     }
@@ -355,7 +356,6 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                       });
                                     }),
                                     child: const Text('Time')),
-                                
                               ],
                             )
 

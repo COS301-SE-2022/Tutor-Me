@@ -229,11 +229,12 @@ class _LoginState extends State<Login> {
                               await SharedPreferences.getInstance();
 
                           preferences.setString('globals', globalJson);
-                          Navigator.push(
+                          Navigator.pushAndRemoveUntil(
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>
                                     TutorPage(globals: globals)),
+                                    ((route) => false),
                           );
 
                           //Get num of connections
@@ -422,20 +423,21 @@ class _LoginState extends State<Login> {
                           // TutorServices tutor = TutorServices.Login(
                           globals = await UserServices.logInTutee(
                               emailController.text, passwordController.text);
-                              globals.setPassword = passwordController.text;
-
+                          globals.setPassword = passwordController.text;
 
                           final globalJson = json.encode(globals.toJson());
                           SharedPreferences preferences =
                               await SharedPreferences.getInstance();
 
-                              
                           preferences.setString('globals', globalJson);
-                          Navigator.push(
+                          Navigator.pushAndRemoveUntil(
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>
-                                    TuteePage(globals: globals)),
+                                    TuteePage(globals: globals),
+                                    
+                                    ),
+                                    (route) => false,
                           );
 
                           List<Badge> fetchedBadges =
@@ -446,37 +448,38 @@ class _LoginState extends State<Login> {
                             }
                           }
 
-                          List<UserBadge> userBadges =
-                              List<UserBadge>.empty(growable: true);
+                          try {
+                            List<UserBadge> userBadges =
+                                List<UserBadge>.empty(growable: true);
 
-                          userBadges =
-                              await UserBadges.getAllUserBadgesByUserId(
-                                  globals);
+                            userBadges =
+                                await UserBadges.getAllUserBadgesByUserId(
+                                    globals);
 
-                          bool isThere = false;
-                          int index = 0;
+                            bool isThere = false;
+                            int index = 0;
 
-                          for (int k = 0; k < userBadges.length; k++) {
-                            for (int j = 0; j < fetchedBadges.length; j++) {
-                              if (userBadges[k].getBadgeId ==
-                                  fetchedBadges[j].getBadgeId) {
-                                isThere = true;
+                            for (int k = 0; k < userBadges.length; k++) {
+                              for (int j = 0; j < fetchedBadges.length; j++) {
+                                if (userBadges[k].getBadgeId ==
+                                    fetchedBadges[j].getBadgeId) {
+                                  isThere = true;
 
+                                  break;
+                                }
+                              }
+                              if (isThere == false) {
+                                await UserBadges.addUserBadge(
+                                  globals.getUser.getId,
+                                  fetchedBadges[index].getBadgeId,
+                                  1,
+                                  globals,
+                                );
                                 break;
                               }
                             }
-                            if (isThere == false) {
-                              await UserBadges.addUserBadge(
-                                globals.getUser.getId,
-                                fetchedBadges[index].getBadgeId,
-                                1,
-                                globals,
-                              );
-                              break;
-                            }
-                            try {} catch (e) {
-                              log(e.toString());
-                            }
+                          } catch (e) {
+                            log(e.toString());
                           }
 
                           setState(() {
