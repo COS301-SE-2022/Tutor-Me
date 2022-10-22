@@ -133,7 +133,7 @@ I am a self-motivated individual who has worked on multiple projects as a Busine
 # [Farai Chivunga](https://github.com/FaraiQC) (Developer Operations Lead)
 - LinkedIn:  <a href="https://linkedin.com/in/farai-chivunga-17a173188" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="farai-chivunga-17a173188" height="30" width="40" /></a>
 
-I am a hardworker and I am able to learn new technologies quickly. A team player with excellent communication skills. I find joy in finding inovative ways to solve problems and I am highly motivated. I have worked on projects as a backend (service) engineer and head of developer operations. I am confident with coding in Java, C++, Python, Flutter(Dart), Javascript and Typescript. I have worked on projects where we used AngularJS with NestJS as a backend, and I have worked in a project where  we used Flutter and Dart for our frontend, ASP.net core for our backend and MicrosoftSQL Server for our Database.
+I am a hardworker and I am able to learn new technologies quickly. A team player with excellent communication skills. I find joy in finding inovative ways to solve problems and I am highly motivated. I have worked on projects as a backend (service) engineer and head of developer operations with different technology stacks and programming languages. I am a genuine believer in the fact that if you put in the work, it will work out. I know that everyone can be great at their best, so I always try to do my best even when I am not at my best which differentiates me from the rest.
 
  ![GitHub Stats](https://github-readme-stats.vercel.app/api?username=FaraiQC&theme=highcontrast)
  
