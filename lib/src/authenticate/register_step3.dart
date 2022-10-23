@@ -15,6 +15,7 @@ import 'package:tutor_me/src/tutorVerifyShowcase/tutor_page.dart';
 // import '../../services/models/tutees.dart';
 import '../../services/models/badges.dart';
 import '../../services/models/user_badges.dart';
+import '../../services/models/users.dart';
 import '../../services/services/user_services.dart';
 import '../components.dart';
 import '../tutee_page.dart';
@@ -57,8 +58,10 @@ class _RegisterStep3State extends State<RegisterStep3> {
   late Globals globals;
   int currentStep = 2;
   String institutionIdToPassIn = '';
+  String userTypeId = '';
 
   register(String passedinInstitution) async {
+    print('typeID '+ userTypeId);
     if (widget.toRegister == "Tutor") {
       try {
         globals = await UserServices.registerTutor(
@@ -70,6 +73,7 @@ class _RegisterStep3State extends State<RegisterStep3> {
             widget.password,
             passedinInstitution,
             widget.confirmPassword,
+            userTypeId,
             yearLvl!);
 
         globals.setPassword = widget.password;
@@ -156,9 +160,10 @@ class _RegisterStep3State extends State<RegisterStep3> {
             widget.password,
             passedinInstitution,
             widget.confirmPassword,
+            userTypeId,
             yearLvl!);
 
-            globals.setPassword = widget.password;
+        globals.setPassword = widget.password;
 
         final globalJson = json.encode(globals.toJson());
         SharedPreferences preferences = await SharedPreferences.getInstance();
@@ -203,6 +208,23 @@ class _RegisterStep3State extends State<RegisterStep3> {
   List items = List<String>.empty(growable: true);
   List<Institutions> institutions = List<Institutions>.empty();
 
+  getUserTypes() async {
+    try {
+      final userTypes = await UserServices.getAllUserTypes();
+
+      for (var userType in userTypes) {
+        if (userType.getType == widget.toRegister) {
+          userTypeId = userType.getId;
+          break;
+        }
+      }
+    } catch (e) {
+      const snackBar = SnackBar(content: Text('error loading'));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
+    getInstitutions();
+  }
+
   getInstitutions() async {
     try {
       final insitutionlist = await InstitutionServices.getInstitutions();
@@ -235,7 +257,7 @@ class _RegisterStep3State extends State<RegisterStep3> {
   @override
   void initState() {
     super.initState();
-    getInstitutions();
+    getUserTypes();
   }
 
   @override

@@ -4,8 +4,8 @@ import 'badges.dart';
 
 class Globals {
   late Users _user;
-  String _filesUrl = 'tutormefilesystem-dev.us-east-1.elasticbeanstalk.com';
-  String _tutorMeUrl = 'tutormeapi-dev.us-east-1.elasticbeanstalk.com';
+  String _filesUrl = 'filesystem-dev.us-east-1.elasticbeanstalk.com';
+  String _tutorMeUrl = 'tutorme-dev.us-east-1.elasticbeanstalk.com';
   String _token = 'Bearer ';
   String _refreshToken = '';
   List<Badge> badges = [];
@@ -64,8 +64,8 @@ class Globals {
     this.password = password;
   }
 
-  getAllBadges()async{
-      badges = await BadgesServices.getAllBages(this);
+  getAllBadges() async {
+    badges = await BadgesServices.getAllBages(this);
   }
 
   Globals.fromJson(Map<String, dynamic> json) {

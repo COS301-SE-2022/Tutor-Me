@@ -40,6 +40,24 @@ class _LoginState extends State<Login> {
 
   bool isLoading = false;
   int? initialIndex = 0;
+  String userTypeId = '';
+
+  getUserTypes() async {
+    try {
+      final userTypes = await UserServices.getAllUserTypes();
+
+      for (var userType in userTypes) {
+        if (userType.getType == toRegister) {
+          userTypeId = userType.getId;
+          break;
+        }
+      }
+    } catch (e) {
+      const snackBar = SnackBar(content: Text('error loading'));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     double widthOfScreen = MediaQuery.of(context).size.width;
@@ -214,11 +232,12 @@ class _LoginState extends State<Login> {
                         },
                       );
                     } else {
+                      getUserTypes();
                       if (toRegister == "Tutor") {
                         try {
                           // TutorServices tutor = TutorServices.Login(
                           globals = await UserServices.logInTutor(
-                              emailController.text, passwordController.text);
+                              emailController.text, passwordController.text, userTypeId);
 
                           globals.setPassword = passwordController.text;
 
@@ -234,7 +253,7 @@ class _LoginState extends State<Login> {
                             MaterialPageRoute(
                                 builder: (context) =>
                                     TutorPage(globals: globals)),
-                                    ((route) => false),
+                            ((route) => false),
                           );
 
                           //Get num of connections
@@ -422,7 +441,7 @@ class _LoginState extends State<Login> {
                         try {
                           // TutorServices tutor = TutorServices.Login(
                           globals = await UserServices.logInTutee(
-                              emailController.text, passwordController.text);
+                              emailController.text, passwordController.text, userTypeId);
                           globals.setPassword = passwordController.text;
 
                           final globalJson = json.encode(globals.toJson());
@@ -433,11 +452,9 @@ class _LoginState extends State<Login> {
                           Navigator.pushAndRemoveUntil(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>
-                                    TuteePage(globals: globals),
-                                    
-                                    ),
-                                    (route) => false,
+                              builder: (context) => TuteePage(globals: globals),
+                            ),
+                            (route) => false,
                           );
 
                           List<Badge> fetchedBadges =
