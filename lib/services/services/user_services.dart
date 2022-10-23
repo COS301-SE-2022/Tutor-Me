@@ -1147,6 +1147,7 @@ class UserServices {
 
     try {
       final response = await http.get(tuteeURL, headers: global.getHeader);
+  
       if (response.statusCode == 200) {
         final image = response.body;
         List<String> imageList = image.split('"');

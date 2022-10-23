@@ -51,7 +51,7 @@ class UpcomingState extends State<Upcoming> {
       final incomingEvents = await EventServices.getEventsByUserId(
           widget.globals.getUser.getId, widget.globals);
       events = incomingEvents;
-      if (widget.globals.getUser.getUserTypeID[0] == '7') {
+      if (widget.globals.getUser.getUserTypeID[0] == '5') {
         events.removeWhere(
             (event) => event.getOwnerId == widget.globals.getUser.getId);
       }

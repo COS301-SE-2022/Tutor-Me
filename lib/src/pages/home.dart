@@ -174,24 +174,19 @@ class _HomeState extends State<Home> {
   SharedPreferences? prefs;
 
   void getUserType() async {
-    if (widget.globals.getUser.getUserTypeID[0] == '9') {
-      setState(() {
-        typeUser = 'Tutor';
-        bookingsText = 'Single Bookings';
-      });
-    } else {
-      setState(() {
-        typeUser = 'Tutee';
-        bookingsText = 'Book a Tutor ';
-      });
-    }
+    final fetchedUserType = await UserServices.getUserType(
+        widget.globals.getUser.getUserTypeID, widget.globals);
 
+
+    userType = fetchedUserType;
+
+    typeUser = userType.getType;
     getConnections();
   }
 
   void getGroupCount() async {
     try {
-      if (widget.globals.getUser.getUserTypeID[0] == '9') {
+      if (widget.globals.getUser.getUserTypeID[0] == '7') {
         groups = await GroupServices.getTutorGroupByUserID(
             widget.globals.getUser.getId, widget.globals);
       } else {
@@ -280,7 +275,6 @@ class _HomeState extends State<Home> {
           4;
 
       average *= 10;
-
 
       isLoading = false;
       isImageLoading = false;
@@ -392,7 +386,7 @@ class _HomeState extends State<Home> {
     ];
     List<String> titles;
 
-    if (widget.globals.getUser.getUserTypeID[0] == '9') {
+    if (widget.globals.getUser.getUserTypeID[0] == '7') {
       titles = [
         "Bookings",
         "Groups",
@@ -489,8 +483,8 @@ class _HomeState extends State<Home> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Padding(
-                      padding: EdgeInsets.all(
-                          MediaQuery.of(context).size.height * 0.01),
+                      padding: EdgeInsets.only(top:
+                          MediaQuery.of(context).size.height * 0.01, bottom:  MediaQuery.of(context).size.height * 0.009),
                       child: Text(
                         fullName,
                         style: TextStyle(
@@ -504,7 +498,7 @@ class _HomeState extends State<Home> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          " " + typeUser,
+                          typeUser,
                           style: TextStyle(
                             color: highlightColor,
                             fontSize: MediaQuery.of(context).size.height * 0.02,
@@ -553,7 +547,7 @@ class _HomeState extends State<Home> {
               Row(
                 children: [
                   Text(
-                    average.toString()+'%',
+                    average.toString() + '%',
                     style: TextStyle(
                       color: colorLightGreen,
                       fontSize: screenHeightSize * 0.03,
@@ -601,12 +595,12 @@ class _HomeState extends State<Home> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => WoahFactor(
-                          meetings: prefs?.getInt('meetingCount') ?? 0,
-                          connections: numConnections,
-                          interactions: prefs?.getInt('interactionCount') ?? 0,
-                          ratings: ratings,
-                          average: average,
-                          ),
+                        meetings: prefs?.getInt('meetingCount') ?? 0,
+                        connections: numConnections,
+                        interactions: prefs?.getInt('interactionCount') ?? 0,
+                        ratings: ratings,
+                        average: average,
+                      ),
                     ),
                   );
                 },
@@ -666,7 +660,7 @@ class _HomeState extends State<Home> {
                       } else if (index == 1) {
                         //render Groups Page
 
-                        if (widget.globals.getUser.getUserTypeID[0] == '9') {
+                        if (widget.globals.getUser.getUserTypeID[0] == '7') {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
