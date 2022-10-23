@@ -320,6 +320,22 @@ class UserServices {
     }
   }
 
+  static Future getAllUserTypes() async {
+    Globals tempGlobals = Globals(null, '', '');
+    Uri userURL = Uri.http(tempGlobals.getTutorMeUrl, '/api/UserTypes');
+    try {
+      final response = await http.get(userURL, headers: tempGlobals.getHeader);
+      if (response.statusCode == 200) {
+        final List list = json.decode(response.body);
+        return list.map((json) => UserType.fromObject(json)).toList();
+      } else {
+        throw Exception('Failed to load' + response.statusCode.toString());
+      }
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
   static getTutors(Globals global) async {
     Uri tutorURL = Uri.http(global.getTutorMeUrl, '/api/Users/tutors');
     try {
@@ -384,6 +400,7 @@ class UserServices {
       String password,
       String institution,
       String confirmPassword,
+      String userTypeId,
       String year) async {
     Globals tempGlobals = Globals(null, '', '');
 
@@ -400,7 +417,7 @@ class UserServices {
       'gender': gender,
       'email': email,
       'password': password,
-      'userTypeID': "98CA5264-1266-4158-82B6-5DE7FDD03599",
+      'userTypeID': userTypeId,
       'institutionId': institution,
       'location': "No Location added",
       'bio': "No bio added",
@@ -419,7 +436,7 @@ class UserServices {
       final response = await http.post(modulesURL, headers: header, body: data);
       log(response.statusCode.toString());
       if (response.statusCode == 200) {
-        final global = await logInTutor(email, password);
+        final global = await logInTutor(email, password, userTypeId);
 
         return global;
       } else {
@@ -439,6 +456,7 @@ class UserServices {
       String password,
       String institution,
       String confirmPassword,
+      String userTypeId,
       String year) async {
     Globals tempGlobals = Globals(null, '', '');
 
@@ -455,7 +473,7 @@ class UserServices {
       'gender': gender,
       'email': email,
       'password': password,
-      'userTypeID': "759FC22F-74EC-4852-9648-88878CA70983",
+      'userTypeID': userTypeId,
       'institutionId': institution,
       'location': "No Location added",
       'bio': "No bio added",
@@ -474,7 +492,7 @@ class UserServices {
       final response = await http.post(modulesURL, headers: header, body: data);
       log(response.statusCode.toString());
       if (response.statusCode == 200) {
-        final global = await logInTutee(email, password);
+        final global = await logInTutee(email, password, userTypeId);
 
         return global;
       } else {
@@ -528,8 +546,6 @@ class UserServices {
           'http://${global.getTutorMeUrl}/api/Users/rating/$id?rating=$newRating&numberOfReviews=$numReviews');
 
       final response = await http.put(uri, headers: global.getHeader);
-
-
 
       if (response.statusCode == 200) {
         return true;
@@ -744,12 +760,12 @@ class UserServices {
   //   }
   // }
 
-  static logInTutor(String email, String password) async {
+  static logInTutor(String email, String password, String userTypeID) async {
     // password = hashPassword(password);
     String data = jsonEncode({
       'email': email,
       'password': password,
-      'typeId': '98CA5264-1266-4158-82B6-5DE7FDD03599'
+      'typeId': userTypeID,
     });
     final header = <String, String>{
       'Content-Type': 'application/json; charset=utf-8',
@@ -940,12 +956,9 @@ class UserServices {
     }
   }
 
-  static logInTutee(String email, String password) async {
-    String data = jsonEncode({
-      'email': email,
-      'password': password,
-      'typeId': '759FC22F-74EC-4852-9648-88878CA70983'
-    });
+  static logInTutee(String email, String password, String userTypeID) async {
+    String data = jsonEncode(
+        {'email': email, 'password': password, 'typeId': userTypeID});
     final header = <String, String>{
       'Content-Type': 'application/json; charset=utf-8',
     };
