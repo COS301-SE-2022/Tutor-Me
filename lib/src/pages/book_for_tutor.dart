@@ -34,7 +34,7 @@ class _BookForTutorState extends State<BookForTutor> {
           widget.globals.getUser.getId, widget.globals);
       events = incomingEvents;
 
-      if (widget.globals.getUser.getUserTypeID[0] == '9') {
+      if (widget.globals.getUser.getUserTypeID[0] == '7') {
         events.removeWhere(
             (event) => event.getOwnerId == widget.globals.getUser.getId);
       }

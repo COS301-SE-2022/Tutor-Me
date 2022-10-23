@@ -1116,11 +1116,13 @@ class UserServices {
   // }
 
   static Future getTutorProfileImage(String id, Globals global) async {
+    print('ggg ' + global.getPassword);
     Uri tuteeURL = Uri.parse(
         'http://${global.getFilesUrl}/api/Userfiles/image/$id?username=${global.getUser.getEmail}&password=${global.getPassword}&typeId=${global.getUser.getUserTypeID}');
 
     try {
       final response = await http.get(tuteeURL, headers: global.getHeader);
+      print(response.body);
       if (response.statusCode == 200) {
         final image = response.body;
         List<String> imageList = image.split('"');
@@ -1142,11 +1144,14 @@ class UserServices {
   }
 
   static Future getTuteeProfileImage(String id, Globals global) async {
+    print('ggg ' + global.getPassword);
     Uri tuteeURL = Uri.parse(
         'http://${global.getFilesUrl}/api/Userfiles/image/$id?username=${global.getUser.getEmail}&password=${global.getPassword}&typeId=${global.getUser.getUserTypeID}');
 
     try {
       final response = await http.get(tuteeURL, headers: global.getHeader);
+      print('res' + response.statusCode.toString());
+      print(response.body);
       if (response.statusCode == 200) {
         final image = response.body;
         List<String> imageList = image.split('"');

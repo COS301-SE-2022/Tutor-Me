@@ -22,7 +22,7 @@ class _CalendarState extends State<Calendar> {
   int currentIndex = 0;
 
   getScreens() {
-    if (widget.globals.getUser.getUserTypeID[0] == '9') {
+    if (widget.globals.getUser.getUserTypeID[0] == '7') {
       return [
         Upcoming(
           globals: widget.globals,
