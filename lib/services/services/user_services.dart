@@ -406,7 +406,6 @@ class UserServices {
 
     final modulesURL =
         Uri.parse('http://${tempGlobals.getTutorMeUrl}/api/Users/');
-    print(userTypeId);
 
     // password = hashPassword(password);
     String data = jsonEncode({

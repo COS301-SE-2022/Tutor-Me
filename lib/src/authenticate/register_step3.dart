@@ -15,7 +15,6 @@ import 'package:tutor_me/src/tutorVerifyShowcase/tutor_page.dart';
 // import '../../services/models/tutees.dart';
 import '../../services/models/badges.dart';
 import '../../services/models/user_badges.dart';
-import '../../services/models/users.dart';
 import '../../services/services/user_services.dart';
 import '../components.dart';
 import '../tutee_page.dart';
@@ -61,7 +60,6 @@ class _RegisterStep3State extends State<RegisterStep3> {
   String userTypeId = '';
 
   register(String passedinInstitution) async {
-    print('typeID '+ userTypeId);
     if (widget.toRegister == "Tutor") {
       try {
         globals = await UserServices.registerTutor(
