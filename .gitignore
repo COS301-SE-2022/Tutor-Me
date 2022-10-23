@@ -53,5 +53,6 @@ APIs/TutorMe/TutorMe/appsettings.json
 /APIs/**/.vs
 /APIs/**/obj
 /APIs/**/bin
+APIs/TutorMe/Tests/IntegrationTests/
 
 
