@@ -333,7 +333,7 @@ class AdminServices {
     String data = jsonEncode({
       'email': email,
       'password': password,
-      'typeId': 'D90C0C27-82DE-4ABA-ACCB-A177D476F5C4'
+      'typeId': '831F6909-D840-4959-B469-BF62DDA11C06'
     });
     final header = <String, String>{
       'Content-Type': 'application/json; charset=utf-8',
