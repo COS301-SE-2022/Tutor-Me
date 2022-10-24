@@ -41,7 +41,7 @@ modules or subjects,
 - Video calling functionality in-app to allow students to virtually meet After implementing these core functionalities of this project, we would start looking at
 additional functionalities like filtering tutors by gender to enable students to choose someone that they are comfortable with. We would also look into implementing a dark mode of the app for users that prefer it over light mode. The project will be implemented as a cross platform mobile app for Android and iOS.
 
-## [Recorded Demo - Our application and Admin](https://drive.google.com/file/d/1GozxohuBHADH-jY3qYO_WgjtCS1Eem54/view?usp=sharing)
+# [Project Day Links and Documents]() 
 
 # Documents
 ## [Documents](https://github.com/COS301-SE-2022/Tutor-Me/wiki/Documents)
