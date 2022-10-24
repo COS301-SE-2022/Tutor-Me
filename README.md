@@ -57,16 +57,19 @@ additional functionalities like filtering tutors by gender to enable students to
 ## Contributors
 # [Kudakwashe Chivunga](https://github.com/Kuda214) (Team Lead)
 - LinkedIn:  <a href="https://linkedin.com/in/kudakwashe-christine-chivunga-7862981b5" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="kudakwashe-christine-chivunga-7862981b5" height="30" width="40" /></a>
+- Github: &nbsp; <a href="https://github.com/Kuda214" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/github.svg" alt="kudakwashe-christine-chivunga-7862981b5" height="30" width="40" /></a>
  
 I am a self-motivated individual who has worked on multiple projects as a Business analyst(BA) as well as Project manager, both including university of Pretoria projects as well as other company projects.These roles have allowed me to lead teams into successful completion of working systems that are well documented ,easy to revisit,maintain and deliver. Alongside these roles I have worked on multiple object oriented systems, web applications and mobile applications.
  
 # [Farai Chivunga](https://github.com/FaraiQC)
 - LinkedIn:  <a href="https://linkedin.com/in/farai-chivunga-17a173188" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="farai-chivunga-17a173188" height="30" width="40" /></a>
+- Github: &nbsp; <a href="https://github.com/FaraiQC" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/github.svg" alt="kudakwashe-christine-chivunga-7862981b5" height="30" width="40" /></a>
 
 I am a hard-worker and I am able to learn new technologies quickly. A team player with excellent communication skills. I find joy in finding innovative ways to solve problems and I am highly motivated. I have worked on projects as a backend (service) engineer and head of developer operations with different technology stacks and programming languages. I am a genuine believer in the fact that if you put in the work, it will work out. I know that everyone can be great at their best, so I always try to do my best even when I am not at my best which differentiates me from the rest.
  
 # [Simphiwe Ndlovu](https://github.com/SimphiweNdlovu) 
 - LinkedIn:  <a href="https://linkedin.com/in/simphiwe-ndlovu-819b68163" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="simphiwe-ndlovu-819b68163" height="30" width="40" /></a>
+- Github: &nbsp; <a href="https://github.com/SimphiweNdlovu" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/github.svg" alt="kudakwashe-christine-chivunga-7862981b5" height="30" width="40" /></a>
 
 Good with research, experienced tester and has great knowledge with DevOps. Experienced in design patterns, object-oriented programming; developing, testing,
 and debugging code; designing interfaces and administering systems and networks. Quickly learn new technologies; successful working in both team and self-directed
@@ -74,6 +77,7 @@ settings.
  
 # [Thabo Maduna](https://github.com/MadunaThabo)
 - LinkedIn:  <a href="https://linkedin.com/in/thabo-maduna" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="thabo-maduna" height="30" width="40" /></a>
+- Github: &nbsp; <a href="https://github.com/MadunaThabo" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/github.svg" alt="kudakwashe-christine-chivunga-7862981b5" height="30" width="40" /></a>
 
 I am good experience with backend programming, research on algorithms also can work on NestJS with Typescript/javascript, etc.Through my year here at the
 University of Pretoria I haven also gathered basic knowledge on database and frontend programming technologies which will come in handy for this project. I am
@@ -82,6 +86,7 @@ may be considered as my shortcoming since learning a lot of things at the same t
 
 # [Musa Mabasa](https://github.com/Musa-Mabasa)
 - LinkedIn:  <a href="https://www.linkedin.com/in/musa-besmond-mabasa-7b4aa322a" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="musa-besmond-mabasa-7b4aa322a" height="30" width="40" /></a>
+- Github: &nbsp; <a href="https://github.com/Musa-Mabasa" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/github.svg" alt="kudakwashe-christine-chivunga-7862981b5" height="30" width="40" /></a>
 
 I am determined and I have a drive to build and create software systems since I believe that software systems are the backbone of the economy and the general
 public. I believe I have a well balanced knowledge of backend development and front-end development, this includes designing of interfaces and server management
