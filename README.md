@@ -47,8 +47,10 @@ additional functionalities like filtering tutors by gender to enable students to
 ## Applications
 <p align="center"> 
 	<img align="left" alt="Android App" src="https://github.com/COS301-SE-2022/Tutor-Me/blob/develop/assets/Pictures/TutorMe%20apk.png" width="200" height="200">
-</p><br> <br>
+</p>
+<br> <br>
 <br> <br><br> <br><br> <br><br> <br>
+<p> One can install our application by simply scaning this QR code. A download pop up will be shown in which the user can </p>
 
 ## Contributors
 # [Kudakwashe Chivunga](https://github.com/Kuda214) (Team Lead And Front-end engineer)
