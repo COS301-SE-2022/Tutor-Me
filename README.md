@@ -50,7 +50,7 @@ additional functionalities like filtering tutors by gender to enable students to
 </p>
 <br> <br>
 <br> <br><br> <br><br> <br><br> <br>
-<p> One can install our application by simply scaning this QR code. A download pop up will be shown in which the user can </p>
+<p> One can install our application by simply scaning this QR code. A download pop up will be shown in which the users can click to download</p>
 
 ## Contributors
 # [Kudakwashe Chivunga](https://github.com/Kuda214) (Team Lead And Front-end engineer)
