@@ -116,8 +116,8 @@ class AdminServices {
       'gender': "M",
       'email': email,
       'password': password,
-      'userTypeID': "475ED4B3-D159-4FDF-B6D1-D37C14AB8A60",
-      'institutionId': "100df4b2-6f8d-440d-9033-93a1efed1533",
+      'userTypeID': "A29C0734-AEC9-4ED0-957B-01F2CAEF7169",
+      'institutionId': "AFA82AE1-2902-49B7-ADB1-83ACA065825D",
       'location': "No Location added",
       'bio': "No bio added",
       'year': "1",
@@ -300,7 +300,7 @@ class AdminServices {
     String data = jsonEncode({
       'email': email,
       'password': password,
-      'typeId': '475ED4B3-D159-4FDF-B6D1-D37C14AB8A60'
+      'typeId': 'A29C0734-AEC9-4ED0-957B-01F2CAEF7169'
     });
     final header = <String, String>{
       'Content-Type': 'application/json; charset=utf-8',
@@ -333,7 +333,7 @@ class AdminServices {
     String data = jsonEncode({
       'email': email,
       'password': password,
-      'typeId': '033CF7DF-33E7-49D3-A91B-82EBF7C612B0'
+      'typeId': '831F6909-D840-4959-B469-BF62DDA11C06'
     });
     final header = <String, String>{
       'Content-Type': 'application/json; charset=utf-8',
