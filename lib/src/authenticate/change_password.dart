@@ -6,8 +6,6 @@ import 'package:tutor_me/src/authenticate/login.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import '../../services/services/user_services.dart';
 import '../components.dart';
-import '../tutee_page.dart';
-import '../tutor_page.dart';
 
 class ChangePassword extends StatefulWidget {
   final email;

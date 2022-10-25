@@ -3,13 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tutor_me/services/models/modules.dart';
-import 'package:tutor_me/src/Groups/tutor_group.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:videosdk/rtc.dart';
 import '../services/models/globals.dart';
 import '../services/models/groups.dart';
 import '../services/services/group_services.dart';
-import '../src/authenticate/register_step1.dart';
 import '/screens/chat_screen.dart';
 
 import '../../navigator_key.dart';
@@ -17,7 +15,6 @@ import '../utils/spacer.dart';
 import '../utils/toast.dart';
 import '../widgets/meeting_controls/meeting_action_bar.dart';
 import '../widgets/participant_grid_view/participant_grid_view.dart';
-import 'startup_screen.dart';
 
 import 'package:provider/provider.dart';
 import 'package:tutor_me/src/theme/themes.dart';
