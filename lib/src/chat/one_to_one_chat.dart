@@ -91,7 +91,7 @@ class ChatState extends State<Chat> {
       appBar: AppBar(
         backgroundColor: colorBlueTeal,
         title: InkWell(
-          onTap: widget.reciever.getUserTypeID[0] == '9'
+          onTap: widget.reciever.getUserTypeID[0] == '7'
               ? () {
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (BuildContext context) => TutorProfilePageView(
