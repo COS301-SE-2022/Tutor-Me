@@ -68,6 +68,7 @@ class _BookingCalenderState extends State<BookingCalender> {
   DateTime mySelectedDay = DateTime.now();
   DateTime myFocusedDay = DateTime.now();
   DateTime time = DateTime.now();
+  TimeOfDay timeofDay = const TimeOfDay(hour: 0, minute: 0);
 
   TextEditingController meetingController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
@@ -312,11 +313,32 @@ class _BookingCalenderState extends State<BookingCalender> {
                               decoration: const InputDecoration(
                                   labelText: 'Meeting Description'),
                             ),
-                            TextFormField(
-                              controller: timeController,
-                              decoration: const InputDecoration(
-                                  labelText: 'Meeting Time'),
+                            SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.02,
                             ),
+                            Row(
+                              children: [
+                                ElevatedButton(
+                                    onPressed: (() async {
+                                      TimeOfDay? newTime = await showTimePicker(
+                                        context: context,
+                                        initialTime: timeofDay,
+                                      );
+
+                                      if (newTime == null) return;
+
+                                      setState(() {
+                                        timeofDay = newTime;
+                                      });
+                                    }),
+                                    child: const Text('Time')),
+                              ],
+                            )
+                            // TextFormField(
+                            //   controller: timeController,
+                            //   decoration: const InputDecoration(
+                            //       labelText: 'Meeting Time'),
+                            // ),
                           ],
                         ),
                       ),
@@ -351,7 +373,7 @@ class _BookingCalenderState extends State<BookingCalender> {
                                 DateTime(mySelectedDay.year,
                                         mySelectedDay.month, mySelectedDay.day)
                                     .toString(),
-                                timeController.text,
+                                timeofDay.format(context),
                                 "",
                                 "",
                                 "",
@@ -365,7 +387,7 @@ class _BookingCalenderState extends State<BookingCalender> {
                                     meetingController.text,
                                     descriptionController.text,
                                     mySelectedDay.toString(),
-                                    timeController.text,
+                                    timeofDay.format(context),
                                     widget.globals.getUser.getId,
                                     "",
                                     "",
@@ -383,7 +405,7 @@ class _BookingCalenderState extends State<BookingCalender> {
                                           mySelectedDay.month,
                                           mySelectedDay.day)
                                       .toString(),
-                                  time.toString(),
+                                  timeofDay.format(context),
                                   "",
                                   "",
                                   "",
@@ -399,7 +421,7 @@ class _BookingCalenderState extends State<BookingCalender> {
                                     meetingController.text,
                                     descriptionController.text,
                                     mySelectedDay.toString(),
-                                    timeController.text,
+                                    timeofDay.format(context),
                                     "",
                                     "",
                                     "",

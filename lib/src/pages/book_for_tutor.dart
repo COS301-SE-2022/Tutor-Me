@@ -39,11 +39,12 @@ class _BookForTutorState extends State<BookForTutor> {
             (event) => event.getOwnerId == widget.globals.getUser.getId);
       }
     } catch (e) {
-      
       const snack = SnackBar(content: Text('Error loading events'));
       ScaffoldMessenger.of(context).showSnackBar(snack);
     }
-
+    if (widget.globals.getUser.getUserTypeID[0] == '7') {
+      getTutees();
+    }
     getTutors();
   }
 
@@ -63,7 +64,24 @@ class _BookForTutorState extends State<BookForTutor> {
     setState(() {
       isLoading = false;
     });
-    log('heree ' + events.length.toString());
+  }
+
+  getTutees() async {
+    try {
+      log('heree ' + events.length.toString());
+      for (int i = 0; i < events.length; i++) {
+        final incomingTutors =
+            await UserServices.getTutor(events[i].getOwnerId, widget.globals);
+        tutors.add(incomingTutors);
+      }
+    } catch (e) {
+      const snack = SnackBar(content: Text('Error loading tutors'));
+      ScaffoldMessenger.of(context).showSnackBar(snack);
+    }
+
+    setState(() {
+      isLoading = false;
+    });
   }
 
   @override
@@ -199,6 +217,7 @@ class _BookForTutorState extends State<BookForTutor> {
               SizedBox(
                 height: heightOfScreen * 0.06,
               ),
+              widget.globals.getUser.getUserTypeID[0] == '5'?
               SizedBox(
                 width: widthOfScreen * 0.9,
                 height: heightOfScreen * 0.08,
@@ -218,7 +237,8 @@ class _BookForTutorState extends State<BookForTutor> {
                     ),
                   ],
                 ),
-              ),
+              ):Container(),
+              widget.globals.getUser.getUserTypeID[0] == '5'?
               Padding(
                 padding: EdgeInsets.only(
                     left: MediaQuery.of(context).size.width * 0.05,
@@ -234,7 +254,8 @@ class _BookForTutorState extends State<BookForTutor> {
                     ),
                   ),
                 ),
-              ),
+              ): Container(),
+               widget.globals.getUser.getUserTypeID[0] == '5'?
               Padding(
                 padding: EdgeInsets.only(
                     left: MediaQuery.of(context).size.width * 0.05),
@@ -271,7 +292,7 @@ class _BookForTutorState extends State<BookForTutor> {
                     ),
                   ),
                 ),
-              )
+              ): Container()
             ]),
     );
   }

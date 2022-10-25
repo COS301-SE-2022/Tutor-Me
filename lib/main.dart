@@ -99,7 +99,7 @@ class MyAppState extends State<MyApp> {
                 "Access-Control-Allow-Origin": "*",
                 'Authorization': globals.getToken,
               };
-              if (globals.getUser.getUserTypeID[0] == '9') {
+              if (globals.getUser.getUserTypeID[0] == '7') {
                 return MaterialApp(
                   themeMode: themeProvider.themeMode,
                   debugShowCheckedModeBanner: false,

@@ -11,6 +11,7 @@ class UploadButton extends StatelessWidget {
   final String btnName;
   final IconData btnIcon;
   final Function() onPressed;
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -159,8 +160,9 @@ class TextInputField extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class PasswordInput extends StatelessWidget {
-  const PasswordInput({
+  PasswordInput({
     Key? key,
     required this.icon,
     required this.hint,
@@ -168,6 +170,8 @@ class PasswordInput extends StatelessWidget {
     required this.inputAction,
     required this.inputController,
     required this.inputFocus,
+    required this.obscureText,
+    required this.onPressed,
   }) : super(key: key);
 
   final IconData icon;
@@ -176,6 +180,8 @@ class PasswordInput extends StatelessWidget {
   final TextInputAction inputAction;
   final FocusNode inputFocus;
   final TextEditingController inputController;
+  bool obscureText;
+  Function() onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -199,19 +205,24 @@ class PasswordInput extends StatelessWidget {
             focusNode: inputFocus,
             controller: inputController,
             decoration: InputDecoration(
-              border: InputBorder.none,
-              prefixIcon: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: Icon(
-                  icon,
-                  size: 24,
-                  color: Colors.white,
+                border: InputBorder.none,
+                prefixIcon: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: Icon(
+                    icon,
+                    size: 24,
+                    color: Colors.white,
+                  ),
                 ),
-              ),
-              hintText: hint,
-              hintStyle: const TextStyle(color: Colors.white),
-            ),
-            obscureText: true,
+                hintText: hint,
+                hintStyle: const TextStyle(color: Colors.white),
+                suffixIcon: IconButton(
+                  onPressed: onPressed,
+                  icon: Icon(
+                      obscureText ? Icons.visibility_off : Icons.visibility, color: colorWhite,),
+                      
+                )),
+            obscureText: obscureText,
             style: const TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.normal,

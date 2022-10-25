@@ -41,6 +41,8 @@ class _LoginState extends State<Login> {
   bool isLoading = false;
   int? initialIndex = 0;
   String userTypeId = '';
+  bool obscureText = true;
+
 
   getUserTypes() async {
     try {
@@ -171,6 +173,14 @@ class _LoginState extends State<Login> {
                       inputType: TextInputType.text,
                       inputController: passwordController,
                       inputFocus: passwordFocusNode,
+                      obscureText: obscureText,
+                      onPressed: () {
+                        setState(() {
+                          obscureText = !obscureText;
+                        });
+                      },
+
+
                     ),
                   ),
                 ],

@@ -981,6 +981,26 @@ class UserServices {
     }
   }
 
+  static forgotPassword(String email, String password)async{
+    Globals tempGlobals = Globals(null, '', '');
+   final url = Uri.parse('http://${tempGlobals.getTutorMeUrl}/api/Authentication/password/$email');
+
+    String data = jsonEncode({'email': email, 'password': password});
+
+    try{
+      final response = await http.put(url, headers: tempGlobals.getHeader, body: data);
+      if(response.statusCode == 200){
+        return true;
+      }else{
+        throw Exception('Failed to reset password');
+      }
+
+  }
+  catch(e){
+    rethrow;
+  }
+  }
+
   static getTutorByEmail(String email, Globals global) async {
     List<Users> tutors = await getTutors(global);
     late Users tutor;

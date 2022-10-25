@@ -405,6 +405,8 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                                 await GroupServices.updateGroupVideoId(
                                     _meetingID, widget.group, widget.globals);
 
+                                    
+
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
@@ -414,6 +416,7 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                                         displayName: "Tutor",
                                         group: widget.group,
                                         globals: widget.globals,
+                                        module: widget.module,
                                       ),
                                     ));
                                 List<Badge> fetchedBadges =

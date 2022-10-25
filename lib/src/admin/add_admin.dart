@@ -25,6 +25,8 @@ class AddAdminState extends State<AddAdmin> {
   final TextEditingController passwordcontroller = TextEditingController();
   final TextEditingController confirmpasswordcontroller =
       TextEditingController();
+      bool obscureText = true;
+  bool confirmObscureText = true;
 
   bool isLoading = false;
   @override
@@ -110,6 +112,12 @@ class AddAdminState extends State<AddAdmin> {
                       inputType: TextInputType.text,
                       inputController: passwordcontroller,
                       inputFocus: passwordFocusNode,
+                       obscureText: obscureText,
+                    onPressed: () {
+                      setState(() {
+                        obscureText = !obscureText;
+                      });
+                    },
                     ),
                   ),
                   SizedBox(
@@ -121,6 +129,12 @@ class AddAdminState extends State<AddAdmin> {
                       inputType: TextInputType.text,
                       inputController: confirmpasswordcontroller,
                       inputFocus: confirmpasswordFocusNode,
+                       obscureText: confirmObscureText,
+                    onPressed: () {
+                      setState(() {
+                        confirmObscureText = !confirmObscureText;
+                      });
+                    },
                     ),
                   ),
                 ],
