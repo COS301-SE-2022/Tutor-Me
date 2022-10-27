@@ -230,7 +230,6 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
               setState(() {
                 isSaveLoading = true;
               });
-              Uint8List newImage = widget.image;
               if (image != null) {
                 try {
                   await UserServices.updateProfileImage(

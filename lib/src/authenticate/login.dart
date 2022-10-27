@@ -17,7 +17,6 @@ import '../components.dart';
 import '../tutor_page.dart';
 import '../tutee_page.dart';
 import 'forgot_password.dart';
-import '../admin/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Login extends StatefulWidget {
