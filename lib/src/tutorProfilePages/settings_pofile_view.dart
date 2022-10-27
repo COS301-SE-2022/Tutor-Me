@@ -49,8 +49,6 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
   bool _isLoading = true;
 
   getCurrentModules() async {
-    numTutees = 2;
-    numConnections = 3;
     try {
       final currentModulesList = await ModuleServices.getUserModules(
           widget.globals.getUser.getId, widget.globals);
@@ -73,21 +71,22 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
 
       institution = tempInstitution;
       log(currentModules.length.toString());
-      setState(() {
-        _isLoading = false;
-      });
+      
     } catch (e) {
       const snackBar = SnackBar(content: Text('Error loading'));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
+    getConnections();
   }
+
   void getConnections() async {
     try {
-      final tutors = await UserServices.getConnections(widget.globals.getUser.getId,
-          widget.globals.getUser.getUserTypeID, widget.globals);
+      final tutors = await UserServices.getConnections(
+          widget.globals.getUser.getId,
+          widget.globals.getUser.getUserTypeID,
+          widget.globals);
 
-          numTutees = tutors.length;
-     
+      numTutees = tutors.length;
 
       setState(() {
         _isLoading = false;
@@ -106,8 +105,6 @@ class _TutorSettingsProfileViewState extends State<TutorSettingsProfileView> {
     super.initState();
 
     getCurrentModules();
-    // numConnections = getNumConnections();
-    // numTutees = getNumTutees();
   }
 
   @override

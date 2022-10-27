@@ -17,6 +17,8 @@ class RegisterStep1 extends StatefulWidget {
 class _RegisterStep1State extends State<RegisterStep1> {
   String inputOTP = "";
   String errMsg = "";
+  bool obscureText = true;
+  bool confirmObscureText = true;
   EmailAuth emailAuth = EmailAuth(sessionName: "Tutor_Me");
   void sendOTP() async {
     var res = await emailAuth.sendOtp(
@@ -240,6 +242,12 @@ class _RegisterStep1State extends State<RegisterStep1> {
                   inputType: TextInputType.text,
                   inputController: passwordController,
                   inputFocus: passwordFocusNode,
+                   obscureText: obscureText,
+                    onPressed: () {
+                      setState(() {
+                        obscureText = !obscureText;
+                      });
+                    },
                 ),
               ),
               SizedBox(
@@ -251,6 +259,12 @@ class _RegisterStep1State extends State<RegisterStep1> {
                   inputType: TextInputType.text,
                   inputController: confirmPasswordController,
                   inputFocus: confirmPasswordFocusNode,
+                   obscureText: confirmObscureText,
+                    onPressed: () {
+                      setState(() {
+                        obscureText = !obscureText;
+                      });
+                    },
                 ),
               ),
               SizedBox(

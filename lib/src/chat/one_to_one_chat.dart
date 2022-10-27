@@ -91,7 +91,7 @@ class ChatState extends State<Chat> {
       appBar: AppBar(
         backgroundColor: colorBlueTeal,
         title: InkWell(
-          onTap: widget.reciever.getUserTypeID[0] == '9'
+          onTap: widget.reciever.getUserTypeID[0] == '7'
               ? () {
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (BuildContext context) => TutorProfilePageView(
@@ -160,7 +160,7 @@ class ChatState extends State<Chat> {
   //set url and configs
   final connection = HubConnectionBuilder()
       .withUrl(
-          'http://tutormechathub.us-east-1.elasticbeanstalk.com/chatHub',
+          'http://chatapplicationserver3-dev.us-east-1.elasticbeanstalk.com/chatHub',
           // 'http://192.168.42.155:500/chatHub',
           HttpConnectionOptions())
       .build();

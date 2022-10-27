@@ -2,12 +2,12 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:tutor_me/services/models/modules.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:videosdk/rtc.dart';
 import '../services/models/globals.dart';
 import '../services/models/groups.dart';
 import '../services/services/group_services.dart';
-import '../src/authenticate/register_step1.dart';
 import '/screens/chat_screen.dart';
 
 import '../../navigator_key.dart';
@@ -15,7 +15,6 @@ import '../utils/spacer.dart';
 import '../utils/toast.dart';
 import '../widgets/meeting_controls/meeting_action_bar.dart';
 import '../widgets/participant_grid_view/participant_grid_view.dart';
-import 'startup_screen.dart';
 
 import 'package:provider/provider.dart';
 import 'package:tutor_me/src/theme/themes.dart';
@@ -25,6 +24,7 @@ class MeetingScreen extends StatefulWidget {
   final String meetingId, token, displayName;
   final bool micEnabled, webcamEnabled, chatEnabled;
   final Groups? group;
+  final Modules? module;
   final Globals globals;
   const MeetingScreen({
     Key? key,
@@ -35,6 +35,7 @@ class MeetingScreen extends StatefulWidget {
     this.webcamEnabled = true,
     this.chatEnabled = true,
     this.group,
+    this.module,
     required this.globals,
   }) : super(key: key);
 
@@ -364,14 +365,7 @@ class _MeetingScreenState extends State<MeetingScreen> {
   void setMeetingListeners(Meeting meeting) {
     // Called when meeting is ended
     meeting.on(Events.meetingLeft, () {
-      Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-              builder: (context) => StartupScreen(
-                    globals: widget.globals,
-                    group: widget.group!,
-                  )),
-          (route) => false);
+     Navigator.pop(context);
     });
 
     // ignore: todo
@@ -381,12 +375,10 @@ class _MeetingScreenState extends State<MeetingScreen> {
     meeting.on(Events.recordingStarted, () async {
       toastMsg("Meeting recording started.");
 
-      if(widget.group != null){
+      if (widget.group != null) {
         await GroupServices.saveMeetingIdForGroup(
-          widget.meetingId, widget.group!.getId, widget.globals);
+            widget.meetingId, widget.group!.getId, widget.globals);
       }
-
-      
 
       setState(() {
         isRecordingOn = true;
@@ -546,7 +538,9 @@ class _MeetingScreenState extends State<MeetingScreen> {
   }
 
   void goToRegisterOrLogin(BuildContext context) {
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => const RegisterStep1()));
+    // Navigator.of(context)
+    //     .push(MaterialPageRoute(builder: (context) =>  TutorGroupPage(group: widget.group!,globals: widget.globals,module: widget.module!)));
+
+    Navigator.pop(context);
   }
 }

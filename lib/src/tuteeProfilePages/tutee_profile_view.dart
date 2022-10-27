@@ -361,7 +361,7 @@ class _TuteeProfilePageState extends State<TuteeProfilePageView> {
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
-              fontSize: MediaQuery.of(context).size.height * 0.05,
+              fontSize: MediaQuery.of(context).size.height * 0.025,
               color: textColor,
             ),
           ),

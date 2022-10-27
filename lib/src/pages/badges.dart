@@ -504,9 +504,10 @@ class _PageState extends State<Badges> {
                                                         color: textColor,
                                                         fontSize:
                                                             screenHeightSize *
-                                                                0.02,
+                                                                0.016,
                                                         fontWeight:
                                                             FontWeight.w500),
+                                                            overflow: TextOverflow.ellipsis,
                                                   ),
                                                 ),
                                               ),

@@ -19,6 +19,7 @@ class LoginAdminState extends State<LoginAdmin> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   late Globals global;
+  bool obscureText = true;
 
   bool isLoading = false;
   int? initialIndex = 0;
@@ -100,6 +101,12 @@ class LoginAdminState extends State<LoginAdmin> {
                         inputType: TextInputType.text,
                         inputController: passwordController,
                         inputFocus: passwordFocusNode,
+                        obscureText: obscureText,
+                        onPressed: () {
+                          setState(() {
+                            obscureText = !obscureText;
+                          });
+                        },
                       ),
                     ),
                     Container(
@@ -164,7 +171,7 @@ class LoginAdminState extends State<LoginAdmin> {
                                   emailController.text,
                                   passwordController.text);
 
-                                  global.setPassword = passwordController.text;
+                              global.setPassword = passwordController.text;
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(

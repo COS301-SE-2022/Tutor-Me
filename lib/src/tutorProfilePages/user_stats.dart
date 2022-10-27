@@ -100,7 +100,7 @@ class TutorUserStats extends StatelessWidget {
         buildButton(text: 'Rating', value: rating, color: secondaryTextColor),
         buildDivider(),
         buildButton(
-            text: '  Tutors', value: numTutees, color: secondaryTextColor),
+            text: '  Tutees', value: numTutees, color: secondaryTextColor),
        
       ],
     );

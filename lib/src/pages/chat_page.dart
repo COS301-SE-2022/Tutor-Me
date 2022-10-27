@@ -110,7 +110,7 @@ class _ChatPageState extends State<ChatPage> {
   //set url and configs
   final connection = HubConnectionBuilder()
       .withUrl(
-          'http://tutormechathub.us-east-1.elasticbeanstalk.com/chatHub',
+          'http://chatapplicationserver3-dev.us-east-1.elasticbeanstalk.com/chatHub',
           // 'http://192.168.42.155:500/chatHub',
           HttpConnectionOptions())
       .build();

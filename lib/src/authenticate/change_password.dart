@@ -2,11 +2,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:tutor_me/services/models/globals.dart';
+import 'package:tutor_me/src/authenticate/login.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import '../../services/services/user_services.dart';
 import '../components.dart';
-import '../tutee_page.dart';
-import '../tutor_page.dart';
 
 class ChangePassword extends StatefulWidget {
   final email;
@@ -26,6 +25,8 @@ class ChangePasswordState extends State<ChangePassword> {
   final TextEditingController newconfirmpasswordController =
       TextEditingController();
   late Globals globals;
+  bool obscureText = true;
+  bool confirmObscureText = true;
 
   bool isLoading = false;
   @override
@@ -93,6 +94,12 @@ class ChangePasswordState extends State<ChangePassword> {
                     inputType: TextInputType.text,
                     inputController: newpasswordController,
                     inputFocus: oldPasswordFocusNode,
+                    obscureText: obscureText,
+                    onPressed: () {
+                      setState(() {
+                        obscureText = !obscureText;
+                      });
+                    },
                   ),
                   PasswordInput(
                     icon: Icons.lock_clock_outlined,
@@ -101,6 +108,12 @@ class ChangePasswordState extends State<ChangePassword> {
                     inputType: TextInputType.text,
                     inputController: newconfirmpasswordController,
                     inputFocus: passwordFocusNode,
+                    obscureText: confirmObscureText,
+                    onPressed: () {
+                      setState(() {
+                        confirmObscureText = !confirmObscureText;
+                      });
+                    },
                   ),
                 ],
               ),
@@ -169,15 +182,22 @@ class ChangePasswordState extends State<ChangePassword> {
                       if (widget.toRegister == "Tutor") {
                         try {
                           // TutorServices tutor = TutorServices.Login(
-                          globals =
-                              await UserServices.getTutorByEmail(widget.email, globals);
-                          await UserServices.changePassword(newpasswordController.text, globals);
+                            
+                          await UserServices.forgotPassword(
+                              widget.email,
+                              newpasswordController.text);
                           Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>
-                                    TutorPage(globals: globals)),
+                                   const Login()),
                           );
+                          const snackBar = SnackBar(
+                              content: Text('Password Changed Successfully'),
+                              backgroundColor:colorGreen,
+                            );
+                            ScaffoldMessenger.of(context)
+                                          .showSnackBar(snackBar);
                         } catch (e) {
                           setState(() {
                             isLoading = false;
@@ -213,16 +233,21 @@ class ChangePasswordState extends State<ChangePassword> {
                         }
                       } else {
                         try {
-                          // TutorServices tutor = TutorServices.Login(
-                          globals =
-                              await UserServices.getTuteeByEmail(widget.email, globals);
-                          await UserServices.changePassword(newpasswordController.text, globals);
+                          await UserServices.forgotPassword(
+                              widget.email,
+                              newpasswordController.text);
                           Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>
-                                    TuteePage(globals: globals)),
+                                   const Login()),
                           );
+                          const snackBar = SnackBar(
+                              content: Text('Password Changed Successfully'),
+                              backgroundColor:colorGreen,
+                            );
+                            ScaffoldMessenger.of(context)
+                                          .showSnackBar(snackBar);
                         } catch (e) {
                           setState(() {
                             isLoading = false;
@@ -261,7 +286,7 @@ class ChangePasswordState extends State<ChangePassword> {
                   },
                   child: isLoading
                       ? const CircularProgressIndicator(color: Colors.white)
-                      : const Text("Login",
+                      : const Text("Done",
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
