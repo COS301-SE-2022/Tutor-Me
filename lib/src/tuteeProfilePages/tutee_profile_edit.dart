@@ -39,8 +39,26 @@ class _TuteeProfileEditState extends State<TuteeProfileEdit> {
   final nameController = TextEditingController();
   final bioController = TextEditingController();
   File? image;
+  Uint8List? tuteeImage;
+  bool doesUserImageExist = false;
   bool isImagePicked = false;
   bool isSaveLoading = false;
+
+  getTuteeProfileImage() async {
+    try {
+      final image = await UserServices.getTuteeProfileImage(
+          widget.globals.getUser.getId, widget.globals);
+
+      setState(() {
+        tuteeImage = image;
+        doesUserImageExist = true;
+      });
+    } catch (e) {
+      setState(() {
+        tuteeImage = Uint8List(128);
+      });
+    }
+  }
 
   Future pickImage(ImageSource source) async {
     final image = await ImagePicker().pickImage(source: source);
@@ -131,16 +149,22 @@ class _TuteeProfileEditState extends State<TuteeProfileEdit> {
                 try {
                   await UserServices.updateProfileImage(
                       image, widget.globals.getUser.getId, widget.globals);
+
+                      tuteeImage = await UserServices.getTuteeProfileImage(
+                      widget.globals.getUser.getId, widget.globals);
                 } catch (e) {
                   try {
                     await UserServices.uploadProfileImage(
                         image, widget.globals.getUser.getId, widget.globals);
+                        tuteeImage = await UserServices.getTuteeProfileImage(
+                      widget.globals.getUser.getId, widget.globals);
                   } catch (e) {
                     const snack =
                         SnackBar(content: Text("Error uploading image"));
                     ScaffoldMessenger.of(context).showSnackBar(snack);
                   }
                 }
+                
               }
               if (nameController.text.isNotEmpty) {
                 List<String> name = nameController.text.split(' ');
@@ -162,8 +186,16 @@ class _TuteeProfileEditState extends State<TuteeProfileEdit> {
                 isSaveLoading = false;
               });
 
-              Navigator.pop(
+              if (image != null) {
+                Navigator.pop(
+                    context, ToReturn(tuteeImage!, widget.globals.getUser));
+              }
+              else{
+                Navigator.pop(
                   context, ToReturn(widget.image, widget.globals.getUser));
+              }
+
+              
             })
       ],
     );

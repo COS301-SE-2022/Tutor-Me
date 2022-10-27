@@ -45,10 +45,28 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
   final nameController = TextEditingController();
   final bioController = TextEditingController();
   File? image;
+  Uint8List? tutorImage;
+  bool doesUserImageExist = false;
   bool isImagePicked = false;
   bool isSaveLoading = false;
   Uint8List? transcript;
   File? fileToUpload;
+
+  getTuteeProfileImage() async {
+    try {
+      final image = await UserServices.getTuteeProfileImage(
+          widget.globals.getUser.getId, widget.globals);
+
+      setState(() {
+        tutorImage = image;
+        doesUserImageExist = true;
+      });
+    } catch (e) {
+      setState(() {
+        tutorImage = Uint8List(128);
+      });
+    }
+  }
 
   Future pickImage(ImageSource source) async {
     final imageChosen = await ImagePicker().pickImage(source: source);
@@ -218,12 +236,14 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
                   await UserServices.updateProfileImage(
                       image!, widget.globals.getUser.getId, widget.globals);
 
-                  newImage = await UserServices.getTutorProfileImage(
+                 tutorImage = await UserServices.getTuteeProfileImage(
                       widget.globals.getUser.getId, widget.globals);
                 } catch (e) {
                   try {
                     await UserServices.uploadProfileImage(
                         image!, widget.globals.getUser.getId, widget.globals);
+                        tutorImage = await UserServices.getTuteeProfileImage(
+                      widget.globals.getUser.getId, widget.globals);
                   } catch (e) {
                     const snackBar = SnackBar(
                         content: Text('Failed to upload profile picture'));
@@ -249,8 +269,14 @@ class _TutorProfileEditState extends State<TutorProfileEdit> {
                 isSaveLoading = false;
               });
 
-              Navigator.pop(
-                  context, ToReturn(newImage, widget.globals.getUser));
+              if (image != null) {
+                Navigator.pop(
+                    context, ToReturn(tutorImage!, widget.globals.getUser));
+              }
+              else{
+                Navigator.pop(
+                  context, ToReturn(widget.image, widget.globals.getUser));
+              }
             })
       ],
     );

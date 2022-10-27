@@ -47,7 +47,7 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
   bool isRequestDone = false;
   List<Users> tutors = List<Users>.empty();
   bool isConnected = false;
-  int rating = 0;
+  int rating = 1;
   Color colorOne = Colors.yellow;
   Color colorTwo = Colors.grey;
   bool firstSelected = true;
@@ -402,7 +402,7 @@ class _TutorProfilePageViewState extends State<TutorProfilePageView> {
                   width: MediaQuery.of(context).size.width * 0.8,
                   child: Center(
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         IconButton(
                           icon: Icon(Icons.star, color: colorOne),

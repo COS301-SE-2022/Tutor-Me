@@ -42,22 +42,21 @@ class _LoginState extends State<Login> {
   int? initialIndex = 0;
   String userTypeId = '';
   bool obscureText = true;
-
+  List<UserType> userTypeList = List<UserType>.empty(growable: true);
 
   getUserTypes() async {
     try {
-      final userTypes = await UserServices.getAllUserTypes();
-
-      for (var userType in userTypes) {
-        if (userType.getType == toRegister) {
-          userTypeId = userType.getId;
-          break;
-        }
-      }
+      userTypeList = await UserServices.getAllUserTypes();
     } catch (e) {
       const snackBar = SnackBar(content: Text('error loading'));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getUserTypes();
   }
 
   @override
@@ -179,8 +178,6 @@ class _LoginState extends State<Login> {
                           obscureText = !obscureText;
                         });
                       },
-
-
                     ),
                   ),
                 ],
@@ -242,12 +239,19 @@ class _LoginState extends State<Login> {
                         },
                       );
                     } else {
-                      getUserTypes();
+                      for (var userType in userTypeList) {
+                        if (userType.getType == toRegister) {
+                          userTypeId = userType.getId;
+                          break;
+                        }
+                      }
                       if (toRegister == "Tutor") {
                         try {
                           // TutorServices tutor = TutorServices.Login(
                           globals = await UserServices.logInTutor(
-                              emailController.text, passwordController.text, userTypeId);
+                              emailController.text,
+                              passwordController.text,
+                              userTypeId);
 
                           globals.setPassword = passwordController.text;
 
@@ -451,7 +455,9 @@ class _LoginState extends State<Login> {
                         try {
                           // TutorServices tutor = TutorServices.Login(
                           globals = await UserServices.logInTutee(
-                              emailController.text, passwordController.text, userTypeId);
+                              emailController.text,
+                              passwordController.text,
+                              userTypeId);
                           globals.setPassword = passwordController.text;
 
                           final globalJson = json.encode(globals.toJson());
