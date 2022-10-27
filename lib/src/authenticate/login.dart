@@ -630,21 +630,6 @@ class _LoginState extends State<Login> {
                   height: 50,
                 ),
               ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const LoginAdmin()),
-                  );
-                },
-                child: Text(
-                  "Admin",
-                  style: TextStyle(
-                    fontSize: 10,
-                    color: Colors.grey[850],
-                  ),
-                ),
-              ),
 
               //second input
             ]),
