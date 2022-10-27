@@ -48,7 +48,7 @@ additional functionalities like filtering tutors by gender to enable students to
 
 ## Applications
 <p align="center"> 
-	<img align="left" alt="Android App" src="https://github.com/COS301-SE-2022/Tutor-Me/blob/develop/assets/Pictures/TutorMe%20apk.png" width="200" height="200">
+	<img align="left" alt="QR Codes" src="https://github.com/COS301-SE-2022/Tutor-Me/blob/develop/assets/TutorMeApps.jpg" width="400" height="200">
 </p>
 <br> <br>
 <br> <br><br> <br><br> <br><br> <br>
