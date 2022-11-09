@@ -90,6 +90,5 @@ may be considered as my shortcoming since learning a lot of things at the same t
 
 I am determined and I have a drive to build and create software systems since I believe that software systems are the backbone of the economy and the general
 public. I believe I have a well balanced knowledge of backend development and front-end development, this includes designing of interfaces and server management
-and development. I have vast knowledge in design patterns, and I have worked using the proposed methodology in a previous project. I am good at finding solutions
-to proposed problems and debugging code. My shortcomings are that I tend to overthink and over analyse my work to the extent that I spend too much time on one aspect instead of spreading my effort on multiple aspects. I have since improved that by always being concise with my reasoning and
-general programming.
+and development. I am good at finding solutions
+to proposed problems and debugging code. I am willing to learn about new technologies and further my knowledge, cause I believe that learning is the best way to improve one's self.
