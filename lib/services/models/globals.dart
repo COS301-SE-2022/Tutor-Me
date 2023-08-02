@@ -5,7 +5,7 @@ import 'badges.dart';
 class Globals {
   late Users _user;
   String _filesUrl = 'filesystem-dev.us-east-1.elasticbeanstalk.com';
-  String _tutorMeUrl = 'tutorme-dev.us-east-1.elasticbeanstalk.com';
+  String _tutorMeUrl = 'tutorme.azurewebsites.net';
   String _token = 'Bearer ';
   String _refreshToken = '';
   List<Badge> badges = [];

@@ -17,7 +17,7 @@ import 'package:tutor_me/src/pages/badges.dart';
 import 'package:tutor_me/src/pages/book_for_tutor.dart';
 import 'package:tutor_me/src/pages/calendar.dart';
 import 'package:tutor_me/src/pages/woah_factor.dart';
-import '../../services/models/badges.dart';
+import '../../services/models/badges.dart' as bad;
 import '../../services/models/globals.dart';
 import '../../services/models/groups.dart';
 import '../../services/models/users.dart';
@@ -37,7 +37,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   var gridCount = 0;
-  List<Badge> allBadges = List.empty(growable: true);
+  List<bad.Badge> allBadges = List.empty(growable: true);
   List<UserBadge> userBadges = List.empty(growable: true);
   List<String> userBadgeIds = List.empty(growable: true);
   List<String> userBadgeNames = List.empty(growable: true);

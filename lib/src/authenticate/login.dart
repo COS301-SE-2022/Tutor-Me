@@ -8,7 +8,7 @@ import 'package:tutor_me/src/authenticate/register_step1.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 // import '../../services/models/tutees.dart';
 // import '../../services/models/tutors.dart';
-import '../../services/models/badges.dart';
+import '../../services/models/badges.dart' as bad;
 import '../../services/models/globals.dart';
 import '../../services/models/user_badges.dart';
 import '../../services/services/user_badges.dart';
@@ -276,8 +276,8 @@ class _LoginState extends State<Login> {
                               globals);
                           int numConnections = connections.length;
 
-                          List<Badge> fetchedBadges =
-                              List<Badge>.empty(growable: true);
+                          List<bad.Badge> fetchedBadges =
+                              List<bad.Badge>.empty(growable: true);
                           for (var badge in globals.getBadges) {
                             if (badge.getName.contains('Connections')) {
                               fetchedBadges.add(badge);
@@ -321,7 +321,7 @@ class _LoginState extends State<Login> {
                             }
                           }
 
-                          fetchedBadges = List<Badge>.empty(growable: true);
+                          fetchedBadges = List<bad.Badge>.empty(growable: true);
                           for (var badge in globals.getBadges) {
                             if (badge.getName.contains('Reg')) {
                               fetchedBadges.add(badge);
@@ -368,8 +368,8 @@ class _LoginState extends State<Login> {
                             int ratings = tutor.getNumberOfReviews;
                             // int numRatings = connections.length;
 
-                            List<Badge> fetchedBadges =
-                                List<Badge>.empty(growable: true);
+                            List<bad.Badge> fetchedBadges =
+                                List<bad.Badge>.empty(growable: true);
                             for (var badge in globals.getBadges) {
                               if (badge.getName.contains('rating')) {
                                 fetchedBadges.add(badge);
@@ -472,8 +472,8 @@ class _LoginState extends State<Login> {
                             (route) => false,
                           );
 
-                          List<Badge> fetchedBadges =
-                              List<Badge>.empty(growable: true);
+                          List<bad.Badge> fetchedBadges =
+                              List<bad.Badge>.empty(growable: true);
                           for (var badge in globals.getBadges) {
                             if (badge.getName.contains('Reg')) {
                               fetchedBadges.add(badge);

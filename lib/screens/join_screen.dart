@@ -1,231 +1,231 @@
-import 'dart:developer';
+// import 'dart:developer';
 
-import 'package:camera/camera.dart';
-import 'package:flutter/material.dart';
-import '../services/models/globals.dart';
-import '../services/models/groups.dart';
-import '../src/colorpallete.dart';
-import '../utils/spacer.dart';
+// import 'package:camera/camera.dart';
+// import 'package:flutter/material.dart';
+// import '../services/models/globals.dart';
+// import '../services/models/groups.dart';
+// import '../src/colorpallete.dart';
+// import '../utils/spacer.dart';
 
-import '../widgets/meeting_controls/meeting_action_button.dart';
-import 'meeting_screen.dart';
+// import '../widgets/meeting_controls/meeting_action_button.dart';
+// import 'meeting_screen.dart';
 
-// Join Screen
-// ignore: must_be_immutable
-class JoinScreen extends StatefulWidget {
-  final String meetingId;
-  final String token;
-  Groups? group;
-  final Globals globals;
+// // Join Screen
+// // ignore: must_be_immutable
+// class JoinScreen extends StatefulWidget {
+//   final String meetingId;
+//   final String token;
+//   Groups? group;
+//   final Globals globals;
 
-   JoinScreen({
-    Key? key,
-    required this.meetingId,
-    required this.token,
-    this.group,
-    required this.globals,
-  }) : super(key: key);
+//    JoinScreen({
+//     Key? key,
+//     required this.meetingId,
+//     required this.token,
+//     this.group,
+//     required this.globals,
+//   }) : super(key: key);
 
-  @override
-  _JoinScreenState createState() => _JoinScreenState();
-}
+//   @override
+//   _JoinScreenState createState() => _JoinScreenState();
+// }
 
-class _JoinScreenState extends State<JoinScreen> {
-  // Display Name
-  String displayName = "";
+// class _JoinScreenState extends State<JoinScreen> {
+//   // Display Name
+//   String displayName = "";
 
-  // Control Status
-  bool isMicOn = true;
-  bool isWebcamOn = true;
+//   // Control Status
+//   bool isMicOn = true;
+//   bool isWebcamOn = true;
 
-  // Camera Controller
-  CameraController? cameraController;
+//   // Camera Controller
+//   CameraController? cameraController;
 
-  @override
-  void initState() {
-    super.initState();
+//   @override
+//   void initState() {
+//     super.initState();
 
-    // Get available cameras
-    availableCameras().then((availableCameras) {
-      // stores selected camera id
-      int selectedCameraId = availableCameras.length > 1 ? 1 : 0;
+//     // Get available cameras
+//     availableCameras().then((availableCameras) {
+//       // stores selected camera id
+//       int selectedCameraId = availableCameras.length > 1 ? 1 : 0;
 
-      cameraController = CameraController(
-        availableCameras[selectedCameraId],
-        ResolutionPreset.medium,
-      );
+//       cameraController = CameraController(
+//         availableCameras[selectedCameraId],
+//         ResolutionPreset.medium,
+//       );
 
-      cameraController!.initialize().then((_) {
-        if (!mounted) return;
-        setState(() {});
-      });
-    }).catchError((err) {
-      log("Error: $err");
-    });
-  }
+//       cameraController!.initialize().then((_) {
+//         if (!mounted) return;
+//         setState(() {});
+//       });
+//     }).catchError((err) {
+//       log("Error: $err");
+//     });
+//   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        // Screen Title
-        title: const Text("Tutor Me"),
-        backgroundColor: colorBlueTeal,
-      ),
-      backgroundColor: Colors.grey[200],
-      body: SafeArea(
-        child: !(cameraController?.value.isInitialized ?? false)
-            ? const Center(
-                child: CircularProgressIndicator(),
-              )
-            : SingleChildScrollView(
-                child: Column(
-                  children: [
-                    verticalSpacer(MediaQuery.of(context).size.height / 7),
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         // Screen Title
+//         title: const Text("Tutor Me"),
+//         backgroundColor: colorBlueTeal,
+//       ),
+//       backgroundColor: Colors.grey[200],
+//       body: SafeArea(
+//         child: !(cameraController?.value.isInitialized ?? false)
+//             ? const Center(
+//                 child: CircularProgressIndicator(),
+//               )
+//             : SingleChildScrollView(
+//                 child: Column(
+//                   children: [
+//                     verticalSpacer(MediaQuery.of(context).size.height / 7),
 
-                    // Camera Preview
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                      child: ConstrainedBox(
-                        constraints: BoxConstraints(
-                          maxHeight: (MediaQuery.of(context).size.height / 2),
-                        ),
-                        child: Stack(
-                          // fit: StackFit.expand,
-                          children: [
-                            AspectRatio(
-                              aspectRatio:
-                                  1 / cameraController!.value.aspectRatio,
-                              child: isWebcamOn
-                                  ? CameraPreview(cameraController!)
-                                  : Container(
-                                      color: colorBlueTeal,
-                                      child: const Center(
-                                        child: Text(
-                                          "Camera is turned off",
-                                        ),
-                                      ),
-                                    ),
-                            ),
-                            Positioned(
-                              bottom: 16,
-                              left: 16,
-                              right: 16,
+//                     // Camera Preview
+//                     Padding(
+//                       padding: const EdgeInsets.symmetric(horizontal: 16.0),
+//                       child: ConstrainedBox(
+//                         constraints: BoxConstraints(
+//                           maxHeight: (MediaQuery.of(context).size.height / 2),
+//                         ),
+//                         child: Stack(
+//                           // fit: StackFit.expand,
+//                           children: [
+//                             AspectRatio(
+//                               aspectRatio:
+//                                   1 / cameraController!.value.aspectRatio,
+//                               child: isWebcamOn
+//                                   ? CameraPreview(cameraController!)
+//                                   : Container(
+//                                       color: colorBlueTeal,
+//                                       child: const Center(
+//                                         child: Text(
+//                                           "Camera is turned off",
+//                                         ),
+//                                       ),
+//                                     ),
+//                             ),
+//                             Positioned(
+//                               bottom: 16,
+//                               left: 16,
+//                               right: 16,
 
-                              // Meeting ActionBar
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  // Mic Action Button
-                                  MeetingActionButton(
-                                    icon: isMicOn ? Icons.mic : Icons.mic_off,
-                                    backgroundColor:
-                                        isMicOn ? colorBlueTeal : Colors.red,
-                                    iconColor: Colors.white,
-                                    radius: 30,
-                                    onPressed: () => setState(
-                                      () => isMicOn = !isMicOn,
-                                    ),
-                                  ),
+//                               // Meeting ActionBar
+//                               child: Row(
+//                                 mainAxisAlignment:
+//                                     MainAxisAlignment.spaceAround,
+//                                 children: [
+//                                   // Mic Action Button
+//                                   MeetingActionButton(
+//                                     icon: isMicOn ? Icons.mic : Icons.mic_off,
+//                                     backgroundColor:
+//                                         isMicOn ? colorBlueTeal : Colors.red,
+//                                     iconColor: Colors.white,
+//                                     radius: 30,
+//                                     onPressed: () => setState(
+//                                       () => isMicOn = !isMicOn,
+//                                     ),
+//                                   ),
 
-                                  // Camera Action Button
-                                  MeetingActionButton(
-                                    backgroundColor:
-                                        isWebcamOn ? colorBlueTeal : Colors.red,
-                                    iconColor: Colors.white,
-                                    radius: 30,
-                                    onPressed: () {
-                                      if (isWebcamOn) {
-                                        cameraController?.pausePreview();
-                                      } else {
-                                        cameraController?.resumePreview();
-                                      }
-                                      setState(() => isWebcamOn = !isWebcamOn);
-                                    },
-                                    icon: isWebcamOn
-                                        ? Icons.videocam
-                                        : Icons.videocam_off,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    verticalSpacer(16),
+//                                   // Camera Action Button
+//                                   MeetingActionButton(
+//                                     backgroundColor:
+//                                         isWebcamOn ? colorBlueTeal : Colors.red,
+//                                     iconColor: Colors.white,
+//                                     radius: 30,
+//                                     onPressed: () {
+//                                       if (isWebcamOn) {
+//                                         cameraController?.pausePreview();
+//                                       } else {
+//                                         cameraController?.resumePreview();
+//                                       }
+//                                       setState(() => isWebcamOn = !isWebcamOn);
+//                                     },
+//                                     icon: isWebcamOn
+//                                         ? Icons.videocam
+//                                         : Icons.videocam_off,
+//                                   ),
+//                                 ],
+//                               ),
+//                             ),
+//                           ],
+//                         ),
+//                       ),
+//                     ),
+//                     verticalSpacer(16),
 
-                    // Display Name TextField
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                      child: TextField(
-                        onChanged: ((value) => displayName = value),
-                        decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                          hintText: "Enter Name",
-                          hintStyle: TextStyle(
-                            color: Colors.white,
-                          ),
-                          prefixIcon: Icon(
-                            Icons.keyboard,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ),
-                    verticalSpacer(20),
+//                     // Display Name TextField
+//                     Padding(
+//                       padding: const EdgeInsets.symmetric(horizontal: 30.0),
+//                       child: TextField(
+//                         onChanged: ((value) => displayName = value),
+//                         decoration: const InputDecoration(
+//                           border: OutlineInputBorder(),
+//                           hintText: "Enter Name",
+//                           hintStyle: TextStyle(
+//                             color: Colors.white,
+//                           ),
+//                           prefixIcon: Icon(
+//                             Icons.keyboard,
+//                             color: Colors.white,
+//                           ),
+//                         ),
+//                       ),
+//                     ),
+//                     verticalSpacer(20),
 
-                    // Join Button
-                    TextButton(
-                      onPressed: () async {
-                        // By default Guest is used as display name
-                        if (displayName.isEmpty) {
-                          displayName = "Tutee";
-                        }
+//                     // Join Button
+//                     TextButton(
+//                       onPressed: () async {
+//                         // By default Guest is used as display name
+//                         if (displayName.isEmpty) {
+//                           displayName = "Tutee";
+//                         }
 
-                        // Dispose Camera Controller before leaving screen
-                        await cameraController?.dispose();
+//                         // Dispose Camera Controller before leaving screen
+//                         await cameraController?.dispose();
 
-                        // Open meeting screen
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => MeetingScreen(
-                              token: widget.token,
-                              meetingId: widget.meetingId,
-                              displayName: displayName,
-                              micEnabled: isMicOn,
-                              webcamEnabled: isWebcamOn,
-                              globals: widget.globals,
-                              group: widget.group!,
-                            ),
-                          ),
-                        );
-                      },
-                      child: const Text(
-                        "JOIN",
-                      ),
-                      style: TextButton.styleFrom(
-                        foregroundColor: Colors.white,
-                        backgroundColor: colorBlueTeal,
-                        textStyle: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-      ),
-    );
-  }
+//                         // Open meeting screen
+//                         Navigator.pushReplacement(
+//                           context,
+//                           MaterialPageRoute(
+//                             builder: (context) => MeetingScreen(
+//                               token: widget.token,
+//                               meetingId: widget.meetingId,
+//                               displayName: displayName,
+//                               micEnabled: isMicOn,
+//                               webcamEnabled: isWebcamOn,
+//                               globals: widget.globals,
+//                               group: widget.group!,
+//                             ),
+//                           ),
+//                         );
+//                       },
+//                       child: const Text(
+//                         "JOIN",
+//                       ),
+//                       style: TextButton.styleFrom(
+//                         foregroundColor: Colors.white,
+//                         backgroundColor: colorBlueTeal,
+//                         textStyle: const TextStyle(
+//                           fontWeight: FontWeight.bold,
+//                           fontSize: 16,
+//                         ),
+//                       ),
+//                     ),
+//                   ],
+//                 ),
+//               ),
+//       ),
+//     );
+//   }
 
-  @override
-  void dispose() {
-    // Dispose Camera Controller
-    cameraController?.dispose();
-    super.dispose();
-  }
-}
+//   @override
+//   void dispose() {
+//     // Dispose Camera Controller
+//     cameraController?.dispose();
+//     super.dispose();
+//   }
+// }
