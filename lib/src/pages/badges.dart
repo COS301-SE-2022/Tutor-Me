@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:tutor_me/services/services/user_badges.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 
-import '../../services/models/badges.dart';
+import '../../services/models/badges.dart' as bad;
 import '../../services/models/globals.dart';
 import '../../services/models/user_badges.dart';
 import '../../services/services/badges_services.dart';
@@ -21,7 +21,7 @@ class Badges extends StatefulWidget {
 }
 
 class _PageState extends State<Badges> {
-  List<Badge> allBadges = List<Badge>.empty(growable: true);
+  List<bad.Badge> allBadges = List<bad.Badge>.empty(growable: true);
   List<UserBadge> userBadges = List<UserBadge>.empty(growable: true);
   List<String> userBadgeIds = List<String>.empty(growable: true);
   List<String> userBadgeNames = List<String>.empty(growable: true);
@@ -177,7 +177,7 @@ class _PageState extends State<Badges> {
         ),
       );
 
-  Widget buildBody(List<Badge> allBadges) {
+  Widget buildBody(List<bad.Badge> allBadges) {
     final provider = Provider.of<ThemeProvider>(context, listen: false);
 
     Color primaryColor;

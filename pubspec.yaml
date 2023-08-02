@@ -10,7 +10,7 @@ environment:
   sdk: ">=2.16.2 <3.0.0"
 
 dependencies:
-  pie_chart: ^4.0.0
+  pie_chart: ^5.3.2
   flutter:
     sdk: flutter
   http: ^0.13.4
@@ -18,9 +18,9 @@ dependencies:
   flutter_time_picker_spinner: ^2.0.0
   flutter_localizations:
     sdk: flutter
-  intl: ^0.17.0
+  intl: ^0.18.0
   file_picker: ^4.6.1
-  videosdk: ^0.0.10
+  # videosdk: ^0.0.10
   flutter_dotenv: ^5.0.2
   cupertino_icons: ^1.0.4
   fluttertoast: ^8.0.8
@@ -28,7 +28,7 @@ dependencies:
   flutter_svg: ^1.0.1
   visibility_detector: ^0.2.2
   date_time_format: ^2.0.1
-  touch_ripple_effect: ^2.2.3  
+  touch_ripple_effect: ^2.2.3
   toggle_switch: ^2.0.1
   open_file: ^3.2.1
   email_auth:
@@ -49,6 +49,7 @@ dependencies:
   syncfusion_flutter_pdfviewer: ^20.2.50-beta
   fl_chart: ^0.55.2
   app_usage: ^2.0.0
+  file: ^6.1.4
 
 
   

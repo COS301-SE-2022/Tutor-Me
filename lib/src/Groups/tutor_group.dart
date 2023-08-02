@@ -13,7 +13,7 @@ import 'package:tutor_me/src/Groups/add_tutees.dart';
 import 'package:tutor_me/services/services/user_badges.dart';
 // import 'package:tutor_me/src/chat/group_chat.dart';
 import 'package:tutor_me/src/colorpallete.dart';
-import '../../services/models/badges.dart';
+import '../../services/models/badges.dart' as bad;
 import '../../services/models/modules.dart';
 import '../pages/chat_page.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -407,20 +407,20 @@ class TutorGroupPageState extends State<TutorGroupPage> {
 
                                     
 
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => MeetingScreen(
-                                        token: _token,
-                                        meetingId: _meetingID,
-                                        displayName: "Tutor",
-                                        group: widget.group,
-                                        globals: widget.globals,
-                                        module: widget.module,
-                                      ),
-                                    ));
-                                List<Badge> fetchedBadges =
-                                    List<Badge>.empty(growable: true);
+                                // Navigator.push(
+                                //     context,
+                                //     MaterialPageRoute(
+                                //       builder: (context) => MeetingScreen(
+                                //         token: _token,
+                                //         meetingId: _meetingID,
+                                //         displayName: "Tutor",
+                                //         group: widget.group,
+                                //         globals: widget.globals,
+                                //         module: widget.module,
+                                //       ),
+                                //     ));
+                                List<bad.Badge> fetchedBadges =
+                                    List<bad.Badge>.empty(growable: true);
                                 for (var badge in widget.globals.getBadges) {
                                   if (badge.getName.contains('Meetings')) {
                                     fetchedBadges.add(badge);
@@ -470,18 +470,18 @@ class TutorGroupPageState extends State<TutorGroupPage> {
                                         _meetingID,
                                         widget.group,
                                         widget.globals);
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => MeetingScreen(
-                                          token: _token,
-                                          meetingId: _meetingID,
-                                          displayName: "Tutor",
-                                          group: widget.group,
-                                          globals: widget.globals,
-                                        ),
-                                      ),
-                                    );
+                                    // Navigator.push(
+                                    //   context,
+                                    //   MaterialPageRoute(
+                                    //     builder: (context) => MeetingScreen(
+                                    //       token: _token,
+                                    //       meetingId: _meetingID,
+                                    //       displayName: "Tutor",
+                                    //       group: widget.group,
+                                    //       globals: widget.globals,
+                                    //     ),
+                                    //   ),
+                                    // );
                                   } catch (e) {
                                     const snackBar = SnackBar(
                                       content:

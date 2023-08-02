@@ -227,7 +227,7 @@ class ModuleServices {
   static Future<Globals> refreshToken(Globals globals) async {
     log('refreshing token');
     final refreshUrl =
-        Uri.parse('http://${globals.getTutorMeUrl}/api/account/refreshToken');
+        Uri.parse('https://${globals.getTutorMeUrl}/api/account/refreshToken');
 
     List<String> token = globals.getToken.split(' ');
     final data = jsonEncode(

@@ -3,7 +3,7 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
-  flutter_webrtc
+  file_selector_windows
   syncfusion_pdfviewer_windows
   url_launcher_windows
 )

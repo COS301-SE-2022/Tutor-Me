@@ -356,17 +356,17 @@ class TuteeGroupPageState extends State<TuteeGroupPage> {
                                 try {
                                   if (await validateMeeting(
                                       widget.group.getVideoId)) {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => JoinScreen(
-                                          meetingId: widget.group.getVideoId,
-                                          token: _token,
-                                          globals: widget.globals,
-                                          group: widget.group,
-                                        ),
-                                      ),
-                                    );
+                                    // Navigator.push(
+                                    //   context,
+                                    //   MaterialPageRoute(
+                                    //     builder: (context) => JoinScreen(
+                                    //       meetingId: widget.group.getVideoId,
+                                    //       token: _token,
+                                    //       globals: widget.globals,
+                                    //       group: widget.group,
+                                    //     ),
+                                    //   ),
+                                    // );
                                   } else {
                                     toastMsg("Invalid Meeting ID");
                                   }

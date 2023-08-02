@@ -169,16 +169,16 @@ class BookingChatState extends State<BookingChat> {
                 : () async {
                     try {
                       if (await validateMeeting(widget.event.getVideoLink)) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => JoinScreen(
-                              meetingId: widget.event.getVideoLink,
-                              token: _token,
-                              globals: widget.globals,
-                            ),
-                          ),
-                        );
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //     builder: (context) => JoinScreen(
+                        //       meetingId: widget.event.getVideoLink,
+                        //       token: _token,
+                        //       globals: widget.globals,
+                        //     ),
+                        //   ),
+                        // );
                       } else {
                         try {
                           const SnackBar snackBar =
@@ -190,17 +190,17 @@ class BookingChatState extends State<BookingChat> {
                               _meetingID,
                               widget.globals);
 
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => MeetingScreen(
-                                token: _token,
-                                meetingId: _meetingID,
-                                displayName: "Tutor",
-                                globals: widget.globals,
-                              ),
-                            ),
-                          );
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //     builder: (context) => MeetingScreen(
+                          //       token: _token,
+                          //       meetingId: _meetingID,
+                          //       displayName: "Tutor",
+                          //       globals: widget.globals,
+                          //     ),
+                          //   ),
+                          // );
                         } catch (e) {
                           const snackBar = SnackBar(
                             content: Text('Failed to start live video'),

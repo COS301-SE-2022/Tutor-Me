@@ -54,7 +54,7 @@ class UserServices {
     final url = Uri.http(global.getTutorMeUrl, 'api/Requests/Tutor/$id');
     try {
       final response = await http.get(url, headers: global.getHeader);
-      log(response.statusCode.toString());
+      log('gh'+response.statusCode.toString());
       if (response.statusCode == 200) {
         log(response.body);
         String j = "";
@@ -762,6 +762,9 @@ class UserServices {
 
   static logInTutor(String email, String password, String userTypeID) async {
     // password = hashPassword(password);
+    log(password);
+    log(userTypeID);
+    log(email);
     String data = jsonEncode({
       'email': email,
       'password': password,
@@ -773,11 +776,10 @@ class UserServices {
     Globals tempGlobals = Globals(null, '', '');
     try {
       final modulesURL = Uri.parse(
-          'http://${tempGlobals.getTutorMeUrl}/api/account/authtoken');
+          'https://${tempGlobals.getTutorMeUrl}/api/account/authtoken');
       final response = await http.post(modulesURL, headers: header, body: data);
-      log(response.statusCode.toString());
-      log(response.body);
       if (response.statusCode == 200) {
+        log(response.body);
         final Users tutor = Users.fromObject(jsonDecode(response.body)['user']);
         Globals global = Globals(tutor, json.decode(response.body)['token'],
             json.decode(response.body)['refreshToken']);
@@ -981,24 +983,24 @@ class UserServices {
     }
   }
 
-  static forgotPassword(String email, String password)async{
+  static forgotPassword(String email, String password) async {
     Globals tempGlobals = Globals(null, '', '');
-   final url = Uri.parse('http://${tempGlobals.getTutorMeUrl}/api/Authentication/password/$email');
+    final url = Uri.parse(
+        'http://${tempGlobals.getTutorMeUrl}/api/Authentication/password/$email');
 
     String data = jsonEncode({'email': email, 'password': password});
 
-    try{
-      final response = await http.put(url, headers: tempGlobals.getHeader, body: data);
-      if(response.statusCode == 200){
+    try {
+      final response =
+          await http.put(url, headers: tempGlobals.getHeader, body: data);
+      if (response.statusCode == 200) {
         return true;
-      }else{
+      } else {
         throw Exception('Failed to reset password');
       }
-
-  }
-  catch(e){
-    rethrow;
-  }
+    } catch (e) {
+      rethrow;
+    }
   }
 
   static getTutorByEmail(String email, Globals global) async {
@@ -1167,7 +1169,7 @@ class UserServices {
 
     try {
       final response = await http.get(tuteeURL, headers: global.getHeader);
-  
+
       if (response.statusCode == 200) {
         final image = response.body;
         List<String> imageList = image.split('"');
@@ -1239,7 +1241,7 @@ class UserServices {
   static Future<Globals> refreshToken(Globals globals) async {
     log('refreshing token');
     final refreshUrl =
-        Uri.parse('http://${globals.getTutorMeUrl}/api/account/refreshToken');
+        Uri.parse('https://${globals.getTutorMeUrl}/api/account/refreshToken');
 
     List<String> token = globals.getToken.split(' ');
     final data = jsonEncode(

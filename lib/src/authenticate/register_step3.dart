@@ -13,7 +13,7 @@ import 'package:tutor_me/services/services/user_badges.dart';
 import 'package:tutor_me/src/colorpallete.dart';
 import 'package:tutor_me/src/tutorVerifyShowcase/tutor_page.dart';
 // import '../../services/models/tutees.dart';
-import '../../services/models/badges.dart';
+import '../../services/models/badges.dart' as bad;
 import '../../services/models/user_badges.dart';
 import '../../services/services/user_services.dart';
 import '../components.dart';
@@ -87,7 +87,7 @@ class _RegisterStep3State extends State<RegisterStep3> {
               builder: (context) => ShowCaseParent(globals: globals)),
         );
 
-        List<Badge> fetchedBadges = List<Badge>.empty(growable: true);
+        List<bad.Badge> fetchedBadges = List<bad.Badge>.empty(growable: true);
         for (var badge in globals.getBadges) {
           if (badge.getName.contains('Reg')) {
             fetchedBadges.add(badge);
